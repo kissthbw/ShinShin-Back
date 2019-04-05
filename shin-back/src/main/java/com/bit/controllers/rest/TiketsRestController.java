@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/productos")
-public class ProductosRestController {
-
+@RequestMapping("/tickets")
+public class TiketsRestController {
+	
 	@GetMapping(value = "/list")
-	public void getProductos() {
-		System.out.println("Get Productos");
+	public void getTickets() {
+		System.out.println("Get Tickets");
 	}
 }
