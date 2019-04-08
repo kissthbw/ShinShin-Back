@@ -3,6 +3,7 @@ package com.bit.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,30 @@ public abstract class DAOTemplate<T, PK extends Serializable> implements Seriali
 	
 	@SuppressWarnings("unchecked")
 	public DAOTemplate() {
-		this.persistenClass = 
-				(Class<T>)( (ParameterizedType) getClass().
-						getGenericSuperclass()).getActualTypeArguments()[0];
+		
+		//Obtiene el tipo de la clase
+		//Como es una clase parametrizada <T, PK extends Serializable>
+		//devuelve el tipo completo: paquete, clase, parametros
+		Type t = getClass().getGenericSuperclass();
+		
+		ParameterizedType p = (ParameterizedType)t;
+		
+		//Obtiene el tipo de la clase parametrizada
+		//En estos casos son las clases DAO que extienden de esta clase abstracta
+		this.persistenClass = (Class<T>) p.getActualTypeArguments()[0];
 	}
+	
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+	
+	public void flush() {  
+    	getSessionFactory().getCurrentSession().flush();  
+    }  
+  
+    public void clear() {  
+    	getSessionFactory().getCurrentSession().clear();  
+    }
 	
 	/*
 	 * CRUD Methods

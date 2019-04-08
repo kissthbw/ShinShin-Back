@@ -11,8 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.bit.controllers.rest",
-		"com.bit"})
+@ComponentScan(basePackages = {
+		"com.bit",
+		"com.bit.controllers.service",
+		"com.bit.controllers.rest",
+		})
 @PropertySource("classpath:runtime.properties")
 public class WebConfig extends WebMvcConfigurerAdapter {
 	
