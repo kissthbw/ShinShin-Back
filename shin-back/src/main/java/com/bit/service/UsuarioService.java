@@ -9,5 +9,7 @@ public interface UsuarioService {
 	List<Usuario> getUsuarios();
 
 	void guardarUsuarios(Usuario item);
+	
+	void actualizarUsuarios(Usuario item);
 
 }

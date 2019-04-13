@@ -29,4 +29,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		usuarioDAO.save(item);
 	}
 
+	@Override
+	public void actualizarUsuarios(Usuario item) {
+		usuarioDAO.update(item);
+		
+	}
+
 }

@@ -12,17 +12,17 @@ import com.bit.config.WebConfig;
 import com.bit.model.Producto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= WebConfig.class)
+@ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
 public class ProductoDAOTest {
-	
+
 	@Autowired
 	private ProductoDAO productoDAO;
-	
+
 	@Transactional
 	@Test
 	public void crudTest() {
 		Producto p = productoDAO.findByPK(1L);
-		System.out.println( p.getNombreProducto() );
+		System.out.println(p.getNombreProd());
 	}
 }

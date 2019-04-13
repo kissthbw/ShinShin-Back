@@ -19,6 +19,12 @@ public abstract class DAOTemplate<T, PK extends Serializable> implements Seriali
 
 	private static final long serialVersionUID = 2408602227263904823L;
 
+	/**
+	 * SessionFactory lo toma de la clase DBConfig
+	 * y es la conexion a la base de datos
+	 * 
+	 * Autowired realiza la inyeccion de dependencias
+	 */
 	@Autowired
 	private SessionFactory sessionFactory;
 	

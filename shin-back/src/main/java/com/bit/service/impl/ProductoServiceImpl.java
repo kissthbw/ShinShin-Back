@@ -31,4 +31,12 @@ public class ProductoServiceImpl implements ProductoService {
 		productoDAO.save(item);
 	}
 
+
+	@Override
+	@Transactional
+	public void actualizarProductos(Producto item) {
+		productoDAO.update(item);
+		
+	}
+
 }

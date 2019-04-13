@@ -10,26 +10,26 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "Usuario")
+@Entity(name = "usuario")
 public class Usuario {
 
 	@Id
 	@Column(name = "id_usuario")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUsuario;
-	
-	@Column(name = "nombre_usuario")
-	private String nombreUsuario;
 
-	@Column(name = "apellido_paterno")
-	private String apellidoPaterno;
+	@Column(name = "nombre")
+	private String nombre;
 
-	@Column(name = "apellido_materno")
-	private String apellidoMaterno;
+	@Column(name = "ap_paterno")
+	private String apPaterno;
 
-	@Column(name = "fecha_nacimiento")
+	@Column(name = "ap_materno")
+	private String apMaterno;
+
+	@Column(name = "fecha_nac")
 	@Temporal(TemporalType.DATE)
-	private Date fechaNacimiento;
+	private Date fechaNac;
 
 	@Column(name = "usuario")
 	private String usuario;
@@ -40,145 +40,145 @@ public class Usuario {
 	@Column(name = "calle")
 	private String calle;
 
-	@Column(name = "numero_exterior")
-	private String numeroExterior;
+	@Column(name = "num_ext")
+	private String numeroExt;
 
-	@Column(name = "numero_interior")
-	private String numeroInterior;
+	@Column(name = "num_int")
+	private String numeroInt;
 
 	@Column(name = "colonia")
-	private String colinia;
+	private String colonia;
 
 	@Column(name = "codigo_postal")
 	private String codigoPostal;
 
-	@Column(name = "delegacion_municipio")
-	private String delegacionMunicipio;
+	@Column(name = "del_mun")
+	private String delMun;
 
 	@Column(name = "estado")
 	private String estado;
 
-	@Column(name = "telefonolocal")
-	private String telefonoLocal;
-
-	public Long getIdUsuario() {
-		return idUsuario;
-	}
+	@Column(name = "tel_local")
+	private String telLocal;
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getApellidoPaterno() {
-		return apellidoPaterno;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setApellidoPaterno(String apellidoPaterno) {
-		this.apellidoPaterno = apellidoPaterno;
+	public void setApPaterno(String apPaterno) {
+		this.apPaterno = apPaterno;
 	}
 
-	public String getApellidoMaterno() {
-		return apellidoMaterno;
+	public String getApPaterno() {
+		return apPaterno;
 	}
 
-	public void setApellidoMaterno(String apellidoMaterno) {
-		this.apellidoMaterno = apellidoMaterno;
+	public void setApMaterno(String apMaterno) {
+		this.apMaterno = apMaterno;
 	}
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
+	public String getApMaterno() {
+		return apMaterno;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFechaNac(Date fechaNac) {
+		this.fechaNac = fechaNac;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	public Date getFechaNac() {
+		return fechaNac;
 	}
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
 
-	public String getContrasenia() {
-		return contrasenia;
+	public String getUsuario() {
+		return usuario;
 	}
 
 	public void setContrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 	}
 
-	public String getCalle() {
-		return calle;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
 	public void setCalle(String calle) {
 		this.calle = calle;
 	}
 
-	public String getNumeroExterior() {
-		return numeroExterior;
+	public String getCalle() {
+		return calle;
 	}
 
-	public void setNumeroExterior(String numeroExterior) {
-		this.numeroExterior = numeroExterior;
+	public void setNumeroExt(String numeroExt) {
+		this.numeroExt = numeroExt;
 	}
 
-	public String getNumeroInterior() {
-		return numeroInterior;
+	public String getNumeroExt() {
+		return numeroExt;
 	}
 
-	public void setNumeroInterior(String numeroInterior) {
-		this.numeroInterior = numeroInterior;
+	public void setNumeroInt(String numeroInt) {
+		this.numeroInt = numeroInt;
 	}
 
-	public String getColinia() {
-		return colinia;
+	public String getNumeroInt() {
+		return numeroInt;
 	}
 
-	public void setColinia(String colinia) {
-		this.colinia = colinia;
+	public void setColonia(String colonia) {
+		this.colonia = colonia;
 	}
 
-	public String getCodigoPostal() {
-		return codigoPostal;
+	public String getColonia() {
+		return colonia;
 	}
 
 	public void setCodigoPostal(String codigoPostal) {
 		this.codigoPostal = codigoPostal;
 	}
 
-	public String getDelegacionMunicipio() {
-		return delegacionMunicipio;
+	public String getCodigoPostal() {
+		return codigoPostal;
 	}
 
-	public void setDelegacionMunicipio(String delegacionMunicipio) {
-		this.delegacionMunicipio = delegacionMunicipio;
+	public void setDelMun(String delMun) {
+		this.delMun = delMun;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getDelMun() {
+		return delMun;
 	}
 
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
-	public String getTelefonoLocal() {
-		return telefonoLocal;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setTelefonoLocal(String telefonoLocal) {
-		this.telefonoLocal = telefonoLocal;
+	public void setTelLocal(String telLocal) {
+		this.telLocal = telLocal;
+	}
+
+	public String getTelLocal() {
+		return telLocal;
 	}
 
 }
