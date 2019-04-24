@@ -9,20 +9,21 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.model.TipoProducto;
+import com.bit.model.CatalogoMediosBonificacion;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
-public class TipoProductoDAOTest {
+public class CatalogoMediosBonificacionDAOTest {
 
 	@Autowired
-	private TipoProductoDAO tipoProductoDAO;
+	private CatalogoMediosBonificacionDAO catalogoMediosBonificacionDAO;
 
 	@Transactional
 	@Test
 	public void crudTest() {
-		TipoProducto tp = tipoProductoDAO.findByPK(1L);
-		System.out.println(tp.getNombreTipoProducto());
+		CatalogoMediosBonificacion cmb = catalogoMediosBonificacionDAO.findByPK(1L);
+		System.out.println(cmb.getNombreMedioBonificacion());
 	}
+
 }

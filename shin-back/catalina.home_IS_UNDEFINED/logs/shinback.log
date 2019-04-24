@@ -1,4 +1,36 @@
-16:31:01.545 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final} 
-16:31:01.741 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.0.1.Final} 
-16:31:01.747 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
-16:31:01.750 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist 
+10:52:59.337 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final} 
+10:52:59.469 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.0.1.Final} 
+10:52:59.475 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+10:52:59.478 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist 
+10:53:02.575 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect 
+10:53:02.654 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions) 
+10:53:02.700 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory 
+10:53:03.896 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect 
+10:53:03.899 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions) 
+10:53:03.900 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory 
+10:53:04.426 [main] INFO  com.jolbox.bonecp.BoneCP - Shutting down connection pool... 
+10:53:04.523 [main] INFO  com.jolbox.bonecp.BoneCP - Connection pool has been shutdown. 
+11:19:38.580 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final} 
+11:19:38.600 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.0.1.Final} 
+11:19:38.605 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+11:19:38.607 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist 
+11:19:40.667 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect 
+11:19:40.724 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions) 
+11:19:40.733 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory 
+11:19:41.480 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect 
+11:19:41.484 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions) 
+11:19:41.484 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory 
+11:19:41.856 [main] INFO  com.jolbox.bonecp.BoneCP - Shutting down connection pool... 
+11:19:41.885 [main] INFO  com.jolbox.bonecp.BoneCP - Connection pool has been shutdown. 
+11:21:42.799 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {4.0.1.Final} 
+11:21:42.818 [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {4.0.1.Final} 
+11:21:42.823 [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found 
+11:21:42.826 [main] INFO  org.hibernate.cfg.Environment - HHH000021: Bytecode provider name : javassist 
+11:21:44.807 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect 
+11:21:44.868 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions) 
+11:21:44.880 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory 
+11:21:45.841 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.SQLServerDialect 
+11:21:45.849 [main] INFO  o.h.e.t.i.TransactionFactoryInitiator - HHH000399: Using default transaction strategy (direct JDBC transactions) 
+11:21:45.850 [main] INFO  o.h.h.i.a.ASTQueryTranslatorFactory - HHH000397: Using ASTQueryTranslatorFactory 
+11:21:50.037 [Thread-2] INFO  com.jolbox.bonecp.BoneCP - Shutting down connection pool... 
+11:21:50.111 [Thread-2] INFO  com.jolbox.bonecp.BoneCP - Connection pool has been shutdown. 

@@ -23,6 +23,6 @@ public class ProductoDAOTest {
 	@Test
 	public void crudTest() {
 		Producto p = productoDAO.findByPK(1L);
-		System.out.println(p.getNombreProd());
+		System.out.println(p.getNombreProducto());
 	}
 }

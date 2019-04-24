@@ -18,23 +18,17 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProducto;
 
-	@Column(name = "nombre_prod")
-	private String nombreProd;
-
-	@Column(name = "marca")
-	private String marca;
+	@Column(name = "nombre_producto")
+	private String nombreProducto;
 
 	@Column(name = "precio")
 	private double precio;
 
-	@Column(name = "codigo_barra")
-	private String codigoBarra;
+	@Column(name = "codigo_barras")
+	private String codigoBarras;
 
-	@Column(name = "tamanio")
-	private String tamanio;
-
-	@Column(name = "color_sabor")
-	private String colorSabor;
+	@Column(name = "presentacion")
+	private String presentacion;
 
 	@Column(name = "contenido")
 	private String contenido;
@@ -42,15 +36,18 @@ public class Producto {
 	@Column(name = "descripcion")
 	private String descripcion;
 
-	@Column(name = "promo")
-	private boolean promo;
+	@Column(name = "aplica_promocion")
+	private boolean aplicaPromocion;
 
-	@Column(name = "promo_fecha")
+	@Column(name = "vigencia_promocion")
 	@Temporal(TemporalType.DATE)
-	private Date promo_fecha;
+	private Date vigenciaPromocion;
 
-	@Column(name = "imagen")
-	private byte imagen;
+	@Column(name = "url_imagen_producto")
+	private byte urlImagenProducto;
+
+	@Column(name = "cantidad_bonificacion")
+	private double cantidadBonificacion;
 
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
@@ -60,20 +57,12 @@ public class Producto {
 		return idProducto;
 	}
 
-	public void setNombreProd(String nombreProd) {
-		this.nombreProd = nombreProd;
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
 	}
 
-	public String getNombreProd() {
-		return nombreProd;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
-
-	public String getMarca() {
-		return marca;
+	public String getNombreProducto() {
+		return nombreProducto;
 	}
 
 	public void setPrecio(double precio) {
@@ -84,28 +73,20 @@ public class Producto {
 		return precio;
 	}
 
-	public void setCodigoBarra(String codigoBarra) {
-		this.codigoBarra = codigoBarra;
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
 	}
 
-	public String getCodigoBarra() {
-		return codigoBarra;
+	public String getCodigoBarras() {
+		return codigoBarras;
 	}
 
-	public void setTamanio(String tamanio) {
-		this.tamanio = tamanio;
+	public String getPresentacion() {
+		return presentacion;
 	}
 
-	public String getTamanio() {
-		return tamanio;
-	}
-
-	public void setColorSabor(String colorSabor) {
-		this.colorSabor = colorSabor;
-	}
-
-	public String getColorSabor() {
-		return colorSabor;
+	public void setPresentacion(String presentacion) {
+		this.presentacion = presentacion;
 	}
 
 	public void setContenido(String contenido) {
@@ -124,28 +105,36 @@ public class Producto {
 		return descripcion;
 	}
 
-	public void setPromo(boolean promo) {
-		this.promo = promo;
+	public void setAplicaPromocion(boolean aplicaPromocion) {
+		this.aplicaPromocion = aplicaPromocion;
 	}
 
-	public boolean isPromo() {
-		return promo;
+	public boolean isAplicaPromocion() {
+		return aplicaPromocion;
 	}
 
-	public void setPromo_fecha(Date promo_fecha) {
-		this.promo_fecha = promo_fecha;
+	public void setVigenciaPromocion(Date vigenciaPromocion) {
+		this.vigenciaPromocion = vigenciaPromocion;
 	}
 
-	public Date getPromo_fecha() {
-		return promo_fecha;
+	public Date getVigenciaPromocion() {
+		return vigenciaPromocion;
 	}
 
-	public void setImagen(byte imagen) {
-		this.imagen = imagen;
+	public void setUrlImagenProducto(byte urlImagenProducto) {
+		this.urlImagenProducto = urlImagenProducto;
 	}
 
-	public byte getImagen() {
-		return imagen;
+	public byte getUrlImagenProducto() {
+		return urlImagenProducto;
+	}
+
+	public void setCantidadBonificacion(double cantidadBonificacion) {
+		this.cantidadBonificacion = cantidadBonificacion;
+	}
+
+	public double getCantidadBonificacion() {
+		return cantidadBonificacion;
 	}
 
 }

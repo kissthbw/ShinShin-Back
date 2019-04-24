@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "tipo_producto")
+@Entity(name = "catalogo_tipo_producto")
 public class TipoProducto {
 
 	@Id
@@ -14,11 +14,8 @@ public class TipoProducto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idTipoProducto;
 
-	@Column(name = "nombre_tipo")
-	private String nombre_tipo;
-
-	@Column(name = "descripcion")
-	private String descripcion;
+	@Column(name = "nombre_tipo_producto")
+	private String nombreTipoProducto;
 
 	public void setIdTipoProducto(Long idTipoProducto) {
 		this.idTipoProducto = idTipoProducto;
@@ -28,20 +25,12 @@ public class TipoProducto {
 		return idTipoProducto;
 	}
 
-	public void setNombre_tipo(String nombre_tipo) {
-		this.nombre_tipo = nombre_tipo;
+	public void setNombreTipoProducto(String nombreTipoProducto) {
+		this.nombreTipoProducto = nombreTipoProducto;
 	}
 
-	public String getNombre_tipo() {
-		return nombre_tipo;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
+	public String getNombreTipoProducto() {
+		return nombreTipoProducto;
 	}
 
 }
