@@ -1,12 +1,19 @@
 package com.bit.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -61,6 +68,13 @@ public class Usuario {
 	@Column(name = "tel_local")
 	private String telLocal;
 
+	//Obtener productos favoritos
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@JoinTable(name="producto_favorito",
+		joinColumns = { @JoinColumn(name = "id_usuario") }, 
+		inverseJoinColumns = { @JoinColumn(name = "id_producto") })
+	private List<Producto> productos = new ArrayList<>();
+	
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
@@ -179,6 +193,24 @@ public class Usuario {
 
 	public String getTelLocal() {
 		return telLocal;
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+	
+	public void addProducto(Producto producto) {
+		productos.add( producto );
+//		address.getOwners().add( this );
+	}
+
+	public void removeProducto(Producto producto) {
+		productos.remove( producto );
+//		address.getOwners().remove( this );
 	}
 
 }

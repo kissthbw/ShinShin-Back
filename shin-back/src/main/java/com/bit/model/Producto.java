@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -44,10 +47,20 @@ public class Producto {
 	private Date vigenciaPromocion;
 
 	@Column(name = "url_imagen_producto")
-	private byte urlImagenProducto;
+	private String urlImagenProducto;
 
 	@Column(name = "cantidad_bonificacion")
 	private double cantidadBonificacion;
+
+	// Mapeo contra Marca
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_marca")
+	private Marca marca;
+
+	// Mapeo contra TipoProducto
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_tipo_producto")
+	private TipoProducto tipoProducto;
 
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
@@ -121,11 +134,11 @@ public class Producto {
 		return vigenciaPromocion;
 	}
 
-	public void setUrlImagenProducto(byte urlImagenProducto) {
+	public void setUrlImagenProducto(String urlImagenProducto) {
 		this.urlImagenProducto = urlImagenProducto;
 	}
 
-	public byte getUrlImagenProducto() {
+	public String getUrlImagenProducto() {
 		return urlImagenProducto;
 	}
 
@@ -135,6 +148,22 @@ public class Producto {
 
 	public double getCantidadBonificacion() {
 		return cantidadBonificacion;
+	}
+
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+
+	public TipoProducto getTipoProducto() {
+		return tipoProducto;
+	}
+
+	public void setTipoProducto(TipoProducto tipoProducto) {
+		this.tipoProducto = tipoProducto;
 	}
 
 }
