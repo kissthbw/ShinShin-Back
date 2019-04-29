@@ -16,7 +16,7 @@ public class ExampleSendGrid {
 
 		Map<String, String> envs = System.getenv();
 //		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
-		SendGrid sg = new SendGrid( "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" );
+		SendGrid sg = new SendGrid( "" );
 		Request request = new Request();
 		try {
 			request.setMethod(Method.POST);
