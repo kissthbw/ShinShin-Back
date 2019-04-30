@@ -2,7 +2,7 @@ package com.bit.model.dto;
 
 import java.io.Serializable;
 
-public class SMSData implements Serializable {
+public class SMSDTO implements Serializable {
 
 	private static final long serialVersionUID = 4541599170248860399L;
 	

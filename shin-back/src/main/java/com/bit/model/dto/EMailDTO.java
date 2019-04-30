@@ -2,7 +2,7 @@ package com.bit.model.dto;
 
 import java.io.Serializable;
 
-public class EMailData implements Serializable {
+public class EMailDTO implements Serializable {
 
 	private static final long serialVersionUID = 5762184086962093304L;
 	
