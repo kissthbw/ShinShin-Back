@@ -15,8 +15,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
 	private ProductoDAO productoDAO;
-	
-	
+
 	@Override
 	@Transactional
 	public List<Producto> getProductos() {
@@ -24,19 +23,16 @@ public class ProductoServiceImpl implements ProductoService {
 		return list;
 	}
 
-
 	@Override
 	@Transactional
 	public void guardarProductos(Producto item) {
 		productoDAO.save(item);
 	}
 
-
 	@Override
 	@Transactional
 	public void actualizarProductos(Producto item) {
 		productoDAO.update(item);
-		
 	}
 
 }
