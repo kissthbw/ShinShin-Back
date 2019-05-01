@@ -68,13 +68,26 @@ public class Usuario {
 	@Column(name = "tel_local")
 	private String telLocal;
 
-	//Obtener productos favoritos
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-	@JoinTable(name="producto_favorito",
-		joinColumns = { @JoinColumn(name = "id_usuario") }, 
+	@Column(name = "estatus_activacion")
+	private boolean estatusActivacion;
+
+	@Column(name = "codigo_verificacion")
+	private String codigoVerificacion;
+
+	// Obtener productos favoritos
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@JoinTable(name = "producto_favorito",
+		joinColumns = { @JoinColumn(name = "id_usuario") },
 		inverseJoinColumns = { @JoinColumn(name = "id_producto") })
 	private List<Producto> productos = new ArrayList<>();
-	
+
+	// Guardar tickets
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@JoinTable(name = "historico_tickets",
+		joinColumns = { @JoinColumn(name = "usuario_id_usuario") },
+		inverseJoinColumns = { @JoinColumn(name = "ticket_id_ticket") })
+	private List<Ticket> tickets = new ArrayList<>();
+
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
@@ -195,6 +208,22 @@ public class Usuario {
 		return telLocal;
 	}
 
+	public void setEstatusActivacion(boolean estatusActivacion) {
+		this.estatusActivacion = estatusActivacion;
+	}
+
+	public boolean isEstatusActivacion() {
+		return estatusActivacion;
+	}
+
+	public void setCodigoVerificacion(String codigoVerificacion) {
+		this.codigoVerificacion = codigoVerificacion;
+	}
+
+	public String getCodigoVerificacion() {
+		return codigoVerificacion;
+	}
+
 	public List<Producto> getProductos() {
 		return productos;
 	}
@@ -202,15 +231,27 @@ public class Usuario {
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
-	
+
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
+
 	public void addProducto(Producto producto) {
-		productos.add( producto );
-//		address.getOwners().add( this );
+		productos.add(producto);
+		// address.getOwners().add( this );
 	}
 
 	public void removeProducto(Producto producto) {
-		productos.remove( producto );
-//		address.getOwners().remove( this );
+		productos.remove(producto);
+		// address.getOwners().remove( this );
+	}
+	
+	public void addTicket(Ticket ticket) {
+		tickets.add(ticket);
 	}
 
 }
