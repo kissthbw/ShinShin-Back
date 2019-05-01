@@ -10,33 +10,23 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.model.MediosBonificacion;
+import com.bit.model.HistoricoMediosBonificacion;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
-public class MediosBonificacionDOATest {
+public class HistoricoMediosBonificacionDAOTest {
 
 	@Autowired
-	private MediosBonificacionDAO mediosBonificacionDAO;
+	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
 
 	@Transactional
 	@Test
 	public void crudTest() {
-		MediosBonificacion mb = mediosBonificacionDAO.findByPK(1L);
-		System.out.println(mb.getCatalogoMediosBonificacion());
+		HistoricoMediosBonificacion hmb = historicoMediosBonificacionDAO.findByPK(1L);
+		System.out.println(hmb.getCantidadBonificacion());
 	}
-
-	@Transactional
-	@Test
-	@Rollback(false)
-	public void save() {
-		MediosBonificacion mediosBonificacion = new MediosBonificacion();
-		mediosBonificacion.setIdMediosBonificacion(2l);
-		mediosBonificacion.setCuentaMedioBonificacion("");
-		mediosBonificacion.setCompaniaMedioBonificacion("");
-
-		mediosBonificacionDAO.save(mediosBonificacion);
-	}
+	
+	
 
 }

@@ -3,6 +3,7 @@ package com.bit.dao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -24,6 +25,17 @@ public class CatalogoMediosBonificacionDAOTest {
 	public void crudTest() {
 		CatalogoMediosBonificacion cmb = catalogoMediosBonificacionDAO.findByPK(1L);
 		System.out.println(cmb.getNombreMedioBonificacion());
+	}
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void saveCatalogoMediosBonificacion() {
+		CatalogoMediosBonificacion catalogoMediosBonificacion = new CatalogoMediosBonificacion();
+		catalogoMediosBonificacion.setIdCatalogoMediosBonificacion(1l);
+		catalogoMediosBonificacion.setNombreMedioBonificacion("PayPal");
+
+		catalogoMediosBonificacionDAO.save(catalogoMediosBonificacion);
 	}
 
 }

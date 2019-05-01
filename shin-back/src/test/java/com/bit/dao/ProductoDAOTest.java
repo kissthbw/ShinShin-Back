@@ -12,7 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.model.Marca;
+import com.bit.model.CatalogoMarca;
 import com.bit.model.Producto;
 import com.bit.model.TipoProducto;
 
@@ -25,7 +25,7 @@ public class ProductoDAOTest {
 	private ProductoDAO productoDAO;
 	
 	@Autowired
-	private MarcaDAO marcaDAO;
+	private CatalogoMarcaDAO catalogoMarcaDAO;
 	
 	@Autowired
 	private TipoProductoDAO tipoProductoDAO;
@@ -42,11 +42,11 @@ public class ProductoDAOTest {
 	@Test
 	@Rollback(false)
 	public void saveMarca() {
-		Marca marca = new Marca();
-		marca.setIdMarca( 2l );
-		marca.setNombreMarca( "Google" );
+		CatalogoMarca catalogoMarca = new CatalogoMarca();
+		catalogoMarca.setIdMarca( 2l );
+		catalogoMarca.setNombreMarca( "Google" );
 		
-		marcaDAO.save(marca);
+		catalogoMarcaDAO.save(catalogoMarca);
 	}
 	
 	@Transactional
@@ -54,7 +54,7 @@ public class ProductoDAOTest {
 	@Rollback(false)
 	public void save() {
 		Producto item = new Producto();
-		Marca marca = new Marca();
+		CatalogoMarca marca = new CatalogoMarca();
 		marca.setIdMarca( 2l );
 //		marca.setNombreMarca( "Roku" );
 		
@@ -65,11 +65,11 @@ public class ProductoDAOTest {
 //		Marca marca = marcaDAO.findByPK(1l);
 //		TipoProducto tipo = tipoProductoDAO.findByPK(1l);
 		
-		item.setNombreProducto( "Chromecast" );
+		item.setNombreProducto( "Laptop" );
 		item.setPrecio( 699.00 );
-		item.setCodigoBarras( "210121213" );
+		item.setCodigoBarras( "978128713" );
 		item.setPresentacion( "" );
-		item.setContenido( "" );
+		item.setContenido( "1 pieza" );
 		item.setDescripcion( "Dispositivo de streaming" );
 		item.setAplicaPromocion( true );
 		
