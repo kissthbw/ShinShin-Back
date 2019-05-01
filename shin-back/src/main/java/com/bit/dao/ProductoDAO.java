@@ -29,7 +29,6 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();
-
 	}
 
 }
