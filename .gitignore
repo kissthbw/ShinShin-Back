@@ -1,0 +1,9 @@
+/.recommenders/
+shin-back/.settings
+shin-back/target
+Servers/.settings
+Servers
+multimedia.log
+shinback.log
+.project
+.classpath
