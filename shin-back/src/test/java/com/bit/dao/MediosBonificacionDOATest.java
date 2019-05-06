@@ -3,6 +3,7 @@ package com.bit.dao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -23,7 +24,19 @@ public class MediosBonificacionDOATest {
 	@Test
 	public void crudTest() {
 		MediosBonificacion mb = mediosBonificacionDAO.findByPK(1L);
-		System.out.println(mb.getCuentaMediosBonificacion());
+		System.out.println(mb.getCatalogoMediosBonificacion());
+	}
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void save() {
+		MediosBonificacion mediosBonificacion = new MediosBonificacion();
+		mediosBonificacion.setIdMediosBonificacion(2l);
+		mediosBonificacion.setCuentaMedioBonificacion("");
+		mediosBonificacion.setCompaniaMedioBonificacion("");
+
+		mediosBonificacionDAO.save(mediosBonificacion);
 	}
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Usuario;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.UsuarioService;
 
 @RestController
@@ -28,14 +29,20 @@ public class UsuariosRestController {
 		return list;
 	}
 
-	@PostMapping(value = "/usuario/guardar")
-	public void guardarUsuario(@RequestBody Usuario item) {
-		usuarioService.guardarUsuarios(item);
+	@PostMapping(value = "/usuario/registrar")
+	public @ResponseBody SimpleResponse registrarUsuario(@RequestBody Usuario item) {
+		SimpleResponse rsp = usuarioService.registrarUsuarios(item);
+		
+		return rsp;
+	}
+	
+	@PostMapping(value = "/usuario/activar")
+	public void activarUsuario(@RequestBody Usuario item) {
+		usuarioService.activarUsuarios(item);
 	}
 	
 	@PostMapping(value = "/usuario/actualizar")
 	public void actualizarUsuario(@RequestBody Usuario item) {
 		usuarioService.actualizarUsuarios(item);
 	}
-
 }

@@ -10,32 +10,32 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.CatalogoMarca;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
-public class CatalogoMediosBonificacionDAOTest {
+public class CatalogoMarcaDAOTest {
 
 	@Autowired
-	private CatalogoMediosBonificacionDAO catalogoMediosBonificacionDAO;
+	private CatalogoMarcaDAO marcaDAO;
 
 	@Transactional
 	@Test
 	public void crudTest() {
-		CatalogoMediosBonificacion cmb = catalogoMediosBonificacionDAO.findByPK(1L);
-		System.out.println(cmb.getNombreMedioBonificacion());
+		CatalogoMarca m = marcaDAO.findByPK(1L);
+		System.out.println(m.getNombreMarca());
 	}
 
 	@Transactional
 	@Test
 	@Rollback(false)
-	public void saveCatalogoMediosBonificacion() {
-		CatalogoMediosBonificacion catalogoMediosBonificacion = new CatalogoMediosBonificacion();
-		catalogoMediosBonificacion.setIdCatalogoMediosBonificacion(1l);
-		catalogoMediosBonificacion.setNombreMedioBonificacion("PayPal");
-
-		catalogoMediosBonificacionDAO.save(catalogoMediosBonificacion);
+	public void save() {
+		CatalogoMarca item = new CatalogoMarca();
+		item.setNombreMarca("Chrome");
+		
+		
+		marcaDAO.save(item);
 	}
-
+	
 }

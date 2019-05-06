@@ -52,10 +52,10 @@ public class Producto {
 	@Column(name = "cantidad_bonificacion")
 	private double cantidadBonificacion;
 
-	// Mapeo contra Marca
+	// Mapeo contra CatalogoMarca
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_marca")
-	private Marca marca;
+	private CatalogoMarca catalogoMarca;
 
 	// Mapeo contra TipoProducto
 	@OneToOne(fetch = FetchType.LAZY)
@@ -150,12 +150,12 @@ public class Producto {
 		return cantidadBonificacion;
 	}
 
-	public Marca getMarca() {
-		return marca;
+	public CatalogoMarca getMarca() {
+		return catalogoMarca;
 	}
 
-	public void setMarca(Marca marca) {
-		this.marca = marca;
+	public void setMarca(CatalogoMarca catalogoMarca) {
+		this.catalogoMarca = catalogoMarca;
 	}
 
 	public TipoProducto getTipoProducto() {

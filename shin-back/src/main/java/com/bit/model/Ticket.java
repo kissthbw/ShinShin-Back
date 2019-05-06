@@ -1,13 +1,19 @@
 package com.bit.model;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -30,7 +36,8 @@ public class Ticket {
 	private Date fecha;
 
 	@Column(name = "hora")
-	private Time hora;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date hora;
 
 	@Column(name = "subtotal")
 	private double subtotal;
@@ -40,6 +47,13 @@ public class Ticket {
 
 	@Column(name = "total")
 	private double total;
+	
+	//Obtener historico bonificaciones
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@JoinTable(name = "historico_bonificaciones", joinColumns = {
+			@JoinColumn(name = "id_ticket") },
+			inverseJoinColumns = { @JoinColumn(name = "producto_id_producto") })
+	private List<Producto> productos = new ArrayList<>();
 
 	public void setIdTicket(Long idTicket) {
 		this.idTicket = idTicket;
@@ -73,11 +87,11 @@ public class Ticket {
 		return fecha;
 	}
 
-	public void setHora(Time hora) {
+	public void setHora(Date hora) {
 		this.hora = hora;
 	}
 
-	public Time getHora() {
+	public Date getHora() {
 		return hora;
 	}
 
@@ -103,6 +117,18 @@ public class Ticket {
 
 	public double getTotal() {
 		return total;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+	
+	public void addProducto(Producto producto) {
+		productos.add(producto);
 	}
 
 }

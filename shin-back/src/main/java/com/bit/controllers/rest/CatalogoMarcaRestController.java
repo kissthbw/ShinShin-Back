@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bit.model.Marca;
-import com.bit.service.MarcaService;
+import com.bit.model.CatalogoMarca;
+import com.bit.service.CatalogoMarcaService;
 
 @RestController
 @RequestMapping("/marcas")
-public class MarcaRestController {
+public class CatalogoMarcaRestController {
 
 	@Autowired
-	private MarcaService marcaService;
+	private CatalogoMarcaService marcaService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<Marca> getMarcas() {
+	public @ResponseBody List<CatalogoMarca> getMarcas() {
 		System.out.println("Get Marcas");
-		List<Marca> list = marcaService.getMarca();
+		List<CatalogoMarca> list = marcaService.getMarca();
 
 		return list;
 	}
 
 	@PostMapping(value = "/marcas/guardar")
-	public void guardarMarcas(@RequestBody Marca item) {
+	public void guardarMarcas(@RequestBody CatalogoMarca item) {
 		marcaService.guardarMarcas(item);
 	}
 
 	@PostMapping(value = "/marcas/actualizar")
-	public void actualizarMarcas(@RequestBody Marca item) {
+	public void actualizarMarcas(@RequestBody CatalogoMarca item) {
 		marcaService.actualizarMarcas(item);
 	}
 }

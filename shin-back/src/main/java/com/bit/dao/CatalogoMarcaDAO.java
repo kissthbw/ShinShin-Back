@@ -6,15 +6,15 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Property;
 import org.springframework.stereotype.Repository;
 
-import com.bit.model.Marca;
+import com.bit.model.CatalogoMarca;
 
 @Repository
-public class MarcaDAO extends DAOTemplate<Marca, Long> {
+public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 
 	private static final long serialVersionUID = -2948368451152236181L;
 
-	public List<Marca> getMarca() {
-		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Marca.class);
+	public List<CatalogoMarca> getMarca() {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMarca.class);
 		c.setMaxResults(50);
 		c.addOrder(Property.forName("id_marca").desc());
 

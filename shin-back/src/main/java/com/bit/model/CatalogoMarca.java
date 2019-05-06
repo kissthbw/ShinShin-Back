@@ -6,8 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "marca")
-public class Marca {
+@Entity(name = "catalogo_marca")
+public class CatalogoMarca {
 
 	@Id
 	@Column(name = "id_marca")

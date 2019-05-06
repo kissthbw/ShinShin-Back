@@ -10,32 +10,23 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.model.Marca;
+import com.bit.model.HistoricoMediosBonificacion;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
-public class MarcaDAOTest {
+public class HistoricoMediosBonificacionDAOTest {
 
 	@Autowired
-	private MarcaDAO marcaDAO;
+	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
 
 	@Transactional
 	@Test
 	public void crudTest() {
-		Marca m = marcaDAO.findByPK(1L);
-		System.out.println(m.getNombreMarca());
-	}
-
-	@Transactional
-	@Test
-	@Rollback(false)
-	public void save() {
-		Marca item = new Marca();
-		item.setNombreMarca("Roku");
-		
-		
-		marcaDAO.save(item);
+		HistoricoMediosBonificacion hmb = historicoMediosBonificacionDAO.findByPK(1L);
+		System.out.println(hmb.getCantidadBonificacion());
 	}
 	
+	
+
 }
