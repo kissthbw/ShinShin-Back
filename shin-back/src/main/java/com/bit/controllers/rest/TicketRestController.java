@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Ticket;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.TicketService;
 
 @RestController
-@RequestMapping("/ticket")
+@RequestMapping("/tickets")
 public class TicketRestController {
 
 	@Autowired
@@ -28,13 +29,17 @@ public class TicketRestController {
 		return list;
 	}
 
-	@PostMapping(value = "/ticket/guardar")
-	public void guardarTicket(@RequestBody Ticket item) {
-		ticketService.guardarTickets(item);
+	@PostMapping(value = "/ticket/registrar")
+	public @ResponseBody SimpleResponse registrarTicket(@RequestBody Ticket item) {
+		SimpleResponse rsp = ticketService.registrarTickets(item);
+
+		return rsp;
 	}
 
 	@PostMapping(value = "/ticket/actualizar")
-	public void actualizarTicket(@RequestBody Ticket item) {
-		ticketService.actualizarTickets(item);
+	public @ResponseBody SimpleResponse actualizarTicket(@RequestBody Ticket item) {
+		SimpleResponse rsp = ticketService.actualizarTickets(item);
+
+		return rsp;
 	}
 }
