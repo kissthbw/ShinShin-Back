@@ -72,21 +72,45 @@ public class TicketDAOTest {
 	@Rollback(false)
 	public void save() {
 		Ticket item = new Ticket();
-		item.setNombreTienda("Walmart");
+		item.setNombreTienda("Sanborns");
 		item.setSucursal("Plaza Jardín");
 
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_MONTH, 10);
 		c.set(Calendar.MONTH, Calendar.APRIL);
 		c.set(Calendar.YEAR, 2019);
 
 		item.setFecha(c.getTime());
 		item.setHora(new Date());
-		item.setSubtotal(587.16);
-		item.setIva(111.84);
-		item.setTotal(699.00);
+		item.setSubtotal(200.00);
+		item.setIva(30.00);
+		item.setTotal(230.00);
 
 		ticketDAO.save(item);
+	}
+	
+	@Test
+	public void objetosTest() {
+		Ticket t1 = new Ticket();
+		t1.setNombreTienda("Mi Tiendita");
+		t1.setSucursal("La Perla");
+
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.DAY_OF_MONTH, 07);
+		c.set(Calendar.MONTH, Calendar.MAY);
+		c.set(Calendar.YEAR, 2019);
+
+		t1.setFecha(c.getTime());
+		t1.setHora(new Date());
+		t1.setSubtotal(15.00);
+		t1.setIva(2.25);
+		t1.setTotal(17.25);
+		
+		System.out.println("Tienda: " + t1.getNombreTienda() + "\n Sucursal: " + t1.getSucursal() +
+				"\n Fecha: " + t1.getFecha() + "\n Hora: " + t1.getHora() + "\n Subtotal: " + t1.getSubtotal() +
+				"\n Iva 15%: " + t1.getIva() + "\n Total: " + t1.getTotal());
+		
+		ticketDAO.save(t1);
 	}
 
 }
