@@ -11,6 +11,4 @@ public interface TicketService {
 
 	SimpleResponse registrarTickets(Ticket item);
 
-	SimpleResponse actualizarTickets(Ticket item);
-
 }
