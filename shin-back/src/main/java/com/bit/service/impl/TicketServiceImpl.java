@@ -1,7 +1,5 @@
 package com.bit.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,31 +31,9 @@ public class TicketServiceImpl implements TicketService {
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
+
+		item = ticketDAO.save(item);
 		rsp.setId(item.getIdTicket());
-
-		Ticket ticket = new Ticket();
-		ticket.setNombreTienda(null);
-		ticket.setSucursal(null);
-		ticket.setFecha(null);
-		ticket.setHora(null);
-		ticket.setSubtotal(0);
-		ticket.setIva(0);
-		ticket.setTotal(0);
-
-		ticket = ticketDAO.save(item);
-		return rsp;
-
-	}
-
-	@Override
-	@Transactional
-	public SimpleResponse actualizarTickets(Ticket item) {
-
-		SimpleResponse rsp = new SimpleResponse();
-		rsp.setMessage("Exitoso");
-		rsp.setCode(200);
-
-		ticketDAO.update(item);
 		return rsp;
 
 	}
