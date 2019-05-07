@@ -35,11 +35,4 @@ public class TicketRestController {
 
 		return rsp;
 	}
-
-	@PostMapping(value = "/ticket/actualizar")
-	public @ResponseBody SimpleResponse actualizarTicket(@RequestBody Ticket item) {
-		SimpleResponse rsp = ticketService.actualizarTickets(item);
-
-		return rsp;
-	}
 }
