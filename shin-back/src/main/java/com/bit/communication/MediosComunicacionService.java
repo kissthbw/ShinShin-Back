@@ -14,7 +14,7 @@ public interface MediosComunicacionService {
 	
 	/**
 	 * Metodo encargado de realizar el envio de email a un destinatario especifico
-	 * @param data, contiene la cuenta del destinatario, el asuno y el cuerpo del mensaje
+	 * @param data, contiene la cuenta del destinatario, el asunto y el cuerpo del mensaje
 	 * @return com.sendgrid.Response con el estatus del envio del email
 	 */
 	SimpleResponse sendEmail( EMailDTO data ) throws CommunicationException;

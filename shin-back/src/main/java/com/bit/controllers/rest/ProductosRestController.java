@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Producto;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.ProductoService;
 
 @RestController
@@ -50,13 +51,17 @@ public class ProductosRestController {
 	 * 
 	 * @param item
 	 */
-	@PostMapping(value = "/producto/guardar")
-	public void guardarProducto(@RequestBody Producto item) {
-		productoService.guardarProductos(item);
+	@PostMapping(value = "/producto/registrar")
+	public @ResponseBody SimpleResponse registrarProducto(@RequestBody Producto item) {
+		SimpleResponse rsp = productoService.registrarProductos(item);
+		
+		return rsp;
 	}
 
 	@PostMapping(value = "/producto/actualizar")
-	public void actualizarProducto(@RequestBody Producto item) {
-		productoService.actualizarProductos(item);
+	public @ResponseBody SimpleResponse actualizarProducto(@RequestBody Producto item) {
+		SimpleResponse rsp = productoService.actualizarProductos(item);
+		
+		return rsp;
 	}
 }

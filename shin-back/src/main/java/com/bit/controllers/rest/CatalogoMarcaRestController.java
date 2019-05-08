@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoMarca;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.CatalogoMarcaService;
 
 @RestController
@@ -18,23 +19,27 @@ import com.bit.service.CatalogoMarcaService;
 public class CatalogoMarcaRestController {
 
 	@Autowired
-	private CatalogoMarcaService marcaService;
+	private CatalogoMarcaService catalogoMarcaService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<CatalogoMarca> getMarcas() {
+	public @ResponseBody List<CatalogoMarca> getCatalogoMarcas() {
 		System.out.println("Get Marcas");
-		List<CatalogoMarca> list = marcaService.getMarca();
+		List<CatalogoMarca> list = catalogoMarcaService.getCatalogoMarca();
 
 		return list;
 	}
 
-	@PostMapping(value = "/marcas/guardar")
-	public void guardarMarcas(@RequestBody CatalogoMarca item) {
-		marcaService.guardarMarcas(item);
+	@PostMapping(value = "/marca/registrar")
+	public @ResponseBody SimpleResponse registrarMarcas(@RequestBody CatalogoMarca item) {
+		SimpleResponse rsp = catalogoMarcaService.registrarMarcas(item);
+
+		return rsp;
 	}
 
-	@PostMapping(value = "/marcas/actualizar")
-	public void actualizarMarcas(@RequestBody CatalogoMarca item) {
-		marcaService.actualizarMarcas(item);
+	@PostMapping(value = "/marca/actualizar")
+	public @ResponseBody SimpleResponse actualizarMarcas(@RequestBody CatalogoMarca item) {
+		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(item);
+		
+		return rsp;
 	}
 }

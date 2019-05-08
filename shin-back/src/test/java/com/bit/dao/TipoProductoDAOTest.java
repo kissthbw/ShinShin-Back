@@ -34,7 +34,6 @@ public class TipoProductoDAOTest {
 		TipoProducto item = new TipoProducto();
 		item.setNombreTipoProducto( "Streaming" );
 		
-		
 		tipoProductoDAO.save(item);
 	}
 }

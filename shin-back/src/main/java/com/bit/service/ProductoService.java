@@ -3,6 +3,7 @@ package com.bit.service;
 import java.util.List;
 
 import com.bit.model.Producto;
+import com.bit.model.dto.SimpleResponse;
 
 public interface ProductoService {
 
@@ -15,7 +16,7 @@ public interface ProductoService {
 	 */
 	List<Producto> getProductos();
 
-	void guardarProductos(Producto item);
+	SimpleResponse registrarProductos(Producto item);
 
-	void actualizarProductos(Producto item);
+	SimpleResponse actualizarProductos(Producto item);
 }

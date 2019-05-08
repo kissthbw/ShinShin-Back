@@ -10,19 +10,19 @@ import javax.persistence.Id;
 public class CatalogoMarca {
 
 	@Id
-	@Column(name = "id_marca")
+	@Column(name = "id_catalogo_marca")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idMarca;
+	private Long idCatalogoMarca;
 
 	@Column(name = "nombre_marca")
 	private String nombreMarca;
 
-	public void setIdMarca(Long idMarca) {
-		this.idMarca = idMarca;
+	public void setIdCatalogoMarca(Long idCatalogoMarca) {
+		this.idCatalogoMarca = idCatalogoMarca;
 	}
 
-	public Long getIdMarca() {
-		return idMarca;
+	public Long getIdCatalogoMarca() {
+		return idCatalogoMarca;
 	}
 
 	public void setNombreMarca(String nombreMarca) {

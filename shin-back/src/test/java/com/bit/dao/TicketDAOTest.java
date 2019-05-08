@@ -28,7 +28,7 @@ public class TicketDAOTest {
 
 	@Autowired
 	private TicketDAO ticketDAO;
-	
+
 	@Autowired
 	private UsuarioDAO usuarioDAO;
 
@@ -52,9 +52,8 @@ public class TicketDAOTest {
 		System.out.println(item.getProductos().isEmpty() ? "No tiene promocion" : "Producto(s) con promocion:");
 
 		for (Producto p : item.getProductos()) {
-			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), 
-					p.getMarca().getNombreMarca(), 
-					p.getTipoProducto().getNombreTipoProducto());
+			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca(), p.getTipoProducto());
+
 		}
 
 		System.out.println();
@@ -84,7 +83,7 @@ public class TicketDAOTest {
 		item.setSucursal("Plaza Jardin");
 
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, 1);
+		c.set(Calendar.DAY_OF_MONTH, 10);
 		c.set(Calendar.MONTH, Calendar.APRIL);
 		c.set(Calendar.YEAR, 2019);
 
@@ -93,7 +92,7 @@ public class TicketDAOTest {
 		item.setSubtotal(587.16);
 		item.setIva(111.84);
 		item.setTotal(699.00);
-		
+
 //		CatalogoMarca m = new CatalogoMarca();
 //		m.setNombreMarca("Roku");
 //		
@@ -116,53 +115,52 @@ public class TicketDAOTest {
 //		p.setUrlImagenProducto( "/home/img/chrome.jpg" );
 //		p.setVigenciaPromocion( c1.getTime() );
 //		p.setCantidadBonificacion( 100.00 );
-		
+
 		Producto p = productoDAO.findByPK(1l);
 //		p.setIdProducto(1L);
 		item.addProducto(p);
 
-
 		ticketDAO.save(item);
 	}
-	
+
 	@Test
 	@Transactional
 	@Rollback(false)
 	public void updateTicketTest() {
-		//Agregar productos a un ticket
+		// Agregar productos a un ticket
 		Ticket item = ticketDAO.findByPK(1l);
 		Producto p1 = new Producto();
 		p1.setIdProducto(2L);
 		item.addProducto(p1);
 		ticketDAO.update(item);
-		
-		//Asignar ticket a usuario
+
+		// Asignar ticket a usuario
 		Usuario u = usuarioDAO.findByPK(1l);
 		u.addTicket(item);
-		
+
 		usuarioDAO.update(u);
 	}
-	
-	public static void main(String[] args) throws JsonProcessingException {
-		Ticket item = new Ticket();
-		item.setNombreTienda("Walmart");
-		item.setSucursal("Plaza Jardin");
+
+	public void objetosTest() {
+		Ticket t1 = new Ticket();
+		t1.setNombreTienda("Mi Tiendita");
+		t1.setSucursal("La Perla");
 
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, 1);
-		c.set(Calendar.MONTH, Calendar.APRIL);
+		c.set(Calendar.DAY_OF_MONTH, 07);
+		c.set(Calendar.MONTH, Calendar.MAY);
 		c.set(Calendar.YEAR, 2019);
 
-		item.setFecha(c.getTime());
-		item.setHora(new Date());
-		item.setSubtotal(587.16);
-		item.setIva(111.84);
-		item.setTotal(699.00);
-		
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(new ObjectMapper().writeValueAsString(item));
+		t1.setFecha(c.getTime());
+		t1.setHora(new Date());
+		t1.setSubtotal(15.00);
+		t1.setIva(2.25);
+		t1.setTotal(17.25);
 
-		System.out.println( stringBuilder.toString() );
-		
+		System.out.println("Tienda: " + t1.getNombreTienda() + "\n Sucursal: " + t1.getSucursal() + "\n Fecha: "
+				+ t1.getFecha() + "\n Hora: " + t1.getHora() + "\n Subtotal: " + t1.getSubtotal() + "\n Iva 15%: "
+				+ t1.getIva() + "\n Total: " + t1.getTotal());
+
+		ticketDAO.save(t1);
 	}
 }

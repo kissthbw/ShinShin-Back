@@ -13,10 +13,10 @@ public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 
 	private static final long serialVersionUID = -2948368451152236181L;
 
-	public List<CatalogoMarca> getMarca() {
+	public List<CatalogoMarca> getCatalogoMarca() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMarca.class);
 		c.setMaxResults(50);
-		c.addOrder(Property.forName("id_marca").desc());
+		c.addOrder(Property.forName("id_catalogo_marca").desc());
 
 		return c.list();
 

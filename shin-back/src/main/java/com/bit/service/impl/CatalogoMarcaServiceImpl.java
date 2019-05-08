@@ -8,32 +8,49 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.model.CatalogoMarca;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.CatalogoMarcaService;
 
 @Service
 public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 
 	@Autowired
-	private CatalogoMarcaDAO marcaDAO;
+	private CatalogoMarcaDAO catalogoMarcaDAO;
 
 	@Override
 	@Transactional
-	public List<CatalogoMarca> getMarca() {
-		List<CatalogoMarca> list = marcaDAO.getMarca();
+	public List<CatalogoMarca> getCatalogoMarca() {
+		List<CatalogoMarca> list = catalogoMarcaDAO.getCatalogoMarca();
 		return list;
 	}
 
 	@Override
 	@Transactional
-	public void guardarMarcas(CatalogoMarca item) {
-		marcaDAO.save(item);
+	public SimpleResponse registrarMarcas(CatalogoMarca item) {
+
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+
+		item = catalogoMarcaDAO.save(item);
+		rsp.setId(item.getIdCatalogoMarca());
+		return rsp;
 
 	}
 
 	@Override
 	@Transactional
-	public void actualizarMarcas(CatalogoMarca item) {
-		marcaDAO.save(item);
+	public SimpleResponse actualizarMarcas(CatalogoMarca item) {
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		catalogoMarcaDAO.findByPK(item.getIdCatalogoMarca());
+		
+		item = catalogoMarcaDAO.update(item);
+		rsp.setId(item.getIdCatalogoMarca());
+		return rsp;
 
 	}
 

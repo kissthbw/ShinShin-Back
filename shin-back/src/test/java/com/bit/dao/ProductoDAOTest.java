@@ -43,7 +43,7 @@ public class ProductoDAOTest {
 	@Rollback(false)
 	public void saveMarca() {
 		CatalogoMarca catalogoMarca = new CatalogoMarca();
-		catalogoMarca.setIdMarca( 2l );
+		catalogoMarca.setIdCatalogoMarca( 2l );
 		catalogoMarca.setNombreMarca( "Google" );
 		
 		catalogoMarcaDAO.save(catalogoMarca);
@@ -55,7 +55,7 @@ public class ProductoDAOTest {
 	public void save() {
 		Producto item = new Producto();
 		CatalogoMarca marca = new CatalogoMarca();
-		marca.setIdMarca( 1l );
+		marca.setIdCatalogoMarca( 2l );
 //		marca.setNombreMarca( "Roku" );
 		
 		TipoProducto tipo = new TipoProducto();
@@ -78,7 +78,7 @@ public class ProductoDAOTest {
 		item.setVigenciaPromocion( c.getTime() );
 		item.setUrlImagenProducto( "/home/img/chrome.jpg" );
 		item.setCantidadBonificacion( 100.00 );
-		item.setMarca(marca);
+		item.setCatalogoMarca(marca);
 		item.setTipoProducto(tipo);
 		
 		productoDAO.save(item);

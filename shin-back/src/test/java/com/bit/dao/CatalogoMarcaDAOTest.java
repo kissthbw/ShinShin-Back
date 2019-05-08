@@ -18,12 +18,12 @@ import com.bit.model.CatalogoMarca;
 public class CatalogoMarcaDAOTest {
 
 	@Autowired
-	private CatalogoMarcaDAO marcaDAO;
+	private CatalogoMarcaDAO catalogoMarcaDAO;
 
 	@Transactional
 	@Test
 	public void crudTest() {
-		CatalogoMarca m = marcaDAO.findByPK(1L);
+		CatalogoMarca m = catalogoMarcaDAO.findByPK(1L);
 		System.out.println(m.getNombreMarca());
 	}
 
@@ -34,8 +34,7 @@ public class CatalogoMarcaDAOTest {
 		CatalogoMarca item = new CatalogoMarca();
 		item.setNombreMarca("Chrome");
 		
-		
-		marcaDAO.save(item);
+		catalogoMarcaDAO.save(item);
 	}
 	
 }

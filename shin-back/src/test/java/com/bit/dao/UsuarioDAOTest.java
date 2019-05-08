@@ -80,8 +80,7 @@ public class UsuarioDAOTest {
 	@Rollback(false)
 	public void actualizarUsuarios() {
 
-		Usuario item = usuarioDAO.findByPK(3l);
-		item.setNombre("Adrian");
+		Usuario item = usuarioDAO.findByPK(12l);
 		item.setContrasenia("mexicangreat");
 
 		usuarioService.actualizarUsuarios(item);
@@ -110,8 +109,7 @@ public class UsuarioDAOTest {
 		System.out.println(item.getProductosFavoritos().isEmpty() ? "No tiene productos favoritos" : "Productos favoritos:");
 
 		for (Producto p : item.getProductosFavoritos()) {
-			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getMarca().getNombreMarca(),
-					p.getTipoProducto().getNombreTipoProducto());
+			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca().getNombreMarca());
 		}
 
 		System.out.println(item.getTickets().isEmpty() ? "No tiene tickets guardados" : "Tickets guardados:");

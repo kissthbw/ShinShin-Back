@@ -32,7 +32,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 
 		SimpleResponse rsp = new SimpleResponse();
 
-		// 1. Correo del emisor, debe ser de ls cuenta del cliente
+		// 1. Correo del emisor, debe ser de la cuenta del cliente
 		Email from = new Email("test@example.com");
 
 		// 2. Correo del usuario que se registro
