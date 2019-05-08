@@ -46,7 +46,7 @@ public class TicketDAOTest {
 		System.out.println(item.getProductos().isEmpty() ? "No tiene promoción" : "Producto(s) con promoción:");
 
 		for (Producto p : item.getProductos()) {
-			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getMarca(), p.getTipoProducto());
+			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca(), p.getTipoProducto());
 		}
 
 		System.out.println();
