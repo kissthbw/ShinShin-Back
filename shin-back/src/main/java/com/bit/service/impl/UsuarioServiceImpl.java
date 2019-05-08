@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.bit.common.Utils;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.UsuarioDAO;
@@ -48,7 +47,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		SMSDTO sms = new SMSDTO();
 		sms.setToMobileNumber(item.getTelLocal());
-		sms.setBody("Tu codigo es: " + item.getCodigoVerificacion());
+		sms.setBody("Tu código es: " + item.getCodigoVerificacion());
 
 		try {
 			mediosComunicacionService.sendSMS(sms);
@@ -74,6 +73,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		 * entonces el sistema genera el nuevo codigo y lo envia al destino seleccionado
 		 * previamente (determinar numero de intentos)
 		 */
+
 		rsp.setId(item.getIdUsuario());
 		return rsp;
 
@@ -81,7 +81,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public void activarUsuarios(Usuario item) {
+	public SimpleResponse activarUsuarios(Usuario item) {
+
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		rsp.setId(item.getIdUsuario());
 
 		Usuario temp = usuarioDAO.findByPK(item.getIdUsuario());
 
@@ -92,11 +97,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 			System.out.println("El código no coincide");
 		}
 
+		return rsp;
+
 	}
 
 	@Override
 	@Transactional
-	public void actualizarUsuarios(Usuario item) {
+	public SimpleResponse actualizarUsuarios(Usuario item) {
+
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 
 		String codigo = Utils.generaCodigoVerficacion();
 		Utils.generaCodigoVerficacion();
@@ -111,7 +122,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 
-			usuarioDAO.update(item);
+			item = usuarioDAO.update(item);
 
 			/*
 			 * 1. Cuando un usuario registrado quiere modificar algun dato de su informacion
@@ -133,6 +144,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 			 * intentos)
 			 */
 		}
+		
+		rsp.setId(item.getIdUsuario());
+		return rsp;
 
 	}
 
