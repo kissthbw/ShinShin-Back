@@ -6,7 +6,7 @@ public class Utils {
 	
 	public static String generaCodigoVerficacion() {
 		Random rand = new Random();
-		String id = String.format("%04d", rand.nextInt(999999999));
+		String id = String.format("%04d", rand.nextInt(9999));
 		
 		return id;
 	}
