@@ -24,8 +24,8 @@ import com.twilio.type.PhoneNumber;
 public class MediosComunicacionServiceImpl implements MediosComunicacionService {
 
 	// Mover a variables de ambiente o archivo de propiedades
-	public static final String ACCOUNT_SID = "";
-	public static final String AUTH_TOKEN = "";
+	public static final String ACCOUNT_SID = "AC021b53d8f2e2a1ba77deee1627bfad27";
+	public static final String AUTH_TOKEN = "e7098c00b8713b538575558cc2671015";
 
 	@Override
 	public SimpleResponse sendEmail(EMailDTO data) throws CommunicationException {

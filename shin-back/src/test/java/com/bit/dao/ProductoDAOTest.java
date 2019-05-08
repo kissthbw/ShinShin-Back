@@ -55,7 +55,7 @@ public class ProductoDAOTest {
 	public void save() {
 		Producto item = new Producto();
 		CatalogoMarca marca = new CatalogoMarca();
-		marca.setIdMarca( 2l );
+		marca.setIdMarca( 1l );
 //		marca.setNombreMarca( "Roku" );
 		
 		TipoProducto tipo = new TipoProducto();
@@ -65,8 +65,8 @@ public class ProductoDAOTest {
 //		Marca marca = marcaDAO.findByPK(1l);
 //		TipoProducto tipo = tipoProductoDAO.findByPK(1l);
 		
-		item.setNombreProducto( "Laptop" );
-		item.setPrecio( 699.00 );
+		item.setNombreProducto( "Roku Stick Express ()" );
+		item.setPrecio( 1199.00 );
 		item.setCodigoBarras( "978128713" );
 		item.setPresentacion( "" );
 		item.setContenido( "1 pieza" );

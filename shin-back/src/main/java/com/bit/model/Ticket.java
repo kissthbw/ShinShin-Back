@@ -49,7 +49,7 @@ public class Ticket {
 	private double total;
 	
 	//Obtener historico bonificaciones
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
+	@ManyToMany( fetch = FetchType.LAZY)
 	@JoinTable(name = "historico_bonificaciones", joinColumns = {
 			@JoinColumn(name = "id_ticket") },
 			inverseJoinColumns = { @JoinColumn(name = "producto_id_producto") })
