@@ -3,9 +3,6 @@ package com.bit.dao;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Scanner;
-
-import org.apache.http.impl.io.SocketOutputBuffer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,8 +79,7 @@ public class UsuarioDAOTest {
 	@Rollback(false)
 	public void actualizarUsuarios() {
 
-		Usuario item = usuarioDAO.findByPK(3l);
-		item.setNombre("Adrian");
+		Usuario item = usuarioDAO.findByPK(12l);
 		item.setContrasenia("mexicangreat");
 
 		usuarioService.actualizarUsuarios(item);
@@ -114,7 +110,7 @@ public class UsuarioDAOTest {
 		System.out.println(item.getTickets().isEmpty() ? "No tiene tickets guardados" : "Tickets guardados:");
 
 		for (Producto p : item.getProductos()) {
-			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getMarca().getNombreMarca(),
+			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca().getNombreMarca(),
 					p.getTipoProducto().getNombreTipoProducto());
 		}
 
