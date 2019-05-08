@@ -37,8 +37,10 @@ public class UsuariosRestController {
 	}
 	
 	@PostMapping(value = "/usuario/activar")
-	public void activarUsuario(@RequestBody Usuario item) {
-		usuarioService.activarUsuarios(item);
+	public @ResponseBody SimpleResponse activarUsuario(@RequestBody Usuario item) {
+		SimpleResponse rsp = usuarioService.activarUsuarios(item);
+		
+		return rsp;
 	}
 	
 	@PostMapping(value = "/usuario/actualizar")
