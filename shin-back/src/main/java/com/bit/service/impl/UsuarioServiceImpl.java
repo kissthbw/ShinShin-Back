@@ -86,7 +86,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
-		rsp.setId(item.getIdUsuario());
 
 		Usuario temp = usuarioDAO.findByPK(item.getIdUsuario());
 
@@ -97,6 +96,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			System.out.println("El código no coincide");
 		}
 
+		rsp.setId(item.getIdUsuario());
 		return rsp;
 
 	}
@@ -112,6 +112,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		String codigo = Utils.generaCodigoVerficacion();
 		Utils.generaCodigoVerficacion();
 		item.setCodigoVerificacion(codigo);
+		item.setEstatusActivacion(false);
+		
 		SMSDTO sms = new SMSDTO();
 		sms.setToMobileNumber(item.getTelLocal());
 		sms.setBody("Tu código es: " + item.getCodigoVerificacion());
@@ -144,7 +146,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			 * intentos)
 			 */
 		}
-		
+
 		rsp.setId(item.getIdUsuario());
 		return rsp;
 

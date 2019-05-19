@@ -6,32 +6,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.dao.TipoProductoDAO;
-import com.bit.model.TipoProducto;
-import com.bit.service.TipoProductoService;
+import com.bit.dao.CatalogoTipoProductoDAO;
+import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.service.CatalogoTipoProductoService;
 
 @Service
-public class TipoProductoServiceImpl implements TipoProductoService {
+public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoService {
 
 	@Autowired
-	private TipoProductoDAO tipoProductoDAO;
+	private CatalogoTipoProductoDAO catalogoTipoProductoDAO;
 
 	@Override
 	@Transactional
-	public List<TipoProducto> getTipoProductos() {
-		List<TipoProducto> list = tipoProductoDAO.getTipoProductos();
+	public List<CatalogoTipoProducto> getCatalogoTipoProductos() {
+		List<CatalogoTipoProducto> list = catalogoTipoProductoDAO.getCatalogoTipoProductos();
 		return list;
 	}
 
 	@Override
 	@Transactional
-	public void guardarTipoProductos(TipoProducto item) {
-		tipoProductoDAO.save(item);
+	public SimpleResponse registrarCatalogoTipoProductos(CatalogoTipoProducto item) {
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = catalogoTipoProductoDAO.save(item);
+		rsp.setId(item.getIdCatalogoTipoProducto());
+		return rsp;
 	}
 
 	@Override
-	public void actualizarTipoProductos(TipoProducto item) {
-		tipoProductoDAO.save(item);
-
+	public SimpleResponse actualizarCatalogoTipoProductos(CatalogoTipoProducto item) {
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		catalogoTipoProductoDAO.findByPK(item.getIdCatalogoTipoProducto());
+		
+		item = catalogoTipoProductoDAO.update(item);
+		rsp.setId(item.getIdCatalogoTipoProducto());
+		return rsp;
 	}
 }
