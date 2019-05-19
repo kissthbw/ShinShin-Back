@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.model.Producto;
 
@@ -29,6 +31,39 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();
+	}
+
+	@Transactional
+	public List<Producto> getProductosPorMarca(String item, String i) {
+		String marca = item;
+		String nombreProducto = i;
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		c.add(Restrictions.like("nombreProducto", nombreProducto));
+		c.createAlias("catalogoMarca", "marca");
+		c.add(Restrictions.eq("marca.nombreMarca", marca));
+
+		return ((Criteria) c).list();
+	}
+
+	@Transactional
+	public List<Producto> getProductosPorTipo(String item, String i) {
+		String tipoProducto = item;
+		String nombreProducto = i;
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		c.add(Restrictions.like("nombreProducto", nombreProducto));
+		c.createAlias("catalogoTipoProducto", "tipoProducto");
+		c.add(Restrictions.eq("tipoProducto.nombreTipoProducto", tipoProducto));
+
+		return ((Criteria) c).list();
+	}
+
+	@Transactional
+	public List<Producto> getProductosPorNombre(String i) {
+		String tipoProducto = i;
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		c.add(Restrictions.like("nombreProducto", tipoProducto));
+
+		return ((Criteria) c).list();
 	}
 
 }
