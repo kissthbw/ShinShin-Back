@@ -39,14 +39,13 @@ public class TicketDAOTest {
 	@Transactional
 	@Test
 	public void findById() {
+		
 		Ticket item = ticketDAO.findByPK(1l);
-
 		System.out.printf("Ticket: %s %s %s \n", item.getIdTicket());
-
 		System.out.println(item.getProductos().isEmpty() ? "No tiene promoción" : "Producto(s) con promoción:");
 
 		for (Producto p : item.getProductos()) {
-			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca(), p.getTipoProducto());
+			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca(), p.getCatalogoTipoProducto());
 		}
 
 		System.out.println();
@@ -109,7 +108,7 @@ public class TicketDAOTest {
 		System.out.println("Tienda: " + t1.getNombreTienda() + "\n Sucursal: " + t1.getSucursal() +
 				"\n Fecha: " + t1.getFecha() + "\n Hora: " + t1.getHora() + "\n Subtotal: " + t1.getSubtotal() +
 				"\n Iva 15%: " + t1.getIva() + "\n Total: " + t1.getTotal());
-		
+
 		ticketDAO.save(t1);
 	}
 

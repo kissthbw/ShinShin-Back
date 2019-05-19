@@ -111,7 +111,7 @@ public class UsuarioDAOTest {
 
 		for (Producto p : item.getProductos()) {
 			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca().getNombreMarca(),
-					p.getTipoProducto().getNombreTipoProducto());
+					p.getCatalogoTipoProducto().getNombreTipoProducto());
 		}
 
 		for (Ticket t : item.getTickets()) {

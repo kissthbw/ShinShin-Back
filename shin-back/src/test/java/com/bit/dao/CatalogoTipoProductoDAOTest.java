@@ -10,30 +10,32 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-import com.bit.model.TipoProducto;
+import com.bit.model.CatalogoTipoProducto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
-public class TipoProductoDAOTest {
-
+public class CatalogoTipoProductoDAOTest {
+	
 	@Autowired
-	private TipoProductoDAO tipoProductoDAO;
-
+	private CatalogoTipoProductoDAO catalogoTipoProductoDAO;
+	
 	@Transactional
 	@Test
 	public void crudTest() {
-		TipoProducto tp = tipoProductoDAO.findByPK(1L);
-		System.out.println(tp.getNombreTipoProducto());
+		
+		CatalogoTipoProducto ctp = catalogoTipoProductoDAO.findByPK(1L);
+		System.out.println(ctp.getNombreTipoProducto());
 	}
 	
 	@Transactional
 	@Test
 	@Rollback(false)
 	public void save() {
-		TipoProducto item = new TipoProducto();
-		item.setNombreTipoProducto( "Streaming" );
+		CatalogoTipoProducto item = new CatalogoTipoProducto();
+		item.setNombreTipoProducto("Lacteos");
 		
-		tipoProductoDAO.save(item);
+		catalogoTipoProductoDAO.save(item);
 	}
+
 }

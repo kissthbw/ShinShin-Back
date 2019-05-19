@@ -23,14 +23,16 @@ public class CatalogoMarcaDAOTest {
 	@Transactional
 	@Test
 	public void crudTest() {
-		CatalogoMarca m = catalogoMarcaDAO.findByPK(1L);
-		System.out.println(m.getNombreMarca());
+		
+		CatalogoMarca cm = catalogoMarcaDAO.findByPK(1L);
+		System.out.println(cm.getNombreMarca());
 	}
 
 	@Transactional
 	@Test
 	@Rollback(false)
 	public void save() {
+		
 		CatalogoMarca item = new CatalogoMarca();
 		item.setNombreMarca("Chrome");
 		
