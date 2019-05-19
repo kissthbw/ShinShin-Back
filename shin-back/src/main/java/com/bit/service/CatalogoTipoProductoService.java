@@ -2,14 +2,15 @@ package com.bit.service;
 
 import java.util.List;
 
-import com.bit.model.TipoProducto;
+import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.dto.SimpleResponse;
 
-public interface TipoProductoService {
+public interface CatalogoTipoProductoService {
 
-	List<TipoProducto> getTipoProductos();
+	List<CatalogoTipoProducto> getCatalogoTipoProductos();
 
-	void guardarTipoProductos(TipoProducto item);
+	SimpleResponse registrarCatalogoTipoProductos(CatalogoTipoProducto item);
 
-	void actualizarTipoProductos(TipoProducto item);
+	SimpleResponse actualizarCatalogoTipoProductos(CatalogoTipoProducto item);
 
 }

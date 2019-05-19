@@ -2,6 +2,8 @@ package com.bit.service;
 
 import java.util.List;
 
+import com.bit.model.CatalogoMarca;
+import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.dto.SimpleResponse;
 
@@ -19,4 +21,11 @@ public interface ProductoService {
 	SimpleResponse registrarProductos(Producto item);
 
 	SimpleResponse actualizarProductos(Producto item);
+
+	List<Producto> getProductosPorMarca(CatalogoMarca item, Producto i);
+
+	List<Producto> getProductosPorTipo(CatalogoTipoProducto item, Producto i);
+
+	List<Producto> getProductosPorNombre(Producto i);
+
 }
