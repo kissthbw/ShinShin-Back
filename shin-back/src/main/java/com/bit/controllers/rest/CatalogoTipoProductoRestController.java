@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bit.model.TipoProducto;
-import com.bit.service.TipoProductoService;
+import com.bit.model.CatalogoTipoProducto;
+import com.bit.service.CatalogoTipoProductoService;
 
 @RestController
-@RequestMapping("/tipoProductos")
-public class TipoProductoRestController {
+@RequestMapping("/catalogoTipoProductos")
+public class CatalogoTipoProductoRestController {
 
 	@Autowired
-	private TipoProductoService tipoProductoService;
+	private CatalogoTipoProductoService catalogoTipoProductoService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<TipoProducto> getTipoProductos() {
-		System.out.println("Get TipoProductos");
-		List<TipoProducto> list = tipoProductoService.getTipoProductos();
+	public @ResponseBody List<CatalogoTipoProducto> getCatalogoTipoProductos() {
+		System.out.println("Get CatalogoTipoProductos");
+		List<CatalogoTipoProducto> list = catalogoTipoProductoService.getCatalogoTipoProductos();
 
 		return list;
 	}
 
-	@PostMapping(value = "/tipoProductos/guardar")
-	public void guardarTipoProductos(@RequestBody TipoProducto item) {
-		tipoProductoService.guardarTipoProductos(item);
+	@PostMapping(value = "/catalogoTipoProductos/registrar")
+	public void registrarTipoProductos(@RequestBody CatalogoTipoProducto item) {
+		catalogoTipoProductoService.registrarCatalogoTipoProductos(item);
 	}
 
-	@PostMapping(value = "/tipoProductos/actualizar")
-	public void actualizarTipoProductos(@RequestBody TipoProducto item) {
-		tipoProductoService.actualizarTipoProductos(item);
+	@PostMapping(value = "/catalogoTipoProductos/actualizar")
+	public void actualizarTipoProductos(@RequestBody CatalogoTipoProducto item) {
+		catalogoTipoProductoService.actualizarCatalogoTipoProductos(item);
 	}
 }

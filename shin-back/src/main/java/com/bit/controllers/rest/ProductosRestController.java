@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bit.model.CatalogoMarca;
+import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.service.ProductoService;
@@ -54,14 +56,38 @@ public class ProductosRestController {
 	@PostMapping(value = "/producto/registrar")
 	public @ResponseBody SimpleResponse registrarProducto(@RequestBody Producto item) {
 		SimpleResponse rsp = productoService.registrarProductos(item);
-		
+
 		return rsp;
 	}
 
 	@PostMapping(value = "/producto/actualizar")
 	public @ResponseBody SimpleResponse actualizarProducto(@RequestBody Producto item) {
 		SimpleResponse rsp = productoService.actualizarProductos(item);
-		
+
 		return rsp;
+	}
+
+	@PostMapping(value = "/producto/porMarca")
+	public @ResponseBody List<Producto> getProductosPorMarca(CatalogoMarca marca, Producto nombreProducto) {
+		System.out.println();
+		List<Producto> list = productoService.getProductosPorMarca(marca, nombreProducto);
+
+		return list;
+	}
+
+	@PostMapping(value = "/producto/porTipo")
+	public @ResponseBody List<Producto> getProductosPorTipo(CatalogoTipoProducto tipoProducto, Producto nombreProducto) {
+		System.out.println();
+		List<Producto> list = productoService.getProductosPorTipo(tipoProducto, nombreProducto);
+
+		return list;
+	}
+
+	@PostMapping(value = "/producto/porNombre")
+	public @ResponseBody List<Producto> getProductosPorNombre(Producto nombreProducto) {
+		System.out.println();
+		List<Producto> list = productoService.getProductosPorNombre(nombreProducto);
+
+		return list;
 	}
 }
