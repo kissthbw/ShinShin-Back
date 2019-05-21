@@ -46,7 +46,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		item.setEstatusActivacion(false);
 
 		SMSDTO sms = new SMSDTO();
-		sms.setToMobileNumber(item.getTelLocal());
+		sms.setToMobileNumber(item.getTelMovil());
 		sms.setBody("Tu código es: " + item.getCodigoVerificacion());
 
 		try {
@@ -115,7 +115,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		item.setEstatusActivacion(false);
 		
 		SMSDTO sms = new SMSDTO();
-		sms.setToMobileNumber(item.getTelLocal());
+		sms.setToMobileNumber(item.getTelMovil());
 		sms.setBody("Tu código es: " + item.getCodigoVerificacion());
 
 		try {
