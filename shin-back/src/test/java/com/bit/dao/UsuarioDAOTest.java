@@ -67,7 +67,7 @@ public class UsuarioDAOTest {
 		u.setCodigoPostal("57820");
 		u.setDelMun("Nezahualcóyotl");
 		u.setEstado("Estado de México");
-		u.setTelLocal("+5215534714616");
+		u.setTelMovil("+5215534714616");
 		u.setEstatusActivacion(false);
 		u.setCodigoVerificacion("");
 
@@ -90,7 +90,7 @@ public class UsuarioDAOTest {
 	@Test
 	@Rollback(false)
 	public void activarUsuarios() {
-		
+
 		Usuario item = new Usuario();
 		item.setIdUsuario(5l);
 		item.setCodigoVerificacion("5215");
@@ -142,7 +142,7 @@ public class UsuarioDAOTest {
 	@Rollback(false)
 	public void saveHistoricoTickets() {
 		Usuario item = usuarioDAO.findByPK(1l);
-		Ticket t = ticketDAO.findByPK(4l);
+		Ticket t = ticketDAO.findByPK(1l);
 		List<Ticket> list = new ArrayList<>();
 		list.add(t);
 
@@ -156,29 +156,77 @@ public class UsuarioDAOTest {
 	@Rollback(false)
 	public void save() {
 		Usuario item = new Usuario();
-		item.setNombre("Juan");
+		item.setNombre("Adrian");
 		item.setApPaterno("Osorio");
 		item.setApMaterno("Alvarez");
 
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, 11);
-		c.set(Calendar.MONTH, Calendar.SEPTEMBER);
-		c.set(Calendar.YEAR, 1983);
+		c.set(Calendar.DAY_OF_MONTH, 02);
+		c.set(Calendar.MONTH, Calendar.OCTOBER);
+		c.set(Calendar.YEAR, 1984);
 
 		item.setFechaNac(c.getTime());
-		item.setUsuario("kissthbw");
-		item.setContrasenia("kiss2101");
-		item.setCalle("Virgen de los Remedios");
-		item.setNumeroExt("71");
+		item.setTelMovil("+5215540150544");
+		item.setCorreoElectronico("masteboy@example.com");
+		item.setUsuario("masterboy84");
+		item.setContrasenia("qwerty123");
+		item.setCalle("Pataguas");
+		item.setNumeroExt("115");
 		item.setNumeroInt("");
-		item.setColonia("Virgencitas");
-		item.setCodigoPostal("57300");
+		item.setColonia("La Perla");
+		item.setCodigoPostal("57820");
 		item.setDelMun("Nezahualcoyotl");
 		item.setEstado("Estado de MÃ©xico");
-		item.setTelLocal("51121423");
 		item.setEstatusActivacion(false);
 		item.setCodigoVerificacion("");
 
 		usuarioDAO.save(item);
+	}
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void asignarTicket() {
+
+		Usuario item = usuarioDAO.findByPK(1l);
+		Ticket ticket = ticketDAO.findByPK(5l);
+		item.addTicket(ticket);
+
+		System.out.println("Nombre: " + item.getNombre() + " " + item.getApPaterno() + " \n" + "Usuario: " + item.getUsuario() +
+				" Id Ticket: " + ticket.getIdTicket() + "\n Sucursal: " + ticket.getSucursal() + "\n Tienda: " + ticket.getNombreTienda());
+
+	}
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void imprimirInformacionUsuario() {
+		Usuario u = usuarioDAO.findByPK(1l);
+		System.out.println("Nombre: " + u.getNombre() + " " + u.getApPaterno() + " " + u.getApMaterno() + "\n"
+				+ "Usuario: " + u.getUsuario());
+		
+		List<Ticket> list = u.getTickets();
+		
+		for (Ticket t : list) {
+		
+			System.out.println("Ticket: " + t.getIdTicket() + "Tienda: " + t.getNombreTienda() + "Sucursal: " + t.getSucursal() +
+					"Total: " + t.getTotal());
+			
+			for(Producto p : t.getProductos()) {
+				
+				System.out.println("Producto: " + p.getNombreProducto() + "Contenido " + p.getContenido() + " Precio: " + p.getPrecio());
+				
+				double totalBonificacion = 0;
+				for(Producto pb : t.getProductos()) {
+					totalBonificacion += pb.getCantidadBonificacion();
+					
+					System.out.println("Producto: " + pb.getNombreProducto() + " tiene: $" + pb.getCantidadBonificacion() +
+							" de bonificacion");
+					
+				}
+				
+				System.out.println("Bonificación total: $" + totalBonificacion);
+			}
+		}
 	}
 }
