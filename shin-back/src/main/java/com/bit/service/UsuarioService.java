@@ -15,4 +15,8 @@ public interface UsuarioService {
 
 	SimpleResponse actualizarUsuarios(Usuario item);
 
+	Usuario findUserByUser(Usuario item);
+
+	Usuario findUserByUserAndPassword(Usuario item);
+
 }
