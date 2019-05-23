@@ -44,7 +44,23 @@ public class UsuariosRestController {
 	}
 	
 	@PostMapping(value = "/usuario/actualizar")
-	public void actualizarUsuario(@RequestBody Usuario item) {
-		usuarioService.actualizarUsuarios(item);
+	public @ResponseBody SimpleResponse actualizarUsuario(@RequestBody Usuario item) {
+		SimpleResponse rsp = usuarioService.actualizarUsuarios(item);
+		
+		return rsp;
+	}
+	
+	@PostMapping(value = "/usuario/login")
+	public @ResponseBody Usuario findUserByUser(Usuario item) {
+		Usuario user = usuarioService.findUserByUser(item);
+		
+		return user;
+	}
+	
+	@PostMapping(value = "/usuario/login2")
+	public @ResponseBody Usuario findUserByUserAndPassword(Usuario item) {
+		Usuario user = usuarioService.findUserByUserAndPassword(item);
+		
+		return user;
 	}
 }
