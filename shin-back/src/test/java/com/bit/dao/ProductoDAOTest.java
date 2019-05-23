@@ -83,7 +83,7 @@ public class ProductoDAOTest {
 	@Test
 	public void getProductosPorMarca() {
 		String marca = "Alpura";
-		String nombreProducto = "Leche Deslactosada";
+		String nombreProducto = "Leche Entera";
 		List<Producto> list = productoDAO.getProductosPorMarca(marca, nombreProducto);
 		for (Producto p : list) {
 			System.out.println("Producto: " + p.getNombreProducto() + " Precio: " + p.getPrecio());

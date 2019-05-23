@@ -16,6 +16,7 @@ import com.bit.config.WebConfig;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.UsuarioService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -58,7 +59,7 @@ public class UsuarioDAOTest {
 		c.set(Calendar.YEAR, 1984);
 
 		u.setFechaNac(c.getTime());
-		u.setUsuario("AdrianBoy");
+		u.setUsuario("enmascarado");
 		u.setContrasenia("masterBoy");
 		u.setCalle("Pataguas");
 		u.setNumeroExt("115");
@@ -71,7 +72,8 @@ public class UsuarioDAOTest {
 		u.setEstatusActivacion(false);
 		u.setCodigoVerificacion("");
 
-		usuarioService.registrarUsuarios(u);
+		SimpleResponse respuesta = usuarioService.registrarUsuarios(u);
+		System.out.println(respuesta.getMessage() + "\n" + respuesta.getCode());
 	}
 
 	@Transactional
@@ -192,8 +194,9 @@ public class UsuarioDAOTest {
 		Ticket ticket = ticketDAO.findByPK(5l);
 		item.addTicket(ticket);
 
-		System.out.println("Nombre: " + item.getNombre() + " " + item.getApPaterno() + " \n" + "Usuario: " + item.getUsuario() +
-				" Id Ticket: " + ticket.getIdTicket() + "\n Sucursal: " + ticket.getSucursal() + "\n Tienda: " + ticket.getNombreTienda());
+		System.out.println("Nombre: " + item.getNombre() + " " + item.getApPaterno() + " \n" + "Usuario: "
+				+ item.getUsuario() + " Id Ticket: " + ticket.getIdTicket() + "\n Sucursal: " + ticket.getSucursal()
+				+ "\n Tienda: " + ticket.getNombreTienda());
 
 	}
 
@@ -204,29 +207,67 @@ public class UsuarioDAOTest {
 		Usuario u = usuarioDAO.findByPK(1l);
 		System.out.println("Nombre: " + u.getNombre() + " " + u.getApPaterno() + " " + u.getApMaterno() + "\n"
 				+ "Usuario: " + u.getUsuario());
-		
+
 		List<Ticket> list = u.getTickets();
-		
+
 		for (Ticket t : list) {
-		
-			System.out.println("Ticket: " + t.getIdTicket() + "Tienda: " + t.getNombreTienda() + "Sucursal: " + t.getSucursal() +
-					"Total: " + t.getTotal());
-			
-			for(Producto p : t.getProductos()) {
-				
-				System.out.println("Producto: " + p.getNombreProducto() + "Contenido " + p.getContenido() + " Precio: " + p.getPrecio());
-				
+
+			System.out.println("Ticket: " + t.getIdTicket() + "Tienda: " + t.getNombreTienda() + "Sucursal: "
+					+ t.getSucursal() + "Total: " + t.getTotal());
+
+			for (Producto p : t.getProductos()) {
+
+				System.out.println("Producto: " + p.getNombreProducto() + "Contenido " + p.getContenido() + " Precio: "
+						+ p.getPrecio());
+
 				double totalBonificacion = 0;
-				for(Producto pb : t.getProductos()) {
+				for (Producto pb : t.getProductos()) {
 					totalBonificacion += pb.getCantidadBonificacion();
-					
-					System.out.println("Producto: " + pb.getNombreProducto() + " tiene: $" + pb.getCantidadBonificacion() +
-							" de bonificacion");
-					
+
+					System.out.println("Producto: " + pb.getNombreProducto() + " tiene: $"
+							+ pb.getCantidadBonificacion() + " de bonificacion");
+
 				}
-				
+
 				System.out.println("Bonificación total: $" + totalBonificacion);
 			}
+		}
+	}
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void login() {
+		String usuario = "kissthw";
+		String contrasenia = "kiss2101";
+
+		Usuario user = usuarioDAO.findUserByUser(usuario);
+
+		if (user == null) {
+			System.out.println("El usuario no existe");
+		} else {
+			if (usuario.equals(user.getUsuario()) && contrasenia.equals(user.getContrasenia())) {
+				System.out.println(
+						"Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
+			} else {
+				System.out.println("Usuario o contraseña invalidos");
+			}
+		}
+	}
+
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void login2() {
+		String usuario = "vinoTinto";
+		String contrasenia = "tintomx";
+
+		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
+
+		if (user == null) {
+			System.out.println("usuario y/o contraseña erróneo");
+		} else {
+			System.out.println("Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
 		}
 	}
 }
