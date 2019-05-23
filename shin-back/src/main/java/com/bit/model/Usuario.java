@@ -38,9 +38,12 @@ public class Usuario {
 	@Temporal(TemporalType.DATE)
 	private Date fechaNac;
 
+	@Column(name = "foto_usuario")
+	private String fotoUsuario;
+
 	@Column(name = "tel_movil")
 	private String telMovil;
-	
+
 	@Column(name = "correo_electronico")
 	private String correoElectronico;
 
@@ -79,16 +82,14 @@ public class Usuario {
 
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinTable(name = "producto_favorito",
-		joinColumns = { @JoinColumn(name = "id_usuario") },
-		inverseJoinColumns = { @JoinColumn(name = "id_producto") })
+	@JoinTable(name = "producto_favorito", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_producto") })
 	private List<Producto> productos = new ArrayList<>();
 
 	// Guardar tickets
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinTable(name = "historico_tickets",
-		joinColumns = { @JoinColumn(name = "usuario_id_usuario") },
-		inverseJoinColumns = { @JoinColumn(name = "ticket_id_ticket") })
+	@JoinTable(name = "historico_tickets", joinColumns = {
+			@JoinColumn(name = "usuario_id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "ticket_id_ticket") })
 	private List<Ticket> tickets = new ArrayList<>();
 
 	public void setIdUsuario(Long idUsuario) {
@@ -129,6 +130,14 @@ public class Usuario {
 
 	public Date getFechaNac() {
 		return fechaNac;
+	}
+
+	public void setFotoUsuario(String fotoUsuario) {
+		this.fotoUsuario = fotoUsuario;
+	}
+
+	public String getFotoUsuario() {
+		return fotoUsuario;
 	}
 
 	public void setTelMovil(String telMovil) {
@@ -260,7 +269,7 @@ public class Usuario {
 		productos.remove(producto);
 		// address.getOwners().remove( this );
 	}
-	
+
 	public void addTicket(Ticket ticket) {
 		tickets.add(ticket);
 	}
