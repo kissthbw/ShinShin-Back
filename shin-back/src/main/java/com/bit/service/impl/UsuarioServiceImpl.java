@@ -40,6 +40,19 @@ public class UsuarioServiceImpl implements UsuarioService {
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
+		String usuario = item.getUsuario();
+		//TODO Agregar validacion de usuario unico
+		Usuario user = usuarioDAO.findUserByUser(usuario);
+		if(user == null) {
+			//Si es nulo significa que el usuario no exite y por lo tanto el usuario puede ser registrado
+		} else {
+			//Si no es nulo significa que el usuario ya existe y no puede ser registrado nuevamente
+			rsp.setMessage("Usuario ya existe");
+			rsp.setCode(500);
+			
+			return rsp;
+		}
+		
 		String codigo = Utils.generaCodigoVerficacion();
 		Utils.generaCodigoVerficacion();
 		item.setCodigoVerificacion(codigo);
@@ -150,6 +163,29 @@ public class UsuarioServiceImpl implements UsuarioService {
 		rsp.setId(item.getIdUsuario());
 		return rsp;
 
+	}
+	
+	@Override
+	@Transactional
+	public Usuario findUserByUser(Usuario item) {
+
+		String usuario = item.getUsuario();
+		
+		Usuario user = usuarioDAO.findUserByUser(usuario);
+		
+		return user;
+	}
+	
+	@Override
+	@Transactional
+	public Usuario findUserByUserAndPassword(Usuario item) {
+
+		String usuario = item.getUsuario();
+		String contrasenia = item.getContrasenia();
+		
+		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
+		
+		return user;
 	}
 
 }
