@@ -118,7 +118,7 @@ public class UsuarioDAOTest {
 					t.getTotal());
 			
 			int total = t.getProductos().size();
-			String etiqueta = total == 1 ? "producto" : "prodcutos";
+			String etiqueta = total == 1 ? "producto" : "productos";
 			System.out.printf(" - Este ticket contiene %d %s de promoción. \n", t.getProductos().size(), etiqueta );
 			
 			for( Producto p : t.getProductos() ) {

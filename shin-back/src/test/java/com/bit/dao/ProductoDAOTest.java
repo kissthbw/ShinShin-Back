@@ -1,6 +1,7 @@
 package com.bit.dao;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +35,11 @@ public class ProductoDAOTest {
 	@Transactional
 	@Test
 	public void crudTest() {
-		Producto p = productoDAO.findByPK(1L);
-		System.out.println(p.getNombreProducto());
+		List<Producto> list = productoDAO.getProductosPorMarca();
+		
+		for( Producto item : list ) {
+			System.out.println( item.getNombreProducto() );
+		}
 	}
 	
 	@Transactional
