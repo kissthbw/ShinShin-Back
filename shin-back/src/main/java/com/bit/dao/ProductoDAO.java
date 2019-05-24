@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.Producto;
@@ -29,6 +30,16 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();
+	}
+	
+	public List<Producto> getProductosPorMarca() {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+//		dc.add(Restrictions.like("nombreProducto", "Laptop"));
+		c.createAlias("catalogoMarca", "marca");
+		c.add( Restrictions.eq("marca.nombreMarca", "Roku") );
+		
+		
+		return ((Criteria) c).list();
 	}
 
 }
