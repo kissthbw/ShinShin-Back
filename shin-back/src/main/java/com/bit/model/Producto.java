@@ -2,7 +2,6 @@ package com.bit.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -60,8 +59,8 @@ public class Producto {
 
 	// Mapeo contra TipoProducto
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo_producto")
-	private TipoProducto tipoProducto;
+	@JoinColumn(name = "id_catalogo_tipo_producto")
+	private CatalogoTipoProducto catalogoTipoProducto;
 
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
@@ -151,20 +150,20 @@ public class Producto {
 		return cantidadBonificacion;
 	}
 
-	public CatalogoMarca getCatalogoMarca() {
-		return catalogoMarca;
-	}
-
 	public void setCatalogoMarca(CatalogoMarca catalogoMarca) {
 		this.catalogoMarca = catalogoMarca;
 	}
 
-	public TipoProducto getTipoProducto() {
-		return tipoProducto;
+	public CatalogoMarca getCatalogoMarca() {
+		return catalogoMarca;
 	}
 
-	public void setTipoProducto(TipoProducto tipoProducto) {
-		this.tipoProducto = tipoProducto;
+	public void setCatalogoTipoProducto(CatalogoTipoProducto catalogoTipoProducto) {
+		this.catalogoTipoProducto = catalogoTipoProducto;
+	}
+
+	public CatalogoTipoProducto getCatalogoTipoProducto() {
+		return catalogoTipoProducto;
 	}
 
 }

@@ -38,6 +38,12 @@ public class Usuario {
 	@Temporal(TemporalType.DATE)
 	private Date fechaNac;
 
+	@Column(name = "tel_movil")
+	private String telMovil;
+	
+	@Column(name = "correo_electronico")
+	private String correoElectronico;
+
 	@Column(name = "usuario")
 	private String usuario;
 
@@ -64,9 +70,6 @@ public class Usuario {
 
 	@Column(name = "estado")
 	private String estado;
-
-	@Column(name = "tel_local")
-	private String telLocal;
 
 	@Column(name = "estatus_activacion")
 	private boolean estatusActivacion;
@@ -126,6 +129,22 @@ public class Usuario {
 
 	public Date getFechaNac() {
 		return fechaNac;
+	}
+
+	public void setTelMovil(String telMovil) {
+		this.telMovil = telMovil;
+	}
+
+	public String getTelMovil() {
+		return telMovil;
+	}
+
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
+	}
+
+	public String getCorreoElectronico() {
+		return correoElectronico;
 	}
 
 	public void setUsuario(String usuario) {
@@ -198,14 +217,6 @@ public class Usuario {
 
 	public String getEstado() {
 		return estado;
-	}
-
-	public void setTelLocal(String telLocal) {
-		this.telLocal = telLocal;
-	}
-
-	public String getTelLocal() {
-		return telLocal;
 	}
 
 	public void setEstatusActivacion(boolean estatusActivacion) {

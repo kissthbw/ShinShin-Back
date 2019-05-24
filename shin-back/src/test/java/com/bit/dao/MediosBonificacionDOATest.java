@@ -31,12 +31,12 @@ public class MediosBonificacionDOATest {
 	@Test
 	@Rollback(false)
 	public void save() {
-		MediosBonificacion mediosBonificacion = new MediosBonificacion();
-		mediosBonificacion.setIdMediosBonificacion(2l);
-		mediosBonificacion.setCuentaMedioBonificacion("");
-		mediosBonificacion.setCompaniaMedioBonificacion("");
-
-		mediosBonificacionDAO.save(mediosBonificacion);
+		MediosBonificacion item = new MediosBonificacion();
+		item.setIdMediosBonificacion(2l);
+		item.setCuentaMedioBonificacion("");
+		item.setCompaniaMedioBonificacion("");
+		
+		mediosBonificacionDAO.save(item);
 	}
 
 }

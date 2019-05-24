@@ -31,6 +31,7 @@ public class ProductoValoracionDAOTest {
 	@Transactional
 	@Test
 	public void crudTest() {
+
 		ProductoValoracion pv = productoValoracionDAO.findByPK(1L);
 		System.out.println("Producto: " + pv.getProducto().getNombreProducto() + "\n" + "Valoracion: "
 				+ pv.getValoracion() + " puntos de 5 " + "\n" + "Usuario: " + pv.getUsuario().getUsuario());
