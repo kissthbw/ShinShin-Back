@@ -106,6 +106,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 			temp.setEstatusActivacion(true);
 			System.out.println("Código correcto");
 		} else {
+			rsp.setMessage("Error");
+			rsp.setCode(500);
 			System.out.println("El código no coincide");
 		}
 
