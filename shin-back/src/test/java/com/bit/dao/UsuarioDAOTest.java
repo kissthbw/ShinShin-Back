@@ -3,6 +3,7 @@ package com.bit.dao;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,8 @@ public class UsuarioDAOTest {
 		u.setNumeroInt("");
 		u.setColonia("La Perla");
 		u.setCodigoPostal("57820");
-		u.setDelMun("Nezahualcóyotl");
-		u.setEstado("Estado de México");
+		u.setDelMun("Nezahualcoyotl");
+		u.setEstado("Estado de Mexico");
 		u.setTelMovil("+5215534714616");
 		u.setEstatusActivacion(false);
 		u.setCodigoVerificacion("");
@@ -107,18 +108,26 @@ public class UsuarioDAOTest {
 
 		System.out.printf("Usuario: %s %s %s \n", item.getNombre(), item.getApPaterno(), item.getApMaterno());
 
-		System.out.println(item.getProductos().isEmpty() ? "No tiene productos favoritos" : "Productos favoritos:");
+		System.out.println(
+				item.getProductosFavoritos().isEmpty() ? "No tiene productos favoritos" : "Productos favoritos:");
 
-		System.out.println(item.getTickets().isEmpty() ? "No tiene tickets guardados" : "Tickets guardados:");
-
-		for (Producto p : item.getProductos()) {
-			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca().getNombreMarca(),
-					p.getCatalogoTipoProducto().getNombreTipoProducto());
+		for (Producto p : item.getProductosFavoritos()) {
+			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca().getNombreMarca());
 		}
 
+		System.out.println(item.getTickets().isEmpty() ? "No tiene tickets guardados" : "Tickets guardados:");
 		for (Ticket t : item.getTickets()) {
 			System.out.printf(" - %s %s %s \n", t.getNombreTienda(), t.getSucursal(), t.getFecha(), t.getHora(),
 					t.getTotal());
+
+			int total = t.getProductos().size();
+			String etiqueta = total == 1 ? "producto" : "productos";
+			System.out.printf(" - Este ticket contiene %d %s de promociÃ³n. \n", t.getProductos().size(), etiqueta);
+
+			for (Producto p : t.getProductos()) {
+				System.out.printf("   - Producto: %s con $ %.2f de promociÃ³n. \n", p.getNombreProducto(),
+						p.getCantidadBonificacion());
+			}
 		}
 
 		System.out.println();
@@ -134,7 +143,7 @@ public class UsuarioDAOTest {
 		List<Producto> list = new ArrayList<>();
 		list.add(p);
 
-		item.addProducto(p);
+		item.addProductoFavorito(p);
 
 		usuarioDAO.save(item);
 	}
@@ -229,7 +238,9 @@ public class UsuarioDAOTest {
 
 				}
 
+
 				System.out.println("Bonificación total: $" + totalBonificacion);
+
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 package com.bit.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class ProductoServiceImpl implements ProductoService {
 	public List<Producto> getProductos() {
 
 		List<Producto> list = productoDAO.getProductos();
-		return list;
+		
+		return transform(list);
 	}
 
 	@Override
@@ -54,7 +56,44 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setId(item.getIdProducto());
 		return rsp;
 	}
-
+	
+	/*
+	 * Helper methods
+	 */
+	private List<Producto> transform( List<Producto> list ) {
+		List<Producto> tmp = new ArrayList<>();
+		
+		for( Producto item : list ) {
+			Producto pTemp = new Producto();
+			CatalogoMarca m = new CatalogoMarca();
+			CatalogoTipoProducto t = new CatalogoTipoProducto();
+			pTemp.setIdProducto( item.getIdProducto() );
+			pTemp.setNombreProducto( item.getNombreProducto() );
+			pTemp.setPrecio( item.getPrecio() );
+			pTemp.setCodigoBarras( item.getCodigoBarras() );
+			pTemp.setPresentacion( item.getPresentacion() );
+			pTemp.setContenido( item.getContenido() );
+			pTemp.setDescripcion( item.getDescripcion() );
+			pTemp.setAplicaPromocion( item.isAplicaPromocion() );
+			pTemp.setVigenciaPromocion( item.getVigenciaPromocion() );
+			pTemp.setUrlImagenProducto( item.getUrlImagenProducto() );
+			pTemp.setCantidadBonificacion( item.getCantidadBonificacion() );
+			
+			m.setIdCatalogoMarca( item.getCatalogoMarca().getIdCatalogoMarca() );
+			m.setNombreMarca( item.getCatalogoMarca().getNombreMarca() );
+			pTemp.setCatalogoMarca( m );
+			
+			t.setIdCatalogoTipoProducto( item.getCatalogoTipoProducto().getIdCatalogoTipoProducto() );
+			t.setNombreTipoProducto( item.getCatalogoTipoProducto().getNombreTipoProducto() );
+			pTemp.setCatalogoTipoProducto( t );
+			
+			tmp.add(pTemp);
+		}
+		
+		
+		return tmp;
+	}
+	
 	@Override
 	@Transactional
 	public List<Producto> getProductosPorMarca(CatalogoMarca item, Producto i) {
@@ -89,5 +128,4 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		return list;
 	}
-
 }

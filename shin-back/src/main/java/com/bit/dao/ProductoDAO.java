@@ -32,6 +32,16 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 
 		return c.list();
 	}
+	
+	public List<Producto> getProductosPorMarca() {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+//		dc.add(Restrictions.like("nombreProducto", "Laptop"));
+		c.createAlias("catalogoMarca", "marca");
+		c.add( Restrictions.eq("marca.nombreMarca", "Roku") );
+		
+		
+		return ((Criteria) c).list();
+	}
 
 	@Transactional
 	public List<Producto> getProductosPorMarca(String item, String i) {

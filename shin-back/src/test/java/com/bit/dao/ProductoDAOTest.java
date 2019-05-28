@@ -13,10 +13,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
-
-import com.bit.model.Producto;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.Producto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -29,8 +28,12 @@ public class ProductoDAOTest {
 	@Transactional
 	@Test
 	public void crudTest() {
-		Producto p = productoDAO.findByPK(3L);
-		System.out.println(p.getNombreProducto());
+
+		List<Producto> list = productoDAO.getProductosPorMarca();
+		
+		for( Producto item : list ) {
+			System.out.println( item.getNombreProducto() );
+		}
 	}
 
 	@Transactional
@@ -39,6 +42,7 @@ public class ProductoDAOTest {
 	public void save() {
 		Producto item = new Producto();
 		CatalogoMarca marca = new CatalogoMarca();
+
 		marca.setIdCatalogoMarca(2l);
 		// marca.setNombreMarca( "Roku" );
 

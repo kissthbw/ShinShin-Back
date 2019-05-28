@@ -82,9 +82,11 @@ public class Usuario {
 
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinTable(name = "producto_favorito", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = {
-			@JoinColumn(name = "id_producto") })
-	private List<Producto> productos = new ArrayList<>();
+	@JoinTable(name = "producto_favorito",
+		joinColumns = { @JoinColumn(name = "id_usuario") },
+		inverseJoinColumns = { @JoinColumn(name = "id_producto") })
+	private List<Producto> productosFavoritos = new ArrayList<>();
+
 
 	// Guardar tickets
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
@@ -244,12 +246,12 @@ public class Usuario {
 		return codigoVerificacion;
 	}
 
-	public List<Producto> getProductos() {
-		return productos;
+	public List<Producto> getProductosFavoritos() {
+		return productosFavoritos;
 	}
 
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
+	public void setProductosFavoritos(List<Producto> productos) {
+		this.productosFavoritos = productos;
 	}
 
 	public List<Ticket> getTickets() {
@@ -260,13 +262,13 @@ public class Usuario {
 		this.tickets = tickets;
 	}
 
-	public void addProducto(Producto producto) {
-		productos.add(producto);
+	public void addProductoFavorito(Producto producto) {
+		productosFavoritos.add(producto);
 		// address.getOwners().add( this );
 	}
 
-	public void removeProducto(Producto producto) {
-		productos.remove(producto);
+	public void removeProductoFavoritos(Producto producto) {
+		productosFavoritos.remove(producto);
 		// address.getOwners().remove( this );
 	}
 
