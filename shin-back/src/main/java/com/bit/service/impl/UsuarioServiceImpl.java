@@ -9,9 +9,12 @@ import com.bit.common.Utils;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.UsuarioDAO;
 import com.bit.exception.CommunicationException;
+import com.bit.model.Producto;
+import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SMSDTO;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.service.UsuarioService;
 
 @Service
@@ -189,5 +192,30 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		return user;
 	}
-
+	
+	@Override
+	@Transactional
+	/*
+	 * devolver un objeto de tipo InformacionUsuarioRSP
+	 * el metodo obtenerTotalBonificacion recibe como parametros
+	 * la variable nombreUsuario
+	 */
+	public InformacionUsuarioRSP obtenerTotalBonificacion(Usuario item) {
+		
+		Usuario user = usuarioDAO.findUserByUser(item.getUsuario());
+		InformacionUsuarioRSP iUser = new InformacionUsuarioRSP();
+		iUser.setNombreUsuario(user.getUsuario());
+		
+		List<Ticket> list = user.getTickets();
+		
+		double bonificacion = 0;
+		for(Ticket t : list) {
+			for(Producto p : t.getProductos()) {
+				bonificacion += p.getCantidadBonificacion();
+			}
+		}
+		
+		iUser.setBonificacion(bonificacion);
+		return iUser;
+	}
 }
