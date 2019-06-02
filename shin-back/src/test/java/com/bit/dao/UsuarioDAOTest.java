@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,6 +26,8 @@ import com.bit.service.UsuarioService;
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
 public class UsuarioDAOTest {
+	
+	private static final Logger log = LoggerFactory.getLogger(UsuarioDAOTest.class);
 
 	@Autowired
 	private UsuarioDAO usuarioDAO;
@@ -104,6 +108,7 @@ public class UsuarioDAOTest {
 	@Transactional
 	@Test
 	public void findById() {
+		log.info("Buscando usuario por ID");
 		Usuario item = usuarioDAO.findByPK(1l);
 
 		System.out.printf("Usuario: %s %s %s \n", item.getNombre(), item.getApPaterno(), item.getApMaterno());
