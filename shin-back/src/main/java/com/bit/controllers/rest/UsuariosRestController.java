@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.service.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuariosRestController {
 
+	//autowired inyecta (crea) de tipo usuarioservice
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -51,15 +53,22 @@ public class UsuariosRestController {
 	}
 	
 	@PostMapping(value = "/usuario/login")
-	public @ResponseBody Usuario findUserByUser(Usuario item) {
+	public @ResponseBody Usuario findUserByUser(@RequestBody Usuario item) {
 		Usuario user = usuarioService.findUserByUser(item);
 		
 		return user;
 	}
 	
 	@PostMapping(value = "/usuario/login2")
-	public @ResponseBody Usuario findUserByUserAndPassword(Usuario item) {
+	public @ResponseBody Usuario findUserByUserAndPassword(@RequestBody Usuario item) {
 		Usuario user = usuarioService.findUserByUserAndPassword(item);
+		
+		return user;
+	}
+	
+	@GetMapping(value = "/usuario/totalBonificacion")
+	public @ResponseBody InformacionUsuarioRSP obtenerTotalBonificacion(@RequestBody Usuario item) {
+		InformacionUsuarioRSP user = usuarioService.obtenerTotalBonificacion(item);
 		
 		return user;
 	}
