@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 
 public interface UsuarioService {
 
@@ -18,5 +19,7 @@ public interface UsuarioService {
 	Usuario findUserByUser(Usuario item);
 
 	Usuario findUserByUserAndPassword(Usuario item);
+
+	InformacionUsuarioRSP obtenerTotalBonificacion(Usuario item);
 
 }

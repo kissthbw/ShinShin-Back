@@ -28,6 +28,7 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		return transform(list);
 	}
+	
 
 	@Override
 	@Transactional
@@ -103,7 +104,7 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		List<Producto> list = productoDAO.getProductosPorMarca(marca, nombreProducto);
 		
-		return list;
+		return transform(list);
 	}
 
 	@Override
@@ -115,7 +116,7 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		List<Producto> list = productoDAO.getProductosPorTipo(tipoProducto, nombreProducto);
 		
-		return list;
+		return transform(list);
 	}
 
 	@Override
@@ -126,6 +127,6 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		List<Producto> list = productoDAO.getProductosPorNombre(nombreProducto);
 		
-		return list;
+		return transform(list);
 	}
 }

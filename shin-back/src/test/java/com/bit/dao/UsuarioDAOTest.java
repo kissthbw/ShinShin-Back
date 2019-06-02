@@ -20,6 +20,7 @@ import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.service.UsuarioService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -64,6 +65,9 @@ public class UsuarioDAOTest {
 		c.set(Calendar.YEAR, 1984);
 
 		u.setFechaNac(c.getTime());
+		u.setFotoUsuario("");
+		u.setTelMovil("+5215534714616");
+		u.setCorreoElectronico("adrian@ejemplo.com");
 		u.setUsuario("enmascarado");
 		u.setContrasenia("masterBoy");
 		u.setCalle("Pataguas");
@@ -73,7 +77,6 @@ public class UsuarioDAOTest {
 		u.setCodigoPostal("57820");
 		u.setDelMun("Nezahualcoyotl");
 		u.setEstado("Estado de Mexico");
-		u.setTelMovil("+5215534714616");
 		u.setEstatusActivacion(false);
 		u.setCodigoVerificacion("");
 
@@ -90,19 +93,20 @@ public class UsuarioDAOTest {
 		item.setContrasenia("mexicangreat");
 
 		usuarioService.actualizarUsuarios(item);
-
 	}
 
 	@Transactional
 	@Test
 	@Rollback(false)
 	public void activarUsuarios() {
-
+		SimpleResponse respuesta = new SimpleResponse();
+		
 		Usuario item = new Usuario();
-		item.setIdUsuario(5l);
+		item.setIdUsuario(8l);
 		item.setCodigoVerificacion("5215");
 
-		usuarioService.activarUsuarios(item);
+		respuesta = usuarioService.activarUsuarios(item);
+		System.out.println(respuesta.getMessage() + " \n" + respuesta.getCode());
 	}
 
 	@Transactional
@@ -113,14 +117,14 @@ public class UsuarioDAOTest {
 
 		System.out.printf("Usuario: %s %s %s \n", item.getNombre(), item.getApPaterno(), item.getApMaterno());
 
-		System.out.println(
-				item.getProductosFavoritos().isEmpty() ? "No tiene productos favoritos" : "Productos favoritos:");
+		System.out.println(item.getProductosFavoritos().isEmpty() ? "No tiene productos favoritos" : "Productos favoritos:");
 
 		for (Producto p : item.getProductosFavoritos()) {
 			System.out.printf(" - %s %s %s \n", p.getNombreProducto(), p.getCatalogoMarca().getNombreMarca());
 		}
 
 		System.out.println(item.getTickets().isEmpty() ? "No tiene tickets guardados" : "Tickets guardados:");
+		
 		for (Ticket t : item.getTickets()) {
 			System.out.printf(" - %s %s %s \n", t.getNombreTienda(), t.getSucursal(), t.getFecha(), t.getHora(),
 					t.getTotal());
@@ -130,13 +134,11 @@ public class UsuarioDAOTest {
 			System.out.printf(" - Este ticket contiene %d %s de promoción. \n", t.getProductos().size(), etiqueta);
 
 			for (Producto p : t.getProductos()) {
-				System.out.printf("   - Producto: %s con $ %.2f de promoción. \n", p.getNombreProducto(),
-						p.getCantidadBonificacion());
+				System.out.printf(" - Producto: %s con $ %.2f de promoción. \n", p.getNombreProducto(), p.getCantidadBonificacion());
 			}
 		}
 
 		System.out.println();
-
 	}
 
 	@Transactional
@@ -182,10 +184,11 @@ public class UsuarioDAOTest {
 		c.set(Calendar.YEAR, 1984);
 
 		item.setFechaNac(c.getTime());
+		item.setFotoUsuario("");
 		item.setTelMovil("+5215540150544");
-		item.setCorreoElectronico("masteboy@example.com");
+		item.setCorreoElectronico("masterboy@gmail.com");
 		item.setUsuario("masterboy84");
-		item.setContrasenia("qwerty123");
+		item.setContrasenia("qwerty12387");
 		item.setCalle("Pataguas");
 		item.setNumeroExt("115");
 		item.setNumeroInt("");
@@ -197,6 +200,7 @@ public class UsuarioDAOTest {
 		item.setCodigoVerificacion("");
 
 		usuarioDAO.save(item);
+		System.out.println("mensaje de prueba");
 	}
 
 	@Transactional
@@ -211,7 +215,6 @@ public class UsuarioDAOTest {
 		System.out.println("Nombre: " + item.getNombre() + " " + item.getApPaterno() + " \n" + "Usuario: "
 				+ item.getUsuario() + " Id Ticket: " + ticket.getIdTicket() + "\n Sucursal: " + ticket.getSucursal()
 				+ "\n Tienda: " + ticket.getNombreTienda());
-
 	}
 
 	@Transactional
@@ -240,12 +243,9 @@ public class UsuarioDAOTest {
 
 					System.out.println("Producto: " + pb.getNombreProducto() + " tiene: $"
 							+ pb.getCantidadBonificacion() + " de bonificacion");
-
 				}
 
-
 				System.out.println("Bonificaci�n total: $" + totalBonificacion);
-
 			}
 		}
 	}
@@ -285,5 +285,39 @@ public class UsuarioDAOTest {
 		} else {
 			System.out.println("Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
 		}
+	}
+	
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void totalBonificacion() {
+		String usuario = "vinoTinto";
+		
+		Usuario user = usuarioDAO.findUserByUser(usuario);
+		
+		List<Ticket> list = user.getTickets();
+		
+		for(Ticket t : list) {
+			double bonificacion = 0;
+			for(Producto p : t.getProductos()) {
+				bonificacion += p.getCantidadBonificacion();
+				System.out.println("Productos " + p.getNombreProducto());
+			}
+			
+			System.out.println("Hola " + user.getNombre() + " " + bonificacion);
+		}
+		
+	}
+	
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void bonificacionService() {
+		String usuario = "vinoTinto";
+		Usuario item = new Usuario();
+		item.setUsuario(usuario);
+		InformacionUsuarioRSP user = usuarioService.obtenerTotalBonificacion(item);
+		
+		System.out.println("Hola " + user.getNombreUsuario() + " tienes $" + user.getBonificacion() + " bonificados");
 	}
 }
