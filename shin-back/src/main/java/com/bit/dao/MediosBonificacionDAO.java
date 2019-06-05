@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.MediosBonificacion;
@@ -21,5 +22,16 @@ public class MediosBonificacionDAO extends DAOTemplate<MediosBonificacion, Long>
 		return c.list();
 
 	}
-
+	
+	/*
+	 * metodo findMediosBonificacionByUser
+	 */
+	public List<MediosBonificacion> findMediosBonificacionByIdUser(Long idUser) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(MediosBonificacion.class);
+		c.createAlias("usuario", "user");
+		c.add(Restrictions.eq("user.idUsuario", idUser));
+		c.addOrder(Property.forName("idMediosBonificacion").desc());
+		
+		return (List<MediosBonificacion>) c.list();
+	}
 }

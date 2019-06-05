@@ -16,7 +16,7 @@ public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 	public List<CatalogoMarca> getCatalogoMarca() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMarca.class);
 		c.setMaxResults(50);
-		c.addOrder(Property.forName("id_catalogo_marca").desc());
+		c.addOrder(Property.forName("idCatalogoMarca").desc());
 
 		return c.list();
 
