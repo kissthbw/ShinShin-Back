@@ -2,6 +2,8 @@ package com.bit.controllers.rest;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ import com.bit.service.ProductoService;
 @RestController
 @RequestMapping("/productos")
 public class ProductosRestController {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProductosRestController.class);
 
 	@Autowired
 	private ProductoService productoService;
@@ -36,7 +40,8 @@ public class ProductosRestController {
 	 */
 	@GetMapping(value = "/list")
 	public @ResponseBody List<Producto> getProductos() {
-		System.out.println("Get Productos");
+		
+		log.info("Entrando a getProductos");
 		List<Producto> list = productoService.getProductos();
 
 		return list;
@@ -55,6 +60,8 @@ public class ProductosRestController {
 	 */
 	@PostMapping(value = "/producto/registrar")
 	public @ResponseBody SimpleResponse registrarProducto(@RequestBody Producto item) {
+		
+		log.info("Registrando un producto en registrarProductos");
 		SimpleResponse rsp = productoService.registrarProductos(item);
 
 		return rsp;
@@ -62,6 +69,8 @@ public class ProductosRestController {
 
 	@PostMapping(value = "/producto/actualizar")
 	public @ResponseBody SimpleResponse actualizarProducto(@RequestBody Producto item) {
+		
+		log.info("Actualizando uno o varios valores de un producto en actualizarProductos");
 		SimpleResponse rsp = productoService.actualizarProductos(item);
 
 		return rsp;
@@ -69,7 +78,8 @@ public class ProductosRestController {
 
 	@PostMapping(value = "/producto/porMarca")
 	public @ResponseBody List<Producto> getProductosPorMarca(CatalogoMarca marca, Producto nombreProducto) {
-		System.out.println();
+		
+		log.info("Entrando a getProductosPorMarca");
 		List<Producto> list = productoService.getProductosPorMarca(marca, nombreProducto);
 
 		return list;
@@ -77,7 +87,8 @@ public class ProductosRestController {
 
 	@PostMapping(value = "/producto/porTipo")
 	public @ResponseBody List<Producto> getProductosPorTipo(CatalogoTipoProducto tipoProducto, Producto nombreProducto) {
-		System.out.println();
+		
+		log.info("Entrando a getProductosPorTipo");
 		List<Producto> list = productoService.getProductosPorTipo(tipoProducto, nombreProducto);
 
 		return list;
@@ -85,7 +96,8 @@ public class ProductosRestController {
 
 	@PostMapping(value = "/producto/porNombre")
 	public @ResponseBody List<Producto> getProductosPorNombre(Producto nombreProducto) {
-		System.out.println();
+		
+		log.info("Entrando a getProductosPorNombre");
 		List<Producto> list = productoService.getProductosPorNombre(nombreProducto);
 
 		return list;

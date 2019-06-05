@@ -2,6 +2,8 @@ package com.bit.controllers.rest;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,13 +19,16 @@ import com.bit.service.CatalogoMarcaService;
 @RestController
 @RequestMapping("/marcas")
 public class CatalogoMarcaRestController {
+	
+	private static final Logger log= LoggerFactory.getLogger(CatalogoMarcaRestController.class);
 
 	@Autowired
 	private CatalogoMarcaService catalogoMarcaService;
 
 	@GetMapping(value = "/list")
 	public @ResponseBody List<CatalogoMarca> getCatalogoMarcas() {
-		System.out.println("Get Marcas");
+		
+		log.info("Entrando a getCatalogoMarca");
 		List<CatalogoMarca> list = catalogoMarcaService.getCatalogoMarca();
 
 		return list;
@@ -31,6 +36,8 @@ public class CatalogoMarcaRestController {
 
 	@PostMapping(value = "/marca/registrar")
 	public @ResponseBody SimpleResponse registrarMarcas(@RequestBody CatalogoMarca item) {
+		
+		log.info("Entrando a registrarMarcas");
 		SimpleResponse rsp = catalogoMarcaService.registrarMarcas(item);
 
 		return rsp;
@@ -38,6 +45,8 @@ public class CatalogoMarcaRestController {
 
 	@PostMapping(value = "/marca/actualizar")
 	public @ResponseBody SimpleResponse actualizarMarcas(@RequestBody CatalogoMarca item) {
+		
+		log.info("Entrando a actualizarMarcas");
 		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(item);
 		
 		return rsp;
