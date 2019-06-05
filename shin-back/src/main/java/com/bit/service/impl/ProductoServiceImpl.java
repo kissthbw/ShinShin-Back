@@ -3,6 +3,8 @@ package com.bit.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import com.bit.service.ProductoService;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
+	
+	private static final Logger log = LoggerFactory.getLogger(ProductoServiceImpl.class);
 
 	@Autowired
 	private ProductoDAO productoDAO;
@@ -23,17 +27,20 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	@Transactional
 	public List<Producto> getProductos() {
-
+		
+		log.info("Obteniento lista de productos de la base de datos");
+		
 		List<Producto> list = productoDAO.getProductos();
 		
 		return transform(list);
 	}
 	
-
 	@Override
 	@Transactional
 	public SimpleResponse registrarProductos(Producto item) {
-
+		
+		log.info("Registrando un nuevo producto en la base de datos");
+		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
@@ -46,7 +53,9 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	@Transactional
 	public SimpleResponse actualizarProductos(Producto item) {
-
+		
+		log.info("Modificando uno o varios valores de un producto de la base de datos");
+		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
@@ -62,6 +71,7 @@ public class ProductoServiceImpl implements ProductoService {
 	 * Helper methods
 	 */
 	private List<Producto> transform( List<Producto> list ) {
+		
 		List<Producto> tmp = new ArrayList<>();
 		
 		for( Producto item : list ) {
@@ -91,13 +101,14 @@ public class ProductoServiceImpl implements ProductoService {
 			tmp.add(pTemp);
 		}
 		
-		
 		return tmp;
 	}
 	
 	@Override
 	@Transactional
 	public List<Producto> getProductosPorMarca(CatalogoMarca item, Producto i) {
+		
+		log.info("Obteniento lista de productos por marca de la base de datos");
 		
 		String marca = item.getNombreMarca();
 		String nombreProducto = i.getNombreProducto();
@@ -111,6 +122,8 @@ public class ProductoServiceImpl implements ProductoService {
 	@Transactional
 	public List<Producto> getProductosPorTipo(CatalogoTipoProducto item, Producto i) {
 		
+		log.info("Obteniento lista de productos por tipo de producto de la base de datos");
+		
 		String tipoProducto = item.getNombreTipoProducto();
 		String nombreProducto = i.getNombreProducto();
 		
@@ -122,7 +135,9 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	@Transactional
 	public List<Producto> getProductosPorNombre(Producto i) {
-
+		
+		log.info("Obteniento lista de productos por nombre de producto de la base de datos");
+		
 		String nombreProducto = i.getNombreProducto();
 		
 		List<Producto> list = productoDAO.getProductosPorNombre(nombreProducto);

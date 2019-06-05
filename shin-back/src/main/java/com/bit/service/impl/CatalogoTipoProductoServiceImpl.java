@@ -2,6 +2,8 @@ package com.bit.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +15,18 @@ import com.bit.service.CatalogoTipoProductoService;
 
 @Service
 public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoService {
-
+	
+	private static final Logger log = LoggerFactory.getLogger(CatalogoTipoProductoService.class);
+	
 	@Autowired
 	private CatalogoTipoProductoDAO catalogoTipoProductoDAO;
 
 	@Override
 	@Transactional
 	public List<CatalogoTipoProducto> getCatalogoTipoProductos() {
+		
+		log.info("Obtiendo una lista de productos por su tipo");
+		
 		List<CatalogoTipoProducto> list = catalogoTipoProductoDAO.getCatalogoTipoProductos();
 		return list;
 	}
@@ -27,6 +34,8 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 	@Override
 	@Transactional
 	public SimpleResponse registrarCatalogoTipoProductos(CatalogoTipoProducto item) {
+		
+		log.info("Registrando tipo de productos");
 		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
@@ -39,6 +48,8 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 
 	@Override
 	public SimpleResponse actualizarCatalogoTipoProductos(CatalogoTipoProducto item) {
+		
+		log.info("Actualizando tipo de productos");
 		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
