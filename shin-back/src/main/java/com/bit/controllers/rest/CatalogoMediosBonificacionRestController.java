@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.CatalogoMediosBonificacionService;
 
 @RestController
@@ -24,7 +25,7 @@ public class CatalogoMediosBonificacionRestController {
 	@Autowired
 	private CatalogoMediosBonificacionService catalogoMediosBonificacionService;
 
-	@GetMapping(value = "list")
+	@GetMapping(value = "/list")
 	public @ResponseBody List<CatalogoMediosBonificacion> getCatalogoMediosBonificaciones() {
 		
 		log.info("Entrando a getCatalogoMediosBonificacion");
@@ -34,16 +35,20 @@ public class CatalogoMediosBonificacionRestController {
 	}
 
 	@PostMapping(value = "/catalogoMediosBonificacion/guardar")
-	public void guardarCatalogoMediosBonificacion(@RequestBody CatalogoMediosBonificacion item) {
+	public SimpleResponse guardarCatalogoMediosBonificacion(@RequestBody CatalogoMediosBonificacion item) {
 		
 		log.info("Entrando a guardarCatalogoMediosBonificacion");
-		catalogoMediosBonificacionService.guardarCatalogoMediosBonificacion(item);
+		SimpleResponse rsp = catalogoMediosBonificacionService.registrarCatalogoMediosBonificacion(item);
+		
+		return rsp;
 	}
 
 	@PostMapping(value = "/catalogoMediosBonificacion/actualizar")
-	public void actualizarCatalogoMediosBonificacion(@RequestBody CatalogoMediosBonificacion item) {
+	public SimpleResponse actualizarCatalogoMediosBonificacion(@RequestBody CatalogoMediosBonificacion item) {
 		
 		log.info("Entrando a actualizarCatalogoMediosBonificacion");
-		catalogoMediosBonificacionService.actualizarCatalogoMediosBonificacion(item);
+		SimpleResponse rsp = catalogoMediosBonificacionService.actualizarCatalogoMediosBonificacion(item);
+		
+		return rsp;
 	}
 }

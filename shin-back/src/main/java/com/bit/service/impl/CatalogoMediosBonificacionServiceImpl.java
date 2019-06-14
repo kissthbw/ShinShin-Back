@@ -10,12 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.CatalogoMediosBonificacionDAO;
 import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.service.CatalogoMediosBonificacionService;
 
 @Service
 public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBonificacionService {
 	
-	private static final Logger log = LoggerFactory.getLogger(CatalogoMediosBonificacionService.class);
+	private static final Logger log = LoggerFactory.getLogger(CatalogoMediosBonificacionServiceImpl.class);
 	
 	@Autowired
 	private CatalogoMediosBonificacionDAO catalogoMediosBonificacionDAO;
@@ -33,19 +34,35 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 
 	@Override
 	@Transactional
-	public void guardarCatalogoMediosBonificacion(CatalogoMediosBonificacion item) {
+	public SimpleResponse registrarCatalogoMediosBonificacion(CatalogoMediosBonificacion item) {
 		
-		log.info("Guardando medios de bonificacion");
+		log.info("Registrando medios de bonificacion");
 		
-		catalogoMediosBonificacionDAO.save(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = catalogoMediosBonificacionDAO.save(item);
+		rsp.setId(item.getIdCatalogoMedioBonificacion());
+		
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void actualizarCatalogoMediosBonificacion(CatalogoMediosBonificacion item) {
+	public SimpleResponse actualizarCatalogoMediosBonificacion(CatalogoMediosBonificacion item) {
 		
 		log.info("Actualizando medios de bonificacion");
 		
-		catalogoMediosBonificacionDAO.save(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		catalogoMediosBonificacionDAO.findByPK(item.getIdCatalogoMedioBonificacion());
+		
+		item = catalogoMediosBonificacionDAO.update(item);
+		rsp.setId(item.getIdCatalogoMedioBonificacion());
+		
+		return rsp;
 	}
 }

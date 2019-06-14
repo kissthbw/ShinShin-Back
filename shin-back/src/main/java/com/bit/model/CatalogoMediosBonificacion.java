@@ -12,17 +12,17 @@ public class CatalogoMediosBonificacion {
 	@Id
 	@Column(name = "id_catalogo_medio_bonificacion")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idCatalogoMediosBonificacion;
+	private Long idCatalogoMedioBonificacion;
 
 	@Column(name = "nombre_medio_bonificacion")
 	private String nombreMedioBonificacion;
 
-	public void setIdCatalogoMediosBonificacion(Long idCatalogoMediosBonificacion) {
-		this.idCatalogoMediosBonificacion = idCatalogoMediosBonificacion;
+	public void setIdCatalogoMedioBonificacion(Long idCatalogoMedioBonificacion) {
+		this.idCatalogoMedioBonificacion = idCatalogoMedioBonificacion;
 	}
 
-	public Long getIdCatalogoMediosBonificacion() {
-		return idCatalogoMediosBonificacion;
+	public Long getIdCatalogoMedioBonificacion() {
+		return idCatalogoMedioBonificacion;
 	}
 
 	public void setNombreMedioBonificacion(String nombreMedioBonificacion) {
