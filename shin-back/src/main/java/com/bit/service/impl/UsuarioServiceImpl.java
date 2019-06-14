@@ -266,7 +266,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			mTemp.setCuentaMedioBonificacion(item.getCuentaMedioBonificacion());
 			mTemp.setCompaniaMedioBonificacion(item.getCompaniaMedioBonificacion());
 			
-			cmb.setIdCatalogoMediosBonificacion(item.getCatalogoMediosBonificacion().getIdCatalogoMediosBonificacion());
+			cmb.setIdCatalogoMedioBonificacion(item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion());
 			cmb.setNombreMedioBonificacion(item.getCatalogoMediosBonificacion().getNombreMedioBonificacion());
 			mTemp.setCatalogoMediosBonificacion(cmb);
 			
