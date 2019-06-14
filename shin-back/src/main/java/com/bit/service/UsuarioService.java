@@ -21,5 +21,7 @@ public interface UsuarioService {
 	Usuario findUserByUserAndPassword(Usuario item);
 
 	InformacionUsuarioRSP obtenerTotalBonificacion(Usuario item);
+	
+	InformacionUsuarioRSP obtenerMediosBonificacion(Usuario item);
 
 }
