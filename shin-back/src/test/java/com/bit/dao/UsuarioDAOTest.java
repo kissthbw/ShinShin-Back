@@ -16,6 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
+import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
@@ -45,6 +46,8 @@ public class UsuarioDAOTest {
 	@Transactional
 	@Test
 	public void crudTest() {
+		
+		log.info("Devuelve nombre de usuario por id");
 		Usuario u = usuarioDAO.findByPK(1L);
 		System.out.println(u.getUsuario());
 	}
@@ -53,7 +56,8 @@ public class UsuarioDAOTest {
 	@Test
 	@Rollback(false)
 	public void guardarUsuarios() {
-
+		
+		log.info("Registra los valores de un nuevo usuario");
 		Usuario u = new Usuario();
 		u.setNombre("Adrian");
 		u.setApPaterno("Osorio");
@@ -89,6 +93,7 @@ public class UsuarioDAOTest {
 	@Rollback(false)
 	public void actualizarUsuarios() {
 
+		log.info("Actualiza el/los valor(es) de un usuario por id");
 		Usuario item = usuarioDAO.findByPK(12l);
 		item.setContrasenia("mexicangreat");
 
@@ -99,6 +104,8 @@ public class UsuarioDAOTest {
 	@Test
 	@Rollback(false)
 	public void activarUsuarios() {
+		
+		log.info("Activa al usuario por id");
 		SimpleResponse respuesta = new SimpleResponse();
 		
 		Usuario item = new Usuario();
@@ -112,7 +119,8 @@ public class UsuarioDAOTest {
 	@Transactional
 	@Test
 	public void findById() {
-		log.info("Buscando usuario por ID");
+		
+		log.info("Buscando usuario por id");
 		Usuario item = usuarioDAO.findByPK(1l);
 
 		System.out.printf("Usuario: %s %s %s \n", item.getNombre(), item.getApPaterno(), item.getApMaterno());
@@ -319,5 +327,21 @@ public class UsuarioDAOTest {
 		InformacionUsuarioRSP user = usuarioService.obtenerTotalBonificacion(item);
 		
 		System.out.println("Hola " + user.getNombreUsuario() + " tienes $" + user.getBonificacion() + " bonificados");
+	}
+	
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void obtenerCuentas() {
+		
+		long idUser = 1;
+		Usuario item = new Usuario();
+		item.setIdUsuario(idUser);
+		InformacionUsuarioRSP user = usuarioService.obtenerMediosBonificacion(item);
+		
+		List<MediosBonificacion> list = user.getMediosBonificacion();
+		for(MediosBonificacion mb : list) {
+			System.out.println(mb.getCuentaMedioBonificacion());
+		}
 	}
 }
