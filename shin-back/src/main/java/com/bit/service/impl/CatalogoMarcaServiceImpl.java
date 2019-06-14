@@ -16,7 +16,7 @@ import com.bit.service.CatalogoMarcaService;
 @Service
 public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 	
-	private static final Logger log = LoggerFactory.getLogger(CatalogoMarcaService.class);
+	private static final Logger log = LoggerFactory.getLogger(CatalogoMarcaServiceImpl.class);
 	
 	@Autowired
 	private CatalogoMarcaDAO catalogoMarcaDAO;

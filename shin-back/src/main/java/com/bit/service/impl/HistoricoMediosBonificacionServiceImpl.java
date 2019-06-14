@@ -15,7 +15,7 @@ import com.bit.service.HistoricoMediosBonificacionService;
 @Service
 public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBonificacionService {
 	
-	private static final Logger log = LoggerFactory.getLogger(HistoricoMediosBonificacionService.class);
+	private static final Logger log = LoggerFactory.getLogger(HistoricoMediosBonificacionServiceImpl.class);
 	
 	@Autowired
 	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
