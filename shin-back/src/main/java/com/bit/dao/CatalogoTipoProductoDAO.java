@@ -16,7 +16,7 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 	public List<CatalogoTipoProducto> getCatalogoTipoProductos(){
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoTipoProducto.class);
 		c.setMaxResults(50);
-		c.addOrder(Property.forName("id_catalogo_tipo_producto").desc());
+		c.addOrder(Property.forName("idCatalogoTipoProducto").desc());
 		
 		return c.list();
 			
