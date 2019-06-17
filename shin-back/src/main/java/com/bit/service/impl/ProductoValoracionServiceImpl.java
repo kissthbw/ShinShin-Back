@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.ProductoValoracionDAO;
 import com.bit.model.ProductoValoracion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoValoracionService;
 
 @Service
@@ -22,30 +24,49 @@ public class ProductoValoracionServiceImpl implements ProductoValoracionService 
 
 	@Override
 	@Transactional
-	public List<ProductoValoracion> getProductosValoracion() {
+	public ListItemsRSP getProductosValoracion() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 		
 		log.info("Obtebiendo lista de productos valorados");
 		
 		List<ProductoValoracion> list = productoValorazionDAO.getProductosValoracion();
-		return list;
+		rsp.setProductoValoraciones(list);
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void guardarProductosValoracion(ProductoValoracion item) {
+	public SimpleResponse guardarProductosValoracion(ProductoValoracion item) {
 		
 		log.info("Guardando valoracion de producto");
 		
-		productoValorazionDAO.save(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = productoValorazionDAO.save(item);
+		rsp.setId(item.getIdProductoValoracion());
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void actualizarProductosValoracion(ProductoValoracion item) {
+	public SimpleResponse actualizarProductosValoracion(ProductoValoracion item) {
 		
 		log.info("Actualizando valoracion de producto");
 		
-		productoValorazionDAO.update(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		productoValorazionDAO.findByPK(item.getIdProductoValoracion());
+		
+		item = productoValorazionDAO.update(item);
+		rsp.setId(item.getIdProductoValoracion());
+		return rsp;
 	}
 
 }

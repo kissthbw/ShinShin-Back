@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.dao.CatalogoTiendaDAO;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoTiendaService;
 
 @Service
@@ -23,13 +24,18 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 
 	@Override
 	@Transactional
-	public List<CatalogoTienda> getCatalogoTienda() {
+	public ListItemsRSP getCatalogoTienda() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
 		
 		log.info("Obteniendo una lista de tiendas");
 		
 		List<CatalogoTienda> list = catalogoTiendaDAO.getCatalogoTienda();
 		
-		return list;
+		rsp.setTiendas(list);
+		return rsp;
 	}
 
 	@Override

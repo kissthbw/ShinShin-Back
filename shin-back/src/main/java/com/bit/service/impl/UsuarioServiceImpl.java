@@ -21,6 +21,7 @@ import com.bit.model.Usuario;
 import com.bit.model.dto.SMSDTO;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.UsuarioService;
 
 @Service
@@ -41,13 +42,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public List<Usuario> getUsuarios() {
-
+	public ListItemsRSP getUsuarios() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
 		log.info("Obteniendo lista de usuario de la base de datos");
 
 		List<Usuario> list = usuarioDAO.getUsuarios();
-
-		return list;
+		
+		rsp.setUsuarios(list);
+		return rsp;
 	}
 
 	@Override
@@ -61,7 +67,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		rsp.setCode(200);
 
 		String usuario = item.getUsuario();
-		// TODO Agregar validacion de usuario unico
 		Usuario user = usuarioDAO.findUserByUser(usuario);
 		if (user == null) {
 			// Si es nulo significa que el usuario no exite y por lo tanto el usuario puede

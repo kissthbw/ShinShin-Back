@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.dao.CatalogoTipoProductoDAO;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoTipoProductoService;
 
 @Service
@@ -23,12 +24,18 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 
 	@Override
 	@Transactional
-	public List<CatalogoTipoProducto> getCatalogoTipoProductos() {
+	public ListItemsRSP getCatalogoTipoProductos() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 		
 		log.info("Obtiendo una lista de productos por su tipo");
 		
 		List<CatalogoTipoProducto> list = catalogoTipoProductoDAO.getCatalogoTipoProductos();
-		return list;
+		
+		rsp.setTipoProductos(list);
+		return rsp;
 	}
 
 	@Override

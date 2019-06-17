@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.MediosBonificacionDAO;
 import com.bit.model.MediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.MediosBonificacionService;
 
 @Service
@@ -22,31 +24,50 @@ public class MediosBonificacionServiceImpl implements MediosBonificacionService 
 
 	@Override
 	@Transactional
-	public List<MediosBonificacion> getMediosBonificacion() {
+	public ListItemsRSP getMediosBonificacion() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 		
 		log.info("Obteniendo lista de medios de bonificacion");
 		
 		List<MediosBonificacion> list = mediosBonificacionDAO.getMediosBonificacion();
-		return list;
+		
+		rsp.setMediosBonificaciones(list);
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void guardarMediosBonificacion(MediosBonificacion item) {
+	public SimpleResponse guardarMediosBonificacion(MediosBonificacion item) {
 		
 		log.info("Guardando medio de bonificacion");
 		
-		mediosBonificacionDAO.save(item);
-
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = mediosBonificacionDAO.save(item);
+		rsp.setId(item.getIdMediosBonificacion());
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void actualizarMediosBonificacion(MediosBonificacion item) {
+	public SimpleResponse actualizarMediosBonificacion(MediosBonificacion item) {
 		
 		log.info("Actualizando medio de bonificacion");
 		
-		mediosBonificacionDAO.save(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		mediosBonificacionDAO.findByPK(item.getIdMediosBonificacion());
+		
+		item = mediosBonificacionDAO.update(item);
+		rsp.setId(item.getIdMediosBonificacion());
+		return rsp;
 
 	}
 

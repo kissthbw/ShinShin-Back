@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.dao.TicketDAO;
 import com.bit.model.Ticket;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.TicketService;
 
 @Service
@@ -23,12 +24,18 @@ public class TicketServiceImpl implements TicketService {
 
 	@Override
 	@Transactional
-	public List<Ticket> getTickets() {
+	public ListItemsRSP getTickets() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 		
 		log.info("Obteniendo lista de tickets");
 		
 		List<Ticket> list = ticketDAO.getTickets();
-		return list;
+		
+		rsp.setTickets(list);
+		return rsp;
 	}
 
 	@Override

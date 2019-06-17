@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMarcaService;
 
 @Service
@@ -23,13 +24,18 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 
 	@Override
 	@Transactional
-	public List<CatalogoMarca> getCatalogoMarca() {
+	public ListItemsRSP getCatalogoMarca() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 		
 		log.info("Obteniendo lista de marcas");
 		
 		List<CatalogoMarca> list = catalogoMarcaDAO.getCatalogoMarca();
 		
-		return list;
+		rsp.setMarcas(list);
+		return rsp;
 	}
 
 	@Override
@@ -63,5 +69,4 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setId(item.getIdCatalogoMarca());
 		return rsp;
 	}
-
 }

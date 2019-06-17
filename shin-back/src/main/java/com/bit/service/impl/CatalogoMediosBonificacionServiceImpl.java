@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.dao.CatalogoMediosBonificacionDAO;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMediosBonificacionService;
 
 @Service
@@ -23,13 +24,18 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 
 	@Override
 	@Transactional
-	public List<CatalogoMediosBonificacion> getCatalogoMediosBonificacion() {
+	public ListItemsRSP getCatalogoMediosBonificacion() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
 		
 		log.info("Obteniendo lista de medios de bonificacion");
 		
 		List<CatalogoMediosBonificacion> list = catalogoMediosBonificacionDAO.getCatalogoMediosBonificacion();
 		
-		return list;
+		rsp.setMediosBonificacion(list);
+		return rsp;
 	}
 
 	@Override

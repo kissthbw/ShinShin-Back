@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.model.HistoricoMediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
 
 @Service
@@ -22,30 +24,50 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 
 	@Override
 	@Transactional
-	public List<HistoricoMediosBonificacion> getHistoricosMediosBonificacion() {
+	public ListItemsRSP getHistoricosMediosBonificacion() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
 		
 		log.info("Obtiene una lista de bonificaciones");
 		
 		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacion();
-		return list;
+		
+		rsp.setHistoricoMediosBonificaciones(list);
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void guardarHistoricosMediosBonificacion(HistoricoMediosBonificacion item) {
+	public SimpleResponse registrarHistoricosMediosBonificacion(HistoricoMediosBonificacion item) {
 		
-		log.info("Guardando historial de medios de bonificacion");
+		log.info("Registrando historial de medios de bonificacion");
 		
-		historicoMediosBonificacionDAO.save(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = historicoMediosBonificacionDAO.save(item);
+		rsp.setId(item.getIdHistoricoMediosBonificacion());
+		return rsp;
 	}
 
 	@Override
 	@Transactional
-	public void actualizarHistoricosMediosBonificacion(HistoricoMediosBonificacion item) {
+	public SimpleResponse actualizarHistoricosMediosBonificacion(HistoricoMediosBonificacion item) {
 		
 		log.info("Actualizando historial de medios de bonificacion");
 		
-		historicoMediosBonificacionDAO.update(item);
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		historicoMediosBonificacionDAO.findByPK(item.getIdHistoricoMediosBonificacion());
+		
+		item = historicoMediosBonificacionDAO.update(item);
+		rsp.setId(item.getIdHistoricoMediosBonificacion());
+		return rsp;
 	}
 
 }
