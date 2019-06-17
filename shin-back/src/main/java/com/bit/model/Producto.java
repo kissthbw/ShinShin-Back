@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,6 +53,12 @@ public class Producto {
 	@Column(name = "cantidad_bonificacion")
 	private double cantidadBonificacion;
 
+	@Column(name = "is_banner")
+	private boolean isBanner;
+
+	@Column(name = "color_banner")
+	private String colorBanner;
+
 	// Mapeo contra CatalogoMarca
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_catalogo_marca")
@@ -61,6 +68,11 @@ public class Producto {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_catalogo_tipo_producto")
 	private CatalogoTipoProducto catalogoTipoProducto;
+
+	// Mapeocontra CatalogoTienda
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_catalogo_tienda")
+	private CatalogoTienda catalogoTienda;
 
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
@@ -150,6 +162,22 @@ public class Producto {
 		return cantidadBonificacion;
 	}
 
+	public void setBanner(boolean isBanner) {
+		this.isBanner = isBanner;
+	}
+
+	public boolean isBanner() {
+		return isBanner;
+	}
+
+	public void setColorBanner(String colorBanner) {
+		this.colorBanner = colorBanner;
+	}
+
+	public String getColorBanner() {
+		return colorBanner;
+	}
+
 	public void setCatalogoMarca(CatalogoMarca catalogoMarca) {
 		this.catalogoMarca = catalogoMarca;
 	}
@@ -164,6 +192,14 @@ public class Producto {
 
 	public CatalogoTipoProducto getCatalogoTipoProducto() {
 		return catalogoTipoProducto;
+	}
+
+	public CatalogoTienda getCatalogoTienda() {
+		return catalogoTienda;
+	}
+
+	public void setCatalogoTienda(CatalogoTienda catalogoTienda) {
+		this.catalogoTienda = catalogoTienda;
 	}
 
 }
