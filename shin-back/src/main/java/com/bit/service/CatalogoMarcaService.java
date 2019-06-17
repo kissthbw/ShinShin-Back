@@ -1,13 +1,12 @@
 package com.bit.service;
 
-import java.util.List;
-
 import com.bit.model.CatalogoMarca;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 
 public interface CatalogoMarcaService {
 
-	List<CatalogoMarca> getCatalogoMarca();
+	ListItemsRSP getCatalogoMarca();
 
 	SimpleResponse registrarMarcas(CatalogoMarca item);
 

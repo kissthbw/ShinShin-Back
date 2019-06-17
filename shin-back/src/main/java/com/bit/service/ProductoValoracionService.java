@@ -1,14 +1,14 @@
 package com.bit.service;
 
-import java.util.List;
-
 import com.bit.model.ProductoValoracion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 
 public interface ProductoValoracionService {
 
-	List<ProductoValoracion> getProductosValoracion();
+	ListItemsRSP getProductosValoracion();
 
-	void guardarProductosValoracion(ProductoValoracion item);
+	SimpleResponse guardarProductosValoracion(ProductoValoracion item);
 
-	void actualizarProductosValoracion(ProductoValoracion item);
+	SimpleResponse actualizarProductosValoracion(ProductoValoracion item);
 }

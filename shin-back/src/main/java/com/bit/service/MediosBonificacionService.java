@@ -1,15 +1,15 @@
 package com.bit.service;
 
-import java.util.List;
-
 import com.bit.model.MediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 
 public interface MediosBonificacionService {
 
-	List<MediosBonificacion> getMediosBonificacion();
+	ListItemsRSP getMediosBonificacion();
 
-	public void guardarMediosBonificacion(MediosBonificacion item);
+	SimpleResponse guardarMediosBonificacion(MediosBonificacion item);
 
-	public void actualizarMediosBonificacion(MediosBonificacion item);
+	SimpleResponse actualizarMediosBonificacion(MediosBonificacion item);
 
 }

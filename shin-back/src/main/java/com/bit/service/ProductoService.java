@@ -1,11 +1,10 @@
 package com.bit.service;
 
-import java.util.List;
-
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 
 public interface ProductoService {
 
@@ -16,16 +15,16 @@ public interface ProductoService {
 	 * 
 	 * @return
 	 */
-	List<Producto> getProductos();
+	ListItemsRSP getProductos();
 
 	SimpleResponse registrarProductos(Producto item);
 
 	SimpleResponse actualizarProductos(Producto item);
 
-	List<Producto> getProductosPorMarca(CatalogoMarca item, Producto i);
+	ListItemsRSP getProductosPorMarca(CatalogoMarca item, Producto i);
 
-	List<Producto> getProductosPorTipo(CatalogoTipoProducto item, Producto i);
+	ListItemsRSP getProductosPorTipo(CatalogoTipoProducto item, Producto i);
 
-	List<Producto> getProductosPorNombre(Producto i);
+	ListItemsRSP getProductosPorNombre(Producto i);
 
 }
