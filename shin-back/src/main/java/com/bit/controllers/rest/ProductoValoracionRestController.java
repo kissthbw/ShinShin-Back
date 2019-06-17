@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.ProductoValoracion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoValoracionService;
 
 @RestController
@@ -25,25 +27,29 @@ public class ProductoValoracionRestController {
 	private ProductoValoracionService productoValoracionService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<ProductoValoracion> getProductosValoracion() {
+	public @ResponseBody ListItemsRSP getProductosValoracion() {
 		
 		log.info("Entrando a getProductosValoracion");
-		List<ProductoValoracion> list = productoValoracionService.getProductosValoracion();
+		ListItemsRSP rsp = productoValoracionService.getProductosValoracion();
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/productoValoracion/guardar")
-	public void guardarProductoValoracion(@RequestBody ProductoValoracion item) {
+	public SimpleResponse guardarProductoValoracion(@RequestBody ProductoValoracion item) {
 		
 		log.info("Entrando a guardarProductosValoracion");
-		productoValoracionService.guardarProductosValoracion(item);
+		SimpleResponse rsp = productoValoracionService.guardarProductosValoracion(item);
+		
+		return rsp;
 	}
 
 	@PostMapping(value = "/productoValoracion/actualizar")
-	public void actualizarProductoValoracion(@RequestBody ProductoValoracion item) {
+	public SimpleResponse actualizarProductoValoracion(@RequestBody ProductoValoracion item) {
 		
 		log.info("Entrando a actualizarProductosValoracion");
-		productoValoracionService.actualizarProductosValoracion(item);
+		SimpleResponse rsp = productoValoracionService.actualizarProductosValoracion(item);
+		
+		return rsp;
 	}
 }

@@ -1,7 +1,5 @@
 package com.bit.controllers.rest;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.UsuarioService;
 
 @RestController
@@ -28,12 +27,12 @@ public class UsuariosRestController {
 	private UsuarioService usuarioService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<Usuario> getUsuarios() {
+	public @ResponseBody ListItemsRSP getUsuarios() {
 		
 		log.info("Entrando a getUsuarios");
-		List<Usuario> list = usuarioService.getUsuarios();
+		ListItemsRSP rsp = usuarioService.getUsuarios();
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/usuario/registrar")

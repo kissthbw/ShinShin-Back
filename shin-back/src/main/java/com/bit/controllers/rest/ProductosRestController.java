@@ -1,7 +1,5 @@
 package com.bit.controllers.rest;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
 
 @RestController
@@ -39,13 +38,20 @@ public class ProductosRestController {
 	 * Recurso REST para obtener una lista de productos.
 	 */
 	@GetMapping(value = "/list")
-	public @ResponseBody List<Producto> getProductos() {
+	public @ResponseBody ListItemsRSP getProductos() {
 		
 		log.info("Entrando a getProductos");
-		List<Producto> list = productoService.getProductos();
+		ListItemsRSP rsp =  productoService.getProductos();
 
-		return list;
+		return rsp;
 	}
+	
+	/*
+	 * actualizar tabla producto esBanner
+	 * actualizar entity
+	 * agregar metodo listBanners
+	 * agregar por criteria restriction isBanner
+	 */
 
 	/*
 	 * @RequestBody, esta anotacion habilita la recepcion de mensajes segun el tipo
@@ -77,29 +83,29 @@ public class ProductosRestController {
 	}
 
 	@PostMapping(value = "/producto/porMarca")
-	public @ResponseBody List<Producto> getProductosPorMarca(CatalogoMarca marca, Producto nombreProducto) {
+	public @ResponseBody ListItemsRSP getProductosPorMarca(CatalogoMarca marca, Producto nombreProducto) {
 		
 		log.info("Entrando a getProductosPorMarca");
-		List<Producto> list = productoService.getProductosPorMarca(marca, nombreProducto);
+		ListItemsRSP rsp = productoService.getProductosPorMarca(marca, nombreProducto);
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/producto/porTipo")
-	public @ResponseBody List<Producto> getProductosPorTipo(CatalogoTipoProducto tipoProducto, Producto nombreProducto) {
+	public @ResponseBody ListItemsRSP getProductosPorTipo(CatalogoTipoProducto tipoProducto, Producto nombreProducto) {
 		
 		log.info("Entrando a getProductosPorTipo");
-		List<Producto> list = productoService.getProductosPorTipo(tipoProducto, nombreProducto);
+		ListItemsRSP rsp = productoService.getProductosPorTipo(tipoProducto, nombreProducto);
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/producto/porNombre")
-	public @ResponseBody List<Producto> getProductosPorNombre(Producto nombreProducto) {
+	public @ResponseBody ListItemsRSP getProductosPorNombre(Producto nombreProducto) {
 		
 		log.info("Entrando a getProductosPorNombre");
-		List<Producto> list = productoService.getProductosPorNombre(nombreProducto);
+		ListItemsRSP rsp = productoService.getProductosPorNombre(nombreProducto);
 
-		return list;
+		return rsp;
 	}
 }

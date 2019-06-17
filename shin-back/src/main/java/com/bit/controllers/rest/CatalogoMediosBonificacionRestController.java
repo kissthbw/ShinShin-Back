@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMediosBonificacionService;
 
 @RestController
@@ -26,12 +27,12 @@ public class CatalogoMediosBonificacionRestController {
 	private CatalogoMediosBonificacionService catalogoMediosBonificacionService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<CatalogoMediosBonificacion> getCatalogoMediosBonificaciones() {
+	public @ResponseBody ListItemsRSP getCatalogoMediosBonificaciones() {
 		
 		log.info("Entrando a getCatalogoMediosBonificacion");
-		List<CatalogoMediosBonificacion> list = catalogoMediosBonificacionService.getCatalogoMediosBonificacion();
+		ListItemsRSP rsp = catalogoMediosBonificacionService.getCatalogoMediosBonificacion();
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/catalogoMediosBonificacion/guardar")

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoMarca;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMarcaService;
 
 @RestController
@@ -26,12 +27,12 @@ public class CatalogoMarcaRestController {
 	private CatalogoMarcaService catalogoMarcaService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<CatalogoMarca> getCatalogoMarcas() {
+	public @ResponseBody ListItemsRSP getCatalogoMarcas() {
 		
 		log.info("Entrando a getCatalogoMarca");
-		List<CatalogoMarca> list = catalogoMarcaService.getCatalogoMarca();
+		ListItemsRSP rsp = catalogoMarcaService.getCatalogoMarca();
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/marca/registrar")

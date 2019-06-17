@@ -1,7 +1,5 @@
 package com.bit.controllers.rest;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoTienda;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoTiendaService;
 
 @RestController
@@ -26,13 +25,13 @@ public class CatalogoTiendaRestController {
 	private CatalogoTiendaService catalogoTiendaService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<CatalogoTienda> getCatalogoTienda() {
+	public @ResponseBody ListItemsRSP getCatalogoTienda() {
 		
 		log.info("Entrando a getCatalogTienda");
 		
-		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda();
+		ListItemsRSP rsp = catalogoTiendaService.getCatalogoTienda();
 
-		return list;
+		return rsp;
 	}
 	
 	@PostMapping(value = "/tienda/registrar")

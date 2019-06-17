@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoTipoProductoService;
 
 @RestController
@@ -25,25 +27,29 @@ public class CatalogoTipoProductoRestController {
 	private CatalogoTipoProductoService catalogoTipoProductoService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<CatalogoTipoProducto> getCatalogoTipoProductos() {
+	public @ResponseBody ListItemsRSP getCatalogoTipoProductos() {
 		
 		log.info("Entrando a getCatalogoTipoProductos");
-		List<CatalogoTipoProducto> list = catalogoTipoProductoService.getCatalogoTipoProductos();
+		ListItemsRSP rsp = catalogoTipoProductoService.getCatalogoTipoProductos();
 
-		return list;
+		return rsp;
 	}
 
 	@PostMapping(value = "/catalogoTipoProductos/registrar")
-	public void registrarTipoProductos(@RequestBody CatalogoTipoProducto item) {
+	public SimpleResponse registrarTipoProductos(@RequestBody CatalogoTipoProducto item) {
 		
 		log.info("Entrando a registrarCatalogoTipoProductos");
-		catalogoTipoProductoService.registrarCatalogoTipoProductos(item);
+		SimpleResponse rsp = catalogoTipoProductoService.registrarCatalogoTipoProductos(item);
+		
+		return rsp;
 	}
 
 	@PostMapping(value = "/catalogoTipoProductos/actualizar")
-	public void actualizarTipoProductos(@RequestBody CatalogoTipoProducto item) {
+	public SimpleResponse actualizarTipoProductos(@RequestBody CatalogoTipoProducto item) {
 		
 		log.info("Entrando a actualizarCatalogoTipoProductos");
-		catalogoTipoProductoService.actualizarCatalogoTipoProductos(item);
+		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(item);
+		
+		return rsp;
 	}
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.HistoricoMediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
 
 @RestController
@@ -25,25 +27,29 @@ public class HistoricoMediosBonificacionRestController {
 	private HistoricoMediosBonificacionService historicoMediosBonificacionService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<HistoricoMediosBonificacion> getHistoricosMediosBonificacion() {
+	public @ResponseBody ListItemsRSP getHistoricosMediosBonificacion() {
 		
 		log.info("Entrando a getHistoricosMediosBonificacion");
-		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionService.getHistoricosMediosBonificacion();
+		ListItemsRSP rsp = historicoMediosBonificacionService.getHistoricosMediosBonificacion();
 
-		return list;
+		return rsp;
 	}
 
-	@PostMapping("/historicoMediosBonificacion/guardar")
-	public void guardarHistoricoMediosBonificacion(@RequestBody HistoricoMediosBonificacion item) {
+	@PostMapping("/historicoMediosBonificacion/registrar")
+	public SimpleResponse registrarHistoricoMediosBonificacion(@RequestBody HistoricoMediosBonificacion item) {
 		
 		log.info("Entrando a guardarHistoricosMediosBonificacion");
-		historicoMediosBonificacionService.guardarHistoricosMediosBonificacion(item);
+		SimpleResponse rsp = historicoMediosBonificacionService.registrarHistoricosMediosBonificacion(item);
+		
+		return rsp;
 	}
 
 	@PostMapping("/historicoMediosBonificacion/actualizar")
-	public void actualizarHistoricoMediosBonificacion(@RequestBody HistoricoMediosBonificacion item) {
+	public SimpleResponse actualizarHistoricoMediosBonificacion(@RequestBody HistoricoMediosBonificacion item) {
 		
 		log.info("Entrando a actualizarHistoricosMediosBonificacion");
-		historicoMediosBonificacionService.actualizarHistoricosMediosBonificacion(item);
+		SimpleResponse rsp = historicoMediosBonificacionService.actualizarHistoricosMediosBonificacion(item);
+		
+		return rsp;
 	}
 }

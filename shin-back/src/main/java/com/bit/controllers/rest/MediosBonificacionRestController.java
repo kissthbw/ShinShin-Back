@@ -1,7 +1,5 @@
 package com.bit.controllers.rest;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.MediosBonificacion;
+import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.MediosBonificacionService;
 
 @RestController
@@ -25,25 +25,29 @@ public class MediosBonificacionRestController {
 	private MediosBonificacionService mediosBonificacionService;
 
 	@GetMapping(value = "/list")
-	public @ResponseBody List<MediosBonificacion> getMediosBonificacion() {
+	public @ResponseBody ListItemsRSP getMediosBonificacion() {
 		
 		log.info("Entrando a getMediosBonificacion");
-		List <MediosBonificacion> list = mediosBonificacionService.getMediosBonificacion();
+		ListItemsRSP rsp = mediosBonificacionService.getMediosBonificacion();
 		
-		return list;
+		return rsp;
 	}
 	
 	@PostMapping(value = "/mediosBonificacion/guardar")
-	public void guardarMediosBonificacion(@RequestBody MediosBonificacion item) {
+	public SimpleResponse guardarMediosBonificacion(@RequestBody MediosBonificacion item) {
 		
 		log.info("Entrando a guardarMediosBonificacion");
-		mediosBonificacionService.guardarMediosBonificacion(item);
+		SimpleResponse rsp= mediosBonificacionService.guardarMediosBonificacion(item);
+		
+		return rsp;
 	}
 	
 	@PostMapping(value = "/mediosBonificacion/actualizar")
-	public void actualizarMediosBonificacion(@RequestBody MediosBonificacion item) {
+	public SimpleResponse actualizarMediosBonificacion(@RequestBody MediosBonificacion item) {
 		
 		log.info("Entrando a actualizarMediosBonificacion");
-		mediosBonificacionService.actualizarMediosBonificacion(item);
+		SimpleResponse rsp = mediosBonificacionService.actualizarMediosBonificacion(item);
+		
+		return rsp;
 	}
 }
