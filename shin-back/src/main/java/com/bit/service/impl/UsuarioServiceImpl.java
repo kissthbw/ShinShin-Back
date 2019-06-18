@@ -87,7 +87,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		SMSDTO sms = new SMSDTO();
 		sms.setToMobileNumber(item.getTelMovil());
-		sms.setBody("Tu código es: " + item.getCodigoVerificacion());
+		sms.setBody("Tu codigo es: " + item.getCodigoVerificacion());
 
 		try {
 			mediosComunicacionService.sendSMS(sms);
@@ -132,11 +132,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		if (temp.getCodigoVerificacion().equals(item.getCodigoVerificacion())) {
 			temp.setEstatusActivacion(true);
-			System.out.println("Código correcto");
+			System.out.println("Codigo correcto");
 		} else {
 			rsp.setMessage("Error");
 			rsp.setCode(500);
-			System.out.println("El código no coincide");
+			System.out.println("El codigo no coincide");
 		}
 
 		rsp.setId(item.getIdUsuario());
@@ -160,7 +160,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		SMSDTO sms = new SMSDTO();
 		sms.setToMobileNumber(item.getTelMovil());
-		sms.setBody("Tu código es: " + item.getCodigoVerificacion());
+		sms.setBody("Tu codigo es: " + item.getCodigoVerificacion());
 
 		try {
 			mediosComunicacionService.sendSMS(sms);
@@ -212,7 +212,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public Usuario findUserByUserAndPassword(Usuario item) {
 
-		log.info("Buscando un usuario por nombre de usuario y por contraseña para login");
+		log.info("Buscando un usuario por nombre de usuario y por password para login");
 
 		String usuario = item.getUsuario();
 		String contrasenia = item.getContrasenia();
@@ -257,6 +257,24 @@ public class UsuarioServiceImpl implements UsuarioService {
 		user.setMediosBonificacion(transform(list));
 
 		return user;
+	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse registrarTicketUsuario(Usuario item) {
+		log.info("Entrando en registrarTicketUsuario");
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setCode(200);
+		rsp.setMessage("Exito");
+		
+		Usuario tmp = usuarioDAO.findByPK( item.getIdUsuario() );
+		for( Ticket t : item.getTickets() ) {
+			tmp.addTicket( t );
+		}
+		
+		usuarioDAO.update(tmp);
+		log.info( "Ticket guardado de forma exitosa" );
+		return rsp;
 	}
 
 	private List<MediosBonificacion> transform(List<MediosBonificacion> list) {

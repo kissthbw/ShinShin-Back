@@ -13,7 +13,10 @@ import com.bit.model.ProductoValoracion;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(value=Include.NON_EMPTY)
 public class ListItemsRSP extends SimpleResponse{
 
 	private static final long serialVersionUID = 4428570789013267038L;

@@ -41,6 +41,22 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setProductos(transform(list));
 		return rsp;
 	}
+	
+	@Override
+	@Transactional
+	public ListItemsRSP getBanners() {
+
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
+
+		log.info("Obteniento lista de banners de la base de datos");
+
+		List<Producto> list = productoDAO.getBanners();
+
+		rsp.setProductos(transform(list));
+		return rsp;
+	}
 
 	@Override
 	@Transactional

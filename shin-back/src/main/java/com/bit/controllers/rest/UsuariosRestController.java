@@ -80,7 +80,13 @@ public class UsuariosRestController {
 		return user;
 	}
 	
-	@GetMapping(value = "/usuario/totalBonificacion")
+	@PostMapping(value = "/usuario/registrar/ticket")
+	public @ResponseBody SimpleResponse registrarTicketUsuario(@RequestBody Usuario item) {
+		log.info("Entrando en registrarTicketUsuario");
+		return usuarioService.registrarTicketUsuario(item);
+	}
+	
+	@PostMapping(value = "/usuario/totalBonificacion")
 	public @ResponseBody InformacionUsuarioRSP obtenerTotalBonificacion(@RequestBody Usuario item) {
 		
 		log.info("Entrando a obtenerTotalBonificacion");
@@ -89,7 +95,7 @@ public class UsuariosRestController {
 		return user;
 	}
 	
-	@GetMapping(value = "/usuario/mediosBonificacion")
+	@PostMapping(value = "/usuario/mediosBonificacion")
 	public @ResponseBody InformacionUsuarioRSP obtenerMediosBonificacion(@RequestBody Usuario item) {
 		
 		log.info("Entrando a obtenerMediosBonificacion");

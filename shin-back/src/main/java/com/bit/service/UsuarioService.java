@@ -22,5 +22,7 @@ public interface UsuarioService {
 	InformacionUsuarioRSP obtenerTotalBonificacion(Usuario item);
 	
 	InformacionUsuarioRSP obtenerMediosBonificacion(Usuario item);
+	
+	SimpleResponse registrarTicketUsuario(Usuario item);
 
 }

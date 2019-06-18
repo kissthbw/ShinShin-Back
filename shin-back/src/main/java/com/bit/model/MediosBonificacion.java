@@ -17,6 +17,9 @@ public class MediosBonificacion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idMediosBonificacion;
 
+	@Column(name = "alias_medio_bonificacion")
+	private String aliasMedioBonificacion;
+	
 	@Column(name = "cuenta_medio_bonificacion")
 	private String cuentaMedioBonificacion;
 
@@ -39,6 +42,14 @@ public class MediosBonificacion {
 
 	public Long getIdMediosBonificacion() {
 		return idMediosBonificacion;
+	}
+
+	public String getAliasMedioBonificacion() {
+		return aliasMedioBonificacion;
+	}
+
+	public void setAliasMedioBonificacion(String aliasMedioBonificacion) {
+		this.aliasMedioBonificacion = aliasMedioBonificacion;
 	}
 
 	public void setCuentaMedioBonificacion(String cuentaMedioBonificacion) {

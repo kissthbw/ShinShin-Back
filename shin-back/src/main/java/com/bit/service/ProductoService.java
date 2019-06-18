@@ -16,6 +16,8 @@ public interface ProductoService {
 	 * @return
 	 */
 	ListItemsRSP getProductos();
+	
+	ListItemsRSP getBanners();
 
 	SimpleResponse registrarProductos(Producto item);
 

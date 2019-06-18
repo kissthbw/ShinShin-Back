@@ -46,6 +46,15 @@ public class ProductosRestController {
 		return rsp;
 	}
 	
+	@GetMapping(value = "/listBanner")
+	public @ResponseBody ListItemsRSP getBanners() {
+		
+		log.info("Entrando a getBanners");
+		ListItemsRSP rsp =  productoService.getBanners();
+
+		return rsp;
+	}
+	
 	/*
 	 * actualizar tabla producto esBanner
 	 * actualizar entity

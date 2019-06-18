@@ -33,6 +33,15 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		return c.list();
 	}
 	
+	public List<Producto> getBanners() {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		c.setMaxResults(50);
+		c.add( Restrictions.eq("isBanner", true) );
+		c.addOrder(Property.forName("idProducto").desc());
+
+		return c.list();
+	}
+	
 	public List<Producto> getProductosPorMarca() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 //		dc.add(Restrictions.like("nombreProducto", "Laptop"));
