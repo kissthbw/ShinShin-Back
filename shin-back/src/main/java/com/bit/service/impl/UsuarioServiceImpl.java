@@ -8,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.bit.common.Utils;
 import com.bit.communication.MediosComunicacionService;
+import com.bit.dao.CatalogoMediosBonificacionDAO;
 import com.bit.dao.MediosBonificacionDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.exception.CommunicationException;
@@ -22,6 +24,7 @@ import com.bit.model.dto.SMSDTO;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
 
 @Service
@@ -36,6 +39,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private MediosBonificacionDAO mediosBonificacionDAO;
+	
+	@Autowired
+	private CatalogoMediosBonificacionDAO catalogoMediosBonificacionDAO;
 
 	@Autowired
 	private MediosComunicacionService mediosComunicacionService;
@@ -252,9 +258,47 @@ public class UsuarioServiceImpl implements UsuarioService {
 		log.info("Obteniendo medios de bonificacion de usuario");
 
 		InformacionUsuarioRSP user = new InformacionUsuarioRSP();
-
+		
+		List<CatalogoMediosBonificacion> catMediosList = catalogoMediosBonificacionDAO.getCatalogoMediosBonificacion();
 		List<MediosBonificacion> list = mediosBonificacionDAO.findMediosBonificacionByIdUser(item.getIdUsuario());
-		user.setMediosBonificacion(transform(list));
+		
+		MedioBonificacionUsuario bancariaList = new MedioBonificacionUsuario();
+		MedioBonificacionUsuario paypalList = new MedioBonificacionUsuario();
+		MedioBonificacionUsuario recargaList = new MedioBonificacionUsuario();
+		
+		for( CatalogoMediosBonificacion cat : catMediosList ) {
+			if ( cat.getIdCatalogoMedioBonificacion() == 1 ) {
+				bancariaList.setNombreMedioBonificacion(cat.getNombreMedioBonificacion());
+			}
+			else if ( cat.getIdCatalogoMedioBonificacion() == 2 ) {
+				paypalList.setNombreMedioBonificacion(cat.getNombreMedioBonificacion());
+			}
+			else if ( cat.getIdCatalogoMedioBonificacion() == 3 ) {
+				recargaList.setNombreMedioBonificacion(cat.getNombreMedioBonificacion());
+			}
+		}
+		
+		List<MediosBonificacion> listTmp = transform(list);
+		
+		for( MediosBonificacion medio : listTmp ) {
+			if( medio.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == 1 ) {
+				bancariaList.addToList(medio);
+			}
+			else if( medio.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == 2 ) {
+				paypalList.addToList(medio);
+			}
+			else if( medio.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == 3 ) {
+				recargaList.addToList(medio);
+			}
+		}
+		
+		
+		//Agrupar los medios de bonificacion segun el catalogo de medios bonificacion
+		
+//		user.setMediosBonificacion(transform(list));
+		user.addToList(bancariaList);
+		user.addToList(paypalList);
+		user.addToList(recargaList);
 
 		return user;
 	}
@@ -288,6 +332,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 			mTemp.setIdMediosBonificacion(item.getIdMediosBonificacion());
 			mTemp.setCuentaMedioBonificacion(item.getCuentaMedioBonificacion());
 			mTemp.setCompaniaMedioBonificacion(item.getCompaniaMedioBonificacion());
+			mTemp.setIdCuentaMedioBonificacion( item.getIdCuentaMedioBonificacion() );
+			mTemp.setAliasMedioBonificacion( item.getAliasMedioBonificacion() );
+			mTemp.setVigenciaMedioBonificacion( item.getVigenciaMedioBonificacion() );
 			
 			cmb.setIdCatalogoMedioBonificacion(item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion());
 			cmb.setNombreMedioBonificacion(item.getCatalogoMediosBonificacion().getNombreMedioBonificacion());

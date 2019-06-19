@@ -19,12 +19,18 @@ public class MediosBonificacion {
 
 	@Column(name = "alias_medio_bonificacion")
 	private String aliasMedioBonificacion;
-	
+
 	@Column(name = "cuenta_medio_bonificacion")
 	private String cuentaMedioBonificacion;
 
 	@Column(name = "compania_medio_bonificacion")
 	private String companiaMedioBonificacion;
+
+	@Column(name = "vigencia_medio_bonificacion")
+	private String vigenciaMedioBonificacion;
+
+	@Column(name = "id_cuenta_medio_bonificacion")
+	private String idCuentaMedioBonificacion;
 
 	// Guardar medio de bonificacion
 	@OneToOne(fetch = FetchType.LAZY)
@@ -66,6 +72,22 @@ public class MediosBonificacion {
 
 	public String getCompaniaMedioBonificacion() {
 		return companiaMedioBonificacion;
+	}
+
+	public String getVigenciaMedioBonificacion() {
+		return vigenciaMedioBonificacion;
+	}
+
+	public void setVigenciaMedioBonificacion(String vigenciaMedioBonificacion) {
+		this.vigenciaMedioBonificacion = vigenciaMedioBonificacion;
+	}
+
+	public String getIdCuentaMedioBonificacion() {
+		return idCuentaMedioBonificacion;
+	}
+
+	public void setIdCuentaMedioBonificacion(String idCuentaMedioBonificacion) {
+		this.idCuentaMedioBonificacion = idCuentaMedioBonificacion;
 	}
 
 	public void setCatalogoMediosBonificacion(CatalogoMediosBonificacion catalogoMediosBonificacion) {
