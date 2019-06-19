@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8"></meta>
 <title>Shing Shing</title>
+<meta charset="utf-8" />
+
 </head>
 <body>
-	<h1>Bienvenido</h1>
+
+	<h1>Guardar</h1>
+
+	<form action="#" th:action="@{/medio/save}" th:object="${item}"
+		method="post">
+		<table border="1">
+			<tr>
+				<td><input type="text" th:field="*{nombreMedioBonificacion}" /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Submit" /></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>
