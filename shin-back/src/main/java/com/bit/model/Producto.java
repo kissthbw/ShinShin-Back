@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,8 +52,8 @@ public class Producto {
 	@Column(name = "cantidad_bonificacion")
 	private double cantidadBonificacion;
 
-	@Column(name = "is_banner")
-	private boolean isBanner;
+	@Column(name = "banner")
+	private boolean banner;
 
 	@Column(name = "color_banner")
 	private String colorBanner;
@@ -162,12 +161,12 @@ public class Producto {
 		return cantidadBonificacion;
 	}
 
-	public void setBanner(boolean isBanner) {
-		this.isBanner = isBanner;
+	public void setBanner(boolean banner) {
+		this.banner = banner;
 	}
 
 	public boolean isBanner() {
-		return isBanner;
+		return banner;
 	}
 
 	public void setColorBanner(String colorBanner) {

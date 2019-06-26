@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Medios de Bonificacion</h1>
+	<form action="#" th:action="@{/medioBonificacion/save}" th:object="${item}"
+		method="post">
+		<table border="1">
+			<tr>
+				<td><input type="text" th:field="*{nombreMedioBonificacion}" /><br />
+			</tr>
+			<tr>
+				<td><input type="submit" value="Registrar" /><br />
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

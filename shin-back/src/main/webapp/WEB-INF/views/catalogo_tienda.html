@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Tiendas</h1>
+	<form action="#" th:action="@{/tienda/save}" th:object="${item}"
+		method="post">
+		<table>
+			<tr>
+				<td><input type="text" th:field="*{nombreTienda}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{imagenTienda}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Registrar" /><br /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
