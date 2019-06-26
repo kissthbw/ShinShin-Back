@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Productos</h1>
+	<form action="#" th:action="@{/producto/producto/save}"
+		th:object="${item}" method="post">
+		<table border="1">
+			<tr>
+				<td><input type="text" th:field="*{nombreProducto}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{precio}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{codigoBarras}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{presentacion}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{contenido}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{descripcion}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" th:field="*{aplicaPromocion}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{vigenciaPromocion}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{urlImagenProducto}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{cantidadBonificacion}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" th:field="*{banner}" /><br /></td>
+			</tr>
+			<tr>
+				<td><input type="text" th:field="*{colorBanner}" /><br /></td>
+			</tr>
+			<tr>
+				<td><select th:field="*{catalogoMarca.idCatalogoMarca}">
+						<option th:each="marca:${marcas}"
+							th:value="${marca.idCatalogoMarca}"
+							th:utext="${marca.nombreMarca}" />
+				</select></td>
+			</tr>
+			<tr>
+				<td><select th:field="*{catalogoTipoProducto.idCatalogoTipoProducto}">
+						<option th:each="tipo:${tipos}"
+							th:value="${tipo.idCatalogoTipoProducto}"
+							th:utext="${tipo.nombreTipoProducto}" />
+				</select></td>
+			</tr>
+			<tr>
+				<td><select th:field="*{catalogoTienda.idCatalogoTienda}">
+						<option th:each="tienda:${tiendas}"
+							th:value="${tienda.idCatalogoTienda}"
+							th:utext="${tienda.nombreTienda}" />
+				</select></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Registrar" /><br /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
