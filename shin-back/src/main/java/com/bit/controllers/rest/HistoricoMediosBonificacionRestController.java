@@ -1,7 +1,5 @@
 package com.bit.controllers.rest;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.HistoricoMediosBonificacion;
+import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
@@ -29,6 +28,14 @@ public class HistoricoMediosBonificacionRestController {
 	@GetMapping(value = "/list")
 	public @ResponseBody ListItemsRSP getHistoricosMediosBonificacion() {
 		
+		log.info("Entrando a getHistoricosMediosBonificacion");
+		ListItemsRSP rsp = historicoMediosBonificacionService.getHistoricosMediosBonificacion();
+
+		return rsp;
+	}
+	
+	@PostMapping(value="/listPorUsuario")
+	public @ResponseBody ListItemsRSP getHistoricoMediosBonificacionPorUsuario(@RequestBody Usuario item){
 		log.info("Entrando a getHistoricosMediosBonificacion");
 		ListItemsRSP rsp = historicoMediosBonificacionService.getHistoricosMediosBonificacion();
 

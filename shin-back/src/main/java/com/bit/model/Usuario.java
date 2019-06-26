@@ -80,13 +80,14 @@ public class Usuario {
 	@Column(name = "codigo_verificacion")
 	private String codigoVerificacion;
 
+	@Column(name = "id_catalogo_sexo")
+	private int idCatalogoSexo;
+
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
-	@JoinTable(name = "producto_favorito",
-		joinColumns = { @JoinColumn(name = "id_usuario") },
-		inverseJoinColumns = { @JoinColumn(name = "id_producto") })
+	@JoinTable(name = "producto_favorito", joinColumns = { @JoinColumn(name = "id_usuario") }, inverseJoinColumns = {
+			@JoinColumn(name = "id_producto") })
 	private List<Producto> productosFavoritos = new ArrayList<>();
-
 
 	// Guardar tickets
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
@@ -244,6 +245,14 @@ public class Usuario {
 
 	public String getCodigoVerificacion() {
 		return codigoVerificacion;
+	}
+
+	public int getIdCatalogoSexo() {
+		return idCatalogoSexo;
+	}
+
+	public void setIdCatalogoSexo(int idCatalogoSexo) {
+		this.idCatalogoSexo = idCatalogoSexo;
 	}
 
 	public List<Producto> getProductosFavoritos() {

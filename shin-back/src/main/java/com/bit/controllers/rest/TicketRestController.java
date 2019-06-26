@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Ticket;
+import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.TicketService;
@@ -31,6 +32,14 @@ public class TicketRestController {
 		ListItemsRSP rsp = ticketService.getTickets();
 
 		return rsp;
+	}
+	
+	@PostMapping(value="/listPorUsuario")
+	public @ResponseBody ListItemsRSP getTicketsPorUsuario(@RequestBody Usuario item){
+		log.info("Entrando a getHistoricosMediosBonificacion");
+//		ListItemsRSP rsp = ticketService.getTicketsPorUsuario(item);
+
+		return null;
 	}
 
 	@PostMapping(value = "/ticket/registrar")

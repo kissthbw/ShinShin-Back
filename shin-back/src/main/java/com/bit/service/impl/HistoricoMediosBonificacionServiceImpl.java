@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.model.HistoricoMediosBonificacion;
+import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
@@ -33,6 +34,21 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 		log.info("Obtiene una lista de bonificaciones");
 		
 		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacion();
+		
+		rsp.setHistoricoMediosBonificaciones(list);
+		return rsp;
+	}
+	
+	@Override
+	@Transactional
+	public ListItemsRSP getHistoricosMediosBonificacionPorUsuario(Usuario item) {
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		log.info("Obtiene una lista de bonificaciones del usuario {}", item.getIdUsuario());
+		
+		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(item);
 		
 		rsp.setHistoricoMediosBonificaciones(list);
 		return rsp;

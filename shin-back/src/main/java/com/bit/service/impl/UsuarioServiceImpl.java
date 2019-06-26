@@ -12,10 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.common.Utils;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.CatalogoMediosBonificacionDAO;
+import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.dao.MediosBonificacionDAO;
+import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.exception.CommunicationException;
 import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
@@ -45,6 +48,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	private MediosComunicacionService mediosComunicacionService;
+	
+	@Autowired
+	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
+	
+	@Autowired
+	private TicketDAO ticketDAO;
 
 	@Override
 	@Transactional
@@ -216,16 +225,33 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public Usuario findUserByUserAndPassword(Usuario item) {
+	public InformacionUsuarioRSP findUserByUserAndPassword(Usuario item) {
 
 		log.info("Buscando un usuario por nombre de usuario y por password para login");
-
+		InformacionUsuarioRSP infoRSP = new InformacionUsuarioRSP();
+		infoRSP.setCode(200);
+		infoRSP.setMessage("Exito");
+		
 		String usuario = item.getUsuario();
 		String contrasenia = item.getContrasenia();
 
 		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
+		
+		if( user == null ) {
+			infoRSP.setCode(500);
+			infoRSP.setMessage("Usuario no existe");
+			
+			return infoRSP;
+		}
+		else {
+			Usuario tmp = new Usuario();
+			tmp.setIdUsuario( user.getIdUsuario() );
+			tmp.setUsuario( user.getUsuario() );
+			infoRSP.setId( user.getIdUsuario() );
+			infoRSP.setUsuario(tmp);
 
-		return user;
+			return infoRSP;
+		}
 	}
 
 	@Override
@@ -321,6 +347,38 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return rsp;
 	}
 
+	@Override
+	@Transactional
+	public ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item) {
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		log.info("Obtiene una lista de bonificaciones del usuario {}", item.getIdUsuario());
+		
+		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(item);
+		
+		rsp.setHistoricoMediosBonificaciones( transformHistoricoMediosBonificacion(list) );
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public ListItemsRSP obtieneTicketsPorUsuario(Usuario item) {
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		log.info("Obtiene una lista de tickets del usuario {}", item.getIdUsuario());
+		
+		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item);
+		List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+		
+		rsp.setTickets( transformTicketList(tickets) );
+		
+		return rsp;
+	}
+	
 	private List<MediosBonificacion> transform(List<MediosBonificacion> list) {
 		
 		List<MediosBonificacion> tmp = new ArrayList<>();
@@ -363,5 +421,46 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		
 		return tmp;
+	}
+	
+	private List<Ticket> transformTicketList(List<Ticket> list){
+		
+		List<Ticket> tickets = new ArrayList<>();
+		
+		for( Ticket t : list ) {
+			Ticket tmp = new Ticket();
+			tmp.setIdTicket( t.getIdTicket() );
+			tmp.setFecha( t.getFecha() );
+			tmp.setHora( t.getHora() );
+			tmp.setNombreTienda( t.getNombreTienda() );
+			tmp.setSucursal( t.getSucursal() );
+			tmp.setTotal( t.getTotal() );
+			
+			tickets.add(tmp);
+		}
+		
+		return tickets;
+	}
+	
+	private List<HistoricoMediosBonificacion> transformHistoricoMediosBonificacion( List<HistoricoMediosBonificacion> list ){
+		List<HistoricoMediosBonificacion> historicoBonificaciones = new ArrayList<>();
+		
+		for( HistoricoMediosBonificacion h : list ) {
+			HistoricoMediosBonificacion tmp = new HistoricoMediosBonificacion();
+			MediosBonificacion medio = new MediosBonificacion();
+			
+			tmp.setIdHistoricoMediosBonificacion( h.getIdHistoricoMediosBonificacion() );
+			tmp.setCantidadBonificacion( h.getCantidadBonificacion() );
+			tmp.setFechaBonificacion( h.getFechaBonificacion() );
+			tmp.setHoraBonificacion( h.getHoraBonificacion() );
+			medio.setIdCuentaMedioBonificacion( h.getMediosBonificacion().getIdCuentaMedioBonificacion() );
+			medio.setAliasMedioBonificacion( h.getMediosBonificacion().getAliasMedioBonificacion() );
+			medio.setCuentaMedioBonificacion( h.getMediosBonificacion().getCuentaMedioBonificacion() ); 
+			
+			tmp.setMediosBonificacion(medio);
+			historicoBonificaciones.add(tmp);
+		}
+		
+		return historicoBonificaciones;
 	}
 }
