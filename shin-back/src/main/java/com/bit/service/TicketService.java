@@ -7,7 +7,6 @@ import com.bit.model.dto.response.ListItemsRSP;
 public interface TicketService {
 
 	ListItemsRSP getTickets();
-
 	SimpleResponse registrarTickets(Ticket item);
 
 }

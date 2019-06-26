@@ -39,6 +39,7 @@ public class UsuariosRestController {
 	public @ResponseBody SimpleResponse registrarUsuario(@RequestBody Usuario item) {
 		
 		log.info("Entrando a registrarUsuarios para registrar un nuevo usuario");
+		//Tel movil: formato +5215534714616
 		SimpleResponse rsp = usuarioService.registrarUsuarios(item);
 		
 		return rsp;
@@ -72,10 +73,10 @@ public class UsuariosRestController {
 	}
 	
 	@PostMapping(value = "/usuario/login2")
-	public @ResponseBody Usuario findUserByUserAndPassword(@RequestBody Usuario item) {
+	public @ResponseBody InformacionUsuarioRSP findUserByUserAndPassword(@RequestBody Usuario item) {
 		
 		log.info("Rntrando a findUserByUserAndPassword");
-		Usuario user = usuarioService.findUserByUserAndPassword(item);
+		InformacionUsuarioRSP user = usuarioService.findUserByUserAndPassword(item);
 		
 		return user;
 	}
@@ -102,5 +103,21 @@ public class UsuariosRestController {
 		InformacionUsuarioRSP user = usuarioService.obtenerMediosBonificacion(item);
 		
 		return user;
+	}
+	
+	@PostMapping(value="/usuario/historicoBonificaciones")
+	public @ResponseBody ListItemsRSP obtenerHistoricoBonificacionesPorUsuario( @RequestBody Usuario item ) {
+		log.info("Entrando a obtenerHistoricoBonificacionesPorUsuario");
+		ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
+		
+		return rsp;
+	}
+	
+	@PostMapping(value="/usuario/historicoTickets")
+	public @ResponseBody ListItemsRSP obtenerHistoricoTicketsPorUsuario( @RequestBody Usuario item ) {
+		log.info("Entrando a obtenerHistoricoTicketsPorUsuario");
+		ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
+		
+		return rsp;
 	}
 }

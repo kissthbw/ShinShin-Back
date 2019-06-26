@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "historico_mediosbonificacion")
+@Entity(name = "historico_medios_bonificacion")
 public class HistoricoMediosBonificacion {
 
 	@Id

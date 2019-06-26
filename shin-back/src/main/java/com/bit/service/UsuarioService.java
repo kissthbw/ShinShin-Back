@@ -17,12 +17,16 @@ public interface UsuarioService {
 
 	Usuario findUserByUser(Usuario item);
 
-	Usuario findUserByUserAndPassword(Usuario item);
+	InformacionUsuarioRSP findUserByUserAndPassword(Usuario item);
 
 	InformacionUsuarioRSP obtenerTotalBonificacion(Usuario item);
 	
 	InformacionUsuarioRSP obtenerMediosBonificacion(Usuario item);
 	
 	SimpleResponse registrarTicketUsuario(Usuario item);
+	
+	ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item);
+	
+	ListItemsRSP obtieneTicketsPorUsuario(Usuario item);
 
 }
