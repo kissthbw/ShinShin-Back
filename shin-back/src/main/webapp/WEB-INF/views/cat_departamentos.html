@@ -109,25 +109,25 @@
                 	</a>
                 </li>
                 <li>
-                	<a href="@{/catalogo_marca/marca/save}">
+                	<a th:href="@{/catalogos/marca/save}">
                     	<span class="sidebar-mini-icon">M</span>
                     	<span class="sidebar-normal"> Marcas </span>
                   	</a>
                 </li>
                 <li>
-                	<a href="@{/catalogo_tienda/tienda/save}">
+                	<a th:href="@{/catalogos/tienda/save}">
                     	<span class="sidebar-mini-icon">T</span>
                     	<span class="sidebar-normal"> Tiendas </span>
                 	</a>
                 </li>
                 <li>
-                	<a href="@{/catalogo_medios_bonificacion/medioBonificacion/save}">
+                	<a th:href="@{/catalogos/medioBonificacion/save}">
                     	<span class="sidebar-mini-icon">MB</span>
                     	<span class="sidebar-normal"> Medios Bonificacion </span>
                   	</a>
                 </li>
                 <li>
-                	<a href="@{/producto/producto/save}">
+                	<a th:href="@{/catalogos/producto/save}">
                     	<span class="sidebar-mini-icon">P</span>
                     	<span class="sidebar-normal"> Productos </span>
                   	</a>
@@ -293,7 +293,7 @@
             <form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post">
               <div class="card ">
                 <div class="card-header ">
-                  <h4 class="card-title">Datos del departamento</h4>
+                  <h4 class="card-title">Datos del Departamento</h4>
                 </div>
                 <div class="card-body ">
                   <div class="row">
