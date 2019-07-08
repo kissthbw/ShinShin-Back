@@ -253,7 +253,7 @@ public class UsuarioDAOTest {
 							+ pb.getCantidadBonificacion() + " de bonificacion");
 				}
 
-				System.out.println("Bonificación total: $" + totalBonificacion);
+				System.out.println("Bonificaciï¿½n total: $" + totalBonificacion);
 			}
 		}
 	}
@@ -274,7 +274,7 @@ public class UsuarioDAOTest {
 				System.out.println(
 						"Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
 			} else {
-				System.out.println("Usuario o contraseña invalidos");
+				System.out.println("Usuario o contraseï¿½a invalidos");
 			}
 		}
 	}
@@ -289,7 +289,7 @@ public class UsuarioDAOTest {
 		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
 
 		if (user == null) {
-			System.out.println("usuario y/o contraseña erróneo");
+			System.out.println("usuario y/o contraseï¿½a errï¿½neo");
 		} else {
 			System.out.println("Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
 		}
