@@ -65,7 +65,7 @@
 
 				<!-- MENU -->
 				<ul class="nav">
-					<li class="active">
+					<li>
 						<a href="../examples/dashboard.html">
 							<i class="nc-icon nc-bank"></i>
 							<p>Dashboard</p>
@@ -73,15 +73,14 @@
 					</li>
 					<!-- Las opciones del menu debe ir entre <li></li> -->
 
-					<li>
-						<a data-toggle="collapse" href="#catalogos">
+					<li class="active">
+						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
 							<i class="nc-icon nc-ruler-pencil"></i>
 							<p>Catalogos<b class="caret"></b></p>
 						</a>
-						<div class="collapse " id="catalogos">
+						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li>
-								<!-- <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/upload/facesCompare}">Faces compare</a></li> -->
 									<a th:href="@{/catalogos/departamento/save}">
 										<span class="sidebar-mini-icon">D</span>
 										<span class="sidebar-normal"> Departamentos </span>
@@ -105,7 +104,7 @@
 										<span class="sidebar-normal"> Medios bonificacion </span>
 									</a>
 								</li>
-								<li>
+								<li class="active">
 									<a th:href="@{/catalogos/producto/save}">
 										<span class="sidebar-mini-icon">P</span>
 										<span class="sidebar-normal"> Productos </span>

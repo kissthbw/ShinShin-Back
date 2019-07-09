@@ -139,4 +139,10 @@ public class CatalogosController {
 
 		return "redirect:/catalogos/producto/save";
 	}
+	
+	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
+	public String redireccionaListaProducto(Model model) {
+		model.addAttribute("medios", catalogoMediosBonificacionService.getCatalogoMediosBonificacion().getMediosBonificacion());
+		return "lista_mediosBonificacion";
+	}
 }
