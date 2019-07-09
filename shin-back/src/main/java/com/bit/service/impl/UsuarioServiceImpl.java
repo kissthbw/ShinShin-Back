@@ -1,5 +1,6 @@
 package com.bit.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.common.Utils;
@@ -249,6 +251,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 			tmp.setUsuario( user.getUsuario() );
 			infoRSP.setId( user.getIdUsuario() );
 			infoRSP.setUsuario(tmp);
+			
+			BigDecimal credito = calculaCreditoTotal(user);
+			
+			infoRSP.setBonificacion( credito.doubleValue() );
 
 			return infoRSP;
 		}
@@ -258,6 +264,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public InformacionUsuarioRSP obtenerTotalBonificacion(Usuario item) {
 
+		//La bonificacion debe calcularse en base a la bonififacion de productos por ticket registrados
+		//menos las bonificaciones solicitadas
 		log.info("Obteniendo bonificacion total de usuario");
 
 		Usuario user = usuarioDAO.findUserByUser(item.getUsuario());
@@ -277,6 +285,49 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return iUser;
 	}
 
+	/*
+	 * 
+	 */
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public BigDecimal calculaCreditoTotal(Usuario user) {
+		BigDecimal credito = new BigDecimal(0.0);
+		BigDecimal abonos = new BigDecimal(0.0);
+		BigDecimal cargos = new BigDecimal(0.0);
+		
+		log.info("Obteniendo tickets del usuario: {}", user.getIdUsuario());
+		//Se obtienen los tickets del usuario (abonos)
+		List<Long> ids = usuarioDAO.getTicketsPorUsuario( user );
+		
+		if( !ids.isEmpty() ) {
+			List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+			
+			
+			for (Ticket t : tickets) {
+				for (Producto p : t.getProductos()) {
+					abonos = abonos.add( BigDecimal.valueOf( p.getCantidadBonificacion() ) );
+//					bonificacion += p.getCantidadBonificacion();
+				}
+			}
+		}
+		
+		//Obtener las solicitudes bonificacion (cargos)
+		log.info("Obteniendo bonificaciones del usuario: {}", user.getIdUsuario());
+		List<HistoricoMediosBonificacion> bonificaciones = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(user);
+		
+		if( !bonificaciones.isEmpty() ) {
+			for( HistoricoMediosBonificacion b : bonificaciones ) {
+				cargos = cargos.add( BigDecimal.valueOf( b.getCantidadBonificacion() ) );
+			}
+		}
+		
+		credito = abonos.subtract(cargos);
+		log.info("Credito del usuario: {}", credito);
+		
+		return credito;
+		
+	}
+	
 	@Override
 	@Transactional
 	public InformacionUsuarioRSP obtenerMediosBonificacion(Usuario item) {
@@ -331,9 +382,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	@Transactional
-	public SimpleResponse registrarTicketUsuario(Usuario item) {
+	public InformacionUsuarioRSP registrarTicketUsuario(Usuario item) {
 		log.info("Entrando en registrarTicketUsuario");
-		SimpleResponse rsp = new SimpleResponse();
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 		rsp.setCode(200);
 		rsp.setMessage("Exito");
 		
@@ -342,7 +393,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 			tmp.addTicket( t );
 		}
 		
-		usuarioDAO.update(tmp);
+		tmp = usuarioDAO.update(tmp);
+		
 		log.info( "Ticket guardado de forma exitosa" );
 		return rsp;
 	}
@@ -372,9 +424,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 		log.info("Obtiene una lista de tickets del usuario {}", item.getIdUsuario());
 		
 		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item);
-		List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
 		
-		rsp.setTickets( transformTicketList(tickets) );
+		if( !ids.isEmpty() ) {
+			List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+			rsp.setTickets( transformTicketList(tickets) );
+		}
+		else {
+			List<Ticket> list = new ArrayList<>();
+			rsp.setTickets(list);
+		}
 		
 		return rsp;
 	}

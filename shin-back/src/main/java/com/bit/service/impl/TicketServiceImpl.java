@@ -52,4 +52,13 @@ public class TicketServiceImpl implements TicketService {
 		rsp.setId(item.getIdTicket());
 		return rsp;
 	}
+
+	@Override
+	public SimpleResponse analizarOCR(List<String> lineas) {
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		return rsp;
+	}
 }

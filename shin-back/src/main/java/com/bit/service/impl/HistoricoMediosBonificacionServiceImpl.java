@@ -12,8 +12,10 @@ import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
+import com.bit.service.UsuarioService;
 
 @Service
 public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBonificacionService {
@@ -22,6 +24,9 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 	
 	@Autowired
 	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@Override
 	@Transactional
@@ -56,11 +61,11 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 
 	@Override
 	@Transactional
-	public SimpleResponse registrarHistoricosMediosBonificacion(HistoricoMediosBonificacion item) {
+	public InformacionUsuarioRSP registrarHistoricosMediosBonificacion(HistoricoMediosBonificacion item) {
 		
 		log.info("Registrando historial de medios de bonificacion");
 		
-		SimpleResponse rsp = new SimpleResponse();
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		

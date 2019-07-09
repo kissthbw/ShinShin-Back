@@ -36,8 +36,7 @@ public class CatalogoMediosBonificacionDAOTest {
 	@Rollback(false)
 	public void saveCatalogoMediosBonificacion() {
 		CatalogoMediosBonificacion catalogoMediosBonificacion = new CatalogoMediosBonificacion();
-		catalogoMediosBonificacion.setIdCatalogoMedioBonificacion(1l);
-		catalogoMediosBonificacion.setNombreMedioBonificacion("PayPal");
+		catalogoMediosBonificacion.setNombreMedioBonificacion("Recarga telefonica");
 
 		catalogoMediosBonificacionDAO.save(catalogoMediosBonificacion);
 	}

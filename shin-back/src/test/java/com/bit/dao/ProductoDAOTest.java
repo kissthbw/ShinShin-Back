@@ -47,22 +47,22 @@ public class ProductoDAOTest {
 		Producto item = new Producto();
 		CatalogoMarca marca = new CatalogoMarca();
 
-		marca.setIdCatalogoMarca(2l);
+		marca.setIdCatalogoMarca(7l);
 		// marca.setNombreMarca( "Roku" );
 
 		CatalogoTipoProducto tipo = new CatalogoTipoProducto();
-		tipo.setIdCatalogoTipoProducto(1L);
+		tipo.setIdCatalogoTipoProducto(2L);
 		// tipo.setNombreTipoProducto( "Streaming" );
 
 		// Marca marca = marcaDAO.findByPK(1l);
 		// TipoProducto tipo = tipoProductoDAO.findByPK(1l);
 
-		item.setNombreProducto("Laptop");
-		item.setPrecio(699.00);
+		item.setNombreProducto("Nintendo Switch");
+		item.setPrecio(6999.00);
 		item.setCodigoBarras("978128713");
 		item.setPresentacion("");
 		item.setContenido("1 pieza");
-		item.setDescripcion("Dispositivo de streaming");
+		item.setDescripcion("");
 		item.setAplicaPromocion(true);
 
 		Calendar c = Calendar.getInstance();

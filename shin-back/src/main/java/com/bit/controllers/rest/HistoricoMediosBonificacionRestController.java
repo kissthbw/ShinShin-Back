@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
+import com.bit.service.UsuarioService;
 
 @RestController
 @RequestMapping("/historicoMediosBonificacion")
@@ -24,6 +26,9 @@ public class HistoricoMediosBonificacionRestController {
 	
 	@Autowired
 	private HistoricoMediosBonificacionService historicoMediosBonificacionService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@GetMapping(value = "/list")
 	public @ResponseBody ListItemsRSP getHistoricosMediosBonificacion() {
@@ -46,7 +51,12 @@ public class HistoricoMediosBonificacionRestController {
 	public SimpleResponse registrarHistoricoMediosBonificacion(@RequestBody HistoricoMediosBonificacion item) {
 		
 		log.info("Entrando a guardarHistoricosMediosBonificacion");
-		SimpleResponse rsp = historicoMediosBonificacionService.registrarHistoricosMediosBonificacion(item);
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
+		rsp = historicoMediosBonificacionService.registrarHistoricosMediosBonificacion(item);
+		
+		Usuario user = new Usuario();
+		user.setIdUsuario( item.getUsuario().getIdUsuario() );
+		rsp.setBonificacion( usuarioService.calculaCreditoTotal(user).doubleValue() );
 		
 		return rsp;
 	}

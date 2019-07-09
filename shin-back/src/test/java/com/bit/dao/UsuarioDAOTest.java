@@ -2,6 +2,7 @@ package com.bit.dao;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,14 +16,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.common.Utils;
 import com.bit.config.WebConfig;
-import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
+import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -59,31 +62,28 @@ public class UsuarioDAOTest {
 		
 		log.info("Registra los valores de un nuevo usuario");
 		Usuario u = new Usuario();
-		u.setNombre("Adrian");
-		u.setApPaterno("Osorio");
-		u.setApMaterno("Alvarez");
+		u.setNombre("Juan Osorio Alvarez");
 
 		Calendar c = Calendar.getInstance();
-		c.set(Calendar.DAY_OF_MONTH, 02);
-		c.set(Calendar.MONTH, Calendar.OCTOBER);
-		c.set(Calendar.YEAR, 1984);
+		c.set(Calendar.DAY_OF_MONTH, 11);
+		c.set(Calendar.MONTH, Calendar.SEPTEMBER);
+		c.set(Calendar.YEAR, 1983);
 
 		u.setFechaNac(c.getTime());
 		u.setFotoUsuario("");
-		u.setTelMovil("+5215534714616");
-		u.setCorreoElectronico("adrian@ejemplo.com");
-		u.setUsuario("enmascarado");
-		u.setContrasenia("masterBoy");
-		u.setCalle("Pataguas");
-		u.setNumeroExt("115");
-		u.setNumeroInt("");
-		u.setColonia("La Perla");
-		u.setCodigoPostal("57820");
-		u.setDelMun("Nezahualcoyotl");
-		u.setEstado("Estado de Mexico");
-		u.setEstatusActivacion(false);
-		u.setCodigoVerificacion("");
+		u.setTelMovil("+5215548998389");
+		u.setCorreoElectronico("beyota_paola@hotmail.com");
+		u.setUsuario("beyota_paola@hotmail.com");
+		u.setContrasenia("kiss2101");
+		u.setCodigoPostal("57300");
+		u.setIdCatalogoSexo(1);
 
+		try {
+			System.out.println( Utils.objectToJSON(u) );
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 		SimpleResponse respuesta = usuarioService.registrarUsuarios(u);
 		System.out.println(respuesta.getMessage() + "\n" + respuesta.getCode());
 	}
@@ -253,7 +253,7 @@ public class UsuarioDAOTest {
 							+ pb.getCantidadBonificacion() + " de bonificacion");
 				}
 
-				System.out.println("Bonificaci�n total: $" + totalBonificacion);
+				System.out.println("Bonificacion total: $" + totalBonificacion);
 			}
 		}
 	}
@@ -274,7 +274,7 @@ public class UsuarioDAOTest {
 				System.out.println(
 						"Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
 			} else {
-				System.out.println("Usuario o contrase�a invalidos");
+				System.out.println("Usuario o contrasenia invalidos");
 			}
 		}
 	}
@@ -283,16 +283,14 @@ public class UsuarioDAOTest {
 	@Test
 	@Rollback(false)
 	public void login2() {
-		String usuario = "vinoTinto";
-		String contrasenia = "tintomx";
+		Usuario item = new Usuario();
+		item.setUsuario("kissthbw@gmail.com");
+		item.setContrasenia("kiss2101");
+		
+		InformacionUsuarioRSP rsp = usuarioService.findUserByUserAndPassword(item);
+//		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
 
-		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
-
-		if (user == null) {
-			System.out.println("usuario y/o contrase�a err�neo");
-		} else {
-			System.out.println("Bienvenido " + user.getNombre() + " " + user.getApPaterno() + " " + user.getApMaterno());
-		}
+		System.out.println( rsp.getBonificacion() );
 	}
 	
 	@Transactional
@@ -339,9 +337,61 @@ public class UsuarioDAOTest {
 		item.setIdUsuario(idUser);
 		InformacionUsuarioRSP user = usuarioService.obtenerMediosBonificacion(item);
 		
-		List<MediosBonificacion> list = user.getMediosBonificacion();
-		for(MediosBonificacion mb : list) {
-			System.out.println(mb.getCuentaMedioBonificacion());
+		List<MedioBonificacionUsuario> list = user.getMediosBonificacion();
+		for(MedioBonificacionUsuario mb : list) {
+			System.out.println(mb.getList());
 		}
 	}
+	
+//	@Transactional
+	@Test
+//	@Rollback(false)
+	public void registrarTicket() {
+		Usuario u = new Usuario();
+		u.setIdUsuario(2L);
+		
+		Ticket item = new Ticket();
+		item.setNombreTienda("Walmart");
+		item.setSucursal("Plaza Jardin");
+
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.DAY_OF_MONTH, 21);
+		c.set(Calendar.MONTH, Calendar.MAY);
+		c.set(Calendar.YEAR, 2019);
+		
+		item.setFecha(c.getTime());
+		item.setHora(new Date());
+		item.setSubtotal(587.16);
+		item.setIva(111.84);
+		item.setTotal(699.00);
+		
+		item.setSubtotal(91.56);
+		item.setIva(17.44);
+		item.setTotal(109.00);
+
+		Producto p1 = new Producto();
+		p1.setIdProducto(1L);
+		
+		List<Producto> list = new ArrayList<>();
+		list.add(p1);
+		item.setProductos(list);
+		u.addTicket(item);
+		
+		usuarioService.registrarTicketUsuario(u);
+		log.info( "Credito actual: {}", usuarioService.calculaCreditoTotal(u) );
+	}
+	
+	@Transactional
+	@Test
+	public void obtenerTickets() {
+		Usuario item = new Usuario();
+		item.setIdUsuario(1l);
+		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item);
+		
+		//Buscar informacion de los tickets
+		List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+		System.out.println( tickets );
+		
+	}
+	
 }

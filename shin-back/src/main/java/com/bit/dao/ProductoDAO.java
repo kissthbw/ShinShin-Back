@@ -36,7 +36,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 	public List<Producto> getBanners() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		c.setMaxResults(50);
-		c.add( Restrictions.eq("isBanner", true) );
+		c.add( Restrictions.eq("banner", true) );
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();

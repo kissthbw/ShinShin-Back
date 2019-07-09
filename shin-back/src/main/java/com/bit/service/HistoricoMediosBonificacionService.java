@@ -3,6 +3,7 @@ package com.bit.service;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 
 public interface HistoricoMediosBonificacionService {
@@ -11,7 +12,7 @@ public interface HistoricoMediosBonificacionService {
 	
 	ListItemsRSP getHistoricosMediosBonificacionPorUsuario(Usuario item);
 
-	SimpleResponse registrarHistoricosMediosBonificacion(HistoricoMediosBonificacion item);
+	InformacionUsuarioRSP registrarHistoricosMediosBonificacion(HistoricoMediosBonificacion item);
 
 	SimpleResponse actualizarHistoricosMediosBonificacion(HistoricoMediosBonificacion item);
 }

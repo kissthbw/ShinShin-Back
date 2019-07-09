@@ -1,5 +1,7 @@
 package com.bit.service;
 
+import java.math.BigDecimal;
+
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
@@ -23,10 +25,11 @@ public interface UsuarioService {
 	
 	InformacionUsuarioRSP obtenerMediosBonificacion(Usuario item);
 	
-	SimpleResponse registrarTicketUsuario(Usuario item);
+	InformacionUsuarioRSP registrarTicketUsuario(Usuario item);
 	
 	ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item);
 	
 	ListItemsRSP obtieneTicketsPorUsuario(Usuario item);
-
+	
+	BigDecimal calculaCreditoTotal(Usuario user); 
 }

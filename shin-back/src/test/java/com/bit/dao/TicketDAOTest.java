@@ -1,5 +1,10 @@
 package com.bit.dao;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,10 +21,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.common.TicketAnalizer;
+import com.bit.common.Utils;
 import com.bit.config.WebConfig;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -36,6 +44,7 @@ public class TicketDAOTest {
 
 	@Autowired
 	private ProductoDAO productoDAO;
+	
 
 	@Transactional
 	@Test
@@ -80,6 +89,10 @@ public class TicketDAOTest {
 	@Test
 	@Rollback(false)
 	public void save() {
+//		Usuario u = usuarioDAO.findByPK(1l);
+		Usuario u = new Usuario();
+		u.setIdUsuario(1L);
+		
 		Ticket item = new Ticket();
 		item.setNombreTienda("Walmart");
 		item.setSucursal("Plaza Jardin");
@@ -127,28 +140,35 @@ public class TicketDAOTest {
 		Producto p2 = new Producto();
 		p2.setIdProducto(2L);
 		
-		Producto p3 = new Producto();
-		p3.setIdProducto(3L);
+//		Producto p3 = new Producto();
+//		p3.setIdProducto(3L);
+//		
+//		Producto p4 = new Producto();
+//		p4.setIdProducto(4L);
+//		
+//		Producto p5 = new Producto();
+//		p5.setIdProducto(9L);
 		
-		Producto p4 = new Producto();
-		p4.setIdProducto(4L);
-		
-		Producto p5 = new Producto();
-		p5.setIdProducto(9L);
-		
-		Producto p6 = new Producto();
-		p5.setIdProducto(10L);
+//		Producto p6 = new Producto();
+//		p5.setIdProducto(10L);
 		
 		List<Producto> list = new ArrayList<>();
 		list.add(p1);
-		list.add(p2);
-		list.add(p3);
-		list.add(p4);
-		list.add(p5);
-		list.add(p6);
+//		list.add(p2);
+//		list.add(p3);
+//		list.add(p4);
+//		list.add(p5);
+//		list.add(p6);
 		item.setProductos(list);
-		
-		ticketDAO.save(item);
+		u.addTicket(item);
+		try {
+			System.out.println( Utils.objectToJSON(u) );
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		usuarioDAO.update(u);
+//		ticketDAO.save(item);
 	}
 
 	@Test
@@ -156,7 +176,7 @@ public class TicketDAOTest {
 	@Rollback(false)
 	public void updateTicketTest() {
 		// Agregar productos a un ticket
-		Ticket item = ticketDAO.findByPK(1l);
+		Ticket item = ticketDAO.findByPK(2l);
 		Producto p1 = new Producto();
 		p1.setIdProducto(2L);
 		item.addProducto(p1);
@@ -190,4 +210,32 @@ public class TicketDAOTest {
 
 		ticketDAO.save(t1);
 	}
+	
+	public static void main(String[] args) {
+		BufferedReader buffered = null;
+		List<String> lineas = new ArrayList<>();
+		String line = null;
+		
+		try {
+			buffered = new 
+					BufferedReader( 
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-oxxo.txt") );
+			
+			while((line = buffered.readLine()) != null) {
+                lineas.add(line);
+            }   
+			
+			if( buffered != null ){
+				buffered.close();
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		TicketAnalizer.analize(lineas);
+		
+	}
+	
+	
 }

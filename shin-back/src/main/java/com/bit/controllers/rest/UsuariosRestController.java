@@ -82,9 +82,16 @@ public class UsuariosRestController {
 	}
 	
 	@PostMapping(value = "/usuario/registrar/ticket")
-	public @ResponseBody SimpleResponse registrarTicketUsuario(@RequestBody Usuario item) {
+	public @ResponseBody InformacionUsuarioRSP registrarTicketUsuario(@RequestBody Usuario item) {
 		log.info("Entrando en registrarTicketUsuario");
-		return usuarioService.registrarTicketUsuario(item);
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
+
+		rsp = usuarioService.registrarTicketUsuario(item);
+		
+		rsp.setBonificacion( usuarioService.calculaCreditoTotal(item).doubleValue() );
+		
+		
+		return rsp;
 	}
 	
 	@PostMapping(value = "/usuario/totalBonificacion")
