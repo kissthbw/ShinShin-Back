@@ -140,9 +140,33 @@ public class CatalogosController {
 		return "redirect:/catalogos/producto/save";
 	}
 	
-	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
-	public String redireccionaListaProducto(Model model) {
+	@RequestMapping(value = "/mediosBonificacion/list", method = RequestMethod.GET)
+	public String redireccionaListaMediosBonificacion(Model model) {
 		model.addAttribute("medios", catalogoMediosBonificacionService.getCatalogoMediosBonificacion().getMediosBonificacion());
 		return "lista_mediosBonificacion";
+	}
+	
+	@RequestMapping(value = "/marca/list", method = RequestMethod.GET)
+	public String redirectionaListaMarca(Model model) {
+		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
+		return "lista_marcas";
+	}
+
+	@RequestMapping(value = "/tienda/list", method = RequestMethod.GET)
+	public String redirectionaListaTienda(Model model) {
+		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
+		return "lista_tiendas";
+	}
+	
+	@RequestMapping(value = "/departamento/list", method = RequestMethod.GET)
+	public String redirectionaListaDepartamento(Model model) {
+		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
+		return "lista_departamentos";
+	}
+	
+	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
+	public String redirectionaListaProducto(Model model) {
+		model.addAttribute("productos", productoService.getProductos().getProductos());
+		return "lista_productos";
 	}
 }
