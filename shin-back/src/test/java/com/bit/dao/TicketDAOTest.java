@@ -1,9 +1,7 @@
 package com.bit.dao;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +25,9 @@ import com.bit.config.WebConfig;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
+import com.bit.model.dto.request.OCRTicketRQT;
+import com.bit.model.dto.response.OCRTicketRSP;
+import com.bit.service.TicketService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -44,8 +45,10 @@ public class TicketDAOTest {
 
 	@Autowired
 	private ProductoDAO productoDAO;
-	
 
+	@Autowired
+	private TicketService ticketService;
+	
 	@Transactional
 	@Test
 	public void crudTest() {
@@ -209,6 +212,41 @@ public class TicketDAOTest {
 				+ t1.getIva() + "\n Total: " + t1.getTotal());
 
 		ticketDAO.save(t1);
+	}
+	
+	@Test
+	@Transactional
+	public void analizaOCR() throws JsonProcessingException {
+		
+		BufferedReader buffered = null;
+		List<String> lineas = new ArrayList<>();
+		String line = null;
+		
+		try {
+			buffered = new 
+					BufferedReader( 
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-oxxo-3.txt") );
+			
+			while((line = buffered.readLine()) != null) {
+                lineas.add(line);
+            }   
+			
+			if( buffered != null ){
+				buffered.close();
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		OCRTicketRQT rqt = new OCRTicketRQT();
+		rqt.setLineas(lineas);
+		
+		OCRTicketRSP rsp = ticketService.analizarOCR(rqt);
+		
+		for( Producto p : rsp.getProductos() ) {
+			System.out.println( p.getNombreProducto() + " - " + p.getCantidadBonificacion() );
+		}
 	}
 	
 	public static void main(String[] args) {

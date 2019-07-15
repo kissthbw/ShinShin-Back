@@ -1,5 +1,7 @@
 package com.bit.service;
 
+import java.util.List;
+
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
@@ -28,5 +30,7 @@ public interface ProductoService {
 	ListItemsRSP getProductosPorTipo(CatalogoTipoProducto item, Producto i);
 
 	ListItemsRSP getProductosPorNombre(Producto i);
+	
+	List<Producto> getProductosPorIDYEmpresa(List<String> items, int idEmpresa);
 
 }

@@ -190,4 +190,19 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setProductos(transform(list));
 		return rsp;
 	}
+	
+	@Override
+	@Transactional
+	public List<Producto> getProductosPorIDYEmpresa(List<String> items, int idEmpresa) {
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
+
+		log.info("Obteniento lista de productos: {}", items.toString());
+		log.info("Obteniento lista de productos por identificador de tienda: {}", idEmpresa);
+
+		List<Producto> list = productoDAO.getProductosPorIDYEmpresa(items);
+
+		return transform(list);
+	}
 }

@@ -84,5 +84,13 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 
 		return ((Criteria) c).list();
 	}
+	
+	@Transactional
+	public List<Producto> getProductosPorIDYEmpresa(List<String> items) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		c.add(Restrictions.in("nombreProducto", items));
+
+		return ((Criteria) c).list();
+	}
 
 }

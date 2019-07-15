@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.request.OCRTicketRQT;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.TicketService;
 
@@ -47,6 +48,15 @@ public class TicketRestController {
 		
 		log.info("Entrando a registrarTickets");
 		SimpleResponse rsp = ticketService.registrarTickets(item);
+
+		return rsp;
+	}
+	
+	@PostMapping(value = "/analizar")
+	public @ResponseBody SimpleResponse analizarTicket(@RequestBody OCRTicketRQT rqt) {
+		
+		log.info("Entrando a analizarTicket");
+		SimpleResponse rsp = ticketService.analizarOCR(rqt);
 
 		return rsp;
 	}

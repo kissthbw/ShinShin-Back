@@ -17,7 +17,7 @@ public class CatalogoMarcaController {
 
 	@Autowired
 	private CatalogoMarcaService catalogoMarcaService;
-
+	
 	@RequestMapping(value = "/marca/save", method = RequestMethod.GET)
 	public String redireccionaMedio(Model model) {
 
