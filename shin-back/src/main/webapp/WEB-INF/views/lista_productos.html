@@ -7,7 +7,7 @@
 	<link rel="apple-touch-icon" sizes="76x76" th:href="@{/resources/assets/img/apple-icon.png}" />
 	<link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing-Shing - Lista Medios Bonificacion</title>
+	<title>Shing-Shing - Lista Productos</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -153,7 +153,7 @@
 						</div>
 						<div class="collapse show" id="listas">
 							<ul class="nav">
-								<li class="active">
+								<li>
 									<a th:href="@{/catalogos/mediosBonificacion/list}">
 										<span class="sidebar-mini-icon">MB</span>
 										<span class="sidebar-normal"> Medios Bonificacion </span>
@@ -163,7 +163,7 @@
 						</div>
 						<div class="collapse show" id="listas">
 							<ul class="nav">
-								<li>
+								<li class="active">
 									<a th:href="@{/catalogos/producto/list}">
 										<span class="sidebar-mini-icon">P</span>
 										<span class="sidebar-normal"> Productos </span>
@@ -259,7 +259,7 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">Lista Medios Bonificacion</h4>
+								<h4 class="card-title">Lista Productos</h4>
 							</div>
 							<div class="card-body">
 								<div class="toolbar">
@@ -269,22 +269,43 @@
 									<thead>
 										<tr>
 											<th>Id</th>
-											<th>Medio Bonificacion</th>
+											<th>Producto</th>
+											<th>Precio</th>
+											<th>Contenido</th>
+											<th>Imagen</th>
+											<th>Bonificacion</th>
+											<th>Marca</th>
+											<th>Departamento</th>
+											<th>Tienda</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
 											<th>Id</th>
-											<th>Medio Bonificacion</th>
+											<th>Producto</th>
+											<th>Precio</th>
+											<th>Contenido</th>
+											<th>Imagen</th>
+											<th>Bonificacion</th>
+											<th>Marca</th>
+											<th>Departamento</th>
+											<th>Tienda</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</tfoot>
 									<tbody>
-										<th:block th:each="item : ${medios}">
+										<th:block th:each="item : ${productos}">
 											<tr>
-												<td th:text="${item.idCatalogoMedioBonificacion}"></td>
-												<td th:text="${item.nombreMedioBonificacion}"></td>
+												<td th:text="${item.idProducto}"></td>
+												<td th:text="${item.nombreProducto}"></td>
+												<td th:text="${item.precio}"></td>
+												<td th:text="${item.contenido}"></td>
+												<td th:text="${item.urlImagenProducto}"></td>
+												<td th:text="${item.cantidadBonificacion}"></td>
+												<td th:text="${item.catalogoMarca.nombreMarca}"></td>
+												<td th:text="${item.catalogoTipoProducto.nombreTipoProducto}"></td>
+												<td th:text="${item.catalogoTienda.nombreTienda}"></td>
 												<td class="text-center">
 													<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
 														<i class="fa fa-edit"></i>
