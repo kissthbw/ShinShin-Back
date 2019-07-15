@@ -9,8 +9,7 @@
 <link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}"></link>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Shing-Shing - Productos</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <!--     Fonts and icons     -->
 
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -49,15 +48,24 @@
 						<div class="clearfix"></div>
 						<div class="collapse" id="collapseExample">
 							<ul class="nav">
-								<li><a href="#"> <span class="sidebar-mini-icon">MP</span>
+								<li>
+									<a href="#">
+										<span class="sidebar-mini-icon">MP</span>
 										<span class="sidebar-normal">My Profile</span>
-								</a></li>
-								<li><a href="#"> <span class="sidebar-mini-icon">EP</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="sidebar-mini-icon">EP</span>
 										<span class="sidebar-normal">Edit Profile</span>
-								</a></li>
-								<li><a href="#"> <span class="sidebar-mini-icon">S</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="sidebar-mini-icon">S</span>
 										<span class="sidebar-normal">Settings</span>
-								</a></li>
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -110,6 +118,62 @@
 										<span class="sidebar-normal"> Productos </span>
 									</a>
 								</li>
+								<li>
+									<a data-toggle="collapse" href="#listas" aria-expanded="true">
+										<i class="nc-icon nc-single-copy-04"></i>
+										<p>Listas<b class="caret"></b></p>
+									</a>
+									<div class="collapse show" id="listas">
+										<ul class="nav">
+											<li>
+												<a th:href="@{/catalogos/departamento/list}">
+													<span class="sidebar-mini-icon">D</span>
+													<span class="sidebar-normal"> Departamentos </span>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="collapse show" id="listas">
+										<ul class="nav">
+											<li>
+												<a th:href="@{/catalogos/marca/list}">
+													<span class="sidebar-mini-icon">M</span>
+													<span class="sidebar-normal"> Marcas </span>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="collapse show" id="listas">
+										<ul class="nav">
+											<li>
+												<a th:href="@{/catalogos/tienda/list}">
+													<span class="sidebar-mini-icon">T</span>
+													<span class="sidebar-normal"> Tiendas </span>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="collapse show" id="listas">
+										<ul class="nav">
+											<li>
+												<a th:href="@{/catalogos/mediosBonificacion/list}">
+													<span class="sidebar-mini-icon">MB</span>
+													<span class="sidebar-normal"> Medios Bonificacion </span>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="collapse show" id="listas">
+										<ul class="nav">
+											<li>
+												<a th:href="@{/catalogos/producto/list}">
+													<span class="sidebar-mini-icon">P</span>
+													<span class="sidebar-normal"> Productos </span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
 							</ul>
 						</div>
 					</li>
@@ -125,17 +189,15 @@
 					<div class="navbar-wrapper">
 						<div class="navbar-minimize">
 							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i
-									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i
-									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
+								<i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
+								<i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
 							</button>
 						</div>
 						<div class="navbar-toggle">
 							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span> <span
-									class="navbar-toggler-bar bar2"></span> <span
-									class="navbar-toggler-bar bar3"></span>
+								<span class="navbar-toggler-bar bar1"></span>
+								<span class="navbar-toggler-bar bar2"></span>
+								<span class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
 						<a class="navbar-brand" href="#pablo">Paper Dashboard 2 PRO</a>
@@ -143,16 +205,14 @@
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navigation" aria-controls="navigation-index"
 						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span>
+						<span class="navbar-toggler-bar navbar-kebab"></span>
+						<span class="navbar-toggler-bar navbar-kebab"></span>
+						<span class="navbar-toggler-bar navbar-kebab"></span>
 					</button>
-					<div class="collapse navbar-collapse justify-content-end"
-						id="navigation">
+					<div class="collapse navbar-collapse justify-content-end" id="navigation">
 						<form>
 							<div class="input-group no-border">
-								<input type="text" value="" class="form-control"
-									placeholder="Search..." />
+								<input type="text" value="" class="form-control" placeholder="Search..." />
 								<div class="input-group-append">
 									<div class="input-group-text">
 										<i class="nc-icon nc-zoom-split"></i>
@@ -373,40 +433,6 @@
 									</div>
 								</div>
 							</div>
-						</form>
-						<form class="form-horizontal" action="" th:object="${item}" method="get">
-							<table>
-    							<thead>
-        							<tr>
-        								<th class="text-center">#</th>
-            							<th> Id </th>
-            							<th> Imagen </th>
-            							<th> Producto </th>
-            							<th> Precio </th>
-            							<th> Codigo de Barras </th>
-            							<th> Presentacion </th>
-            							<th> Contenido </th>
-            							<th> Descripcion </th>
-            							<th> Aplica Promocion </th>
-            							<th> Vigencia Promocion </th>
-            							<th> Cantidad Bonificacion </th>
-            							<th> Es Banner </th>
-            							<th> Color de Banner </th>
-            							<th> Marca </th>
-            							<th> Departamento </th>
-            							<th> Tienda </th>
-        							</tr>
-    							</thead>
-    							<tbody>
-        							<tr th:each="producto:${item}">
-            							<td><span th:value="${item.idProducto}"> Id </span></td>
-            							<td><span th:text="${item.urlImagenProducto}"> Imagen </span></td>
-            							<td><span th:text="${item.nombreProducto}"> Producto </span></td>
-            							<td><span th:number="${item.precio}"> Precio </span></td>
-            							<th><span th:text="${producto.codigoBarras}">Codigo Barras</span></th>
-        							</tr>
-    							</tbody>
-							</table>
 						</form>
 					</div>
 				</div>
