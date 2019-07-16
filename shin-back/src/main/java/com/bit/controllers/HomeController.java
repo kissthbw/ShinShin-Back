@@ -10,7 +10,6 @@ public class HomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String home() {
-		return "redirect:/producto";
-//		return "redirect:/upload/textDetect";
+		return "redirect:/catalogos/producto/list";
 	}
 }
