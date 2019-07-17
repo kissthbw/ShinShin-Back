@@ -32,4 +32,8 @@ public interface UsuarioService {
 	ListItemsRSP obtieneTicketsPorUsuario(Usuario item);
 	
 	BigDecimal calculaCreditoTotal(Usuario user); 
+	
+	//Metodos relacionados con el dashboard del usuario
+	//obtiene informacion de totales para sre mostrada
+	InformacionUsuarioRSP obtieneInformacionGeneralUsuario(Usuario item);
 }

@@ -1,5 +1,6 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,5 +53,36 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		c.add(Restrictions.eq("contrasenia", contrasenia));
 		
 		return (Usuario) c.uniqueResult();
+	}
+	
+	//Obtiene los tickets totales del usuario
+	public BigInteger calculaTicketsTotales(Usuario item) {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(usuario_id_usuario) FROM historico_tickets\n" + 
+				" WHERE usuario_id_usuario = :idUsuario");
+		q.setParameter("idUsuario", item.getIdUsuario());
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
+	//Obtiene las bonificaciones solicitadas por el usuario
+	public BigInteger calculaBanoficacionesTotales(Usuario item) {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(usuario_id_usuario) FROM historico_medios_bonificacion\n" + 
+				" WHERE usuario_id_usuario = :idUsuario");
+		q.setParameter("idUsuario", item.getIdUsuario());
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
+	
+	//Obtiene el total de cuentas(medios de bonificacion) del usuario
+	public BigInteger calculaMediosBonificacionTotales(Usuario item) {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(usuario_id_usuario) FROM medios_bonificacion\n" + 
+				" WHERE usuario_id_usuario = :idUsuario");
+		q.setParameter("idUsuario", item.getIdUsuario());
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
 	}
 }

@@ -437,6 +437,30 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return rsp;
 	}
 	
+	/*
+	 * SECCION DE TOTALES PARA EL DASHBOARD DEL USUARIO
+	 */
+	@Override
+	@Transactional
+	public InformacionUsuarioRSP obtieneInformacionGeneralUsuario(Usuario item) {
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
+		try {
+			Usuario entity = usuarioDAO.findByPK(2L);
+			Usuario tmp = new Usuario();
+			
+			tmp.setNombre( entity.getNombre() );
+			rsp.setUsuario(tmp);
+			rsp.setTickets( usuarioDAO.calculaTicketsTotales(item).longValue() );
+			rsp.setRetiros( usuarioDAO.calculaBanoficacionesTotales(item).longValue() );
+			rsp.setMedios( usuarioDAO.calculaMediosBonificacionTotales(item).longValue() );
+			rsp.setBonificacion( calculaCreditoTotal(item).doubleValue() );
+		}
+		catch(Exception e) {
+			log.error("Error en obtieneInformacionGeneralUsuario ", e);
+		}
+		return rsp;
+	}
+	
 	private List<MediosBonificacion> transform(List<MediosBonificacion> list) {
 		
 		List<MediosBonificacion> tmp = new ArrayList<>();
