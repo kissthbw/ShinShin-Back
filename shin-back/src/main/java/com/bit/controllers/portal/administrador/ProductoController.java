@@ -1,4 +1,4 @@
-package com.bit.controllers;
+package com.bit.controllers.portal.administrador;
 
 import java.util.ArrayList;
 import java.util.List;

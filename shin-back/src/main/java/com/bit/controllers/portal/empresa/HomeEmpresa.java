@@ -1,4 +1,4 @@
-package com.bit.controllers;
+package com.bit.controllers.portal.empresa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,20 +13,20 @@ import com.bit.service.UsuarioService;
 
 @Controller
 @RequestMapping("/login")
-public class HomeAdministrador {
+public class HomeEmpresa {
 	
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(value = "/administrador", method = RequestMethod.GET)
+	@RequestMapping(value = "/empresa", method = RequestMethod.GET)
 	public String redireccionaLogin(Model model) {
 		
 		model.addAttribute("item", new Usuario());
 		
-		return "login_administrador";
+		return "login_empresa";
 	}
 	
-	@RequestMapping(value = "/administrador", method = RequestMethod.POST)
+	@RequestMapping(value = "/empresa", method = RequestMethod.POST)
 	public String loginCuenta(@ModelAttribute Usuario item, BindingResult errors, Model model) {
 		
 		usuarioService.findUserByUserAndPassword(item);

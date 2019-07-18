@@ -33,7 +33,7 @@
             			<span class="navbar-toggler-bar bar3"></span>
           			</button>
         		</div>
-        		<a class="navbar-brand" href="#pablo">Inicio Sesion</a>
+        		<a class="navbar-brand" href="#pablo">Inicio Sesion - Administradores -</a>
       		</div>
       		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
         		<span class="navbar-toggler-bar navbar-kebab"></span>
@@ -79,7 +79,7 @@
       		<div class="content">
         		<div class="container">
           			<div class="col-lg-4 col-md-6 ml-auto mr-auto">
-            			<form class="form" method="post" action="">
+            			<form class="form" method="post" action="" th:object="${item}">
               				<div class="card card-login">
                 				<div class="card-header ">
                   					<div class="card-header ">
@@ -93,7 +93,7 @@
                         						<i class="nc-icon nc-single-02"></i>
                       						</span>
                     					</div>
-                    					<input type="text" class="form-control" placeholder="Usuario" />
+                    					<input type="text" class="form-control" placeholder="Usuario" th:field="*{usuario}" />
                   					</div>
                   					<div class="input-group">
                     					<div class="input-group-prepend">
@@ -101,7 +101,7 @@
                         						<i class="nc-icon nc-key-25"></i>
                       						</span>
                     					</div>
-                    					<input type="password" placeholder="Contraseña" class="form-control" />
+                    					<input type="password" placeholder="Contraseña" th:field="*{contrasenia}" class="form-control" />
                   					</div>
                   					<br/>
                   					<!-- <div class="form-group">

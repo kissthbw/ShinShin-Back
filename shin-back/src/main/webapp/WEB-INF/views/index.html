@@ -9,11 +9,13 @@
 <body>
 
 	<h1>Guardar</h1>
-
+	<img th:src="@{/resources/imgs/buy.png}" width="65" height="53" class="d-inline-block align-top" alt=""/>
 	<form action="#" th:action="@{/medio/save}" th:object="${item}"
-		method="post">
+		method="post" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
+				Select a file: <input type="file" name="myFile"/><br/><br/>
+  				<td><input type="submit"/></td>
 				<td><input type="text" th:field="*{nombreMedioBonificacion}" /></td>
 			</tr>
 			<tr>

@@ -1,4 +1,4 @@
-package com.bit.controllers;
+package com.bit.controllers.portal.administrador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import com.bit.service.CatalogoTipoProductoService;
 import com.bit.service.ProductoService;
 
 @Controller
-@RequestMapping("/catalogos")
+@RequestMapping("/portal-administrador")
 public class CatalogosController {
 
 	@Autowired
@@ -56,7 +56,7 @@ public class CatalogosController {
 
 		catalogoTipoProductoService.registrarCatalogoTipoProductos(item);
 
-		return "redirect:/catalogos/departamento/save";
+		return "redirect:/portal-administrador/departamento/save";
 	}
 
 	@RequestMapping(value = "/marca/save", method = RequestMethod.GET)
@@ -74,7 +74,7 @@ public class CatalogosController {
 
 		catalogoMarcaService.registrarMarcas(item);
 
-		return "redirect:/catalogos/marca/save";
+		return "redirect:/portal-administrador/marca/save";
 	}
 
 	@RequestMapping(value = "/medioBonificacion/save", method = RequestMethod.GET)
@@ -92,7 +92,7 @@ public class CatalogosController {
 
 		catalogoMediosBonificacionService.registrarCatalogoMediosBonificacion(item);
 
-		return "redirect:/catalogos/medioBonificacion/save";
+		return "redirect:/portal-administrador/medioBonificacion/save";
 	}
 
 	@RequestMapping(value = "tienda/save", method = RequestMethod.GET)
@@ -110,7 +110,7 @@ public class CatalogosController {
 
 		catalogoTiendaService.registrarTiendas(item);
 
-		return "redirect:/catalogos/tienda/save";
+		return "redirect:/portal-administrador/tienda/save";
 	}
 
 	@RequestMapping(value = "/producto/save", method = RequestMethod.GET)
@@ -137,7 +137,7 @@ public class CatalogosController {
 
 		productoService.registrarProductos(item);
 
-		return "redirect:/catalogos/producto/save";
+		return "redirect:/portal-administrador/producto/save";
 	}
 	
 	@RequestMapping(value = "/mediosBonificacion/list", method = RequestMethod.GET)
