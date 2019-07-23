@@ -5,6 +5,7 @@ import java.util.List;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTienda;
+import com.bit.model.CatalogoTipoBancaria;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
@@ -24,6 +25,7 @@ public class ListItemsRSP extends SimpleResponse{
 	private List<Producto> productos;
 	private List<CatalogoMarca> marcas;
 	private List<CatalogoMediosBonificacion> mediosBonificacion;
+	private List<CatalogoTipoBancaria> tiposBancarias;
 	private List<CatalogoTienda> tiendas;
 	private List<CatalogoTipoProducto> tipoProductos;
 	private List<HistoricoMediosBonificacion> historicoMediosBonificaciones;
@@ -54,6 +56,14 @@ public class ListItemsRSP extends SimpleResponse{
 
 	public void setMediosBonificacion(List<CatalogoMediosBonificacion> mediosBonificacion) {
 		this.mediosBonificacion = mediosBonificacion;
+	}
+
+	public List<CatalogoTipoBancaria> getTiposBancarias() {
+		return tiposBancarias;
+	}
+
+	public void setTiposBancarias(List<CatalogoTipoBancaria> tiposBancarias) {
+		this.tiposBancarias = tiposBancarias;
 	}
 
 	public List<CatalogoTienda> getTiendas() {

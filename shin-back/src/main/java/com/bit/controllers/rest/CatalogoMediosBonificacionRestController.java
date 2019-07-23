@@ -32,6 +32,15 @@ public class CatalogoMediosBonificacionRestController {
 
 		return rsp;
 	}
+	
+	@GetMapping(value = "/listTiposBancarias")
+	public @ResponseBody ListItemsRSP getCatalogoTiposBancarias() {
+		
+		log.info("Entrando a getCatalogoTiposBancarias");
+		ListItemsRSP rsp = catalogoMediosBonificacionService.getCatalogoTiposBancaria();
+
+		return rsp;
+	}
 
 	@PostMapping(value = "/catalogoMediosBonificacion/guardar")
 	public SimpleResponse guardarCatalogoMediosBonificacion(@RequestBody CatalogoMediosBonificacion item) {

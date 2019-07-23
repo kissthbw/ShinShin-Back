@@ -7,6 +7,8 @@ import com.bit.model.dto.response.ListItemsRSP;
 public interface CatalogoMediosBonificacionService {
 
 	ListItemsRSP getCatalogoMediosBonificacion();
+	
+	ListItemsRSP getCatalogoTiposBancaria();
 
 	SimpleResponse registrarCatalogoMediosBonificacion(CatalogoMediosBonificacion item);
 

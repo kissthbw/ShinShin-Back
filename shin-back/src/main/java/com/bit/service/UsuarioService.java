@@ -13,6 +13,8 @@ public interface UsuarioService {
 
 	SimpleResponse registrarUsuarios(Usuario item);
 
+	SimpleResponse reenviarCodigoUsuario(Usuario item);
+	
 	SimpleResponse activarUsuarios(Usuario item);
 
 	SimpleResponse actualizarUsuarios(Usuario item);

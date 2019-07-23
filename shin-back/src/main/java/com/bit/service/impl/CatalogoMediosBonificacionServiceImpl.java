@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.CatalogoMediosBonificacionDAO;
+import com.bit.dao.CatalogoTipoBancariaDAO;
 import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.CatalogoTipoBancaria;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMediosBonificacionService;
@@ -22,6 +24,9 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 	@Autowired
 	private CatalogoMediosBonificacionDAO catalogoMediosBonificacionDAO;
 
+	@Autowired
+	private CatalogoTipoBancariaDAO catalogoTipoBancariaDAO;
+	
 	@Override
 	@Transactional
 	public ListItemsRSP getCatalogoMediosBonificacion() {
@@ -38,6 +43,21 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 		return rsp;
 	}
 
+	@Override
+	@Transactional
+	public ListItemsRSP getCatalogoTiposBancaria() {
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
+		
+		log.info("Obteniendo lista de tipos de bancarias");
+		
+		List<CatalogoTipoBancaria> list = catalogoTipoBancariaDAO.getCatalogoTipoBancaria();
+		
+		rsp.setTiposBancarias(list);
+		return rsp;
+	}
+	
 	@Override
 	@Transactional
 	public SimpleResponse registrarCatalogoMediosBonificacion(CatalogoMediosBonificacion item) {

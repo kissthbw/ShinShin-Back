@@ -35,6 +35,16 @@ public class UsuariosRestController {
 		return rsp;
 	}
 
+	@PostMapping(value = "/usuario/reenviar")
+	public @ResponseBody SimpleResponse reenviarCodigoUsuario(@RequestBody Usuario item) {
+		
+		log.info("Entrando a reenviarCodigoUsuario");
+		//Tel movil: formato +5215534714616
+		SimpleResponse rsp = usuarioService.reenviarCodigoUsuario(item);
+		
+		return rsp;
+	}
+	
 	@PostMapping(value = "/usuario/registrar")
 	public @ResponseBody SimpleResponse registrarUsuario(@RequestBody Usuario item) {
 		

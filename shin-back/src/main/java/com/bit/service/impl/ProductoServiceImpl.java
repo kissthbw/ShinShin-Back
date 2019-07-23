@@ -63,6 +63,15 @@ public class ProductoServiceImpl implements ProductoService {
 	public SimpleResponse registrarProductos(Producto item) {
 
 		log.info("Registrando un nuevo producto en la base de datos");
+		
+		//El color del producto viene el formato
+		//rgb(241, 138, 49)
+		//dejar solo 241, 138, 49
+		String color = item.getColorBanner();
+		color = color.replace("rgb(", "").trim();
+		color = color.replace(")", "").trim();
+		color = color.replace(" ", "").trim();
+		item.setColorBanner(color);
 
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");

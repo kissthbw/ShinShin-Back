@@ -1523,6 +1523,7 @@ demo = {
     var cardStatsMiniLineColor = "#fff",
       cardStatsMiniDotColor = "#fff";
 
+    /*
     ctx = document.getElementById('chartActivity').getContext("2d");
 
     gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
@@ -1619,6 +1620,8 @@ demo = {
         }
       }
     });
+    FIN
+    */
 
     Chart.pluginService.register({
       beforeDraw: function(chart) {
@@ -1662,6 +1665,7 @@ demo = {
       }
     });
 
+    /*
     ctx = document.getElementById('chartDonut1').getContext("2d");
 
     myChart = new Chart(ctx, {
@@ -1914,7 +1918,8 @@ demo = {
         },
       }
     });
-
+    */
+    //CHART DONUTS
 
 
 

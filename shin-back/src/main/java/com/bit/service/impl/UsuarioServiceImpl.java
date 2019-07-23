@@ -98,7 +98,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 
 		String codigo = Utils.generaCodigoVerficacion();
-		Utils.generaCodigoVerficacion();
 		item.setCodigoVerificacion(codigo);
 		item.setEstatusActivacion(false);
 
@@ -135,6 +134,35 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return rsp;
 	}
 
+	@Override
+	@Transactional
+	public SimpleResponse reenviarCodigoUsuario(Usuario item) {
+		log.info("Registrando valores para crar nuevo usuario");
+
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		Usuario temp = usuarioDAO.findByPK(item.getIdUsuario());
+		String codigo = Utils.generaCodigoVerficacion();
+		temp.setCodigoVerificacion(codigo);
+		
+		SMSDTO sms = new SMSDTO();
+		sms.setToMobileNumber(temp.getTelMovil());
+		sms.setBody("Tu codigo es: " + temp.getCodigoVerificacion());
+
+		try {
+			mediosComunicacionService.sendSMS(sms);
+		} catch (CommunicationException e) {
+			e.printStackTrace();
+		}
+
+		rsp.setId(temp.getIdUsuario());
+		item = usuarioDAO.update(temp);
+		
+		return rsp;
+	}
+	
 	@Override
 	@Transactional
 	public SimpleResponse activarUsuarios(Usuario item) {
