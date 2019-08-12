@@ -416,12 +416,28 @@ public class UsuarioServiceImpl implements UsuarioService {
 		rsp.setCode(200);
 		rsp.setMessage("Exito");
 		
-		Usuario tmp = usuarioDAO.findByPK( item.getIdUsuario() );
+		//Verificar que el ticket no haya sido registrado previamente
 		for( Ticket t : item.getTickets() ) {
-			tmp.addTicket( t );
+			log.info("Verificando existencia del ticket con transaccion y tienda: {}, {}", t.getTicket_transaccion(), t.getTicket_tienda());
+			
+			boolean existe = ticketDAO.existeTicketByTransaccionTienda(t);
+			
+			log.info( "Existe?: {}", existe );
+			
+			
+			if(!existe) {
+				Usuario tmp = usuarioDAO.findByPK( item.getIdUsuario() );
+				tmp.addTicket( t );
+				tmp = usuarioDAO.update(tmp);
+			}
+			else {
+				rsp.setCode(203);
+				rsp.setMessage("Este ticket ya ha sido registrado");
+			}
+			
+			
 		}
-		
-		tmp = usuarioDAO.update(tmp);
+
 		
 		log.info( "Ticket guardado de forma exitosa" );
 		return rsp;
@@ -545,6 +561,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 			tmp.setNombreTienda( t.getNombreTienda() );
 			tmp.setSucursal( t.getSucursal() );
 			tmp.setTotal( t.getTotal() );
+			tmp.setTicket_tienda( t.getTicket_tienda() );
+			tmp.setTicket_subTienda( t.getTicket_subTienda() );
+			tmp.setTicket_fecha( t.getTicket_fecha() );
+			tmp.setTicket_hora( t.getTicket_hora() );
+			tmp.setTicket_transaccion( t.getTicket_transaccion() );
 			
 			tickets.add(tmp);
 		}

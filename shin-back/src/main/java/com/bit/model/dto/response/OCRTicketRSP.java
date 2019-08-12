@@ -12,8 +12,10 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 	private static final long serialVersionUID = -4584758005329914339L;
 
 	private String tienda;
+	private String subTienda;
 	private String fecha;
 	private String hora;
+	private String transaccion;
 	private List<Producto> productos = new ArrayList<>();
 	private List<String> lineas = new ArrayList<>();
 
@@ -24,6 +26,14 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 
 	public void setTienda(String tienda) {
 		this.tienda = tienda;
+	}
+
+	public String getSubTienda() {
+		return subTienda;
+	}
+
+	public void setSubTienda(String subTienda) {
+		this.subTienda = subTienda;
 	}
 
 	public String getFecha() {
@@ -40,6 +50,14 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getTransaccion() {
+		return transaccion;
+	}
+
+	public void setTransaccion(String transaccion) {
+		this.transaccion = transaccion;
 	}
 
 	public List<Producto> getProductos() {

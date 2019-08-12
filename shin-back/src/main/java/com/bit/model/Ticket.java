@@ -47,6 +47,27 @@ public class Ticket {
 	@Column(name = "total")
 	private double total;
 	
+	//Datos del ticket escaneado
+	//tienda
+	@Column(name = "ticket_tienda")
+	private String ticket_tienda;
+	
+	//subtienda
+	@Column(name = "ticket_subtienda")
+	private String ticket_subTienda;
+	
+	//transaccion
+	@Column(name = "ticket_transaccion")
+	private String ticket_transaccion;
+	
+	//fecha
+	@Column(name = "ticket_fecha")
+	private String ticket_fecha;
+	
+	//hora
+	@Column(name = "ticket_hora")
+	private String ticket_hora;
+	
 	//Obtener historico bonificaciones
 	@ManyToMany( fetch = FetchType.LAZY)
 	@JoinTable(name = "historico_bonificaciones", joinColumns = {
@@ -116,6 +137,46 @@ public class Ticket {
 
 	public double getTotal() {
 		return total;
+	}
+
+	public String getTicket_tienda() {
+		return ticket_tienda;
+	}
+
+	public void setTicket_tienda(String ticket_tienda) {
+		this.ticket_tienda = ticket_tienda;
+	}
+
+	public String getTicket_subTienda() {
+		return ticket_subTienda;
+	}
+
+	public void setTicket_subTienda(String ticket_subTienda) {
+		this.ticket_subTienda = ticket_subTienda;
+	}
+
+	public String getTicket_transaccion() {
+		return ticket_transaccion;
+	}
+
+	public void setTicket_transaccion(String ticket_transaccion) {
+		this.ticket_transaccion = ticket_transaccion;
+	}
+
+	public String getTicket_fecha() {
+		return ticket_fecha;
+	}
+
+	public void setTicket_fecha(String ticket_fecha) {
+		this.ticket_fecha = ticket_fecha;
+	}
+
+	public String getTicket_hora() {
+		return ticket_hora;
+	}
+
+	public void setTicket_hora(String ticket_hora) {
+		this.ticket_hora = ticket_hora;
 	}
 
 	public void setProductos(List<Producto> productos) {

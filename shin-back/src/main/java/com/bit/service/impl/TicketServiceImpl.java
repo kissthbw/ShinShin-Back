@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.common.TicketAnalizer;
+import com.bit.common.Analizer;
 import com.bit.dao.TicketDAO;
+import com.bit.exception.TicketException;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.dto.SimpleResponse;
@@ -56,13 +57,16 @@ public class TicketServiceImpl implements TicketService {
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
+		log.info( "Verificando id transaccion de ticket y tienda: {}, {}", 
+				item.getTicket_tienda(), item.getTicket_transaccion() );
+		
 		item = ticketDAO.save(item);
 		rsp.setId(item.getIdTicket());
 		return rsp;
 	}
 
 	@Override
-	public OCRTicketRSP analizarOCR(OCRTicketRQT rqt) {
+	public OCRTicketRSP analizarOCR(OCRTicketRQT rqt, boolean fake) {
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		
 		if( rqt.getLineas().isEmpty() ) {
@@ -72,9 +76,21 @@ public class TicketServiceImpl implements TicketService {
 			return rsp;
 		}
 		
-		rsp = TicketAnalizer.analize(rqt.getLineas());
+		try {
+			rsp = Analizer.analize(rqt.getLineas(), fake);
+			log.info("Ticket correcto");
+		} catch (TicketException e) {
+			log.error("Error al analizar ticket", e);
+			rsp.setCode(204);
+			rsp.setMessage("No se poseee informacion suficiente para analizar");
+			
+			return rsp;
+		}
 		
+		//Guardar información del ticket
 		List<Producto> productos = productoService.getProductosPorIDYEmpresa(rsp.getLineas(), 0);
+		
+		log.info( "Ticket con id de transaccion: {}", rsp.getTransaccion() );
 		
 		if( productos.isEmpty() ) {
 			rsp.setCode(203);
@@ -83,6 +99,8 @@ public class TicketServiceImpl implements TicketService {
 			return rsp;
 		}
 		
+		
+		log.info( "Guardando indormacio de ticket con id de transaccion: {}", rsp.getTransaccion() );
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		rsp.setProductos(productos);

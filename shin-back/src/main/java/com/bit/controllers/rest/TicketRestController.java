@@ -56,7 +56,16 @@ public class TicketRestController {
 	public @ResponseBody SimpleResponse analizarTicket(@RequestBody OCRTicketRQT rqt) {
 		
 		log.info("Entrando a analizarTicket");
-		SimpleResponse rsp = ticketService.analizarOCR(rqt);
+		SimpleResponse rsp = ticketService.analizarOCR(rqt, true);
+
+		return rsp;
+	}
+	
+	@PostMapping(value = "/analizar2")
+	public @ResponseBody SimpleResponse analizarTicket2(@RequestBody OCRTicketRQT rqt) {
+		
+		log.info("Entrando a analizarTicket");
+		SimpleResponse rsp = ticketService.analizarOCR(rqt, false);
 
 		return rsp;
 	}
