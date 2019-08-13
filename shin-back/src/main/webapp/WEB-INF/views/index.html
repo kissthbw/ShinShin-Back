@@ -1,27 +1,48 @@
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+  xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<title>Shing Shing</title>
-<meta charset="utf-8" />
-
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>Shing Shing</title>
+	<link rel="shortcut icon" th:href="@{/resources/construccion/img/favicon.png}"></link>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"></link>
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/resources/construccion/css/bootstrap.min.css}" rel="stylesheet"></link>
+  <!-- Material Design Bootstrap -->
+  <link th:href="@{/resources/construccion/css/mdb.min.css}" rel="stylesheet"></link>
+  <!-- Custom styles -->
+  <link th:href="@{/resources/construccion/css/style.css}" rel="stylesheet"></link>
+  <!-- Nunito -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet"></link>
 </head>
+
 <body>
 
-	<h1>Guardar</h1>
-	<img th:src="@{/resources/imgs/buy.png}" width="65" height="53" class="d-inline-block align-top" alt=""/>
-	<form action="#" th:action="@{/medio/save}" th:object="${item}"
-		method="post" enctype="multipart/form-data">
-		<table border="1">
-			<tr>
-				Select a file: <input type="file" name="myFile"/><br/><br/>
-  				<td><input type="submit"/></td>
-				<td><input type="text" th:field="*{nombreMedioBonificacion}" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Submit" /></td>
-			</tr>
-		</table>
-	</form>
+  <!-- Start your project here-->
+  <div style="height: 100vh">
+    <div class="flex-center flex-column">
+
+      <h1 class="text-hide animated fadeIn mb-4"
+      	 style="background-image: url(resources/construccion/img/logo-blanco.png); width: 240px; height: 43px; background-size: cover;"></h1>
+        
+      <h7 style="color: #fff; font-size: 14px; font-family: Nunito; margin-top: 40px;">...Estamos trabajando ;-)</h7>
+    </div>
+  </div>
+  <!-- Start your project here-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" th:src="@{/resources/construccion/js/jquery-3.4.1.min.js}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" th:src="@{/resources/construccion/js/popper.min.js}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" th:src="@{/resources/construccion/js/bootstrap.min.js}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" th:src="@{/resources/construccion/js/mdb.min.js}"></script>
 </body>
+
 </html>
