@@ -16,6 +16,7 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 	private String fecha;
 	private String hora;
 	private String transaccion;
+	private boolean tieneCB;
 	private List<Producto> productos = new ArrayList<>();
 	private List<String> lineas = new ArrayList<>();
 
@@ -58,6 +59,18 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 
 	public void setTransaccion(String transaccion) {
 		this.transaccion = transaccion;
+	}
+
+	public boolean isTieneCB() {
+		return tieneCB;
+	}
+
+	public void setTieneCB(boolean tieneCB) {
+		this.tieneCB = tieneCB;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public List<Producto> getProductos() {

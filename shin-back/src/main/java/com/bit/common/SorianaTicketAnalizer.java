@@ -30,6 +30,7 @@ public class SorianaTicketAnalizer implements TicketAnalizer {
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		rsp.setTienda("SORIANA");
+		rsp.setTieneCB(true);
 		
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();

@@ -34,6 +34,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		rsp.setTienda("WALMART");
+		rsp.setTieneCB(true);
 		
 		WalmartTicketRSP tmp = new WalmartTicketRSP();
 		String valor = "";

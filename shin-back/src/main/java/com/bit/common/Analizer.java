@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
 
 public class Analizer {
 	
-	
+	private static final Logger log = LoggerFactory.getLogger(Analizer.class);
 	
 	//
 	private static Map<String, String> tiendas = new HashMap<>();
@@ -84,7 +87,7 @@ public class Analizer {
 			    
 			    if( linea.toUpperCase().contains(key.toUpperCase()) ) {
 			    	valor = value;
-			    	System.out.println( "Es un " + valor );
+			    	log.info("Ticket de: {}", valor);
 			    	it.remove();
 			    	break search;
 			    }

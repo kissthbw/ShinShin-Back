@@ -9,11 +9,16 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
 
 public class SevenTicketAnalizer implements TicketAnalizer {
 
+	private static final Logger log = LoggerFactory.getLogger(SevenTicketAnalizer.class);
+	
 	private static final String FECHA_PATTERN = "(0[1-9]|1[012])[/ .](0[1-9]|[12][0-9]|3[01])[/ .](19|20)";
 	private static final String HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d\\s(PM|AM))";
 	private static final String SUCURSAL = "\\d+\\s\\d+\\s\\d+\\s\\d+";
@@ -31,6 +36,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		rsp.setTienda("7ELEVEN");
+		rsp.setTieneCB(true);
 		
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();
@@ -282,11 +288,11 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		if ( rsp.getHora() != null && rsp.getFecha() != null &&
 				rsp.getTransaccion() != null
 				) {
-			System.out.println( "Ticket OK" );
+			log.info( "Ticket OK" );
 			
 		}
 		else {
-			System.out.println( "Ticket incompleto" );
+			log.info( "Ticket incompleto" );
 			Throwable t = new Throwable("Identificadores de transaccion o fechas incompletas");
 			throw new TicketException("Ticket con identificadores incompletos", t, 500);
 		}

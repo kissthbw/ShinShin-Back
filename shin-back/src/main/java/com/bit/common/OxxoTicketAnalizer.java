@@ -47,6 +47,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		String valor = null;
 
 		rsp.setTienda("OXXO");
+		rsp.setTieneCB(false);
 
 		ListIterator<String> it = lineas.listIterator();
 		valor = detectaFecha(it);
