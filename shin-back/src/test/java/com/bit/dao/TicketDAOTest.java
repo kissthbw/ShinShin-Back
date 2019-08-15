@@ -19,9 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.common.TicketAnalizer;
+import com.bit.common.Analizer;
 import com.bit.common.Utils;
 import com.bit.config.WebConfig;
+import com.bit.exception.TicketException;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
@@ -225,7 +226,7 @@ public class TicketDAOTest {
 		try {
 			buffered = new 
 					BufferedReader( 
-							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-oxxo-3.txt") );
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-soriana.txt") );
 			
 			while((line = buffered.readLine()) != null) {
                 lineas.add(line);
@@ -242,7 +243,7 @@ public class TicketDAOTest {
 		OCRTicketRQT rqt = new OCRTicketRQT();
 		rqt.setLineas(lineas);
 		
-		OCRTicketRSP rsp = ticketService.analizarOCR(rqt);
+		OCRTicketRSP rsp = ticketService.analizarOCR(rqt, false);
 		
 		for( Producto p : rsp.getProductos() ) {
 			System.out.println( p.getNombreProducto() + " - " + p.getCantidadBonificacion() );
@@ -250,14 +251,20 @@ public class TicketDAOTest {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println( "Inicio: " + new Date() );
 		BufferedReader buffered = null;
 		List<String> lineas = new ArrayList<>();
 		String line = null;
 		
 		try {
 			buffered = new 
-					BufferedReader( 
-							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-oxxo.txt") );
+					BufferedReader(
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-7eleven-3.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-3.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-2.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-aurrera.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-superama.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-oxxo.txt") );
 			
 			while((line = buffered.readLine()) != null) {
                 lineas.add(line);
@@ -271,7 +278,14 @@ public class TicketDAOTest {
 			e.printStackTrace();
 		}
 		
-		TicketAnalizer.analize(lineas);
+		try {
+			
+			Analizer.analize(lineas, false);
+			System.out.println( "Fin: " + new Date() );
+		} catch (TicketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

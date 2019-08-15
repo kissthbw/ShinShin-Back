@@ -1,5 +1,7 @@
 package com.bit.dao;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -394,4 +396,25 @@ public class UsuarioDAOTest {
 		
 	}
 	
+	/*
+	 * Seccion para totales del dashboard
+	 */
+	@Transactional
+	@Test
+	public void calculaTotales() {
+		Usuario user = new Usuario();
+		user.setIdUsuario(2l);
+		
+		BigInteger total = usuarioDAO.calculaTicketsTotales(user);
+		System.out.println( "Tickets totales: " + total );
+		
+		total = usuarioDAO.calculaBanoficacionesTotales(user);
+		System.out.println( "Bonificaciones totales: " + total );
+		
+		total = usuarioDAO.calculaMediosBonificacionTotales(user);
+		System.out.println( "Cuentas totales: " + total );
+		
+		BigDecimal saldo = usuarioService.calculaCreditoTotal(user);
+		System.out.println( "Saldo total: " + saldo );
+	}
 }
