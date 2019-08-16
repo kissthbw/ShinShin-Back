@@ -11,6 +11,7 @@ import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.ProductoValoracion;
+import com.bit.model.ProductosTiendas;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
@@ -33,6 +34,7 @@ public class ListItemsRSP extends SimpleResponse{
 	private List<ProductoValoracion> productoValoraciones;
 	private List<Ticket> tickets;
 	private List<Usuario> usuarios;
+	private List<ProductosTiendas> productosTienda;
 
 	public List<Producto> getProductos() {
 		return productos;
@@ -120,6 +122,14 @@ public class ListItemsRSP extends SimpleResponse{
 
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public List<ProductosTiendas> getProductosTienda() {
+		return productosTienda;
+	}
+
+	public void setProductosTienda(List<ProductosTiendas> productosTienda) {
+		this.productosTienda = productosTienda;
 	}
 
 	public static long getSerialversionuid() {
