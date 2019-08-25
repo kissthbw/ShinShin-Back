@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoMediosBonificacion;
@@ -45,6 +46,18 @@ public class CatalogosController {
 	public String redireccionaCatDepartamentos(Model model) {
 
 		model.addAttribute("item", new CatalogoTipoProducto());
+
+		return "cat_departamentos";
+	}
+	
+	@RequestMapping(value = "/departamento/edit", method = RequestMethod.GET)
+	public String redireccionaCatDepartamentosEdit(Model model, @RequestParam String id) {
+		
+		//Crear un service que busque el departamento por {id}
+		System.out.println( id );
+//		CatalogoTipoProducto item = catalogoTiendaService.find(id);
+		
+//		model.addAttribute("item", item);
 
 		return "cat_departamentos";
 	}
