@@ -11,4 +11,6 @@ public interface CatalogoTiendaService {
 	SimpleResponse registrarTiendas(CatalogoTienda item);
 	
 	SimpleResponse actualizarTiendas(CatalogoTienda item);
+	
+	CatalogoTienda findTiendaById(Long id);
 }

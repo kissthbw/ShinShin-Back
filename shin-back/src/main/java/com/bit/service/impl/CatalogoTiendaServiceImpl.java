@@ -72,4 +72,15 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 		return rsp;
 	}
 
+	@Override
+	@Transactional
+	public CatalogoTienda findTiendaById(Long id) {
+		log.info("Buscando tienda por id: {}", id);
+
+		
+		CatalogoTienda item = catalogoTiendaDAO.findByPK(id);
+		
+		
+		return item;
+	}
 }

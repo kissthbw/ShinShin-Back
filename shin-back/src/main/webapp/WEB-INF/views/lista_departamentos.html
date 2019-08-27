@@ -279,8 +279,10 @@
 												<td th:text="${item.idCatalogoTipoProducto}"></td>
 												<td th:text="${item.nombreTipoProducto}"></td>
 												<td class="text-center">
-												<a th:href="@{/portal-administrador/tienda/save?id=${item.idCatalogoTipoProducto}}">
-												</a>
+												<!-- 
+												<a th:href="@{'/details/'+${user.login}(orderId=${o.id})}">view</a>
+												 -->
+												<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTipoProducto}}">Ver</a>
 												<!-- 
 													<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
 														<i class="fa fa-edit"></i>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -112,6 +113,15 @@ public class CatalogosController {
 	public String redirectionCatalogoTienda(Model model) {
 
 		model.addAttribute("item", new CatalogoTienda());
+
+		return "catalogo_tienda";
+	}
+	
+	@RequestMapping(value = "tienda/edit/{id}", method = RequestMethod.GET)
+	public String redirectionCatalogoTienda(Model model, @PathVariable String id) {
+
+		CatalogoTienda item = catalogoTiendaService.findTiendaById(Long.valueOf(id));
+		model.addAttribute("item", item);
 
 		return "catalogo_tienda";
 	}
