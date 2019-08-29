@@ -55,11 +55,29 @@ public class UsuariosRestController {
 		return rsp;
 	}
 	
+	@PostMapping(value = "/social/registrar")
+	public @ResponseBody InformacionUsuarioRSP registrarUsuarioSocialMedia(@RequestBody Usuario item) {
+		
+		log.info("Entrando a registrarSocialUsuarios para registrar un nuevo usuario");
+		InformacionUsuarioRSP rsp = usuarioService.registrarUsuarioSocialMedia(item);
+		
+		return rsp;
+	}
+	
 	@PostMapping(value = "/usuario/activar")
 	public @ResponseBody SimpleResponse activarUsuario(@RequestBody Usuario item) {
 		
 		log.info("Entrando a activarUsuarios para activar un usuario");
 		SimpleResponse rsp = usuarioService.activarUsuarios(item);
+		
+		return rsp;
+	}
+	
+	@PostMapping(value = "/usuario/eliminar")
+	public @ResponseBody SimpleResponse eliminarUsuario(@RequestBody Usuario item) {
+		
+		log.info("Entrando a eliminar usuario");
+		SimpleResponse rsp = usuarioService.eliminarUsuario(item);
 		
 		return rsp;
 	}

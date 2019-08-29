@@ -11,4 +11,5 @@ public interface TicketService {
 	ListItemsRSP getTickets();
 	SimpleResponse registrarTickets(Ticket item);
 	OCRTicketRSP analizarOCR(OCRTicketRQT rqt, boolean fake);
+	ListItemsRSP getDetalleTicket(Long id);
 }

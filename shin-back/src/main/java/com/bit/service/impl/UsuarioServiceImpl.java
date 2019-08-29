@@ -133,6 +133,43 @@ public class UsuarioServiceImpl implements UsuarioService {
 		rsp.setId(item.getIdUsuario());
 		return rsp;
 	}
+	
+	@Override
+	@Transactional
+	public InformacionUsuarioRSP registrarUsuarioSocialMedia(Usuario item) {
+		log.info("Verificando existe de usuario social media");
+
+		InformacionUsuarioRSP infoRSP = new InformacionUsuarioRSP();
+		infoRSP.setMessage("Exitoso");
+		infoRSP.setCode(200);
+
+		Usuario entity = usuarioDAO.findBySocialMediaUser(item);
+		if (entity == null) {
+			log.info( "Registrando usuario social media: {}", item.getUsuario() );
+			item.setCodigoVerificacion("0000");
+			item.setEstatusActivacion(true);
+			entity = usuarioDAO.save(item);
+		} 
+		
+		
+		log.info( "Obteniendo informacion usuario social media: {}", item.getUsuario() );
+		
+		Usuario tmp = new Usuario();
+		tmp.setIdUsuario( entity.getIdUsuario() );
+		tmp.setUsuario( entity.getUsuario() );
+		infoRSP.setId( entity.getIdUsuario() );
+		infoRSP.setUsuario(tmp);
+		
+		infoRSP.setId( tmp.getIdUsuario() );
+		infoRSP.setUsuario(tmp);
+		
+			
+		BigDecimal credito = calculaCreditoTotal(tmp);			
+		infoRSP.setBonificacion( credito.doubleValue() );
+
+		infoRSP.setId(tmp.getIdUsuario());
+		return infoRSP;
+	}
 
 	@Override
 	@Transactional
@@ -183,6 +220,32 @@ public class UsuarioServiceImpl implements UsuarioService {
 			rsp.setCode(500);
 			System.out.println("El codigo no coincide");
 		}
+
+		rsp.setId(item.getIdUsuario());
+		return rsp;
+	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse eliminarUsuario(Usuario item) {
+
+		log.info("Eliminando usuario con id: {}", item.getIdUsuario());
+
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+
+		Usuario temp = usuarioDAO.findByPK(item.getIdUsuario());
+		
+		if( null != temp ) {
+			temp.setEstatus(2);//1: Activo, 2: Eliminado, 3: Suspendido 
+		}
+		else {
+			rsp.setMessage("Usuario no existe");
+			rsp.setCode(500);
+		}
+		
+		usuarioDAO.update(temp);
 
 		rsp.setId(item.getIdUsuario());
 		return rsp;

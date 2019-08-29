@@ -81,7 +81,13 @@ public class Usuario {
 	private String codigoVerificacion;
 
 	@Column(name = "id_catalogo_sexo")
-	private int idCatalogoSexo;
+	private Integer idCatalogoSexo;
+	
+	@Column(name = "id_catalogo_red_social")
+	private Integer idRedSocial;
+	
+	@Column(name = "estatus")
+	private Integer estatus;
 
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
@@ -247,12 +253,28 @@ public class Usuario {
 		return codigoVerificacion;
 	}
 
-	public int getIdCatalogoSexo() {
+	public Integer getIdCatalogoSexo() {
 		return idCatalogoSexo;
 	}
 
-	public void setIdCatalogoSexo(int idCatalogoSexo) {
+	public void setIdCatalogoSexo(Integer idCatalogoSexo) {
 		this.idCatalogoSexo = idCatalogoSexo;
+	}
+
+	public Integer getIdRedSocial() {
+		return idRedSocial;
+	}
+
+	public void setIdRedSocial(Integer idRedSocial) {
+		this.idRedSocial = idRedSocial;
+	}
+
+	public Integer getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(Integer estatus) {
+		this.estatus = estatus;
 	}
 
 	public List<Producto> getProductosFavoritos() {

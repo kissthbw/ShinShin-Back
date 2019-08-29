@@ -56,6 +56,43 @@ public class UsuarioDAOTest {
 		Usuario u = usuarioDAO.findByPK(1L);
 		System.out.println(u.getUsuario());
 	}
+	
+	@Transactional
+	@Test
+	public void registrarUsuarioSocialMedia() {
+		
+		Usuario u = new Usuario();
+		u.setNombre("Juan Osorio Alvarez");
+
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.DAY_OF_MONTH, 11);
+		c.set(Calendar.MONTH, Calendar.SEPTEMBER);
+		c.set(Calendar.YEAR, 1983);
+
+		u.setFechaNac(c.getTime());
+		u.setFotoUsuario("");
+		u.setTelMovil("+5215548998389");
+		u.setCorreoElectronico("kissthbw@gmail.com");
+		u.setUsuario("kissthbw@gmail.com");
+		u.setContrasenia("kissthbw@gmail.com");
+		u.setCodigoPostal("57300");
+		u.setIdCatalogoSexo(1);
+		u.setIdRedSocial(1);
+		
+		InformacionUsuarioRSP rsp = usuarioService.registrarUsuarioSocialMedia(u);
+		
+		System.out.println( rsp.getBonificacion() );
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(value=false)
+	public void eliminarUsuario() {
+		Usuario item = new Usuario();
+		item.setIdUsuario(2L);
+		
+		usuarioService.eliminarUsuario(item);
+	}
 
 	@Transactional
 	@Test

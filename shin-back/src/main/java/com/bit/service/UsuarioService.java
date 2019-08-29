@@ -12,10 +12,14 @@ public interface UsuarioService {
 	ListItemsRSP getUsuarios();
 
 	SimpleResponse registrarUsuarios(Usuario item);
+	
+	InformacionUsuarioRSP registrarUsuarioSocialMedia(Usuario item);
 
 	SimpleResponse reenviarCodigoUsuario(Usuario item);
 	
 	SimpleResponse activarUsuarios(Usuario item);
+	
+	SimpleResponse eliminarUsuario(Usuario item);
 
 	SimpleResponse actualizarUsuarios(Usuario item);
 

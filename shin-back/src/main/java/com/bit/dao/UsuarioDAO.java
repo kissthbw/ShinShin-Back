@@ -47,10 +47,19 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		return (Usuario)c.uniqueResult();
 	}
 	
+	public Usuario findBySocialMediaUser(Usuario item) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		c.add(Restrictions.like("usuario", item.getUsuario()));
+		c.add(Restrictions.like("idRedSocial", item.getIdRedSocial()));
+
+		return (Usuario)c.uniqueResult();
+	}
+	
 	public Usuario findUserByUserAndPassword(String usuario, String contrasenia) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
 		c.add(Restrictions.eq("usuario", usuario));
 		c.add(Restrictions.eq("contrasenia", contrasenia));
+		c.add(Restrictions.not( Restrictions.eq("estatus", 2) ));
 		
 		return (Usuario) c.uniqueResult();
 	}

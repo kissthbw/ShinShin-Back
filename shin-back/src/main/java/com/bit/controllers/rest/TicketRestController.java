@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +68,15 @@ public class TicketRestController {
 		log.info("Entrando a analizarTicket");
 		SimpleResponse rsp = ticketService.analizarOCR(rqt, false);
 
+		return rsp;
+	}
+	
+	@GetMapping(value="/detalle/{id}")
+	public @ResponseBody ListItemsRSP detalleTicket(@PathVariable String id) {
+		log.info("Entrando a detalleTicket, buscando ticket con id: {}", id);
+		
+		ListItemsRSP rsp = ticketService.getDetalleTicket( Long.valueOf(id) );
+		
 		return rsp;
 	}
 }
