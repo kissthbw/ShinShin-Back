@@ -54,6 +54,7 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 	}
 
 	@Override
+	@Transactional
 	public SimpleResponse actualizarCatalogoTipoProductos(CatalogoTipoProducto item) {
 		
 		log.info("Actualizando tipo de productos");
@@ -62,10 +63,30 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
-		catalogoTipoProductoDAO.findByPK(item.getIdCatalogoTipoProducto());
+//		catalogoTipoProductoDAO.findByPK(item.getIdCatalogoTipoProducto());
 		
 		item = catalogoTipoProductoDAO.update(item);
 		rsp.setId(item.getIdCatalogoTipoProducto());
 		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public CatalogoTipoProducto findById(Long id) {
+		
+		log.info("Buscando departamento por id: {}", id);		
+		CatalogoTipoProducto item = catalogoTipoProductoDAO.findByPK(id);
+		
+		
+		return transform(item);
+	}
+	
+	private CatalogoTipoProducto transform( CatalogoTipoProducto entity ) {
+		CatalogoTipoProducto item = new CatalogoTipoProducto();
+		
+		item.setIdCatalogoTipoProducto( entity.getIdCatalogoTipoProducto() );
+		item.setNombreTipoProducto( entity.getNombreTipoProducto() );
+		
+		return item;
 	}
 }

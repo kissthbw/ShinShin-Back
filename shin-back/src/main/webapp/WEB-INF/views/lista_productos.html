@@ -301,9 +301,7 @@
 												<td th:text="${item.catalogoTipoProducto.nombreTipoProducto}"></td>
 												<td th:text="${item.catalogoTienda.nombreTienda}"></td>
 												<td class="text-center">
-													<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
-														<i class="fa fa-edit"></i>
-													</a>
+													<a th:href="@{'/portal-administrador/producto/edit/' + ${item.idProducto}}">Ver</a>
 												</td>
 											</tr>
 										</th:block>

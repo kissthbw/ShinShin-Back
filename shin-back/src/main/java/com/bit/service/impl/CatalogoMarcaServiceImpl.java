@@ -69,4 +69,23 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setId(item.getIdCatalogoMarca());
 		return rsp;
 	}
+
+	@Override
+	@Transactional
+	public CatalogoMarca findById(Long id) {
+		log.info("Buscando marca por id: {}", id);		
+		CatalogoMarca item = catalogoMarcaDAO.findByPK(id);
+		
+		
+		return transform(item);
+	}
+	
+	private CatalogoMarca transform( CatalogoMarca entity ) {
+		CatalogoMarca item = new CatalogoMarca();
+		
+		item.setIdCatalogoMarca( entity.getIdCatalogoMarca() );
+		item.setNombreMarca( entity.getNombreMarca() );
+		
+		return item;
+	}
 }

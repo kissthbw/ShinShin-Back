@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.CatalogoTiendaDAO;
 import com.bit.model.CatalogoTienda;
+import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoTiendaService;
@@ -74,12 +75,18 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 
 	@Override
 	@Transactional
-	public CatalogoTienda findTiendaById(Long id) {
+	public CatalogoTienda findById(Long id) {
 		log.info("Buscando tienda por id: {}", id);
-
-		
 		CatalogoTienda item = catalogoTiendaDAO.findByPK(id);
+		return transform(item);
+	}
+	
+	private CatalogoTienda transform( CatalogoTienda entity ) {
+		CatalogoTienda item = new CatalogoTienda();
 		
+		item.setIdCatalogoTienda( entity.getIdCatalogoTienda() );
+		item.setNombreTienda( entity.getNombreTienda() );
+		item.setImagenTienda( entity.getImagenTienda() );
 		
 		return item;
 	}

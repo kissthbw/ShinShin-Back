@@ -11,5 +11,7 @@ public interface CatalogoTipoProductoService {
 	SimpleResponse registrarCatalogoTipoProductos(CatalogoTipoProducto item);
 
 	SimpleResponse actualizarCatalogoTipoProductos(CatalogoTipoProducto item);
+	
+	CatalogoTipoProducto findById(Long id);
 
 }

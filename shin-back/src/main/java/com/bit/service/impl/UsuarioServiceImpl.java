@@ -100,6 +100,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		String codigo = Utils.generaCodigoVerficacion();
 		item.setCodigoVerificacion(codigo);
 		item.setEstatusActivacion(false);
+		item.setEstatus(1);
 
 		SMSDTO sms = new SMSDTO();
 		sms.setToMobileNumber(item.getTelMovil());
@@ -148,6 +149,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			log.info( "Registrando usuario social media: {}", item.getUsuario() );
 			item.setCodigoVerificacion("0000");
 			item.setEstatusActivacion(true);
+			item.setEstatus(1);
 			entity = usuarioDAO.save(item);
 		} 
 		

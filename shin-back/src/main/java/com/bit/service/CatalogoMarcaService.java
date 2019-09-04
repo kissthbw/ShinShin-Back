@@ -11,5 +11,7 @@ public interface CatalogoMarcaService {
 	SimpleResponse registrarMarcas(CatalogoMarca item);
 
 	SimpleResponse actualizarMarcas(CatalogoMarca item);
+	
+	CatalogoMarca findById(Long id);
 
 }

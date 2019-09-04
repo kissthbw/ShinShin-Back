@@ -13,5 +13,7 @@ public interface CatalogoMediosBonificacionService {
 	SimpleResponse registrarCatalogoMediosBonificacion(CatalogoMediosBonificacion item);
 
 	SimpleResponse actualizarCatalogoMediosBonificacion(CatalogoMediosBonificacion item);
+	
+	CatalogoMediosBonificacion findById(Long id);
 
 }

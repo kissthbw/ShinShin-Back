@@ -12,6 +12,7 @@ import com.bit.dao.CatalogoMediosBonificacionDAO;
 import com.bit.dao.CatalogoTipoBancariaDAO;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTipoBancaria;
+import com.bit.model.Producto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMediosBonificacionService;
@@ -90,5 +91,23 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 		rsp.setId(item.getIdCatalogoMedioBonificacion());
 		
 		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public CatalogoMediosBonificacion findById(Long id) {
+		log.info("Buscando producto por id: {}", id);
+		CatalogoMediosBonificacion item = catalogoMediosBonificacionDAO.findByPK(id);
+		
+		return transform(item);
+	}
+	
+	private CatalogoMediosBonificacion transform( CatalogoMediosBonificacion entity ) {
+		CatalogoMediosBonificacion item = new CatalogoMediosBonificacion();
+		
+		item.setIdCatalogoMedioBonificacion( entity.getIdCatalogoMedioBonificacion() );
+		item.setNombreMedioBonificacion( entity.getNombreMedioBonificacion() );
+		
+		return item;
 	}
 }

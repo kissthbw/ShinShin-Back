@@ -383,10 +383,12 @@
 										<div class="col-sm-7">
 											<div class="form-group">
 												<select class="form-control"
-													th:field="*{catalogoMarca.idCatalogoMarca}">
+													id="catalogoMarca.idCatalogoMarca" name="catalogoMarca.idCatalogoMarca">
 													<option th:each="marca:${marcas}"
 														th:value="${marca.idCatalogoMarca}"
-														th:utext="${marca.nombreMarca}" />
+														th:utext="${marca.nombreMarca}" 
+														th:selected="*{catalogoMarca} != null ? *{catalogoMarca.idCatalogoMarca} == ${marca.idCatalogoMarca} : ''"></option>
+
 												</select>
 											</div>
 										</div>
@@ -399,10 +401,11 @@
 										<div class="col-sm-7">
 											<div class="form-group">
 												<select class="form-control"
-													th:field="*{catalogoTipoProducto.idCatalogoTipoProducto}">
+													id="catalogoTipoProducto.idCatalogoTipoProducto" name="catalogoTipoProducto.idCatalogoTipoProducto">
 													<option th:each="tipo:${tipos}"
 														th:value="${tipo.idCatalogoTipoProducto}"
-														th:utext="${tipo.nombreTipoProducto}" />
+														th:utext="${tipo.nombreTipoProducto}" 
+														th:selected="*{catalogoTipoProducto} != null ? *{catalogoTipoProducto.idCatalogoTipoProducto} == ${tipo.idCatalogoTipoProducto} : ''"></option>
 												</select>
 											</div>
 										</div>
@@ -415,10 +418,11 @@
 										<div class="col-sm-7">
 											<div class="form-group">
 												<select class="form-control"
-													th:field="*{catalogoTienda.idCatalogoTienda}">
+													id="catalogoTienda.idCatalogoTienda" name="catalogoTienda.idCatalogoTienda">
 													<option th:each="tienda:${tiendas}"
 														th:value="${tienda.idCatalogoTienda}"
-														th:utext="${tienda.nombreTienda}" />
+														th:utext="${tienda.nombreTienda}" 
+														th:selected="*{catalogoTienda} != null ? *{catalogoTienda.idCatalogoTienda} == ${tienda.idCatalogoTienda} : ''"></option>
 												</select>
 											</div>
 										</div>

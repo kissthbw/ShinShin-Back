@@ -19,6 +19,8 @@ public interface ProductoService {
 	 */
 	ListItemsRSP getProductos();
 	
+	ListItemsRSP getProductosPorPaginas(int page, int max);
+	
 	ListItemsRSP getBanners();
 
 	SimpleResponse registrarProductos(Producto item);
@@ -32,5 +34,7 @@ public interface ProductoService {
 	ListItemsRSP getProductosPorNombre(Producto i);
 	
 	List<Producto> getProductosPorIDYEmpresa(List<String> items, int idEmpresa);
+	
+	Producto findById(Long id);
 
 }
