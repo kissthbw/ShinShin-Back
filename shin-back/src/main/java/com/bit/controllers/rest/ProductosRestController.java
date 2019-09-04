@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,20 @@ public class ProductosRestController {
 		
 		log.info("Entrando a getProductos");
 		ListItemsRSP rsp =  productoService.getProductos();
+
+		return rsp;
+	}
+	
+	//Este servcio de ve regresar N numero de registros segun se especifique en los paramemtros
+	//Debe regresar el total de registros en BD
+	//La pagina que se esta mostrando
+	//Un indicador si hay mas paginas que mostrar
+	@GetMapping(value = "/listPag")
+	public @ResponseBody ListItemsRSP getProductosPorPaginas(@RequestParam String page, 
+			@RequestParam String maxResults) {
+		
+		log.info("Entrando a getProductos page: {}, max results: {}", page, maxResults);
+		ListItemsRSP rsp =  productoService.getProductosPorPaginas(Integer.valueOf(page), Integer.valueOf(maxResults));
 
 		return rsp;
 	}

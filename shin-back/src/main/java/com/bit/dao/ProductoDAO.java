@@ -3,6 +3,7 @@ package com.bit.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,25 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 	public List<Producto> getProductos() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		c.setMaxResults(50);
+		c.addOrder(Property.forName("idProducto").desc());
+
+		return c.list();
+	}
+	
+	
+	public Long getTotal() {
+		Criteria criteriaCount = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		criteriaCount.setProjection(Projections.rowCount());
+		Long count = (Long) criteriaCount.uniqueResult();
+		
+		return count;
+	}
+	
+	public List<Producto> getProductosPorPaginas( int page, int max ) {
+		int firstResult = ( (page - 1) * max );
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
+		c.setMaxResults( Integer.valueOf(max) );
+		c.setFirstResult( firstResult );
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();

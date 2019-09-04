@@ -23,6 +23,12 @@ public class ListItemsRSP extends SimpleResponse{
 
 	private static final long serialVersionUID = 4428570789013267038L;
 	
+	//Campos usados para la paginacion
+	private Long total;
+	private Long page;
+	private Long pages;
+	private Boolean hasMore;
+	
 	private List<Producto> productos;
 	private List<CatalogoMarca> marcas;
 	private List<CatalogoMediosBonificacion> mediosBonificacion;
@@ -35,6 +41,38 @@ public class ListItemsRSP extends SimpleResponse{
 	private List<Ticket> tickets;
 	private List<Usuario> usuarios;
 	private List<ProductosTiendas> productosTienda;
+
+	public Long getTotal() {
+		return total;
+	}
+
+	public void setTotal(Long total) {
+		this.total = total;
+	}
+
+	public Long getPage() {
+		return page;
+	}
+
+	public void setPage(Long page) {
+		this.page = page;
+	}
+
+	public Long getPages() {
+		return pages;
+	}
+
+	public void setPages(Long pages) {
+		this.pages = pages;
+	}
+
+	public Boolean getHasMore() {
+		return hasMore;
+	}
+
+	public void setHasMore(Boolean hasMore) {
+		this.hasMore = hasMore;
+	}
 
 	public List<Producto> getProductos() {
 		return productos;
