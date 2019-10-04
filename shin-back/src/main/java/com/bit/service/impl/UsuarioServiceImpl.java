@@ -1,8 +1,11 @@
 package com.bit.service.impl;
 
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.common.Utils;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.CatalogoMediosBonificacionDAO;
+import com.bit.dao.ContactoDAO;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.dao.MediosBonificacionDAO;
 import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.exception.CommunicationException;
 import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.Contacto;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
@@ -31,6 +36,8 @@ import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -56,6 +63,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Autowired
 	private TicketDAO ticketDAO;
+	
+	@Autowired
+	private ContactoDAO contactoDAO;
 
 	@Override
 	@Transactional
@@ -97,6 +107,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 			return rsp;
 		}
 
+		try {
+			String hash = Utils.generaHash(item.getContrasenia());
+			item.setHash(hash);
+		} catch (NoSuchAlgorithmException e) {
+			log.error( "Error al generar hash.", e );
+		}
+		
 		String codigo = Utils.generaCodigoVerficacion();
 		item.setCodigoVerificacion(codigo);
 		item.setEstatusActivacion(false);
@@ -156,16 +173,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		log.info( "Obteniendo informacion usuario social media: {}", item.getUsuario() );
 		
-		Usuario tmp = new Usuario();
-		tmp.setIdUsuario( entity.getIdUsuario() );
-		tmp.setUsuario( entity.getUsuario() );
-		infoRSP.setId( entity.getIdUsuario() );
-		infoRSP.setUsuario(tmp);
-		
+		Usuario tmp = datosUsuario(entity);
 		infoRSP.setId( tmp.getIdUsuario() );
 		infoRSP.setUsuario(tmp);
-		
-			
 		BigDecimal credito = calculaCreditoTotal(tmp);			
 		infoRSP.setBonificacion( credito.doubleValue() );
 
@@ -173,6 +183,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return infoRSP;
 	}
 
+	private Usuario datosUsuario(Usuario user) {
+		Usuario tmp = new Usuario();
+		tmp.setIdUsuario( user.getIdUsuario() );
+		tmp.setUsuario( user.getUsuario() );
+		tmp.setNombre( user.getNombre() );
+		tmp.setCorreoElectronico( user.getCorreoElectronico() );
+		tmp.setTelMovil( user.getTelMovil() );
+		tmp.setFechaNac( user.getFechaNac() );
+		tmp.setIdCatalogoSexo( user.getIdCatalogoSexo() );
+		tmp.setCodigoPostal( user.getCodigoPostal() );
+		tmp.setImgUrl( user.getImgUrl() );
+		tmp.setHash( user.getHash() );
+		
+		return tmp;
+	}
+	
 	@Override
 	@Transactional
 	public SimpleResponse reenviarCodigoUsuario(Usuario item) {
@@ -255,54 +281,106 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public SimpleResponse actualizarUsuarios(Usuario item) {
+	public InformacionUsuarioRSP actualizarUsuarios(Usuario item) {
 
 		log.info("Actualizando el/los valor(es) de usuario");
 
-		SimpleResponse rsp = new SimpleResponse();
-		rsp.setMessage("Exitoso");
-		rsp.setCode(200);
+		InformacionUsuarioRSP infoRSP = new InformacionUsuarioRSP();
+		infoRSP.setCode(200);
+		infoRSP.setMessage("Exito");
 
-		String codigo = Utils.generaCodigoVerficacion();
-		Utils.generaCodigoVerficacion();
-		item.setCodigoVerificacion(codigo);
-		item.setEstatusActivacion(false);
-
-		SMSDTO sms = new SMSDTO();
-		sms.setToMobileNumber(item.getTelMovil());
-		sms.setBody("Tu codigo es: " + item.getCodigoVerificacion());
-
-		try {
-			mediosComunicacionService.sendSMS(sms);
-		} catch (CommunicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			item = usuarioDAO.update(item);
-
-			/*
-			 * 1. Cuando un usuario registrado quiere modificar algun dato de su informacion
-			 * personal, da clic en boton actualizar 2. El sistema obtiene la informacion
-			 * del usuario y lo muestra en pantalla 3. El usuario realiza los cambios que
-			 * desea y da clic en guardar cambios si no esta seguro da clic en cancelar y
-			 * vuelve a la pagina de inicio 3.1 El sistema pregunta al usuario donde quiere
-			 * que sea enviado su codigo de verificacion (correo/movil) para guardar los
-			 * cambios 3.1.1 El sistema genera un codigo de verificacion de 4 digitos y lo
-			 * envia al destino seleccionado previamente 3.1.2 El usuario ingresa el codigo
-			 * de verificacion 3.1.3 El sistema compara el codigo que genero contra el que
-			 * el usuario ingreso 3.1.4 Si el codigo es identico, entonces el sistema
-			 * actualiza los datos 3.1.5 Si no es identico, el sistema envia mensaje de
-			 * error y pregunta si desea cancelar el registro o generar un nuevo codigo
-			 * random de verificacion 3.1.6 Si el usuario cancela, entonces el sistema
-			 * vuelve a la pagina de inicio y no actualiza ningun campo 3.1.7 Si el usuario
-			 * selecciona generar un nuevo codigo, entonces el sistema genera el nuevo
-			 * codigo y lo envia al destino seleccionado previamente (determinar numero de
-			 * intentos)
-			 */
+		//Buscar en BD el usuario a actualizar
+		Usuario entity = usuarioDAO.findByPK( item.getIdUsuario() );
+		if ( null == entity ) {
+			infoRSP.setMessage("Usuario no existe");
+			infoRSP.setCode(500);
+			
+			return infoRSP;
 		}
+		
+		//Validar password, en caso de haber sido actualizado
+		if ( null != item.getContrasenia() ) {
+			if ( !entity.getContrasenia().equals( item.getContraseniaActual() ) ) {
+				infoRSP.setMessage("Contraseña actual incorrecta");
+				infoRSP.setCode(202);
+				
+				return infoRSP;
+			}
+			else {
+				entity.setContrasenia( item.getContrasenia() );
+			}
+		}
+		
+		//Guardar foto en cloudinary
+		if ( null != item.getImageData() ) {
+			Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+					  "cloud_name", "shingshing",
+					  "api_key", "657472936977876",
+					  "api_secret", "cZ8wZWzSvTqXdqBO7P1e62xnzVY")); 
+			
+			Map params = ObjectUtils.asMap(
+					   "public_id", "shingshing/usuarios/" + item.getIdUsuario(), 
+					   "overwrite", true
+					);
+			
+			
+			
+			try {
+				log.info( "Subiendo imagen de usuario" );
+//				byte[] bytes = Base64.getDecoder().decode(item.getImageData());
+				byte[] bytes = Base64.getMimeDecoder().decode( item.getImageData() );
+				
+				Map uploadResult = cloudinary.uploader().upload(bytes, params);
+				String url = cloudinary.url().generate("shingshing/usuarios/" + + item.getIdUsuario() + ".jpeg");
+				log.info("URL 1: {}", url);
+				log.info("URL 2 : {}", uploadResult.get("url"));
+				String url2 = (String) uploadResult.get("url");
+				
+				entity.setImgUrl(url2);
+			} catch (Exception e) {
+				log.error( "Ocurrio un error al subir imagen: {}", e );
+			}
+		}
+		
+		//Actualizar campos
+		updateUsuario(item, entity);
+		item = datosUsuario(entity);
+		infoRSP.setId( item.getIdUsuario() );
+		infoRSP.setUsuario(item);
+		
+		//Devolver datos actualizados
+		usuarioDAO.update(entity);
 
-		rsp.setId(item.getIdUsuario());
-		return rsp;
+		infoRSP.setId(item.getIdUsuario());
+		log.info( "Actualizacion exitosa" );
+		return infoRSP;
+	}
+	
+	private void updateUsuario( Usuario item, Usuario entity ) {
+		
+		if( item.getNombre() != null ) {
+			entity.setNombre( item.getNombre() );
+		}
+		
+		if( item.getCorreoElectronico() != null ) {
+			entity.setCorreoElectronico( item.getCorreoElectronico() );
+		}
+		
+		if( item.getTelMovil() != null ) {
+			entity.setTelMovil( item.getTelMovil() );
+		}
+		
+		if( item.getFechaNac() != null ) {
+			entity.setFechaNac( item.getFechaNac() );
+		}
+		
+		if( item.getCodigoPostal() != null ) {
+			entity.setCodigoPostal( item.getCodigoPostal() );
+		}
+		
+		if( item.getIdCatalogoSexo() != null ) {
+			entity.setIdCatalogoSexo( item.getIdCatalogoSexo() );
+		}
 	}
 
 	@Override
@@ -322,15 +400,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public InformacionUsuarioRSP findUserByUserAndPassword(Usuario item) {
 
-		log.info("Buscando un usuario por nombre de usuario y por password para login");
+		log.info("Verificando credenciales de acceso para: {}", item.getUsuario());
 		InformacionUsuarioRSP infoRSP = new InformacionUsuarioRSP();
 		infoRSP.setCode(200);
 		infoRSP.setMessage("Exito");
-		
-		String usuario = item.getUsuario();
-		String contrasenia = item.getContrasenia();
 
-		Usuario user = usuarioDAO.findUserByUserAndPassword(usuario, contrasenia);
+		Usuario user = null;
+		if( null != item.getContrasenia() ) {
+			log.info("Acceso por password");
+			user = usuarioDAO.findUserByUserAndPassword(item.getUsuario(), item.getContrasenia());
+		}
+		else if( null != item.getHash() ) {
+			log.info("Acceso por hash");
+			user = usuarioDAO.findUserByUserAndHash(item.getUsuario(), item.getHash());
+		}
+		
 		
 		if( user == null ) {
 			infoRSP.setCode(500);
@@ -339,10 +423,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 			return infoRSP;
 		}
 		else {
-			Usuario tmp = new Usuario();
-			tmp.setIdUsuario( user.getIdUsuario() );
-			tmp.setUsuario( user.getUsuario() );
-			infoRSP.setId( user.getIdUsuario() );
+			try {
+				String hash = Utils.generaHash( user.getContrasenia() );
+				user.setHash(hash);
+			} catch (NoSuchAlgorithmException e) {
+				log.error( "Error al generar hash.", e );
+			}
+			Usuario tmp = datosUsuario(user);
+			infoRSP.setId( tmp.getIdUsuario() );
 			infoRSP.setUsuario(tmp);
 			
 			BigDecimal credito = calculaCreditoTotal(user);
@@ -584,6 +672,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 			mTemp.setIdCuentaMedioBonificacion( item.getIdCuentaMedioBonificacion() );
 			mTemp.setAliasMedioBonificacion( item.getAliasMedioBonificacion() );
 			mTemp.setVigenciaMedioBonificacion( item.getVigenciaMedioBonificacion() );
+			mTemp.setIdTipo( item.getIdTipo() );
+			mTemp.setBanco( item.getBanco() );
 			
 			cmb.setIdCatalogoMedioBonificacion(item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion());
 			cmb.setNombreMedioBonificacion(item.getCatalogoMediosBonificacion().getNombreMedioBonificacion());
@@ -658,5 +748,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		
 		return historicoBonificaciones;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse registraContacto(Contacto item) {
+		log.info( "Registrando datos de contacto: {} de usuario: {}", item.getTopico(), item.getIdUsuario() );
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setCode(200);
+		rsp.setMessage("Exito");
+		
+		contactoDAO.save(item);
+		
+		return rsp;
 	}
 }

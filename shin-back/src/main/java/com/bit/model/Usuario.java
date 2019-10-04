@@ -16,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity(name = "usuario")
 public class Usuario {
@@ -36,6 +39,7 @@ public class Usuario {
 
 	@Column(name = "fecha_nac")
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date fechaNac;
 
 	@Column(name = "foto_usuario")
@@ -88,6 +92,18 @@ public class Usuario {
 	
 	@Column(name = "estatus")
 	private Integer estatus;
+	
+	@Transient
+	private String imageData;
+	
+	@Transient
+	private String contraseniaActual;
+	
+	@Column(name = "img_url")
+	private String imgUrl;
+	
+	@Column(name = "hash")
+	private String hash;
 
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
@@ -275,6 +291,38 @@ public class Usuario {
 
 	public void setEstatus(Integer estatus) {
 		this.estatus = estatus;
+	}
+
+	public String getImageData() {
+		return imageData;
+	}
+
+	public void setImageData(String imageData) {
+		this.imageData = imageData;
+	}
+
+	public String getContraseniaActual() {
+		return contraseniaActual;
+	}
+
+	public void setContraseniaActual(String contraseniaActual) {
+		this.contraseniaActual = contraseniaActual;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
 	}
 
 	public List<Producto> getProductosFavoritos() {

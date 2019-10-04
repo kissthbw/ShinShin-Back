@@ -64,6 +64,15 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		return (Usuario) c.uniqueResult();
 	}
 	
+	public Usuario findUserByUserAndHash(String usuario, String hash) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		c.add(Restrictions.eq("usuario", usuario));
+		c.add(Restrictions.eq("hash", hash));
+		c.add(Restrictions.not( Restrictions.eq("estatus", 2) ));
+		
+		return (Usuario) c.uniqueResult();
+	}
+	
 	//Obtiene los tickets totales del usuario
 	public BigInteger calculaTicketsTotales(Usuario item) {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(usuario_id_usuario) FROM historico_tickets\n" + 

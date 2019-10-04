@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bit.model.Contacto;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
@@ -83,10 +84,10 @@ public class UsuariosRestController {
 	}
 	
 	@PostMapping(value = "/usuario/actualizar")
-	public @ResponseBody SimpleResponse actualizarUsuario(@RequestBody Usuario item) {
+	public @ResponseBody InformacionUsuarioRSP actualizarUsuario(@RequestBody Usuario item) {
 		
 		log.info("Entrando a actualizarUsuarios para modificar uno o varios valores de usuario");
-		SimpleResponse rsp = usuarioService.actualizarUsuarios(item);
+		InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item);
 		
 		return rsp;
 	}
@@ -152,6 +153,14 @@ public class UsuariosRestController {
 	public @ResponseBody ListItemsRSP obtenerHistoricoTicketsPorUsuario( @RequestBody Usuario item ) {
 		log.info("Entrando a obtenerHistoricoTicketsPorUsuario");
 		ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
+		
+		return rsp;
+	}
+	
+	@PostMapping(value="/contacto")
+	public @ResponseBody SimpleResponse registraContacto(@RequestBody Contacto item) {
+		log.info("Entrando en registraContacto");
+		SimpleResponse rsp = usuarioService.registraContacto(item);
 		
 		return rsp;
 	}

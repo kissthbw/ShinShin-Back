@@ -2,6 +2,7 @@ package com.bit.service;
 
 import java.math.BigDecimal;
 
+import com.bit.model.Contacto;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
@@ -21,7 +22,7 @@ public interface UsuarioService {
 	
 	SimpleResponse eliminarUsuario(Usuario item);
 
-	SimpleResponse actualizarUsuarios(Usuario item);
+	InformacionUsuarioRSP actualizarUsuarios(Usuario item);
 
 	Usuario findUserByUser(Usuario item);
 
@@ -42,4 +43,6 @@ public interface UsuarioService {
 	//Metodos relacionados con el dashboard del usuario
 	//obtiene informacion de totales para sre mostrada
 	InformacionUsuarioRSP obtieneInformacionGeneralUsuario(Usuario item);
+	
+	SimpleResponse registraContacto(Contacto item);
 }
