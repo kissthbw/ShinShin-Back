@@ -16,6 +16,9 @@ public class CatalogoMarca {
 
 	@Column(name = "nombre_marca")
 	private String nombreMarca;
+	
+	@Column(name = "imagen_marca")
+	private String imagenMarca;
 
 	public void setIdCatalogoMarca(Long idCatalogoMarca) {
 		this.idCatalogoMarca = idCatalogoMarca;
@@ -31,6 +34,14 @@ public class CatalogoMarca {
 
 	public String getNombreMarca() {
 		return nombreMarca;
+	}
+
+	public String getImagenMarca() {
+		return imagenMarca;
+	}
+
+	public void setImagenMarca(String imagenMarca) {
+		this.imagenMarca = imagenMarca;
 	}
 
 }
