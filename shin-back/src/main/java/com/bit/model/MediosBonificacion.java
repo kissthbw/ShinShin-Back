@@ -34,6 +34,12 @@ public class MediosBonificacion {
 	
 	@Column(name = "id_tipo")
 	private Integer idTipo;
+	
+	@Column(name = "estatus")
+	private Integer estatus;
+	
+	@Column(name = "banco")
+	private String banco;
 
 	// Guardar medio de bonificacion
 	@OneToOne(fetch = FetchType.LAZY)
@@ -99,6 +105,22 @@ public class MediosBonificacion {
 
 	public void setIdTipo(Integer idTipo) {
 		this.idTipo = idTipo;
+	}
+
+	public Integer getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(Integer estatus) {
+		this.estatus = estatus;
+	}
+
+	public String getBanco() {
+		return banco;
+	}
+
+	public void setBanco(String banco) {
+		this.banco = banco;
 	}
 
 	public void setCatalogoMediosBonificacion(CatalogoMediosBonificacion catalogoMediosBonificacion) {

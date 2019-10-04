@@ -11,5 +11,7 @@ public interface MediosBonificacionService {
 	SimpleResponse guardarMediosBonificacion(MediosBonificacion item);
 
 	SimpleResponse actualizarMediosBonificacion(MediosBonificacion item);
+	
+	SimpleResponse eliminarMediosBonificacion(MediosBonificacion item);
 
 }

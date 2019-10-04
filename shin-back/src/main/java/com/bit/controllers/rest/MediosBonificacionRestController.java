@@ -50,4 +50,13 @@ public class MediosBonificacionRestController {
 		
 		return rsp;
 	}
+	
+	@PostMapping(value = "/mediosBonificacion/eliminar")
+	public SimpleResponse eliminarMediosBonificacion(@RequestBody MediosBonificacion item) {
+		
+		log.info("Entrando a eliminarMediosBonificacion");
+		SimpleResponse rsp = mediosBonificacionService.eliminarMediosBonificacion(item);
+		
+		return rsp;
+	}
 }

@@ -21,6 +21,18 @@ public class MediosBonificacionServiceImpl implements MediosBonificacionService 
 	
 	@Autowired
 	private MediosBonificacionDAO mediosBonificacionDAO;
+	
+	public enum Estatus{
+		
+		ACTIVO(1),
+		BAJA(2);
+		
+		public final Integer estatus;
+		
+		private Estatus(Integer estatus) {
+			this.estatus = estatus;
+		}
+	}
 
 	@Override
 	@Transactional
@@ -48,6 +60,7 @@ public class MediosBonificacionServiceImpl implements MediosBonificacionService 
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
+		item.setEstatus( Estatus.ACTIVO.estatus );
 		item = mediosBonificacionDAO.save(item);
 		rsp.setId(item.getIdMediosBonificacion());
 		return rsp;
@@ -63,12 +76,56 @@ public class MediosBonificacionServiceImpl implements MediosBonificacionService 
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
-		mediosBonificacionDAO.findByPK(item.getIdMediosBonificacion());
+		MediosBonificacion entity = mediosBonificacionDAO.findByPK(item.getIdMediosBonificacion());
 		
-		item = mediosBonificacionDAO.update(item);
+		//Para el caso de PAYPAL solo se actualiza 
+		//id
+		//correo
+		entity = updateMedioBonificacion(item, entity);
+		item = mediosBonificacionDAO.update(entity);
 		rsp.setId(item.getIdMediosBonificacion());
 		return rsp;
 
+	}
+	
+	private MediosBonificacion updateMedioBonificacion( MediosBonificacion item, MediosBonificacion entity ) {
+		
+		
+		if ( item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == 1 ) {
+			entity.setAliasMedioBonificacion( item.getAliasMedioBonificacion() );
+			entity.setCuentaMedioBonificacion( item.getCuentaMedioBonificacion() );
+			entity.setVigenciaMedioBonificacion( item.getVigenciaMedioBonificacion() );
+			entity.setBanco( item.getBanco() );
+			entity.setIdTipo( item.getIdTipo() );
+		}
+		if ( item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == 2 ) {
+			entity.setAliasMedioBonificacion( item.getAliasMedioBonificacion() );
+			entity.setIdCuentaMedioBonificacion( item.getIdCuentaMedioBonificacion() );
+			entity.setCuentaMedioBonificacion( item.getCuentaMedioBonificacion() );
+		}
+		if ( item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == 3 ) {
+			entity.setAliasMedioBonificacion( item.getAliasMedioBonificacion() );
+			entity.setCuentaMedioBonificacion( item.getCuentaMedioBonificacion() );
+			entity.setCompaniaMedioBonificacion( item.getCompaniaMedioBonificacion() );
+		}
+		
+		return entity;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse eliminarMediosBonificacion(MediosBonificacion item) {
+		
+		log.info("Eliminando medio de bonificacion con id: {}", item.getIdMediosBonificacion());
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = mediosBonificacionDAO.findByPK(item.getIdMediosBonificacion());
+		item.setEstatus( Estatus.BAJA.estatus );
+		item = mediosBonificacionDAO.update(item);
+		return rsp;
 	}
 
 }
