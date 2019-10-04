@@ -5,6 +5,7 @@ import java.util.List;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 
@@ -36,5 +37,7 @@ public interface ProductoService {
 	List<Producto> getProductosPorIDYEmpresa(List<String> items, int idEmpresa);
 	
 	Producto findById(Long id);
+	
+	SimpleResponse registraSugerencia(SugerenciaProducto item);
 
 }

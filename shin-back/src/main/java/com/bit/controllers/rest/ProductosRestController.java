@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
@@ -130,6 +131,14 @@ public class ProductosRestController {
 		log.info("Entrando a getProductosPorNombre");
 		ListItemsRSP rsp = productoService.getProductosPorNombre(nombreProducto);
 
+		return rsp;
+	}
+	
+	@PostMapping(value="/sugerencias")
+	public @ResponseBody SimpleResponse registraSugerencia(@RequestBody SugerenciaProducto item) {
+		log.info("Entrando en registraSugerencia");
+		SimpleResponse rsp = productoService.registraSugerencia(item);
+		
 		return rsp;
 	}
 }

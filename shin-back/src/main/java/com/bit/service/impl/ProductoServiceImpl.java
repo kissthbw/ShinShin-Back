@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.ProductoDAO;
+import com.bit.dao.SugerenciaProductoDAO;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
@@ -25,6 +27,9 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
 	private ProductoDAO productoDAO;
+	
+	@Autowired
+	private SugerenciaProductoDAO sugerenciaProductoDAO;
 
 	@Override
 	@Transactional
@@ -311,5 +316,17 @@ public class ProductoServiceImpl implements ProductoService {
 		}
 
 		return tmp;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse registraSugerencia(SugerenciaProducto item) {
+		log.info("Guardando sugerencia de producto: {}, del usuario: {}", item.getNombreProducto(), item.getIdUsuario());
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setCode(200);
+		rsp.setMessage("Exito");
+		
+		sugerenciaProductoDAO.save(item);
+		return rsp;
 	}
 }
