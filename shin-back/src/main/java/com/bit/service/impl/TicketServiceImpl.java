@@ -85,8 +85,8 @@ public class TicketServiceImpl implements TicketService {
 			log.info("Ticket correcto");
 		} catch (TicketException e) {
 			log.error("Error al analizar ticket", e);
-			rsp.setCode(204);
-			rsp.setMessage("No se poseee informacion suficiente para analizar");
+			rsp.setCode( e.getCode() );
+			rsp.setMessage( e.getMessage() );
 			
 			return rsp;
 		}

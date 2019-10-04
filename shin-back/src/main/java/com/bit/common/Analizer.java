@@ -57,17 +57,21 @@ public class Analizer {
 		ListIterator<String> it = lineas.listIterator();
 		valor = detectarTienda(it);
 		
-		if ( null != valor ) {
+		if ( null != valor == !"".equals( valor ) ) {
 			TicketAnalizer analizer = TicketAnalizerFactory.getAnalizer(valor.toUpperCase());
 			
 			if( null != analizer ) {
 				rsp = analizer.analize(lineas);
 			}
 			else {
-				rsp.setCode(500);
-				rsp.setMessage("Formato de ticket no reconocido");
+				Throwable t = new Throwable("No se poseee informacion suficiente para analizar");
+				throw new TicketException("No se poseee informacion suficiente para analizar", t, 204);
 			}
 			
+		}
+		else {
+			Throwable t = new Throwable("Formato de ticket no reconocido");
+			throw new TicketException("Formato de ticket no reconocido", t, 500);
 		}
 		
 		return rsp;

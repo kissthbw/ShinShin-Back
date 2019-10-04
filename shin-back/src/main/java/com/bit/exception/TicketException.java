@@ -8,6 +8,7 @@ public class TicketException extends Exception {
 
 	public TicketException(String message, Throwable cause, int code) {
 		super(message, cause);
+		this.code = code;
 	}
 
 	public int getCode() {

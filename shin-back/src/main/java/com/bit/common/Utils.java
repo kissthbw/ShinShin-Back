@@ -1,5 +1,8 @@
 package com.bit.common;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +25,24 @@ public class Utils {
 		String id = String.format("%04d", rand.nextInt(9999));
 		
 		return id;
+	}
+	
+	public static String generaHash(String originalString) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-256");
+		byte[] encodedhash = digest.digest(
+		  originalString.getBytes(StandardCharsets.UTF_8));
+		
+		return bytesToHex(encodedhash);
+	}
+	
+	private static String bytesToHex(byte[] hash) {
+	    StringBuffer hexString = new StringBuffer();
+	    for (int i = 0; i < hash.length; i++) {
+	    String hex = Integer.toHexString(0xff & hash[i]);
+	    if(hex.length() == 1) hexString.append('0');
+	        hexString.append(hex);
+	    }
+	    return hexString.toString();
 	}
 	
 	public static String objectToJSON(Object o) throws JsonProcessingException {
