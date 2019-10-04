@@ -259,7 +259,8 @@ public class TicketDAOTest {
 		try {
 			buffered = new 
 					BufferedReader(
-							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-7eleven-3.txt") );
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/error.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-7eleven-3.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-3.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-2.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-aurrera.txt") );

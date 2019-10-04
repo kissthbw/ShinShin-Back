@@ -18,6 +18,8 @@ import com.bit.config.WebConfig;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.service.ProductoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -28,6 +30,9 @@ public class ProductoDAOTest {
 
 	@Autowired
 	private ProductoDAO productoDAO;
+	
+	@Autowired
+	private ProductoService productoService;
 
 	@Transactional
 	@Test
@@ -108,4 +113,45 @@ public class ProductoDAOTest {
 		}
 	}
 
+	@Transactional
+	@Test
+	public void paginacion() {
+//		int maxResults = 10;
+//		long total = productoDAO.getTotal();
+//		
+//		long pages = total / maxResults;
+//		
+//		List<Producto> list = null;
+//		
+//		for( int page = 0; page <= pages; page++ ) {
+//			System.out.println( "Pagina: " + (page +1) );
+//			
+//			list = productoDAO.getProductosPorPaginas(page, maxResults);
+//			for (Producto p : list) {
+//				System.out.println( p.getIdProducto() + " - Producto: " + p.getNombreProducto() + " Precio: " + p.getPrecio());
+//			}
+//
+//		}
+		
+		ListItemsRSP rsp = productoService.getProductosPorPaginas(4, 5);
+
+		for( Producto p : rsp.getProductos()) {
+			System.out.println( p.getIdProducto() + " - Producto: " + p.getNombreProducto() + " Precio: " + p.getPrecio());
+		}
+		
+	}
+	
+	public static void main( String[] args ) {
+		//Ejemplo 
+		//70 registros, con max registros por pagina de 30
+		int page = 7;
+		int maxResults = 10;
+		int total = 70;
+		
+		int tmp =  (maxResults * page);
+		int diferencia = total - tmp;
+		
+		System.out.println( "Registros pendientes: " + diferencia + ", hasNextPage?: " + ( diferencia == 0 ? "false" : "true" ));
+	}
+	
 }

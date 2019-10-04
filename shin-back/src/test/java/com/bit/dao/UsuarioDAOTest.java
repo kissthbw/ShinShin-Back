@@ -2,6 +2,7 @@ package com.bit.dao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -129,14 +130,21 @@ public class UsuarioDAOTest {
 
 	@Transactional
 	@Test
-	@Rollback(false)
+	@Rollback(true)
 	public void actualizarUsuarios() {
 
 		log.info("Actualiza el/los valor(es) de un usuario por id");
-		Usuario item = usuarioDAO.findByPK(12l);
-		item.setContrasenia("mexicangreat");
+		Usuario item = new Usuario();
+		item.setIdUsuario(2L);
+		item.setCodigoPostal( "57300" );
 
-		usuarioService.actualizarUsuarios(item);
+		InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item);
+		System.out.println( rsp.getCode() );
+		System.out.println( rsp.getUsuario().getNombre() );
+		System.out.println( rsp.getUsuario().getCorreoElectronico() );
+		System.out.println( rsp.getUsuario().getTelMovil() );
+		System.out.println( rsp.getUsuario().getFechaNac() );
+		System.out.println( rsp.getUsuario().getCodigoPostal() );
 	}
 
 	@Transactional
@@ -371,7 +379,7 @@ public class UsuarioDAOTest {
 	@Rollback(false)
 	public void obtenerCuentas() {
 		
-		long idUser = 1;
+		long idUser = 2;
 		Usuario item = new Usuario();
 		item.setIdUsuario(idUser);
 		InformacionUsuarioRSP user = usuarioService.obtenerMediosBonificacion(item);
@@ -453,5 +461,14 @@ public class UsuarioDAOTest {
 		
 		BigDecimal saldo = usuarioService.calculaCreditoTotal(user);
 		System.out.println( "Saldo total: " + saldo );
+	}
+	
+	public static void main(String[] args) {
+		String s = "kissthbw1";
+		try {
+			System.out.println( Utils.generaHash(s) );
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 	}
 }
