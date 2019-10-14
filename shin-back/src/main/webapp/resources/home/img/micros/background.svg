@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="737px" height="309px" viewBox="0 0 737 309" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group 30</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50.0105806%" y1="108.41713%" x2="50.0105806%" y2="-11.6948052%" id="linearGradient-1">
+            <stop stop-color="#FF6600" offset="0%"></stop>
+            <stop stop-color="#FFF800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="85.4868421%" y1="50.0113519%" x2="15.6904025%" y2="50.0113519%" id="linearGradient-2">
+            <stop stop-color="#FFFECC" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFECC" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0105806%" y1="108.41713%" x2="50.0105806%" y2="-11.6948052%" id="linearGradient-3">
+            <stop stop-color="#FF6600" offset="0%"></stop>
+            <stop stop-color="#FFF800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0105806%" y1="108.41713%" x2="50.0105806%" y2="-11.6948052%" id="linearGradient-4">
+            <stop stop-color="#FF6600" offset="0%"></stop>
+            <stop stop-color="#FFF800" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50.0105806%" y1="108.41713%" x2="50.0105806%" y2="-11.6948052%" id="linearGradient-5">
+            <stop stop-color="#FF6600" offset="0%"></stop>
+            <stop stop-color="#FFF800" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-3" transform="translate(-703.000000, -3822.000000)" fill-rule="nonzero">
+            <g id="Group-24" transform="translate(0.000000, 3822.000000)">
+                <g id="Group-23">
+                    <g id="Group-30" transform="translate(703.000000, 0.000000)">
+                        <g id="Group-15-Copy-4" transform="translate(0.000000, 23.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,241.260834 C138.275381,260.460683 107.337379,276 69.1555323,276 C30.9736853,276 0,260.424795 0,241.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-9" transform="translate(281.000000, 128.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,136.260834 C138.275381,155.460683 107.337379,171 69.1555323,171 C30.9736853,171 0,155.424795 0,136.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-12" transform="translate(409.000000, 53.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,136.260834 C138.275381,155.460683 107.337379,171 69.1555323,171 C30.9736853,171 0,155.424795 0,136.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-10" transform="translate(378.000000, 138.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,136.260834 C138.275381,155.460683 107.337379,171 69.1555323,171 C30.9736853,171 0,155.424795 0,136.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-11" transform="translate(496.000000, 53.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,220.753478 C138.275381,239.953327 107.337379,255.492644 69.1555323,255.492644 C30.9736853,255.492644 0,239.917439 0,220.753478 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-4)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-13" transform="translate(598.000000, 148.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,111.260834 C138.275381,130.460683 107.337379,146 69.1555323,146 C30.9736853,146 0,130.424795 0,111.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-5)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-8" transform="translate(189.000000, 23.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,241.260834 C138.275381,260.460683 107.337379,276 69.1555323,276 C30.9736853,276 0,260.424795 0,241.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-7" transform="translate(69.000000, 0.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,241.260834 C138.275381,260.460683 107.337379,276 69.1555323,276 C30.9736853,276 0,260.424795 0,241.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                        <g id="Group-15-Copy-6" transform="translate(100.000000, 128.000000)">
+                            <path d="M138.275381,35.0371009 L138.275381,136.260834 C138.275381,155.460683 107.337379,171 69.1555323,171 C30.9736853,171 0,155.424795 0,136.260834 L0,35.0371009 L138.275381,35.0371009 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                            <ellipse id="Oval" fill="#FFF800" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                            <ellipse id="Oval" fill="url(#linearGradient-2)" cx="69.1376903" cy="35.0371009" rx="69.1376903" ry="35.0371009"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
