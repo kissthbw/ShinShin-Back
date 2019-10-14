@@ -30,7 +30,7 @@ public class CatalogoMarcaController {
 	public String saveMedio(@ModelAttribute CatalogoMarca item, BindingResult errors, Model model) {
 
 		System.out.println(item.getNombreMarca());
-		catalogoMarcaService.registrarMarcas(item);
+		catalogoMarcaService.registrarMarcas(null, item);
 
 		return "redirect:/marca/save";
 	}	

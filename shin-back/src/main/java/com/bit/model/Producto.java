@@ -72,6 +72,9 @@ public class Producto {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_catalogo_tienda")
 	private CatalogoTienda catalogoTienda;
+	
+	@Column(name = "img_url")
+	private String imgUrl;
 
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
@@ -199,6 +202,14 @@ public class Producto {
 
 	public void setCatalogoTienda(CatalogoTienda catalogoTienda) {
 		this.catalogoTienda = catalogoTienda;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 }

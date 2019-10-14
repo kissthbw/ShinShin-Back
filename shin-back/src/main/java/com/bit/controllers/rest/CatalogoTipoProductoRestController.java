@@ -39,7 +39,7 @@ public class CatalogoTipoProductoRestController {
 	public SimpleResponse registrarTipoProductos(@RequestBody CatalogoTipoProducto item) {
 		
 		log.info("Entrando a registrarCatalogoTipoProductos");
-		SimpleResponse rsp = catalogoTipoProductoService.registrarCatalogoTipoProductos(item);
+		SimpleResponse rsp = catalogoTipoProductoService.registrarCatalogoTipoProductos(null, item);
 		
 		return rsp;
 	}
@@ -48,7 +48,7 @@ public class CatalogoTipoProductoRestController {
 	public SimpleResponse actualizarTipoProductos(@RequestBody CatalogoTipoProducto item) {
 		
 		log.info("Entrando a actualizarCatalogoTipoProductos");
-		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(item);
+		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(null, item);
 		
 		return rsp;
 	}

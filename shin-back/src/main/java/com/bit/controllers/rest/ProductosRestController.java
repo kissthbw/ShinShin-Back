@@ -93,7 +93,7 @@ public class ProductosRestController {
 	public @ResponseBody SimpleResponse registrarProducto(@RequestBody Producto item) {
 		
 		log.info("Registrando un producto en registrarProductos");
-		SimpleResponse rsp = productoService.registrarProductos(item);
+		SimpleResponse rsp = productoService.registrarProductos(null, item);
 
 		return rsp;
 	}
@@ -102,7 +102,7 @@ public class ProductosRestController {
 	public @ResponseBody SimpleResponse actualizarProducto(@RequestBody Producto item) {
 		
 		log.info("Actualizando uno o varios valores de un producto en actualizarProductos");
-		SimpleResponse rsp = productoService.actualizarProductos(item);
+		SimpleResponse rsp = productoService.actualizarProductos(null, item);
 
 		return rsp;
 	}

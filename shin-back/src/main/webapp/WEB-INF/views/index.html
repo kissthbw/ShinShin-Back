@@ -7,42 +7,811 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta http-equiv="x-ua-compatible" content="ie=edge"/>
   <title>Shing Shing</title>
-	<link rel="shortcut icon" th:href="@{/resources/construccion/img/favicon.png}"></link>
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"></link>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
   <!-- Bootstrap core CSS -->
-  <link th:href="@{/resources/construccion/css/bootstrap.min.css}" rel="stylesheet"></link>
+  <link th:href="@{/resources/home/css/bootstrap.min.css}" rel="stylesheet"/>
   <!-- Material Design Bootstrap -->
-  <link th:href="@{/resources/construccion/css/mdb.min.css}" rel="stylesheet"></link>
-  <!-- Custom styles -->
-  <link th:href="@{/resources/construccion/css/style.css}" rel="stylesheet"></link>
-  <!-- Nunito -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet"></link>
+  <link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet"/>
+  <!-- Your custom styles (optional) -->
+  <link th:href="@{/resources/home/css/style.css}" rel="stylesheet"/>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
+  <!-- Imagenes -->
+  <style type="text/css">
+		#brand-1{
+			background-image: url(resources/home/img/brands/1.svg);
+		}
+		#brand-2{
+			background-image: url(resources/home/img/brands/2.svg);
+		}
+		#brand-3{
+			background-image: url(resources/home/img/brands/3.svg);
+		}
+		#brand-4{
+			background-image: url(resources/home/img/brands/4.svg);
+		}
+		#brand-5{
+			background-image: url(resources/home/img/brands/5.svg);
+		}
+		#brand-6{
+			background-image: url(resources/home/img/brands/6.svg);
+		}
+		#brand-7{
+			background-image: url(resources/home/img/brands/7.svg);
+		}
+		#brand-8{
+			background-image: url(resources/home/img/brands/8.svg);
+		}
+		#detalle-1{
+			background-image: url(resources/home/img/icon/1.svg);
+		}
+		#detalle-2{
+			background-image: url(resources/home/img/icon/2.svg);
+		}
+		#detalle-3{
+			background-image: url(resources/home/img/icon/3.svg);
+		}
+		#detalle-4{
+			background-image: url(resources/home/img/icon/4.svg);
+		}
+		#img-step-1{
+			background-image: url(resources/home/img/steps/1.svg);
+		}
+		#img-step-2{
+			background-image: url(resources/home/img/steps/2.svg);
+		}
+		#img-step-3{
+			background-image: url(resources/home/img/steps/3.svg);
+		}
+		#number-1{
+			background-image: url(resources/home/img/icon/n-1.svg);
+		}
+		#number-2{
+			background-image: url(resources/home/img/icon/n-2.svg);
+		}
+		#number-3{
+			background-image: url(resources/home/img/icon/n-3.svg);
+		}
+		#img-product-1{
+			background-image: url(resources/home/img/products/1.svg);
+		}
+		#img-product-2{
+			background-image: url(resources/home/img/products/2.svg);
+		}
+		#img-product-3{
+			background-image: url(resources/home/img/products/3.svg);
+		}
+		#img-product-4{
+			background-image: url(resources/home/img/products/4.svg);
+		}
+		#img-product-5{
+			background-image: url(resources/home/img/products/5.svg);
+		}
+		#img-product-6{
+			background-image: url(resources/home/img/products/6.svg);
+		}
+		#img-product-7{
+			background-image: url(resources/home/img/products/7.svg);
+		}
+		#img-product-8{
+			background-image: url(resources/home/img/products/8.svg);
+		}
+		#logo-header{
+			background-image: url(resources/home/img/brands/ss-complet.svg);
+		}
+		#appStore{
+			background-image: url(resources/home/img/brands/appStore.svg);
+		}
+		#googlePlay{
+			background-image: url(resources/home/img/brands/googlePlay.svg);
+		}
+		#principal #imagen{
+			background-image: url(resources/home/img/micros/principal.png);
+		}
+		#icon-play{
+			background-image: url(resources/home/img/icon/play.svg);
+		}
+		#pleca{
+			background-image: url(resources/home/img/micros/background.svg);
+		}
+		#footer #logo{
+			background-image: url(resources/home/img/brands/ss-complet-orange.svg);
+		}
+		#social #fb{
+			background-image: url(resources/home/img/brands/fb.svg);
+		}
+		#social #tw{
+			background-image: url(resources/home/img/brands/tw.svg);
+		}
+		.icon-toggle{
+			background-image: url(resources/home/img/icon/toggle.svg);
+		}
+		.pico{
+			background-image: url(resources/home/img/icon/pico.svg);
+		}
+			@media (min-width: 768px) and (max-width: 991px) {
+				#principal #imagen{
+					background-image: url(resources/home/img/micros/principal-tablet.png);
+					margin-top: -40px;
+				}
+			}
+  </style>
 </head>
 
 <body>
+	<!-- Principal -->
+	<div id="principal" class="section">
 
-  <!-- Start your project here-->
-  <div style="height: 100vh">
-    <div class="flex-center flex-column">
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<div class="row justify-content-between">
 
-      <h1 class="text-hide animated fadeIn mb-4"
-      	 style="background-image: url(resources/construccion/img/logo-blanco.png); width: 240px; height: 43px; background-size: cover;"></h1>
-        
-      <h7 style="color: #fff; font-size: 14px; font-family: Nunito; margin-top: 40px;">...Estamos trabajando ;-)</h7>
-    </div>
-  </div>
+					<div class="col-5">
+						<div id="logo-header"></div>
+					</div>
+
+					<div id="options" class="col">
+						<div class="row justify-content-end">
+							<div id="btn-hazSS"><button>¡Haz Shing Shing!</button></div>
+							<div id="btn-hazSS"><button>Descarga</button></div>
+							<div id="btn-login"><button><a th:href="@{'/portal-usuario/'}">Inicia sesión</a></button></div>
+						</div>
+					</div>
+					
+
+							  <a class="icon-toggle" data-toggle="collapse" href="#collapseToggle" role="button" aria-expanded="false" aria-controls="collapseToggle">
+							    <div class=""></div>
+							  </a>
+
+				</div>
+
+				<div class="row justify-content-end">
+					<div class="collapse style-collapse" id="collapseToggle">
+							<div class="card card-body">
+								<div class="btn-toggle cta col-12">Descarga</div>
+								<div class="btn-toggle second col-12"><a th:href="@{'/portal-usuario/'}">Inicia sesión</a></div>
+								<div class="btn-toggle second col-12">¡Haz Shing Shing!</div>
+							</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Content principal -->
+		<div id="content-principal">
+			<div class="container">
+				<div class="row justify-content-around">
+
+					<!-- Desktop -->
+					<div id="texto" class="offset-md-0 col-sm-8 col-md-6 col-lg-5 desktop">
+
+						<h1 class="m24">¡Gana dinero por hacer tu $uper!</h1>
+						<h4 class="m32"><font class="weight700">Descarga la App,</font> sube tus Tickets de compra  y comienza a ganar ;-)</h4>
+						
+						<div class="row m40">
+							<div class="col-12 m16">Disponible en:</div>
+							<div id="appStore"></div>
+							<div id="googlePlay"></div>
+						</div>
+						
+						<button>
+							<div class="row cta-blue">
+								<div id="icon-play"></div>
+								<div class="text-btn">Mira como funciona</div>
+							</div>
+						</button>
+					</div>
+
+					<!-- Mobile -->
+					<div id="texto" class="col-sm-8 col-md-6 col-lg-5 mobile">
+
+						<h1 class="m24">¡Gana dinero por hacer tu $uper!</h1>
+						<h4 class="m32"><font class="weight700">Descarga la App,</font> sube tus Tickets de compra  y comienza a ganar ;-)</h4>
+						
+						<div class="row m40 justify-content-center">
+							<div class="col-12 m16">Disponible en:</div>
+							<div id="appStore"></div>
+							<div id="googlePlay"></div>
+						</div>
+						
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<button class="m24 col-9" id="btn-1">
+									<div class="row cta-blue">
+										<div class="text-btn col">Descargar</div>
+									</div>
+								</button>
+								<button id="btn-2">
+									<div class="row cta-blue">
+										<div id="icon-play"></div>
+										<div class="text-btn">Mira como funciona</div>
+									</div>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div id="imagen" class="col-md-5 col-lg-6"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="line-white -line"></div>
+
+	<!-- Marcas -->
+	<div id="brands" class="section">
+		<div class="container">
+			<div class="row">
+				<h3 class="col-12 weight700">+ de 999 productos participantes!</h3>
+			</div>
+			<div class="row justify-content-between">
+				<div id="brand-1" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-2" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-3" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-4" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-5" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-6" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-7" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+				<div id="brand-8" class="col-6 col-sm-3 col-md-3 col-lg-1"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="line-orange"></div>
+
+	<!-- Haz Shing Shing -->
+	<div id="hazShingShing" class="section">
+		<div class="container">
+
+			<!-- Desktop -->
+			<div id="desktop" class="row justify-content-center">
+				<h2 class="col-12 weight700">¡Haz Shing Shing!</h2>
+				<div id="img-step-1" class="col-4"></div>
+				<div id="img-step-2" class="col-4"></div>
+				<div id="img-step-3" class="col-4"></div>
+				<div class="col-4">
+					<div class="row justify-content-center">
+						<div id="number-1"></div>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="row justify-content-center">
+						<div id="number-2"></div>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="row justify-content-center">
+						<div id="number-3"></div>
+					</div>
+				</div>
+				<div id="singleLine" class="col-8"></div>
+				<div class="col-12">
+					<div class="row justify-content-around">
+						<div class="textPrincipal col-md-4 col-lg-3">
+							<div class="weight700"><h4 class="weight700">Descarga la app<br/><br/></h4></div>
+							<div>Disponible para todos los dispositivos iOS y Android.</div>
+						</div>
+						<div class="textPrincipal col-md-4 col-lg-3">
+							<div class="weight700"><h4 class="weight700"/>Toma una foto de tu Ticket<br/><br/></div>
+							<div>Para registrar los productos que hayas comprado y participen en <font class="weight700">Shing Shing</font> para bonificarlo a tu cuenta.</div>
+						</div>
+						<div class="textPrincipal col-md-4 col-lg-3">
+							<div class="weight700"><h4 class="weight700"/>…Listo!<br/><br/></div>
+							<div>Podrás utilizar tu dinero para transferirlo a una cuenta bancaria, PayPal o realizar una recarga telefónica.</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<h3 class="col-12 mt120 col-md-12">Lo mejor de todo,<br/><font class="weight700">es totalmente Gratis!</font></h3>
+
+				<div class="col-sm-6 col-md-3 col-lg-3">
+					<div id="detalle-1" class="col-12"></div>
+					<div id="text"><h5 class="weight700">Así es,<br/>0 comisiones</h5></div>
+				</div>
+
+				<div class="col-sm-6 col-md-3 col-lg-3">
+					<div id="detalle-2"></div>
+					<div id="text"><h5 class="weight700">Retira tu dinero<br/>desde $10</h5></div>
+				</div>
+
+				<div class="col-sm-6 col-md-3 col-lg-3">
+					<div id="detalle-3"></div>
+					<div id="text"><h5 class="weight700">Sin límite de Tickets,<br/>ni productos</h5></div>
+				</div>
+
+				<div class="col-sm-6 col-md-3 col-lg-3">
+					<div id="detalle-4"></div>
+					<div id="text"><h5 class="weight700">Participan tus principales tiendas de autoservicio</h5></div>
+				</div>
+			</div>
+
+			<!-- Mobile -->
+			<div id="mobile" class="row justify-content-center">
+				<h2 class="col-12 weight700">¡Haz Shing Shing!</h2>
+				
+				<div class="container">
+				<div class="row justify-content-center offset-1">
+
+					<div class="col-12">
+						<div class="row justify-content-between">
+							<div class="col-2">
+								<div class="row justify-content-center">
+									<div id="number-1" class="col-12"></div>
+									<div id="lineMobile"></div>
+								</div>
+							</div>
+							<div class="col-10">
+								<div class="weight700"><h4 class="weight700">Descarga la app<br/></h4></div>
+								<div>Disponible para todos los dispositivos iOS y Android.</div>
+								<div id="img-step-1" class="col-7"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12">
+						<div class="row justify-content-between">
+							<div class="col-2">
+								<div class="row justify-content-center">
+									<div id="number-2" class="col-12"></div>
+									<div id="lineMobile"></div>
+								</div>
+							</div>
+							<div class="col-10">
+								<div class="weight700"><h4 class="weight700">Descarga la app<br/></h4></div>
+								<div>Disponible para todos los dispositivos iOS y Android.</div>
+								<div id="img-step-2" class="col-7"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12">
+						<div class="row justify-content-between">
+							<div class="col-2">
+								<div class="row justify-content-center">
+									<div id="number-3"></div>
+								</div>
+							</div>
+							<div class="col-10">
+								<div class="weight700"><h4 class="weight700">Descarga la app<br/></h4></div>
+								<div>Disponible para todos los dispositivos iOS y Android.</div>
+								<div id="img-step-3" class="col-12"></div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="row justify-content-center">
+					<h3 class="col-12 mt120 col-md-12">Lo mejor de todo,<br/><font class="weight700">es totalmente Gratis!</font></h3>
+
+					<div class="col-6 col-sm-6 col-md-3 col-lg-3">
+						<div id="detalle-1" class="col-12"></div>
+						<div id="text"><h5 class="col-12">Así es,<br/>0 comisiones</h5></div>
+					</div>
+
+					<div class="col-6 col-sm-6 col-md-3 col-lg-3">
+						<div id="detalle-2"></div>
+						<div id="text"><h5 class="col-12">Retira tu dinero<br/>desde $10</h5></div>
+					</div>
+
+					<div class="col-6 col-sm-6 col-md-3 col-lg-3">
+						<div id="detalle-3"></div>
+						<div id="text"><h5 class="col-12">Sin límite de Tickets,<br/>ni productos</h5></div>
+					</div>
+
+					<div class="col-6 col-sm-6 col-md-3 col-lg-3">
+						<div id="detalle-4"></div>
+						<div id="text"><h5 class="col-12">Participan tus principales tiendas de autoservicio</h5></div>
+					</div>
+
+				</div>
+</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="line-white -line"></div>
+
+	<!-- Productos -->
+	<div id="products" class="section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<h3 class="col-8 col-sm-12">Tu haz tus compras,<br/><font class="weight700">nosotros te regresamos dinero</font></h3>
+				
+				<!-- Producto 1 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 2 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 3 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 4 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 5 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 6 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 7 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+				<!-- Producto 8 -->
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+					<div class="product container">
+
+						<div class="row justify-content-center">
+							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							
+							<div class="col-8">
+								<div class="row justify-content-center">
+									<div class="textPrincipal-product weight700 col-12 col-sm-12">
+										Paq. 2 aguas <br/>Bonafont
+									</div>
+									
+									<div class="textSecondary-product col-12 col-sm-12 m16">
+										500ml.
+									</div>
+									<div class="row">
+										<div class="col-4 col-sm-4 col-md-4 col-lg-4 gana">Gana:</div>
+										<div class="col-8 col-sm-6 col-md-6 col-lg-6">
+											<div class="money">$<span class="weight700 price">10</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="container mt56">
+					<div class="row justify-content-center">
+						<h5 id="textComplement" class="col-10 col-sm-6 m32">
+							Conoce todos los productos participantes descargando la App en tu dispositívo movil  Android y iOS.
+						</h5>
+						<div id="button" class="col-12">
+							<button>
+								<div class="row cta-blue">
+									<div id="icon-play"></div>
+									<div class="text-btn">Mira como funciona</div>
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+
+	<div id="pleca" class="mt120"></div>
+
+	<div class="line-white -line"></div>
+
+	<footer id="footer" class="section m80">
+		<div class="container">
+			<div class="row">
+
+				<!-- Desktop -->
+				<div class="container desktop">
+					<div class="row justify-content-between m80">
+						<div id="logo"></div>
+						<div id="social">
+							<div class="row">
+								<div id="siguenos">Síguenos:</div>					
+								<a href="#"><div id="fb" class="col"></div></a>
+								<a href="#"><div id="tw" class="col"></div></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row justify-content-between">
+						<div id="legal" class="col">
+							<div class="row weight700">
+								<a href="#"><div class="op-1">Contacto</div></a>
+								<a href="#"><div class="op-2">Legal</div></a>
+								<a href="#"><div class="op-3">Política de privadiad</div></a>
+							</div>
+						</div>
+						<div id="copyright" class="col">
+							<div class="row">
+								<div class="col">
+									© 2019 Shing Shing
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Mobile -->
+				<div class="container mobile">
+					<div class="row justify-content-center m80">
+						<div id="logo" class="col-12"></div>
+						<div id="social">
+							<div class="row">
+								<div id="siguenos">Síguenos: </div>					
+								<a href="#"><div id="fb" class="col"></div></a>
+								<a href="#"><div id="tw" class="col"></div></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row justify-content-center">
+						<div id="legal" class="col-12">
+							<div class="row weight700">
+								<a href="#" class="col-12"><div class="op-1">Contacto</div></a>
+								<a href="#" class="col-12"><div class="op-2">Legal</div></a>
+								<a href="#" class="col-12"><div class="op-3">Política de privadiad</div></a>
+							</div>
+						</div>
+						<div id="copyright" class="col-12">
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										© 2019 Shing Shing
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</footer>
+
   <!-- Start your project here-->
 
   <!-- SCRIPTS -->
   <!-- JQuery -->
-  <script type="text/javascript" th:src="@{/resources/construccion/js/jquery-3.4.1.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/home/js/jquery-3.4.1.min.js}"></script>
   <!-- Bootstrap tooltips -->
-  <script type="text/javascript" th:src="@{/resources/construccion/js/popper.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/home/js/popper.min.js}"></script>
   <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" th:src="@{/resources/construccion/js/bootstrap.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/home/js/bootstrap.min.js}"></script>
   <!-- MDB core JavaScript -->
-  <script type="text/javascript" th:src="@{/resources/construccion/js/mdb.min.js}"></script>
+  <script type="text/javascript" th:src="@{/resources/home/js/mdb.min.js}"></script>
+<script type="text/javascript">var theToggle = document.getElementById('toggle');
+
+// based on Todd Motto functions
+// https://toddmotto.com/labs/reusable-js/
+
+// hasClass
+function hasClass(elem, className) {
+	return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+// addClass
+function addClass(elem, className) {
+    if (!hasClass(elem, className)) {
+    	elem.className += ' ' + className;
+    }
+}
+// removeClass
+function removeClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+	if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+            newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+}
+// toggleClass
+function toggleClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, " " ) + ' ';
+    if (hasClass(elem, className)) {
+        while (newClass.indexOf(" " + className + " ") >= 0 ) {
+            newClass = newClass.replace( " " + className + " " , " " );
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    } else {
+        elem.className += ' ' + className;
+    }
+}
+
+theToggle.onclick = function() {
+   toggleClass(this, 'on');
+   return false;
+}
+</script> 
+
+
+
 </body>
 
 </html>

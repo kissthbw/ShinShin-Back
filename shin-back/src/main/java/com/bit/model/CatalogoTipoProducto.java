@@ -17,6 +17,9 @@ public class CatalogoTipoProducto {
 	@Column(name = "nombre_tipo_producto")
 	private String nombreTipoProducto;
 
+	@Column(name = "img_url")
+	private String imgUrl;
+
 	public void setIdCatalogoTipoProducto(Long idCatalogoTipoProducto) {
 		this.idCatalogoTipoProducto = idCatalogoTipoProducto;
 	}
@@ -31,6 +34,14 @@ public class CatalogoTipoProducto {
 
 	public String getNombreTipoProducto() {
 		return nombreTipoProducto;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 }

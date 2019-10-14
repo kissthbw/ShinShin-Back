@@ -314,7 +314,7 @@
 	          		</div> -->
 
 					<div class="col-md-12">
-						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post">
+						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post" enctype="multipart/form-data">
 							<div class="card ">
 								<div class="card-header">
 									<h4 class="card-title">Datos del Departamento</h4>
@@ -330,6 +330,28 @@
 										<label class="col-sm-3 label-on-right"> <code>Obligatorio</code>
 										</label>
 									</div>
+									
+									<div class="row">
+											<label class="col-sm-2 col-form-label Label-on-left">Imagen</label>
+											<div class="col-md-4 col-sm-4">
+												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+	                      							<div class="fileinput-new thumbnail">
+	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+	                      							</div>
+	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
+	                      							<div>
+	                        							<span class="btn btn-rose btn-round btn-file">
+	                          								<span class="fileinput-new">Select image</span>
+	                          								<span class="fileinput-exists">Change</span>
+	                          								<input type="file" name="file" />
+	                        							</span>
+	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+	                       									<i class="fa fa-times"></i>Remove</a>
+	                      							</div>
+	                    						</div>
+											</div>
+									</div>
+									
 								</div>
 								<div class="card-footer text-center">
 									<button type="submit" class="btn btn-primary">Guardar</button>

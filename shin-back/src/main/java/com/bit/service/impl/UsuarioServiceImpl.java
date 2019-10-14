@@ -331,9 +331,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 				byte[] bytes = Base64.getMimeDecoder().decode( item.getImageData() );
 				
 				Map uploadResult = cloudinary.uploader().upload(bytes, params);
-				String url = cloudinary.url().generate("shingshing/usuarios/" + + item.getIdUsuario() + ".jpeg");
-				log.info("URL 1: {}", url);
-				log.info("URL 2 : {}", uploadResult.get("url"));
+//				String url = cloudinary.url().generate("shingshing/usuarios/" + + item.getIdUsuario() + ".jpeg");
+//				log.info("URL 1: {}", url);
+//				log.info("URL 2 : {}", uploadResult.get("url"));
 				String url2 = (String) uploadResult.get("url");
 				
 				entity.setImgUrl(url2);

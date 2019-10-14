@@ -1,18 +1,23 @@
 package com.bit.service.impl;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bit.communication.CloundinaryService;
 import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMarcaService;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
@@ -21,6 +26,9 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 	
 	@Autowired
 	private CatalogoMarcaDAO catalogoMarcaDAO;
+	
+	@Autowired
+	private CloundinaryService cloundinaryService;
 
 	@Override
 	@Transactional
@@ -40,9 +48,24 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 
 	@Override
 	@Transactional
-	public SimpleResponse registrarMarcas(CatalogoMarca item) {
+	public SimpleResponse registrarMarcas(MultipartFile file, CatalogoMarca item) {
 		
 		log.info("Registrando una marca");
+		
+		//Subir imagen a cloudinary
+		Map params = ObjectUtils.asMap(
+				   "public_id", "shingshing/marcas/" + item.getNombreMarca(), 
+				   "overwrite", true
+				);
+		
+		try {
+			log.info("Subiendo imagen de: {}", item.getNombreMarca());
+			String url = cloundinaryService.uploadImage(file.getBytes(), params);
+			item.setImgUrl( url );
+		} catch (IOException e) {
+			log.error("Ocurrio un error al subir imagen", e);
+		}
+		
 		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
@@ -55,7 +78,7 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 
 	@Override
 	@Transactional
-	public SimpleResponse actualizarMarcas(CatalogoMarca item) {
+	public SimpleResponse actualizarMarcas(MultipartFile file, CatalogoMarca item) {
 		
 		log.info("Actializando una marca");
 		
@@ -64,6 +87,19 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setCode(200);
 		
 		catalogoMarcaDAO.findByPK(item.getIdCatalogoMarca());
+		
+		Map params = ObjectUtils.asMap(
+				   "public_id", "shingshing/marcas/" + item.getNombreMarca(), 
+				   "overwrite", true
+				);
+		
+		try {
+			log.info("Subiendo imagen de: {}", item.getNombreMarca());
+			String url = cloundinaryService.uploadImage(file.getBytes(), params);
+			item.setImgUrl( url );
+		} catch (IOException e) {
+			log.error("Ocurrio un error al subir imagen", e);
+		}
 		
 		item = catalogoMarcaDAO.update(item);
 		rsp.setId(item.getIdCatalogoMarca());
@@ -85,6 +121,7 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		
 		item.setIdCatalogoMarca( entity.getIdCatalogoMarca() );
 		item.setNombreMarca( entity.getNombreMarca() );
+		item.setImgUrl( entity.getImgUrl() );
 		
 		return item;
 	}

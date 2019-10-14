@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,6 +21,20 @@ import com.cloudinary.utils.ObjectUtils;
 @ContextConfiguration(classes = WebConfig.class)
 @WebAppConfiguration
 public class CloudinaryTest {
+	
+	@Autowired
+	CloundinaryService cloundinaryService;
+	
+	@Test
+	public void uploadService() throws IOException {
+		File toUpload = new File("/Users/juanosorioalvarez/Downloads/img 2/icon/more/bold/grey@2x.png");
+		Map params = ObjectUtils.asMap(
+		   "public_id", "shingshing/more", 
+		   "overwrite", true
+		);
+		
+		cloundinaryService.uploadImage( Files.readAllBytes(  toUpload.toPath() ), params );
+	}
 	
 	@Test
 	public void uploadTest() {

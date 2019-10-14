@@ -2,6 +2,8 @@ package com.bit.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
@@ -24,9 +26,9 @@ public interface ProductoService {
 	
 	ListItemsRSP getBanners();
 
-	SimpleResponse registrarProductos(Producto item);
+	SimpleResponse registrarProductos(MultipartFile file, Producto item);
 
-	SimpleResponse actualizarProductos(Producto item);
+	SimpleResponse actualizarProductos(MultipartFile file, Producto item);
 
 	ListItemsRSP getProductosPorMarca(CatalogoMarca item, Producto i);
 

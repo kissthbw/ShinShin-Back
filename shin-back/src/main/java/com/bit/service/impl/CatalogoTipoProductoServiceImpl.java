@@ -1,18 +1,23 @@
 package com.bit.service.impl;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bit.communication.CloundinaryService;
 import com.bit.dao.CatalogoTipoProductoDAO;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoTipoProductoService;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoService {
@@ -21,6 +26,9 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 	
 	@Autowired
 	private CatalogoTipoProductoDAO catalogoTipoProductoDAO;
+	
+	@Autowired
+	private CloundinaryService cloundinaryService;
 
 	@Override
 	@Transactional
@@ -40,9 +48,22 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 
 	@Override
 	@Transactional
-	public SimpleResponse registrarCatalogoTipoProductos(CatalogoTipoProducto item) {
+	public SimpleResponse registrarCatalogoTipoProductos(MultipartFile file, CatalogoTipoProducto item) {
 		
 		log.info("Registrando tipo de productos");
+		
+		Map params = ObjectUtils.asMap(
+				   "public_id", "shingshing/departamentos/" + item.getNombreTipoProducto(), 
+				   "overwrite", true
+				);
+		
+		try {
+			log.info("Subiendo imagen de: {}", item.getNombreTipoProducto());
+			String url = cloundinaryService.uploadImage(file.getBytes(), params);
+			item.setImgUrl( url );
+		} catch (IOException e) {
+			log.error("Ocurrio un error al subir imagen", e);
+		}
 		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
@@ -55,9 +76,24 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 
 	@Override
 	@Transactional
-	public SimpleResponse actualizarCatalogoTipoProductos(CatalogoTipoProducto item) {
+	public SimpleResponse actualizarCatalogoTipoProductos(MultipartFile file, CatalogoTipoProducto item) {
 		
 		log.info("Actualizando tipo de productos");
+		
+		item = catalogoTipoProductoDAO.update(item);
+		
+		Map params = ObjectUtils.asMap(
+				   "public_id", "shingshing/departamentos/" + item.getNombreTipoProducto(), 
+				   "overwrite", true
+				);
+		
+		try {
+			log.info("Subiendo imagen de: {}", item.getNombreTipoProducto());
+			String url = cloundinaryService.uploadImage(file.getBytes(), params);
+			item.setImgUrl( url );
+		} catch (IOException e) {
+			log.error("Ocurrio un error al subir imagen", e);
+		}
 		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
@@ -86,6 +122,7 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		
 		item.setIdCatalogoTipoProducto( entity.getIdCatalogoTipoProducto() );
 		item.setNombreTipoProducto( entity.getNombreTipoProducto() );
+		item.setImgUrl( entity.getImgUrl() );
 		
 		return item;
 	}

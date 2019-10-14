@@ -39,7 +39,7 @@ public class CatalogoMarcaRestController {
 	public @ResponseBody SimpleResponse registrarMarcas(@RequestBody CatalogoMarca item) {
 		
 		log.info("Entrando a registrarMarcas");
-		SimpleResponse rsp = catalogoMarcaService.registrarMarcas(item);
+		SimpleResponse rsp = catalogoMarcaService.registrarMarcas(null, item);
 
 		return rsp;
 	}
@@ -48,7 +48,7 @@ public class CatalogoMarcaRestController {
 	public @ResponseBody SimpleResponse actualizarMarcas(@RequestBody CatalogoMarca item) {
 		
 		log.info("Entrando a actualizarMarcas");
-		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(item);
+		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(null, item);
 		
 		return rsp;
 	}

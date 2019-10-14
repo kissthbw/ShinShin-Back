@@ -279,7 +279,7 @@ Shing-Shing - Marcas
 											<div class="col-md-4 col-sm-4">
 												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 	                      							<div class="fileinput-new thumbnail">
-	                        							<img src="https://res.cloudinary.com/shingshing/image/upload/v1567446367/shingshing/back.png" alt="..."></img>
+	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
 	                      							</div>
 	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
 	                      							<div>

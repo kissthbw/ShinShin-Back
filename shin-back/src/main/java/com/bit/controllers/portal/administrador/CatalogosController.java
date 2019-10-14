@@ -1,5 +1,7 @@
 package com.bit.controllers.portal.administrador;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +43,8 @@ public class CatalogosController {
 
 	@Autowired
 	private ProductoService productoService;
+	
+	private static Logger log = LoggerFactory.getLogger( CatalogosController.class );
 
 	/*
 	 * Seccion de formularios y tablas
@@ -48,18 +52,21 @@ public class CatalogosController {
 	 */
 	@RequestMapping(value = "/departamento/save", method = RequestMethod.GET)
 	public String gerCatDepartamento(Model model) {
-
+		log.info( "Entrando en gerCatDepartamento" );
 		model.addAttribute("item", new CatalogoTipoProducto());
-
+		
+		log.info( "Saliendo de gerCatDepartamento" );
+		
 		return "cat_departamentos";
 	}
 
 	@RequestMapping(value = "/departamento/save", method = RequestMethod.POST)
-	public String postCatDepartamento(@ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model) {
+	public String postCatDepartamento(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model) {
 
-		System.out.println(item.getNombreTipoProducto());
-
-		catalogoTipoProductoService.registrarCatalogoTipoProductos(item);
+		log.info( "Entrando en postCatDepartamento" );
+		catalogoTipoProductoService.registrarCatalogoTipoProductos(file, item);
+		
+		log.info( "Saliendo de postCatDepartamento" );
 
 		return "redirect:/portal-administrador/departamento/save";
 	}
@@ -67,18 +74,23 @@ public class CatalogosController {
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.GET)
 	public String getCatDepartamentoEdit(Model model, @PathVariable String id) {
 		
+		log.info( "Entrando en getCatDepartamentoEdit" );
 		CatalogoTipoProducto item = catalogoTipoProductoService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		log.info( "Saliendo de getCatDepartamentoEdit" );
 
 		return "cat_departamentos";
 	}
 	
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.POST)
-	public String postCatDepartamentoEdit(@ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model, @PathVariable String id) {
+	public String postCatDepartamentoEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model, @PathVariable String id) {
 		
-		System.out.println( "Editando" );
+		log.info( "Entrando en postCatDepartamentoEdit" );
 		item.setIdCatalogoTipoProducto( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(item);
+		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
+		
+		log.info( "Saliendo de postCatDepartamentoEdit" );
 
 		return "redirect:/portal-administrador/departamento/list";
 	}
@@ -89,37 +101,45 @@ public class CatalogosController {
 	@RequestMapping(value = "/marca/save", method = RequestMethod.GET)
 	public String getCatMarca(Model model) {
 
+		log.info( "Entrando en getCatMarca" );
 		model.addAttribute("item", new CatalogoMarca());
+		
+		log.info( "Saliendo de getCatMarca" );
 
 		return "catalogo_marca";
 	}
 
 	@RequestMapping(value = "/marca/save", method = RequestMethod.POST)
 	public String postCatMarca(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model) {
-		
-		System.out.println(item.getNombreMarca());
 
-		catalogoMarcaService.registrarMarcas(item);
+		log.info( "Entrando en postCatMarca" );
+		catalogoMarcaService.registrarMarcas(file, item);
 
+		log.info( "Saliendo de postCatMarca" );
 		return "redirect:/portal-administrador/marca/save";
 	}
 	
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.GET)
 	public String getCatMarcaEdit(Model model, @PathVariable String id) {
 		
+		log.info( "Entrando en getCatMarcaEdit" );
 		CatalogoMarca item = catalogoMarcaService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		log.info( "Saliendo de getCatMarcaEdit" );
 
 		return "catalogo_marca";
 	}
 	
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.POST)
-	public String postCatMarcaEdit(@ModelAttribute CatalogoMarca item, BindingResult errors, Model model, @PathVariable String id) {
+	public String postCatMarcaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model, @PathVariable String id) {
 		
-		System.out.println( "Editando" );
+		log.info( "Entrando en postCatMarcaEdit" );
 		item.setIdCatalogoMarca( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(item);
+		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(file, item);
 
+		log.info( "Saliendo de postCatMarcaEdit" );
+		
 		return "redirect:/portal-administrador/marca/list";
 	}
 
@@ -129,7 +149,10 @@ public class CatalogosController {
 	@RequestMapping(value = "/medioBonificacion/save", method = RequestMethod.GET)
 	public String getCatMedioBonificacion(Model model) {
 
+		log.info( "Entrando en getCatMedioBonificacion" );
 		model.addAttribute("item", new CatalogoMediosBonificacion());
+		
+		log.info( "Saliendo de getCatMedioBonificacion" );
 
 		return "catalogo_medios_bonificacion";
 	}
@@ -137,9 +160,10 @@ public class CatalogosController {
 	@RequestMapping(value = "/medioBonificacion/save", method = RequestMethod.POST)
 	public String postCatMedioBonificacion(@ModelAttribute CatalogoMediosBonificacion item, BindingResult errors, Model model) {
 
-		System.out.println(item.getNombreMedioBonificacion());
-
+		log.info( "Entrando en postCatMarcaEdit" );
 		catalogoMediosBonificacionService.registrarCatalogoMediosBonificacion(item);
+		
+		log.info( "Saliendo de postCatMarcaEdit" );
 
 		return "redirect:/portal-administrador/medioBonificacion/save";
 	}
@@ -147,8 +171,11 @@ public class CatalogosController {
 	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.GET)
 	public String getCatMedioBonificacionEdit(Model model, @PathVariable String id) {
 		
+		log.info( "Entrando en getCatMedioBonificacionEdit" );
 		CatalogoMediosBonificacion item = catalogoMediosBonificacionService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		log.info( "Saliendo de getCatMedioBonificacionEdit" );
 
 		return "catalogo_medios_bonificacion";
 	}
@@ -156,9 +183,11 @@ public class CatalogosController {
 	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.POST)
 	public String postCatMedioBonificacionEdit(@ModelAttribute CatalogoMediosBonificacion item, BindingResult errors, Model model, @PathVariable String id) {
 		
-		System.out.println( "Editando" );
+		log.info( "Entrando en postCatMedioBonificacionEdit" );
 		item.setIdCatalogoMedioBonificacion( Long.parseLong(id) );
 		SimpleResponse rsp = catalogoMediosBonificacionService.actualizarCatalogoMediosBonificacion(item);
+		
+		log.info( "Saliendo de postCatMedioBonificacionEdit" );
 
 		return "redirect:/portal-administrador/mediosBonificacion/list";
 	}
@@ -170,7 +199,10 @@ public class CatalogosController {
 	@RequestMapping(value = "tienda/save", method = RequestMethod.GET)
 	public String getCatTienda(Model model) {
 
+		log.info( "Entrando en getCatTienda" );
 		model.addAttribute("item", new CatalogoTienda());
+		
+		log.info( "Saliendo de getCatTienda" );
 
 		return "catalogo_tienda";
 	}
@@ -178,9 +210,10 @@ public class CatalogosController {
 	@RequestMapping(value = "/tienda/save", method = RequestMethod.POST)
 	public String postCatTienda(@ModelAttribute CatalogoTienda item, BindingResult errors, Model model) {
 
-		System.out.println(item.getNombreTienda());
-
+		log.info( "Entrando en postCatTienda" );
 		catalogoTiendaService.registrarTiendas(item);
+		
+		log.info( "Saliendo de postCatTienda" );
 
 		return "redirect:/portal-administrador/tienda/save";
 	}
@@ -188,8 +221,11 @@ public class CatalogosController {
 	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.GET)
 	public String getCatTiendaEdit(Model model, @PathVariable String id) {
 		
+		log.info( "Entrando en getCatTiendaEdit" );
 		CatalogoTienda item = catalogoTiendaService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		log.info( "Saliendo de getCatTiendaEdit" );
 
 		return "catalogo_tienda";
 	}
@@ -197,9 +233,11 @@ public class CatalogosController {
 	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.POST)
 	public String postCatTiendaEdit(@ModelAttribute CatalogoTienda item, BindingResult errors, Model model, @PathVariable String id) {
 		
-		System.out.println( "Editando" );
+		log.info( "Entrando en postCatTiendaEdit" );
 		item.setIdCatalogoTienda( Long.parseLong(id) );
 		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(item);
+		
+		log.info( "Saliendo de postCatTiendaEdit" );
 
 		return "redirect:/portal-administrador/tienda/list";
 	}
@@ -210,20 +248,24 @@ public class CatalogosController {
 	@RequestMapping(value = "/producto/save", method = RequestMethod.GET)
 	public String getCatProducto(Model model) {
 
+		log.info( "Entrando en getCatProducto" );
 		model.addAttribute("item", new Producto());
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
+		
+		log.info( "Saliendo de getCatProducto" );
 
 		return "producto";
 	}
 
 	@RequestMapping(value = "/producto/save", method = RequestMethod.POST)
-	public String postCatProducto(@ModelAttribute Producto item, BindingResult errors, Model model) {
+	public String postCatProducto(@RequestParam MultipartFile file, @ModelAttribute Producto item, BindingResult errors, Model model) {
 
-		System.out.println(item.getNombreProducto());
-
-		productoService.registrarProductos(item);
+		log.info( "Entrando en postCatProducto" );
+		productoService.registrarProductos(file, item);
+		
+		log.info( "Saliendo de postCatProducto" );
 
 		return "redirect:/portal-administrador/producto/save";
 	}
@@ -231,22 +273,27 @@ public class CatalogosController {
 	@RequestMapping(value = "/producto/edit/{id}", method = RequestMethod.GET)
 	public String getCatProductoEdit(Model model, @PathVariable String id) {
 		
+		log.info( "Entrando en getCatProductoEdit" );
 		Producto item = productoService.findById(Long.parseLong(id));
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
 		model.addAttribute("item", item);
+		
+		log.info( "Saliendo de getCatProductoEdit" );
 
 		return "producto";
 	}
 	
 	@RequestMapping(value = "/producto/edit/{id}", method = RequestMethod.POST)
-	public String postCatProductoEdit(@ModelAttribute Producto item, BindingResult errors, Model model, @PathVariable String id) {
+	public String postCatProductoEdit(@RequestParam MultipartFile file, @ModelAttribute Producto item, BindingResult errors, Model model, @PathVariable String id) {
 		
-		System.out.println( "Editando" );
+		log.info( "Entrando en postCatProductoEdit" );
 		item.setIdProducto( Long.parseLong(id) );
-		SimpleResponse rsp = productoService.actualizarProductos(item);
+		SimpleResponse rsp = productoService.actualizarProductos(file, item);
 
+		log.info( "Saliendo de postCatProductoEdit" );
+		
 		return "redirect:/portal-administrador/producto/list";
 	}
 	
@@ -256,31 +303,46 @@ public class CatalogosController {
 	 */
 	@RequestMapping(value = "/mediosBonificacion/list", method = RequestMethod.GET)
 	public String redireccionaListaMediosBonificacion(Model model) {
+		log.info( "Entrando en redireccionaListaMediosBonificacion" );
 		model.addAttribute("medios", catalogoMediosBonificacionService.getCatalogoMediosBonificacion().getMediosBonificacion());
+		
+		log.info( "Saliendo de redireccionaListaMediosBonificacion" );
 		return "lista_mediosBonificacion";
 	}
 	
 	@RequestMapping(value = "/marca/list", method = RequestMethod.GET)
 	public String redirectionaListaMarca(Model model) {
+		log.info( "Entrando en redirectionaListaMarca" );
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
+		
+		log.info( "Saliendo de redirectionaListaMarca" );
 		return "lista_marcas";
 	}
 
 	@RequestMapping(value = "/tienda/list", method = RequestMethod.GET)
 	public String redirectionaListaTienda(Model model) {
+		log.info( "Entrando en redirectionaListaTienda" );
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
+		
+		log.info( "Saliendo de redirectionaListaTienda" );
 		return "lista_tiendas";
 	}
 	
 	@RequestMapping(value = "/departamento/list", method = RequestMethod.GET)
 	public String redirectionaListaDepartamento(Model model) {
+		log.info( "Entrando en redirectionaListaDepartamento" );
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
+		
+		log.info( "Saliendo de redirectionaListaDepartamento" );
 		return "lista_departamentos";
 	}
 	
 	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
 	public String redirectionaListaProducto(Model model) {
+		log.info( "Entrando en redirectionaListaProducto" );
 		model.addAttribute("productos", productoService.getProductos().getProductos());
+		
+		log.info( "Saliendo de redirectionaListaProducto" );
 		return "lista_productos";
 	}
 }

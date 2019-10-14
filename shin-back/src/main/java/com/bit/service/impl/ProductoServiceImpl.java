@@ -1,14 +1,18 @@
 package com.bit.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bit.communication.CloundinaryService;
 import com.bit.dao.ProductoDAO;
 import com.bit.dao.SugerenciaProductoDAO;
 import com.bit.model.CatalogoMarca;
@@ -19,6 +23,7 @@ import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
@@ -31,6 +36,9 @@ public class ProductoServiceImpl implements ProductoService {
 	@Autowired
 	private SugerenciaProductoDAO sugerenciaProductoDAO;
 
+	@Autowired
+	private CloundinaryService cloundinaryService;
+	
 	@Override
 	@Transactional
 	public ListItemsRSP getProductos() {
@@ -112,9 +120,22 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	@Transactional
-	public SimpleResponse registrarProductos(Producto item) {
+	public SimpleResponse registrarProductos(MultipartFile file, Producto item) {
 
 		log.info("Registrando un nuevo producto en la base de datos");
+		
+		Map params = ObjectUtils.asMap(
+				   "public_id", "shingshing/productos/" + item.getNombreProducto(), 
+				   "overwrite", true
+				);
+		
+		try {
+			log.info("Subiendo imagen de: {}", item.getNombreProducto());
+			String url = cloundinaryService.uploadImage(file.getBytes(), params);
+			item.setImgUrl( url );
+		} catch (IOException e) {
+			log.error("Ocurrio un error al subir imagen", e);
+		}
 		
 		//El color del producto viene el formato
 		//rgb(241, 138, 49)
@@ -140,7 +161,7 @@ public class ProductoServiceImpl implements ProductoService {
 	
 	@Override
 	@Transactional
-	public SimpleResponse actualizarProductos(Producto item) {
+	public SimpleResponse actualizarProductos(MultipartFile file, Producto item) {
 
 		log.info("Modificando uno o varios valores de un producto de la base de datos");
 
@@ -149,6 +170,20 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setCode(200);
 
 		productoDAO.findByPK(item.getIdProducto());
+		
+		Map params = ObjectUtils.asMap(
+				   "public_id", "shingshing/productos/" + item.getNombreProducto(), 
+				   "overwrite", true
+				);
+		
+		try {
+			log.info("Subiendo imagen de: {}", item.getNombreProducto());
+			String url = cloundinaryService.uploadImage(file.getBytes(), params);
+			item.setImgUrl( url );
+		} catch (IOException e) {
+			log.error("Ocurrio un error al subir imagen", e);
+		}
+		
 		item.setColorBanner( bannerColor( item.getColorBanner() ) );
 
 		item = productoDAO.update(item);
@@ -256,6 +291,7 @@ public class ProductoServiceImpl implements ProductoService {
 		item.setCantidadBonificacion(entity.getCantidadBonificacion());
 		item.setBanner(entity.isBanner());
 		item.setColorBanner( "rgb(" + entity.getColorBanner() + ")");
+		item.setImgUrl( entity.getImgUrl() );
 		
 		m.setIdCatalogoMarca(entity.getCatalogoMarca().getIdCatalogoMarca());
 		m.setNombreMarca(entity.getCatalogoMarca().getNombreMarca());
@@ -298,6 +334,7 @@ public class ProductoServiceImpl implements ProductoService {
 			pTemp.setCantidadBonificacion(item.getCantidadBonificacion());
 			pTemp.setBanner(item.isBanner());
 			pTemp.setColorBanner(item.getColorBanner());
+			pTemp.setImgUrl( item.getImgUrl() );
 
 			m.setIdCatalogoMarca(item.getCatalogoMarca().getIdCatalogoMarca());
 			m.setNombreMarca(item.getCatalogoMarca().getNombreMarca());
