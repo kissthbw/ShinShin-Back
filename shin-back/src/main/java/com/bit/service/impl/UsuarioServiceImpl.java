@@ -40,7 +40,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UsuarioService{
 
 	private static final Logger log = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
@@ -762,4 +762,5 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		return rsp;
 	}
+
 }

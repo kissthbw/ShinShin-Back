@@ -79,7 +79,7 @@
       		<div class="content">
         		<div class="container">
           			<div class="col-lg-4 col-md-6 ml-auto mr-auto">
-            			<form class="form" method="post" action="" th:object="${item}">
+            			<form class="form" action="admin_login" method="post" th:object="${item}">
               				<div class="card card-login">
                 				<div class="card-header ">
                   					<div class="card-header ">
@@ -93,7 +93,7 @@
                         						<i class="nc-icon nc-single-02"></i>
                       						</span>
                     					</div>
-                    					<input type="text" class="form-control" placeholder="Usuario" th:field="*{usuario}" />
+                    					<input type="text" class="form-control" id="username" name="username" placeholder="Usuario" th:field="*{username}" />
                   					</div>
                   					<div class="input-group">
                     					<div class="input-group-prepend">
@@ -101,7 +101,7 @@
                         						<i class="nc-icon nc-key-25"></i>
                       						</span>
                     					</div>
-                    					<input type="password" placeholder="Contraseña" th:field="*{contrasenia}" class="form-control" />
+                    					<input type="password" placeholder="Contraseña" id="password" name="password" th:field="*{password}" class="form-control" />
                   					</div>
                   					<br/>
                   					<!-- <div class="form-group">

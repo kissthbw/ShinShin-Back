@@ -12,7 +12,7 @@ import com.bit.model.Usuario;
 import com.bit.service.UsuarioService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/portal-empresa")
 public class HomeEmpresa {
 	
 	@Autowired

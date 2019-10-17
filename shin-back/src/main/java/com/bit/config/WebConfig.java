@@ -22,12 +22,10 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {
-		"com.bit",
-		"com.bit.service",
-		"com.bit.controllers.rest",
-		"com.bit.communication"
-		})
+//@ComponentScan(basePackages = {
+//		"com.bit"
+//		})
+@ComponentScan("com.bit")
 @PropertySource("classpath:runtime.properties")
 public class WebConfig extends WebMvcConfigurerAdapter {
 	

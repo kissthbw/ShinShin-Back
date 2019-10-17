@@ -2,7 +2,9 @@ package com.bit.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -116,6 +118,12 @@ public class Usuario {
 	@JoinTable(name = "historico_tickets", joinColumns = {
 			@JoinColumn(name = "usuario_id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "ticket_id_ticket") })
 	private List<Ticket> tickets = new ArrayList<>();
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authority",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "authority_id") })
+    private Set<Authority> authorities = new HashSet<>();
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
@@ -353,6 +361,14 @@ public class Usuario {
 
 	public void addTicket(Ticket ticket) {
 		tickets.add(ticket);
+	}
+
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 }

@@ -12,49 +12,55 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.bit.model.User;
 import com.bit.model.Usuario;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.service.UsuarioService;
 
 @Controller
 @RequestMapping("/portal-usuario")
-@SessionAttributes("currentUser")
+//@SessionAttributes("currentUser")
 public class HomeUsuario {
 	
 	@ModelAttribute("currentUser")
-	public Usuario usuario() {
-		return new Usuario();
+	public User usuario() {
+		return new User();
 	}
 	
 	@GetMapping(value="")
 	public String home() {
-		return "redirect:/portal-usuario/login";
+		return "redirect:/portal-usuario/userLogin";
 	}
 	
 	@Autowired
 	private UsuarioService usuarioService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String redireccionaLogin(Model model, @ModelAttribute("currentUser") Usuario currentUser) {
+	@RequestMapping(value = "/userLogin", method = RequestMethod.GET)
+	public String redireccionaLogin(Model model, @ModelAttribute("currentUser") User currentUser) {
 		
-		model.addAttribute("item", new Usuario());
+		model.addAttribute("item", new User());
 		
 		return "login_usuario";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public RedirectView loginCuenta(@ModelAttribute Usuario item, 
+	@RequestMapping(value = "/postUserLogin", method = RequestMethod.POST)
+	public String loginCuenta(@ModelAttribute User item, 
 			BindingResult errors, 
 			Model model, 
-			@ModelAttribute("currentUser") Usuario currentUser,
+//			@ModelAttribute("currentUser") User currentUser,
 			RedirectAttributes attributes) {
 		
-		InformacionUsuarioRSP rsp = usuarioService.findUserByUserAndPassword(item);
-		currentUser = rsp.getUsuario();
-		currentUser.setIdUsuario( rsp.getUsuario().getIdUsuario() );
-		attributes.addFlashAttribute("currentUser", currentUser);
+		Usuario tmp = new Usuario();
+		tmp.setUsuario( item.getUsername() );
+		tmp.setContrasenia( item.getPassword() );
+		
+		InformacionUsuarioRSP rsp = usuarioService.findUserByUserAndPassword( tmp );
+
+//		currentUser.setIdUsuario( rsp.getUsuario().getIdUsuario() );
+//		attributes.addFlashAttribute("currentUser", currentUser);
 		
 		
-		return new RedirectView("dashboard");
+//		return new RedirectView("dashboard");
+		return "redirect:/portal-usuario/dashboard";
 	}
 }

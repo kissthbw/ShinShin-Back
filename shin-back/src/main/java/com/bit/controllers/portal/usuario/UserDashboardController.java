@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bit.model.MediosBonificacion;
+import com.bit.model.User;
 import com.bit.model.Usuario;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.UsuarioService;
+import com.bit.service.UsuarioShingShingDetailService;
 
 @Controller
 @RequestMapping(value="/portal-usuario")
-@SessionAttributes("currentUser")
+//@SessionAttributes("currentUser")
 public class UserDashboardController {
 	
 	@Autowired
@@ -39,34 +41,42 @@ public class UserDashboardController {
 //	}
 	
 	@GetMapping(value="/dashboard")
-	public String dasdboard(Model model, 
-			@ModelAttribute("currentUser") Usuario currentUser) {
+	public String dasdboard(Model model) {
 		//Se obtiene informacion del usuario logueado
 		//1. Saldo total
 		//2. Numero de tickets del mes
 		//3. Numero de bonificaciones solicitadas
 		//4. Cuentas registradas
+		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
-		Usuario item = new Usuario();
-		item.setIdUsuario( currentUser.getIdUsuario() );
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
+			
+			model.addAttribute("item", rsp);
+		}
 		
-		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
 		
-		model.addAttribute("item", rsp);
 		
 		return "user_dashboard";
 	}
 	
 	@GetMapping(value="/dashboard/tickets")
-	public String obtieneTickets(Model model, @ModelAttribute("currentUser") Usuario currentUser) {
-		Usuario item = new Usuario();
-		item.setIdUsuario( currentUser.getIdUsuario() );
+	public String obtieneTickets(Model model) {
+		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
-		InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-		ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
-		
-		model.addAttribute("info", info);
-		model.addAttribute("items", rsp.getTickets());
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
+			
+			model.addAttribute("info", info);
+			model.addAttribute("items", rsp.getTickets());
+		}
 		
 		return "tickets";
 	}
@@ -102,5 +112,16 @@ public class UserDashboardController {
 		model.addAttribute("items", tmp);
 		
 		return "cuentas";
+	}
+	
+	private UsuarioShingShingDetailService getAuthenticationUser() {
+		UsuarioShingShingDetailService user = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if (principal instanceof UsuarioShingShingDetailService) {
+			user = (UsuarioShingShingDetailService) principal;
+		}
+		
+		return user;
 	}
 }
