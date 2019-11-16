@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bit.model.MediosBonificacion;
-import com.bit.model.User;
 import com.bit.model.Usuario;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
@@ -74,7 +73,7 @@ public class UserDashboardController {
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
 			ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
 			
-			model.addAttribute("info", info);
+			model.addAttribute("item", info);
 			model.addAttribute("items", rsp.getTickets());
 		}
 		
@@ -82,34 +81,44 @@ public class UserDashboardController {
 	}
 	
 	@GetMapping(value="/dashboard/retiros")
-	public String obtieneRetiros(Model model, @ModelAttribute("currentUser") Usuario currentUser) {
-		Usuario item = new Usuario();
-		item.setIdUsuario( currentUser.getIdUsuario() );
+	public String obtieneRetiros(Model model) {
 		
-		InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-		ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
-		
-		model.addAttribute("info", info);
-		model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
+			
+			model.addAttribute("item", info);
+			model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
+		}
 		
 		return "retiros";
 	}
 	
 	@GetMapping(value="/dashboard/cuentas")
-	public String obtieneCuentas(Model model, @ModelAttribute("currentUser") Usuario currentUser) {
-		Usuario item = new Usuario();
-		item.setIdUsuario( currentUser.getIdUsuario() );
+	public String obtieneCuentas(Model model) {
 		
-		List<MediosBonificacion> tmp = new ArrayList<>();
+		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
-		InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-		InformacionUsuarioRSP rsp = usuarioService.obtenerMediosBonificacion(item);
-		tmp.addAll( rsp.getMediosBonificacion().get(0).getList() );
-		tmp.addAll( rsp.getMediosBonificacion().get(1).getList() );
-		tmp.addAll( rsp.getMediosBonificacion().get(2).getList() );
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			List<MediosBonificacion> tmp = new ArrayList<>();
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			InformacionUsuarioRSP rsp = usuarioService.obtenerMediosBonificacion(item);
+			tmp.addAll( rsp.getMediosBonificacion().get(0).getList() );
+			tmp.addAll( rsp.getMediosBonificacion().get(1).getList() );
+			tmp.addAll( rsp.getMediosBonificacion().get(2).getList() );
+			
+			model.addAttribute("item", info);
+			model.addAttribute("items", tmp);
+		}
 		
-		model.addAttribute("info", info);
-		model.addAttribute("items", tmp);
 		
 		return "cuentas";
 	}

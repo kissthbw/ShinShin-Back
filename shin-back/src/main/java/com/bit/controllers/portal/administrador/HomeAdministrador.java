@@ -35,10 +35,11 @@ public class HomeAdministrador {
 	}
 	
 	@RequestMapping(value = "/adminLogin", method = RequestMethod.GET)
-	public String redireccionaLogin(Model model, 
-			@ModelAttribute("currentAdmin") User currentUser,
+	public String redireccionaLogin( 
 			@RequestParam(value = "error", required = false) String error, 
-            @RequestParam(value = "logout", required = false) String logout) {
+            @RequestParam(value = "logout", required = false) String logout,
+            @ModelAttribute("currentAdmin") User currentUser,
+            Model model) {
 		
 		model.addAttribute("item", new User());
 		

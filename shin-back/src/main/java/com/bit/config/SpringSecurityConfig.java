@@ -13,10 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class SpringSecurityConfig {
 
 	@Configuration
@@ -65,7 +64,7 @@ public class SpringSecurityConfig {
 //	          .failureUrl("/portal-administrador/login-failed")
 //		      .and()
 //		      .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-			http.antMatcher("/portal-administrador/**")
+			http.antMatcher("/portal-administrador/**" )
 	          .authorizeRequests()
 	          .anyRequest()
 	          .hasRole("ADMIN")
@@ -77,17 +76,18 @@ public class SpringSecurityConfig {
 	          .passwordParameter("password").permitAll()
 	          .loginProcessingUrl("/portal-administrador/admin_login")
 	          .successForwardUrl("/portal-administrador/postAdminLogin")
-	          .failureUrl("/loginAdmin?error=loginError")
+	          .failureUrl("/portal-administrador/adminLogin?error=loginError")
 	           
 	          .and()
 	          .logout()
-	          .logoutUrl("/admin_logout")
-	          .logoutSuccessUrl("/protectedLinks")
+	          .logoutUrl("/portal-administrador/admin_logout")
+	          .logoutSuccessUrl("/portal-administrador/adminLogin")
 	          .deleteCookies("JSESSIONID")
+	          .invalidateHttpSession(true)
 	           
 	          .and()
 	          .exceptionHandling()
-	          .accessDeniedPage("/403")
+	          .accessDeniedPage("/portal-administrador/403")
 	           
 	          .and()
 	          .csrf().disable();
@@ -151,16 +151,18 @@ public class SpringSecurityConfig {
 	          .passwordParameter("password").permitAll()
 	          .loginProcessingUrl("/portal-usuario/user_login")
 	          .successForwardUrl("/portal-usuario/postUserLogin")
-	          .failureUrl("/loginUser?error=loginError")
+	          .failureUrl("/portal-usuario/userLogin?error=loginError")
 	           
 	          .and()
 	          .logout()
-	          .logoutUrl("/user_logout")
+	          .logoutUrl("/portal-usuario/user_logout")
+	          .logoutSuccessUrl("/portal-usuario/adminLogin")
 	          .deleteCookies("JSESSIONID")
+	          .invalidateHttpSession(true)
 	           
 	          .and()
 	          .exceptionHandling()
-	          .accessDeniedPage("/403")
+	          .accessDeniedPage("/portal-usuario/403")
 	           
 	          .and()
 	          .csrf().disable();

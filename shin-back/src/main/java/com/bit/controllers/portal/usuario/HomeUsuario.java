@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.bit.model.User;
 import com.bit.model.Usuario;
@@ -62,5 +60,11 @@ public class HomeUsuario {
 		
 //		return new RedirectView("dashboard");
 		return "redirect:/portal-usuario/dashboard";
+	}
+	
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public String accessDenied() {
+		
+		return "user_access_denied";
 	}
 }

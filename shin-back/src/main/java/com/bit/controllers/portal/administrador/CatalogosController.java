@@ -1,8 +1,19 @@
 package com.bit.controllers.portal.administrador;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.model.CatalogoMarca;
@@ -18,12 +30,25 @@ import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.report.ProductoReport;
 import com.bit.service.CatalogoMarcaService;
 import com.bit.service.CatalogoMediosBonificacionService;
 import com.bit.service.CatalogoTiendaService;
 import com.bit.service.CatalogoTipoProductoService;
 import com.bit.service.ProductoService;
+import com.bit.service.UsuarioService;
+import com.bit.service.UsuarioShingShingDetailService;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 @Controller
 @RequestMapping("/portal-administrador")
@@ -43,6 +68,9 @@ public class CatalogosController {
 
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 	
 	private static Logger log = LoggerFactory.getLogger( CatalogosController.class );
 
@@ -258,6 +286,32 @@ public class CatalogosController {
 
 		return "producto";
 	}
+	
+	@RequestMapping(value = "/producto/report", method = RequestMethod.GET)
+	@ResponseBody
+	public void getProductoReport(Model model, HttpServletResponse response) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Productos1.2.jasper");
+	    Map<String,Object> params = new HashMap<>();
+	    List<ProductoReport> list = new ArrayList<>();
+	    ProductoReport p = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+	    ProductoReport p1 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+	    ProductoReport p2 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+	    
+	    list.add(p);
+	    list.add(p1);
+	    list.add(p2);
+	    
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Productos.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		
+	}
 
 	@RequestMapping(value = "/producto/save", method = RequestMethod.POST)
 	public String postCatProducto(@RequestParam MultipartFile file, @ModelAttribute Producto item, BindingResult errors, Model model) {
@@ -340,9 +394,33 @@ public class CatalogosController {
 	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
 	public String redirectionaListaProducto(Model model) {
 		log.info( "Entrando en redirectionaListaProducto" );
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			item.setUsuario( current.getUsuario().getUsuario() );
+			
+			Usuario rsp = usuarioService.findUserByPK(item);
+			
+			model.addAttribute("item", rsp);
+		}
+		
 		model.addAttribute("productos", productoService.getProductos().getProductos());
 		
 		log.info( "Saliendo de redirectionaListaProducto" );
 		return "lista_productos";
+	}
+	
+	private UsuarioShingShingDetailService getAuthenticationUser() {
+		UsuarioShingShingDetailService user = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if (principal instanceof UsuarioShingShingDetailService) {
+			user = (UsuarioShingShingDetailService) principal;
+		}
+		
+		return user;
 	}
 }
