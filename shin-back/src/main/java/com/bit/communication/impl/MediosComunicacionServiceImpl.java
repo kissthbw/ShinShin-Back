@@ -2,6 +2,7 @@ package com.bit.communication.impl;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.communication.MediosComunicacionService;
@@ -9,13 +10,14 @@ import com.bit.exception.CommunicationException;
 import com.bit.model.dto.EMailDTO;
 import com.bit.model.dto.SMSDTO;
 import com.bit.model.dto.SimpleResponse;
-import com.sendgrid.Content;
-import com.sendgrid.Email;
-import com.sendgrid.Mail;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
@@ -25,33 +27,49 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 
 	// Mover a variables de ambiente o archivo de propiedades
 	public static final String ACCOUNT_SID = "AC021b53d8f2e2a1ba77deee1627bfad27";
-	public static final String AUTH_TOKEN = "e7098c00b8713b538575558cc2671015";
+	public static final String AUTH_TOKEN = "33b7acd3bf9aacfd8187448db9ac7d1f";
 
+	@Autowired
+	private MediosComunicacionService mediosComunicacionService;
+	
 	@Override
 	public SimpleResponse sendEmail(EMailDTO data) throws CommunicationException {
 
 		SimpleResponse rsp = new SimpleResponse();
-
+		Personalization personalization = new Personalization();
+			
 		// 1. Correo del emisor, debe ser de la cuenta del cliente
 		Email from = new Email("test@example.com");
 
 		// 2. Correo del usuario que se registro
-		Email to = new Email(data.getToAccount());
+		Email to = new Email();
+		to.setName( "Shing Shing" );
+		to.setEmail( data.getToAccount() );
+		personalization.addTo(to);
 
 		// 3. Asunto del correo, definir un titulo constante
 		String subject = data.getSubject();
 
 		// 4. Definir el contenido del correo, el cual debe incluir el codigo de
 		// verificacion
-		Content content = new Content("text/plain", data.getBody());
-
-		Mail mail = new Mail(from, subject, to, content);
-		mail.setTemplateId("d-655f8fc807da4483a4d6b5669d6b1bd2");
+//		Content content = new Content("text/html", "www.espinof.com");
+		String link = data.getBody();
+		System.out.println( link );
+		
+//		personalization.addDynamicTemplateData("link", link);
+		personalization.addDynamicTemplateData("link", data.getBody());
+//		Mail mail = new Mail(from, subject, to, content);
+		Mail mail = new Mail();
+		mail.setFrom(from);
+		mail.setSubject(subject);
+		
+		mail.setTemplateId("d-fa971b2ca8954a01b6a5712bd9a123e2");
+		mail.addPersonalization(personalization);
 
 //		Map<String, String> envs = System.getenv();
 //		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 		// El API KEY debe ser puesto en una variable de ambiente
-		SendGrid sg = new SendGrid("");
+		SendGrid sg = new SendGrid("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");
 		Request request = new Request();
 		try {
 			request.setMethod(Method.POST);

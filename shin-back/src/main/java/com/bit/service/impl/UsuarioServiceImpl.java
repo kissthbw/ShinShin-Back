@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,7 @@ import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
+import com.bit.model.dto.EMailDTO;
 import com.bit.model.dto.SMSDTO;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
@@ -38,6 +41,7 @@ import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.sendgrid.helpers.mail.objects.Personalization;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService{
@@ -385,16 +389,33 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	@Transactional
+	public Usuario findUserByPK(Usuario item) {
+
+		log.info("Buscando un usuario por nombre de usuario para login");
+
+		String usuario = item.getUsuario();
+
+		Usuario user = usuarioDAO.findByPK( item.getIdUsuario() );
+		Usuario tmp = datosUsuario(user);
+
+		return tmp;
+	}
+	
+	@Override
+	@Transactional
 	public Usuario findUserByUser(Usuario item) {
 
 		log.info("Buscando un usuario por nombre de usuario para login");
 
 		String usuario = item.getUsuario();
 
-		Usuario user = usuarioDAO.findUserByUser(usuario);
+		Usuario user = usuarioDAO.findUserByUser( item.getUsuario() );
+		Usuario tmp = datosUsuario(user);
 
-		return user;
+		return tmp;
 	}
+	
+	
 
 	@Override
 	@Transactional
@@ -646,7 +667,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			Usuario tmp = new Usuario();
 			
 			tmp.setNombre( entity.getNombre() );
-			rsp.setUsuario(tmp);
+			rsp.setUsuario( datosUsuario(entity) );
 			rsp.setTickets( usuarioDAO.calculaTicketsTotales(item).longValue() );
 			rsp.setRetiros( usuarioDAO.calculaBanoficacionesTotales(item).longValue() );
 			rsp.setMedios( usuarioDAO.calculaMediosBonificacionTotales(item).longValue() );
@@ -759,6 +780,144 @@ public class UsuarioServiceImpl implements UsuarioService{
 		rsp.setMessage("Exito");
 		
 		contactoDAO.save(item);
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse solicitarRestaurarPassword(Usuario item) {
+		log.info( "Solicitando restauracion de password de usuario: {}", item.getCorreoElectronico() );
+		SimpleResponse rsp = new SimpleResponse();
+		
+		try {
+			//Se genera un link en la tabla de usuario que sera enviado
+			//a un controller que buscara ese link, si existe se mostraran una forma para capturar el password actual
+			//y el nuevo password
+			Usuario entity = usuarioDAO.findUserByEmail(item.getCorreoElectronico());
+			
+			if (null != entity) {
+				rsp.setCode(200);
+				rsp.setMessage("Exito");
+				
+				//Generar el link con un hash a partir de la hora de solicitud
+				String key = Calendar.getInstance().toString();
+				log.info( "Calendar to string: {}", key );
+				String link = Utils.generaHash(key);
+				
+				entity.setPassword_restore_link( link );
+				entity.setTime_restore_link( Calendar.getInstance().getTime() );
+				
+				String url = "www.shingshing.com/restaurar/" + link;
+				log.info( "Link: {}", url );
+				usuarioDAO.update(entity);
+				
+				//Enviar correo
+				Personalization personalization = new Personalization(); 
+				personalization.addDynamicTemplateData("link", url);
+				EMailDTO data = new EMailDTO();
+				data.setToAccount( item.getCorreoElectronico() );
+				data.setSubject("Restaurar password");
+				data.setBody(url);
+				data.setPersonalization(personalization);
+				
+				mediosComunicacionService.sendEmail(data);
+			}
+			else {
+				rsp.setCode(404);
+				rsp.setMessage("Usuario no encontrado");
+				log.info( "Link: {} invalido", item.getPassword_restore_link() );
+			}
+		}
+		catch(Exception e) {
+			rsp.setCode(500);
+			rsp.setMessage("Ocurrio un error");
+			log.error( "", e );
+		}
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse restaurarPasswordLink(Usuario item) {
+		
+		log.info( "Buscando link: {}", item.getPassword_restore_link() );
+		SimpleResponse rsp = new SimpleResponse();
+
+		try {
+			Calendar c = Calendar.getInstance();
+			Calendar time = Calendar.getInstance();
+			log.info("Current time: {}", c);
+			
+			Usuario entity = usuarioDAO.findUserByRestoreLink(item);
+			log.info("Time in BD: {}", entity.getTime_restore_link());
+
+			
+			if ( null != entity ) {
+				//Verificar que aun es vigente el link (30 minutos)
+				time.setTime( entity.getTime_restore_link() );
+				Long dif = c.getTimeInMillis() - time.getTimeInMillis();
+				
+				long m = TimeUnit.MINUTES.convert(dif, TimeUnit.MILLISECONDS);
+				log.info("Dif in minutes: {}", m);
+				
+				if ( m < 30 ) {
+					rsp.setCode(200);
+					rsp.setMessage("Exito");
+				}
+				else {
+					rsp.setCode(405);
+					rsp.setMessage("Link ha expirado");
+				}
+			}
+			else {
+				rsp.setCode(404);
+				rsp.setMessage("Not Found");
+				log.info( "Link: {} invalido", item.getPassword_restore_link() );
+			}
+		}
+		catch( Exception e ) {
+			rsp.setCode(500);
+			rsp.setMessage("Ocurrio un error");
+			log.error( "", e );
+		}
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse restaurarPassword(Usuario item) {
+		log.info( "Actualizando password de usuario: {} con password", item.getUsuario() );
+		SimpleResponse rsp = new SimpleResponse();
+		
+		//Verificar reglas del password
+		//Minimo 8 posiciones
+		//
+		
+		Usuario entity = usuarioDAO.findUserByUserAndPassword(item.getUsuario(), item.getContraseniaActual());
+		
+		if ( null != entity ) {
+			rsp.setCode(200);
+			rsp.setMessage("Exito");
+			
+			try {
+				String hash = Utils.generaHash( item.getContrasenia() );
+				entity.setHash(hash);
+				entity.setPassword_restore_link(null);
+			} catch (NoSuchAlgorithmException e) {
+				log.error( "Error al generar hash.", e );
+			}
+			
+			entity.setContrasenia( item.getContrasenia() );
+			usuarioDAO.update(entity);
+		}
+		else {
+			log.info( "Usuario: {} no existe", item.getUsuario() );
+			rsp.setCode(404);
+			rsp.setMessage("Not Found");
+		}
 		
 		return rsp;
 	}

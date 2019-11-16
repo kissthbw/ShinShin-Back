@@ -164,4 +164,12 @@ public class UsuariosRestController {
 		
 		return rsp;
 	}
+	
+	@PostMapping(value="solicitarRestaurarPassword")
+	public @ResponseBody SimpleResponse solicitarRestaurarPassword( @RequestBody Usuario item ) {
+		log.info("Entrando en solicitarRestaurarPassword");
+		SimpleResponse rsp = usuarioService.solicitarRestaurarPassword(item);
+		
+		return rsp;
+	}
 }

@@ -1,10 +1,18 @@
 package com.bit.communication;
 
-// using SendGrid's Java Library
-// https://github.com/sendgrid/sendgrid-java
-import com.sendgrid.*;
 import java.io.IOException;
 import java.util.Map;
+
+// using SendGrid's Java Library
+// https://github.com/sendgrid/sendgrid-java
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
+import com.sendgrid.helpers.mail.objects.Personalization;
 
 public class ExampleSendGrid {
 	

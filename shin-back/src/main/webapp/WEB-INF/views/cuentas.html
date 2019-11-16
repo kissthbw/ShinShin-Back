@@ -22,57 +22,35 @@
 <body class="">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="brown" data-active-color="danger">
-			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
-			<div class="logo">
-				<a href="http://www.creative-tim.com" class="simple-text logo-mini">
-					<div class="logo-image-small">
-						<img th:src="@{/resources/assets/img/logo-small.png}"></img>
-					</div>
-				</a>
-				<a href="http://www.creative-tim.com"
-					class="simple-text logo-normal"> Perfil <!-- <div class="logo-image-big">
-            		<img th:src="@{/assets/img/logo-big.png"></div> -->
-				</a>
-			</div>
-			<div class="sidebar-wrapper">
-				<div class="user">
-					<div class="photo">
-						<!-- <img th:src="@{/resources/assets/img/faces/ayo-ogunseinde-2.jpg}" /> -->
-					</div>
-					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> 
-							<span  th:text="${info.usuario.nombre}"> 
-							<b class="caret"></b>
-						</span>
-						</a>
-						<div class="clearfix"></div>
-						<div class="collapse" id="collapseExample">
-							<ul class="nav">
-								<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">MP</span>
-										<span class="sidebar-normal">My Profile</span>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">EP</span>
-										<span class="sidebar-normal">Edit Profile</span>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">S</span>
-										<span class="sidebar-normal">Settings</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<!-- MENU -->
-				 <ul class="nav">
+
+		<div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img th:src="@{/resources/assets/img/logo-small.png}"></img>
+          </div>
+        </a>
+        <a href="" class="simple-text logo-normal">
+          Administrador
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <div class="user">
+          <div class="photo">
+            <img th:src="${item.usuario.imgUrl} ? ${item.usuario.imgUrl} : ''" alt="..."></img>
+          </div>
+          <div class="info">
+            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+              <span  th:text="${item.usuario.nombre}">
+                <!-- User -->
+                <b class="caret"></b>
+              </span>
+            </a>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+
+		<!-- MENU -->
+		<ul class="nav">
           <li>
             <a href="../examples/dashboard.html">
               <i class="nc-icon nc-bank"></i>

@@ -103,6 +103,15 @@
                     					</div>
                     					<input type="password" placeholder="Contraseña" th:field="*{password}" class="form-control" />
                   					</div>
+                  					
+                  					<div class="alert alert-danger alert-dismissible fade show" th:if="${param.error}">
+                          				<button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            			<i class="nc-icon nc-simple-remove"></i>
+                          				</button>
+                          				<span>
+                            				<b> Credenciales invalidas </b> 
+                            			</span>
+                        			</div>
                   					<br/>
                   					<!-- <div class="form-group">
                     					<div class="form-check">

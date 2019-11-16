@@ -2,6 +2,8 @@ package com.bit.model.dto;
 
 import java.io.Serializable;
 
+import com.sendgrid.helpers.mail.objects.Personalization;
+
 public class EMailDTO implements Serializable {
 
 	private static final long serialVersionUID = 5762184086962093304L;
@@ -9,6 +11,7 @@ public class EMailDTO implements Serializable {
 	private String toAccount;
 	private String subject;
 	private String body;
+	private Personalization personalization = new Personalization();
 
 	public String getToAccount() {
 		return toAccount;
@@ -32,6 +35,14 @@ public class EMailDTO implements Serializable {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	public Personalization getPersonalization() {
+		return personalization;
+	}
+
+	public void setPersonalization(Personalization personalization) {
+		this.personalization = personalization;
 	}
 
 }

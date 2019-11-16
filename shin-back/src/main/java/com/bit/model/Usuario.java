@@ -101,11 +101,21 @@ public class Usuario {
 	@Transient
 	private String contraseniaActual;
 	
+	@Transient
+	private String confirmarContrasenia;
+	
 	@Column(name = "img_url")
 	private String imgUrl;
 	
 	@Column(name = "hash")
 	private String hash;
+	
+	@Column(name = "password_restore_link")
+	private String password_restore_link;
+	
+	@Column(name = "time_restore_link")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date time_restore_link;
 
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
@@ -317,6 +327,14 @@ public class Usuario {
 		this.contraseniaActual = contraseniaActual;
 	}
 
+	public String getConfirmarContrasenia() {
+		return confirmarContrasenia;
+	}
+
+	public void setConfirmarContrasenia(String confirmarContrasenia) {
+		this.confirmarContrasenia = confirmarContrasenia;
+	}
+
 	public String getImgUrl() {
 		return imgUrl;
 	}
@@ -331,6 +349,22 @@ public class Usuario {
 
 	public void setHash(String hash) {
 		this.hash = hash;
+	}
+
+	public String getPassword_restore_link() {
+		return password_restore_link;
+	}
+
+	public void setPassword_restore_link(String password_restore_link) {
+		this.password_restore_link = password_restore_link;
+	}
+
+	public Date getTime_restore_link() {
+		return time_restore_link;
+	}
+
+	public void setTime_restore_link(Date time_restore_link) {
+		this.time_restore_link = time_restore_link;
 	}
 
 	public List<Producto> getProductosFavoritos() {

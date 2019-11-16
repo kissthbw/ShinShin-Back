@@ -69,8 +69,20 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
-		item = historicoMediosBonificacionDAO.save(item);
-		rsp.setId(item.getIdHistoricoMediosBonificacion());
+		//Obtener el credito disponible
+		Usuario user = new Usuario();
+		user.setIdUsuario( item.getUsuario().getIdUsuario() );
+		Double credito = usuarioService.calculaCreditoTotal(user).doubleValue();
+		
+		if ( credito < item.getCantidadBonificacion() ) {
+			rsp.setMessage("Fondos insuficientes");
+			rsp.setCode(202);
+		}
+		else {
+			item = historicoMediosBonificacionDAO.save(item);
+			rsp.setId(item.getIdHistoricoMediosBonificacion());
+		}
+		
 		return rsp;
 	}
 

@@ -24,6 +24,8 @@ public interface UsuarioService {
 
 	InformacionUsuarioRSP actualizarUsuarios(Usuario item);
 
+	Usuario findUserByPK(Usuario item);
+	
 	Usuario findUserByUser(Usuario item);
 
 	InformacionUsuarioRSP findUserByUserAndPassword(Usuario item);
@@ -45,4 +47,10 @@ public interface UsuarioService {
 	InformacionUsuarioRSP obtieneInformacionGeneralUsuario(Usuario item);
 	
 	SimpleResponse registraContacto(Contacto item);
+	
+	SimpleResponse solicitarRestaurarPassword(Usuario item);
+	
+	SimpleResponse restaurarPasswordLink(Usuario item);
+	
+	SimpleResponse restaurarPassword(Usuario item);
 }
