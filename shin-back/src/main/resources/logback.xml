@@ -27,7 +27,10 @@
 
 	<!-- <logger name="org.hibernate.SQL" level="INFO"/> -->
 	<logger name="com.profuturo" level="INFO" />
-
+	
+	<!--
+	<logger name="logging.level.org.springframework.security.web.FilterChainProxy" lever="DEBUG"/>
+	  -->
 
 	<root level="INFO">
 		<appender-ref ref="dailyRollingFileAppender" />

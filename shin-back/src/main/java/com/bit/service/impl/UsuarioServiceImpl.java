@@ -5,8 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -25,6 +28,8 @@ import com.bit.dao.MediosBonificacionDAO;
 import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.exception.CommunicationException;
+import com.bit.model.Authority;
+import com.bit.model.AuthorityType;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.Contacto;
 import com.bit.model.HistoricoMediosBonificacion;
@@ -70,6 +75,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	private ContactoDAO contactoDAO;
+	
+	public enum Source{
+		REST_CONTROLLER,
+		CONTROLLER
+	}
 
 	@Override
 	@Transactional
@@ -89,31 +99,43 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	@Transactional
-	public SimpleResponse registrarUsuarios(Usuario item) {
+	public InformacionUsuarioRSP registrarUsuarios(Usuario item, Source source) {
 
-		log.info("Registrando valores para crar nuevo usuario");
+		log.info("Registrando valores para crear nuevo usuario");
 
-		SimpleResponse rsp = new SimpleResponse();
+		if( source == Source.CONTROLLER ) {
+			log.info("La peticion viene de un controller");
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.DAY_OF_MONTH, Integer.parseInt( item.getDia() ));
+			c.set(Calendar.MONTH, Integer.parseInt( item.getMes() ));
+			c.set(Calendar.YEAR, Integer.parseInt( item.getAnio() ));
+			
+			item.setFechaNac(c.getTime());
+			item.setUsuario( item.getCorreoElectronico() );
+			item.setTelMovil( "+521" + item.getTelMovil() );
+			
+		}
+		
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
 		String usuario = item.getUsuario();
-		Usuario user = usuarioDAO.findUserByUser(usuario);
-		if (user == null) {
-			// Si es nulo significa que el usuario no exite y por lo tanto el usuario puede
-			// ser registrado
-		} else {
-			// Si no es nulo significa que el usuario ya existe y no puede ser registrado
-			// nuevamente
+//		Usuario user = usuarioDAO.findUserByUser(usuario);
+		Boolean exist = usuarioDAO.existUserByUserOrPhone(item);
+		if (exist) {
 			rsp.setMessage("Usuario ya existe");
 			rsp.setCode(500);
 
 			return rsp;
-		}
-
+		} 
+		
 		try {
 			String hash = Utils.generaHash(item.getContrasenia());
+			String activationLink = Utils.generaHash(new Date().toString());
+			
 			item.setHash(hash);
+			item.setActivation_link(activationLink);
 		} catch (NoSuchAlgorithmException e) {
 			log.error( "Error al generar hash.", e );
 		}
@@ -126,15 +148,22 @@ public class UsuarioServiceImpl implements UsuarioService{
 		SMSDTO sms = new SMSDTO();
 		sms.setToMobileNumber(item.getTelMovil());
 		sms.setBody("Tu codigo es: " + item.getCodigoVerificacion());
-
+		
+		Authority aut = new Authority();
+		aut.setId(2);
+		aut.setName(AuthorityType.ROLE_USER);
+		Set<Authority> auts = new HashSet<>();
+		auts.add(aut);
+		
+		item.setAuthorities(auts);
+		item = usuarioDAO.save(item);
+		
 		try {
 			mediosComunicacionService.sendSMS(sms);
 		} catch (CommunicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("", e);
 		}
-
-		item = usuarioDAO.save(item);
+		
 		/*
 		 * Funcionalidad de activacion de usuarios: 1. Clic en registrar nuevo usuario
 		 * 2. Llenar los campos de registro necesarios 3. Clic sobre boton de registrar
@@ -153,6 +182,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		 */
 
 		rsp.setId(item.getIdUsuario());
+		
+		rsp.setUsuario( datosUsuario(item) );
+		
 		return rsp;
 	}
 	
@@ -199,45 +231,88 @@ public class UsuarioServiceImpl implements UsuarioService{
 		tmp.setCodigoPostal( user.getCodigoPostal() );
 		tmp.setImgUrl( user.getImgUrl() );
 		tmp.setHash( user.getHash() );
+		tmp.setActivation_link( user.getActivation_link() );
+		tmp.setPassword_restore_link( user.getPassword_restore_link() );
 		
 		return tmp;
 	}
 	
 	@Override
 	@Transactional
-	public SimpleResponse reenviarCodigoUsuario(Usuario item) {
+	public InformacionUsuarioRSP reenviarCodigoUsuario(Usuario item, Source source) {
 		log.info("Registrando valores para crar nuevo usuario");
 
-		SimpleResponse rsp = new SimpleResponse();
-		rsp.setMessage("Exitoso");
-		rsp.setCode(200);
-		
-		Usuario temp = usuarioDAO.findByPK(item.getIdUsuario());
-		String codigo = Utils.generaCodigoVerficacion();
-		temp.setCodigoVerificacion(codigo);
-		
-		SMSDTO sms = new SMSDTO();
-		sms.setToMobileNumber(temp.getTelMovil());
-		sms.setBody("Tu codigo es: " + temp.getCodigoVerificacion());
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 
 		try {
-			mediosComunicacionService.sendSMS(sms);
-		} catch (CommunicationException e) {
-			e.printStackTrace();
+			
+			rsp.setMessage("Exitoso");
+			rsp.setCode(200);
+			
+			Usuario temp = null;
+			
+			if ( source == Source.CONTROLLER ) {
+				temp = usuarioDAO.findUserByActivationLink(item);
+			}
+			else {
+				temp = usuarioDAO.findByPK(item.getIdUsuario());
+			}
+			
+			if( null != temp ) {
+				String codigo = Utils.generaCodigoVerficacion();
+				temp.setCodigoVerificacion(codigo);
+				
+				SMSDTO sms = new SMSDTO();
+				sms.setToMobileNumber(temp.getTelMovil());
+				sms.setBody("Tu codigo es: " + temp.getCodigoVerificacion());
+				
+				mediosComunicacionService.sendSMS(sms);
+				
+				if ( source == Source.CONTROLLER ) {
+					String activationLink = Utils.generaHash(new Date().toString());
+					temp.setActivation_link(activationLink);
+				}
+				
+				item = usuarioDAO.update(temp);
+				
+				rsp.setId(temp.getIdUsuario());
+				rsp.setUsuario( item );
+			}
+			else {
+				rsp.setMessage("Usuario no localizado");
+				rsp.setCode(404);
+			}
+		} 
+		catch (CommunicationException e) {
+			log.error("Error al enviar SMS", e);
+			rsp.setMessage("Error");
+			rsp.setCode(500);
 		}
-
-		rsp.setId(temp.getIdUsuario());
-		item = usuarioDAO.update(temp);
+		catch (NoSuchAlgorithmException e) {
+			log.error( "Error al generar hash.", e );
+			rsp.setMessage("Error");
+			rsp.setCode(500);
+		}
+		catch (Exception e) {
+			log.error( "Error.", e );
+			rsp.setMessage("Error");
+			rsp.setCode(500);
+		}
 		
 		return rsp;
 	}
 	
 	@Override
 	@Transactional
-	public SimpleResponse activarUsuarios(Usuario item) {
+	public SimpleResponse activarUsuarios(Usuario item, Source source) {
 
 		log.info("Activando la cuenta de un usuario nuevo o por modificacion");
 
+		if ( source == Source.CONTROLLER ) {
+			String codigo = item.getD1() + item.getD2() + item.getD3() + item.getD4();
+			item.setCodigoVerificacion( codigo );
+		}
+		
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
@@ -246,6 +321,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		if (temp.getCodigoVerificacion().equals(item.getCodigoVerificacion())) {
 			temp.setEstatusActivacion(true);
+			temp.setActivation_link(null);
 			System.out.println("Codigo correcto");
 		} else {
 			rsp.setMessage("Error");
@@ -444,6 +520,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 			return infoRSP;
 		}
 		else {
+			
+			if ( !user.isEstatusActivacion() ){
+				infoRSP.setCode(500);
+				infoRSP.setMessage("Usuario no esta activado");
+				return infoRSP;
+			}
+			
 			try {
 				String hash = Utils.generaHash( user.getContrasenia() );
 				user.setHash(hash);
@@ -808,7 +891,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 				entity.setPassword_restore_link( link );
 				entity.setTime_restore_link( Calendar.getInstance().getTime() );
 				
-				String url = "www.shingshing.com/restaurar/" + link;
+				String url = "www.shingshing.com/portal-usuario/restaurar/captura/" + link;
 				log.info( "Link: {}", url );
 				usuarioDAO.update(entity);
 				
@@ -851,10 +934,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 			log.info("Current time: {}", c);
 			
 			Usuario entity = usuarioDAO.findUserByRestoreLink(item);
-			log.info("Time in BD: {}", entity.getTime_restore_link());
 
 			
 			if ( null != entity ) {
+				log.info("Time in BD: {}", entity.getTime_restore_link());
 				//Verificar que aun es vigente el link (30 minutos)
 				time.setTime( entity.getTime_restore_link() );
 				Long dif = c.getTimeInMillis() - time.getTimeInMillis();
@@ -922,4 +1005,52 @@ public class UsuarioServiceImpl implements UsuarioService{
 		return rsp;
 	}
 
+	@Override
+	@Transactional
+	public InformacionUsuarioRSP activationPasswordLink(Usuario item) {
+		
+		log.info( "Buscando link de activacion: {}", item.getPassword_restore_link() );
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
+
+		try {
+			Calendar c = Calendar.getInstance();
+			log.info("Current time: {}", c);
+			
+			Usuario entity = usuarioDAO.findUserByActivationLink(item);
+
+			
+			if ( null != entity ) {
+				log.info("Time in BD: {}", entity.getTime_restore_link());
+				rsp.setUsuario(entity);
+				rsp.setId( entity.getIdUsuario() );
+				//Verificar que aun es vigente el link (30 minutos)
+//				time.setTime( entity.getTime_restore_link() );
+//				Long dif = c.getTimeInMillis() - time.getTimeInMillis();
+				
+//				long m = TimeUnit.MINUTES.convert(dif, TimeUnit.MILLISECONDS);
+//				log.info("Dif in minutes: {}", m);
+//				
+//				if ( m < 30 ) {
+				rsp.setCode(200);
+				rsp.setMessage("Exito");
+//				}
+//				else {
+//					rsp.setCode(405);
+//					rsp.setMessage("Link ha expirado");
+//				}
+			}
+			else {
+				rsp.setCode(404);
+				rsp.setMessage("Not Found");
+				log.info( "Link: {} invalido", item.getPassword_restore_link() );
+			}
+		}
+		catch( Exception e ) {
+			rsp.setCode(500);
+			rsp.setMessage("Ocurrio un error");
+			log.error( "", e );
+		}
+		
+		return rsp;
+	}
 }

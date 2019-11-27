@@ -1,246 +1,297 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+  xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-<meta charset="UTF-8" />
-<link rel="apple-touch-icon" sizes="76x76" th:href="@{/resources/assets/img/apple-icon.png}"></link>
-<link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}"></link>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing-Shing - Productos</title>
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-<!--     Fonts and icons     -->
-
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-<!-- CSS Files -->
-
-<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/colorpicker/dist/css/bootstrap-colorpicker.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
-
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>Políticas de Privacidad | Shing Shing</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/resources/home/css/bootstrap.min.css}" rel="stylesheet"/>
+  <!-- Material Design Bootstrap -->
+  <link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet"/>
+  <!-- Your custom styles (optional) -->
+  <link th:href="@{/resources/home/css/style.css}" rel="stylesheet"/>
+  <!-- Your custom styles (optional) -->
+  <link th:href="@{/resources/home/css/login.css}" rel="stylesheet"/>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet" />
+  <!-- Imagenes -->
+  <style type="text/css">
+		#logo-header{
+			background-image: url(resources/home/img/brands/ss-complet.svg);
+		}
+		#pleca{
+			background-image: url(resources/home/img/micros/background.svg);
+		}
+		#footer #logo{
+			background-image: url(resources/home/img/brands/ss-complet-orange.svg);
+		}
+		#social #fb, .logo-fb{
+			background-image: url(resources/home/img/brands/fb.svg);
+		}
+		#social #tw{
+			background-image: url(resources/home/img/brands/tw.svg);
+		}
+		.logo-gm{
+			background-image: url(resources/home/img/brands/gm.svg);
+		}
+		.icon-mail{
+			background-image: url(resources/home/img/icon/mail.svg);
+		}
+		.icon-toggle{
+			background-image: url(resources/home/img/icon/toggle.svg);
+		}
+		.pico{
+			background-image: url(resources/home/img/icon/pico.svg);
+		}
+			@media (min-width: 768px) and (max-width: 991px) {
+				#principal #imagen{
+					background-image: url(resources/home/img/micros/principal-tablet.png);
+					margin-top: -40px;
+				}
+			}
+  </style>
 </head>
 
-<body class="">
-<!-- 
-	<div class="wrapper ">
+<body>
+	<!-- Principal -->
+	<div id="principal" class="section">
 
-		
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<a href="index.html">
+					<div class="row justify-content-between">
+						<div class="col" id="logo-header"></div>
+					</div>
+				</a>
+				</div>
+		</header>
+
 	</div>
-	-->
-			<div class="card">
-              <div class="card-header">
-                <h3>AVISO DE PRIVACIDAD</h3>
-              </div>
-              <div class="card-body">
-                <div class="nav-tabs-navigation">
-                  <div class="nav-tabs-wrapper">
-                    <ul id="tabs" class="nav nav-tabs" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true"></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div id="my-tab-content" class="tab-content text-justify">
-                  <div class="tab-pane active" id="home" role="tabpanel" aria-expanded="true">
-                    <p>SHING SHING, un producto de TRADENIAL S.A de C.V, con domicilio conocido en la entidad de Ciudad de México, país México, y portal de internet www.shingshing.com, es el responsable del uso y protección de sus datos personales, y al respecto le informamos lo siguiente: </p>
-                    <br></br>
-                    <p class="h6">¿Para qué fines utilizaremos sus datos personales?</p>
-                    <br></br>
-                    <p>Los datos personales que recabamos de usted, los utilizaremos para las siguientes finalidades que son necesarias para el servicio que solicita: </p>
-                    <br></br>
-                    <ul>
-                    	<li>Creación de cuenta y perfil de usuario</li>
-						<li>Manejo de información con instituciones bancarias</li>
-						<li>Validación de autenticidad del usuario respecto al perfil</li>
-						<li>Administración de información solicitada por los clientes de la aplicación respecto del comportamiento del usuario</li>
-						<li>Mercadotecnia o publicitaria</li>
-						<li>Prospección comercial</li>
-                    </ul>
-                    <p class="h6">¿Qué datos personales utilizaremos para estos fines? </p><br></br>
-                    <p>Para llevar a cabo las finalidades descritas en el presente aviso de privacidad, utilizaremos los siguientes datos personales:</p><br></br>
-                    <ul>
-						<li>Nombre</li>
-						<li>Estado Civil</li>
-						<li>Fecha de nacimiento</li>
-						<li>Nacionalidad</li>
-						<li>Domicilio</li>
-						<li>Teléfono celular</li>
-						<li>Correo electrónico</li>
-						<li>Firma electrónica</li>
-						<li>Edad</li>
-						<li>Fotografía</li>
-						<li>Puesto o cargo que desempeña</li>
-						<li>Títulos</li>
-						<li>Cuentas bancarias</li>
-						<li>Número de tarjetas de crédito</li>
-						<li>Pasatiempos</li>
-						<li>Perfil de redes sociales como Facebook y Google+</li>
-					</ul>
-					<p class="h6">¿Con quién compartimos su información personal y para qué fines?</p><br></br>
-					<p>Le informamos que sus datos personales son compartidos dentro del país con las siguientes personas, empresas, organizaciones o autoridades distintas a nosotros, para los siguientes fines: </p><br></br>
-					
-					<table class="table">
-  						<thead class="thead-dark">
-    					<tr>
-      						<th scope="col">Destinatario de los datos personales</th>
-      						<th scope="col">Finalidad</th>
-      						<th scope="col">Requiere del consentimiento </th>
-    					</tr>
-  						</thead>
-  						<tbody>
-    						<tr>
-      						<th scope="row">Instituciones bancarias</th>
-      						<td>Transferencia de beneficios generados por el plan de lealtad o app</td>
-      						<td>No</td>
-    						</tr>
-    						<tr>
-      						<th scope="row">Intercambio de información personal del usuario con los clientes del plan de lealtad o app</th>
-      						<td>Generar valor a los clientes del plan de lealtad determinando habitos de consumo y perfiles del consumidor</td>
-      						<td>No</td>
-    						</tr>
-  						</tbody>
-					</table>
-					
-					<p>Su información no será compartida con otra institución o persona, ya sea física o moral, salvo en los casos que establece la Ley Federal para la Protección de Datos Personales, en su Artículo 22.</p><br></br>
-					<p class="h6">¿Cómo puede acceder, rectificar o cancelar sus datos personales, u oponerse a su uso? </p><br></br>
-					<p>Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es su derecho solicitar la corrección de su información personal en caso de que esté desactualizada, sea inexacta o incompleta (Rectificación); que la eliminemos de nuestros registros o bases de datos cuando considere que la misma no está siendo utilizada adecuadamente (Cancelación) considerando que esta acción requiere eliminar su perfil del plan de lealtad o aplicación; así como oponerse al uso de sus datos personales para fines específicos (Oposición). Estos derechos se conocen como derechos ARCO.</p><br></br>
-					<p>Para el ejercicio de cualquiera de los derechos ARCO, usted deberá presentar la solicitud respectiva a través del siguiente medio: </p><br></br>
-					<p>A través del perfil registrado, ir a la sección de contacto o asistencia y solicitar el acceso a los derechos ARCO, en el mismo medio digital </p><br></br>
-					<p>Para conocer el procedimiento y requisitos para el ejercicio de los derechos ARCO, ponemos a su disposición el siguiente medio:</p><br></br>
-					<p>A través del medio digital o app, ingresando a su perfil, en el menú lateral, en la sección de contacto o asistencia, o a través de un correo electrónico a la dirección de contacto@tradenial.com</p><br></br>
-					<p class="h6">Usted puede revocar su consentimiento para el uso de sus datos personales</p><br></br>						
-					<p>Usted puede revocar el consentimiento que, en su caso, nos haya otorgado para el tratamiento de sus datos personales. Sin embargo, es importante que tenga en cuenta que no en todos los casos podremos atender su solicitud o concluir el uso de forma inmediata, ya que es posible que por alguna obligación legal requiramos seguir tratando sus datos personales. Asimismo, usted deberá considerar que para ciertos fines, la revocación de su consentimiento implicará que no le podamos seguir prestando el servicio que nos solicitó, o la conclusión de su relación con nosotros.</p><br></br>
-					<p>Para revocar su consentimiento deberá presentar su solicitud a través del siguiente medio: </p><br></br>
-					<p>A través del medio electrónico o app, ingresando a su perfil, en la sección de contacto o asistencia.  o a través de un correo electrónico a la dirección de contacto@tradenial.com </p><br></br>
-					<p>Para conocer el procedimiento y requisitos para la revocación del consentimiento, ponemos a su disposición el siguiente medio:</p><br></br>
-					<p>A través del medio electrónico o app, ingresando a su perfil, en la sección de contacto o asistencia.  O a través de un correo electrónico a la dirección de contacto@tradenial.com</p><br></br>
-					<p class="h6">¿Cómo puede limitar el uso o divulgación de su información personal? </p><br></br>
-					<p>Con objeto de que usted pueda limitar el uso y divulgación de su información personal, le ofrecemos los siguientes medios: </p><br></br>
-					<p>A través del medio electrónico o app, ingresando a su perfil, en la sección de contacto o asistencia. O a través de un correo electrónico a la dirección de contacto@tradenial.com</p><br></br>
-					<p class="h6">El uso de tecnologías de rastreo en nuestro portal de internet</p><br></br>
-					<p>Le informamos que en nuestra página de internet utilizamos cookies, web beacons u otras tecnologías, a través de las cuales es posible monitorear su comportamiento como usuario de internet, así como brindarle un mejor servicio y experiencia al navegar en nuestra página. Los datos personales que recabamos a través de estas tecnologías, los utilizaremos para los siguientes fines:</p><br></br>
-					<p>Para intercambio de información con los clientes del plan de lealtad o app, para determinar hábitos de consumo y perfiles de consumidores.</p><br></br>
-					<p>Los datos personales que obtenemos de estas tecnologías de rastreo son los siguientes:</p><br></br>
-					<ul>
-						<li>Identificadores, nombre de usuario y contraseñas de una sesión</li>
-						<li>Idioma preferido por el usuario</li>
-						<li>Región en la que se encuentra el usuario</li>
-						<li>Tipo de navegador del usuario</li>
-						<li>Tipo de sistema operativo del usuario</li>
-						<li>Fecha y hora del inicio y final de una sesión de un usuario</li>
-						<li>Páginas web visitadas por un usuario</li>
-						<li>Búsquedas realizadas por un usuario</li>
-						<li>Publicidad revisada por un usuario</li>
-						<li>Listas y hábitos de consumo en páginas de compras</li>
-					</ul>
-					<p>Redes sociales que utiliza</p><br></br>
-					<p>Asimismo, le informamos que su información personal será compartida con las siguientes personas, empresas, organizaciones o autoridades distintas a nosotros, para los siguientes fines:</p><br></br>
-					
-					<table class="table">
-  						<thead class="thead-dark">
-    					<tr>
-      						<th scope="col">Destinatario de los datos personales</th>
-      						<th scope="col">Finalidad</th>
-    					</tr>
-  						</thead>
-  						<tbody>
-    						<tr>
-      						<th scope="row">Clientes del plan de lealtad o aplicación, pueden ser empresas y marcas de consumo masivo y/o manejadas en los principales autoservicios, así como empresas con puntos de venta de algún producto o servicio establecidos formalmente y con emisión de ticket de compra.</th>
-      						<td>Generar valor a los usuarios del plan de lealtad o app.</td>
-    						</tr>
-  						</tbody>
-					</table>
-					
-					<p class="h6">¿Cómo puede conocer los cambios en este aviso de privacidad?</p><br></br>
-					<p>El presente aviso de privacidad puede sufrir modificaciones, cambios o actualizaciones derivadas de nuevos requerimientos legales; de nuestras propias necesidades por los productos o servicios que ofrecemos; de nuestras prácticas de privacidad; de cambios en nuestro modelo de negocio, o por otras causas.</p><br></br>
-					<p>Nos comprometemos a mantenerlo informado sobre los cambios que pueda sufrir el presente aviso de privacidad, a través de: A través del correo electrónico que el usuario haya registrado en su perfil dentro del medio electrónico o app, o en una pantalla emergente que aparecerá al ingresar en la app y en la página de internet www.shingshing.com.</p><br></br>
-					<p>El procedimiento a través del cual se llevarán a cabo las notificaciones sobre cambios o actualizaciones al presente aviso de privacidad es el siguiente: </p><br></br>
-					<p>A través del correo electrónico que el usuario haya registrado en su perfil dentro del medio electrónico o app, o en una pantalla emergente que aparecerá al ingresar en la app y en la pagina de internet www.shingshing.com</p><br></br>
-					<p>El Aviso Integral de Privacidad, lo puede consultar en la sección de Perfil, en el menú lateral, ingresar a la liga de Aviso de Privacidad, o en el pie de página del sitio web www.shingshing.com.</p><br></br>
-					<p>Última actualización: 05/11/2019 </p><br></br>
-                  </div>
-                </div>
-              </div>
-            </div>
-	<!--   Core JS Files   -->
-	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
-	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
-	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
-	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
-	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
-	<!--  Plugin for Sweet Alert -->
-	<script th:src="@{/resources/assets/js/plugins/sweetalert2.min.js}"></script>
-	<!-- Forms Validations Plugin -->
-	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
-	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
-	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
-	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
-	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
-	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
-	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-	<script th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js}"></script>
-	<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-	<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js}"></script>
-	<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
-	<!--  Plugin for the Bootstrap Table -->
-	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
-	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-	<!-- Chart JS -->
-	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
-	<!--  Notifications Plugin    -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
-	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
-	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	<script th:src="@{/resources/assets/colorpicker/dist/js/bootstrap-colorpicker.js}"></script>
-	<script>
-		function setFormValidation(id) {
-			$(id).validate(
-					{
-						highlight : function(element) {
-							$(element).closest('.form-group').removeClass(
-									'has-success').addClass('has-danger');
-							$(element).closest('.form-check').removeClass(
-									'has-success').addClass('has-danger');
-						},
-						success : function(element) {
-							$(element).closest('.form-group').removeClass(
-									'has-danger').addClass('has-success');
-							$(element).closest('.form-check').removeClass(
-									'has-danger').addClass('has-success');
-						},
-						errorPlacement : function(error, element) {
-							$(element).closest('.form-group').append(error);
-						},
-					});
-		}
 
-		$(document).ready(function() {
-			setFormValidation('#RegisterValidation');
-			setFormValidation('#TypeValidation');
-			setFormValidation('#LoginValidation');
-			setFormValidation('#RangeValidation');
-		});
+	<div class="line-white -line"></div>
 
-		$(function () {
-		    $('#demo').colorpicker({
-		      useAlpha: false
-		    });
-		  });
-	</script>
+	<!-- Contenedor -->
+	<div class="section">
+		<!-- Content principal -->
+		<div id="content-principal">
+			<div class="container">
+				<div class="row justify-content-center">
+
+					<div class="col-10 col-md-8 m-40">
+						<font class="text-date">Última actualización: 05/11/2019 </font><br/>
+						<font class="title-login">Políticas de Privacidad</font><br/><br/>
+							SHING SHING, un producto de TRADENIAL S.A de C.V, con domicilio conocido en la entidad de Ciudad de México, país México, y portal de internet www.shingshing.com, es el responsable del uso y protección de sus datos personales, y al respecto le informamos lo siguiente:
+							<br/><br/>
+							Los datos personales que recabamos de usted, los utilizaremos para las siguientes finalidades que son necesarias para el servicio que solicita:
+							<br/><br/>
+							<ul>
+								<li>Creación de cuenta y perfil de usuario</li>
+								<li>Manejo de información con instituciones bancarias</li>
+								<li>Validación de autenticidad del usuario respecto al perfil</li>
+								<li>Administración de información solicitada por los clientes de la aplicación respecto del comportamiento del usuario</li>
+								<li>Mercadotecnia o publicitaria</li>
+								<li>Prospección comercial</li>
+							</ul>
+							<br/>
+							<hr/>
+							<br/>
+							<h5>¿Qué datos personales utilizaremos para estos fines? </h5>
+							Para llevar a cabo las finalidades descritas en el presente aviso de privacidad, utilizaremos los siguientes datos personales:
+							<br/>
+							Nombre, Estado Civil, Fecha de nacimiento, Nacionalidad, Domicilio, Teléfono celular, Correo electrónico, Edad, Fotografía, Puesto o cargo que desempeña, Títulos, Cuentas bancarias, Número de tarjetas de crédito, Pasatiempos, Perfil de redes sociales como Facebook y Google+.
+							<br/><br/>
+							<hr/>
+							<br/>
+							<h5>¿Con quién compartimos su información personal y para qué fines?</h5>
+							Le informamos que sus datos personales son compartidos dentro del país con las siguientes personas, empresas, organizaciones o autoridades distintas a nosotros, para los siguientes fines: 
+
+							<table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col" style="font-weight: 700;">Destinatario de los<br/>datos personales </th>
+							      <th scope="col" style="font-weight: 700;">Finalidad </th>
+							      <th scope="col" style="font-weight: 700;">Requiere<br/>del consentimiento </th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row">Instituciones bancarias</th>
+							      <td>Transferencia de beneficios generados por el plan de lealtad o app</td>
+							      <td>No</td>
+							    </tr>
+							    <tr>
+							      <th scope="row">Intercambio de información personal del usuario con los clientes del plan de lealtad o app</th>
+							      <td>Generar valor a los clientes del plan de lealtad determinando habitos de consumo y perfiles del consumidor</td>
+							      <td>No</td>
+							    </tr>
+							  </tbody>
+							</table>
+
+							Su información no será compartida con otra institución o persona, ya sea física o moral, salvo en los casos que establece la Ley Federal para la Protección de Datos Personales, en su Artículo 22.
+							<br/><br/>
+							<hr/>
+							<br/>
+							<h5>¿Cómo puede acceder, rectificar o cancelar sus datos personales, u oponerse a su uso? </h5>
+							Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los utilizamos y las condiciones del uso que les damos (Acceso). Asimismo, es su derecho solicitar la corrección de su información personal en caso de que esté desactualizada, sea inexacta o incompleta (Rectificación); que la eliminemos de nuestros registros o bases de datos cuando considere que la misma no está siendo utilizada adecuadamente (Cancelación) considerando que esta acción requiere eliminar su perfil del plan de lealtad o aplicación; así como oponerse al uso de sus datos personales para fines específicos (Oposición). Estos derechos se conocen como derechos ARCO.
+							<br/><br/>
+							Para el ejercicio de cualquiera de los derechos ARCO, usted deberá presentar la solicitud respectiva a través del siguiente medio: 
+							<br/>
+							A través del perfil registrado, ir a la sección de contacto o asistencia y solicitar el acceso a los derechos ARCO, en el mismo medio digital. 
+							<br/><br/>
+							Para conocer el procedimiento y requisitos para el ejercicio de los derechos ARCO, ponemos a su disposición el siguiente medio:
+							<br/>
+							A través del medio digital o app, ingresando a su perfil, en el menú lateral, en la sección de contacto o asistencia, o a través de un correo electrónico a la dirección de contacto@tradenial.com.
+							<br/><br/>
+							<hr/>
+							<br/>
+							<h5>Usted puede revocar su consentimiento para el uso de sus datos personales</h5>
+							Usted puede revocar el consentimiento que, en su caso, nos haya otorgado para el tratamiento de sus datos personales. Sin embargo, es importante que tenga en cuenta que no en todos los casos podremos atender su solicitud o concluir el uso de forma inmediata, ya que es posible que por alguna obligación legal requiramos seguir tratando sus datos personales. Asimismo, usted deberá considerar que para ciertos fines, la revocación de su consentimiento implicará que no le podamos seguir prestando el servicio que nos solicitó, o la conclusión de su relación con nosotros.
+							<br/><br/>
+							Para revocar su consentimiento deberá presentar su solicitud a través del siguiente medio: 
+							<br/>
+							A través del medio electrónico o app, ingresando a su perfil, en la sección de contacto o asistencia.  o a través de un correo electrónico a la dirección de contacto@tradenial.com. 
+							<br/><br/>
+							Para conocer el procedimiento y requisitos para la revocación del consentimiento, ponemos a su disposición el siguiente medio:
+							<br/>
+							A través del medio electrónico o app, ingresando a su perfil, en la sección de contacto o asistencia.  O a través de un correo electrónico a la dirección de contacto@tradenial.com.
+							<br/><br/>
+							<hr/>
+							<br/>
+							<h5>¿Cómo puede limitar el uso o divulgación de su información personal? </h5>
+							Con objeto de que usted pueda limitar el uso y divulgación de su información personal, le ofrecemos los siguientes medios:
+							<br/>
+							A través del medio electrónico o app, ingresando a su perfil, en la sección de contacto o asistencia. O a través de un correo electrónico a la dirección de contacto@tradenial.com.
+							<br/><br/>
+							<hr/>
+							<br/>
+							<h5>El uso de tecnologías de rastreo en nuestro portal de internet</h5>
+							Le informamos que en nuestra página de internet utilizamos cookies, web beacons u otras tecnologías, a través de las cuales es posible monitorear su comportamiento como usuario de internet, así como brindarle un mejor servicio y experiencia al navegar en nuestra página. Los datos personales que recabamos a través de estas tecnologías, los utilizaremos para los siguientes fines:
+							<br/><br/>
+							Para intercambio de información con los clientes del plan de lealtad o app, para determinar hábitos de consumo y perfiles de consumidores.
+							<br/>
+							Los datos personales que obtenemos de estas tecnologías de rastreo son los siguientes:
+							<br/><br/>
+							<ul>
+								<li>Identificadores, nombre de usuario y contraseñas de una sesión</li>
+								<li>Idioma preferido por el usuario</li>
+								<li>Región en la que se encuentra el usuario</li>
+								<li>Tipo de navegador del usuario</li>
+								<li>Tipo de sistema operativo del usuario</li>
+								<li>Fecha y hora del inicio y final de una sesión de un usuario</li>
+								<li>Páginas web visitadas por un usuario</li>
+								<li>Búsquedas realizadas por un usuario</li>
+								<li>Publicidad revisada por un usuario</li>
+								<li>Listas y hábitos de consumo en páginas de compras</li>
+							</ul>
+							<br/>
+							<hr/>
+							<br/>
+							<h5>Redes sociales que utiliza</h5>
+							Asimismo, le informamos que su información personal será compartida con las siguientes personas, empresas, organizaciones o autoridades distintas a nosotros, para los siguientes fines:
+							<table class="table">
+							  <thead>
+							    <tr>
+							      <th scope="col" style="font-weight: 700;">Destinatario de los datos personales</th>
+							      <th scope="col" style="font-weight: 700;">Finalidad </th>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      <th scope="row">Clientes del plan de lealtad o aplicación, pueden ser empresas y marcas de consumo masivo y/o manejadas en los principales autoservicios, así como empresas con puntos de venta de algún producto o servicio establecidos formalmente y con emisión de ticket de compra.</th>
+							      <td>Generar valor a los usuarios del plan de lealtad o app.</td>
+							    </tr>
+							  </tbody>
+							</table>
+							<br/>
+							<hr/>
+							<br/>
+							<h5>Redes sociales que utiliza</h5>
+							El presente aviso de privacidad puede sufrir modificaciones, cambios o actualizaciones derivadas de nuevos requerimientos legales; de nuestras propias necesidades por los productos o servicios que ofrecemos; de nuestras prácticas de privacidad; de cambios en nuestro modelo de negocio, o por otras causas.
+							<br/><br/>
+							Nos comprometemos a mantenerlo informado sobre los cambios que pueda sufrir el presente aviso de privacidad, a través de: A través del correo electrónico que el usuario haya registrado en su perfil dentro del medio electrónico o app, o en una pantalla emergente que aparecerá al ingresar en la app y en la página de internet www.shingshing.com.
+							<br/><br/>
+							El procedimiento a través del cual se llevarán a cabo las notificaciones sobre cambios o actualizaciones al presente aviso de privacidad es el siguiente:
+							<br/>
+							A través del correo electrónico que el usuario haya registrado en su perfil dentro del medio electrónico o app, o en una pantalla emergente que aparecerá al ingresar en la app y en la página de internet www.shingshing.com.
+							<br/><br/>
+							El Aviso Integral de Privacidad, lo puede consultar en la sección de Perfil, en el menú lateral, ingresar a la liga de Aviso de Privacidad, o en el pie de página del sitio web www.shingshing.com.
+
+
+
+
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <!-- Start your project here-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" th:src="@{/resources/home/js/jquery-3.4.1.min.js}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" th:src="@{/resources/home/js/popper.min.js}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" th:src="@{/resources/home/js/bootstrap.min.js}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" th:src="@{/resources/home/js/mdb.min.js}"></script>
+<script type="text/javascript">var theToggle = document.getElementById('toggle');
+
+// based on Todd Motto functions
+// https://toddmotto.com/labs/reusable-js/
+
+// hasClass
+function hasClass(elem, className) {
+	return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+// addClass
+function addClass(elem, className) {
+    if (!hasClass(elem, className)) {
+    	elem.className += ' ' + className;
+    }
+}
+// removeClass
+function removeClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+	if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+            newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+}
+// toggleClass
+function toggleClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, " " ) + ' ';
+    if (hasClass(elem, className)) {
+        while (newClass.indexOf(" " + className + " ") >= 0 ) {
+            newClass = newClass.replace( " " + className + " " , " " );
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    } else {
+        elem.className += ' ' + className;
+    }
+}
+
+theToggle.onclick = function() {
+   toggleClass(this, 'on');
+   return false;
+}
+</script> 
+
+
+
 </body>
+
 </html>

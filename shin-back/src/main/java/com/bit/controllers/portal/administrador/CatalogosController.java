@@ -32,7 +32,9 @@ import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.report.MarcaReport;
 import com.bit.model.report.ProductoReport;
+import com.bit.model.report.UsuarioReport;
 import com.bit.service.CatalogoMarcaService;
 import com.bit.service.CatalogoMediosBonificacionService;
 import com.bit.service.CatalogoTiendaService;
@@ -41,14 +43,17 @@ import com.bit.service.ProductoService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 @Controller
 @RequestMapping("/portal-administrador")
@@ -83,6 +88,12 @@ public class CatalogosController {
 		log.info( "Entrando en gerCatDepartamento" );
 		model.addAttribute("item", new CatalogoTipoProducto());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de gerCatDepartamento" );
 		
 		return "cat_departamentos";
@@ -105,6 +116,12 @@ public class CatalogosController {
 		log.info( "Entrando en getCatDepartamentoEdit" );
 		CatalogoTipoProducto item = catalogoTipoProductoService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de getCatDepartamentoEdit" );
 
@@ -132,9 +149,41 @@ public class CatalogosController {
 		log.info( "Entrando en getCatMarca" );
 		model.addAttribute("item", new CatalogoMarca());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de getCatMarca" );
 
 		return "catalogo_marca";
+	}
+	
+	@RequestMapping(value = "/marca/report", method = RequestMethod.GET)
+	@ResponseBody
+	public void getMarcaReport(Model model, HttpServletResponse response) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Marcas.jasper");
+	    Map<String,Object> params = new HashMap<>();
+	    List<MarcaReport> list = new ArrayList<>();
+	    MarcaReport p = new MarcaReport( 1L, "Comex" );
+	    MarcaReport p1 = new MarcaReport( 1L, "Herdez" );
+	    MarcaReport p2 = new MarcaReport( 1L, "Bonafont" );
+	    
+	    list.add(p);
+	    list.add(p1);
+	    list.add(p2);
+	    
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Marcas.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		
 	}
 
 	@RequestMapping(value = "/marca/save", method = RequestMethod.POST)
@@ -153,6 +202,12 @@ public class CatalogosController {
 		log.info( "Entrando en getCatMarcaEdit" );
 		CatalogoMarca item = catalogoMarcaService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de getCatMarcaEdit" );
 
@@ -180,6 +235,12 @@ public class CatalogosController {
 		log.info( "Entrando en getCatMedioBonificacion" );
 		model.addAttribute("item", new CatalogoMediosBonificacion());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de getCatMedioBonificacion" );
 
 		return "catalogo_medios_bonificacion";
@@ -202,6 +263,12 @@ public class CatalogosController {
 		log.info( "Entrando en getCatMedioBonificacionEdit" );
 		CatalogoMediosBonificacion item = catalogoMediosBonificacionService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de getCatMedioBonificacionEdit" );
 
@@ -230,6 +297,12 @@ public class CatalogosController {
 		log.info( "Entrando en getCatTienda" );
 		model.addAttribute("item", new CatalogoTienda());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de getCatTienda" );
 
 		return "catalogo_tienda";
@@ -252,6 +325,12 @@ public class CatalogosController {
 		log.info( "Entrando en getCatTiendaEdit" );
 		CatalogoTienda item = catalogoTiendaService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de getCatTiendaEdit" );
 
@@ -282,6 +361,12 @@ public class CatalogosController {
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de getCatProducto" );
 
 		return "producto";
@@ -293,22 +378,43 @@ public class CatalogosController {
 		InputStream jasperStream = this.getClass().getResourceAsStream("/Productos1.2.jasper");
 	    Map<String,Object> params = new HashMap<>();
 	    List<ProductoReport> list = new ArrayList<>();
-	    ProductoReport p = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
-	    ProductoReport p1 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
-	    ProductoReport p2 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+//	    ProductoReport p = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+//	    ProductoReport p1 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+//	    ProductoReport p2 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
+//	    
+//	    list.add(p);
+//	    list.add(p1);
+//	    list.add(p2);
 	    
-	    list.add(p);
-	    list.add(p1);
-	    list.add(p2);
+	    list = productoService.getAllProductoReport();
 	    
 	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
 	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
 	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
 
+	    
+	    //For PDF 
 	    response.setContentType("application/x-pdf");
 	    response.setHeader("Content-disposition", "inline; filename=Productos.pdf");
 
+//	    String fileName = "productos.xls";
+//	    response.setContentType("application/octet-stream");
+//	    response.setHeader("Connection", "close");
+//	    response.setHeader("Content-Disposition", "attachment;filename=\"" + new String(fileName.getBytes("utf-8"),"ISO-8859-1") + "\"");
+	    
 	    final OutputStream outStream = response.getOutputStream();
+	    
+//	    JRXlsExporter xlsExporter = new JRXlsExporter();
+//	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+//	    xlsExporter.setExporterInput( new SimpleExporterInput(jasperPrint) );
+//	    xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outStream));
+//	    xlsExporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,
+//	    		jasperPrint);
+//	    xlsExporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
+//	               "C://sample_report.xls");
+	    
+
+//	    xlsExporter.exportReport();
 	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
 		
 	}
@@ -333,6 +439,12 @@ public class CatalogosController {
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
 		model.addAttribute("item", item);
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("user", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de getCatProductoEdit" );
 
@@ -360,6 +472,12 @@ public class CatalogosController {
 		log.info( "Entrando en redireccionaListaMediosBonificacion" );
 		model.addAttribute("medios", catalogoMediosBonificacionService.getCatalogoMediosBonificacion().getMediosBonificacion());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de redireccionaListaMediosBonificacion" );
 		return "lista_mediosBonificacion";
 	}
@@ -368,6 +486,12 @@ public class CatalogosController {
 	public String redirectionaListaMarca(Model model) {
 		log.info( "Entrando en redirectionaListaMarca" );
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de redirectionaListaMarca" );
 		return "lista_marcas";
@@ -378,6 +502,12 @@ public class CatalogosController {
 		log.info( "Entrando en redirectionaListaTienda" );
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
 		log.info( "Saliendo de redirectionaListaTienda" );
 		return "lista_tiendas";
 	}
@@ -386,6 +516,12 @@ public class CatalogosController {
 	public String redirectionaListaDepartamento(Model model) {
 		log.info( "Entrando en redirectionaListaDepartamento" );
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
 		
 		log.info( "Saliendo de redirectionaListaDepartamento" );
 		return "lista_departamentos";
@@ -398,19 +534,39 @@ public class CatalogosController {
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
 		if ( null != current ) {
-			Usuario item = new Usuario();
-			item.setIdUsuario( current.getUsuario().getIdUsuario() );
-			item.setUsuario( current.getUsuario().getUsuario() );
-			
-			Usuario rsp = usuarioService.findUserByPK(item);
-			
-			model.addAttribute("item", rsp);
+			model.addAttribute("item", current.getUsuario());
 		}
 		
 		model.addAttribute("productos", productoService.getProductos().getProductos());
 		
 		log.info( "Saliendo de redirectionaListaProducto" );
 		return "lista_productos";
+	}
+	
+	@RequestMapping(value = "/usuario/report", method = RequestMethod.GET)
+	@ResponseBody
+	public void getUsuarioReport(Model model, HttpServletResponse response) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Usuarios.jasper");
+	    Map<String,Object> params = new HashMap<>();
+	    List<UsuarioReport> list = new ArrayList<>();
+	    UsuarioReport p = new UsuarioReport( 1L, "Comex", "", "" );
+	    UsuarioReport p1 = new UsuarioReport( 1L, "Herdez", "", "" );
+	    UsuarioReport p2 = new UsuarioReport( 1L, "Bonafont", "", "" );
+	    
+	    list.add(p);
+	    list.add(p1);
+	    list.add(p2);
+	    
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Usuarios.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		
 	}
 	
 	private UsuarioShingShingDetailService getAuthenticationUser() {

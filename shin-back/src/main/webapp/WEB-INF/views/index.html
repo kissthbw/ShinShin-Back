@@ -3,22 +3,46 @@
   xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <title>Shing Shing</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
   <!-- Bootstrap core CSS -->
   <link th:href="@{/resources/home/css/bootstrap.min.css}" rel="stylesheet"/>
+  <!-- Animate -->
+  <link th:href="@{/resources/home/css/animate.css}" rel="stylesheet"/>
+  <!-- Animate -->
+  <link th:href="@{/resources/home/css/animate.min.css}" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" />
   <!-- Material Design Bootstrap -->
   <link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet"/>
   <!-- Your custom styles (optional) -->
   <link th:href="@{/resources/home/css/style.css}" rel="stylesheet"/>
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- Imagenes -->
   <style type="text/css">
+  		#mini-coin-1{
+  			background-image: url(resources/home/img/micros/mini-coin-1.svg);
+  		}
+  		#coin-1{
+  			background-image: url(resources/home/img/micros/coin-1.svg);
+  		}
+  		#coin-2{
+  			background-image: url(resources/home/img/micros/coin-2.svg);
+  		}
+  		#coin-3{
+  			background-image: url(resources/home/img/micros/coin-3.svg);
+  		}
+  		#coin-4{
+  			background-image: url(resources/home/img/micros/coin-4.svg);
+  		}
 		#brand-1{
 			background-image: url(resources/home/img/brands/1.svg);
 		}
@@ -74,28 +98,28 @@
 			background-image: url(resources/home/img/icon/n-3.svg);
 		}
 		#img-product-1{
-			background-image: url(resources/home/img/products/1.svg);
+			background-image: url(resources/home/img/products/1.png);
 		}
 		#img-product-2{
-			background-image: url(resources/home/img/products/2.svg);
+			background-image: url(resources/home/img/products/2.png);
 		}
 		#img-product-3{
-			background-image: url(resources/home/img/products/3.svg);
+			background-image: url(resources/home/img/products/3.png);
 		}
 		#img-product-4{
-			background-image: url(resources/home/img/products/4.svg);
+			background-image: url(resources/home/img/products/4.png);
 		}
 		#img-product-5{
-			background-image: url(resources/home/img/products/5.svg);
+			background-image: url(resources/home/img/products/5.png);
 		}
 		#img-product-6{
-			background-image: url(resources/home/img/products/6.svg);
+			background-image: url(resources/home/img/products/1.png);
 		}
 		#img-product-7{
-			background-image: url(resources/home/img/products/7.svg);
+			background-image: url(resources/home/img/products/2.png);
 		}
 		#img-product-8{
-			background-image: url(resources/home/img/products/8.svg);
+			background-image: url(resources/home/img/products/3.png);
 		}
 		#logo-header{
 			background-image: url(resources/home/img/brands/ss-complet.svg);
@@ -154,16 +178,15 @@
 
 					<div id="options" class="col">
 						<div class="row justify-content-end">
-							<div id="btn-hazSS"><button>¡Haz Shing Shing!</button></div>
 							<div id="btn-hazSS"><button>Descarga</button></div>
-							<div id="btn-login"><button><a th:href="@{'/portal-usuario/'}">Inicia sesión</a></button></div>
+							<a th:href="@{'/portal-usuario/'}"><div id="btn-login"><button>Inicia sesión</button></div></a>
 						</div>
 					</div>
 					
 
-							  <a class="icon-toggle" data-toggle="collapse" href="#collapseToggle" role="button" aria-expanded="false" aria-controls="collapseToggle">
-							    <div class=""></div>
-							  </a>
+					  <a class="icon-toggle" data-toggle="collapse" href="#collapseToggle" role="button" aria-expanded="false" aria-controls="collapseToggle">
+					    <div class=""></div>
+					  </a>
 
 				</div>
 
@@ -171,8 +194,7 @@
 					<div class="collapse style-collapse" id="collapseToggle">
 							<div class="card card-body">
 								<div class="btn-toggle cta col-12">Descarga</div>
-								<div class="btn-toggle second col-12"><a th:href="@{'/portal-usuario/'}">Inicia sesión</a></div>
-								<div class="btn-toggle second col-12">¡Haz Shing Shing!</div>
+								<a th:href="@{'/portal-usuario/'}"><div class="btn-toggle second col-12">Inicia Sesión</div></a>
 							</div>
 					</div>
 				</div>
@@ -182,8 +204,9 @@
 		<!-- Content principal -->
 		<div id="content-principal">
 			<div class="container">
-				<div class="row justify-content-around">
-
+				<div class="row justify-content-around" style="position: relative;">
+					<div style="position: absolute; width: 104px; height: 104px; right: 24px; top: 464px; z-index: 999;" id="coin-1" class="coin box bounce-2">
+					</div>
 					<!-- Desktop -->
 					<div id="texto" class="offset-md-0 col-sm-8 col-md-6 col-lg-5 desktop">
 
@@ -233,13 +256,21 @@
 						</div>
 					</div>
 
-					<div id="imagen" class="col-md-5 col-lg-6"></div>
+					<div id="imagen" class="col-md-5 col-lg-6 animated slideInRight">
+						<div style="width: 64px; height: 64px; right: 0px; top: 0px; z-index: 999; display: none;" id="mini-coin-1" class="coin box-2 bounce-2" data-aos="fade-up-right">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="line-white -line"></div>
+	<div class="line-white -line">
+		<div class="container" style="position: relative;">
+			<div style="position: absolute; width: 80px; height: 80px; left: 24px; top: 300px; z-index: 999;" id="coin-2" class="coin box-2 bounce-2" data-aos="fade-up-right">
+			</div>
+		</div>
+	</div>
 
 	<!-- Marcas -->
 	<div id="brands" class="section">
@@ -268,10 +299,10 @@
 
 			<!-- Desktop -->
 			<div id="desktop" class="row justify-content-center">
-				<h2 class="col-12 weight700">¡Haz Shing Shing!</h2>
-				<div id="img-step-1" class="col-4"></div>
-				<div id="img-step-2" class="col-4"></div>
-				<div id="img-step-3" class="col-4"></div>
+				<h2 class="col-12 weight700" data-aos="fade-up">¡Haz Shing Shing!</h2>
+				<div id="img-step-1" class="col-4" data-aos="fade-up"></div>
+				<div id="img-step-2" class="col-4" data-aos="fade-up"></div>
+				<div id="img-step-3" class="col-4" data-aos="fade-up"></div>
 				<div class="col-4">
 					<div class="row justify-content-center">
 						<div id="number-1"></div>
@@ -295,11 +326,11 @@
 							<div>Disponible para todos los dispositivos iOS y Android.</div>
 						</div>
 						<div class="textPrincipal col-md-4 col-lg-3">
-							<div class="weight700"><h4 class="weight700"/>Toma una foto de tu Ticket<br/><br/></div>
+							<div class="weight700"><h4 class="weight700">Toma una foto de tu Ticket<br/><br/></h4></div>
 							<div>Para registrar los productos que hayas comprado y participen en <font class="weight700">Shing Shing</font> para bonificarlo a tu cuenta.</div>
 						</div>
 						<div class="textPrincipal col-md-4 col-lg-3">
-							<div class="weight700"><h4 class="weight700"/>…Listo!<br/><br/></div>
+							<div class="weight700"><h4 class="weight700">…Listo!<br/><br/></h4></div>
 							<div>Podrás utilizar tu dinero para transferirlo a una cuenta bancaria, PayPal o realizar una recarga telefónica.</div>
 						</div>
 					</div>
@@ -308,32 +339,32 @@
 
 
 
-				<h3 class="col-12 mt120 col-md-12">Lo mejor de todo,<br/><font class="weight700">es totalmente Gratis!</font></h3>
+				<h3 class="col-12 mt120 col-md-12" data-aos="fade-up">Lo mejor de todo,<br/><font class="weight700">es totalmente Gratis!</font></h3>
 
 				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div id="detalle-1" class="col-12"></div>
+					<div id="detalle-1" class="col-12" data-aos="fade-up"></div>
 					<div id="text"><h5 class="weight700">Así es,<br/>0 comisiones</h5></div>
 				</div>
 
 				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div id="detalle-2"></div>
+					<div id="detalle-2" data-aos="fade-up"></div>
 					<div id="text"><h5 class="weight700">Retira tu dinero<br/>desde $10</h5></div>
 				</div>
 
 				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div id="detalle-3"></div>
+					<div id="detalle-3" data-aos="fade-up"></div>
 					<div id="text"><h5 class="weight700">Sin límite de Tickets,<br/>ni productos</h5></div>
 				</div>
 
 				<div class="col-sm-6 col-md-3 col-lg-3">
-					<div id="detalle-4"></div>
+					<div id="detalle-4" data-aos="fade-up"></div>
 					<div id="text"><h5 class="weight700">Participan tus principales tiendas de autoservicio</h5></div>
 				</div>
 			</div>
 
 			<!-- Mobile -->
 			<div id="mobile" class="row justify-content-center">
-				<h2 class="col-12 weight700">¡Haz Shing Shing!</h2>
+				<h2 class="col-12 weight700" data-aos="fade-up">¡Haz Shing Shing!</h2>
 				
 				<div class="container">
 				<div class="row justify-content-center offset-1">
@@ -421,11 +452,13 @@
 	<!-- Productos -->
 	<div id="products" class="section">
 		<div class="container">
-			<div class="row justify-content-center">
-				<h3 class="col-8 col-sm-12">Tu haz tus compras,<br/><font class="weight700">nosotros te regresamos dinero</font></h3>
+			<div class="row justify-content-center" style="position: relative;">
+				<div style="position: absolute; width: 104px; height: 104px; left: 50%; top: -100px; z-index: 999; margin-left: -52px;" id="coin-3" class="coin box bounce-2">
+				</div>
+				<h3 class="col-8 col-sm-12" data-aos="fade-up">Tu haz tus compras,<br/><font class="weight700">nosotros te regresamos dinero</font></h3>
 				
 				<!-- Producto 1 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
@@ -454,11 +487,11 @@
 				</div>
 
 				<!-- Producto 2 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-2" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -483,11 +516,11 @@
 				</div>
 
 				<!-- Producto 3 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-3" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -512,11 +545,11 @@
 				</div>
 
 				<!-- Producto 4 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-4" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -541,11 +574,11 @@
 				</div>
 
 				<!-- Producto 5 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-5" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -570,11 +603,11 @@
 				</div>
 
 				<!-- Producto 6 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-6" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -599,11 +632,11 @@
 				</div>
 
 				<!-- Producto 7 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3 m24" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-7" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -628,11 +661,11 @@
 				</div>
 
 				<!-- Producto 8 -->
-				<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+				<div class="col-12 col-sm-6 col-md-4 col-lg-3" data-aos="fade-up">
 					<div class="product container">
 
 						<div class="row justify-content-center">
-							<div id="img-product-1" class="col-4 col-sm-12 m16"></div>
+							<div id="img-product-8" class="col-4 col-sm-12 m16"></div>
 							
 							<div class="col-8">
 								<div class="row justify-content-center">
@@ -658,10 +691,10 @@
 
 				<div class="container mt56">
 					<div class="row justify-content-center">
-						<h5 id="textComplement" class="col-10 col-sm-6 m32">
+						<h5 id="textComplement" class="col-10 col-sm-6 m32" data-aos="fade-up">
 							Conoce todos los productos participantes descargando la App en tu dispositívo movil  Android y iOS.
 						</h5>
-						<div id="button" class="col-12">
+						<div id="button" class="col-12" data-aos="fade-up">
 							<button>
 								<div class="row cta-blue">
 									<div id="icon-play"></div>
@@ -678,21 +711,25 @@
 
 	<!-- Footer -->
 
-	<div id="pleca" class="mt120"></div>
+	<div id="pleca" class="mt120">
+	</div>
 
 	<div class="line-white -line"></div>
 
-	<footer id="footer" class="section m80">
+	<footer id="footer" class="section m80" data-aos="fade-up">
 		<div class="container">
 			<div class="row">
 
 				<!-- Desktop -->
 				<div class="container desktop">
 					<div class="row justify-content-between m80">
-						<div id="logo"></div>
+						<div id="logo" style="position: relative;">
+						<div style="position: absolute; width: 104px; height: 104px; left: 40px; top: -120px; z-index: 999; margin-left: -52px;" id="coin-4" class="coin box bounce-2">
+						</div>
+						</div>
 						<div id="social">
 							<div class="row">
-								<div id="siguenos">Síguenos:</div>					
+								<div id="siguenos">Síguenos –</div>					
 								<a href="#"><div id="fb" class="col"></div></a>
 								<a href="#"><div id="tw" class="col"></div></a>
 							</div>
@@ -702,9 +739,8 @@
 					<div class="row justify-content-between">
 						<div id="legal" class="col">
 							<div class="row weight700">
-								<a href="#"><div class="op-1">Contacto</div></a>
-								<a href="#"><div class="op-2">Legal</div></a>
-								<a href="#"><div class="op-3">Política de privadiad</div></a>
+								<a href="contacto.html"><div class="op-1">Contacto</div></a>
+								<a href="privacidad.html"><div class="op-2">Política de privadiad</div></a>
 							</div>
 						</div>
 						<div id="copyright" class="col">
@@ -723,7 +759,7 @@
 						<div id="logo" class="col-12"></div>
 						<div id="social">
 							<div class="row">
-								<div id="siguenos">Síguenos: </div>					
+								<div id="siguenos">Síguenos –</div>					
 								<a href="#"><div id="fb" class="col"></div></a>
 								<a href="#"><div id="tw" class="col"></div></a>
 							</div>
@@ -733,9 +769,8 @@
 					<div class="row justify-content-center">
 						<div id="legal" class="col-12">
 							<div class="row weight700">
-								<a href="#" class="col-12"><div class="op-1">Contacto</div></a>
-								<a href="#" class="col-12"><div class="op-2">Legal</div></a>
-								<a href="#" class="col-12"><div class="op-3">Política de privadiad</div></a>
+								<a href="contacto.html" class="col-12"><div class="op-1">Contacto</div></a>
+								<a href="privacidad.html" class="col-12"><div class="op-2">Política de privadiad</div></a>
 							</div>
 						</div>
 						<div id="copyright" class="col-12">
@@ -804,13 +839,17 @@ function toggleClass(elem, className) {
     }
 }
 
-theToggle.onclick = function() {
-   toggleClass(this, 'on');
-   return false;
-}
+window.onload = function(){ 
+	theToggle.onclick = function() {
+		   toggleClass(this, 'on');
+		   return false;
+		} 
+};
+
 </script> 
-
-
+  <script>
+  AOS.init();
+	</script>
 
 </body>
 

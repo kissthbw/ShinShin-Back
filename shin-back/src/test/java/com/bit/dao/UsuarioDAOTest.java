@@ -28,6 +28,7 @@ import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
+import com.bit.service.impl.UsuarioServiceImpl.Source;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -124,7 +125,7 @@ public class UsuarioDAOTest {
 			e.printStackTrace();
 		}
 		
-		SimpleResponse respuesta = usuarioService.registrarUsuarios(u);
+		SimpleResponse respuesta = usuarioService.registrarUsuarios(u, Source.REST_CONTROLLER);
 		System.out.println(respuesta.getMessage() + "\n" + respuesta.getCode());
 	}
 
@@ -159,7 +160,7 @@ public class UsuarioDAOTest {
 		item.setIdUsuario(8l);
 		item.setCodigoVerificacion("5215");
 
-		respuesta = usuarioService.activarUsuarios(item);
+		respuesta = usuarioService.activarUsuarios(item, Source.REST_CONTROLLER);
 		System.out.println(respuesta.getMessage() + " \n" + respuesta.getCode());
 	}
 
@@ -464,11 +465,17 @@ public class UsuarioDAOTest {
 	}
 	
 	public static void main(String[] args) {
-		String s = "kissthbw1";
-		try {
-			System.out.println( Utils.generaHash(s) );
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
+//		String s = "kissthbw1";
+//		try {
+//			System.out.println( Utils.generaHash(s) );
+//		} catch (NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
+		
+		String tel = "+5215534714616";
+		String sub = tel.substring(10, tel.length());
+		String tmp = "******" + sub ;
+		System.out.println( tmp );
+		
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -45,6 +47,37 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		c.add(Restrictions.like("usuario", usuario));
 
 		return (Usuario)c.uniqueResult();
+	}
+	
+	public Usuario findUserByUserOrPhone(Usuario usuario) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		
+		if( null != usuario.getUsuario() ) {
+			c.add(Restrictions.eq("usuario", usuario.getUsuario()));
+		}
+		
+		if( null != usuario.getTelMovil() ) {
+			c.add(Restrictions.eq("telMovil", usuario.getTelMovil()));
+		}
+
+		return (Usuario)c.uniqueResult();
+	}
+	
+	public boolean existUserByUserOrPhone(Usuario usuario) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		Criterion u = Restrictions.eq("usuario", usuario.getUsuario()) ;
+		Criterion t = Restrictions.eq("telMovil", usuario.getTelMovil()) ;
+		
+		LogicalExpression or = Restrictions.or(u, t);
+		c.add(or);
+		List<Usuario> list = c.list();
+		
+		if( list.isEmpty() ) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	public List<Usuario> findUserByUser2(String usuario) {
@@ -92,6 +125,14 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 	public Usuario findUserByRestoreLink(Usuario item) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
 		c.add(Restrictions.eq("password_restore_link", item.getPassword_restore_link()));
+		c.setMaxResults(1);
+		
+		return (Usuario) c.uniqueResult();
+	}
+	
+	public Usuario findUserByActivationLink(Usuario item) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		c.add(Restrictions.eq("activation_link", item.getActivation_link()));
 		c.setMaxResults(1);
 		
 		return (Usuario) c.uniqueResult();

@@ -1,3 +1,30 @@
+.box {
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    margin: 0 auto 0 auto;
+    transform-origin: bottom;
+}
+.box-2 {
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    margin: 0 auto 0 auto;
+    transform-origin: top;
+}
+.bounce-2 {
+    animation-name: bounce-1;
+    animation-timing-function: ease;
+}
+@keyframes bounce-1 {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-24px); }
+    100% { transform: translateY(0); }
+}
+@keyframes bounce-2 {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-100px); }
+    100% { transform: translateY(0); }
+}
+
 body{
 	font-family: 'Nunito', sans-serif;
 	font-weight: 100;
@@ -14,6 +41,11 @@ button{
 	height: 48px;
 	padding-left: 16px;
 	padding-right: 16px;
+}
+button:focus{
+	border-color: transparent !important;
+	box-shadow: none !important;
+	outline: none;
 }
 header{
 	background-color: transparent;
@@ -143,7 +175,7 @@ header{
 #number-1, #number-2, #number-3,
 #img-product-1, #img-product-2, #img-product-3, #img-product-4, #img-product-5,
 #img-product-6, #img-product-7, #img-product-8,
-#appStore, #googlePlay, #principal #imagen, #icon-play, #logo-header, #social #tw, #social #fb, #footer #logo, .icon-toogle{
+#appStore, #googlePlay, #principal #imagen, #icon-play, #logo-header, #social #tw, #social #fb, #footer #logo, .icon-toogle, .coin{
 	background-position: center top;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -194,7 +226,7 @@ header{
 	width: 80px;
 	border-radius: 80px;
 }
-#img-product-1{
+#img-product-1, #img-product-2, #img-product-3, #img-product-4, #img-product-5, #img-product-6, #img-product-7, #img-product-8{
 	height: 104px;
 	width: 128px;
 }

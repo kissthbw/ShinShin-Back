@@ -10,6 +10,7 @@ import com.bit.model.Producto;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.model.report.ProductoReport;
 
 public interface ProductoService {
 
@@ -42,4 +43,5 @@ public interface ProductoService {
 	
 	SimpleResponse registraSugerencia(SugerenciaProducto item);
 
+	List<ProductoReport> getAllProductoReport();
 }

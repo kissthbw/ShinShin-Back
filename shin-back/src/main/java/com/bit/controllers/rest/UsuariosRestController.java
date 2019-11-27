@@ -16,6 +16,7 @@ import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.UsuarioService;
+import com.bit.service.impl.UsuarioServiceImpl.Source;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -41,7 +42,7 @@ public class UsuariosRestController {
 		
 		log.info("Entrando a reenviarCodigoUsuario");
 		//Tel movil: formato +5215534714616
-		SimpleResponse rsp = usuarioService.reenviarCodigoUsuario(item);
+		SimpleResponse rsp = usuarioService.reenviarCodigoUsuario(item, Source.REST_CONTROLLER);
 		
 		return rsp;
 	}
@@ -51,7 +52,7 @@ public class UsuariosRestController {
 		
 		log.info("Entrando a registrarUsuarios para registrar un nuevo usuario");
 		//Tel movil: formato +5215534714616
-		SimpleResponse rsp = usuarioService.registrarUsuarios(item);
+		SimpleResponse rsp = usuarioService.registrarUsuarios(item, Source.REST_CONTROLLER);
 		
 		return rsp;
 	}
@@ -69,7 +70,7 @@ public class UsuariosRestController {
 	public @ResponseBody SimpleResponse activarUsuario(@RequestBody Usuario item) {
 		
 		log.info("Entrando a activarUsuarios para activar un usuario");
-		SimpleResponse rsp = usuarioService.activarUsuarios(item);
+		SimpleResponse rsp = usuarioService.activarUsuarios(item, Source.REST_CONTROLLER);
 		
 		return rsp;
 	}

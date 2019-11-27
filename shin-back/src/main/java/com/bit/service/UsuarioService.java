@@ -7,18 +7,19 @@ import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.service.impl.UsuarioServiceImpl.Source;
 
 public interface UsuarioService {
 
 	ListItemsRSP getUsuarios();
 
-	SimpleResponse registrarUsuarios(Usuario item);
+	InformacionUsuarioRSP registrarUsuarios(Usuario item, Source source);
 	
 	InformacionUsuarioRSP registrarUsuarioSocialMedia(Usuario item);
 
-	SimpleResponse reenviarCodigoUsuario(Usuario item);
+	InformacionUsuarioRSP reenviarCodigoUsuario(Usuario item, Source source);
 	
-	SimpleResponse activarUsuarios(Usuario item);
+	SimpleResponse activarUsuarios(Usuario item, Source source);
 	
 	SimpleResponse eliminarUsuario(Usuario item);
 
@@ -53,4 +54,6 @@ public interface UsuarioService {
 	SimpleResponse restaurarPasswordLink(Usuario item);
 	
 	SimpleResponse restaurarPassword(Usuario item);
+	
+	InformacionUsuarioRSP activationPasswordLink(Usuario item);
 }

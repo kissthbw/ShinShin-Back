@@ -22,6 +22,7 @@ import com.bit.model.Producto;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.model.report.ProductoReport;
 import com.bit.service.ProductoService;
 import com.cloudinary.utils.ObjectUtils;
 
@@ -365,5 +366,22 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		sugerenciaProductoDAO.save(item);
 		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public List<ProductoReport> getAllProductoReport() {
+		List<ProductoReport> list = new ArrayList<>();
+		List<Producto> entities = productoDAO.getProductos();
+		
+		for( Producto e : entities ) {
+			ProductoReport item = new ProductoReport(e.getIdProducto(), e.getCodigoBarras(), 
+					e.getNombreProducto(), e.getCatalogoMarca().getNombreMarca(), e.isBanner());
+			
+			list.add(item);
+		}
+		
+		
+		return list;
 	}
 }
