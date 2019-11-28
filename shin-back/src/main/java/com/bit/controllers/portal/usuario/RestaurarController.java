@@ -114,7 +114,7 @@ public class RestaurarController {
 	public String postReataurar(@ModelAttribute Usuario item, @PathVariable String id) {
 		
 		log.info("Entrando en postReataurar");
-		
+		item.setPassword_restore_link(id);
 		log.info("Usuario: {}, password actual: {}, password nuevo: {}", item.getCorreoElectronico(), item.getContrasenia(), item.getConfirmarContrasenia());
 		SimpleResponse rsp = usuarioService.restaurarPassword(item);
 //		SimpleResponse rsp = usuarioService.restaurarPassword(item);

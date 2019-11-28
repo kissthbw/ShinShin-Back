@@ -8,12 +8,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.bit.model.CatalogoDiccionarioTiendas;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Utils {
+	
+	private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+	 
 	
 	private static final Map<String, String> DICCIONARIO;
 	static{
@@ -61,10 +66,20 @@ public class Utils {
 		return Collections.unmodifiableMap( DICCIONARIO );
 	}
 	
+	public static boolean isEmail( String email ) {
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		
+		Matcher m = pattern.matcher(email);
+		return m.find();
+	}
+	
 	public static void main (String[] args) {
 		
+		String s = "5534714616";
+		System.out.printf("%s es email valido?: %s", s, Utils.isEmail(s));
 		
-		System.out.println("codigo de verificacion: " + Utils.generaCodigoVerficacion());
+//		System.out.println("codigo de verificacion: " + Utils.generaCodigoVerficacion());
 	}
 
+	
 }

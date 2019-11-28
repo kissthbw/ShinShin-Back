@@ -113,7 +113,6 @@ public class UsuarioServiceImpl implements UsuarioService{
 			item.setFechaNac(c.getTime());
 			item.setUsuario( item.getCorreoElectronico() );
 			item.setTelMovil( "+521" + item.getTelMovil() );
-			
 		}
 		
 		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
@@ -122,13 +121,29 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 		String usuario = item.getUsuario();
 //		Usuario user = usuarioDAO.findUserByUser(usuario);
-		Boolean exist = usuarioDAO.existUserByUserOrPhone(item);
+		Boolean exist = usuarioDAO.existUserByUser(item);
 		if (exist) {
-			rsp.setMessage("Usuario ya existe");
+			rsp.setMessage("Usuario ya existe (correo ya existente)");
 			rsp.setCode(500);
 
 			return rsp;
 		} 
+		
+		exist = usuarioDAO.existUserByPhone(item);
+		if (exist) {
+			rsp.setMessage("Usuario ya existe (telefono ya existente)");
+			rsp.setCode(500);
+
+			return rsp;
+		} 
+		
+//		exist = usuarioDAO.existUserByUserOrPhone(item);
+//		if (exist) {
+//			rsp.setMessage("Usuario ya existe");
+//			rsp.setCode(500);
+//
+//			return rsp;
+//		} 
 		
 		try {
 			String hash = Utils.generaHash(item.getContrasenia());
@@ -378,6 +393,22 @@ public class UsuarioServiceImpl implements UsuarioService{
 			return infoRSP;
 		}
 		
+		Boolean exist = usuarioDAO.existUserByEmail(item);
+		if (exist) {
+			infoRSP.setMessage("Este email ya existe");
+			infoRSP.setCode(500);
+
+			return infoRSP;
+		} 
+		
+		exist = usuarioDAO.existUserByPhone(item);
+		if (exist) {
+			infoRSP.setMessage("Este numero ya existe");
+			infoRSP.setCode(500);
+
+			return infoRSP;
+		} 
+		
 		//Validar password, en caso de haber sido actualizado
 		if ( null != item.getContrasenia() ) {
 			if ( !entity.getContrasenia().equals( item.getContraseniaActual() ) ) {
@@ -444,6 +475,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		if( item.getCorreoElectronico() != null ) {
 			entity.setCorreoElectronico( item.getCorreoElectronico() );
+			entity.setUsuario( item.getCorreoElectronico() );
 		}
 		
 		if( item.getTelMovil() != null ) {
@@ -505,7 +537,15 @@ public class UsuarioServiceImpl implements UsuarioService{
 		Usuario user = null;
 		if( null != item.getContrasenia() ) {
 			log.info("Acceso por password");
-			user = usuarioDAO.findUserByUserAndPassword(item.getUsuario(), item.getContrasenia());
+			boolean isEmail = Utils.isEmail(item.getUsuario());
+			log.info("Es email?: {}", isEmail);
+			
+			if( isEmail ) {
+				user = usuarioDAO.findUserByUserAndPassword(item.getUsuario(), item.getContrasenia());
+			}
+			else {
+				user = usuarioDAO.findUserByPhoneAndPassword( "+521" + item.getUsuario(), item.getContrasenia());
+			}
 		}
 		else if( null != item.getHash() ) {
 			log.info("Acceso por hash");
@@ -979,7 +1019,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		//Minimo 8 posiciones
 		//
 		
-		Usuario entity = usuarioDAO.findUserByUserAndPassword(item.getUsuario(), item.getContraseniaActual());
+//		Usuario entity = usuarioDAO.findUserByUserAndPassword(item.getUsuario(), item.getContraseniaActual());
+//		Usuario entity = usuarioDAO.findUserByUser( item.getUsuario() );
+		Usuario entity = usuarioDAO.findUserByRestoreLink(item);
 		
 		if ( null != entity ) {
 			rsp.setCode(200);

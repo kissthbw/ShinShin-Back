@@ -1,6 +1,8 @@
 package com.bit.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,14 +15,18 @@ public class UsuarioShingShingDetailService implements UserDetails {
 
 	private static final long serialVersionUID = 7194255311203623879L;
 	private Usuario user;
+	List<GrantedAuthority> authorities = new ArrayList<>();
 	
-	public UsuarioShingShingDetailService(Usuario user) {
+	public UsuarioShingShingDetailService(Usuario user, List<GrantedAuthority> authorities) {
 		this.user = user;
+		this.authorities = authorities;
 	}
+
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return user.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName().toString())).collect(Collectors.toList());
+//		return user.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority.getName().toString())).collect(Collectors.toList());
+		return authorities; 
 	}
 
 	@Override

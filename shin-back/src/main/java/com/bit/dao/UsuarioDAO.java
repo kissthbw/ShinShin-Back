@@ -80,6 +80,48 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		}
 	}
 	
+	public boolean existUserByUser(Usuario usuario) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		Criterion u = Restrictions.eq("usuario", usuario.getUsuario()) ;
+		c.add(u);
+		List<Usuario> list = c.list();
+		
+		if( list.isEmpty() ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public boolean existUserByEmail(Usuario usuario) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		Criterion u = Restrictions.eq("correoElectronico", usuario.getCorreoElectronico()) ;
+		c.add(u);
+		List<Usuario> list = c.list();
+		
+		if( list.isEmpty() ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public boolean existUserByPhone(Usuario usuario) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		Criterion t = Restrictions.eq("telMovil", usuario.getTelMovil()) ;
+		c.add(t);
+		List<Usuario> list = c.list();
+		
+		if( list.isEmpty() ) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 	public List<Usuario> findUserByUser2(String usuario) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
 		c.add(Restrictions.like("usuario", usuario));
@@ -90,7 +132,7 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 	public Usuario findBySocialMediaUser(Usuario item) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
 		c.add(Restrictions.like("usuario", item.getUsuario()));
-		c.add(Restrictions.like("idRedSocial", item.getIdRedSocial()));
+//		c.add(Restrictions.like("idRedSocial", item.getIdRedSocial()));
 
 		return (Usuario)c.uniqueResult();
 	}
@@ -98,6 +140,15 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 	public Usuario findUserByUserAndPassword(String usuario, String contrasenia) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
 		c.add(Restrictions.eq("usuario", usuario));
+		c.add(Restrictions.eq("contrasenia", contrasenia));
+		c.add(Restrictions.not( Restrictions.eq("estatus", 2) ));
+		
+		return (Usuario) c.uniqueResult();
+	}
+	
+	public Usuario findUserByPhoneAndPassword(String tel, String contrasenia) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		c.add(Restrictions.eq("telMovil", tel));
 		c.add(Restrictions.eq("contrasenia", contrasenia));
 		c.add(Restrictions.not( Restrictions.eq("estatus", 2) ));
 		

@@ -154,7 +154,7 @@ public class Usuario {
 			@JoinColumn(name = "usuario_id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "ticket_id_ticket") })
 	private List<Ticket> tickets = new ArrayList<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "user_authority",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "authority_id") })
