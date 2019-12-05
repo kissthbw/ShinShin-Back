@@ -38,7 +38,7 @@
 }
 
 #footer #logo {
-	background-image: url(resources/home/img/brands/ss-complet-orange.svg);
+	background-image: url(../resources/home/img/brands/ss-complet-orange.svg);
 }
 
 #social #fb, .logo-fb {
@@ -81,7 +81,7 @@
 		<!-- Header -->
 		<header>
 			<div class="container">
-				<a href="index.html">
+				<a th:href="@{/portal-administrador}">
 					<div class="row justify-content-between">
 						<div class="col" id="logo-header"></div>
 					</div>
@@ -148,11 +148,11 @@
 
 						<div class="col-10 col-sm-8 col-md-12 link-input-group"
 							style="text-align: center;">
-							<a href="olvide.html">Olvide mi contraseña :(</a>
+							<a th:href="@{/portal-administrador/restaurar/solicitar}">Olvide mi contraseña :(</a>
 						</div>
 						
 						<div class="col-10 col-sm-8 col-md-12 link-input-group" style="text-align: center;">
-							<a href="solicita-acceso.html">Solicitar accesos</a>
+							<a th:href="@{/portal-administrador/restaurar/crear-cuenta}">Solicitar accesos</a>
 						</div>
 						
 					</div>

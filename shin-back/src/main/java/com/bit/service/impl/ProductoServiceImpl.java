@@ -14,11 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.ProductoDAO;
+import com.bit.dao.ProductosTiendasDAO;
 import com.bit.dao.SugerenciaProductoDAO;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductosTiendas;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
@@ -33,6 +35,9 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
 	private ProductoDAO productoDAO;
+	
+	@Autowired
+	private ProductosTiendasDAO productosTiendasDAO;
 	
 	@Autowired
 	private SugerenciaProductoDAO sugerenciaProductoDAO;
@@ -128,14 +133,16 @@ public class ProductoServiceImpl implements ProductoService {
 		Map params = ObjectUtils.asMap(
 				   "public_id", "shingshing/productos/" + item.getNombreProducto(), 
 				   "overwrite", true
-				);
+				);		
 		
-		try {
-			log.info("Subiendo imagen de: {}", item.getNombreProducto());
-			String url = cloundinaryService.uploadImage(file.getBytes(), params);
-			item.setImgUrl( url );
-		} catch (IOException e) {
-			log.error("Ocurrio un error al subir imagen", e);
+		if ( !file.isEmpty() ) {
+			try {
+				log.info("Subiendo imagen de: {}", item.getNombreProducto());
+				String url = cloundinaryService.uploadImage(file.getBytes(), params);
+				item.setImgUrl( url );
+			} catch (IOException e) {
+				log.error("Ocurrio un error al subir imagen", e);
+			}
 		}
 		
 		//El color del producto viene el formato
@@ -147,7 +154,17 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
+		//Analizando la lista de nombres para las tiendas
+		for( ProductosTiendas t : item.getTiendas() ) {
+			t.setProducto(item);
+		}
+		
 		item = productoDAO.save(item);
+		
+		
+		
+		
+		
 		rsp.setId(item.getIdProducto());
 		return rsp;
 	}
@@ -177,16 +194,25 @@ public class ProductoServiceImpl implements ProductoService {
 				   "overwrite", true
 				);
 		
-		try {
-			log.info("Subiendo imagen de: {}", item.getNombreProducto());
-			String url = cloundinaryService.uploadImage(file.getBytes(), params);
-			item.setImgUrl( url );
-		} catch (IOException e) {
-			log.error("Ocurrio un error al subir imagen", e);
+		System.out.println( file.getName() );
+		
+		if ( !file.isEmpty() ) {
+			try {
+				log.info("Subiendo imagen de: {}", item.getNombreProducto());
+				String url = cloundinaryService.uploadImage(file.getBytes(), params);
+				item.setImgUrl( url );
+			} catch (IOException e) {
+				log.error("Ocurrio un error al subir imagen", e);
+			}
 		}
 		
 		item.setColorBanner( bannerColor( item.getColorBanner() ) );
 
+		//Analizando la lista de nombres para las tiendas
+		for( ProductosTiendas t : item.getTiendas() ) {
+			t.setProducto(item);
+		}
+		
 		item = productoDAO.update(item);
 		rsp.setId(item.getIdProducto());
 		return rsp;
@@ -259,6 +285,7 @@ public class ProductoServiceImpl implements ProductoService {
 		log.info("Obteniento lista de productos por identificador de tienda: {}", idEmpresa);
 
 		List<Producto> list = productoDAO.getProductosPorIDYEmpresa(items);
+//		List<Producto> list = productosTiendasDAO.getProductosPorIDYEmpresa(items);
 
 		return transform(list);
 	}
@@ -302,10 +329,26 @@ public class ProductoServiceImpl implements ProductoService {
 		t.setNombreTipoProducto(entity.getCatalogoTipoProducto().getNombreTipoProducto());
 		item.setCatalogoTipoProducto(t);
 		
-		ct.setIdCatalogoTienda(entity.getCatalogoTienda().getIdCatalogoTienda());
-		ct.setNombreTienda(entity.getCatalogoTienda().getNombreTienda());
-		ct.setImagenTienda(entity.getCatalogoTienda().getImagenTienda());
-		item.setCatalogoTienda(ct);
+		if( null != entity.getCatalogoTienda() ) {
+			ct.setIdCatalogoTienda(entity.getCatalogoTienda().getIdCatalogoTienda());
+			ct.setNombreTienda(entity.getCatalogoTienda().getNombreTienda());
+			ct.setImagenTienda(entity.getCatalogoTienda().getImagenTienda());
+			item.setCatalogoTienda(ct);
+		}
+		
+		for( ProductosTiendas pt : entity.getTiendas() ) {
+			ProductosTiendas i = new ProductosTiendas();
+			CatalogoTienda c = new CatalogoTienda();
+			c.setIdCatalogoTienda( pt.getCatalogoTienda().getIdCatalogoTienda() );
+			c.setNombreTienda( pt.getCatalogoTienda().getNombreTienda() );
+			
+			i.setCatalogoTienda( c );
+//			i.setProducto( pt.getProducto() );
+			i.setIdProductoTienda( pt.getIdProductoTienda() );
+			i.setProductoTienda( pt.getProductoTienda() );
+			
+			item.addTienda(i);
+		}
 		
 		return item;
 	}
@@ -345,10 +388,13 @@ public class ProductoServiceImpl implements ProductoService {
 			t.setNombreTipoProducto(item.getCatalogoTipoProducto().getNombreTipoProducto());
 			pTemp.setCatalogoTipoProducto(t);
 
-			ct.setIdCatalogoTienda(item.getCatalogoTienda().getIdCatalogoTienda());
-			ct.setNombreTienda(item.getCatalogoTienda().getNombreTienda());
-			ct.setImagenTienda(item.getCatalogoTienda().getImagenTienda());
-			pTemp.setCatalogoTienda(ct);
+			if ( null != item.getCatalogoTienda() ) {
+				ct.setIdCatalogoTienda(item.getCatalogoTienda().getIdCatalogoTienda());
+				ct.setNombreTienda(item.getCatalogoTienda().getNombreTienda());
+				ct.setImagenTienda(item.getCatalogoTienda().getImagenTienda());
+				pTemp.setCatalogoTienda(ct);
+			}
+			
 
 			tmp.add(pTemp);
 		}

@@ -12,16 +12,32 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
 	<!-- CSS Files -->
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
 </head>
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="brown" data-active-color="danger">
+		<div class="sidebar" data-color="white" data-active-color="danger">
 			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
+			
+			<div class="logo">
+        		<a href="" class="simple-text logo-mini">
+          			<div class="logo-image-small">
+          
+            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
+          			</div>
+        		</a>
+        		<a href="" class="simple-text logo-no rmal">
+          			<div class="logo-image-big">
+            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
+          			</div>
+        		</a>
+      		</div>
 			
 			<div class="sidebar-wrapper">
 				<div class="user">
@@ -39,7 +55,7 @@
           		</div>
 				</div>
 				<ul class="nav">
-					<li>
+					<li class="active">
 						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
 							<i class="nc-icon nc-ruler-pencil"></i>
 							<p>Catalogos<b class="caret"></b></p>
@@ -47,88 +63,32 @@
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li>
-									<a th:href="@{/portal-administrador/departamento/save}">
-										<span class="sidebar-mini-icon">D</span>
-										<span class="sidebar-normal"> Departamentos </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/marca/save}">
-										<span class="sidebar-mini-icon">M</span>
-										<span class="sidebar-normal"> Marcas </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/tienda/save}">
-										<span class="sidebar-mini-icon">T</span>
-										<span class="sidebar-normal"> Tiendas </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/medioBonificacion/save}">
-										<span class="sidebar-mini-icon">MB</span>
-										<span class="sidebar-normal"> Medios Bonificacion </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/producto/save}">
-										<span class="sidebar-mini-icon">P</span>
-										<span class="sidebar-normal"> Productos </span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li class="active">
-						<a data-toggle="collapse" href="#listas" aria-expanded="true">
-							<i class="nc-icon nc-single-copy-04"></i>
-							<p>Listas<b class="caret"></b></p>
-						</a>
-						<div class="collapse show" id="listas">
-							<ul class="nav">
-								<li>
 									<a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">D</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Departamentos </span>
 									</a>
 								</li>
-							</ul>
-						</div>
-						<div class="collapse show" id="listas">
-							<ul class="nav">
 								<li class="active">
 									<a th:href="@{/portal-administrador/marca/list}">
-										<span class="sidebar-mini-icon">M</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Marcas </span>
 									</a>
 								</li>
-							</ul>
-						</div>
-						<div class="collapse show" id="listas">
-							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">T</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Tiendas </span>
 									</a>
 								</li>
-							</ul>
-						</div>
-						<div class="collapse show" id="listas">
-							<ul class="nav">
-								<li >
+								<li>
 									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">MB</span>
-										<span class="sidebar-normal"> Medios Bonificacion </span>
+										<span class="sidebar-mini-icon">·</span>
+										<span class="sidebar-normal"> Medios bonificacion </span>
 									</a>
 								</li>
-							</ul>
-						</div>
-						<div class="collapse show" id="listas">
-							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/producto/list}">
-										<span class="sidebar-mini-icon">P</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Productos </span>
 									</a>
 								</li>
@@ -182,6 +142,8 @@
 							<div class="card-body">
 								<div class="toolbar">
 									<!--        Here you can write extra buttons/actions for the toolbar              -->
+									<a th:href="@{/portal-administrador/marca/save}"
+									class="btn btn-primary btn-link btn-sm" role="button" aria-disabled="true">+ Agregar</a>
 								</div>
 								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>

@@ -47,8 +47,8 @@ public class ProductosTiendasDAOTest {
 
 		ProductosTiendas pt = new ProductosTiendas();
 		pt.setProductoTienda("Computadora de Escritorio");
-		pt.setIdProducto(1l);
-		pt.setIdCatalogoTienda(5l);
+//		pt.setProducto(1l);
+//		pt.setIdCatalogoTienda(5l);
 
 		SimpleResponse respuesta = productosTiendasService.registrarProductosPorTienda(pt);
 		System.out.println(respuesta.getMessage() + "\n" + respuesta.getCode());

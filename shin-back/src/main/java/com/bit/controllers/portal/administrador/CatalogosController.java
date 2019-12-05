@@ -30,6 +30,7 @@ import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductosTiendas;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.report.MarcaReport;
@@ -356,10 +357,25 @@ public class CatalogosController {
 	public String getCatProducto(Model model) {
 
 		log.info( "Entrando en getCatProducto" );
-		model.addAttribute("item", new Producto());
+		Producto item = new Producto();
+		
+		
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
-		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
+		
+		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
+		
+		model.addAttribute("catalogoTiendas", list);
+		
+		List<ProductosTiendas> nombres = new ArrayList<>();
+		for( CatalogoTienda c : list ) {
+			ProductosTiendas tmp = new ProductosTiendas();
+			tmp.setCatalogoTienda( c );
+			nombres.add( tmp );
+		}
+		item.setTiendas(nombres);
+		model.addAttribute("nombres", nombres);
+		model.addAttribute("item", item);
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
@@ -437,8 +453,27 @@ public class CatalogosController {
 		Producto item = productoService.findById(Long.parseLong(id));
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
-		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
+		
+		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
+		
+		model.addAttribute("catalogoTiendas", list);
+		
+		List<ProductosTiendas> nombres = new ArrayList<>();
+		for( CatalogoTienda c : list ) {
+			ProductosTiendas tmp = new ProductosTiendas();
+			tmp.setCatalogoTienda( c );
+			nombres.add( tmp );
+		}
+		
+		if( item.getTiendas().isEmpty() ) {
+			item.setTiendas(nombres);
+		}
+		
+		model.addAttribute("nombres", nombres);
 		model.addAttribute("item", item);
+		
+//		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
+		
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		

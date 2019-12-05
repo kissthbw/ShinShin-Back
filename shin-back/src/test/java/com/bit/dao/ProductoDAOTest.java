@@ -18,6 +18,7 @@ import com.bit.config.WebConfig;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductosTiendas;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
 
@@ -30,6 +31,9 @@ public class ProductoDAOTest {
 
 	@Autowired
 	private ProductoDAO productoDAO;
+	
+	@Autowired
+	private ProductosTiendasDAO productosTiendasDAO;
 	
 	@Autowired
 	private ProductoService productoService;
@@ -139,6 +143,47 @@ public class ProductoDAOTest {
 			System.out.println( p.getIdProducto() + " - Producto: " + p.getNombreProducto() + " Precio: " + p.getPrecio());
 		}
 		
+	}
+	
+	//Asignacion de tiendas
+	@Test
+	@Transactional
+	@Rollback(value=false)
+	public void asignarTiendaTest() {
+		//En la pantalla de producto se debe mostrar 
+		//las n tiendas que se hayan dado de alta en el catalogo de tiendas
+		//Se debe permitir ingresar la CLAVE del producto para esa tienda en particular
+		
+		Producto p = productoDAO.findByPK(24L);
+		ProductosTiendas tienda = new ProductosTiendas();
+//		tienda.setIdCatalogoTienda(3L);
+		tienda.setProducto(p);
+		tienda.setProductoTienda("ESPECIAL");
+		
+		p.addTienda(tienda);
+		productoDAO.update(p);
+//		productosTiendasDAO.save(tienda);
+		
+//		for(ProductosTiendas t : p.getTiendas()) {
+//			System.out.println( t.getProducto().getIdProducto() + "-" + t.getProductoTienda() );
+//		}
+		
+		
+		
+//		ProductosTiendas t = new ProductosTiendas();
+//		t.setIdCatalogoTienda(2L);
+//		t.setProductoTienda("S/N");
+//		
+//		p.addTienda( t );
+//		productoDAO.update(p);
+		
+//		List<Producto> list = productoDAO.getProductos();
+//		
+//		for( Producto p : list ) {
+//			System.out.println(  p.getIdProducto() + " - " +  p.getNombreProducto() );
+//			System.out.println( "Disponible en: " + p.getTiendas().size() + " tiendas");
+//			
+//		}
 	}
 	
 	public static void main( String[] args ) {

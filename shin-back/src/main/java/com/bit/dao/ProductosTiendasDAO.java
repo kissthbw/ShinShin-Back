@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Property;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.model.Producto;
 import com.bit.model.ProductosTiendas;
 
 @Repository
@@ -19,5 +22,13 @@ public class ProductosTiendasDAO extends DAOTemplate<ProductosTiendas, Long> {
 		c.addOrder(Property.forName("idProductoTienda").desc());
 
 		return c.list();
+	}
+	
+	@Transactional
+	public List<Producto> getProductosPorIDYEmpresa(List<String> items) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(ProductosTiendas.class);
+		c.add(Restrictions.in("productoTienda", items));
+
+		return ((Criteria) c).list();
 	}
 }

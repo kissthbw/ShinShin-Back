@@ -1,0 +1,98 @@
+a, a:hover{
+	color: #FF6600;
+}
+body{
+	font-family: 'Nunito', sans-serif;
+}
+.btn-primary{
+	background-color: #ff6600 !important;
+	text-transform: none !important;
+}
+.btn-primary:hover{
+	background-color: #ff6600 !important;
+	text-transform: none !important;
+}
+.wrapper .sidebar .logo, .wrapper .sidebar .sidebar-wrapper, .wrapper .sidebar .nav {
+	background-color: #fff !important;
+}
+.sidebar a{
+	color: #232323 !important;
+}
+.main-panel{
+	background-color: #f2f2f2 !important;
+}
+.nc-money-coins, .nc-globe, .nc-vector, .nc-favourite-28, .nc-ruler-pencil, .nc-bank{
+	color: #232323 !important;
+}
+.card{
+	box-shadow: none !important;
+}
+.dataTables_info, .dataTables_paginate{
+	margin-top: 32px !important;
+}
+#minimizeSidebar, #minimizeSidebar:hover{
+	background-color: #e2e2e2 !important;
+	color: #232323 !important;
+}
+.form-control{
+	background-color: #f2f2f2 !important;
+	border-style: none !important;
+}
+.input-group, .form-group {
+    background-color: #f2f2f2 !important;
+}
+.sidebar[data-active-color="danger"] 
+.nav li.active > a, .sidebar[data-active-color="danger"] 
+.nav li.active > a i, .sidebar[data-active-color="danger"] 
+.nav li.active > a[data-toggle="collapse"], 
+.sidebar[data-active-color="danger"] 
+.nav li.active > a[data-toggle="collapse"] i, .sidebar[data-active-color="danger"] 
+.nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon, 
+.sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a, 
+.off-canvas-sidebar[data-active-color="danger"] 
+.nav li.active > a, .off-canvas-sidebar[data-active-color="danger"] 
+.nav li.active > a i, .off-canvas-sidebar[data-active-color="danger"] 
+.nav li.active > a[data-toggle="collapse"], 
+.off-canvas-sidebar[data-active-color="danger"] 
+.nav li.active > a[data-toggle="collapse"] i, 
+.off-canvas-sidebar[data-active-color="danger"] 
+.nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active .sidebar-mini-icon, 
+.off-canvas-sidebar[data-active-color="danger"] .nav li.active > a[data-toggle="collapse"] ~ div > ul > li.active > a,
+.collapse .active .sidebar-mini-icon{
+	color: #FF6600 !important;
+	font-weight: 800;
+}
+.nc-icon{
+	font-weight: 300 !important;
+}
+.sidebar .logo, .off-canvas-sidebar .logo{
+	padding: 8px 56px 0px 24px;
+}
+.sidebar-mini-icon{
+	color: #fff !important;
+	font-size: 40px !important;
+	line-height: 12px !important;
+}
+.table{
+	border-style: none !important;
+}
+.user{
+    border-bottom: solid #ccc 1px;
+}
+.toolbar .btn-primary{
+	background-color: #FF6600 !important;
+	color: #fff !important
+}
+.pagination .page-item.active > .page-link, .pagination .page-item.active > .page-link:focus{
+	background-color: #ffc299 !important;
+    border-color: #ffc299 !important;
+    color: #FFFFFF;
+    font-weight: 700;
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0) !important;
+}
+.pagination .page-item.active > .page-link:hover{
+	background-color: #ff6600 !important;
+}
+tr th, ul li a, .toolbar .btn-primary {
+	text-transform: none !important;
+}

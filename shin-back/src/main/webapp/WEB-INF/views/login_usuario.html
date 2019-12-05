@@ -21,6 +21,47 @@
   <link th:href="@{/resources/home/css/login.css}" rel="stylesheet"/>
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <script>
+  var googleUser = {};
+  var startApp = function() {
+    gapi.load('auth2', function(){
+      // Retrieve the singleton for the GoogleAuth library and set up the client.
+      auth2 = gapi.auth2.init({
+        client_id: '362699089953-rn4qv2qj9aosr1eic0tntpqhd0eo9q48.apps.googleusercontent.com',
+        cookiepolicy: 'single_host_origin',
+        // Request scopes in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+      attachSignin(document.getElementById('customBtn'));
+    });
+  };
+
+  function attachSignin(element) {
+	    console.log(element.id);
+	    auth2.attachClickHandler(element, {},
+	        function(googleUser) {
+
+	    	var profile = googleUser.getBasicProfile();
+	        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+	        console.log('Full Name: ' + profile.getName());
+	        console.log('Given Name: ' + profile.getGivenName());
+	        console.log('Family Name: ' + profile.getFamilyName());
+	        console.log("Image URL: " + profile.getImageUrl());
+	        console.log("Email: " + profile.getEmail());
+
+	        // The ID token you need to pass to your backend:
+	        var id_token = googleUser.getAuthResponse().id_token;
+	        console.log("ID Token: " + id_token);
+
+	          document.getElementById('c1').val( profile.getId );
+	          
+              
+	        }, function(error) {
+	          alert(JSON.stringify(error, undefined, 2));
+	        });
+	  }
+  </script>
   <!-- Imagenes -->
   <style type="text/css">
 		#logo-header{
@@ -162,14 +203,23 @@
 							</div>
 
 							<div class="col-12 col-lg-4 m-16-16">
-								<a href="#">
-									<button class="btn-social-login bkg-grey">
-										<div class="row justify-content-center cont-gm">
+								<button class="btn-social-login bkg-grey">
+										<div id="customBtn" class="row justify-content-center cont-gm">
 											<div class="logo-gm col"></div>
 											<div class="col gm-style">Gmail</div>
 										</div>
+										<div id="name"></div>
 									</button>
-								</a>
+									<input type="hidden" id="c1" name="custId" value=""/>
+									<input type="hidden" id="c2" name="custId" value=""/>
+									<input type="hidden" id="c3" name="custId" value=""/>
+									<input type="hidden" id="c4" name="custId" value=""/>
+									<input type="hidden" id="c5" name="custId" value=""/>
+									<input type="hidden" id="c6" name="custId" value=""/>
+									<input type="hidden" id="c7" name="custId" value=""/>
+									<input type="hidden" id="c8" name="custId" value=""/>
+									<input type="hidden" id="c9" name="custId" value=""/>
+									<input type="hidden" id="c10" name="custId" value=""/>
 							</div>
 
 							<div class="col-12 col-lg-4">
@@ -275,6 +325,10 @@
 		setFormValidation('#LoginValidation');
 	});
 
+	
+
+	  startApp();
+	  
 	theToggle.onclick = function() {
 		   toggleClass(this, 'on');
 		   return false;

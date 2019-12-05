@@ -58,12 +58,14 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 				   "overwrite", true
 				);
 		
-		try {
-			log.info("Subiendo imagen de: {}", item.getNombreMarca());
-			String url = cloundinaryService.uploadImage(file.getBytes(), params);
-			item.setImgUrl( url );
-		} catch (IOException e) {
-			log.error("Ocurrio un error al subir imagen", e);
+		if ( !file.isEmpty() ) {
+			try {
+				log.info("Subiendo imagen de: {}", item.getNombreMarca());
+				String url = cloundinaryService.uploadImage(file.getBytes(), params);
+				item.setImgUrl( url );
+			} catch (IOException e) {
+				log.error("Ocurrio un error al subir imagen", e);
+			}
 		}
 		
 		
@@ -93,12 +95,14 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 				   "overwrite", true
 				);
 		
-		try {
-			log.info("Subiendo imagen de: {}", item.getNombreMarca());
-			String url = cloundinaryService.uploadImage(file.getBytes(), params);
-			item.setImgUrl( url );
-		} catch (IOException e) {
-			log.error("Ocurrio un error al subir imagen", e);
+		if ( !file.isEmpty() ) {
+			try {
+				log.info("Subiendo imagen de: {}", item.getNombreMarca());
+				String url = cloundinaryService.uploadImage(file.getBytes(), params);
+				item.setImgUrl( url );
+			} catch (IOException e) {
+				log.error("Ocurrio un error al subir imagen", e);
+			}
 		}
 		
 		item = catalogoMarcaDAO.update(item);

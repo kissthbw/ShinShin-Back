@@ -1,7 +1,10 @@
 package com.bit.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -72,6 +76,16 @@ public class Producto {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_catalogo_tienda")
 	private CatalogoTienda catalogoTienda;
+	
+//	@ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//        name = "productos_tiendas", 
+//        joinColumns = { @JoinColumn(name = "id_producto") }, 
+//        inverseJoinColumns = { @JoinColumn(name = "id_catalogo_tienda") }
+//    )
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_producto")
+    List<ProductosTiendas> tiendas = new ArrayList<>();
 	
 	@Column(name = "img_url")
 	private String imgUrl;
@@ -202,6 +216,22 @@ public class Producto {
 
 	public void setCatalogoTienda(CatalogoTienda catalogoTienda) {
 		this.catalogoTienda = catalogoTienda;
+	}
+
+	public List<ProductosTiendas> getTiendas() {
+		return tiendas;
+	}
+
+	public void setTiendas(List<ProductosTiendas> tiendas) {
+		this.tiendas = tiendas;
+	}
+	
+	public void addTienda( ProductosTiendas tienda ) {
+		this.tiendas.add(tienda);
+	}
+	
+	public void removeTienda( CatalogoTienda tienda ) {
+		this.tiendas.remove(tienda);
 	}
 
 	public String getImgUrl() {

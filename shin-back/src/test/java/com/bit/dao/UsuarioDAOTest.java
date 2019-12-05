@@ -113,8 +113,8 @@ public class UsuarioDAOTest {
 		u.setFechaNac(c.getTime());
 		u.setFotoUsuario("");
 		u.setTelMovil("+5215548998389");
-		u.setCorreoElectronico("beyota_paola@hotmail.com");
-		u.setUsuario("beyota_paola@hotmail.com");
+		u.setCorreoElectronico("beyotappaola@hotmail.com");
+		u.setUsuario("beyotappaola@hotmail.com");
 		u.setContrasenia("kiss2101");
 		u.setCodigoPostal("57300");
 		u.setIdCatalogoSexo(1);

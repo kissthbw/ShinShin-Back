@@ -5,28 +5,42 @@
 <head>
 
 <meta charset="UTF-8" />
-<link rel="apple-touch-icon" sizes="76x76" th:href="@{/resources/assets/img/apple-icon.png}"></link>
-<link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}"></link>
+<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Shing-Shing - Productos</title>
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <!--     Fonts and icons     -->
-
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
 <!-- CSS Files -->
-
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/colorpicker/dist/css/bootstrap-colorpicker.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
 
 </head>
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="brown" data-active-color="danger">
+		<div class="sidebar" data-color="white" data-active-color="danger">
 			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
+			
+			<div class="logo">
+        		<a href="" class="simple-text logo-mini">
+          			<div class="logo-image-small">
+          
+            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
+          			</div>
+        		</a>
+        		<a href="" class="simple-text logo-no rmal">
+          			<div class="logo-image-big">
+            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
+          			</div>
+        		</a>
+      		</div>
+			
 			<div class="sidebar-wrapper">
 				<div class="user">
 					<div class="photo">
@@ -46,7 +60,6 @@
 				<!-- MENU -->
 				<ul class="nav">
 					<!-- Las opciones del menu debe ir entre <li></li> -->
-
 					<li class="active">
 						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
 							<i class="nc-icon nc-ruler-pencil"></i>
@@ -55,90 +68,34 @@
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li>
-									<a th:href="@{/portal-administrador/departamento/save}">
-										<span class="sidebar-mini-icon">D</span>
+									<a th:href="@{/portal-administrador/departamento/list}">
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Departamentos </span>
 									</a>
 								</li>
 								<li>
-									<a th:href="@{/portal-administrador/marca/save}">
-										<span class="sidebar-mini-icon">M</span>
+									<a th:href="@{/portal-administrador/marca/list}">
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Marcas </span>
 									</a>
 								</li>
 								<li>
-									<a th:href="@{/portal-administrador/tienda/save}">
-										<span class="sidebar-mini-icon">T</span>
+									<a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Tiendas </span>
 									</a>
 								</li>
 								<li>
-									<a th:href="@{/portal-administrador/medioBonificacion/save}">
-										<span class="sidebar-mini-icon">MB</span>
+									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Medios bonificacion </span>
 									</a>
 								</li>
 								<li class="active">
-									<a th:href="@{/portal-administrador/producto/save}">
-										<span class="sidebar-mini-icon">P</span>
+									<a th:href="@{/portal-administrador/producto/list}">
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Productos </span>
 									</a>
-								</li>
-								<li>
-									<a data-toggle="collapse" href="#listas" aria-expanded="true">
-										<i class="nc-icon nc-single-copy-04"></i>
-										<p>Listas<b class="caret"></b></p>
-									</a>
-									<div class="collapse show" id="listas">
-										<ul class="nav">
-											<li>
-												<a th:href="@{/portal-administrador/departamento/list}">
-													<span class="sidebar-mini-icon">D</span>
-													<span class="sidebar-normal"> Departamentos </span>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div class="collapse show" id="listas">
-										<ul class="nav">
-											<li>
-												<a th:href="@{/portal-administrador/marca/list}">
-													<span class="sidebar-mini-icon">M</span>
-													<span class="sidebar-normal"> Marcas </span>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div class="collapse show" id="listas">
-										<ul class="nav">
-											<li>
-												<a th:href="@{/portal-administrador/tienda/list}">
-													<span class="sidebar-mini-icon">T</span>
-													<span class="sidebar-normal"> Tiendas </span>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div class="collapse show" id="listas">
-										<ul class="nav">
-											<li>
-												<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-													<span class="sidebar-mini-icon">MB</span>
-													<span class="sidebar-normal"> Medios Bonificacion </span>
-												</a>
-											</li>
-										</ul>
-									</div>
-									<div class="collapse show" id="listas">
-										<ul class="nav">
-											<li>
-												<a th:href="@{/portal-administrador/producto/list}">
-													<span class="sidebar-mini-icon">P</span>
-													<span class="sidebar-normal"> Productos </span>
-												</a>
-											</li>
-										</ul>
-									</div>
 								</li>
 							</ul>
 						</div>
@@ -190,46 +147,17 @@
 								</div>
 								<div class="card-body ">
 									<div class="row">
-										<label class="col-sm-2 col-form-label">Nombre de Producto</label>
+										<label class="col-sm-2 col-form-label">Nombre</label>
 										<div class="col-sm-7">
 											<div class="form-group">
 												<input class="form-control" type="text" th:field="*{nombreProducto}" name="required" required="true" />
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right">
-											<code>Obligatorio</code>
+											<code>*</code>
 										</label>
 									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Precio</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{precio}" name="required" required="true" />
-											</div>
-										</div>
-										<label class="card-sm-3 label-on-right">
-											<code>Obligatorio</code>
-										</label>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Codigo de Barras</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{codigoBarras}" name="required" required="true" />
-											</div>
-										</div>
-										<label class="card-sm-3 Label-on-right">
-											<code>Obligatorio</code>
-										</label>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Presentacion</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<textarea class="form-control" rows="3" th:field="*{presentacion}"></textarea>
-											</div>
-										</div>
-									</div>
+
 									<div class="row">
 										<label class="col-sm-2 col-form-label">Contenido</label>
 										<div class="col-sm-7">
@@ -238,96 +166,10 @@
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right">
-											<code>Obligatorio</code>
+											<code>*</code>
 										</label>
 									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Descripcion</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<textarea class="form-control" rows="3" th:field="*{descripcion}"></textarea>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Aplica Promocion</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<select class="form-control" th:field="*{aplicaPromocion}">
-													<option value="1">SI</option>
-													<option value="0">NO</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Vigencia Promocion</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{vigenciaPromocion}" />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">URL Imagen del Producto</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{urlImagenProducto}" name="required" required="false" />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Cantidad de Bonificacion</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{cantidadBonificacion}" />
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Es Banner</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<select class="form-control" th:field="*{banner}" >
-													<option value="1">SI</option>
-													<option value="0">NO</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Color de Banner</label>
-										<div class="col-sm-7">
-											<div id="demo" class="input-group">
-												<input class="form-control input-lg" type="text" data-color="rgb(241, 138, 49)" th:field="*{colorBanner}" />
-												<span class="input-group-append">
-    												<span class="input-group-text colorpicker-input-addon"><i></i></span>
-  												</span>
-											</div>
-										</div>
-									</div>
-									
-									<div class="row">
-											<label class="col-sm-2 col-form-label Label-on-left">Imagen</label>
-											<div class="col-md-4 col-sm-4">
-												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-	                      							<div class="fileinput-new thumbnail">
-	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
-	                      							</div>
-	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
-	                      							<div>
-	                        							<span class="btn btn-rose btn-round btn-file">
-	                          								<span class="fileinput-new">Select image</span>
-	                          								<span class="fileinput-exists">Change</span>
-	                          								<input type="file" name="file" />
-	                        							</span>
-	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-	                       									<i class="fa fa-times"></i>Remove</a>
-	                      							</div>
-	                    						</div>
-											</div>
-									</div>
-									
+
 									<div class="row">
 										<label class="col-sm-2 col-form-label">Marca</label>
 										<div class="col-sm-7">
@@ -343,9 +185,10 @@
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right">
-											<code>Obligatorio</code>
+											<code>*</code>
 										</label>
 									</div>
+
 									<div class="row">
 										<label class="col-sm-2 col-form-label">Departamento</label>
 										<div class="col-sm-7">
@@ -360,26 +203,128 @@
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right">
-											<code>Obligatorio</code>
+											<code>*</code>
 										</label>
 									</div>
+
 									<div class="row">
-										<label class="col-sm-2 col-form-label">Tienda</label>
+										<label class="col-sm-2 col-form-label">Bonificacion</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control"
-													id="catalogoTienda.idCatalogoTienda" name="catalogoTienda.idCatalogoTienda">
-													<option th:each="tienda:${tiendas}"
-														th:value="${tienda.idCatalogoTienda}"
-														th:utext="${tienda.nombreTienda}" 
-														th:selected="*{catalogoTienda} != null ? *{catalogoTienda.idCatalogoTienda} == ${tienda.idCatalogoTienda} : ''"></option>
+												<input class="form-control" type="text" th:field="*{cantidadBonificacion}" />
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<label class="col-sm-2 col-form-label">Tipo</label>
+										<div class="col-sm-7">
+											<div class="form-group">
+												<select class="form-control" th:field="*{banner}" >
+													<option value="1">Básico</option>
+													<option value="0">Popular</option>
+													<option value="0">Principal</option>
 												</select>
 											</div>
 										</div>
+									</div>
+
+									<div class="row">
+										<label class="col-sm-2 col-form-label">Color de Banner</label>
+										<div class="col-sm-7">
+											<div id="demo" class="input-group">
+												<input class="form-control input-lg" type="text" data-color="rgb(241, 138, 49)" th:field="*{colorBanner}" />
+												<span class="input-group-append">
+    												<span class="input-group-text colorpicker-input-addon"><i></i></span>
+  												</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<label class="col-sm-2 col-form-label">Descripcion</label>
+										<div class="col-sm-7">
+											<div class="form-group">
+												<textarea class="form-control" rows="3" th:field="*{descripcion}"></textarea>
+											</div>
+
+										</div>
+									</div>
+
+									<hr/>
+									<div class="row">
+										<label class="col-sm-2 col-form-label" style="font-weight: 900;">Imágen</label>
+										<div class="col-sm-7"></div>
 										<label class="card-sm-3 Label-on-right">
-											<code>Obligatorio</code>
+											<code>*</code>
 										</label>
 									</div>
+									<div class="row">
+											<label class="col-sm-2 col-form-label Label-on-left">Chica</label>
+											<div class="col-md-4 col-sm-4">
+												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+
+	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
+	                      							<div>
+	                        							<span class="btn btn-rose btn-round btn-file">
+	                          								<span class="fileinput-new">Selecciona</span>
+	                          								<span class="fileinput-exists">Cambiar</span>
+	                          								<input type="file" name="file" />
+	                        							</span>
+	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+	                       									<i class="fa fa-times"></i>Eliminar</a>
+	                      							</div>
+
+	                      							<div class="fileinput-new thumbnail">
+	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+	                      							</div>
+	                    						</div>
+											</div>
+									</div>
+
+									<div class="row">
+											<label class="col-sm-2 col-form-label Label-on-left">Grande</label>
+											<div class="col-md-4 col-sm-4">
+												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
+	                      							<div>
+	                        							<span class="btn btn-rose btn-round btn-file">
+	                          								<span class="fileinput-new">Selecciona</span>
+	                          								<span class="fileinput-exists">Cambiar</span>
+	                          								<input type="file" name="file" />
+	                        							</span>
+	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+	                       									<i class="fa fa-times"></i>Eliminar</a>
+	                      							</div>
+	                      							<div class="fileinput-new thumbnail">
+	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+	                      							</div>
+	                    						</div>
+											</div>
+									</div>
+								
+									<hr/>
+
+									<div class="row">
+										<label class="col-sm-2 col-form-label" style="font-weight: 900;">Codigos</label>
+										<div class="col-sm-7"></div>
+										<label class="card-sm-3 Label-on-right">
+											<code>*</code>
+										</label>
+									</div>
+
+									<!-- Comercial -->
+									<div class="row" th:each="tienda,i:${item.tiendas}">
+										<label class="col-sm-2 col-form-label" th:text="${tienda.catalogoTienda.nombreTienda}"></label>
+										<div class="col-sm-7">
+											<div class="form-group">
+												<input class="form-control" type="text" th:field="*{tiendas[__${i.index}__].productoTienda}" />
+												<input type="hidden" th:field="*{tiendas[__${i.index}__].catalogoTienda.idCatalogoTienda}" value="*{tiendas[__${i.index}__].catalogoTienda.idCatalogoTienda}" />
+												<input type="hidden" th:field="*{tiendas[__${i.index}__].catalogoTienda.nombreTienda}" value="*{tiendas[__${i.index}__].catalogoTienda.nombreTienda}" />
+											</div>
+										</div>
+									</div>
+
 									<div class="card-footer text-center">
 										<button type="submit" class="btn btn-primary">Guardar</button>
 									</div>

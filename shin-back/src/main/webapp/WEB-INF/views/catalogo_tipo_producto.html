@@ -17,16 +17,33 @@ Shing-Shing - Tipo Productos
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
 <!-- CSS Files -->
 
+
 <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
 <!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
 
 </head>
 
 <body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="brown" data-active-color="danger">
+		<div class="sidebar" data-color="white" data-active-color="danger">
 		<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
+			<div class="logo">
+        		<a href="" class="simple-text logo-mini">
+          			<div class="logo-image-small">
+          
+            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
+          			</div>
+        		</a>
+        		<a href="" class="simple-text logo-no rmal">
+          			<div class="logo-image-big">
+            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
+          			</div>
+        		</a>
+      		</div>
+			
 			<div class="sidebar-wrapper">
 				<div class="user">
 					<div class="photo">
@@ -63,31 +80,31 @@ Shing-Shing - Tipo Productos
 								<li>
 								<!-- <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/upload/facesCompare}">Faces compare</a></li> -->
 									<a th:href="@{/portal-administrador/departamento/save}">
-										<span class="sidebar-mini-icon">D</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Departamentos </span>
 									</a>
 								</li>
 								<li>
                   					<a th:href="@{/portal-administrador/marca/save}">
-                    					<span class="sidebar-mini-icon">M</span>
+                    					<span class="sidebar-mini-icon">·</span>
                    						<span class="sidebar-normal"> Marcas </span>
                   					</a>
                   				</li>
                 				<li>
                   					<a th:href="@{/portal-administrador/tienda/save}">
-                    					<span class="sidebar-mini-icon">T</span>
+                    					<span class="sidebar-mini-icon">·</span>
                     					<span class="sidebar-normal"> Tiendas </span>
                   					</a>
                 				</li>
                 				<li>
                   					<a th:href="@{/portal-administrador/medioBonificacion/save}">
-                    					<span class="sidebar-mini-icon">MB</span>
+                    					<span class="sidebar-mini-icon">·</span>
                     					<span class="sidebar-normal"> Medios bonificacion </span>
                   					</a>
                 				</li>
                 				<li>
                   					<a th:href="@{/portal-administrador/producto/save}">
-                    					<span class="sidebar-mini-icon">P</span>
+                    					<span class="sidebar-mini-icon">·</span>
                     					<span class="sidebar-normal"> Productos </span>
                   					</a>
                 				</li>
