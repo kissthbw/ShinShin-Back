@@ -39,7 +39,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		Personalization personalization = new Personalization();
 			
 		// 1. Correo del emisor, debe ser de la cuenta del cliente
-		Email from = new Email("test@example.com");
+		Email from = new Email("contacto@tradenial.com");
 
 		// 2. Correo del usuario que se registro
 		Email to = new Email();
