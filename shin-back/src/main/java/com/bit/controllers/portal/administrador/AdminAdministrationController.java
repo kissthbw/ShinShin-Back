@@ -1,4 +1,4 @@
-package com.bit.controllers.portal.usuario;
+package com.bit.controllers.portal.administrador;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +17,10 @@ import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
 
 @Controller
-@RequestMapping("/portal-usuario")
-public class RestaurarController {
+@RequestMapping("/portal-administrador")
+public class AdminAdministrationController {
 	
-	private static final Logger log= LoggerFactory.getLogger(RestaurarController.class);
+	private static final Logger log= LoggerFactory.getLogger(AdminAdministrationController.class);
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -33,7 +33,7 @@ public class RestaurarController {
 		
 		log.info("Entrando en getRestaurar");
 		model.addAttribute("item", new Usuario());
-		return "restaurar_solicitar";
+		return "administrador/restaurar_solicitar";
 
 	}
 	
@@ -47,8 +47,8 @@ public class RestaurarController {
 		SimpleResponse rsp = usuarioService.solicitarRestaurarPassword(item);
 		
 		if( 200 == rsp.getCode() ) {
-//			return "redirect:/portal-usuario";
-			return "restaurar_confirmacion_envio";
+//			return "redirect:/portal-administrador";
+			return "administrador/restaurar_confirmacion_envio";
 		}
 		else {
 			return "redirect:?error=error";
@@ -66,13 +66,13 @@ public class RestaurarController {
 		
 		if ( 200 == rsp.getCode() ) {
 			model.addAttribute("item", new Usuario());
-			return "restaurar_captura";
+			return "administrador/restaurar_captura";
 		}
 		else if ( 405 == rsp.getCode() ) {
-			return "redirect:/portal-usuario/restaurar/405";
+			return "redirect:/portal-administrador/restaurar/405";
 		}
 		else {
-			return "redirect:/portal-usuario/restaurar/404";
+			return "redirect:/portal-administrador/restaurar/404";
 		}
 
 	}
@@ -102,12 +102,12 @@ public class RestaurarController {
 	
 	@RequestMapping(value = "/restaurar/405", method = RequestMethod.GET)
 	public String get405(Model model) {
-		return "405";
+		return "administrador/405";
 	}
 	
 	@RequestMapping(value = "/restaurar/404", method = RequestMethod.GET)
 	public String get404(Model model) {
-		return "404";
+		return "administrador/404";
 	}
 	
 	@RequestMapping(value = "/restaurar/captura/{id}", method = RequestMethod.POST)
@@ -120,7 +120,7 @@ public class RestaurarController {
 //		SimpleResponse rsp = usuarioService.restaurarPassword(item);
 		
 		if ( 200 == rsp.getCode() ) {
-			return "restaurar_success";
+			return "administrador/restaurar_success";
 			
 		}
 		else if ( 404 == rsp.getCode() ) {
@@ -142,7 +142,7 @@ public class RestaurarController {
 //		SimpleResponse rsp = usuarioService.restaurarPassword(item);
 		
 		if ( 200 == rsp.getCode() ) {
-			return "redirect:/success";
+			return "redirect:/administrador/success";
 		}
 		else if ( 404 == rsp.getCode() ) {
 			return "redirect:/404";
@@ -157,7 +157,7 @@ public class RestaurarController {
 	public String getSuccess(Model model) {
 		
 		log.info("Entrando en getSuccess");
-		return "restaurar_success";
+		return "administrador/restaurar_success";
 		
 	}
 	
@@ -166,7 +166,7 @@ public class RestaurarController {
 		
 		log.info("Entrando en getRestaurar");
 		model.addAttribute("item", new Usuario());
-		return "contacto";
+		return "administrador/contacto";
 
 	}
 	
@@ -175,7 +175,7 @@ public class RestaurarController {
 		
 		log.info("Entrando en getRestaurar");
 		model.addAttribute("item", new Usuario());
-		return "crear_cuenta";
+		return "administrador/crear_cuenta";
 
 	}
 	
@@ -186,10 +186,10 @@ public class RestaurarController {
 		
 		InformacionUsuarioRSP rsp = usuarioService.registrarUsuarios(item, Source.CONTROLLER);
 		if ( 200 == rsp.getCode() ) {
-			return "redirect:/portal-usuario/restaurar/validacion/" + rsp.getUsuario().getActivation_link();
+			return "redirect:/portal-administrador/restaurar/validacion/" + rsp.getUsuario().getActivation_link();
 		}
 		
-		return "restaurar_success";
+		return "administrador/restaurar_success";
 
 	}
 	
@@ -208,14 +208,14 @@ public class RestaurarController {
 			rsp.getUsuario().setIdUsuario( rsp.getId() );
 			
 			model.addAttribute("item", rsp.getUsuario());
-			return "validacion";
+			return "administrador/validacion";
 //			return "restaurar_captura";
 		}
 		else if ( 405 == rsp.getCode() ) {
-			return "redirect:/portal-usuario/restaurar/405";
+			return "redirect:/portal-administrador/restaurar/405";
 		}
 		else {
-			return "redirect:/portal-usuario/restaurar/404";
+			return "redirect:/portal-administrador/restaurar/404";
 		}
 		
 //		log.info("Entrando en getRestaurar");
@@ -231,7 +231,7 @@ public class RestaurarController {
 		
 		log.info("Entrando a activarUsuarios para activar un usuario");
 		SimpleResponse rsp = usuarioService.activarUsuarios(item, Source.CONTROLLER);
-		return "validacion_success";
+		return "administrador/validacion_success";
 
 	}
 	
@@ -244,10 +244,10 @@ public class RestaurarController {
 		InformacionUsuarioRSP rsp = usuarioService.reenviarCodigoUsuario(item, Source.CONTROLLER);
 		
 		if( 200 == rsp.getCode() ) {
-			return "redirect:/portal-usuario/restaurar/validacion/" + rsp.getUsuario().getActivation_link();
+			return "redirect:/portal-administrador/restaurar/validacion/" + rsp.getUsuario().getActivation_link();
 		}
 		
-		return "validacion_success";
+		return "administrador/validacion_success";
 
 	}
 }

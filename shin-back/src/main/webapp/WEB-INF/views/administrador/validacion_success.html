@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+  <title>Validación | Shing Shing</title>
+  <!-- Favicon -->
+  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/resources/home/css/bootstrap.min.css}" rel="stylesheet"/>
+  <!-- Material Design Bootstrap -->
+  <link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet"/>
+  <!-- Your custom styles (optional) -->
+  <link th:href="@{/resources/home/css/style.css}" rel="stylesheet"/>
+  <!-- Your custom styles (optional) -->
+  <link th:href="@{/resources/home/css/login.css}" rel="stylesheet"/>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
+  <!-- Imagenes -->
+  <style type="text/css">
+		#logo-header{
+			background-image: url(resources/home/img/brands/ss-complet.svg);
+		}
+		#pleca{
+			background-image: url(resources/home/img/micros/background.svg);
+		}
+		#footer #logo{
+			background-image: url(resources/home/img/brands/ss-complet-orange.svg);
+		}
+		#social #fb, .logo-fb{
+			background-image: url(resources/home/img/brands/fb.svg);
+		}
+		#social #tw{
+			background-image: url(resources/home/img/brands/tw.svg);
+		}
+		.logo-gm{
+			background-image: url(resources/home/img/brands/gm.svg);
+		}
+		.icon-mail{
+			background-image: url(resources/home/img/icon/mail.svg);
+		}
+		.icon-toggle{
+			background-image: url(resources/home/img/icon/toggle.svg);
+		}
+		.img-password{
+			background-image: url(resources/home/img/micros/password.svg);
+		}
+		.img-validacion{
+			background-image: url(resources/home/img/micros/validacion.svg);
+		}
+  </style>
+</head>
+
+<body>
+<!-- Modal Correo enviado -->
+
+	<!-- Principal -->
+	<div id="principal" class="section">
+
+		<!-- Header -->
+		<header>
+			<div class="container">
+				<a th:href="@{/portal-administrador}">
+					<div class="row justify-content-between">
+						<div class="col" id="logo-header"></div>
+					</div>
+				</a>
+				</div>
+		</header>
+
+	</div>
+
+	<div class="line-white -line"></div>
+
+	<!-- Contenedor -->
+	<div class="section">
+		<!-- Content principal -->
+		<div id="content-principal">
+			<div class="container">
+				<div class="row justify-content-center">
+        			<div class="col-10 col-sm-8 col-md-6 col-lg-4">
+	        		<div class="col">
+	        			<div id="logo-header" class="logo-modal"></div>
+	        		</div>
+					<div class="col-12">
+						<div class="img-login img-validacion"></div>
+					</div>
+					<div class="col-12 title-login">
+						<font>¡Si, eres tu!</font>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-10 col-sm-8 col-md-8 col-lg-6 description-login">
+							<font>Es hora de subir todos tickets y ganar dinero por tus compras.</font>
+						</div>
+					</div>
+					<a th:href="@{/portal-administrador}">
+						<div class="col-12">
+							<div class="row justify-content-between">
+								<button class="btn btn-primary cta-white m-40 col">Vale</button>
+							</div>
+						</div>
+					</a>
+					</div>
+        		</div>
+			</div>
+		</div>
+	</div>
+
+  <!-- Start your project here-->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" th:src="@{/resources/home/js/jquery-3.4.1.min.js}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" th:src="@{/resources/home/js/popper.min.js}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" th:src="@{/resources/home/js/bootstrap.min.js}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" th:src="@{/resources/home/js/mdb.min.js}"></script>
+<script type="text/javascript">var theToggle = document.getElementById('toggle');
+
+// based on Todd Motto functions
+// https://toddmotto.com/labs/reusable-js/
+
+// hasClass
+function hasClass(elem, className) {
+	return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+}
+// addClass
+function addClass(elem, className) {
+    if (!hasClass(elem, className)) {
+    	elem.className += ' ' + className;
+    }
+}
+// removeClass
+function removeClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
+	if (hasClass(elem, className)) {
+        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
+            newClass = newClass.replace(' ' + className + ' ', ' ');
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    }
+}
+// toggleClass
+function toggleClass(elem, className) {
+	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, " " ) + ' ';
+    if (hasClass(elem, className)) {
+        while (newClass.indexOf(" " + className + " ") >= 0 ) {
+            newClass = newClass.replace( " " + className + " " , " " );
+        }
+        elem.className = newClass.replace(/^\s+|\s+$/g, '');
+    } else {
+        elem.className += ' ' + className;
+    }
+}
+
+
+theToggle.onclick = function() {
+   toggleClass(this, 'on');
+   return false;
+}
+</script> 
+
+
+
+</body>
+
+</html>
