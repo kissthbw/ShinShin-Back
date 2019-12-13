@@ -22,6 +22,29 @@
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
   <script src="https://apis.google.com/js/api:client.js"></script>
+  
+	<script>
+  		window.fbAsyncInit = function() {
+    		FB.init({
+      			appId      : '480515842728115',
+      			cookie     : true,
+      			xfbml      : true,
+      			version    : 'v5.0'
+    		});
+      
+    		FB.AppEvents.logPageView();   
+      
+		  };
+
+  		(function(d, s, id){
+     		var js, fjs = d.getElementsByTagName(s)[0];
+     		if (d.getElementById(id)) {return;}
+
+			js = d.createElement(s); js.id = id;
+     		js.src = "https://connect.facebook.net/en_US/sdk.js";
+     		fjs.parentNode.insertBefore(js, fjs);
+   		}(document, 'script', 'facebook-jssdk'));
+	</script>
   <script>
   var googleUser = {};
   var startApp = function() {
@@ -53,14 +76,44 @@
 	        // The ID token you need to pass to your backend:
 	        var id_token = googleUser.getAuthResponse().id_token;
 	        console.log("ID Token: " + id_token);
-
-	          document.getElementById('c1').val( profile.getId );
+	        validateSocialMediaUser(profile);
+	        //document.getElementById('c1').val( profile.getId );
+	        //Realizar validacion a backend para verficar si existe en BD de ShingShing
+	        
 	          
               
 	        }, function(error) {
 	          alert(JSON.stringify(error, undefined, 2));
 	        });
 	  }
+
+  	function validateSocialMediaUser(profile){
+  		$.ajax({
+			method: "POST",
+			url: "http://www.shingshing.com/usuarios/social/registrar",
+		    dataType: "json",
+            contentType: "application/json;charset=utf-8",
+			data: JSON.stringify({ 
+				'nombre': profile.getName(),
+			  	'fechaNac': '1970-01-01',
+			  	'correoElectronico': profile.getEmail(),
+			  	'usuario':profile.getEmail(),
+			  	'contrasenia': profile.getEmail(),
+			  	'codigoPostal': '00000',
+			  	'idCatalogoSexo': 3,
+			  	'idRedSocial': 1
+	  			})
+	})
+		.done(function( data ) {
+			console.log( data.code );
+			$('#username').val( data.usuario.usuario );
+			$('#password').val( data.usuario.usuario );
+			$('#LoginValidation').submit();
+			//document.getElementById('username').val( data.usuario.usuario );
+			//document.getElementById('password').val( data.usuario.usuario );
+			//alert( "Data Saved: " + data );
+		});
+	}
   </script>
   <!-- Imagenes -->
   <style type="text/css">
@@ -235,7 +288,7 @@
 
 						</div>
 					</div>
-
+					<!--   <button id = "idBtn">Trigger submit event</button> -->
 					<div class="row justify-content-center">
 						<div id="footer-login" class="col-10 col-lg-6">
 							<div class="row justify-content-center">
@@ -323,6 +376,39 @@
 
 	$(document).ready(function() {
 		setFormValidation('#LoginValidation');
+
+		$('#LoginValidation').submit(function(){
+			    
+		});
+			
+		$('#idBtn').click(function(){
+			    //$('#LoginValidation').submit();
+			$.ajax({
+					method: "POST",
+					url: "http://localhost:8080/shin-back/usuarios/social/registrar",
+				    dataType: "json",
+		            contentType: "application/json;charset=utf-8",
+					data: JSON.stringify({ 
+						'nombre': 'Juan Osorio Alvarez',
+					  	'fechaNac': '1970-01-01',
+					  	'correoElectronico': 'kissthbw@gmail.com',
+					  	'usuario':'kissthbw@gmail.com',
+					  	'contrasenia': 'kissthbw@gmail.com',
+					  	'codigoPostal': '00000',
+					  	'idCatalogoSexo': 3,
+					  	'idRedSocial': 1
+	  	  			})
+			})
+				.done(function( data ) {
+					console.log( data.code );
+					$('#username').val( data.usuario.usuario );
+					$('#password').val( data.usuario.usuario );
+					$('#LoginValidation').submit();
+					//document.getElementById('username').val( data.usuario.usuario );
+					//document.getElementById('password').val( data.usuario.usuario );
+					//alert( "Data Saved: " + data );
+				});
+		});  
 	});
 
 	
