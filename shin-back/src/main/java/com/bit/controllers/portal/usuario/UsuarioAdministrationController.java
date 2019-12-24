@@ -24,7 +24,6 @@ public class UsuarioAdministrationController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
-	
 	/*
 	 * Obtiene la pagina para capturar el correo solicitando restaurar password
 	 */
@@ -249,5 +248,140 @@ public class UsuarioAdministrationController {
 		
 		return "validacion_success";
 
+	}
+	
+	@RequestMapping(value = "restaurar/bonificaciones-general", method = RequestMethod.GET)
+	public String getObtenerGeneral(Model model) {
+		
+		log.info("Entrando a getObtenerGeneral");
+		Usuario item = new Usuario();
+		
+		return "administrador/bonificaciones-general";
+	}
+	
+	@RequestMapping(value = "restaurar/bonificaciones-depositos", method = RequestMethod.GET)
+	public String getObtenerDepositos(Model model) {
+		
+		log.info("Entrando a getObtenerDeporistos");
+		Usuario item = new Usuario();
+		
+		return "administrador/bonificaciones-depositos";
+	}
+	
+	@RequestMapping(value = "restaurar/bonificaciones-depositos-detalle", method = RequestMethod.GET)
+	public String getObtenerDepositosDetalle(Model model) {
+		
+		log.info("Entrando a getObtenerDeporistosDetalle");
+		Usuario item = new Usuario();
+		
+		return "administrador/bonificaciones-depositos-detalle";
+	}
+	
+	@RequestMapping(value = "restaurar/bonificaciones-recargas", method = RequestMethod.GET)
+	public String getObtenerRecargas(Model model) {
+		
+		log.info("Entrando a getObtenerRecargas");
+		Usuario item = new Usuario();
+		
+		return "administrador/bonificaciones-recargas";
+	}
+	
+	@RequestMapping(value = "restaurar/bonificaciones-recargas-detalle", method = RequestMethod.GET)
+	public String getObtenerRecargasDetalle(Model model) {
+		
+		log.info("Entrando a getObtenerRecargasDetalle");
+		Usuario item = new Usuario();
+		
+		return "administrador/bonificaciones-recargas-detalle";
+	}
+	
+	@RequestMapping(value = "restaurar/estadisticas-general", method = RequestMethod.GET)
+	public String getObtenerEstadisticasGeneral(Model model) {
+		
+		log.info("Entrando a getObtenerEstadisticasGeneral");
+		Usuario item = new Usuario();
+		
+		return "administrador/estadisticas-general";
+	}
+	
+	@RequestMapping(value = "restaurar/estadisticas-marcas", method = RequestMethod.GET)
+	public String getObtenerEstadisticasMarcas(Model model) {
+		
+		log.info("Entrando a getObtenerEstadisticasMarcas");
+		Usuario item = new Usuario();
+		
+		return "administrador/estadisticas-marcas";
+	}
+	
+	@RequestMapping(value = "restaurar/estadisticas-tickets", method = RequestMethod.GET)
+	public String getObtenerEstadisticasTickets(Model model) {
+		
+		log.info("Entrando a getObtenerEstadisticasTickets");
+		Usuario item = new Usuario();
+		
+		return "administrador/estadisticas-tickets";
+	}
+	
+	@RequestMapping(value = "restaurar/estadisticas-tickets-detalle", method = RequestMethod.GET)
+	public String getObtenerEstadisticasTicketsDetalle(Model model) {
+		
+		log.info("Entrando a getObtenerEstadisticasTicketsDetalle");
+		Usuario item = new Usuario();
+		
+		return "administrador/estadisticas-tickets-detalle";
+	}
+	
+	@RequestMapping(value = "restaurar/estadisticas-tickets-detalle-segundoDetalle", method = RequestMethod.GET)
+	public String getObtenerEstadisticasTicketsDetalleSegundoDetalle(Model model) {
+		
+		log.info("Entrando a getObtenerEstadisticasTicketsDetalleSegundoDetalle");
+		Usuario item = new Usuario();
+		
+		return "administrador/estadisticas-tickets-detalle-segundoDetalle";
+	}
+	
+	@RequestMapping(value = "restaurar/estadisticas-usuarios", method = RequestMethod.GET)
+	public String getObtenerEstadisticasUsuarios(Model model) {
+		
+		log.info("Entrando a getObtenerEstadisticasUsuarios");
+		Usuario item = new Usuario();
+		
+		return "administrador/estadisticas-usuarios";
+	}
+	
+	@RequestMapping(value = "restaurar/lista-marcas-editar", method = RequestMethod.GET)
+	public String getObtenerMarcasEditar(Model model) {
+		
+		log.info("Entrando a getObtenerMarcasEditar");
+		Usuario item = new Usuario();
+		
+		return "administrador/lista_marcas-editar";
+	}
+	
+	@RequestMapping(value = "restaurar/lista-marcas-nuevo", method = RequestMethod.GET)
+	public String getObtenerMarcasNuevo(Model model) {
+		
+		log.info("Entrando a getObtenerMarcasNuevo");
+		Usuario item = new Usuario();
+		
+		return "administrador/lista_marcas-nuevo";
+	}
+	
+	@RequestMapping(value = "restaurar/lista-marcas", method = RequestMethod.GET)
+	public String getObtenerMarcas(Model model) {
+		
+		log.info("Entrando a getObtenerMarcas");
+		Usuario item = new Usuario();
+		
+		return "administrador/lista_marcas";
+	}
+	
+	@RequestMapping(value = "restaurar/usuario-detalle", method = RequestMethod.GET)
+	public String getObtenerUsuarioDetalle(Model model) {
+		
+		log.info("Entrando a getObtenerUsuarioDetalle");
+		Usuario item = new Usuario();
+		
+		return "administrador/usuario-detalle";
 	}
 }

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
+<link rel="apple-touch-icon" sizes="76x76"
+	th:href="@{/resources/assets/img/apple-icon.png}"></link>
+<link rel="icon" type="image/png"
+	th:href="@{/resources/assets/img/favicon.png}"></link>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Shing Shing / Tickets</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
+<!--     Fonts and icons     -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet"></link>
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet"></link>
+<!-- CSS Files -->
+<link th:href="@{/resources/assets/css/bootstrap.min.css}"
+	rel="stylesheet"></link>
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
+	rel="stylesheet"></link>
+<link th:href="@{/resources/assets/css/style-panel.css}"
+	rel="stylesheet"></link>
+<!-- CSS Just for demo purpose, don't include it in your project 
+  <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet"></link>
+-->
+</head>
+
+<body class="">
+	<div class="wrapper">
+		<div class="sidebar" data-active-color="danger">
+			<!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+      -->
+			<div class="logo">
+				<a href="http://www.shingshing.com" class="simple-text logo-no rmal">
+					<img th:src="@{/resources/assets/img/brands/ss-complet-orange.svg}" />
+
+				</a>
+			</div>
+			<div class="sidebar-wrapper sidebar-bkg">
+				<div class="user">
+					<div class="photo">
+						<img th:src="@{/resources/assets/img/faces/ayo-ogunseinde-2.jpg}" />
+					</div>
+					<div class="info">
+						<a data-toggle="collapse" href="#collapseExample"
+							class="collapsed"> <span> User <b class="caret"></b>
+						</span>
+						</a>
+						<div class="clearfix"></div>
+						<div class="collapse" id="collapseExample">
+							<ul class="nav">
+								<!-- 
+                <li>
+                  <a href="#">
+                    <span class="sidebar-mini-icon">MP</span>
+                    <span class="sidebar-normal">My Profile</span>
+                  </a>
+                </li>
+              -->
+								<li><a href="#"> <span class="sidebar-mini-icon">P</span>
+										<span class="sidebar-normal">Perfil</span>
+								</a></li>
+								<li><a href="#"> <span class="sidebar-mini-icon">C</span>
+										<span class="sidebar-normal">Configuracion</span>
+								</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<!-- MENU -->
+				<ul class="nav">
+					<!-- Las opciones del menu debe ir entre <li></li> -->
+					<li><a data-toggle="collapse" href="#catalogos"> <i
+							class="nc-icon nc-ruler-pencil"></i>
+							<p>
+								Catalogos <b class="caret"></b>
+							</p>
+					</a>
+						<div class="collapse " id="catalogos">
+							<ul class="nav">
+								<li>
+									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal"> Departamentos </span>
+								</a>
+								</li>
+								<li><a th:href="@{/catalogos/marca/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal"> Marcas </span>
+								</a></li>
+								<li><a th:href="@{/catalogos/tienda/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal"> Tiendas </span>
+								</a></li>
+								<li><a th:href="@{/catalogos/producto/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal"> Productos </span>
+								</a></li>
+							</ul>
+						</div></li>
+
+					<li><a data-toggle="collapse" href="#bonificaciones"> <i
+							class="nc-icon nc-money-coins"></i>
+							<p>
+								Bonificaciones <b class="caret"></b>
+							</p>
+					</a>
+
+						<div class="collapse" id="bonificaciones">
+							<ul class="nav">
+								<li>
+									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Depositos</span>
+								</a>
+								</li>
+								<li><a th:href="@{/catalogos/marca/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Medios</span>
+								</a></li>
+							</ul>
+						</div></li>
+
+					<li class="active"><a data-toggle="collapse"
+						href="#estadisticas"> <i class="nc-icon nc-chart-bar-32"></i>
+							<p>
+								Estadisticas <b class="caret"></b>
+							</p>
+					</a>
+						<div class="collapse " id="estadisticas">
+							<ul class="nav">
+								<li>
+									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">General</span>
+								</a>
+								</li>
+								<li><a th:href="@{/catalogos/marca/save}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Marcas</span>
+								</a></li>
+								<li class="active"><a th:href="@{/catalogos/tienda/save}">
+										<span class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Tickets</span>
+								</a></li>
+								<li><a th:href="@{/catalogos/medioBonificacion/save}">
+										<span class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Usarios</span>
+								</a></li>
+							</ul>
+						</div></li>
+
+
+				</ul>
+			</div>
+		</div>
+
+		<!--  -->
+		<div class="main-panel main-bkg">
+			<!-- Navbar -->
+			<nav
+				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+				<div class="container-fluid">
+					<div class="navbar-wrapper">
+						<div class="navbar-minimize">
+							<button id="minimizeSidebar" class="btn btn-icon btn-round">
+								<i
+									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
+								<i
+									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
+							</button>
+						</div>
+						<div class="navbar-toggle">
+							<button type="button" class="navbar-toggler">
+								<span class="navbar-toggler-bar bar1"></span> <span
+									class="navbar-toggler-bar bar2"></span> <span
+									class="navbar-toggler-bar bar3"></span>
+							</button>
+						</div>
+						<a class="navbar-brand" href="#pablo">Estadisticas</a>
+					</div>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navigation" aria-controls="navigation-index"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-bar navbar-kebab"></span> <span
+							class="navbar-toggler-bar navbar-kebab"></span> <span
+							class="navbar-toggler-bar navbar-kebab"></span>
+					</button>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+			<!-- <div class="panel-header">
+  
+  <canvas id="bigDashboardChart"></canvas>
+  
+  
+</div> -->
+			<div class="content">
+				<div class="row">
+
+					<div class="col-8">
+						<!-- Titulo -->
+						<h3 class="card-title">Tickets</h3>
+					</div>
+					<div class="col-4 text-right">
+						<a th:href="@{/portal-administrador/producto/report}"
+							class="btn btn-primary btn-sm" role="button" aria-disabled="true">
+							<i class="fa fa-download"></i> Resumen
+						</a>
+					</div>
+
+
+					<!--  Escaneos   -->
+					<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="card card-stats">
+							<div class="card-body ">
+								<div class="row">
+									<div class="col-5 col-md-4">
+										<div class="icon-big text-center icon-warning">
+											<i class="nc-icon nc-satisfied text-warning"></i>
+										</div>
+									</div>
+									<div class="col-7 col-md-8">
+										<div class="numbers">
+											<p class="card-category">Escaneos</p>
+											<p class="card-title">99,999</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card-footer ">
+								<hr />
+							</div>
+
+							<div class="card-body">
+								<h6 class="big-title">Registrados</h6>
+
+								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+									<li class="nav-item"><a class="nav-link active"
+										id="pills-home-tab" data-toggle="pill" href="#pills-home"
+										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										id="pills-profile-tab" data-toggle="pill"
+										href="#pills-profile" role="tab" aria-controls="pills-profile"
+										aria-selected="false">Semana</a></li>
+									<li class="nav-item"><a class="nav-link"
+										id="pills-contact-tab" data-toggle="pill"
+										href="#pills-contact" role="tab" aria-controls="pills-contact"
+										aria-selected="false">Mes</a></li>
+								</ul>
+								<div class="tab-content" id="pills-tabContent">
+									<div class="tab-pane fade show active" id="pills-home"
+										role="tabpanel" aria-labelledby="pills-home-tab">
+										<canvas id="activeUsers" width="826" height="380"></canvas>
+									</div>
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+										aria-labelledby="pills-profile-tab">
+										<canvas id="activeUsers" width="826" height="380"></canvas>
+									</div>
+									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+										aria-labelledby="pills-contact-tab">
+										<canvas id="activeUsers" width="826" height="380"></canvas>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer">
+								<hr />
+								<div class="row">
+									<div class="col-sm-7">
+										<div class="footer-title">
+											<a href="#"><i class="nc-icon nc-paper"></i></a>
+										</div>
+									</div>
+									<div class="col-sm-5">
+										<div class="pull-right">
+											<a href="#historicos-info"
+												class="btn btn-secondary btn-link btn-sm" role="button"
+												aria-disabled="true"> Ver + </a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!--  Tiendas   -->
+					<div class="col-lg-8 col-md-6 col-sm-6">
+						<div class="card card-stats">
+							<div class="card-body"></div>
+
+							<div class="card-footer ">
+
+								<div class="card-body">
+									<h6 class="big-title">Tiendas</h6>
+									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+										<li class="nav-item"><a class="nav-link active"
+											id="pills-home-tab" data-toggle="pill" href="#pills-home"
+											role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
+											id="pills-profile-tab" data-toggle="pill"
+											href="#pills-profile" role="tab"
+											aria-controls="pills-profile" aria-selected="false">Semana</a>
+										</li>
+										<li class="nav-item"><a class="nav-link"
+											id="pills-contact-tab" data-toggle="pill"
+											href="#pills-contact" role="tab"
+											aria-controls="pills-contact" aria-selected="false">Mes</a></li>
+									</ul>
+									<div class="tab-content" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pills-home"
+											role="tabpanel" aria-labelledby="pills-home-tab">
+											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+											aria-labelledby="pills-profile-tab">
+											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+											aria-labelledby="pills-contact-tab">
+											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+										</div>
+									</div>
+
+								</div>
+								<div class="card-footer">
+									<hr />
+									<div class="row">
+										<div class="col-sm-7">
+											<div class="footer-title">
+												<a href="#"><i class="nc-icon nc-paper"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<!--  Horarios   -->
+					<div class="col-lg-4 col-md-4 col-sm-6">
+						<div class="card card-stats">
+							<div class="card-body "></div>
+
+							<div class="card-footer "></div>
+
+							<div class="card-body">
+								<h6 class="big-title">Horarios</h6>
+
+								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+									<li class="nav-item"><a class="nav-link active"
+										id="pills-home-tab" data-toggle="pill" href="#pills-home"
+										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										id="pills-profile-tab" data-toggle="pill"
+										href="#pills-profile" role="tab" aria-controls="pills-profile"
+										aria-selected="false">Semana</a></li>
+									<li class="nav-item"><a class="nav-link"
+										id="pills-contact-tab" data-toggle="pill"
+										href="#pills-contact" role="tab" aria-controls="pills-contact"
+										aria-selected="false">Mes</a></li>
+								</ul>
+								<div class="tab-content" id="pills-tabContent">
+									<div class="tab-pane fade show active" id="pills-home"
+										role="tabpanel" aria-labelledby="pills-home-tab">
+										<canvas id="activeUsers" width="826" height="380"></canvas>
+									</div>
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+										aria-labelledby="pills-profile-tab">
+										<canvas id="activeUsers" width="826" height="380"></canvas>
+									</div>
+									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+										aria-labelledby="pills-contact-tab">
+										<canvas id="activeUsers" width="826" height="380"></canvas>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer">
+								<hr />
+								<div class="row">
+									<div class="col-sm-7">
+										<div class="footer-title">
+											<a href="#"><i class="nc-icon nc-paper"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<!--  Principales estados   -->
+					<div class="col-lg-8 col-md-6">
+						<div class="card ">
+							<div class="card-header ">
+								<h5 class="card-title">Entidades</h5>
+							</div>
+							<div class="card-body ">
+								<div class="chartjs-size-monitor"
+									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+									<div class="chartjs-size-monitor-expand"
+										style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div
+											style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+									</div>
+									<div class="chartjs-size-monitor-shrink"
+										style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div
+											style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+									</div>
+								</div>
+								<canvas id="chartHours" width="1414" height="352"
+									class="chartjs-render-monitor"
+									style="display: block; height: 176px; width: 707px;"></canvas>
+							</div>
+							<div class="card-footer ">
+								<hr />
+								<div class="row">
+									<div class="col-sm-7">
+										<div class="footer-title">
+											<a href="#"><i class="nc-icon nc-paper"></i></a>
+										</div>
+									</div>
+									<div class="col-sm-5"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="row">
+					<div class="col-12">
+						<hr />
+						<!-- ID de usuario -->
+						<h3 class="card-title" id="historicos-info">Históricos</h3>
+					</div>
+
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header"></div>
+							<div class="card-body">
+
+								<ul class="nav nav-pills mb-3" id="pills-tabContent"
+									role="tablist">
+									<li class="nav-item"><a class="nav-link active"
+										id="pills-home-tab" data-toggle="pill" href="#retiros"
+										role="tab" aria-controls="pills-home" aria-selected="true">
+											Día</a></li>
+									<li class="nav-item"><a class="nav-link"
+										id="pills-profile-tab" data-toggle="pill" href="#escaneos"
+										role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a>
+									</li>
+									<li class="nav-item"><a class="nav-link"
+										id="pills-profile-tab" data-toggle="pill" href="#escaneos"
+										role="tab" aria-controls="pills-profile" aria-selected="false">Mes</a>
+									</li>
+								</ul>
+
+								<!-- Tabla -->
+								<div class="tab-pane fade show active" id="retiros"
+									role="tabpanel" aria-labelledby="pills-home-tab">
+
+									<div class="card-header"></div>
+									<div class="toolbar">
+										<!--        Here you can write extra buttons/actions for the toolbar              -->
+										<form>
+											<div class="input-group no-border col-4"
+												style="background-color: #f2f2f2 !important;">
+												<input type="text" value="" class="form-control"
+													placeholder="Buscador"
+													style="background-color: #f2f2f2 !important;"/>
+												<div class="input-group-append">
+													<div class="input-group-text"
+														style="background-color: #f2f2f2 !important;">
+														<i class="nc-icon nc-zoom-split"></i>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table">
+												<thead class="">
+													<tr>
+														<th>Fecha</th>
+														<th>Productos</th>
+														<th>Bonificaciones</th>
+														<th class="text-right">Acciones</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>4 / dic / 2019</td>
+														<td>99,999</td>
+														<td>$ 500.00</td>
+														<td class="text-right"><a
+															href="estadisticas-tickets-detalle.html">
+																<button type="button" rel="tooltip"
+																	class="btn btn-link btn-icon btn-sm "
+																	data-original-title="" title="">
+																	<i class="fa fa-plus"></i>
+																</button>
+														</a>
+															<button type="button" rel="tooltip"
+																class="btn btn-secondary btn-icon btn-sm "
+																data-original-title="" title="">
+																<i class="fa fa-download"></i>
+															</button></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+
+									<!-- Paginador -->
+									<div class="row">
+										<div class="col-sm-12 col-md-5">
+											<div class="dataTables_info" id="datatable_info"
+												role="status" aria-live="polite">Mostrando 1 a 1 de 1
+												resultados</div>
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div class="dataTables_paginate paging_full_numbers"
+												id="datatable_paginate">
+												<ul class="pagination">
+													<li class="paginate_button page-item first disabled"
+														id="datatable_first"><a href="#"
+														aria-controls="datatable" data-dt-idx="0" tabindex="0"
+														class="page-link"> Primero </a></li>
+													<li class="paginate_button page-item previous disabled"
+														id="datatable_previous"><a href="#"
+														aria-controls="datatable" data-dt-idx="1" tabindex="0"
+														class="page-link"> Previo </a></li>
+													<li class="paginate_button page-item active"><a
+														href="#" aria-controls="datatable" data-dt-idx="2"
+														tabindex="0" class="page-link"> 1 </a></li>
+													<li class="paginate_button page-item next disabled"
+														id="datatable_next"><a href="#"
+														aria-controls="datatable" data-dt-idx="3" tabindex="0"
+														class="page-link"> Siguiente </a></li>
+													<li class="paginate_button page-item last disabled"
+														id="datatable_last"><a href="#"
+														aria-controls="datatable" data-dt-idx="4" tabindex="0"
+														class="page-link"> Último </a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<footer class="footer footer-black  footer-white ">
+				<div class="container-fluid"></div>
+			</footer>
+		</div>
+	</div>
+	<!--   Core JS Files   -->
+	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
+	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
+	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
+	<!--  Plugin for Sweet Alert -->
+	<script th:src="@{/resources/assets/js/plugins/sweetalert2.min.js}"></script>
+	<!-- Forms Validations Plugin -->
+	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
+	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+	<script
+		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+	<script
+		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
+	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+	<script th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js}"></script>
+	<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+	<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js}"></script>
+	<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
+	<!--  Plugin for the Bootstrap Table -->
+	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
+	<!--  Google Maps Plugin    -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	<!-- Chart JS -->
+	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
+	<!--  Notifications Plugin    -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
+	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
+		type="text/javascript"></script>
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script>
+		$(document).ready(function() {
+			// Javascript method's body can be found in assets/js/demos.js}
+			demo.initDashboardPageCharts();
+			demo.initVectorMap();
+			demo.initChartPageCharts();
+		});
+	</script>
+</body>
+
+</html>
