@@ -346,6 +346,12 @@ public class UsuarioAdministrationController {
 		log.info("Entrando a getObtenerEstadisticasUsuarios");
 		Usuario item = new Usuario();
 		
+		//1.Crear un service EstadisticaUsuariosService
+		//2. Crear un metodo que devuelva los totales de:
+		//usuarios por dia, semana y mes
+		//promedio de edad de usuario
+		//promedio de sexo de usuario
+		
 		return "administrador/estadisticas-usuarios";
 	}
 	
