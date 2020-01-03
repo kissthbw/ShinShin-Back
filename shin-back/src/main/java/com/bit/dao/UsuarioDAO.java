@@ -219,4 +219,13 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		
 		return total;
 	}
+	
+	public BigInteger obtieneTotalUsuarios() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
+				+ "SELECT COUNT(*) FROM usuario WHERE estatus = true;");
+
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
 }

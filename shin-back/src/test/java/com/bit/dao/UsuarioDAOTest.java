@@ -478,4 +478,11 @@ public class UsuarioDAOTest {
 		System.out.println( tmp );
 		
 	}
+	
+	@Test
+	@Transactional
+	public void estadisticasTest() {
+		BigInteger total = usuarioDAO.obtieneTotalUsuarios();
+		System.out.println( "Total de usuarios:" + total );
+	}
 }
