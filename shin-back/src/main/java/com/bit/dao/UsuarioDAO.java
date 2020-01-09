@@ -1,5 +1,6 @@
 package com.bit.dao;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -225,6 +226,82 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 				+ "SELECT COUNT(*) FROM usuario WHERE estatus = true;");
 
 		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
+	public BigDecimal obtienePromedioEdadUsuarios() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT AVG(TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE())) AS EdadPromedio FROM usuario;");
+		
+		BigDecimal total = (BigDecimal)q.uniqueResult();
+		
+		return total;
+	}
+	
+	public List<Object> obtieneRangoEdadUsuarios() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS Usuarios,\r\n" + 
+				"CASE\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) < 18 THEN '-18'\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 18 AND 24 THEN '18-24'\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 25 AND 29 THEN '25-29'\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 30 AND 39 THEN '30-39'\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 40 AND 49 THEN '40-49'\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 50 AND 59 THEN '50-59'\r\n" + 
+				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) > 60 THEN '+60'\r\n" + 
+				"END AS RangoEdad\r\n" + 
+				"FROM usuario\r\n" + 
+				"GROUP BY RangoEdad;");
+		
+		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Object> obtieneGeneroUsuarios() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT nombre_sexo AS genero, COUNT(*)\r\n" + 
+				"FROM usuario JOIN catalogo_sexo\r\n" + 
+				"WHERE usuario.id_catalogo_sexo = catalogo_sexo.id_catalogo_sexo\r\n" + 
+				"GROUP BY genero;");
+		
+		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Object> obtieneUsuariosPorMes() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS usuarios,\r\n" + 
+				"MONTHNAME(fecha_registro) AS mes,\r\n" + 
+				"YEAR(fecha_registro) AS año\r\n" + 
+				"FROM usuario\r\n" + 
+				"GROUP BY mes\r\n" + 
+				"ORDER BY año;");
+		
+		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Object> obtieneUsuariosPorSemana() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS usuarios,\r\n" + 
+				"WEEK(fecha_registro) AS semana,\r\n" + 
+				"YEAR(fecha_registro) AS año\r\n" + 
+				"FROM usuario\r\n" + 
+				"Group BY año, semana;");
+		
+		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Object> obtieneUsuariosPorDia() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS usuarios,\r\n" + 
+				"DAYNAME(fecha_registro) AS dia,\r\n" + 
+				"(fecha_registro) AS fecha\r\n" + 
+				"FROM usuario\r\n" + 
+				"GROUP BY fecha;");
+		
+		List<Object> total = (List<Object>)q.list();
 		
 		return total;
 	}

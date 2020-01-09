@@ -2,12 +2,10 @@ package com.bit.dao;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -484,5 +482,67 @@ public class UsuarioDAOTest {
 	public void estadisticasTest() {
 		BigInteger total = usuarioDAO.obtieneTotalUsuarios();
 		System.out.println( "Total de usuarios:" + total );
+	}
+	
+	@Test
+	@Transactional
+	public void promedioEdadTest() {
+		BigDecimal total = usuarioDAO.obtienePromedioEdadUsuarios();
+		System.out.println("Promedio de edad de usuarios: " + total);
+	}
+	
+	@Test
+	@Transactional
+	public void rangoEdadTest() {
+		List<Object> total = usuarioDAO.obtieneRangoEdadUsuarios();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+			
+			System.out.println("Usuarios: " + t[0] + " Rango de edad: " + t[1]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void generoUsuariosTest() {
+		List<Object> total = usuarioDAO.obtieneGeneroUsuarios();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+			
+			System.out.println("Genero: " + t[0] + " Usuarios: " + t[1]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void usuariosPorMes() {
+		List<Object> total = usuarioDAO.obtieneUsuariosPorMes();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+			
+			System.out.println("Usuarios: " + t[0] + " Mes: " + t[1]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void usuariosPorSemana() {
+		List<Object> total = usuarioDAO.obtieneUsuariosPorSemana();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+			
+			System.out.println("Usuarios: " + t[0] + " Semana: " + t[1]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void usuariosPorDia() {
+		List<Object> total = usuarioDAO.obtieneUsuariosPorDia();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+			
+			System.out.println("Usuarios: " + t[0] + " Dia: " + t[1] + " Fecha: " + t[2]);
+		}
 	}
 }
