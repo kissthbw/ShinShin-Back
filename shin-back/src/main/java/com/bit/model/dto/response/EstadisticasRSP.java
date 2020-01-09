@@ -9,6 +9,7 @@ public class EstadisticasRSP {
 	private List<Item> totalUsuariosSemana;
 	private List<Item> totalUsuariosMes;
 	private Float promedioEdadUsuarios;
+	private List<Item> rangoEdadUsuarios;
 	private List<Item> totalUsuariosPorGenero;
 
 	public Integer getTotalUsuarios() {
@@ -51,6 +52,14 @@ public class EstadisticasRSP {
 		this.promedioEdadUsuarios = promedioEdadUsuarios;
 	}
 
+	public List<Item> getRangoEdadUsuarios() {
+		return rangoEdadUsuarios;
+	}
+
+	public void setRangoEdadUsuarios(List<Item> rangoEdadUsuarios) {
+		this.rangoEdadUsuarios = rangoEdadUsuarios;
+	}
+
 	public List<Item> getTotalUsuariosPorGenero() {
 		return totalUsuariosPorGenero;
 	}
@@ -58,5 +67,5 @@ public class EstadisticasRSP {
 	public void setTotalUsuariosPorGenero(List<Item> totalUsuariosPorGenero) {
 		this.totalUsuariosPorGenero = totalUsuariosPorGenero;
 	}
-
+	
 }
