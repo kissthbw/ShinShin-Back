@@ -1,5 +1,7 @@
 package com.bit.dao;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +53,110 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		else {
 			return true;
 		}
+	}
+	
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets registrados
+	public BigInteger obtieneTotalTickets() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(*) AS totalTickets FROM ticket;");
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets registrados por dia
+	public List<Object> obtieneTotalTicketsPorDia() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT COUNT(*) AS totalTickets,\r\n" + 
+				"DAYNAME(fecha) AS dia,\r\n" + 
+				"(fecha) AS fecha\r\n" + 
+				"FROM ticket\r\n" + 
+				"GROUP BY fecha;");
+		
+		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets registrados por semana
+	public List<Object> obtieneTotalTicketsPorSemana() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT COUNT(*) AS totalTickets,\r\n" + 
+				"WEEK(fecha) AS semana,\r\n" + 
+				"YEAR(fecha) AS anio\r\n" + 
+				"FROM ticket\r\n" + 
+				"GROUP BY anio, semana;");
+			
+		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets registrados por mes
+	public List<Object> obtieneTotalTicketsPorMes() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT COUNT(*) AS totalTickets,\r\n" + 
+				"MONTHNAME(fecha) AS mes,\r\n" + 
+				"YEAR(fecha) AS anio\r\n" + 
+				"FROM ticket\r\n" + 
+				"GROUP BY anio, mes;");
+				
+		List<Object> total = (List<Object>)q.list();
+			
+		return total;
+	}
+	
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets por tienda registrados por dia y hora
+	public List<Object> obtieneTotalTicketsTiendaPorDiaHora() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT COUNT(*) AS totaltickets,\r\n" + 
+				"(nombre_tienda) AS tienda,\r\n" + 
+				"DAYNAME(fecha) AS dia,\r\n" + 
+				"(hora) AS hora,\r\n" + 
+				"(fecha) AS fecha\r\n" + 
+				"FROM ticket\r\n" + 
+				"GROUP BY fecha, hora, tienda;");
+			
+		List<Object> total = (List<Object>)q.list();
+			
+		return total;
+	}
+		
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets por tienda registrados por semana y hora
+	public List<Object> obtieneTotalTicketsTiendaPorSemanaHora() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT COUNT(*) AS totaltickets,\r\n" + 
+				"(nombre_tienda) AS tienda,\r\n" + 
+				"WEEK(fecha) AS semana,\r\n" + 
+				"(hora) AS hora,\r\n" + 
+				"YEAR(fecha) AS anio\r\n" + 
+				"FROM ticket\r\n" + 
+				"GROUP BY  anio, semana, hora, tienda;");
+				
+		List<Object> total = (List<Object>)q.list();
+			
+		return total;
+	}
+		
+	//metodo correspondiente de estadisticas-tickets-detalle
+	//metodo para obtener total de tickets por tienda registrados por mes y hora
+	public List<Object> obtieneTotalTicketsTiendaPorMesHora() {
+		SQLQuery q= getSessionFactory().getCurrentSession().createSQLQuery("" 
+				+ "SELECT COUNT(*) AS totaltickets,\r\n" + 
+				"(nombre_tienda) AS tienda,\r\n" + 
+				"MONTHNAME(fecha) AS mes,\r\n" + 
+				"(hora) AS hora,\r\n" + 
+				"YEAR(fecha) AS anio\r\n" + 
+				"FROM ticket\r\n" + 
+				"GROUP BY anio, fecha, hora, tienda;");
+					
+		List<Object> total = (List<Object>)q.list();
+				
+		return total;
 	}
 }

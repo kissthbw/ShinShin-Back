@@ -3,6 +3,7 @@ package com.bit.dao;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -290,5 +291,70 @@ public class TicketDAOTest {
 		
 	}
 	
+	@Test
+	@Transactional
+	public void totalTickets() {
+		BigInteger total = ticketDAO.obtieneTotalTickets();
+		System.out.println("Total de tickets registrados: " + total);
+	}
 	
+	@Test
+	@Transactional
+	public void totalTicketsPorDia() {
+		List<Object> total = ticketDAO.obtieneTotalTicketsPorDia();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+		System.out.println("Total de tickets registrados: " + t[0] + " dia: " + t[1] + " fecha: " + t[2]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void totalTicketsPorSemana() {
+		List<Object> total = ticketDAO.obtieneTotalTicketsPorSemana();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+		System.out.println("Total de tickets registrados: " + t[0] + " semana: " + t[1] + " año: " + t[2]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void totalTicketsPorMes() {
+		List<Object> total = ticketDAO.obtieneTotalTicketsPorMes();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+		System.out.println("Total de tickets registrados: " + t[0] + " mes: " + t[1] + " año: " + t[2]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void totalTicketsTiendaPorDia() {
+		List<Object> total = ticketDAO.obtieneTotalTicketsTiendaPorDiaHora();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+		System.out.println("Total de tickets registrados: " + t[0] + " tienda: " + t[1] + " dia: " + t[2] + " hora: " + t[3]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void totalTicketsTiendaPorSemana() {
+		List<Object> total = ticketDAO.obtieneTotalTicketsTiendaPorSemanaHora();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+		System.out.println("Total de tickets registrados: " + t[0] + " tienda: " + t[1] + " semana: " + t[2] + " hora: " + t[3]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void totalTicketsTiendaPorMes() {
+		List<Object> total = ticketDAO.obtieneTotalTicketsTiendaPorMesHora();
+		for(int i = 0; i <= total.size(); i++) {
+			Object[] t = (Object[]) total.get(i);
+		System.out.println("Total de tickets registrados: " + t[0] + " tienda: " + t[1] + " mes: " + t[2] + " hora: " + t[3]);
+		}
+	}
 }

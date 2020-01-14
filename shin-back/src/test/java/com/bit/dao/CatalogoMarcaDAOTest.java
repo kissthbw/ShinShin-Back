@@ -1,5 +1,7 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -43,4 +45,38 @@ public class CatalogoMarcaDAOTest {
 		catalogoMarcaDAO.save(item);
 	}
 	
+	@Test
+	@Transactional
+	public void totalMarcas() {
+		BigInteger total = catalogoMarcaDAO.obtieneTotalMarcas();
+		System.out.println("Marcas registradas: " + total);
+	}
+	
+	@Test
+	@Transactional
+	public void totalProductos() {
+		BigInteger total = catalogoMarcaDAO.obtieneTotalProductos();
+		System.out.println("Productos registrados: " + total);
+	}
+	
+	@Test
+	@Transactional
+	public void totalTocketsEscaneados() {
+		BigInteger total = catalogoMarcaDAO.obtieneTotalTicketsEscaneados();
+		System.out.println("Tickets registrados: " + total);
+	}
+	
+	@Test
+	@Transactional
+	public void totalDepartamentos() {
+		BigInteger total = catalogoMarcaDAO.obtieneTotalDepartamentos();
+		System.out.println("Departamentos registrados: " + total);
+	}
+	
+	@Test
+	@Transactional
+	public void totalTiendas() {
+		BigInteger total = catalogoMarcaDAO.obtieneTotalTiendas();
+		System.out.println("Tiendas registradas: " + total);
+	}
 }
