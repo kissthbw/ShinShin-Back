@@ -1,8 +1,10 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Property;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +23,12 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		return c.list();
 			
 	}
-
+	
+	public BigInteger obtieneDepartamentosRegistrados() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
+				+ "SELECT COUNT(*) AS departamentos FROM catalogo_tipo_producto;");
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
 }

@@ -1,8 +1,10 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
@@ -112,5 +114,61 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 
 		return ((Criteria) c).list();
 	}
-
+	
+	//metodo para estadisticas general
+	//metodo para obtener total escaneos por producto
+	public BigInteger obtieneTotalEscaneosProductos() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(h.producto_id_producto) AS productos\r\n" + 
+				"FROM ticket t,\r\n" + 
+				"historico_bonificaciones h\r\n" + 
+				"WHERE t.id_ticket = h.id_ticket;");
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
+	//metodo para estadisticas general
+	//metodo para obtener total escaneos por producto por dia
+	public List<Object> obtieneTotalEscaneosProductosPorDia() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(h.producto_id_producto) AS productos,\r\n" + 
+				"DAYNAME(t.fecha) AS dia,\r\n" + 
+				"fecha\r\n" + 
+				"FROM ticket t,\r\n" + 
+				"historico_bonificaciones h\r\n" + 
+				"WHERE t.id_ticket = h.id_ticket\r\n" + 
+				"GROUP BY fecha;");
+		List<Object> total = (List<Object>)q.list();
+			
+		return total;
+	}
+	
+	//metodo para estadisticas general
+	//metodo para obtener total escaneos por producto por semana
+	public List<Object> obtieneTotalEscaneosProductosPorSemana() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(h.producto_id_producto) AS productos,\r\n" + 
+				"WEEK(t.fecha) AS semana,\r\n" + 
+				"YEAR(t.fecha) AS año\r\n" + 
+				"FROM ticket t,\r\n" + 
+				"historico_bonificaciones h\r\n" + 
+				"WHERE t.id_ticket = h.id_ticket\r\n" + 
+				"GROUP BY fecha;");
+		List<Object> total = (List<Object>)q.list();
+			
+		return total;
+	}
+	
+	//metodo para estadisticas general
+	//metodo para obtener total escaneos por producto por mes
+	public List<Object> obtieneTotalEscaneosProductosPorMes() {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(h.producto_id_producto) AS productos,\r\n" + 
+				"MONTHNAME(t.fecha) AS mes,\r\n" + 
+				"YEAR(t.fecha) AS año\r\n" + 
+				"FROM ticket t,\r\n" + 
+				"historico_bonificaciones h\r\n" + 
+				"WHERE t.id_ticket = h.id_ticket\r\n" + 
+				"GROUP BY fecha;");
+		List<Object> total = (List<Object>)q.list();
+			
+		return total;
+	}
 }

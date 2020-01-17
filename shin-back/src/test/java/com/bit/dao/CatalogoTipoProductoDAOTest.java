@@ -1,5 +1,7 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -41,5 +43,11 @@ public class CatalogoTipoProductoDAOTest {
 		
 		catalogoTipoProductoDAO.save(item);
 	}
-
+	
+	@Test
+	@Transactional
+	public void totalDepartamentos() {
+		BigInteger total = catalogoTipoProductoDAO.obtieneDepartamentosRegistrados();
+		System.out.println("Departamentos: " + total);
+	}
 }

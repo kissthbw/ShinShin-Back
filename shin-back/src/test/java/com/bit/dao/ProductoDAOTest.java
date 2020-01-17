@@ -1,5 +1,6 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.List;
 
@@ -199,4 +200,40 @@ public class ProductoDAOTest {
 		System.out.println( "Registros pendientes: " + diferencia + ", hasNextPage?: " + ( diferencia == 0 ? "false" : "true" ));
 	}
 	
+	@Test
+	@Transactional
+	public void productosEscaneados() {
+		BigInteger total = productoDAO.obtieneTotalEscaneosProductos();
+		System.out.println("Productos escaneados: " + total);
+	}
+	
+	@Test
+	@Transactional
+	public void productosEscaneadosPorDia() {
+		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorDia();
+		for(int i = 0; i <= total.size(); i++) {
+			Object t[] = (Object[]) total.get(i);
+			System.out.println("Productos: " + t[0] + " dia: " + t[1] + " fecha: " + t[2]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void productosEscaneadosPorSemana() {
+		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorSemana();
+		for(int i = 0; i <= total.size(); i++) {
+			Object t[] = (Object[]) total.get(i);
+			System.out.println("Productos: " + t[0] + " semana: " + t[1] + " año: " + t[2]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void productosEscaneadosPorMes() {
+		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorMes();
+		for(int i = 0; i <= total.size(); i++) {
+			Object t[] = (Object[]) total.get(i);
+			System.out.println("Productos: " + t[0] + " mes: " + t[1] + " año: " + t[2]);
+		}
+	}
 }
