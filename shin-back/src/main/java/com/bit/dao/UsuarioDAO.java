@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.Usuario;
+import com.bit.model.dto.response.Item;
 
 @Repository
 public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
@@ -239,8 +242,8 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		return total;
 	}
 	
-	public List<Object> obtieneRangoEdadUsuarios() {
-		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS Usuarios,\r\n" + 
+	public List<Item> obtieneRangoEdadUsuarios() {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
 				"CASE\r\n" + 
 				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) < 18 THEN '-18'\r\n" + 
 				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 18 AND 24 THEN '18-24'\r\n" + 
@@ -249,35 +252,51 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 40 AND 49 THEN '40-49'\r\n" + 
 				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) BETWEEN 50 AND 59 THEN '50-59'\r\n" + 
 				"WHEN TIMESTAMPDIFF(YEAR, fecha_nac, CURDATE()) > 60 THEN '+60'\r\n" + 
-				"END AS RangoEdad\r\n" + 
+				"END AS topico\r\n" + 
 				"FROM usuario\r\n" + 
-				"GROUP BY RangoEdad;");
+				"GROUP BY topico;").setResultTransformer(( Transformers.aliasToBean(Item.class)));
 		
-		List<Object> total = (List<Object>)q.list();
+		List<Item> total = q.list();
 		
 		return total;
 	}
 	
-	public List<Object> obtieneGeneroUsuarios() {
-		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT nombre_sexo AS genero, COUNT(*)\r\n" + 
+	public List<Item> obtieneGeneroUsuarios() {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT nombre_sexo AS topico, COUNT(*) as total\r\n" + 
 				"FROM usuario JOIN catalogo_sexo\r\n" + 
 				"WHERE usuario.id_catalogo_sexo = catalogo_sexo.id_catalogo_sexo\r\n" + 
-				"GROUP BY genero;");
+				"GROUP BY topico;").setResultTransformer(( Transformers.aliasToBean(Item.class)));
 		
-		List<Object> total = (List<Object>)q.list();
+		List<Item> total = q.list();
 		
 		return total;
 	}
 	
 	public List<Object> obtieneUsuariosPorMes() {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS usuarios,\r\n" + 
-				"MONTHNAME(fecha_registro) AS mes,\r\n" + 
-				"YEAR(fecha_registro) AS año\r\n" + 
+				"MONTH(fecha_registro) AS mes,\r\n" + 
+				"YEAR(fecha_registro) AS year\r\n" + 
 				"FROM usuario\r\n" + 
-				"GROUP BY mes\r\n" + 
-				"ORDER BY año;");
+				"GROUP BY mes, year\r\n" + 
+				"ORDER BY year;");
 		
 		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneUsuariosPorMesYAnio(Integer year) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT " + 
+				" COUNT(*) AS total, " +
+				" MONTH(fecha_registro) AS indice " +  
+//				" YEAR(fecha_registro) AS year\r\n" + 
+				" FROM usuario\r\n" + 
+				" WHERE YEAR(fecha_registro) = :year " +
+				" GROUP BY indice \r\n" + 
+				" ORDER BY indice ASC").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		
+		List<Item> total = q.list();
 		
 		return total;
 	}
@@ -285,11 +304,30 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 	public List<Object> obtieneUsuariosPorSemana() {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS usuarios,\r\n" + 
 				"WEEK(fecha_registro) AS semana,\r\n" + 
-				"YEAR(fecha_registro) AS año\r\n" + 
+				"YEAR(fecha_registro) AS year\r\n" + 
 				"FROM usuario\r\n" + 
-				"Group BY año, semana;");
+				"Group BY year, semana;");
 		
 		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneUsuariosPorSemanaMesAnio( int year, int month ) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
+				"SELECT " +
+						"	COUNT(*) AS total," +
+						"	WEEK(fecha_registro) AS indice" +
+//						"	YEAR(fecha_registro) AS year" +
+						" FROM usuario" +
+						" WHERE YEAR(fecha_registro) = :year" +
+						" AND month(fecha_registro) = :month" +
+						" Group BY indice"
+		).setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
 		
 		return total;
 	}
@@ -302,6 +340,25 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 				"GROUP BY fecha;");
 		
 		List<Object> total = (List<Object>)q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneUsuariosPorDiaMesAnio( int year, int month ) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
+				" SELECT " +
+						" 	COUNT(*) AS total," +
+						" 	DAY(fecha_registro) AS indice" +
+//						" 	(fecha_registro) AS fecha" +
+						" FROM usuario" +
+						" WHERE YEAR(fecha_registro) = :year" +
+						" AND month(fecha_registro) = :month" +
+						" GROUP BY indice ASC"
+		).setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
 		
 		return total;
 	}

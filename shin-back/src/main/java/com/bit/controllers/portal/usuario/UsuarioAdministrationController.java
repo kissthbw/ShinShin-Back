@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
+import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.service.EstadisticasService;
 import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
 
@@ -24,6 +27,10 @@ public class UsuarioAdministrationController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EstadisticasService estadisticasService;
+	
 	/*
 	 * Obtiene la pagina para capturar el correo solicitando restaurar password
 	 */
@@ -344,13 +351,19 @@ public class UsuarioAdministrationController {
 	public String getObtenerEstadisticasUsuarios(Model model) {
 		
 		log.info("Entrando a getObtenerEstadisticasUsuarios");
-		Usuario item = new Usuario();
+		ListItemsRSP usuarios = usuarioService.getUsuarios();
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasUsuarios();
+		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
+		model.addAttribute("promedioEdad", rsp.getPromedioEdadUsuarios());
+		model.addAttribute("listaUsuarios", usuarios.getUsuarios());
 		
 		//1.Crear un service EstadisticaUsuariosService
 		//2. Crear un metodo que devuelva los totales de:
 		//usuarios por dia, semana y mes
 		//promedio de edad de usuario
 		//promedio de sexo de usuario
+		
+		
 		
 		return "administrador/estadisticas-usuarios";
 	}

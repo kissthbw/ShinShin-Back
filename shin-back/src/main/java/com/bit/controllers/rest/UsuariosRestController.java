@@ -1,5 +1,8 @@
 package com.bit.controllers.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bit.model.Contacto;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.service.EstadisticasService;
 import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
 
@@ -27,12 +32,24 @@ public class UsuariosRestController {
 	//autowired inyecta (crea) de tipo usuarioservice
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EstadisticasService estadisticasService;
 
 	@GetMapping(value = "/list")
 	public @ResponseBody ListItemsRSP getUsuarios() {
 		
 		log.info("Entrando a getUsuarios");
 		ListItemsRSP rsp = usuarioService.getUsuarios();
+
+		return rsp;
+	}
+	
+	@GetMapping(value = "/totales")
+	public @ResponseBody EstadisticasRSP getTotales() {
+		
+		log.info("Entrando a getTotales");
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasUsuarios();
 
 		return rsp;
 	}

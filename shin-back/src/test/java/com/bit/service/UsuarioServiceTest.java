@@ -18,11 +18,19 @@ public class UsuarioServiceTest {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private EstadisticasService estadisticasService;
+	
 	@Test
 	public void buscarrestaurarPasswordLink() {
 		
 		Usuario item = new Usuario();
 		item.setPassword_restore_link("f4e38a7cd6be8ada6ac60376c32a8ed291b5ed2443d8563187ca11778be6e480");
 		usuarioService.restaurarPasswordLink(item);
+	}
+	
+	@Test
+	public void estadisitcasUsuariosTest() {
+		estadisticasService.obtieneEstadisticasUsuarios();
 	}
 }
