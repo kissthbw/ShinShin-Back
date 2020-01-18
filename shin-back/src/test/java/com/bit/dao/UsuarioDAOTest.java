@@ -24,6 +24,7 @@ import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
+import com.bit.model.dto.response.Item;
 import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
@@ -479,6 +480,30 @@ public class UsuarioDAOTest {
 	
 	@Test
 	@Transactional
+	public void estadisticasUsuariosTest() {
+		//Total de usuarios
+		BigInteger total = usuarioDAO.obtieneTotalUsuarios();
+		System.out.println( "Total de usuarios:" + total );
+		
+		//Promedio de edad
+		BigDecimal edad = usuarioDAO.obtienePromedioEdadUsuarios();
+		System.out.println("Promedio de edad de usuarios: " + edad);
+		
+		//Promedio de sexo
+		List<Item> genero = usuarioDAO.obtieneGeneroUsuarios();
+		for (Item item : genero) {
+			System.out.println( "Genero: " + item.getTopico() + ": " + item.getTotal() );
+		}
+		
+//		for(int i = 0; i <= genero.size(); i++) {
+//			Object[] t = (Object[]) genero.get(i);
+//			
+//			System.out.println("Genero: " + t[0] + " Usuarios: " + t[1]);
+//		}
+	}
+	
+	@Test
+	@Transactional
 	public void estadisticasTest() {
 		BigInteger total = usuarioDAO.obtieneTotalUsuarios();
 		System.out.println( "Total de usuarios:" + total );
@@ -494,33 +519,40 @@ public class UsuarioDAOTest {
 	@Test
 	@Transactional
 	public void rangoEdadTest() {
-		List<Object> total = usuarioDAO.obtieneRangoEdadUsuarios();
-		for(int i = 0; i <= total.size(); i++) {
-			Object[] t = (Object[]) total.get(i);
-			
-			System.out.println("Usuarios: " + t[0] + " Rango de edad: " + t[1]);
+		List<Item> total = usuarioDAO.obtieneRangoEdadUsuarios();
+		
+		for( Item i : total ) {
+			System.out.println("Usuarios: " + i.getTotal() + " Rango de edad: " + i.getTopico());
 		}
+//		for(int i = 0; i <= total.size(); i++) {
+//			Object[] t = (Object[]) total.get(i);
+//			
+//			System.out.println("Usuarios: " + t[0] + " Rango de edad: " + t[1]);
+//		}
 	}
 	
 	@Test
 	@Transactional
 	public void generoUsuariosTest() {
-		List<Object> total = usuarioDAO.obtieneGeneroUsuarios();
-		for(int i = 0; i <= total.size(); i++) {
-			Object[] t = (Object[]) total.get(i);
-			
-			System.out.println("Genero: " + t[0] + " Usuarios: " + t[1]);
+		List<Item> total = usuarioDAO.obtieneGeneroUsuarios();
+		for (Item item : total) {
+			System.out.println( item.getTopico() + ": " + item.getTotal() );
 		}
 	}
 	
 	@Test
 	@Transactional
 	public void usuariosPorMes() {
-		List<Object> total = usuarioDAO.obtieneUsuariosPorMes();
-		for(int i = 0; i <= total.size(); i++) {
-			Object[] t = (Object[]) total.get(i);
-			
-			System.out.println("Usuarios: " + t[0] + " Mes: " + t[1]);
+//		List<Object> total = usuarioDAO.obtieneUsuariosPorMes();
+//		for(int i = 0; i < total.size(); i++) {
+//			Object[] t = (Object[]) total.get(i);
+//			
+//			System.out.println("Usuarios: " + t[0] + " Mes: " + t[1] + " Anio: " + t[2]);
+//		}
+		
+		List<Item> usuariosMensualesTmp = usuarioDAO.obtieneUsuariosPorMesYAnio(2020);
+		for( Item i : usuariosMensualesTmp) {
+			System.out.println( i.getIndice() + ": " + i.getTotal() );
 		}
 	}
 	
