@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
@@ -306,7 +307,10 @@ public class UsuarioAdministrationController {
 	public String getObtenerEstadisticasGeneral(Model model) {
 		
 		log.info("Entrando a getObtenerEstadisticasGeneral");
-		Usuario item = new Usuario();
+		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasGeneral();
+		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
+		model.addAttribute("totalTickets", rsp.getTotalTicketsEscaneados());
+		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
 		
 		return "administrador/estadisticas-general";
 	}

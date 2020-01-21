@@ -1,5 +1,6 @@
 package com.bit.service;
 
+import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 
 public interface EstadisticasService {
@@ -9,5 +10,12 @@ public interface EstadisticasService {
 	 * @return
 	 */
 	EstadisticasRSP obtieneEstadisticasUsuarios();
+	
+	/**
+	 * Para poder obtener la informacion de la pagina estadisticas-general
+	 * @return
+	 */
+	EstadisticasGeneralRSP obtieneEstadisticasGeneral();
+	
 	
 }

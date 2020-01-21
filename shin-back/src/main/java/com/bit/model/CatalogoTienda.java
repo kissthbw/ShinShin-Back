@@ -43,4 +43,13 @@ public class CatalogoTienda {
 	public void setImagenTienda(String imagenTienda) {
 		this.imagenTienda = imagenTienda;
 	}
+
+	@Override
+	public String toString() {
+		return "CatalogoTienda [" + (idCatalogoTienda != null ? "idCatalogoTienda=" + idCatalogoTienda + ", " : "")
+				+ (nombreTienda != null ? "nombreTienda=" + nombreTienda + ", " : "")
+				+ (imagenTienda != null ? "imagenTienda=" + imagenTienda : "") + "]";
+	}
+	
+	
 }

@@ -2,6 +2,10 @@ package com.bit.model.dto.response;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_EMPTY)
 public class EstadisticasRSP {
 
 	private Integer totalUsuarios;

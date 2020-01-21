@@ -230,7 +230,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Usarios</p>
-											<p class="card-title">99,999</p>
+											<p class="card-title" th:text="${totalUsuarios}">{totalUsuarios}</p>
 										</div>
 									</div>
 								</div>
@@ -260,15 +260,15 @@
 								<div class="tab-content" id="pills-tabContent">
 									<div class="tab-pane fade show active" id="pills-home"
 										role="tabpanel" aria-labelledby="pills-home-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="usuariosChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="usuariosChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="usuariosChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -306,7 +306,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Tickets Escaneados</p>
-											<p class="card-title">99,999</p>
+											<p class="card-title" th:text="${totalTickets}">{totalTickets}</p>
 										</div>
 									</div>
 								</div>
@@ -335,15 +335,15 @@
 									<div class="tab-content" id="pills-tabContent">
 										<div class="tab-pane fade show active" id="pills-home"
 											role="tabpanel" aria-labelledby="pills-home-tab">
-											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+											<canvas id="ticketsChart" width="826" height="380"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 											aria-labelledby="pills-profile-tab">
-											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+											<canvas id="ticketsChart" width="826" height="380"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 											aria-labelledby="pills-contact-tab">
-											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+											<canvas id="ticketsChart" width="826" height="380"></canvas>
 										</div>
 									</div>
 
@@ -381,7 +381,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Productos Escaneados</p>
-											<p class="card-title">23</p>
+											<p class="card-title" th:text="${totalProductosEscaneados}">{totalProductosEscaneados}</p>
 										</div>
 									</div>
 								</div>
@@ -411,15 +411,15 @@
 									<div class="tab-content" id="pills-tabContent">
 										<div class="tab-pane fade show active" id="pills-home"
 											role="tabpanel" aria-labelledby="pills-home-tab">
-											<canvas id="activeCountries" width="826" height="380"></canvas>
+											<canvas id="productosChart" width="826" height="380"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 											aria-labelledby="pills-profile-tab">
-											<canvas id="activeCountries" width="826" height="380"></canvas>
+											<canvas id="productosChart" width="826" height="380"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 											aria-labelledby="pills-contact-tab">
-											<canvas id="activeCountries" width="826" height="380"></canvas>
+											<canvas id="productosChart" width="826" height="380"></canvas>
 										</div>
 									</div>
 								</div>
@@ -466,7 +466,7 @@
 											style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 									</div>
 								</div>
-								<canvas id="chartHours" width="1414" height="352"
+								<canvas id="tiendasChart" width="1414" height="352"
 									class="chartjs-render-monitor"
 									style="display: block; height: 176px; width: 707px;"></canvas>
 							</div>
@@ -510,7 +510,7 @@
 											style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 									</div>
 								</div>
-								<canvas id="chartHours" width="1414" height="352"
+								<canvas id="departamentosChart" width="1414" height="352"
 									class="chartjs-render-monitor"
 									style="display: block; height: 176px; width: 707px;"></canvas>
 							</div>
@@ -675,12 +675,13 @@
 		type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script th:src="@{/resources/assets/demo/estadisticas-general-chart.js}"></script>
 	<script>
 		$(document).ready(function() {
 			// Javascript method's body can be found in assets/js/demos.js}
-			demo.initDashboardPageCharts();
-			demo.initVectorMap();
-			demo.initChartPageCharts();
+			//demo.initDashboardPageCharts();
+			//demo.initVectorMap();
+			//demo.initChartPageCharts();
 		});
 	</script>
 </body>
