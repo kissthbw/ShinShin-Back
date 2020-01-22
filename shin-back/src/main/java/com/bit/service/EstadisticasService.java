@@ -10,6 +10,8 @@ public interface EstadisticasService {
 	 * @return
 	 */
 	EstadisticasRSP obtieneEstadisticasUsuarios();
+
+	EstadisticasRSP obtieneEstadisticasTickets();
 	
 	/**
 	 * Para poder obtener la informacion de la pagina estadisticas-general

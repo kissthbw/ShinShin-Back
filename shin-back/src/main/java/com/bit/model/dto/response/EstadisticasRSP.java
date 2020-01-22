@@ -15,6 +15,13 @@ public class EstadisticasRSP {
 	private Float promedioEdadUsuarios;
 	private List<Item> rangoEdadUsuarios;
 	private List<Item> totalUsuariosPorGenero;
+	private Integer totalTickets;
+	private List<Item> totalTicketsDia;
+	private List<Item> totalTicketsSemana;
+	private List<Item> totalTicketsMes;
+	private List<Item> totalTicketsTiendaDiaHora;
+	private List<Item> totalTicketsTiendaSemanaHora;
+	private List<Item> totalTicketsTiendaMesHora;
 
 	public Integer getTotalUsuarios() {
 		return totalUsuarios;
@@ -71,5 +78,61 @@ public class EstadisticasRSP {
 	public void setTotalUsuariosPorGenero(List<Item> totalUsuariosPorGenero) {
 		this.totalUsuariosPorGenero = totalUsuariosPorGenero;
 	}
-	
+
+	public Integer getTotalTickets() {
+		return totalTickets;
+	}
+
+	public void setTotalTickets(Integer totalTickets) {
+		this.totalTickets = totalTickets;
+	}
+
+	public List<Item> getTotalTicketsDia() {
+		return totalTicketsDia;
+	}
+
+	public void setTotalTicketsDia(List<Item> totalTicketsDia) {
+		this.totalTicketsDia = totalTicketsDia;
+	}
+
+	public List<Item> getTotalTicketsSemana() {
+		return totalTicketsSemana;
+	}
+
+	public void setTotalTicketsSemana(List<Item> totalTicketsSemana) {
+		this.totalTicketsSemana = totalTicketsSemana;
+	}
+
+	public List<Item> getTotalTicketsMes() {
+		return totalTicketsMes;
+	}
+
+	public void setTotalTicketsMes(List<Item> totalTicketsMes) {
+		this.totalTicketsMes = totalTicketsMes;
+	}
+
+	public List<Item> getTotalTicketsTiendaDiaHora() {
+		return totalTicketsTiendaDiaHora;
+	}
+
+	public void setTotalTicketsTiendaDiaHora(List<Item> totalTicketsTiendaDiaHora) {
+		this.totalTicketsTiendaDiaHora = totalTicketsTiendaDiaHora;
+	}
+
+	public List<Item> getTotalTicketsTiendaSemanaHora() {
+		return totalTicketsTiendaSemanaHora;
+	}
+
+	public void setTotalTicketsTiendaSemanaHora(List<Item> totalTicketsTiendaSemanaHora) {
+		this.totalTicketsTiendaSemanaHora = totalTicketsTiendaSemanaHora;
+	}
+
+	public List<Item> getTotalTicketsTiendaMesHora() {
+		return totalTicketsTiendaMesHora;
+	}
+
+	public void setTotalTicketsTiendaMesHora(List<Item> totalTicketsTiendaMesHora) {
+		this.totalTicketsTiendaMesHora = totalTicketsTiendaMesHora;
+	}
+
 }

@@ -28,6 +28,7 @@ import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.request.OCRTicketRQT;
+import com.bit.model.dto.response.Item;
 import com.bit.model.dto.response.OCRTicketRSP;
 import com.bit.service.TicketService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -37,7 +38,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 @WebAppConfiguration
 public class TicketDAOTest {
 	
-	private static final Logger log = LoggerFactory.getLogger(TicketDAOTest.class);
+	private static final Logger log = LoggerFactory.getLogger(UsuarioDAOTest.class);
 	
 	@Autowired
 	private TicketDAO ticketDAO;
@@ -355,6 +356,15 @@ public class TicketDAOTest {
 		for(int i = 0; i <= total.size(); i++) {
 			Object[] t = (Object[]) total.get(i);
 		System.out.println("Total de tickets registrados: " + t[0] + " tienda: " + t[1] + " mes: " + t[2] + " hora: " + t[3]);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void TicketMes() {
+		List<Item> totalTickets = ticketDAO.obtieneTicketsPorMesAnio(2020);
+		for(Item i : totalTickets) {
+			System.out.println(i.getIndice() + " : " + i.getTotal());
 		}
 	}
 }

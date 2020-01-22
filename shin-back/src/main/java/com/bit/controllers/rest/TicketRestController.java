@@ -15,7 +15,9 @@ import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.request.OCRTicketRQT;
+import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.model.dto.response.ListItemsRSP;
+import com.bit.service.EstadisticasService;
 import com.bit.service.TicketService;
 
 @RestController
@@ -26,6 +28,9 @@ public class TicketRestController {
 
 	@Autowired
 	private TicketService ticketService;
+	
+	@Autowired
+	private EstadisticasService estadisticasService;
 
 	@GetMapping(value = "/list")
 	public @ResponseBody ListItemsRSP getTickets() {
@@ -77,6 +82,15 @@ public class TicketRestController {
 		
 		ListItemsRSP rsp = ticketService.getDetalleTicket( Long.valueOf(id) );
 		
+		return rsp;
+	}
+	
+	@GetMapping(value = "/totales")
+	public @ResponseBody EstadisticasRSP getTotalesTickets() {
+		
+		log.info("Entrando a getTotalesTickets");
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasTickets();
+
 		return rsp;
 	}
 }

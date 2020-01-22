@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.dao.CatalogoTiendaDAO;
 import com.bit.dao.CatalogoTipoProductoDAO;
 import com.bit.dao.ProductoDAO;
+import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.dto.response.Category;
@@ -32,6 +33,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	private UsuarioDAO usuarioDAO;
 	
 	@Autowired
+
 	private ProductoDAO productoDAO;
 	
 	@Autowired
@@ -39,6 +41,8 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	
 	@Autowired
 	private CatalogoTipoProductoDAO catalogoTipoProductoDAO; 
+
+	private TicketDAO ticketDAO;
 
 	private static final String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
 	
@@ -104,7 +108,6 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			if( null != i ) {
 				i.setTotal( data.getTotal() );
 			}
-			
 		}
 	}
 
@@ -197,7 +200,6 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			if( null != i ) {
 				i.setTotal( data.getTotal() );
 			}
-			
 		}
 	}
 	
@@ -218,5 +220,20 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			}
 			
 		}
+	}
+	
+	@Override
+	@Transactional
+	public EstadisticasRSP obtieneEstadisticasTickets() {
+		
+		log.info("Obteniendo informacion de estadisticas de tickets");
+		
+		EstadisticasRSP rsp = new EstadisticasRSP();
+		
+		// Total de tickets
+		BigInteger total = ticketDAO.obtieneTotalTickets();
+		rsp.setTotalTickets(null != total ? total.intValue() : 0);
+		
+		return rsp;
 	}
 }
