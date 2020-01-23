@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.model.Producto;
-import com.bit.model.dto.response.Item;
+import com.bit.model.dto.Item;
 
 /**
  * Clase DAO mque extiende de DAOTemplate, si se desean implementar metodos de

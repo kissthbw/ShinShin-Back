@@ -2,6 +2,9 @@ package com.bit.model.dto.response;
 
 import java.util.List;
 
+import com.bit.model.dto.Category;
+import com.bit.model.dto.Item;
+import com.bit.model.dto.ResumenItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -12,6 +15,9 @@ public class EstadisticasGeneralRSP {
 	private Integer totalTicketsEscaneados;
 	private Integer totalProductosEscaneados;
 	private Integer totalDepartamentos;
+	private Integer totalMarcas;
+	private Integer totalProductos;
+
 	// Usuarios
 	private List<Item> totalUsuariosDias;
 	private List<Item> totalUsuariosSemana;
@@ -24,9 +30,18 @@ public class EstadisticasGeneralRSP {
 	private List<Item> totalProductosEscaneadosDias;
 	private List<Item> totalProductosEscaneadosSemana;
 	private List<Item> totalProductosEscaneadosMes;
+	// Escaneos por departamento
+	private List<Category> totalEscaneaosDepartamentoMes;
+	
 	// Escaneos por tienda
 	private List<Category> totalEscaneaosTiendaMes;
-
+	
+	// Resumen departamentos
+	private List<ResumenItem> listaResumenDepartamentos;
+	
+	// Resumen tiendas
+	private List<ResumenItem> listaResumenTiendas;
+	
 	public Integer getTotalUsuarios() {
 		return totalUsuarios;
 	}
@@ -57,6 +72,22 @@ public class EstadisticasGeneralRSP {
 
 	public void setTotalDepartamentos(Integer totalDepartamentos) {
 		this.totalDepartamentos = totalDepartamentos;
+	}
+
+	public Integer getTotalMarcas() {
+		return totalMarcas;
+	}
+
+	public void setTotalMarcas(Integer totalMarcas) {
+		this.totalMarcas = totalMarcas;
+	}
+
+	public Integer getTotalProductos() {
+		return totalProductos;
+	}
+
+	public void setTotalProductos(Integer totalProductos) {
+		this.totalProductos = totalProductos;
 	}
 
 	public List<Item> getTotalUsuariosDias() {
@@ -131,12 +162,36 @@ public class EstadisticasGeneralRSP {
 		this.totalProductosEscaneadosMes = totalProductosEscaneadosMes;
 	}
 
+	public List<Category> getTotalEscaneaosDepartamentoMes() {
+		return totalEscaneaosDepartamentoMes;
+	}
+
+	public void setTotalEscaneaosDepartamentoMes(List<Category> totalEscaneaosDepartamentoMes) {
+		this.totalEscaneaosDepartamentoMes = totalEscaneaosDepartamentoMes;
+	}
+
 	public List<Category> getTotalEscaneaosTiendaMes() {
 		return totalEscaneaosTiendaMes;
 	}
 
 	public void setTotalEscaneaosTiendaMes(List<Category> totalEscaneaosTiendaMes) {
 		this.totalEscaneaosTiendaMes = totalEscaneaosTiendaMes;
+	}
+
+	public List<ResumenItem> getListaResumenDepartamentos() {
+		return listaResumenDepartamentos;
+	}
+
+	public void setListaResumenDepartamentos(List<ResumenItem> listaResumenDepartamentos) {
+		this.listaResumenDepartamentos = listaResumenDepartamentos;
+	}
+
+	public List<ResumenItem> getListaResumenTiendas() {
+		return listaResumenTiendas;
+	}
+
+	public void setListaResumenTiendas(List<ResumenItem> listaResumenTiendas) {
+		this.listaResumenTiendas = listaResumenTiendas;
 	}
 
 }

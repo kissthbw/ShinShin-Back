@@ -10,7 +10,8 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.CatalogoTienda;
-import com.bit.model.dto.response.Item;
+import com.bit.model.dto.Item;
+import com.bit.model.dto.ResumenItem;
 
 @Repository
 public class CatalogoTiendaDAO extends DAOTemplate<CatalogoTienda, Long> {
@@ -54,5 +55,30 @@ public class CatalogoTiendaDAO extends DAOTemplate<CatalogoTienda, Long> {
 		List<Item> total = q.list();
 		
 		return total;
+	}
+	
+
+	//Obtiene resumen por tienda
+	public List<ResumenItem> obtieneResumenTiendas(){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append(" (t.nombre_tienda) AS topico,");
+		sql.append(" COUNT(DISTINCT t.id_ticket) AS totalEscaneos,");
+		sql.append(" COUNT( hb.producto_id_producto) AS totalProductos,");
+		sql.append(" SUM( p.cantidad_bonificacion) AS totalBonificaciones");
+		sql.append(" FROM ticket t");
+		sql.append(" LEFT JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append(" LEFT JOIN producto p ON hb.producto_id_producto = p.id_producto");
+//		sql.append(" WHERE YEAR(t.fecha) = :year");
+		sql.append(" GROUP BY topico");
+		sql.append(" ORDER BY topico ASC");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).setResultTransformer( (Transformers.aliasToBean(ResumenItem.class)) );
+//		q.setParameter("year", year);
+		
+		List<ResumenItem> list = q.list();
+		
+		return list;
 	}
 }

@@ -38,6 +38,15 @@ public class EstadisticasRestController {
 
 		return rsp;
 	}
+	
+	@GetMapping(value = "/marcas")
+	public @ResponseBody EstadisticasGeneralRSP getEstadisticasMarcas() {
+		
+		log.info("Entrando a getEstadisticasMarcas");
+		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasMarcas();
+
+		return rsp;
+	}
 
 	
 }

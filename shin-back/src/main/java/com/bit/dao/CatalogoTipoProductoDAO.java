@@ -4,11 +4,15 @@ import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Property;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.dto.Item;
+import com.bit.model.dto.ResumenItem;
 
 @Repository
 public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, Long>{
@@ -30,5 +34,54 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		BigInteger total = (BigInteger)q.uniqueResult();
 		
 		return total;
+	}
+
+	public List<Item> obtieneTotalEscaneosPorTiendaDepartamentoAnio( int year, String departamento ) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append(" MONTH(t.fecha) AS indice,");
+		sql.append(" c.nombre_tipo_producto as topico,");
+		sql.append(" COUNT(DISTINCT hb.id_ticket) AS total");
+		sql.append(" FROM ticket t");
+		sql.append(" LEFT JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append(" LEFT JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append(" LEFT JOIN catalogo_tipo_producto c ON p.id_catalogo_tipo_producto = c.id_catalogo_tipo_producto");
+		sql.append(" WHERE YEAR(t.fecha) = :year");
+		sql.append(" AND c.nombre_tipo_producto = :departamento");
+		sql.append(" GROUP BY topico, indice");
+		sql.append(" ORDER BY topico, indice");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString()).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("departamento", departamento);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+
+	public List<ResumenItem> obtieneResumenDepartamento(){
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ");
+		sql.append(" c.nombre_tipo_producto as topico,");
+		sql.append(" COUNT(DISTINCT hb.id_ticket) AS totalEscaneos,");
+		sql.append(" COUNT( hb.producto_id_producto) AS totalProductos,");
+		sql.append(" SUM( p.cantidad_bonificacion) AS totalBonificaciones");
+		sql.append(" FROM ticket t");
+		sql.append(" LEFT JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append(" LEFT JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append(" LEFT JOIN catalogo_tipo_producto c ON p.id_catalogo_tipo_producto = c.id_catalogo_tipo_producto");
+//		sql.append(" WHERE YEAR(t.fecha) = 2019");
+		sql.append(" GROUP BY topico");
+		sql.append(" ORDER BY topico");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).setResultTransformer( (Transformers.aliasToBean(ResumenItem.class)) );
+//		q.setParameter("year", year);
+		
+		List<ResumenItem> list = q.list();
+		
+		return list;
 	}
 }

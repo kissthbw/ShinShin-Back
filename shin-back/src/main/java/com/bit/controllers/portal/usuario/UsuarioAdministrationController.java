@@ -319,7 +319,12 @@ public class UsuarioAdministrationController {
 	public String getObtenerEstadisticasMarcas(Model model) {
 		
 		log.info("Entrando a getObtenerEstadisticasMarcas");
-		Usuario item = new Usuario();
+		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasMarcas();
+		model.addAttribute("totalMarcas", rsp.getTotalMarcas());
+		model.addAttribute("totalProductos", rsp.getTotalProductos());
+		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
+		model.addAttribute("listaResumenTiendas", rsp.getListaResumenTiendas());
+		model.addAttribute("listaResumenDepartamentos", rsp.getListaResumenDepartamentos());
 		
 		return "administrador/estadisticas-marcas";
 	}
@@ -404,6 +409,24 @@ public class UsuarioAdministrationController {
 		
 		log.info("Entrando a getObtenerUsuarioDetalle");
 		Usuario item = new Usuario();
+		//Datos generales del usuario
+		//Foto
+		//Nombre
+		//Edad
+		//Sexo
+		//Email
+		//Telefono
+		//CP
+		//Desde(fecha de registro)
+		//Tipo de registro
+		
+		//Totales
+		//Escaneos
+		//Productos
+		//Retiros
+		//$Bonificaciones
+		
+		//Historico de retiros
 		
 		return "administrador/usuario-detalle";
 	}

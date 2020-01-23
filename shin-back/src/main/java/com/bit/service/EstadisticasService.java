@@ -19,5 +19,11 @@ public interface EstadisticasService {
 	 */
 	EstadisticasGeneralRSP obtieneEstadisticasGeneral();
 	
+	/**
+	 * Obtiene la informacion de la pagina  estadisticas-marcas
+	 * @return
+	 */
+	EstadisticasGeneralRSP obtieneEstadisticasMarcas();
+	
 	
 }

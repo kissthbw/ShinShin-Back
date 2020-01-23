@@ -16,7 +16,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.Usuario;
-import com.bit.model.dto.response.Item;
+import com.bit.model.dto.Item;
 
 @Repository
 public class UsuarioDAO extends DAOTemplate<Usuario, Long> {

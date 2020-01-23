@@ -12,16 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.dao.CatalogoTiendaDAO;
 import com.bit.dao.CatalogoTipoProductoDAO;
 import com.bit.dao.ProductoDAO;
 import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.model.CatalogoTienda;
-import com.bit.model.dto.response.Category;
+import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.dto.Category;
+import com.bit.model.dto.Item;
+import com.bit.model.dto.ResumenItem;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
-import com.bit.model.dto.response.Item;
 import com.bit.service.EstadisticasService;
 
 @Service
@@ -41,6 +44,9 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	
 	@Autowired
 	private CatalogoTipoProductoDAO catalogoTipoProductoDAO; 
+	
+	@Autowired
+	private CatalogoMarcaDAO catalogoMarcaDAO;
 
 	private TicketDAO ticketDAO;
 
@@ -169,7 +175,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		for( CatalogoTienda t : tiendas ) {
 			List<Item> listaTmpEscaneoTiendas = catalogoTiendaDAO.obtieneTotalEscaneosPorTiendaMesAnio(year, t.getNombreTienda());
 			List<Item> listaEscaneoTiendas = new ArrayList<>();
-			initEscaneosPorTiendaYMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
+			initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
 			
 			Category c = new Category( t.getNombreTienda(), listaEscaneoTiendas );
 			
@@ -203,24 +209,24 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		}
 	}
 	
-	private void initEscaneosPorTiendaYMes(List<Item> list, List<Item> resultData) {
-		
-		//Se inicializa la lista con objetos Item, con los valores del mes
-		for( String mes : meses ) {
-			list.add( new Item(mes, BigInteger.valueOf(0)) );
-		}
-		
-		//Se busca el elemento en la lista que coincida con el valor del campo indice
-		//del resultData para asignar el total correspondiente
-		for( Item data : resultData ) {
-			Item i = list.get( data.getIndice() - 1 );
-			
-			if( null != i ) {
-				i.setTotal( data.getTotal() );
-			}
-			
-		}
-	}
+//	private void initEscaneosPorMes(List<Item> list, List<Item> resultData) {
+//		
+//		//Se inicializa la lista con objetos Item, con los valores del mes
+//		for( String mes : meses ) {
+//			list.add( new Item(mes, BigInteger.valueOf(0)) );
+//		}
+//		
+//		//Se busca el elemento en la lista que coincida con el valor del campo indice
+//		//del resultData para asignar el total correspondiente
+//		for( Item data : resultData ) {
+//			Item i = list.get( data.getIndice() - 1 );
+//			
+//			if( null != i ) {
+//				i.setTotal( data.getTotal() );
+//			}
+//			
+//		}
+//	}
 	
 	@Override
 	@Transactional
@@ -233,6 +239,69 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		// Total de tickets
 		BigInteger total = ticketDAO.obtieneTotalTickets();
 		rsp.setTotalTickets(null != total ? total.intValue() : 0);
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public EstadisticasGeneralRSP obtieneEstadisticasMarcas() {
+		
+		log.info("Obteniendo informacion de estadisticas general");
+
+		EstadisticasGeneralRSP rsp = new EstadisticasGeneralRSP();
+		LocalDate now = LocalDate.now();
+		int year = now.getYear();
+		int month = now.getMonthValue();
+		
+		//Total de marcas.
+		BigInteger totalMarcas = catalogoMarcaDAO.obtieneTotalMarcas();
+		rsp.setTotalMarcas( null != totalMarcas ? totalMarcas.intValue() : 0 );
+		
+		//Total de productos.
+		BigInteger totalProductos = catalogoMarcaDAO.obtieneTotalProductos();
+		rsp.setTotalProductos( null != totalProductos ? totalProductos.intValue() : 0 );
+		
+		//Escaneos totales.
+		BigInteger totalEscaneos = catalogoMarcaDAO.obtieneTotalTicketsEscaneados();
+		rsp.setTotalProductosEscaneados( null != totalEscaneos ? totalEscaneos.intValue() : 0 );
+		
+		//Info para la graficas
+		//Departamentos.
+		List<CatalogoTipoProducto> deptos =  catalogoTipoProductoDAO.getCatalogoTipoProductos();
+		List<Category> listaDeptos = new ArrayList<Category>();
+		for( CatalogoTipoProducto d : deptos ) {
+			List<Item> listaTmpEscaneoDeptos = catalogoTipoProductoDAO.obtieneTotalEscaneosPorTiendaDepartamentoAnio(year, d.getNombreTipoProducto());
+			List<Item> listaEscaneoDeptos = new ArrayList<>();
+			initEscaneosPorMes(listaEscaneoDeptos, listaTmpEscaneoDeptos);
+			
+			Category c = new Category( d.getNombreTipoProducto(), listaEscaneoDeptos );
+			
+			listaDeptos.add( c );
+		}
+		rsp.setTotalEscaneaosDepartamentoMes(listaDeptos);
+		
+		//Tiendas.
+		List<CatalogoTienda> tiendas =  catalogoTiendaDAO.getCatalogoTienda();
+		List<Category> listaTiendas = new ArrayList<Category>();
+		for( CatalogoTienda t : tiendas ) {
+			List<Item> listaTmpEscaneoTiendas = catalogoTiendaDAO.obtieneTotalEscaneosPorTiendaMesAnio(year, t.getNombreTienda());
+			List<Item> listaEscaneoTiendas = new ArrayList<>();
+			initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
+			
+			Category c = new Category( t.getNombreTienda(), listaEscaneoTiendas );
+			
+			listaTiendas.add( c );
+		}
+		rsp.setTotalEscaneaosTiendaMes(listaTiendas);
+		
+		//Departamentos: total de productos, escaneos, bonificaciones
+		List<ResumenItem> listaResumenDepartamentos = catalogoTipoProductoDAO.obtieneResumenDepartamento();
+		rsp.setListaResumenDepartamentos(listaResumenDepartamentos);
+		
+		//Tiendas: total de productos, escaneos, bonificaciones
+		List<ResumenItem> listaResumenTiendas = catalogoTiendaDAO.obtieneResumenTiendas();
+		rsp.setListaResumenTiendas(listaResumenTiendas);
 		
 		return rsp;
 	}

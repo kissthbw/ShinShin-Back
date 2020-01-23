@@ -1,4 +1,4 @@
-package com.bit.model.dto.response;
+package com.bit.model.dto;
 
 import java.util.List;
 
