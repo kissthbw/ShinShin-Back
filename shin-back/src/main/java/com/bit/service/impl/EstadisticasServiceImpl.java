@@ -20,6 +20,7 @@ import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.Usuario;
 import com.bit.model.dto.Category;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.ResumenItem;
@@ -95,6 +96,43 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		List<Item> usuariosDiarios = usuarioDAO.obtieneUsuariosPorDiaMesAnio(year, month);
 		rsp.setTotalUsuariosDias(usuariosDiarios);
+
+		return rsp;
+	}
+	
+	
+	@Override
+	@Transactional
+	public EstadisticasGeneralRSP obtieneEstadisticasUsuarioDetalle( Usuario item ) {
+		log.info("Obteniendo informacion de estadisticas de usuarios");
+
+		EstadisticasGeneralRSP rsp = new EstadisticasGeneralRSP();
+
+		LocalDate now = LocalDate.now();
+		int year = now.getYear();
+		
+		// Tiendas
+		List<CatalogoTienda> tiendas = catalogoTiendaDAO.getCatalogoTienda();
+		List<Category> listaTiendas = new ArrayList<Category>();
+		for (CatalogoTienda t : tiendas) {
+			List<Item> listaTmpEscaneoTiendas = catalogoTiendaDAO.obtieneTotalEscaneosPorUsuarioTiendaMesAnio(item.getIdUsuario(), year,
+					t.getNombreTienda());
+			List<Item> listaEscaneoTiendas = new ArrayList<>();
+			initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
+
+			Category c = new Category(t.getNombreTienda(), listaEscaneoTiendas);
+
+			listaTiendas.add(c);
+		}
+		rsp.setTotalEscaneaosTiendaMes(listaTiendas);
+		
+		//Top Marcas
+		List<Item> topMarcas = catalogoMarcaDAO.obtieneTopMarcasEscaneadas(5, year, item.getIdUsuario());
+		rsp.setListaTopMarcas(topMarcas);
+		
+		//Top Deptos 
+		List<Item> topDeptos = catalogoTipoProductoDAO.obtieneTopDepartamentosEscaneados(5, year, item.getIdUsuario());
+		rsp.setListaTopDeptos(topDeptos);
 
 		return rsp;
 	}

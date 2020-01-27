@@ -3,7 +3,11 @@ package com.bit.common;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +18,7 @@ import java.util.regex.Pattern;
 import com.bit.model.CatalogoDiccionarioTiendas;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ibm.icu.text.SimpleDateFormat;
 
 public class Utils {
 	
@@ -62,7 +67,7 @@ public class Utils {
 		
 	}
 	
-	public static Map<String, String> obtieneCatalogoFilenet(){
+	public static Map<String, String> obtieneCatalogo(){
 		return Collections.unmodifiableMap( DICCIONARIO );
 	}
 	
@@ -73,10 +78,27 @@ public class Utils {
 		return m.find();
 	}
 	
+	public static Period calcularEdad( Calendar fechaNac ) {
+		LocalDate today = LocalDate.now();
+		LocalDate birthday = LocalDate.of(fechaNac.get( Calendar.YEAR ), 
+				fechaNac.get( Calendar.MONTH ), 
+				fechaNac.get( Calendar.DAY_OF_MONTH ));
+		 
+		Period p = Period.between(birthday, today);
+		 
+		return p;
+	}
+	
+	//dd/mm/anio
+	public static String formatFecha(Date fecha, String format) {
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(fecha);
+	}
+	
 	public static void main (String[] args) {
 		
 		String s = "5534714616";
-		System.out.printf("%s es email valido?: %s", s, Utils.isEmail(s));
+		System.out.printf("%s es email valido?: %s \n", s, Utils.isEmail(s));
 		
 //		System.out.println("codigo de verificacion: " + Utils.generaCodigoVerficacion());
 	}

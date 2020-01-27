@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity(name = "ticket")
 public class Ticket {
@@ -74,6 +75,12 @@ public class Ticket {
 			@JoinColumn(name = "id_ticket") },
 			inverseJoinColumns = { @JoinColumn(name = "producto_id_producto") })
 	private List<Producto> productos = new ArrayList<>();
+	
+	@Transient
+	private String formatFecha;
+	
+	@Transient
+	private int totalProductos;
 
 	public void setIdTicket(Long idTicket) {
 		this.idTicket = idTicket;
@@ -189,6 +196,22 @@ public class Ticket {
 	
 	public void addProducto(Producto producto) {
 		productos.add(producto);
+	}
+
+	public String getFormatFecha() {
+		return formatFecha;
+	}
+
+	public void setFormatFecha(String formatFecha) {
+		this.formatFecha = formatFecha;
+	}
+
+	public int getTotalProductos() {
+		return totalProductos;
+	}
+
+	public void setTotalProductos(int totalProductos) {
+		this.totalProductos = totalProductos;
 	}
 
 }

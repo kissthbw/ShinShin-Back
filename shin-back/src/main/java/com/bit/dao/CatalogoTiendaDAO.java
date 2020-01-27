@@ -57,6 +57,31 @@ public class CatalogoTiendaDAO extends DAOTemplate<CatalogoTienda, Long> {
 		return total;
 	}
 	
+	public List<Item> obtieneTotalEscaneosPorUsuarioTiendaMesAnio( long idUsuario, int year, String tienda ) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ");
+		sql.append("	COUNT(t.id_ticket) AS total, ");
+		sql.append("	(t.nombre_tienda) AS topico, ");
+		sql.append("	MONTH(t.fecha) AS indice  ");
+		sql.append(" FROM ticket t,");
+		sql.append("	historico_tickets ht");
+		sql.append(" WHERE ");
+		sql.append(" t.id_ticket = ht.ticket_id_ticket");
+		sql.append(" AND YEAR(t.fecha) = :year");
+		sql.append(" AND t.nombre_tienda = :tienda");
+		sql.append(" AND ht.usuario_id_usuario = :idUsuario");
+		sql.append(" GROUP BY indice, topico");
+		sql.append(" ORDER BY topico, indice");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString()).setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("idUsuario", idUsuario);
+		q.setParameter("year", year);
+		q.setParameter("tienda", tienda);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
 
 	//Obtiene resumen por tienda
 	public List<ResumenItem> obtieneResumenTiendas(){

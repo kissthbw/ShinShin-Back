@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bit.model.MediosBonificacion;
+import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,8 +21,11 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 	private Long tickets;
 	private Long retiros;
 	private Long medios;
+	private Long totalProductos;
 	private Usuario usuario;
 	private List<MedioBonificacionUsuario> mediosBonificacion = new ArrayList<>();
+	private List<MediosBonificacion> listaMediosBonificaciones;
+	private List<Ticket> listaTickets;
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -66,6 +71,14 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 		return mediosBonificacion;
 	}
 
+	public Long getTotalProductos() {
+		return totalProductos;
+	}
+
+	public void setTotalProductos(Long totalProductos) {
+		this.totalProductos = totalProductos;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -80,5 +93,21 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 	
 	public void addToList(MedioBonificacionUsuario item) {
 		this.mediosBonificacion.add(item);
+	}
+
+	public List<MediosBonificacion> getListaMediosBonificaciones() {
+		return listaMediosBonificaciones;
+	}
+
+	public void setListaMediosBonificaciones(List<MediosBonificacion> listaMediosBonificaciones) {
+		this.listaMediosBonificaciones = listaMediosBonificaciones;
+	}
+
+	public List<Ticket> getListaTickets() {
+		return listaTickets;
+	}
+
+	public void setListaTickets(List<Ticket> listaTickets) {
+		this.listaTickets = listaTickets;
 	}
 }

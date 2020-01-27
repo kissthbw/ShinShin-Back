@@ -203,6 +203,20 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		return total;
 	}
 	
+	public BigInteger obtieneTotalProductosPorUsario(Usuario item) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT COUNT(usuario_id_usuario) ");
+		sql.append(" FROM historico_tickets");
+		sql.append(" WHERE usuario_id_usuario = :idUsuario");
+		
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() );
+		q.setParameter("idUsuario", item.getIdUsuario());
+		
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
 	//Obtiene las bonificaciones solicitadas por el usuario
 	public BigInteger calculaBanoficacionesTotales(Usuario item) {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(usuario_id_usuario) FROM historico_medios_bonificacion\n" + 
@@ -353,7 +367,7 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 						" FROM usuario" +
 						" WHERE YEAR(fecha_registro) = :year" +
 						" AND month(fecha_registro) = :month" +
-						" GROUP BY indice ASC"
+						" GROUP BY indice"
 		).setResultTransformer( (Transformers.aliasToBean(Item.class)) );
 		q.setParameter("year", year);
 		q.setParameter("month", month);

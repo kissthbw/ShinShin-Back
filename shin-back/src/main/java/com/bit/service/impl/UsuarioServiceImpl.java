@@ -2,6 +2,7 @@ package com.bit.service.impl;
 
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
@@ -11,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import javax.persistence.Transient;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,6 +82,47 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public enum Source{
 		REST_CONTROLLER,
 		CONTROLLER
+	}
+	
+	public enum Sexo{
+		HOMBRE(1, "Hombre"),
+		MUJER(2, "Mujer"),
+		DESCONOCIDO(3, "Otro");
+		
+		private final Integer id;
+		private final String nombre;
+		
+		Sexo(int id, String nombre){
+			this.id = id;
+			this.nombre = nombre;
+		}
+		
+		public static String getNombreById(Integer id) {
+		    for(Sexo e : values()) {
+		        if(e.id.equals(id)) return e.nombre;
+		    }
+		    return "Desconocido";
+		}
+	}
+	
+	public enum RedSocial{
+		GOOGLE(1, "Google"),
+		FACEBOOK(2, "Facebook");
+		
+		private final Integer id;
+		private final String nombre;
+		
+		RedSocial(int id, String nombre){
+			this.id = id;
+			this.nombre = nombre;
+		}
+		
+		public static String getNombreById(Integer id) {
+		    for(RedSocial e : values()) {
+		        if(e.id.equals(id)) return e.nombre;
+		    }
+		    return "E-Mail";
+		}
 	}
 
 	@Override
@@ -248,6 +292,22 @@ public class UsuarioServiceImpl implements UsuarioService{
 		tmp.setHash( user.getHash() );
 		tmp.setActivation_link( user.getActivation_link() );
 		tmp.setPassword_restore_link( user.getPassword_restore_link() );
+		
+		
+		tmp.setFechaRegistro( Utils.formatFecha(user.getFecha_registro(), "dd-MMM-yyyy") );
+		
+		//Agregar Edad en base a fecha nac.
+//		LocalDate birthday = LocalDate.of(1983, Month.SEPTEMBER, 11);
+		Calendar birthday = Calendar.getInstance();
+		birthday.setTime( tmp.getFechaNac() );
+		Period p = Utils.calcularEdad(birthday);
+		tmp.setEdad( p.getYears() );
+		
+		//Agregar Sexo.
+		tmp.setSexo( Sexo.getNombreById( tmp.getIdCatalogoSexo() ) );
+		
+		//Agregar Registro.
+		tmp.setRedSocial( RedSocial.getNombreById( tmp.getIdRedSocial() ) );
 		
 		return tmp;
 	}
@@ -786,7 +846,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	public InformacionUsuarioRSP obtieneInformacionGeneralUsuario(Usuario item) {
 		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 		try {
-			Usuario entity = usuarioDAO.findByPK(2L);
+			Usuario entity = usuarioDAO.findByPK( item.getIdUsuario() );
 			Usuario tmp = new Usuario();
 			
 			tmp.setNombre( entity.getNombre() );
@@ -865,6 +925,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 			tmp.setTicket_fecha( t.getTicket_fecha() );
 			tmp.setTicket_hora( t.getTicket_hora() );
 			tmp.setTicket_transaccion( t.getTicket_transaccion() );
+			tmp.setTotalProductos( t.getProductos().size() );
+			tmp.setFormatFecha( Utils.formatFecha( t.getFecha(), "dd-MMM-yyyy" ) );
 			
 			tickets.add(tmp);
 		}
@@ -1092,6 +1154,45 @@ public class UsuarioServiceImpl implements UsuarioService{
 			rsp.setMessage("Ocurrio un error");
 			log.error( "", e );
 		}
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public InformacionUsuarioRSP obtieneDetalleUsuario(Usuario item) {
+		// Datos generales del usuario
+		// Foto
+		// Nombre
+		// Edad
+		// Sexo
+		// Email
+		// Telefono
+		// CP
+		// Desde(fecha de registro)
+		// Tipo de registro
+		InformacionUsuarioRSP rsp = obtieneInformacionGeneralUsuario(item);
+
+		// Totales
+		// Escaneos
+		rsp.setTickets( usuarioDAO.calculaTicketsTotales(item).longValue() );
+		
+		// Productos
+		rsp.setTotalProductos( usuarioDAO.obtieneTotalProductosPorUsario(item).longValue() );
+		
+		// Retiros
+		rsp.setRetiros( usuarioDAO.calculaBanoficacionesTotales(item).longValue() );
+		
+		// $Bonificaciones
+		rsp.setBonificacion( calculaCreditoTotal(item).doubleValue() );
+
+		// Historico de retiros
+		rsp.setListaMediosBonificaciones( obtienetHistoricosMediosBonificacionPorUsuario(item).getMediosBonificaciones() );
+		
+		rsp.setListaTickets( obtieneTicketsPorUsuario(item).getTickets() );
+		
+		//Graficas
+		
 		
 		return rsp;
 	}

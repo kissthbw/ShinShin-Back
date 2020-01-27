@@ -88,59 +88,77 @@ public class Usuario {
 
 	@Column(name = "id_catalogo_sexo")
 	private Integer idCatalogoSexo;
-	
+
 	@Column(name = "id_catalogo_red_social")
 	private Integer idRedSocial;
-	
+
 	@Column(name = "estatus")
 	private Integer estatus;
-	
+
 	@Transient
 	private String imageData;
-	
+
 	@Transient
 	private String contraseniaActual;
-	
+
 	@Transient
 	private String confirmarContrasenia;
-	
+
 	@Transient
 	private String dia;
-	
+
 	@Transient
 	private String mes;
-	
+
 	@Transient
 	private String anio;
-	
+
 	@Transient
 	private String d1;
-	
+
 	@Transient
 	private String d2;
-	
+
 	@Transient
 	private String d3;
-	
+
 	@Transient
 	private String d4;
+
+	// Edad.
+	@Transient
+	private int edad;
+
+	// Sexo.
+	@Transient
+	private String sexo;
+
+	// Tipo.
+	@Transient
+	private String redSocial;
 	
-	
+	@Transient
+	private String fechaRegistro;
+
 	@Column(name = "img_url")
 	private String imgUrl;
-	
+
 	@Column(name = "hash")
 	private String hash;
-	
+
 	@Column(name = "password_restore_link")
 	private String password_restore_link;
-	
+
 	@Column(name = "activation_link")
 	private String activation_link;
-	
+
 	@Column(name = "time_restore_link")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date time_restore_link;
+	
+	@Column(name = "fecha_registro")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fecha_registro;
 
 	// Obtener productos favoritos
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.LAZY)
@@ -153,12 +171,11 @@ public class Usuario {
 	@JoinTable(name = "historico_tickets", joinColumns = {
 			@JoinColumn(name = "usuario_id_usuario") }, inverseJoinColumns = { @JoinColumn(name = "ticket_id_ticket") })
 	private List<Ticket> tickets = new ArrayList<>();
-	
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_authority",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "authority_id") })
-    private Set<Authority> authorities = new HashSet<>();
+	@JoinTable(name = "user_authority", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "authority_id") })
+	private Set<Authority> authorities = new HashSet<>();
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
@@ -416,6 +433,38 @@ public class Usuario {
 		this.d4 = d4;
 	}
 
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getRedSocial() {
+		return redSocial;
+	}
+
+	public void setRedSocial(String redSocial) {
+		this.redSocial = redSocial;
+	}
+
+	public String getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(String fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
 	public String getImgUrl() {
 		return imgUrl;
 	}
@@ -446,6 +495,14 @@ public class Usuario {
 
 	public void setTime_restore_link(Date time_restore_link) {
 		this.time_restore_link = time_restore_link;
+	}
+
+	public Date getFecha_registro() {
+		return fecha_registro;
+	}
+
+	public void setFecha_registro(Date fecha_registro) {
+		this.fecha_registro = fecha_registro;
 	}
 
 	public String getActivation_link() {

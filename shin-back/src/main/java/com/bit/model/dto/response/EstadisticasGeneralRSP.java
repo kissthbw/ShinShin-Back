@@ -18,6 +18,7 @@ public class EstadisticasGeneralRSP {
 	private Integer totalMarcas;
 	private Integer totalProductos;
 
+	// Seccion de graficas
 	// Usuarios
 	private List<Item> totalUsuariosDias;
 	private List<Item> totalUsuariosSemana;
@@ -30,18 +31,23 @@ public class EstadisticasGeneralRSP {
 	private List<Item> totalProductosEscaneadosDias;
 	private List<Item> totalProductosEscaneadosSemana;
 	private List<Item> totalProductosEscaneadosMes;
+
+	private List<Item> listaTopMarcas;
+	private List<Item> listaTopDeptos;
+
 	// Escaneos por departamento
 	private List<Category> totalEscaneaosDepartamentoMes;
-	
+
 	// Escaneos por tienda
 	private List<Category> totalEscaneaosTiendaMes;
-	
+
+	// Historicos
 	// Resumen departamentos
 	private List<ResumenItem> listaResumenDepartamentos;
-	
+
 	// Resumen tiendas
 	private List<ResumenItem> listaResumenTiendas;
-	
+
 	public Integer getTotalUsuarios() {
 		return totalUsuarios;
 	}
@@ -160,6 +166,22 @@ public class EstadisticasGeneralRSP {
 
 	public void setTotalProductosEscaneadosMes(List<Item> totalProductosEscaneadosMes) {
 		this.totalProductosEscaneadosMes = totalProductosEscaneadosMes;
+	}
+
+	public List<Item> getListaTopMarcas() {
+		return listaTopMarcas;
+	}
+
+	public void setListaTopMarcas(List<Item> listaTopMarcas) {
+		this.listaTopMarcas = listaTopMarcas;
+	}
+
+	public List<Item> getListaTopDeptos() {
+		return listaTopDeptos;
+	}
+
+	public void setListaTopDeptos(List<Item> listaTopDeptos) {
+		this.listaTopDeptos = listaTopDeptos;
 	}
 
 	public List<Category> getTotalEscaneaosDepartamentoMes() {

@@ -56,4 +56,9 @@ public interface UsuarioService {
 	SimpleResponse restaurarPassword(Usuario item);
 	
 	InformacionUsuarioRSP activationPasswordLink(Usuario item);
+	
+	//Metodos relacionados con el dashboard de estadistcas-usuarios -> usuario-detalle
+	//
+	InformacionUsuarioRSP obtieneDetalleUsuario( Usuario item );
+	
 }
