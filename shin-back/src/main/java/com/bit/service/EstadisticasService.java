@@ -1,6 +1,9 @@
 package com.bit.service;
 
+import java.util.List;
+
 import com.bit.model.Usuario;
+import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 
@@ -32,5 +35,16 @@ public interface EstadisticasService {
 	 */
 	EstadisticasGeneralRSP obtieneEstadisticasMarcas();
 	
+	/**
+	 * Obtiene resumen de bonificaciones por tipo
+	 * @return
+	 */
+	List<BonificacionItem> obtieneHistoricoBonificaciones();
 	
+	/**
+	 * Obtiene el detalle de bonificaciones por dia y tipo
+	 * @param fecha en formato 2020-01-28
+	 * @return
+	 */
+	List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo( BonificacionItem item );
 }

@@ -3,6 +3,7 @@ package com.bit.common;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
@@ -91,8 +92,23 @@ public class Utils {
 	
 	//dd/mm/anio
 	public static String formatFecha(Date fecha, String format) {
+		
+		if( null == fecha ) {
+			return "";
+		}
+		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(fecha);
+	}
+	
+	public static String formatNumeros( Double numero, String format ) {
+		
+		if( null == numero ) {
+			return "";
+		}
+		
+		DecimalFormat dm = new DecimalFormat( format );
+		return dm.format(numero);
 	}
 	
 	public static void main (String[] args) {

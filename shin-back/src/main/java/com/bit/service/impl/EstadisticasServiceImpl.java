@@ -2,6 +2,7 @@ package com.bit.service.impl;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.common.Utils;
 import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.dao.CatalogoTiendaDAO;
 import com.bit.dao.CatalogoTipoProductoDAO;
+import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.dao.ProductoDAO;
 import com.bit.dao.TicketDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Usuario;
+import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.Category;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.ResumenItem;
@@ -50,6 +54,9 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	private CatalogoMarcaDAO catalogoMarcaDAO;
 
 	private TicketDAO ticketDAO;
+	
+	@Autowired
+	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
 
 	private static final String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
 	
@@ -343,4 +350,37 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		return rsp;
 	}
+
+
+	@Override
+	@Transactional
+	public List<BonificacionItem> obtieneHistoricoBonificaciones() {
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones();
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		for (BonificacionItem item : list) {
+			item.setFechaFormateada( Utils.formatFecha(item.getFecha(), "dd-MMM-yyyy") );
+			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo(BonificacionItem item) {
+		
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item);
+		
+		for (BonificacionItem i : list) {
+			i.setFechaFormateada( Utils.formatFecha(i.getFecha(), "dd-MMM-yyyy") );
+			i.setImporteFormateado( Utils.formatNumeros(i.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
+	}
+	
+	
 }
