@@ -7,6 +7,7 @@ public class Item {
 	private String topico;
 	private Integer indice;
 	private BigInteger total;
+	private Double importe;
 
 	public Item() {
 	}
@@ -40,10 +41,21 @@ public class Item {
 		this.total = total;
 	}
 
+	public Double getImporte() {
+		return importe;
+	}
+
+	public void setImporte(Double importe) {
+		this.importe = importe;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [" + (topico != null ? "topico=" + topico + ", " : "")
-				+ (indice != null ? "indice=" + indice + ", " : "") + (total != null ? "total=" + total : "") + "]";
+				+ (indice != null ? "indice=" + indice + ", " : "") + (total != null ? "total=" + total + ", " : "")
+				+ (importe != null ? "importe=" + importe : "") + "]";
 	}
+
+	
 
 }

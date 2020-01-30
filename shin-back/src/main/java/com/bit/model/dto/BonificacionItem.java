@@ -9,7 +9,9 @@ public class BonificacionItem {
 	private BigInteger idTipo;
 	private String tipo;
 	private Date fecha;
+	private Date hora;
 	private String fechaFormateada;
+	private String horaFormateada;
 	private BigInteger solicitudes;
 	private Double importe;
 	private String importeFormateado;
@@ -18,17 +20,16 @@ public class BonificacionItem {
 	public BonificacionItem() {
 	}
 
-	public BonificacionItem(String id, BigInteger idTipo, String tipo, Date fecha, String fechaFormateada,
-			BigInteger solicitudes, Double importe, String importeFormateado, Integer idUsuario) {
+	public BonificacionItem(String id, BigInteger idTipo, String tipo, Date fecha, Date hora, BigInteger solicitudes,
+			Double importe, Integer idUsuario) {
 		super();
 		this.id = id;
 		this.idTipo = idTipo;
 		this.tipo = tipo;
 		this.fecha = fecha;
-		this.fechaFormateada = fechaFormateada;
+		this.hora = hora;
 		this.solicitudes = solicitudes;
 		this.importe = importe;
-		this.importeFormateado = importeFormateado;
 		this.idUsuario = idUsuario;
 	}
 
@@ -64,12 +65,28 @@ public class BonificacionItem {
 		this.fecha = fecha;
 	}
 
+	public Date getHora() {
+		return hora;
+	}
+
+	public void setHora(Date hora) {
+		this.hora = hora;
+	}
+
 	public String getFechaFormateada() {
 		return fechaFormateada;
 	}
 
 	public void setFechaFormateada(String fechaFormateada) {
 		this.fechaFormateada = fechaFormateada;
+	}
+
+	public String getHoraFormateada() {
+		return horaFormateada;
+	}
+
+	public void setHoraFormateada(String horaFormateada) {
+		this.horaFormateada = horaFormateada;
 	}
 
 	public BigInteger getSolicitudes() {
@@ -108,8 +125,9 @@ public class BonificacionItem {
 	public String toString() {
 		return "BonificacionItem [" + (id != null ? "id=" + id + ", " : "")
 				+ (idTipo != null ? "idTipo=" + idTipo + ", " : "") + (tipo != null ? "tipo=" + tipo + ", " : "")
-				+ (fecha != null ? "fecha=" + fecha + ", " : "")
+				+ (fecha != null ? "fecha=" + fecha + ", " : "") + (hora != null ? "hora=" + hora + ", " : "")
 				+ (fechaFormateada != null ? "fechaFormateada=" + fechaFormateada + ", " : "")
+				+ (horaFormateada != null ? "horaFormateada=" + horaFormateada + ", " : "")
 				+ (solicitudes != null ? "solicitudes=" + solicitudes + ", " : "")
 				+ (importe != null ? "importe=" + importe + ", " : "")
 				+ (importeFormateado != null ? "importeFormateado=" + importeFormateado + ", " : "")

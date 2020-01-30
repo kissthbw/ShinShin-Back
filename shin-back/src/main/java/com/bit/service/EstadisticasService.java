@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
+import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 
@@ -47,4 +48,8 @@ public interface EstadisticasService {
 	 * @return
 	 */
 	List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo( BonificacionItem item );
+	
+	//Funcionalidad relacionada a la pagina bonificaciones-general
+	EstadisticasBonificacionRSP obtieneBonificacionesGenerales( String tipo, String categoria, List<Integer> tipos );
+	
 }

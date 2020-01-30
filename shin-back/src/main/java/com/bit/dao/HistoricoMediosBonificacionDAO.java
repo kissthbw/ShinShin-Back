@@ -1,5 +1,6 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
+import com.bit.model.dto.Item;
 
 @Repository
 public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosBonificacion, Long> {
@@ -70,6 +72,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" SELECT ");
 		sql.append("     c.nombre_medio_bonificacion AS tipo,");
 		sql.append("     h.fecha_bonificacion AS fecha,");
+		sql.append("     h.hora_bonificacion AS hora,");
 		sql.append("     h.cantidad_bonificacion AS importe,");
 //		sql.append("     h.id_historico_medios_bonificacion AS id,");
 		sql.append("     h.usuario_id_usuario AS idUsuario");
@@ -90,4 +93,218 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		return list;
 	}
+	
+	/*
+	 * Metodos relacionados a la pagina bonificaciones-general
+	 */
+	public BigInteger obtieneTotalDepositos(){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append("     c.id_catalogo_medio_bonificacion IN (1,2)");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() );
+		BigInteger total = (BigInteger) q.uniqueResult();
+		
+		return total;
+	}
+	
+	public BigInteger obtieneTotalRecargas(){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append("     c.id_catalogo_medio_bonificacion IN (3)");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() );
+		BigInteger total = (BigInteger) q.uniqueResult();
+		
+		return total;
+	}
+	
+	public Double obtieneTotalBonificaciones(){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("     SUM(h.cantidad_bonificacion) AS Bonificaciones");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() );
+		Double total = (Double) q.uniqueResult();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneTotalBonificacionesPorTipoDiaMesAnio( int year, int month, List<Integer> tipos ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
+		sql.append("     DAY(h.fecha_bonificacion) AS indice");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY h.fecha_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneTotalBonificacionesPorTipoSemanaMesAnio( int year, int month, List<Integer> tipos ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
+		sql.append("     WEEK(h.fecha_bonificacion) AS indice");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY h.fecha_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneTotalBonificacionesPorTipoMesAnio( int year, List<Integer> tipos ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
+		sql.append("     MONTH(h.fecha_bonificacion) AS indice");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY h.fecha_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneBonificacionesPorTipoDiaMesAnio( int year, int month, List<Integer> tipos ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append("    SUM(h.cantidad_bonificacion) as importe,");
+		sql.append("    DAY(h.fecha_bonificacion) AS indice");
+		sql.append(" FROM ");
+		sql.append("	historico_medios_bonificacion h");
+		sql.append("    INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("    INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append("	YEAR(h.fecha_bonificacion) = :year");
+		sql.append("	AND month(h.fecha_bonificacion) = :month");
+		sql.append("    AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY h.fecha_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneBonificacionesPorTipoSemanaMesAnio( int year, int month, List<Integer> tipos ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append("     SUM(h.cantidad_bonificacion) as importe,");
+		sql.append("     WEEK(h.fecha_bonificacion) AS indice");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY indice");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneBonificacionesPorTipoMesAnio( int year, List<Integer> tipos ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append("     SUM(h.cantidad_bonificacion) as importe,");
+		sql.append("     MONTH(h.fecha_bonificacion) AS indice");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY indice");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
 }

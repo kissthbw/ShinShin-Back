@@ -204,7 +204,6 @@
 			<!-- End Navbar -->
 			<!-- <div class="panel-header">
   
-  <canvas id="bigDashboardChart"></canvas>
   
   
 </div> -->
@@ -236,7 +235,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Depósitos</p>
-											<p class="card-title">99,999</p>
+											<p class="card-title" th:text="${totalDepositos}" >99,999</p>
 										</div>
 									</div>
 								</div>
@@ -253,15 +252,15 @@
 								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li class="nav-item"><a class="nav-link active"
+									<li id = "dayDepositosBtn" class="nav-item"><a class="nav-link active"
 										id="pills-home-tab" data-toggle="pill" href="#pills-home"
 										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 									</li>
-									<li class="nav-item"><a class="nav-link"
+									<li id = "weekDepositosBtn" class="nav-item"><a class="nav-link"
 										id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li class="nav-item"><a class="nav-link"
+									<li id = "monthDepositosBtn" class="nav-item"><a class="nav-link"
 										id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -282,17 +281,17 @@
 													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
-										<canvas id="activeUsers" width="558" height="256"
+										<canvas id="depositosChart" width="558" height="256"
 											class="chartjs-render-monitor"
 											style="display: block; height: 128px; width: 279px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="depositosChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="depositosChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -330,7 +329,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Bonificaciones totales</p>
-											<p class="card-title">$ 99,999</p>
+											<p class="card-title" th:text="${totalBonificaciones}" >$ 99,999</p>
 										</div>
 									</div>
 								</div>
@@ -347,15 +346,15 @@
 								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li class="nav-item"><a class="nav-link active"
+									<li id = "dayBonificacionesBtn" class="nav-item"><a class="nav-link active"
 										id="pills-home-tab" data-toggle="pill" href="#pills-home"
 										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 									</li>
-									<li class="nav-item"><a class="nav-link"
+									<li id = "weekBonificacionesBtn" class="nav-item"><a class="nav-link"
 										id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li class="nav-item"><a class="nav-link"
+									<li id = "monthBonificacionesBtn" class="nav-item"><a class="nav-link"
 										id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -376,17 +375,17 @@
 													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
-										<canvas id="activeUsers" width="558" height="256"
+										<canvas id="bonificacionesChart" width="558" height="256"
 											class="chartjs-render-monitor"
 											style="display: block; height: 128px; width: 279px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="bonificacionesChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="bonificacionesChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -416,7 +415,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Recargas</p>
-											<p class="card-title">99,999</p>
+											<p class="card-title" th:text="${totalRecargas}" >99,999</p>
 										</div>
 									</div>
 								</div>
@@ -433,15 +432,15 @@
 								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li class="nav-item"><a class="nav-link active"
+									<li id = "dayRecargasBtn" class="nav-item"><a class="nav-link active"
 										id="pills-home-tab" data-toggle="pill" href="#pills-home"
 										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 									</li>
-									<li class="nav-item"><a class="nav-link"
+									<li id = "weekRecargasBtn" class="nav-item"><a class="nav-link"
 										id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li class="nav-item"><a class="nav-link"
+									<li id = "monthRecargasBtn" class="nav-item"><a class="nav-link"
 										id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -462,17 +461,17 @@
 													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
-										<canvas id="activeUsers" width="558" height="256"
+										<canvas id="recargasChart" width="558" height="256"
 											class="chartjs-render-monitor"
 											style="display: block; height: 128px; width: 279px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="recargasChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="recargasChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -495,16 +494,6 @@
 							</div>
 						</div>
 					</div>
-
-
-
-
-
-
-
-
-
-
 
 				</div>
 
@@ -557,14 +546,58 @@
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
 		type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script th:src="@{/resources/assets/demo/bonificaciones-general-chart.js}"></script>
 	<script>
 		$(document).ready(function() {
-			// Javascript method's body can be found in assets/js/demos.js}
-			demo.initDashboardPageCharts();
-			demo.initVectorMap();
-			demo.initChartPageCharts();
+			
+			$('#dayDepositosBtn').click(function(){
+				loadChart( 'depositosChart', '1', 'd' );
+			});
+
+			$('#weekDepositosBtn').click(()=>{
+				loadChart( 'depositosChart', '1', 's' );
+			});
+
+			$('#monthDepositosBtn').click(()=>{
+				loadChart( 'depositosChart', '1', 'm' )
+			});
+			
+			$('#dayBonificacionesBtn').click(function(){
+				loadChart( 'bonificacionesChart', '2', 'd' );
+			});
+
+			$('#weekBonificacionesBtn').click(()=>{
+				loadChart( 'bonificacionesChart', '2', 's' );
+			});
+
+			$('#monthBonificacionesBtn').click(()=>{
+				loadChart( 'bonificacionesChart', '2', 'm' )
+			});
+			
+			$('#dayRecargasBtn').click(function(){
+				loadChart( 'recargasChart', '3', 'd' );
+			});
+
+			$('#weekRecargasBtn').click(()=>{
+				loadChart( 'recargasChart', '3', 's' );
+			});
+
+			$('#monthRecargasBtn').click(()=>{
+				loadChart( 'recargasChart', '3', 'm' )
+			});
 		});
+		
+		function loadChart( idChart, tipo, categoria ) {
+			bonificaciones_generales.loadChart( idChart, tipo, categoria );
+		}
+
+		//function usuariosPorSemanaChart() {
+		//	bonificaciones_generales.registrosPorDiaChart( 'depositosChart', '1', 's' );
+		//}
+
+		//function usuariosPorMesChart() {
+		//	bonificaciones_generales.registrosPorDiaChart( 'depositosChart', '1', 'm' );
+		//}
 	</script>
 </body>
 

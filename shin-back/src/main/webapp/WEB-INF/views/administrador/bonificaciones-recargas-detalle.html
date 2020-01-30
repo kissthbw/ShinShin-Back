@@ -250,7 +250,7 @@
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table class="table">
+									<table id="datatableActual" class="table table-striped table-bordered" cellspacing="0" width="100%">
 										<thead class="">
 											<tr>
 												<th>ID</th>
@@ -262,50 +262,18 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>r4122019-1</td>
-												<td><a href="usuario-detalle.html">u1</a></td>
-												<td>Telcel</td>
-												<td>4 / dic / 2019</td>
-												<td class="text-right">19:00</td>
-												<td class="text-right">$ 500</td>
-											</tr>
+											<th:block th:each="item : ${list}">
+												<tr>
+													<td th:text="${item.id}">r4122019-1</td>
+													<td th:text="${item.idUsuario}"><a href="usuario-detalle.html">u1</a></td>
+													<td th:text="${item.tipo}">Telcel</td>
+													<td th:text="${item.fechaFormateada}">4 / dic / 2019</td>
+													<td class="text-right" th:text="${item.horaFormateada}" >19:00</td>
+													<td class="text-right" th:text="${item.importeFormateado}">$ 500</td>
+												</tr>
+											</th:block>
 										</tbody>
 									</table>
-									<!-- Paginador -->
-									<div class="row">
-										<div class="col-sm-12 col-md-5">
-											<div class="dataTables_info" id="datatable_info"
-												role="status" aria-live="polite">Mostrando 1 a 1 de 1
-												resultados</div>
-										</div>
-										<div class="col-sm-12 col-md-7">
-											<div class="dataTables_paginate paging_full_numbers"
-												id="datatable_paginate">
-												<ul class="pagination">
-													<li class="paginate_button page-item first disabled"
-														id="datatable_first"><a href="#"
-														aria-controls="datatable" data-dt-idx="0" tabindex="0"
-														class="page-link"> Primero </a></li>
-													<li class="paginate_button page-item previous disabled"
-														id="datatable_previous"><a href="#"
-														aria-controls="datatable" data-dt-idx="1" tabindex="0"
-														class="page-link"> Previo </a></li>
-													<li class="paginate_button page-item active"><a
-														href="#" aria-controls="datatable" data-dt-idx="2"
-														tabindex="0" class="page-link"> 1 </a></li>
-													<li class="paginate_button page-item next disabled"
-														id="datatable_next"><a href="#"
-														aria-controls="datatable" data-dt-idx="3" tabindex="0"
-														class="page-link"> Siguiente </a></li>
-													<li class="paginate_button page-item last disabled"
-														id="datatable_last"><a href="#"
-														aria-controls="datatable" data-dt-idx="4" tabindex="0"
-														class="page-link"> Último </a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -365,10 +333,16 @@
 	<script src="resources/assets/demo/demo.js"></script>
 	<script>
 		$(document).ready(function() {
-			// Javascript method's body can be found in assets/js/demos.js
-			demo.initDashboardPageCharts();
-			demo.initVectorMap();
-			demo.initChartPageCharts();
+			$('#datatableActual').DataTable({
+				"pagingType" : "full_numbers",
+				"lengthMenu" : [ [ 10, 25, 50, -1 ], [ 10, 25, 50, "All" ] ],
+				responsive : true,
+				language : {
+					search : "_INPUT_",
+					searchPlaceholder : "Search records",
+				}
+
+			});
 		});
 	</script>
 </body>

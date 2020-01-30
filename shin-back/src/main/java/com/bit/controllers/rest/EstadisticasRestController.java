@@ -1,15 +1,20 @@
 package com.bit.controllers.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Usuario;
+import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.service.EstadisticasService;
@@ -61,5 +66,28 @@ public class EstadisticasRestController {
 		return rsp;
 	}
 
+	/**
+	 * 
+	 * @param tipo valor que puede ser 1 (depositos),2(bonificaciones) o 3(recargas)
+	 * @param categoria valor que puede ser d (dia), s (semana), m (mes)
+	 * @return
+	 */
+	@GetMapping(value = "/bonificaciones-general")
+	public @ResponseBody EstadisticasBonificacionRSP getBonificacionesGeneral( @RequestParam(required = false) String tipo,
+			@RequestParam(required = false) String categoria) {
+
+		
+		log.info("Entrando a getBonificacionesGeneral");
+		log.info("Params: tipo: {}, categoria: {}", tipo, categoria);
+		
+		List<Integer> tipos = new ArrayList<>();
+		tipos.add(1);
+		tipos.add(2);
+		tipos.add(3);
+		
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(tipo, categoria, tipos);
+
+		return rsp;
+	}
 	
 }

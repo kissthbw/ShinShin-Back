@@ -1,5 +1,9 @@
 package com.bit.controllers.portal.usuario;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bit.common.Utils;
 import com.bit.model.Usuario;
+import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
@@ -262,7 +269,15 @@ public class UsuarioAdministrationController {
 	public String getObtenerGeneral(Model model) {
 		
 		log.info("Entrando a getObtenerGeneral");
-		Usuario item = new Usuario();
+		List<Integer> tipos = new ArrayList<>();
+		tipos.add(1);
+		tipos.add(2);
+		tipos.add(3);
+		
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null, tipos);
+		model.addAttribute("totalDepositos", rsp.getTotalDepositos());
+		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
+		model.addAttribute("totalBonificaciones", rsp.getTotalBonificaciones());
 		
 		return "administrador/bonificaciones-general";
 	}
@@ -271,7 +286,8 @@ public class UsuarioAdministrationController {
 	public String getObtenerDepositos(Model model) {
 		
 		log.info("Entrando a getObtenerDeporistos");
-		Usuario item = new Usuario();
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones();
+		model.addAttribute("list", list);
 		
 		return "administrador/bonificaciones-depositos";
 	}
@@ -280,7 +296,17 @@ public class UsuarioAdministrationController {
 	public String getObtenerDepositosDetalle(Model model) {
 		
 		log.info("Entrando a getObtenerDeporistosDetalle");
-		Usuario item = new Usuario();
+		BonificacionItem item = new BonificacionItem();
+		//Estos valores deben ser tomados del URL como QueryParams
+		item.setFechaFormateada("2020-01-28");
+		item.setIdTipo( BigInteger.valueOf( 3 ) );
+		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
+		model.addAttribute("list", list);
+		model.addAttribute("solicitudes", Utils.formatNumeros(Integer.valueOf( list.size() ).doubleValue(), "###,###,###"));
+		
+		double total = list.stream().mapToDouble( i -> i.getImporte() ).sum();
+		
+		model.addAttribute("importe", Utils.formatNumeros(total, "$###,###,###.00"));
 		
 		return "administrador/bonificaciones-depositos-detalle";
 	}
@@ -298,7 +324,12 @@ public class UsuarioAdministrationController {
 	public String getObtenerRecargasDetalle(Model model) {
 		
 		log.info("Entrando a getObtenerRecargasDetalle");
-		Usuario item = new Usuario();
+		BonificacionItem item = new BonificacionItem();
+		//Estos valores deben ser tomados del URL como QueryParams
+		item.setFechaFormateada("2020-01-28");
+		item.setIdTipo( BigInteger.valueOf( 3 ) );
+		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
+		model.addAttribute("list", list);
 		
 		return "administrador/bonificaciones-recargas-detalle";
 	}
@@ -408,25 +439,11 @@ public class UsuarioAdministrationController {
 	public String getObtenerUsuarioDetalle(Model model) {
 		
 		log.info("Entrando a getObtenerUsuarioDetalle");
+		
 		Usuario item = new Usuario();
-		//Datos generales del usuario
-		//Foto
-		//Nombre
-		//Edad
-		//Sexo
-		//Email
-		//Telefono
-		//CP
-		//Desde(fecha de registro)
-		//Tipo de registro
-		
-		//Totales
-		//Escaneos
-		//Productos
-		//Retiros
-		//$Bonificaciones
-		
-		//Historico de retiros
+		item.setIdUsuario(2l);
+		InformacionUsuarioRSP rsp = usuarioService.obtieneDetalleUsuario(item);
+		model.addAttribute("rsp", rsp);
 		
 		return "administrador/usuario-detalle";
 	}
