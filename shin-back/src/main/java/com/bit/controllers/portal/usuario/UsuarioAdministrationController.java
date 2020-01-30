@@ -269,12 +269,8 @@ public class UsuarioAdministrationController {
 	public String getObtenerGeneral(Model model) {
 		
 		log.info("Entrando a getObtenerGeneral");
-		List<Integer> tipos = new ArrayList<>();
-		tipos.add(1);
-		tipos.add(2);
-		tipos.add(3);
 		
-		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null, tipos);
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
 		model.addAttribute("totalDepositos", rsp.getTotalDepositos());
 		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
 		model.addAttribute("totalBonificaciones", rsp.getTotalBonificaciones());

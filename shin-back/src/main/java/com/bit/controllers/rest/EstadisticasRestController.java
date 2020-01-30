@@ -80,12 +80,7 @@ public class EstadisticasRestController {
 		log.info("Entrando a getBonificacionesGeneral");
 		log.info("Params: tipo: {}, categoria: {}", tipo, categoria);
 		
-		List<Integer> tipos = new ArrayList<>();
-		tipos.add(1);
-		tipos.add(2);
-		tipos.add(3);
-		
-		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(tipo, categoria, tipos);
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(tipo, categoria);
 
 		return rsp;
 	}

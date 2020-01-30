@@ -149,7 +149,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return total;
 	}
 	
-	public List<Item> obtieneTotalBonificacionesPorTipoDiaMesAnio( int year, int month, List<Integer> tipos ){
+	public List<Item> obtieneTotalBonificacionesPorTipoDiaMesAnio( int year, int month, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -163,7 +163,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
 		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
 		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
-		sql.append(" GROUP BY h.fecha_bonificacion");
+		sql.append(" GROUP BY indice");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
@@ -176,7 +176,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneTotalBonificacionesPorTipoSemanaMesAnio( int year, int month, List<Integer> tipos ){
+	public List<Item> obtieneTotalBonificacionesPorTipoSemanaMesAnio( int year, int month, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -190,7 +190,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
 		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
 		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
-		sql.append(" GROUP BY h.fecha_bonificacion");
+		sql.append(" GROUP BY indice");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
@@ -203,7 +203,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneTotalBonificacionesPorTipoMesAnio( int year, List<Integer> tipos ){
+	public List<Item> obtieneTotalBonificacionesPorTipoMesAnio( int year, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -216,7 +216,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" WHERE ");
 		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
 		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
-		sql.append(" GROUP BY h.fecha_bonificacion");
+		sql.append(" GROUP BY indice");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
@@ -228,7 +228,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneBonificacionesPorTipoDiaMesAnio( int year, int month, List<Integer> tipos ){
+	public List<Item> obtieneBonificacionesPorTipoDiaMesAnio( int year, int month, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -242,7 +242,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append("	YEAR(h.fecha_bonificacion) = :year");
 		sql.append("	AND month(h.fecha_bonificacion) = :month");
 		sql.append("    AND c.id_catalogo_medio_bonificacion IN (:tipos)");
-		sql.append(" GROUP BY h.fecha_bonificacion");
+		sql.append(" GROUP BY indice");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
@@ -255,7 +255,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneBonificacionesPorTipoSemanaMesAnio( int year, int month, List<Integer> tipos ){
+	public List<Item> obtieneBonificacionesPorTipoSemanaMesAnio( int year, int month, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -282,7 +282,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneBonificacionesPorTipoMesAnio( int year, List<Integer> tipos ){
+	public List<Item> obtieneBonificacionesPorTipoMesAnio( int year, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");

@@ -368,7 +368,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 
 	@Override
 	@Transactional
-	public EstadisticasBonificacionRSP obtieneBonificacionesGenerales(String tipo, String categoria, List<Integer> tipos) {
+	public EstadisticasBonificacionRSP obtieneBonificacionesGenerales(String tipo, String categoria) {
 		
 		EstadisticasBonificacionRSP rsp = new EstadisticasBonificacionRSP();
 		
@@ -387,29 +387,29 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			rsp.setTotalRecargas( null != totalRecargas ? totalRecargas.intValue() : 0 );
 
 			
-			List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+			List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {1, 2});
 			rsp.setDepositos(list1);
 			
-			List<Item> listBonificaciones = historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+			List<Item> listBonificaciones = historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {1, 2, 3});
 			rsp.setBonificaciones(listBonificaciones);
 			
-			List<Item> listRecargas =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+			List<Item> listRecargas =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {3});
 			rsp.setRecargas(listRecargas);
 		}
 		
 		if( "1".equals( tipo ) ){
 			if( "d".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {1, 2});
 				rsp.setDepositos(list1);
 			}
 			
 			if( "s".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, new Integer[] {1, 2});
 				rsp.setDepositos(list1);
 			}
 			
 			if( "m".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, new Integer[] {1, 2});
 				List<Item> listaMensual = new ArrayList<>();
 				initListaMensual(listaMensual, list1);
 				rsp.setDepositos(listaMensual);
@@ -418,17 +418,17 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		if( "2".equals( tipo ) ){
 			if( "d".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {1, 2, 3});
 				rsp.setBonificaciones(list1);
 			}
 			
 			if( "s".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoSemanaMesAnio(year, month, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoSemanaMesAnio(year, month, new Integer[] {1, 2, 3});
 				rsp.setBonificaciones(list1);
 			}
 			
 			if( "m".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoMesAnio(year, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoMesAnio(year, new Integer[] {1, 2, 3});
 				List<Item> listaMensual = new ArrayList<>();
 				initListaImporteMensual(listaMensual, list1);
 				rsp.setBonificaciones(listaMensual);
@@ -437,17 +437,17 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		if( "3".equals( tipo ) ){
 			if( "d".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {3});
 				rsp.setRecargas(list1);
 			}
 			
 			if( "s".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, new Integer[] {3});
 				rsp.setRecargas(list1);
 			}
 			
 			if( "m".equalsIgnoreCase( categoria ) ) {
-				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, tipos);
+				List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, new Integer[] {3});
 				List<Item> listaMensual = new ArrayList<>();
 				initListaMensual(listaMensual, list1);
 				rsp.setRecargas(listaMensual);

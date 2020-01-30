@@ -50,6 +50,6 @@ public interface EstadisticasService {
 	List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo( BonificacionItem item );
 	
 	//Funcionalidad relacionada a la pagina bonificaciones-general
-	EstadisticasBonificacionRSP obtieneBonificacionesGenerales( String tipo, String categoria, List<Integer> tipos );
+	EstadisticasBonificacionRSP obtieneBonificacionesGenerales( String tipo, String categoria );
 	
 }
