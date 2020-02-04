@@ -12,7 +12,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.Ticket;
-import com.bit.model.dto.response.Item;
+import com.bit.model.dto.Item;
 
 @Repository
 public class TicketDAO extends DAOTemplate<Ticket, Long> {
@@ -81,23 +81,6 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		return total;
 	}
 	
-	public List<Item> obtieneTicketsPorDiaMesAnio(int year, int month){
-		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
-				"SELECT COUNT(*) AS total," +
-						"DAY(fecha) AS indice" + 
-						"FROM ticket" + 
-						"WHERE YEAR(fecha) = :year" +
-						"WHERE MONTH(fecha) = :month" +
-						"GROUP BY indice ASC"
-		).setResultTransformer((Transformers.aliasToBean(Item.class)));
-		q.setParameter("year", year);
-		q.setParameter("month", month);
-		
-		List<Item> total = q.list();
-		
-		return total;
-	}
-	
 	//metodo correspondiente de estadisticas-tickets
 	//metodo para obtener total de tickets registrados por semana
 	public List<Object> obtieneTotalTicketsPorSemana() {
@@ -109,21 +92,6 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 				"GROUP BY anio, semana;");
 			
 		List<Object> total = (List<Object>)q.list();
-		
-		return total;
-	}
-	
-	public List<Item> obtieneTicketsPorSemanaMesAnio(int year, int month){
-		Query q = getSessionFactory().getCurrentSession().createQuery("SELECT COUNT(*) AS total,"
-				+ "WEEK(fecha) AS indice"
-				+ "FROM ticket"
-				+ "WHERE YEAR(fecha) = :year"
-				+ "AND MONTH(fecha) = :month"
-				+ "GROP BY indice").setResultTransformer((Transformers.aliasToBean(Item.class)));
-		q.setParameter("year", year);
-		q.setParameter("month", month);
-		
-		List<Item> total = q.list();
 		
 		return total;
 	}
@@ -140,20 +108,6 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 				
 		List<Object> total = (List<Object>)q.list();
 			
-		return total;
-	}
-	
-	public List<Item> obtieneTicketsPorMesAnio(Integer year) {
-		Query q = getSessionFactory().getCurrentSession().createQuery("SELECT COUNT(*) AS total," +
-				"MONTH(fecha) AS indice" +
-				"FROM ticket" +
-				"WHERE YEAR(fecha) = :year" +
-				"GROUP BY indice" +
-				"OEDER BY indice ASC").setResultTransformer((Transformers.aliasToBean(Item.class)));
-		q.setParameter("year", year);
-		
-		List<Item> total = q.list();
-		
 		return total;
 	}
 	
@@ -174,24 +128,6 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		return total;
 	}
 	
-	public List<Item> obtieneTicketsPorTiendaDiaHora(int year, int month) {
-		Query q = getSessionFactory().getCurrentSession().createQuery("SELECT COUNT(*) AS total,"
-				+ "(nombre_tienda) AS topico,"
-				+ "DAY(fecha),"
-				+ "(hora) AS indice"
-				+ "FROM ticket"
-				+ "WHERE YEAR(fecha) = :year"
-				+ "AND MONTH(fecha) = :month"
-				+ "GROUP BY topico ASC"
-		).setResultTransformer((Transformers.aliasToBean(Item.class)));
-		q.setParameter("year", year);
-		q.setParameter("month", month);
-		
-		List<Item> total = q.list();
-		
-		return total;
-	}
-	
 	//metodo correspondiente de estadisticas-tickets
 	//metodo para obtener total de tickets por tienda registrados por semana y hora
 	public List<Object> obtieneTotalTicketsTiendaPorSemanaHora() {
@@ -206,22 +142,6 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 				
 		List<Object> total = (List<Object>)q.list();
 			
-		return total;
-	}
-	
-	public List<Item> obtieneTicketsPorTiendaSemanaHora(int year, int month){
-		Query q = getSessionFactory().getCurrentSession().createQuery("SELECT COUNT(*) AS total"
-				+ "(nombre_tienda) AS topico,"
-				+ "WEEK(fecha),"
-				+ "(hora) AS indice"
-				+ "FROM ticket"
-				+ "WHERE YEAR(fecha) = :year"
-				+ "AND MONTH(fecha) = :month"
-				+ "GROUP BY topico ASC").setResultTransformer((Transformers.aliasToBean(Item.class)));
-		q.setParameter("year", year);
-		q.setParameter("month", month);
-		
-		List<Item> total = q.list();
 		return total;
 	}
 	
@@ -242,14 +162,92 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		return total;
 	}
 	
-	public List<Item> obtieneTicketsPorTiendaMesHora(Integer year) {
-		Query q = getSessionFactory().getCurrentSession().createQuery("SELECT COUNT(*) AS total,"
-				+ "(nombre_tienda) AS topico,"
-				+ "MONTH(fecha) AS indice"
-				+ "FROM ticket"
-				+ "WHERE YEAR(fecha) = :year"
-				+ "GROUP BY indice"
-				+ "ORDER BY indice ASC").setResultTransformer((Transformers.aliasToBean(Item.class)));
+	public List<Item> obtieneTicketsPorDiaMesAnio(int year, int month){
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
+				"SELECT COUNT(*) AS total, " +
+						"DAY(fecha) AS indice " + 
+						"FROM ticket " + 
+						"WHERE YEAR(fecha) = :year " +
+						"AND MONTH(fecha) = :month " +
+						"GROUP BY indice ASC "
+		).setResultTransformer((Transformers.aliasToBean(Item.class)));
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneTicketsPorSemanaMesAnio(int year, int month){
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(*) AS total, "
+				+ "WEEK(fecha) AS indice "
+				+ "FROM ticket "
+				+ "WHERE YEAR(fecha) = :year "
+				+ "AND MONTH(fecha) = :month "
+				+ "GROUP BY indice").setResultTransformer((Transformers.aliasToBean(Item.class)));
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneTicketsPorMesAnio(Integer year) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(*) AS total, \r\n" + 
+				"MONTH(fecha) AS indice\r\n" + 
+				"FROM ticket\r\n" + 
+				"WHERE YEAR(fecha) = :year\r\n" + 
+				"GROUP BY indice  \r\n" + 
+				"ORDER BY indice ASC").setResultTransformer((Transformers.aliasToBean(Item.class)));
+		q.setParameter("year", year);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneTicketsPorTiendaDia(int year, int month) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(*) AS total, "
+				+ " (nombre_tienda) AS topico, "
+				+ " DAY(fecha) AS indice "
+				+ " FROM ticket "
+				+ " WHERE YEAR(fecha) = :year "
+				+ " AND MONTH(fecha) = :month "
+				+ " GROUP BY hora, indice, topico "
+		).setResultTransformer((Transformers.aliasToBean(Item.class)));
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+	
+	public List<Item> obtieneTicketsPorTiendaSemana(int year, int month){
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(*) AS total, "
+				+ " (nombre_tienda) AS topico, "
+				+ " WEEK(fecha) AS indice "
+				+ " FROM ticket "
+				+ " WHERE YEAR(fecha) = :year "
+				+ " AND MONTH(fecha) = :month "
+				+ " GROUP BY topico ").setResultTransformer((Transformers.aliasToBean(Item.class)));
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		return total;
+	}
+	
+	public List<Item> obtieneTicketsPorTiendaMes(Integer year) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT COUNT(*) AS total, "
+				+ " (nombre_tienda) AS topico, "
+				+ " MONTH(fecha) AS indice "
+				+ " FROM ticket "
+				+ " WHERE YEAR(fecha) = :year "
+				+ " GROUP BY indice "
+				+ " ORDER BY indice ASC").setResultTransformer((Transformers.aliasToBean(Item.class)));
 		q.setParameter("year", year);
 		
 		List<Item> total = q.list();

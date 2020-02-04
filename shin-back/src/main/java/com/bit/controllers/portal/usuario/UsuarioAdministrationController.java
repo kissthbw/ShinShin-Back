@@ -363,7 +363,8 @@ public class UsuarioAdministrationController {
 	public String getObtenerEstadisticasTickets(Model model) {
 		
 		log.info("Entrando a getObtenerEstadisticasTickets");
-		Usuario item = new Usuario();
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasTickets();
+		model.addAttribute("totalTickets", rsp.getTotalTickets());
 		
 		return "administrador/estadisticas-tickets";
 	}

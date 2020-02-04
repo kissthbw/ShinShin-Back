@@ -53,13 +53,13 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	@Autowired
 	private CatalogoMarcaDAO catalogoMarcaDAO;
 
+	@Autowired
 	private TicketDAO ticketDAO;
 	
 	@Autowired
 	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
 
 	private static final String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
-	
 	
 	@Override
 	@Transactional
@@ -255,20 +255,25 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	}
 
 	
-	@Override
-	@Transactional
-	public EstadisticasRSP obtieneEstadisticasTickets() {
-		
-		log.info("Obteniendo informacion de estadisticas de tickets");
-		
-		EstadisticasRSP rsp = new EstadisticasRSP();
-		
-		// Total de tickets
-		BigInteger total = ticketDAO.obtieneTotalTickets();
-		rsp.setTotalTickets(null != total ? total.intValue() : 0);
-		
-		return rsp;
-	}
+//	private void initEscaneosPorMes(List<Item> list, List<Item> resultData) {
+//		
+//		//Se inicializa la lista con objetos Item, con los valores del mes
+//		for( String mes : meses ) {
+//			list.add( new Item(mes, BigInteger.valueOf(0)) );
+//		}
+//		
+//		//Se busca el elemento en la lista que coincida con el valor del campo indice
+//		//del resultData para asignar el total correspondiente
+//		for( Item data : resultData ) {
+//			Item i = list.get( data.getIndice() - 1 );
+//			
+//			if( null != i ) {
+//				i.setTotal( data.getTotal() );
+//			}
+//			
+//		}
+//	}
+
 
 	@Override
 	@Transactional
@@ -326,9 +331,55 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		List<ResumenItem> listaResumenDepartamentos = catalogoTipoProductoDAO.obtieneResumenDepartamento();
 		rsp.setListaResumenDepartamentos(listaResumenDepartamentos);
 		
+
 		//Tiendas: total de productos, escaneos, bonificaciones
 		List<ResumenItem> listaResumenTiendas = catalogoTiendaDAO.obtieneResumenTiendas();
 		rsp.setListaResumenTiendas(listaResumenTiendas);
+
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public EstadisticasRSP obtieneEstadisticasTickets() {
+		log.info("Obteniendo informacion de estadisticas de tickets");
+		
+		EstadisticasRSP rsp = new EstadisticasRSP();
+		
+		// Total de tickets
+		BigInteger total = ticketDAO.obtieneTotalTickets();
+		rsp.setTotalTickets(null != total ? total.intValue() : 0);
+		
+		//Tickets por mes
+		List<Item> ticketsMensuales = ticketDAO.obtieneTicketsPorMesAnio(2020);
+		List<Item> listaTicketsMensual = new ArrayList<>();
+		initEscaneosPorMes(listaTicketsMensual, ticketsMensuales);
+		rsp.setTotalTicketsMes(listaTicketsMensual);
+		
+		//Tickets por semana
+		LocalDate now = LocalDate.now();
+		int year = now.getYear();
+		int month = now.getMonthValue();
+		List<Item> ticketsSemanales = ticketDAO.obtieneTicketsPorSemanaMesAnio(year, month);
+		rsp.setTotalTicketsSemana(ticketsSemanales);
+		
+		//Tickets por dia
+		List<Item> ticketsDiarios = ticketDAO.obtieneTicketsPorDiaMesAnio(year, month);
+		rsp.setTotalTicketsDia(ticketsDiarios);
+		
+		//Tickets por tienda mes
+		List<Item> ticketsTiendaMesnuales = ticketDAO.obtieneTicketsPorTiendaMes(2020);
+		List<Item> listaTicketsTiendaMensual= new ArrayList<>();
+		initEscaneosPorMes(listaTicketsTiendaMensual, ticketsTiendaMesnuales);
+		rsp.setTotalTicketsTiendaMesHora(ticketsTiendaMesnuales);
+		
+		//Tickest por tienda semana
+		List<Item> ticketsTiendaSemanales = ticketDAO.obtieneTicketsPorTiendaSemana(year, month);
+		rsp.setTotalTicketsTiendaSemanaHora(ticketsTiendaSemanales);
+		
+		//Ticket pot tienda dia
+		List<Item> ticketsTiendaDiarios = ticketDAO.obtieneTicketsPorTiendaDia(year, month);
+		rsp.setTotalTicketsTiendaDiaHora(ticketsTiendaDiarios);
 		
 		return rsp;
 	}

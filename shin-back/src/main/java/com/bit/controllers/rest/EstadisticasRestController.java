@@ -95,4 +95,12 @@ public class EstadisticasRestController {
 		return rsp;
 	}
 	
+	@GetMapping(value = "/tickets")
+	public @ResponseBody EstadisticasRSP getEstadisticasTickets() {
+		
+		log.info("Entrando a getEstadisticasTickets");
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasTickets();
+		
+		return rsp;
+	}
 }
