@@ -233,7 +233,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Escaneos</p>
-											<p class="card-title">99,999</p>
+											<p class="card-title" th:text="${totalTickets}">{totalTickets}</p>
 										</div>
 									</div>
 								</div>
@@ -247,15 +247,15 @@
 								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li class="nav-item"><a class="nav-link active"
+									<li id="dayBtn" class="nav-item"><a class="nav-link active"
 										id="pills-home-tab" data-toggle="pill" href="#pills-home"
 										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 									</li>
-									<li class="nav-item"><a class="nav-link"
+									<li id="weekBtn" class="nav-item"><a class="nav-link"
 										id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li class="nav-item"><a class="nav-link"
+									<li id="monthBtn" class="nav-item"><a class="nav-link"
 										id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -263,15 +263,30 @@
 								<div class="tab-content" id="pills-tabContent">
 									<div class="tab-pane fade show active" id="pills-home"
 										role="tabpanel" aria-labelledby="pills-home-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<div class="chartjs-size-monitor"
+											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div class="chartjs-size-monitor-expand"
+												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div
+													style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+											</div>
+											<div class="chartjs-size-monitor-shrink"
+												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div
+													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+											</div>
+										</div>
+										<canvas id="ticketsChart" width="826" height="380"
+											class="chartjs-render-monitor"
+											style="display: block; height: 146px; width: 318px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="ticketsChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="ticketsChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -302,20 +317,25 @@
 							<div class="card-body"></div>
 
 							<div class="card-footer ">
-
+								<div class="col-7 col-md-8">
+									<div class="numbers">
+										<p class="card-category">Escaneos</p>
+										<p class="card-title" th:text="${totalTicketsTienda}">{totalTicketsTienda}</p>
+									</div>
+								</div>
 								<div class="card-body">
 									<h6 class="big-title">Tiendas</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-										<li class="nav-item"><a class="nav-link active"
+										<li id="dayTBtn" class="nav-item"><a class="nav-link active"
 											id="pills-home-tab" data-toggle="pill" href="#pills-home"
 											role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<li id="weekTBtn" class="nav-item"><a class="nav-link"
 											id="pills-profile-tab" data-toggle="pill"
 											href="#pills-profile" role="tab"
 											aria-controls="pills-profile" aria-selected="false">Semana</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<li id="monthTBtn" class="nav-item"><a class="nav-link"
 											id="pills-contact-tab" data-toggle="pill"
 											href="#pills-contact" role="tab"
 											aria-controls="pills-contact" aria-selected="false">Mes</a></li>
@@ -323,15 +343,29 @@
 									<div class="tab-content" id="pills-tabContent">
 										<div class="tab-pane fade show active" id="pills-home"
 											role="tabpanel" aria-labelledby="pills-home-tab">
-											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+											<div class="chartjs-size-monitor"
+											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div class="chartjs-size-monitor-expand"
+												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div
+													style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+											</div>
+											<div class="chartjs-size-monitor-shrink"
+												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div
+													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+											</div>
+										</div>
+											<canvas id="ticketsTiendaChart" width="826" height="380" class="chartjs-render-monitor"
+											style="display: block; height: 146px; width: 318px;"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 											aria-labelledby="pills-profile-tab">
-											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+											<canvas id="ticketsTiendaChart" width="826" height="380"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 											aria-labelledby="pills-contact-tab">
-											<canvas id="emailsCampaignChart" width="826" height="380"></canvas>
+											<canvas id="ticketsTiendaChart" width="826" height="380"></canvas>
 										</div>
 									</div>
 
@@ -352,7 +386,7 @@
 					</div>
 
 					<!--  Horarios   -->
-					<div class="col-lg-4 col-md-4 col-sm-6">
+					<!--<div class="col-lg-4 col-md-4 col-sm-6">
 						<div class="card card-stats">
 							<div class="card-body "></div>
 
@@ -378,15 +412,15 @@
 								<div class="tab-content" id="pills-tabContent">
 									<div class="tab-pane fade show active" id="pills-home"
 										role="tabpanel" aria-labelledby="pills-home-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="ticketsTiendaChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="ticketsTiendaChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="activeUsers" width="826" height="380"></canvas>
+										<canvas id="ticketsTiendaChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -402,10 +436,10 @@
 							</div>
 						</div>
 					</div>
-
+					-->
 
 					<!--  Principales estados   -->
-					<div class="col-lg-8 col-md-6">
+					<!--<div class="col-lg-8 col-md-6">
 						<div class="card ">
 							<div class="card-header ">
 								<h5 class="card-title">Entidades</h5>
@@ -440,9 +474,10 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>-->
 
 				</div>
+				
 
 
 				<div class="row">
@@ -625,13 +660,66 @@
 		type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script th:src="@{/resources/assets/demo/estadisticas-tickets-chart.js}"></script>
 	<script>
 		$(document).ready(function() {
 			// Javascript method's body can be found in assets/js/demos.js}
-			demo.initDashboardPageCharts();
-			demo.initVectorMap();
-			demo.initChartPageCharts();
+		
+			$('#dayBtn').click(function(){
+				ticketsPorDiaChart();
+			});
+			
+			$('#weekBtn').click(function(){
+				ticketsPorSemanaChart();
+			});
+			
+			$('#monthBtn').click(function(){
+				ticketsPorMesChart();
+			});
+			
+			$('#dayTBtn').click(function(){
+				ticketsPorTiendaDiaChart();
+			});
+			
+			$('#weekTBtn').click(function(){
+				ticketsPorTiendaSemanaChart();
+			});
+			
+			$('#monthTBtn').click(function(){
+				ticketsPorTiendaMesChart();
+			});
 		});
+		
+		function ticketsPorDiaChart(){
+			estadisticas_tickets.ticketsPorDiaChart();
+			console.log("click para acceder a ticketsPorDiaChart");
+		}
+		
+		function ticketsPorSemanaChart(){
+			estadisticas_tickets.ticketsPorSemanaChart();
+			console.log("click para acceder a ticketsPorSemanaChart");
+		}
+
+		function ticketsPorMesChart(){
+			estadisticas_tickets.ticketsPorMesChart();
+			console.log("click para acceder a ticketsPorMesChart");
+		}
+
+		function ticketsPorTiendaDiaChart(){
+			estadisticas_tickets.ticketsPorTiendaDiaChart();
+			console.log("click para acceder a ticketsPorTiendaDiaChart");
+		}
+
+		function ticketsPorTiendaSemanaChart(){
+			estadisticas_tickets.ticketsPorTiendaSemanaChart();
+			console.log("click para acceder a ticketsPorTiendaSemanaChart");
+		}
+
+		function ticketsPorTiendaMesChart(){
+			estadisticas_tickets.ticketsPorTiendaMesChart();
+			console.log("click para acceder a ticketsPorTiendaMesChart");
+		}
+
 	</script>
 </body>
 
