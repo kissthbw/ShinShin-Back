@@ -453,21 +453,30 @@ public class UsuarioServiceImpl implements UsuarioService{
 			return infoRSP;
 		}
 		
-		Boolean exist = usuarioDAO.existUserByEmail(item);
-		if (exist) {
-			infoRSP.setMessage("Este email ya existe");
-			infoRSP.setCode(500);
-
-			return infoRSP;
-		} 
+		boolean exist = false;
 		
-		exist = usuarioDAO.existUserByPhone(item);
-		if (exist) {
-			infoRSP.setMessage("Este numero ya existe");
-			infoRSP.setCode(500);
+		//El correo electronico y tel movil son elementos que siempre son enviados desde el movil
+		//El correo de item compararlo contra el correo del entity
+		//Si son diferentes buscar en BD si existe ya existe otro correo
+		if( !item.getCorreoElectronico().equalsIgnoreCase( entity.getCorreoElectronico() ) ) {
+			exist = usuarioDAO.existUserByEmail(item);
+			if (exist) {
+				infoRSP.setMessage("Este email ya existe");
+				infoRSP.setCode(500);
 
-			return infoRSP;
-		} 
+				return infoRSP;
+			} 
+		}
+		
+		if( !item.getTelMovil().equalsIgnoreCase( entity.getTelMovil() ) ) {
+			exist = usuarioDAO.existUserByPhone(item);
+			if (exist) {
+				infoRSP.setMessage("Este numero ya existe");
+				infoRSP.setCode(500);
+
+				return infoRSP;
+			} 
+		}
 		
 		//Validar password, en caso de haber sido actualizado
 		if ( null != item.getContrasenia() ) {
