@@ -474,4 +474,45 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			}
 		}
 	}
+	
+	@Override
+	@Transactional
+	public List<BonificacionItem> obtieneHistoricoBonificacionesPorTipo( Integer[] tipos ){
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificacionesPorTipo(tipos);
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		for (BonificacionItem item : list) {
+			item.setFechaFormateada( Utils.formatFecha(item.getFecha(), "dd-MMM-yyyy") );
+			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public List<Category> obtieneRecargasPorCompania( String categoria ) {
+		
+		LocalDate now = LocalDate.now();
+		int year = now.getYear();
+		int month = now.getMonthValue();
+		
+		//Agregar catalogo en BD
+		String[] companias = {"Telcel", "ATT&T"};
+		
+		List<Category> list = new ArrayList<Category>();
+		for( String com : companias ) {
+			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
+			List<Item> listaEscaneoDeptos = new ArrayList<>();
+//			initEscaneosPorMes(listaEscaneoDeptos, listaTmpRecargas);
+			
+			Category c = new Category( com, listaTmpRecargas );
+			
+			list.add( c );
+		}
+		
+		return list;
+	}
 }

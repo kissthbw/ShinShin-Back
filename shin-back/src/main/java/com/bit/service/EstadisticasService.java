@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
+import com.bit.model.dto.Category;
 import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
@@ -49,7 +50,15 @@ public interface EstadisticasService {
 	 */
 	List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo( BonificacionItem item );
 	
-	//Funcionalidad relacionada a la pagina bonificaciones-general
+	//Funcionalidad relacionada a la pagina bonificaciones-general y bonificaciones-recargas
 	EstadisticasBonificacionRSP obtieneBonificacionesGenerales( String tipo, String categoria );
 	
+	/**
+	 * Obtiene el historico de bonificaciones; bancario, paypal o recargas segun se especifique, agrupados por fecha
+	 * @param tipos
+	 * @return
+	 */
+	List<BonificacionItem> obtieneHistoricoBonificacionesPorTipo( Integer[] tipos );
+	
+	List<Category> obtieneRecargasPorCompania( String categoria );
 }

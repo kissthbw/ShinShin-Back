@@ -1,7 +1,6 @@
 package com.bit.controllers.portal.usuario;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -311,7 +310,11 @@ public class UsuarioAdministrationController {
 	public String getObtenerRecargas(Model model) {
 		
 		log.info("Entrando a getObtenerRecargas");
-		Usuario item = new Usuario();
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
+		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
+		
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
+		model.addAttribute("list", list);
 		
 		return "administrador/bonificaciones-recargas";
 	}

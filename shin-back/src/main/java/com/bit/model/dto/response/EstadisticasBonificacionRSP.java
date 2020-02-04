@@ -17,18 +17,12 @@ public class EstadisticasBonificacionRSP {
 	// Seccion de graficas
 	// Depositos
 	private List<Item> depositos = new ArrayList<>();
-//	private List<Item> depositosSemana = new ArrayList<>();
-//	private List<Item> depositosMes = new ArrayList<>();
 
 	// Recargas
 	private List<Item> recargas = new ArrayList<>();
-//	private List<Item> recargasSemana = new ArrayList<>();
-//	private List<Item> recargasMes = new ArrayList<>();
 
 	// Bonificaciones totales
 	private List<Item> bonificaciones = new ArrayList<>();
-//	private List<Item> bonificacionesSemana = new ArrayList<>();
-//	private List<Item> bonificacionesMes = new ArrayList<>();
 
 	public Integer getTotalDepositos() {
 		return totalDepositos;

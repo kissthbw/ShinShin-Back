@@ -65,6 +65,32 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<BonificacionItem> obtieneHistoricoBonificacionesPorTipo( Integer[] tipos ){
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("     c.nombre_medio_bonificacion AS tipo,");
+		sql.append("     h.fecha_bonificacion AS fecha,");
+		sql.append("     SUM(h.cantidad_bonificacion) AS importe,");
+		sql.append("     COUNT(h.id_historico_medios_bonificacion) AS solicitudes");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" 	AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" GROUP BY tipo, fecha;");
+
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(BonificacionItem.class)) );
+		q.setParameterList("tipos", tipos);
+		
+		List<BonificacionItem> list = q.list();
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<BonificacionItem> obtieneDetalleHistoricoBonificaciones( BonificacionItem item ){
 		
 		StringBuilder sql = new StringBuilder();
@@ -301,6 +327,91 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
 		q.setParameter("year", year);
 		q.setParameterList("tipos", tipos);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneRecargasPorCompaniaDiaMesAnio( int year, int month, String compania ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(m.compania_medio_bonificacion) AS total,");
+		sql.append("     DAY(h.fecha_bonificacion) AS indice,");
+		sql.append("     m.compania_medio_bonificacion AS topico");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (3)");
+		sql.append("     AND m.compania_medio_bonificacion = :compania");
+		sql.append(" GROUP BY indice, topico");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameter("compania", compania);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneRecargasPorCompaniaSemanaMesAnio( int year, int month, String compania ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(m.compania_medio_bonificacion) AS total,");
+		sql.append("     WEEK(h.fecha_bonificacion) AS indice,");
+		sql.append("     m.compania_medio_bonificacion");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (3)");
+		sql.append("     AND m.compania_medio_bonificacion = :compania");
+		sql.append(" GROUP BY indice, m.compania_medio_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameter("compania", compania);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Item> obtieneRecargasPorCompaniaMesAnio( int year, String compania ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT");
+		sql.append(" 	COUNT(m.compania_medio_bonificacion) AS total,");
+		sql.append("     MONTH(h.fecha_bonificacion) AS indice,");
+		sql.append("     m.compania_medio_bonificacion");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE ");
+		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
+		sql.append("     AND c.id_catalogo_medio_bonificacion IN (3)");
+		sql.append("     AND m.compania_medio_bonificacion = :compania");
+		sql.append(" GROUP BY indice, m.compania_medio_bonificacion");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("compania", compania);
 		
 		List<Item> list = q.list();
 		

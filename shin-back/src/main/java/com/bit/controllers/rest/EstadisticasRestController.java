@@ -1,6 +1,5 @@
 package com.bit.controllers.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Usuario;
+import com.bit.model.dto.Category;
 import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
@@ -81,6 +81,16 @@ public class EstadisticasRestController {
 		log.info("Params: tipo: {}, categoria: {}", tipo, categoria);
 		
 		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(tipo, categoria);
+
+		return rsp;
+	}
+	
+	@GetMapping(value = "/bonificaciones-recargas")
+	public @ResponseBody List<Category> getBonificacionesRecargas( @RequestParam(required = false) String categoria ) {
+
+		log.info("Entrando a getBonificacionesRecargas");
+		
+		List<Category> rsp = estadisticasService.obtieneRecargasPorCompania(categoria);
 
 		return rsp;
 	}
