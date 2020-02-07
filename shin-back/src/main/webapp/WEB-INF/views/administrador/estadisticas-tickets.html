@@ -5,32 +5,22 @@
 <head>
 <meta charset="utf-8" />
 <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
-<link rel="apple-touch-icon" sizes="76x76"
-	th:href="@{/resources/assets/img/apple-icon.png}"></link>
-<link rel="icon" type="image/png"
-	th:href="@{/resources/assets/img/favicon.png}"></link>
+<link rel="apple-touch-icon" sizes="76x76" th:href="@{/resources/assets/img/apple-icon.png}"></link>
+<link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}"></link>
+<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Shing Shing / Tickets</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-	name='viewport' />
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport'/>
 <!--     Fonts and icons     -->
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-	rel="stylesheet"></link>
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-	rel="stylesheet"></link>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"></link>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"></link>
 <!-- CSS Files -->
-<link th:href="@{/resources/assets/css/bootstrap.min.css}"
-	rel="stylesheet"></link>
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
-	rel="stylesheet"></link>
-<link th:href="@{/resources/assets/css/style-panel.css}"
-	rel="stylesheet"></link>
+<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet"></link>
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet"></link>
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet"></link>
 <!-- CSS Just for demo purpose, don't include it in your project 
-  <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet"></link>
--->
+	  <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet"></link>
+	-->
 </head>
 
 <body class="">
@@ -40,127 +30,170 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
       -->
 			<div class="logo">
-				<a href="http://www.shingshing.com" class="simple-text logo-no rmal">
-					<img th:src="@{/resources/assets/img/brands/ss-complet-orange.svg}" />
-
+				<a href="" class="simple-text logo-mini">
+					<div class="logo-image-small">
+						<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"/>
+					</div>
+				</a>
+				<a href="" class="simple-text logo-no rmal">
+					<div class="logo-image-big">
+						<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
+					</div>
 				</a>
 			</div>
-			<div class="sidebar-wrapper sidebar-bkg">
+			<div class="sidebar-wrapper">
 				<div class="user">
 					<div class="photo">
-						<img th:src="@{/resources/assets/img/faces/ayo-ogunseinde-2.jpg}" />
+						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
 						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span> User <b class="caret"></b>
-						</span>
+							class="collapsed">
+							<span th:text="${item.nombre}">
+								<!-- User -->
+								<b class="caret"></b>
+							</span>
 						</a>
 						<div class="clearfix"></div>
-						<div class="collapse" id="collapseExample">
+						<!--<div class="collapse" id="collapseExample">
 							<ul class="nav">
-								<!-- 
-                <li>
-                  <a href="#">
-                    <span class="sidebar-mini-icon">MP</span>
-                    <span class="sidebar-normal">My Profile</span>
-                  </a>
-                </li>
-              -->
-								<li><a href="#"> <span class="sidebar-mini-icon">P</span>
+								
+                				<li>
+                 					<a href="#">
+                    					<span class="sidebar-mini-icon">MP</span>
+                    					<span class="sidebar-normal">My Profile</span>
+                  					</a>
+                				</li>
+              
+								<li>
+									<a href="#">
+										<span class="sidebar-mini-icon">P</span>
 										<span class="sidebar-normal">Perfil</span>
-								</a></li>
-								<li><a href="#"> <span class="sidebar-mini-icon">C</span>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<span class="sidebar-mini-icon">C</span>
 										<span class="sidebar-normal">Configuracion</span>
-								</a></li>
+									</a>
+								</li>
 							</ul>
-						</div>
+						</div>-->
 					</div>
 				</div>
 
 				<!-- MENU -->
 				<ul class="nav">
 					<!-- Las opciones del menu debe ir entre <li></li> -->
-					<li><a data-toggle="collapse" href="#catalogos"> <i
-							class="nc-icon nc-ruler-pencil"></i>
-							<p>
-								Catalogos <b class="caret"></b>
-							</p>
-					</a>
-						<div class="collapse " id="catalogos">
+					<li>
+						<a data-toggle="collapse" href="#catalogos">
+							<i class="nc-icon nc-ruler-pencil"></i>
+							<p> Catalogos <b class="caret"></b></p>
+						</a>
+						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li>
-									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
-										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal"> Departamentos </span>
-								</a>
+									<a th:href="@{/portal-administrador/departamento/list}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal"> Departamentos </span>
+									</a>
 								</li>
-								<li><a th:href="@{/catalogos/marca/save}"> <span
-										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal"> Marcas </span>
-								</a></li>
-								<li><a th:href="@{/catalogos/tienda/save}"> <span
-										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal"> Tiendas </span>
-								</a></li>
-								<li><a th:href="@{/catalogos/producto/save}"> <span
-										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal"> Productos </span>
-								</a></li>
+								<li>
+									<a th:href="@{/portal-administrador/marca/list}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal"> Marcas </span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal"> Tiendas </span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span>
+										<span class="sidebar-normal"> Medios bonificacion </span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/producto/save}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal"> Productos </span>
+									</a>
+								</li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
-					<li><a data-toggle="collapse" href="#bonificaciones"> <i
-							class="nc-icon nc-money-coins"></i>
+					<li>
+						<a data-toggle="collapse" href="#bonificaciones">
+							<i class="nc-icon nc-money-coins"></i>
 							<p>
 								Bonificaciones <b class="caret"></b>
 							</p>
-					</a>
+						</a>
 
 						<div class="collapse" id="bonificaciones">
 							<ul class="nav">
 								<li>
-									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
+									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">.</span> <span
 										class="sidebar-normal">Depositos</span>
-								</a>
+									</a>
 								</li>
-								<li><a th:href="@{/catalogos/marca/save}"> <span
+								<li>
+									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
 										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal">Medios</span>
-								</a></li>
+										class="sidebar-normal">General</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Recargas</span>
+									</a>
+								</li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
-					<li class="active"><a data-toggle="collapse"
-						href="#estadisticas"> <i class="nc-icon nc-chart-bar-32"></i>
+					<li class="active">
+						<a data-toggle="collapse" href="#estadisticas">
+							<i class="nc-icon nc-chart-bar-32"></i>
 							<p>
 								Estadisticas <b class="caret"></b>
 							</p>
-					</a>
-						<div class="collapse " id="estadisticas">
+						</a>
+						<div class="collapse" id="estadisticas">
 							<ul class="nav">
 								<li>
-									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
-										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal">General</span>
-								</a>
+									<a th:href="@{/portal-administrador/estadisticas-general}">
+										<span
+										class="sidebar-mini-icon">.</span><span class="sidebar-normal">General</span>
+									</a>
 								</li>
-								<li><a th:href="@{/catalogos/marca/save}"> <span
-										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal">Marcas</span>
-								</a></li>
-								<li class="active"><a th:href="@{/catalogos/tienda/save}">
-										<span class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal">Tickets</span>
-								</a></li>
-								<li><a th:href="@{/catalogos/medioBonificacion/save}">
-										<span class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal">Usarios</span>
-								</a></li>
+								<li>
+									<a th:href="@{/portal-administrador/estadisticas-tickets}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal">Tickets</span>
+									</a>
+								</li>
+								<li class="active">
+									<a th:href="@{/portal-administrador/estadisticas-marcas}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal">Marcas</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal">Usarios</span>
+									</a>
+								</li>
 							</ul>
-						</div></li>
-
-
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -174,51 +207,41 @@
 					<div class="navbar-wrapper">
 						<div class="navbar-minimize">
 							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i
-									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i
-									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
+								<i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
+								<i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
 							</button>
 						</div>
 						<div class="navbar-toggle">
 							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span> <span
-									class="navbar-toggler-bar bar2"></span> <span
-									class="navbar-toggler-bar bar3"></span>
+								<span class="navbar-toggler-bar bar1"></span>
+								<span class="navbar-toggler-bar bar2"></span>
+								<span class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
 						<a class="navbar-brand" href="#pablo">Estadisticas</a>
 					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-bar navbar-kebab"></span>
+						<span class="navbar-toggler-bar navbar-kebab"></span>
+						<span class="navbar-toggler-bar navbar-kebab"></span>
 					</button>
 				</div>
 			</nav>
 			<!-- End Navbar -->
 			<!-- <div class="panel-header">
-  
-  <canvas id="bigDashboardChart"></canvas>
-  
-  
-</div> -->
+			<canvas id="bigDashboardChart"></canvas>
+  			</div> -->
 			<div class="content">
 				<div class="row">
-
 					<div class="col-8">
 						<!-- Titulo -->
 						<h3 class="card-title">Tickets</h3>
 					</div>
 					<div class="col-4 text-right">
-						<a th:href="@{/portal-administrador/producto/report}"
-							class="btn btn-primary btn-sm" role="button" aria-disabled="true">
+						<a th:href="@{/portal-administrador/producto/report}" class="btn btn-primary btn-sm" role="button" aria-disabled="true">
 							<i class="fa fa-download"></i> Resumen
 						</a>
 					</div>
-
 
 					<!--  Escaneos   -->
 					<div class="col-lg-4 col-md-4 col-sm-6">
@@ -247,22 +270,19 @@
 								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayBtn" class="nav-item"><a class="nav-link active"
-										id="pills-home-tab" data-toggle="pill" href="#pills-home"
-										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
+									<li id="dayBtn" class="nav-item">
+										<a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+										href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 									</li>
-									<li id="weekBtn" class="nav-item"><a class="nav-link"
-										id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="monthBtn" class="nav-item"><a class="nav-link"
-										id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
+									<li id="weekBtn" class="nav-item">
+										<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a>
+									</li>
+									<li id="monthBtn" class="nav-item">
+										<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Mes</a>
+									</li>
 								</ul>
 								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 										<div class="chartjs-size-monitor"
 											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 											<div class="chartjs-size-monitor-expand"
@@ -276,9 +296,7 @@
 													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
-										<canvas id="ticketsChart" width="826" height="380"
-											class="chartjs-render-monitor"
-											style="display: block; height: 146px; width: 318px;"></canvas>
+										<canvas id="ticketsChart" width="826" height="380" class="chartjs-render-monitor" style="display: block; height: 146px; width: 318px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
@@ -310,7 +328,6 @@
 						</div>
 					</div>
 
-
 					<!--  Tiendas   -->
 					<div class="col-lg-8 col-md-6 col-sm-6">
 						<div class="card card-stats">
@@ -326,38 +343,43 @@
 								<div class="card-body">
 									<h6 class="big-title">Tiendas</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-										<li id="dayTBtn" class="nav-item"><a class="nav-link active"
-											id="pills-home-tab" data-toggle="pill" href="#pills-home"
-											role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
+										<li id="dayTBtn" class="nav-item">
+											<a class="nav-link active" id="pills-home-tab"
+											data-toggle="pill" href="#pills-home" role="tab"
+											aria-controls="pills-home" aria-selected="true">Día</a>
 										</li>
-										<li id="weekTBtn" class="nav-item"><a class="nav-link"
+										<li id="weekTBtn" class="nav-item">
+											<a class="nav-link"
 											id="pills-profile-tab" data-toggle="pill"
 											href="#pills-profile" role="tab"
 											aria-controls="pills-profile" aria-selected="false">Semana</a>
 										</li>
-										<li id="monthTBtn" class="nav-item"><a class="nav-link"
+										<li id="monthTBtn" class="nav-item">
+											<a class="nav-link"
 											id="pills-contact-tab" data-toggle="pill"
 											href="#pills-contact" role="tab"
-											aria-controls="pills-contact" aria-selected="false">Mes</a></li>
+											aria-controls="pills-contact" aria-selected="false">Mes</a>
+										</li>
 									</ul>
 									<div class="tab-content" id="pills-tabContent">
 										<div class="tab-pane fade show active" id="pills-home"
 											role="tabpanel" aria-labelledby="pills-home-tab">
 											<div class="chartjs-size-monitor"
-											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div class="chartjs-size-monitor-expand"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+												style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div class="chartjs-size-monitor-expand"
+													style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+													<div
+														style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+												</div>
+												<div class="chartjs-size-monitor-shrink"
+													style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+													<div
+														style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+												</div>
 											</div>
-											<div class="chartjs-size-monitor-shrink"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
-											</div>
-										</div>
-											<canvas id="ticketsTiendaChart" width="826" height="380" class="chartjs-render-monitor"
-											style="display: block; height: 146px; width: 318px;"></canvas>
+											<canvas id="ticketsTiendaChart" width="826" height="380"
+												class="chartjs-render-monitor"
+												style="display: block; height: 146px; width: 318px;"></canvas>
 										</div>
 										<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 											aria-labelledby="pills-profile-tab">
@@ -477,7 +499,7 @@
 					</div>-->
 
 				</div>
-				
+
 
 
 				<div class="row">
@@ -520,7 +542,7 @@
 												style="background-color: #f2f2f2 !important;">
 												<input type="text" value="" class="form-control"
 													placeholder="Buscador"
-													style="background-color: #f2f2f2 !important;"/>
+													style="background-color: #f2f2f2 !important;" />
 												<div class="input-group-append">
 													<div class="input-group-text"
 														style="background-color: #f2f2f2 !important;">
@@ -660,66 +682,66 @@
 		type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	<script th:src="@{/resources/assets/demo/estadisticas-tickets-chart.js}"></script>
+	<script
+		th:src="@{/resources/assets/demo/estadisticas-tickets-chart.js}"></script>
 	<script>
 		$(document).ready(function() {
 			// Javascript method's body can be found in assets/js/demos.js}
-		
-			$('#dayBtn').click(function(){
+
+			$('#dayBtn').click(function() {
 				ticketsPorDiaChart();
 			});
-			
-			$('#weekBtn').click(function(){
+
+			$('#weekBtn').click(function() {
 				ticketsPorSemanaChart();
 			});
-			
-			$('#monthBtn').click(function(){
+
+			$('#monthBtn').click(function() {
 				ticketsPorMesChart();
 			});
-			
-			$('#dayTBtn').click(function(){
+
+			$('#dayTBtn').click(function() {
 				ticketsPorTiendaDiaChart();
 			});
-			
-			$('#weekTBtn').click(function(){
+
+			$('#weekTBtn').click(function() {
 				ticketsPorTiendaSemanaChart();
 			});
-			
-			$('#monthTBtn').click(function(){
+
+			$('#monthTBtn').click(function() {
 				ticketsPorTiendaMesChart();
 			});
 		});
-		
-		function ticketsPorDiaChart(){
+
+		function ticketsPorDiaChart() {
 			estadisticas_tickets.ticketsPorDiaChart();
 			console.log("click para acceder a ticketsPorDiaChart");
 		}
-		
-		function ticketsPorSemanaChart(){
+
+		function ticketsPorSemanaChart() {
 			estadisticas_tickets.ticketsPorSemanaChart();
 			console.log("click para acceder a ticketsPorSemanaChart");
 		}
 
-		function ticketsPorMesChart(){
+		function ticketsPorMesChart() {
 			estadisticas_tickets.ticketsPorMesChart();
 			console.log("click para acceder a ticketsPorMesChart");
 		}
 
-		function ticketsPorTiendaDiaChart(){
+		function ticketsPorTiendaDiaChart() {
 			estadisticas_tickets.ticketsPorTiendaDiaChart();
 			console.log("click para acceder a ticketsPorTiendaDiaChart");
 		}
 
-		function ticketsPorTiendaSemanaChart(){
+		function ticketsPorTiendaSemanaChart() {
 			estadisticas_tickets.ticketsPorTiendaSemanaChart();
 			console.log("click para acceder a ticketsPorTiendaSemanaChart");
 		}
 
-		function ticketsPorTiendaMesChart(){
+		function ticketsPorTiendaMesChart() {
 			estadisticas_tickets.ticketsPorTiendaMesChart();
 			console.log("click para acceder a ticketsPorTiendaMesChart");
 		}
-
 	</script>
 </body>
 

@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,20 +42,17 @@ import com.bit.service.CatalogoMediosBonificacionService;
 import com.bit.service.CatalogoTiendaService;
 import com.bit.service.CatalogoTipoProductoService;
 import com.bit.service.ProductoService;
+import com.bit.service.TicketService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 
 @Controller
 @RequestMapping("/portal-administrador")
@@ -77,6 +75,9 @@ public class CatalogosController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private TicketService ticketService;
 	
 	private static Logger log = LoggerFactory.getLogger( CatalogosController.class );
 
@@ -613,5 +614,146 @@ public class CatalogosController {
 		}
 		
 		return user;
+	}
+	
+	//setting para pruebas en los html
+	@RequestMapping(value = "/estadisticas-tickets", method = RequestMethod.GET)
+	public String redirectionalEstadisticasTickets(Model model) {
+		Log.info("Entrando en redirectionalEstadisticasTicket");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalEstadisticasTickets");
+		return "administrador/estadisticas-tickets";
+	}
+	
+	@RequestMapping(value = "/estadisticas-general", method = RequestMethod.GET)
+	public String redirectionalEstadisticasGeneral(Model model) {
+		Log.info("Entrando en redirectionalEstadisticasGeneral");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalEstadisticasGeneral");
+		return "administrador/estadisticas-general";
+	}
+	
+	@RequestMapping(value = "/estadisticas-marcas", method = RequestMethod.GET)
+	public String redirectionalEstadisticasMarcas(Model model) {
+		Log.info("Entrando en redirectionalEstadisticasMarcas");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalEstadisticasMarcas");
+		return "administrador/estadisticas-marcas";
+	}
+	
+	@RequestMapping(value = "/estadisticas-usuarios", method = RequestMethod.GET)
+	public String redirectionalEstadisticasUsuarios(Model model) {
+		Log.info("Entrando en redirectionalEstadisticasUsuarios");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalEstadisticasUsuarios");
+		return "administrador/estadisticas-usuarios";
+	}
+	
+	@RequestMapping(value = "/bonificaciones-depositos", method = RequestMethod.GET)
+	public String redirectionalBonificacionesDepositos(Model model) {
+		Log.info("Entrando en redirectionalBonificacionesDepositos");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalBonificacionesDepositos");
+		return "administrador/bonificaciones-depositos";
+	}
+	
+	@RequestMapping(value = "/bonificaciones-recargas", method = RequestMethod.GET)
+	public String redirectionalBonificacionesRecargas(Model model) {
+		Log.info("Entrando en redirectionalBonificacionesRecargas");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalBonificacionesRecargas");
+		return "administrador/bonificaciones-recargas";
+	}
+	
+	@RequestMapping(value = "/bonificaciones-general", method = RequestMethod.GET)
+	public String redirectionalBonificacionesGeneral(Model model) {
+		Log.info("Entrando en redirectionalBonificacionesGeneral");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		Usuario u = new Usuario();
+		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
+		u.setNombre("Juan Oso");
+		
+		model.addAttribute("item", u);
+		
+		Log.info("Saliendo de redirectionalBonificacionesGeneral");
+		return "administrador/bonificaciones-general";
 	}
 }

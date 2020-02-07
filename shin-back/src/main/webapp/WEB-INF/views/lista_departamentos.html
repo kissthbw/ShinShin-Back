@@ -95,6 +95,74 @@
 							</ul>
 						</div>
 					</li>
+					<li>
+						<a data-toggle="collapse" href="#bonificaciones">
+							<i class="nc-icon nc-money-coins"></i>
+							<p>
+								Bonificaciones <b class="caret"></b>
+							</p>
+						</a>
+
+						<div class="collapse" id="bonificaciones">
+							<ul class="nav">
+								<li>
+									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Depositos</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">General</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
+										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-normal">Recargas</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+
+					<li>
+						<a data-toggle="collapse" href="#estadisticas">
+							<i class="nc-icon nc-chart-bar-32"></i>
+							<p>
+								Estadisticas <b class="caret"></b>
+							</p>
+						</a>
+						<div class="collapse " id="estadisticas">
+							<ul class="nav">
+								<li>
+									<a th:href="@{/portal-administrador/estadisticas-general}">
+										<span
+										class="sidebar-mini-icon">.</span><span class="sidebar-normal">General</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/estadisticas-tickets}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal">Tickets</span>
+									</a>
+								</li>
+								<li class="active">
+									<a th:href="@{/portal-administrador/estadisticas-marcas}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal">Marcas</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
+										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-normal">Usarios</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
