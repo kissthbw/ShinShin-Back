@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class EstadisticasRestController {
 	@Autowired
 	private EstadisticasService estadisticasService;
 	
+	@CrossOrigin
 	@GetMapping(value = "/usuarios")
 	public @ResponseBody EstadisticasRSP getEstadisticasUsuarios() {
 		
@@ -37,6 +39,7 @@ public class EstadisticasRestController {
 		return rsp;
 	}
 	
+	@CrossOrigin
 	@GetMapping(value = "/usuario/{id}")
 	public @ResponseBody EstadisticasGeneralRSP getEstadisticasUsuarioDetalle(@PathVariable String id) {
 		
@@ -48,6 +51,7 @@ public class EstadisticasRestController {
 		return rsp;
 	}
 	
+	@CrossOrigin
 	@GetMapping(value = "/general")
 	public @ResponseBody EstadisticasGeneralRSP getEstadisticasGeneral() {
 		
@@ -57,6 +61,7 @@ public class EstadisticasRestController {
 		return rsp;
 	}
 	
+	@CrossOrigin
 	@GetMapping(value = "/marcas")
 	public @ResponseBody EstadisticasGeneralRSP getEstadisticasMarcas() {
 		
@@ -72,6 +77,7 @@ public class EstadisticasRestController {
 	 * @param categoria valor que puede ser d (dia), s (semana), m (mes)
 	 * @return
 	 */
+	@CrossOrigin
 	@GetMapping(value = "/bonificaciones-general")
 	public @ResponseBody EstadisticasBonificacionRSP getBonificacionesGeneral( @RequestParam(required = false) String tipo,
 			@RequestParam(required = false) String categoria) {
@@ -85,16 +91,24 @@ public class EstadisticasRestController {
 		return rsp;
 	}
 	
+	/**
+	 * 
+	 * @param categoria valor que puede ser d (dia), s (semana), m (mes)
+	 * @return
+	 */
+	@CrossOrigin
 	@GetMapping(value = "/bonificaciones-recargas")
 	public @ResponseBody List<Category> getBonificacionesRecargas( @RequestParam(required = false) String categoria ) {
 
 		log.info("Entrando a getBonificacionesRecargas");
+		log.info("Param: categoria: {}", categoria);
 		
 		List<Category> rsp = estadisticasService.obtieneRecargasPorCompania(categoria);
 
 		return rsp;
 	}
 	
+	@CrossOrigin
 	@GetMapping(value = "/tickets")
 	public @ResponseBody EstadisticasRSP getEstadisticasTickets() {
 		

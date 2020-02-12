@@ -180,7 +180,8 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
-		sql.append("     DAY(h.fecha_bonificacion) AS indice");
+		sql.append("     DAY(h.fecha_bonificacion) AS indice,");
+		sql.append("     'D' as topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
@@ -207,7 +208,8 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
-		sql.append("     WEEK(h.fecha_bonificacion) AS indice");
+		sql.append("     WEEK(h.fecha_bonificacion) AS indice,");
+		sql.append("     'S' as topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
@@ -234,7 +236,8 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
-		sql.append("     MONTH(h.fecha_bonificacion) AS indice");
+		sql.append("     MONTH(h.fecha_bonificacion) AS indice,");
+		sql.append("     'M' as topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
@@ -368,7 +371,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(m.compania_medio_bonificacion) AS total,");
 		sql.append("     WEEK(h.fecha_bonificacion) AS indice,");
-		sql.append("     m.compania_medio_bonificacion");
+		sql.append("     m.compania_medio_bonificacion AS topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
@@ -397,7 +400,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(m.compania_medio_bonificacion) AS total,");
 		sql.append("     MONTH(h.fecha_bonificacion) AS indice,");
-		sql.append("     m.compania_medio_bonificacion");
+		sql.append("     m.compania_medio_bonificacion AS topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");

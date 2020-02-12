@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.common.Analizer;
+import com.bit.common.Utils;
 import com.bit.dao.TicketDAO;
 import com.bit.exception.TicketException;
 import com.bit.model.CatalogoMarca;
@@ -18,6 +19,7 @@ import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.request.OCRTicketRQT;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.dto.response.OCRTicketRSP;
@@ -179,5 +181,32 @@ public class TicketServiceImpl implements TicketService {
 		}
 
 		return tmp;
+	}
+
+	/*
+	 * Metodos relacionados a las paginas de estadisticas-tickets-detalle, 
+	 * estadisticas-tickets-detalle-segundoDetalle
+	 */
+	@Override
+	public List<TicketItem> obtieneTicketsPorFecha(String fecha) {
+		List<TicketItem> list = ticketDAO.obtieneTicketsPorFecha(fecha);
+		
+		for( TicketItem t : list ) {
+			t.setFechaFormateada( Utils.formatDateToString(t.getFecha(), "dd-MMM-yyyy") );
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
+	}
+
+	@Override
+	public List<TicketItem> obtieneDetalleTicketPorId(Integer idTicket) {
+		List<TicketItem> list = ticketDAO.obtieneDetalleTicketPorId(idTicket);
+		
+		for( TicketItem t : list ) {
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
 	}
 }

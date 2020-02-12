@@ -3,7 +3,7 @@ var bonificaciones_generales = {
 		loadCharts : function() {
 
 			$.ajax({
-				url : "http://localhost:8080/shin-back/estadisticas/bonificaciones-general",
+				url : "http://www.shingshing.com/estadisticas/bonificaciones-general",
 				dataType : "json",
 				success : function(result) {
 
@@ -151,7 +151,7 @@ var bonificaciones_generales = {
 		console.log( idChart + ' ' + tipo + ' ' + categoria )
 		
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/bonificaciones-general?tipo="+tipo+"&categoria="+categoria,
+			url : "http://www.shingshing.com/estadisticas/bonificaciones-general?tipo="+tipo+"&categoria="+categoria,
 			dataType : "json",
 			success : function(result) {
 

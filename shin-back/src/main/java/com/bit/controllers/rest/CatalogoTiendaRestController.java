@@ -39,7 +39,7 @@ public class CatalogoTiendaRestController {
 		
 		log.info("Entrando a registrarTiendas");
 		
-		SimpleResponse rsp = catalogoTiendaService.registrarTiendas(item);
+		SimpleResponse rsp = catalogoTiendaService.registrarTiendas(null, item);
 		
 		return rsp;
 	}
@@ -49,7 +49,7 @@ public class CatalogoTiendaRestController {
 		
 		log.info("Entrando a actualizarTiendas");
 		
-		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(item);
+		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(null, item);
 		
 		return rsp;
 	}

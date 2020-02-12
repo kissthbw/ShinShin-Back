@@ -3,7 +3,7 @@ var estadisticas_usuarios = {
 		loadCharts : function() {
 
 			$.ajax({
-				url : "http://localhost:8080/shin-back/usuarios/totales",
+				url : "http://www.shingshing.com/usuarios/totales",
 				dataType : "json",
 				success : function(result) {
 
@@ -149,7 +149,7 @@ var estadisticas_usuarios = {
 	usuariosPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://localhost:8080/shin-back/usuarios/totales",
+			url : "http://www.shingshing.com/usuarios/totales",
 			dataType : "json",
 			success : function(result) {
 
@@ -239,7 +239,7 @@ var estadisticas_usuarios = {
 	},
 	usuariosPorSemanaChart : function(){
 		$.ajax({
-			url : "http://localhost:8080/shin-back/usuarios/totales",
+			url : "http://www.shingshing.com/usuarios/totales",
 			dataType : "json",
 			success : function(result) {
 
@@ -337,7 +337,7 @@ var estadisticas_usuarios = {
 	},
 	usuariosPorMesChart : function(){
 		$.ajax({
-			url : "http://localhost:8080/shin-back/usuarios/totales",
+			url : "http://www.shingshing.com/usuarios/totales",
 			dataType : "json",
 			success : function(result) {
 

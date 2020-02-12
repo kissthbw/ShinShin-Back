@@ -187,14 +187,12 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
-		productoDAO.findByPK(item.getIdProducto());
+//		productoDAO.findByPK(item.getIdProducto());
 		
 		Map params = ObjectUtils.asMap(
 				   "public_id", "shingshing/productos/" + item.getNombreProducto(), 
 				   "overwrite", true
 				);
-		
-		System.out.println( file.getName() );
 		
 		if ( !file.isEmpty() ) {
 			try {
@@ -213,8 +211,8 @@ public class ProductoServiceImpl implements ProductoService {
 			t.setProducto(item);
 		}
 		
-		item = productoDAO.update(item);
-		rsp.setId(item.getIdProducto());
+		Producto t = productoDAO.update(item);
+		rsp.setId(t.getIdProducto());
 		return rsp;
 	}
 

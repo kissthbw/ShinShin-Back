@@ -57,12 +57,14 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 				   "overwrite", true
 				);
 		
-		try {
-			log.info("Subiendo imagen de: {}", item.getNombreTipoProducto());
-			String url = cloundinaryService.uploadImage(file.getBytes(), params);
-			item.setImgUrl( url );
-		} catch (IOException e) {
-			log.error("Ocurrio un error al subir imagen", e);
+		if( file.getSize() != 0 ) {
+			try {
+				log.info("Subiendo imagen de: {}", item.getNombreTipoProducto());
+				String url = cloundinaryService.uploadImage(file.getBytes(), params);
+				item.setImgUrl( url );
+			} catch (IOException e) {
+				log.error("Ocurrio un error al subir imagen", e);
+			}
 		}
 		
 		SimpleResponse rsp = new SimpleResponse();
@@ -80,19 +82,21 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		
 		log.info("Actualizando tipo de productos");
 		
-		item = catalogoTipoProductoDAO.update(item);
+//		item = catalogoTipoProductoDAO.update(item);
 		
 		Map params = ObjectUtils.asMap(
 				   "public_id", "shingshing/departamentos/" + item.getNombreTipoProducto(), 
 				   "overwrite", true
 				);
 		
-		try {
-			log.info("Subiendo imagen de: {}", item.getNombreTipoProducto());
-			String url = cloundinaryService.uploadImage(file.getBytes(), params);
-			item.setImgUrl( url );
-		} catch (IOException e) {
-			log.error("Ocurrio un error al subir imagen", e);
+		if( file.getSize() != 0 ) {
+			try {
+				log.info("Subiendo imagen de: {}", item.getNombreTipoProducto());
+				String url = cloundinaryService.uploadImage(file.getBytes(), params);
+				item.setImgUrl( url );
+			} catch (IOException e) {
+				log.error("Ocurrio un error al subir imagen", e);
+			}
 		}
 		
 		SimpleResponse rsp = new SimpleResponse();

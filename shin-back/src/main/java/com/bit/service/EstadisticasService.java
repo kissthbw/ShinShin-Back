@@ -5,6 +5,7 @@ import java.util.List;
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.Category;
+import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
@@ -24,6 +25,10 @@ public interface EstadisticasService {
 	EstadisticasGeneralRSP obtieneEstadisticasUsuarioDetalle(Usuario item);
 
 	EstadisticasRSP obtieneEstadisticasTickets();
+	
+	List<TicketItem> obtieneTicketsPorFecha(String date);
+	
+	List<TicketItem> obtieneDetalleTicketPorId(Integer idTicket);
 	
 	/**
 	 * Para poder obtener la informacion de la pagina estadisticas-general

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.model.Ticket;
 import com.bit.model.dto.Item;
+import com.bit.model.dto.TicketItem;
 
 @Repository
 public class TicketDAO extends DAOTemplate<Ticket, Long> {
@@ -232,7 +233,7 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 				+ " FROM ticket "
 				+ " WHERE YEAR(fecha) = :year "
 				+ " AND MONTH(fecha) = :month "
-				+ " GROUP BY topico ").setResultTransformer((Transformers.aliasToBean(Item.class)));
+				+ " GROUP BY topico, indice ").setResultTransformer((Transformers.aliasToBean(Item.class)));
 		q.setParameter("year", year);
 		q.setParameter("month", month);
 		
@@ -246,11 +247,84 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 				+ " MONTH(fecha) AS indice "
 				+ " FROM ticket "
 				+ " WHERE YEAR(fecha) = :year "
-				+ " GROUP BY indice "
-				+ " ORDER BY indice ASC").setResultTransformer((Transformers.aliasToBean(Item.class)));
+				+ " GROUP BY indice, topico "
+				+ " ORDER BY indice ").setResultTransformer((Transformers.aliasToBean(Item.class)));
 		q.setParameter("year", year);
 		
 		List<Item> total = q.list();
+		
+		return total;
+	}
+	
+	/*
+	 * Metodos relacionados a las paginas de estadisticas-tickets-detalle, 
+	 * estadisticas-tickets-detalle-segundoDetalle
+	 */
+	public List<TicketItem> obtieneHistoricoTickets() {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ");
+		sql.append(" 	t.fecha as fecha,");
+		sql.append(" 	COUNT(hb.id_ticket) as cantidad,");
+		sql.append("     SUM(p.cantidad_bonificacion) as importe");
+		sql.append(" FROM ticket t");
+		sql.append(" INNER JOIN historico_bonificaciones hb ON hb.id_ticket = t.id_ticket");
+		sql.append(" INNER JOIN producto p ON p.id_producto = hb.producto_id_producto");
+		sql.append(" GROUP BY fecha");
+		sql.append(" ORDER BY fecha DESC");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).setResultTransformer((Transformers.aliasToBean(TicketItem.class)));
+		q.setMaxResults(100);
+		
+		List<TicketItem> total = q.list();
+		
+		return total;
+	}
+	
+	public List<TicketItem> obtieneTicketsPorFecha(String date) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ");
+		sql.append("     COUNT(h.id_ticket) as cantidad,");
+		sql.append("     t.id_ticket as id,");
+		sql.append("     t.nombre_tienda as tienda,");
+		sql.append("     t.fecha as fecha,");
+		sql.append("     t.hora as hora,");
+		sql.append("     ht.usuario_id_usuario as idUsuario,");
+		sql.append("     SUM(p.cantidad_bonificacion) as importe");
+		sql.append(" FROM ");
+		sql.append(" 	ticket t");
+		sql.append("     INNER JOIN historico_bonificaciones h ON h.id_ticket = t.id_ticket");
+		sql.append("     INNER JOIN historico_tickets ht ON ht.ticket_id_ticket = t.id_ticket");
+		sql.append("     INNER JOIN producto p ON p.id_producto = h.producto_id_producto");
+		sql.append(" WHERE fecha = :date");
+		sql.append(" GROUP BY total, id, idUsuario");
+		sql.append(" ORDER BY t.fecha DESC");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).setResultTransformer((Transformers.aliasToBean(TicketItem.class)));
+		q.setParameter("date", date);
+		
+		List<TicketItem> total = q.list();
+		
+		return total;
+	}
+	
+	public List<TicketItem> obtieneDetalleTicketPorId(Integer idTicket) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ");
+		sql.append("     COUNT(h.producto_id_producto) as cantidad,");
+		sql.append("     SUM(p.cantidad_bonificacion) as importe,");
+		sql.append("     h.producto_id_producto as id,");
+		sql.append("     p.nombre_producto as identificador");
+		sql.append(" FROM ");
+		sql.append(" 	historico_bonificaciones h");
+		sql.append("     INNER JOIN producto p ON p.id_producto = h.producto_id_producto");
+		sql.append(" WHERE");
+		sql.append(" 	h.id_ticket = :idTicket");
+		sql.append(" GROUP BY id");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).setResultTransformer((Transformers.aliasToBean(TicketItem.class)));
+		q.setParameter("idTicket", idTicket);
+		
+		List<TicketItem> total = q.list();
 		
 		return total;
 	}

@@ -3,7 +3,7 @@ var estadisticas_marcas = {
 		loadCharts : function() {
 
 			$.ajax({
-				url : "http://localhost:8080/shin-back/estadisticas/marcas",
+				url : "http://www.shingshing.com/estadisticas/marcas",
 				dataType : "json",
 				success : function(result) {
 
@@ -157,7 +157,7 @@ var estadisticas_marcas = {
 	usuariosPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/marcas",
+			url : "http://www.shingshing.com/estadisticas/marcas",
 			dataType : "json",
 			success : function(result) {
 
@@ -212,7 +212,7 @@ var estadisticas_marcas = {
 	},
 	usuariosPorSemanaChart : function(){
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/marcas",
+			url : "http://www.shingshing.com/estadisticas/marcas",
 			dataType : "json",
 			success : function(result) {
 
@@ -267,7 +267,7 @@ var estadisticas_marcas = {
 	},
 	usuariosPorMesChart : function(){
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/marcas",
+			url : "http://www.shingshing.com/estadisticas/marcas",
 			dataType : "json",
 			success : function(result) {
 

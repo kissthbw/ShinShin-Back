@@ -25,10 +25,7 @@
 
 <body class="">
 	<div class="wrapper">
-		<div class="sidebar" data-active-color="danger">
-			<!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-      -->
+		<div class="sidebar" data-color="white" data-active-color="danger">
 			<div class="logo">
 				<a href="" class="simple-text logo-mini">
 					<div class="logo-image-small">
@@ -55,30 +52,6 @@
 							</span>
 						</a>
 						<div class="clearfix"></div>
-						<!--<div class="collapse" id="collapseExample">
-							<ul class="nav">
-								
-                				<li>
-                 					<a href="#">
-                    					<span class="sidebar-mini-icon">MP</span>
-                    					<span class="sidebar-normal">My Profile</span>
-                  					</a>
-                				</li>
-              
-								<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">P</span>
-										<span class="sidebar-normal">Perfil</span>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">C</span>
-										<span class="sidebar-normal">Configuracion</span>
-									</a>
-								</li>
-							</ul>
-						</div>-->
 					</div>
 				</div>
 
@@ -90,23 +63,23 @@
 							<i class="nc-icon nc-ruler-pencil"></i>
 							<p> Catalogos <b class="caret"></b></p>
 						</a>
-						<div class="collapse show" id="catalogos">
+						<div class="collapse" id="catalogos">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Departamentos </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/marca/list}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Marcas </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Tiendas </span>
 									</a>
 								</li>
@@ -118,7 +91,7 @@
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/producto/save}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Productos </span>
 									</a>
 								</li>
@@ -138,19 +111,19 @@
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
-										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Depositos</span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
-										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">General</span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
-										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Recargas</span>
 									</a>
 								</li>
@@ -165,29 +138,29 @@
 								Estadisticas <b class="caret"></b>
 							</p>
 						</a>
-						<div class="collapse" id="estadisticas">
+						<div class="collapse show" id="estadisticas">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/estadisticas-general}">
 										<span
-										class="sidebar-mini-icon">.</span><span class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-tickets}">
-										<span class="sidebar-mini-icon">.</span>
-										<span class="sidebar-normal">Tickets</span>
+										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
 									</a>
 								</li>
 								<li class="active">
+									<a th:href="@{/portal-administrador/estadisticas-tickets}">
+										<span class="sidebar-mini-icon">·</span>
+										<span class="sidebar-normal">Tickets</span>
+									</a>
+								</li>
+								<li>
 									<a th:href="@{/portal-administrador/estadisticas-marcas}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal">Marcas</span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal">Usarios</span>
 									</a>
 								</li>
@@ -554,7 +527,7 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-											<table class="table">
+											<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 												<thead class="">
 													<tr>
 														<th>Fecha</th>
@@ -564,12 +537,13 @@
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td>4 / dic / 2019</td>
-														<td>99,999</td>
-														<td>$ 500.00</td>
-														<td class="text-right"><a
-															href="estadisticas-tickets-detalle.html">
+													<th:block th:each="item : ${tickets}">
+														<tr>
+														<td th:text="${item.fechaFormateada}">4 / dic / 2019</td>
+														<td th:text="${item.cantidad}">99,999</td>
+														<td th:text="${item.importeFormateado}">$ 500.00</td>
+														<td class="text-right">
+														<a th:href="@{'/portal-administrador/estadisticas-tickets-detalle/' + ${item.fechaFormateada}}">
 																<button type="button" rel="tooltip"
 																	class="btn btn-link btn-icon btn-sm "
 																	data-original-title="" title="">
@@ -582,43 +556,9 @@
 																<i class="fa fa-download"></i>
 															</button></td>
 													</tr>
+													</th:block>
 												</tbody>
 											</table>
-										</div>
-									</div>
-
-									<!-- Paginador -->
-									<div class="row">
-										<div class="col-sm-12 col-md-5">
-											<div class="dataTables_info" id="datatable_info"
-												role="status" aria-live="polite">Mostrando 1 a 1 de 1
-												resultados</div>
-										</div>
-										<div class="col-sm-12 col-md-7">
-											<div class="dataTables_paginate paging_full_numbers"
-												id="datatable_paginate">
-												<ul class="pagination">
-													<li class="paginate_button page-item first disabled"
-														id="datatable_first"><a href="#"
-														aria-controls="datatable" data-dt-idx="0" tabindex="0"
-														class="page-link"> Primero </a></li>
-													<li class="paginate_button page-item previous disabled"
-														id="datatable_previous"><a href="#"
-														aria-controls="datatable" data-dt-idx="1" tabindex="0"
-														class="page-link"> Previo </a></li>
-													<li class="paginate_button page-item active"><a
-														href="#" aria-controls="datatable" data-dt-idx="2"
-														tabindex="0" class="page-link"> 1 </a></li>
-													<li class="paginate_button page-item next disabled"
-														id="datatable_next"><a href="#"
-														aria-controls="datatable" data-dt-idx="3" tabindex="0"
-														class="page-link"> Siguiente </a></li>
-													<li class="paginate_button page-item last disabled"
-														id="datatable_last"><a href="#"
-														aria-controls="datatable" data-dt-idx="4" tabindex="0"
-														class="page-link"> Último </a></li>
-												</ul>
-											</div>
 										</div>
 									</div>
 								</div>
@@ -687,6 +627,18 @@
 	<script>
 		$(document).ready(function() {
 			// Javascript method's body can be found in assets/js/demos.js}
+			$('#datatable').DataTable(
+					{
+						"pagingType" : "full_numbers",
+						"lengthMenu" : [ [ 10, 25, 50, -1 ],
+								[ 10, 25, 50, "All" ] ],
+						responsive : true,
+						language : {
+							search : "_INPUT_",
+							searchPlaceholder : "Search records",
+						}
+
+			});
 
 			$('#dayBtn').click(function() {
 				ticketsPorDiaChart();

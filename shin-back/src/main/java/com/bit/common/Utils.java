@@ -4,6 +4,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
@@ -13,13 +15,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bit.model.CatalogoDiccionarioTiendas;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ibm.icu.text.SimpleDateFormat;
 
 public class Utils {
 	
@@ -91,14 +93,33 @@ public class Utils {
 	}
 	
 	//dd/mm/anio
-	public static String formatFecha(Date fecha, String format) {
+	public static String formatDateToString(Date date, String format) {
 		
-		if( null == fecha ) {
+		if( null == date ) {
 			return "";
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		return sdf.format(fecha);
+		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
+		return sdf.format(date);
+	}
+	
+	public static Date formatStringToDate(String strDate, String format) {
+		Date date = null;
+		if( null == strDate ) {
+			return null;
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
+		try {
+			date = sdf.parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return date;
 	}
 	
 	public static String formatNumeros( Double numero, String format ) {
@@ -111,10 +132,18 @@ public class Utils {
 		return dm.format(numero);
 	}
 	
-	public static void main (String[] args) {
+	public static void main (String[] args) throws ParseException {
 		
 		String s = "5534714616";
 		System.out.printf("%s es email valido?: %s \n", s, Utils.isEmail(s));
+		
+		String f = "21-may-2019";
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		Date d = sdf.parse(f);
+		
+		sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String d1 = sdf.format(d);
+		System.out.println( d1 );
 		
 //		System.out.println("codigo de verificacion: " + Utils.generaCodigoVerficacion());
 	}

@@ -294,7 +294,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		tmp.setPassword_restore_link( user.getPassword_restore_link() );
 		
 		
-		tmp.setFechaRegistro( Utils.formatFecha(user.getFecha_registro(), "dd-MMM-yyyy") );
+		tmp.setFechaRegistro( Utils.formatDateToString(user.getFecha_registro(), "dd-MMM-yyyy") );
 		
 		//Agregar Edad en base a fecha nac.
 //		LocalDate birthday = LocalDate.of(1983, Month.SEPTEMBER, 11);
@@ -935,7 +935,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			tmp.setTicket_hora( t.getTicket_hora() );
 			tmp.setTicket_transaccion( t.getTicket_transaccion() );
 			tmp.setTotalProductos( t.getProductos().size() );
-			tmp.setFormatFecha( Utils.formatFecha( t.getFecha(), "dd-MMM-yyyy" ) );
+			tmp.setFormatFecha( Utils.formatDateToString( t.getFecha(), "dd-MMM-yyyy" ) );
 			
 			tickets.add(tmp);
 		}

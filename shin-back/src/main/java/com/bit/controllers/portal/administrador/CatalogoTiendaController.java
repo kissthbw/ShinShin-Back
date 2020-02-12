@@ -30,7 +30,7 @@ public class CatalogoTiendaController {
 	public String saveMedio(@ModelAttribute CatalogoTienda item, BindingResult errors, Model model) {
 
 		System.out.println(item.getNombreTienda());
-		catalogoTiendaService.registrarTiendas(item);
+		catalogoTiendaService.registrarTiendas(null, item);
 
 		return "redirect:/tienda/save";
 	}

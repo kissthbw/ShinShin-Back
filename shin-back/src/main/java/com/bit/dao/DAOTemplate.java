@@ -74,6 +74,11 @@ public abstract class DAOTemplate<T, PK extends Serializable> implements Seriali
 		return entity;
 	}
 	
+	public T saveOrUpdate(T entity) {
+		sessionFactory.getCurrentSession().saveOrUpdate(entity);
+		return entity;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public T findByPK(PK pk) {
 		return (T) sessionFactory.getCurrentSession().get(persistenClass, pk);

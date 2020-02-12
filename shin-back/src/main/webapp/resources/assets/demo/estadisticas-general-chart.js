@@ -1,9 +1,11 @@
 var estadisticas_general = {
 		
 		loadCharts : function() {
-
+			//http://shinshin-env.m7izq9trpe.us-east-2.elasticbeanstalk.com
+			//http://localhost:8080/shin-back
+			//www.shingshing.com
 			$.ajax({
-				url : "http://localhost:8080/shin-back/estadisticas/general",
+				url : "http://www.shingshing.com/estadisticas/general",
 				dataType : "json",
 				success : function(result) {
 
@@ -213,59 +215,16 @@ var estadisticas_general = {
 							}
 						}
 					 });
-					
-					
-//					window.tiendasChart.data.datasets.push( tiendasDatasets[0] );
-					
-					/*
-					var ctx = document.getElementById('departamentosChart').getContext('2d');
-
-					window.departamentosChart = new Chart(ctx, {
-						type: 'bar',
-						data: {
-							labels: edadesLabel,
-							datasets: [{
-								label: 'Total',
-								data: edadesData,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 159, 64, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 159, 64, 1)'
-								],
-								borderWidth: 1
-							}]
-						},
-						options: {
-							scales: {
-								yAxes: [{
-									ticks: {
-										beginAtZero: true
-									}
-								}]
-							}
-						}
-					 });
-					*/
-					//Fin
-					
-				}
+				},
+				error: function() {
+			        console.log("No se ha podido obtener la información");
+			    }
 			});
 	},
 	usuariosPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/general",
+			url : "http://www.shingshing.com/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -320,7 +279,7 @@ var estadisticas_general = {
 	},
 	usuariosPorSemanaChart : function(){
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/general",
+			url : "http://www.shingshing.com/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -375,7 +334,7 @@ var estadisticas_general = {
 	},
 	usuariosPorMesChart : function(){
 		$.ajax({
-			url : "http://localhost:8080/shin-back/estadisticas/general",
+			url : "http://www.shingshing.com/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 

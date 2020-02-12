@@ -5,10 +5,7 @@
 <head>
 <meta charset="utf-8" />
 <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
-<link rel="apple-touch-icon" sizes="76x76"
-	th:href="@{/resources/assets/img/apple-icon.png}"></link>
-<link rel="icon" type="image/png"
-	th:href="@{/resources/assets/img/favicon.png}"></link>
+<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Shing Shing / Bonificaciones</title>
 <meta
@@ -33,7 +30,7 @@
 
 <body class="">
 	<div class="wrapper">
-		<div class="sidebar" data-active-color="danger">
+		<div class="sidebar" data-color="white" data-active-color="danger">
 			<!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
@@ -63,30 +60,7 @@
 							</span>
 						</a>
 						<div class="clearfix"></div>
-						<!--<div class="collapse" id="collapseExample">
-							<ul class="nav">-->
-								<!-- 
-                				<li>
-                  					<a href="#">
-                    					<span class="sidebar-mini-icon">MP</span>
-                    					<span class="sidebar-normal">My Profile</span>
-                  					</a>
-                				</li>
-                				-->
-								<!--<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">P</span>
-										<span class="sidebar-normal">Perfil</span>
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<span class="sidebar-mini-icon">C</span>
-										<span class="sidebar-normal">Configuracion</span>
-									</a>
-								</li>
-							</ul>
-						</div>-->
+						
 					</div>
 				</div>
 
@@ -102,19 +76,19 @@
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Departamentos </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/marca/list}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Marcas </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Tiendas </span>
 									</a>
 								</li>
@@ -126,7 +100,7 @@
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/producto/save}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal"> Productos </span>
 									</a>
 								</li>
@@ -142,23 +116,23 @@
 							</p>
 						</a>
 
-						<div class="collapse" id="bonificaciones">
+						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
-										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Depositos</span>
 									</a>
 								</li>
-								<li>
+								<li class="active">
 									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
-										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">General</span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
-										class="sidebar-mini-icon">.</span> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Recargas</span>
 									</a>
 								</li>
@@ -183,19 +157,19 @@
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/estadisticas-tickets}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal">Tickets</span>
 									</a>
 								</li>
 								<li class="active">
 									<a th:href="@{/portal-administrador/estadisticas-marcas}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal">Marcas</span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-										<span class="sidebar-mini-icon">.</span>
+										<span class="sidebar-mini-icon">·</span>
 										<span class="sidebar-normal">Usarios</span>
 									</a>
 								</li>
@@ -253,7 +227,7 @@
 						<h3 class="card-title">General</h3>
 					</div>
 					<div class="col-4 text-right">
-						<a th:href="@{/portal-administrador/producto/report}"
+						<a th:href="@{/portal-administrador/bonificaciones-general/report}"
 							class="btn btn-primary btn-sm" role="button" aria-disabled="true">
 							<i class="fa fa-download"></i> Resumen
 						</a>

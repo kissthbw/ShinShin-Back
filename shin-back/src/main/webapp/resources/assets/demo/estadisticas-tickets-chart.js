@@ -3,7 +3,7 @@ var estadisticas_tickets = {
 	loadCharts : function() {
 
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 
@@ -101,7 +101,7 @@ var estadisticas_tickets = {
 	ticketsPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 
@@ -150,7 +150,7 @@ var estadisticas_tickets = {
 	},
 	ticketsPorSemanaChart : function() {
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 
@@ -198,7 +198,7 @@ var estadisticas_tickets = {
 	},
 	ticketsPorMesChart : function() {
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 
@@ -246,7 +246,7 @@ var estadisticas_tickets = {
 	},
 	ticketsPorTiendaDiaChart : function() {
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 
@@ -295,7 +295,7 @@ var estadisticas_tickets = {
 	},
 	ticketsPorTiendaSemanaChart : function() {
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 
@@ -344,7 +344,7 @@ var estadisticas_tickets = {
 	},
 	ticketsPorTiendaMesChart : function() {
 		$.ajax({
-			url : "http://localhost:8081/shin-back/estadisticas/tickets",
+			url : "http://www.shingshing.com/estadisticas/tickets",
 			dataType : "json",
 			success : function(result) {
 

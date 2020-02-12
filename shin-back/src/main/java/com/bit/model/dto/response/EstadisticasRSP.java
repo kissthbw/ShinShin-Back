@@ -3,6 +3,7 @@ package com.bit.model.dto.response;
 import java.util.List;
 
 import com.bit.model.dto.Item;
+import com.bit.model.dto.TicketItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -23,6 +24,7 @@ public class EstadisticasRSP {
 	private List<Item> totalTicketsTiendaDiaHora;
 	private List<Item> totalTicketsTiendaSemanaHora;
 	private List<Item> totalTicketsTiendaMesHora;
+	private List<TicketItem> historicoTickets;
 
 	public Integer getTotalUsuarios() {
 		return totalUsuarios;
@@ -134,6 +136,14 @@ public class EstadisticasRSP {
 
 	public void setTotalTicketsTiendaMesHora(List<Item> totalTicketsTiendaMesHora) {
 		this.totalTicketsTiendaMesHora = totalTicketsTiendaMesHora;
+	}
+
+	public List<TicketItem> getHistoricoTickets() {
+		return historicoTickets;
+	}
+
+	public void setHistoricoTickets(List<TicketItem> historicoTickets) {
+		this.historicoTickets = historicoTickets;
 	}
 
 }

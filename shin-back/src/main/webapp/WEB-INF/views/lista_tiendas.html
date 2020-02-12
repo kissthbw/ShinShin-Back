@@ -236,7 +236,6 @@
 										<tr>
 											<th>Id</th>
 											<th>Tienda</th>
-											<th>Imagen</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</thead>
@@ -244,7 +243,6 @@
 										<tr>
 											<th>Id</th>
 											<th>Tienda</th>
-											<th>Imagen</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</tfoot>
@@ -253,7 +251,6 @@
 											<tr>
 												<td th:text="${item.idCatalogoTienda}"></td>
 												<td th:text="${item.nombreTienda}"></td>
-												<td th:text="${item.imagenTienda}"></td>
 												<td class="text-center">
 													<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTienda}}">Ver</a>
 												</td>

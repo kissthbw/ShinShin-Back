@@ -1,13 +1,17 @@
 var estadisticas_usuario_detalle = {
 		
 		loadCharts : function() {
+			
+			var url = $(location).attr('href')
+			var n = url.lastIndexOf("/");
+			var id = url.substring(n + 1, url.length);
 
 			$.ajax({
-				url : "http://localhost:8080/shin-back/estadisticas/usuario/2",
+				url : "http://www.shingshing.com/estadisticas/usuario/" + id,
 				dataType : "json",
 				success : function(result) {
 					
-					console.log( 'URL: ' + $(location).attr('href') );
+					
 					console.log(result);
 					var marcasData=[], marcasLabel=[];
 					var deptosData=[], deptosLabel=[];

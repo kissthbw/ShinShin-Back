@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 public class Item {
 
+	private String titulo;
 	private String topico;
 	private Integer indice;
 	private BigInteger total;
@@ -15,6 +16,14 @@ public class Item {
 	public Item(String topico, BigInteger total) {
 		this.topico = topico;
 		this.total = total;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public String getTopico() {

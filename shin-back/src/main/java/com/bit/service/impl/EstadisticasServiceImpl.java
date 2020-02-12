@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.Category;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.ResumenItem;
+import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
@@ -381,9 +383,47 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		List<Item> ticketsTiendaDiarios = ticketDAO.obtieneTicketsPorTiendaDia(year, month);
 		rsp.setTotalTicketsTiendaDiaHora(ticketsTiendaDiarios);
 		
+		List<TicketItem> tickets = ticketDAO.obtieneHistoricoTickets();
+		for( TicketItem t : tickets ) {
+			t.setFechaFormateada( Utils.formatDateToString(t.getFecha(), "dd-MMM-yyyy") );
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+		}
+		rsp.setHistoricoTickets(tickets);
+		
 		return rsp;
 	}
 
+	@Override
+	@Transactional
+	public List<TicketItem> obtieneTicketsPorFecha(String date) {
+		
+		//La fecha esta en formato 19-dic-2019, debe pasarse a yyyy-MM-dd
+		Date d = Utils.formatStringToDate(date, "dd-MMM-yyyy");
+		String strDate = Utils.formatDateToString(d, "yyyy-MM-dd");
+		
+		List<TicketItem> list = ticketDAO.obtieneTicketsPorFecha( strDate );
+		
+		for( TicketItem t : list ) {
+			t.setFechaFormateada( Utils.formatDateToString(t.getFecha(), "dd-MMM-yyyy") );
+			t.setHoraFormateada( Utils.formatDateToString(t.getFecha(), "hh:mm:ss") );
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
+	}
+
+
+	@Override
+	@Transactional
+	public List<TicketItem> obtieneDetalleTicketPorId(Integer idTicket) {
+		List<TicketItem> list = ticketDAO.obtieneDetalleTicketPorId( idTicket );
+		
+		for( TicketItem t : list ) {
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+		}
+		
+		return list;
+	}
 
 	@Override
 	@Transactional
@@ -393,7 +433,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		//Formatear fecha dd-MMM-yyyy
 		//Formatear solicitudes y bonificaciones
 		for (BonificacionItem item : list) {
-			item.setFechaFormateada( Utils.formatFecha(item.getFecha(), "dd-MMM-yyyy") );
+			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
 			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
 		}
 		
@@ -408,8 +448,8 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item);
 		
 		for (BonificacionItem i : list) {
-			i.setFechaFormateada( Utils.formatFecha(i.getFecha(), "dd-MMM-yyyy") );
-			i.setHoraFormateada( Utils.formatFecha(i.getHora(), "hh:mm:ss") );
+			i.setFechaFormateada( Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy") );
+			i.setHoraFormateada( Utils.formatDateToString(i.getHora(), "hh:mm:ss") );
 			i.setImporteFormateado( Utils.formatNumeros(i.getImporte(), "$###,###,###.00") );
 		}
 		
@@ -534,7 +574,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		//Formatear fecha dd-MMM-yyyy
 		//Formatear solicitudes y bonificaciones
 		for (BonificacionItem item : list) {
-			item.setFechaFormateada( Utils.formatFecha(item.getFecha(), "dd-MMM-yyyy") );
+			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
 			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
 		}
 		
@@ -552,17 +592,44 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		//Agregar catalogo en BD
 		String[] companias = {"Telcel", "ATT&T"};
-		
 		List<Category> list = new ArrayList<Category>();
-		for( String com : companias ) {
-			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
-			List<Item> listaEscaneoDeptos = new ArrayList<>();
-//			initEscaneosPorMes(listaEscaneoDeptos, listaTmpRecargas);
+		
+		
+		if( "d".equalsIgnoreCase( categoria ) ) {
 			
-			Category c = new Category( com, listaTmpRecargas );
-			
-			list.add( c );
+			for( String com : companias ) {
+				List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
+				
+				Category c = new Category( com, listaTmpRecargas );
+				
+				list.add( c );
+			}
 		}
+		
+		if( "s".equalsIgnoreCase( categoria ) ) {
+			for( String com : companias ) {
+				List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
+				List<Item> listaEscaneoDeptos = new ArrayList<>();
+				
+				Category c = new Category( com, listaTmpRecargas );
+				
+				list.add( c );
+			}
+		}
+		
+		if( "m".equalsIgnoreCase( categoria ) ) {
+			for( String com : companias ) {
+				List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaMesAnio(year, com);
+				List<Item> listaEscaneoDeptos = new ArrayList<>();
+				initEscaneosPorMes(listaEscaneoDeptos, listaTmpRecargas);
+				
+				Category c = new Category( com, listaEscaneoDeptos );
+				
+				list.add( c );
+			}
+
+		}
+
 		
 		return list;
 	}

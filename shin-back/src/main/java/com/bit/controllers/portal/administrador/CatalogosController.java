@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bit.common.Utils;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTienda;
@@ -33,7 +34,14 @@ import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.Usuario;
+import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.TicketItem;
+import com.bit.model.dto.response.EstadisticasBonificacionRSP;
+import com.bit.model.dto.response.EstadisticasGeneralRSP;
+import com.bit.model.dto.response.EstadisticasRSP;
+import com.bit.model.dto.response.InformacionUsuarioRSP;
+import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.report.MarcaReport;
 import com.bit.model.report.ProductoReport;
 import com.bit.model.report.UsuarioReport;
@@ -41,6 +49,7 @@ import com.bit.service.CatalogoMarcaService;
 import com.bit.service.CatalogoMediosBonificacionService;
 import com.bit.service.CatalogoTiendaService;
 import com.bit.service.CatalogoTipoProductoService;
+import com.bit.service.EstadisticasService;
 import com.bit.service.ProductoService;
 import com.bit.service.TicketService;
 import com.bit.service.UsuarioService;
@@ -79,6 +88,9 @@ public class CatalogosController {
 	@Autowired
 	private TicketService ticketService;
 	
+	@Autowired
+	private EstadisticasService estadisticasService;
+	
 	private static Logger log = LoggerFactory.getLogger( CatalogosController.class );
 
 	/*
@@ -109,7 +121,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatDepartamento" );
 
-		return "redirect:/portal-administrador/departamento/save";
+		return "redirect:/portal-administrador/departamento/list";
 	}
 	
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.GET)
@@ -127,7 +139,8 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de getCatDepartamentoEdit" );
 
-		return "cat_departamentos";
+//		return "cat_departamentos";
+		return "redirect:/portal-administrador/departamento/save";
 	}
 	
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.POST)
@@ -195,7 +208,7 @@ public class CatalogosController {
 		catalogoMarcaService.registrarMarcas(file, item);
 
 		log.info( "Saliendo de postCatMarca" );
-		return "redirect:/portal-administrador/marca/save";
+		return "redirect:/portal-administrador/marca/list";
 	}
 	
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.GET)
@@ -256,7 +269,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatMarcaEdit" );
 
-		return "redirect:/portal-administrador/medioBonificacion/save";
+		return "redirect:/portal-administrador/mediosBonificacion/list";
 	}
 	
 	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.GET)
@@ -311,14 +324,15 @@ public class CatalogosController {
 	}
 
 	@RequestMapping(value = "/tienda/save", method = RequestMethod.POST)
-	public String postCatTienda(@ModelAttribute CatalogoTienda item, BindingResult errors, Model model) {
+	public String postCatTienda(@RequestParam MultipartFile file, @ModelAttribute CatalogoTienda item, BindingResult errors, Model model) {
 
 		log.info( "Entrando en postCatTienda" );
-		catalogoTiendaService.registrarTiendas(item);
+		catalogoTiendaService.registrarTiendas(file, item);
 		
 		log.info( "Saliendo de postCatTienda" );
 
-		return "redirect:/portal-administrador/tienda/save";
+//		return "redirect:/portal-administrador/tienda/save";
+		return "redirect:/portal-administrador/tienda/list";
 	}
 	
 	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.GET)
@@ -340,11 +354,11 @@ public class CatalogosController {
 	}
 	
 	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.POST)
-	public String postCatTiendaEdit(@ModelAttribute CatalogoTienda item, BindingResult errors, Model model, @PathVariable String id) {
+	public String postCatTiendaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTienda item, BindingResult errors, Model model, @PathVariable String id) {
 		
 		log.info( "Entrando en postCatTiendaEdit" );
 		item.setIdCatalogoTienda( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(item);
+		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(file, item);
 		
 		log.info( "Saliendo de postCatTiendaEdit" );
 
@@ -444,7 +458,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatProducto" );
 
-		return "redirect:/portal-administrador/producto/save";
+		return "redirect:/portal-administrador/producto/list";
 	}
 	
 	@RequestMapping(value = "/producto/edit/{id}", method = RequestMethod.GET)
@@ -626,15 +640,54 @@ public class CatalogosController {
 		if ( null != current ) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
-		
-		model.addAttribute("item", u);
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasTickets();
+		model.addAttribute("totalTickets", rsp.getTotalTickets());
+		model.addAttribute("tickets", rsp.getHistoricoTickets());
 		
 		Log.info("Saliendo de redirectionalEstadisticasTickets");
 		return "administrador/estadisticas-tickets";
+	}
+	
+	@RequestMapping(value = "/estadisticas-tickets-detalle/{fecha}", method = RequestMethod.GET)
+	public String redirectionalEstadisticasTicketsDetalle(Model model, @PathVariable String fecha) {
+		Log.info("Entrando en redirectionalEstadisticasTicket");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		List<TicketItem> list = estadisticasService.obtieneTicketsPorFecha( fecha );
+		model.addAttribute("fecha", fecha);
+		model.addAttribute("tickets", list);
+		
+		Log.info("Saliendo de redirectionalEstadisticasTickets");
+		return "administrador/estadisticas-tickets-detalle";
+	}
+	
+	@RequestMapping(value = "/estadisticas-tickets-detalle/ticket/{id}", method = RequestMethod.GET)
+	public String redirectionalEstadisticasTicketsDetalleSegundoDetalle(Model model, @PathVariable String id) {
+		Log.info("Entrando en redirectionalEstadisticasTicket");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		List<TicketItem> list = estadisticasService.obtieneDetalleTicketPorId( Integer.parseInt(id) );
+		Integer total = list.stream().map( x -> x.getCantidad().intValue() ).reduce( 0, Integer::sum );
+		Double importeTotal = list.stream().map( x -> x.getImporte() ).reduce( 0.0, Double::sum );
+		String strImporteTotal = Utils.formatNumeros(importeTotal, "$###,###,###.00");
+		
+		model.addAttribute("id", id);
+		model.addAttribute("tickets", list);
+		model.addAttribute("total", total);
+		model.addAttribute("importeTotal", strImporteTotal);
+		
+		Log.info("Saliendo de redirectionalEstadisticasTickets");
+		return "administrador/estadisticas-tickets-detalle-segundoDetalle";
 	}
 	
 	@RequestMapping(value = "/estadisticas-general", method = RequestMethod.GET)
@@ -647,11 +700,10 @@ public class CatalogosController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
-		
-		model.addAttribute("item", u);
+		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasGeneral();
+		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
+		model.addAttribute("totalTickets", rsp.getTotalTicketsEscaneados());
+		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
 		
 		Log.info("Saliendo de redirectionalEstadisticasGeneral");
 		return "administrador/estadisticas-general";
@@ -666,12 +718,12 @@ public class CatalogosController {
 		if ( null != current ) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
-		
-		model.addAttribute("item", u);
+		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasMarcas();
+		model.addAttribute("totalMarcas", rsp.getTotalMarcas());
+		model.addAttribute("totalProductos", rsp.getTotalProductos());
+		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
+		model.addAttribute("listaResumenTiendas", rsp.getListaResumenTiendas());
+		model.addAttribute("listaResumenDepartamentos", rsp.getListaResumenDepartamentos());
 		
 		Log.info("Saliendo de redirectionalEstadisticasMarcas");
 		return "administrador/estadisticas-marcas";
@@ -686,15 +738,27 @@ public class CatalogosController {
 		if ( null != current ) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
-		
-		model.addAttribute("item", u);
+		ListItemsRSP usuarios = usuarioService.getUsuarios();
+		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasUsuarios();
+		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
+		model.addAttribute("promedioEdad", rsp.getPromedioEdadUsuarios());
+		model.addAttribute("listaUsuarios", usuarios.getUsuarios());
 		
 		Log.info("Saliendo de redirectionalEstadisticasUsuarios");
 		return "administrador/estadisticas-usuarios";
+	}
+	
+	@RequestMapping(value = "/usuario-detalle/{id}", method = RequestMethod.GET)
+	public String getObtenerUsuarioDetalle(Model model, @PathVariable String id) {
+		
+		log.info("Entrando a getObtenerUsuarioDetalle");
+		
+		Usuario item = new Usuario();
+		item.setIdUsuario( Long.parseLong(id) );
+		InformacionUsuarioRSP rsp = usuarioService.obtieneDetalleUsuario(item);
+		model.addAttribute("rsp", rsp);
+		
+		return "administrador/usuario-detalle";
 	}
 	
 	@RequestMapping(value = "/bonificaciones-depositos", method = RequestMethod.GET)
@@ -727,11 +791,11 @@ public class CatalogosController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
+		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
 		
-		model.addAttribute("item", u);
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
+		model.addAttribute("list", list);
 		
 		Log.info("Saliendo de redirectionalBonificacionesRecargas");
 		return "administrador/bonificaciones-recargas";
