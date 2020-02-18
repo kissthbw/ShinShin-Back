@@ -27,8 +27,9 @@ import com.bit.exception.TicketException;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
+import com.bit.model.dto.Item;
+import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.request.OCRTicketRQT;
-import com.bit.model.dto.response.Item;
 import com.bit.model.dto.response.OCRTicketRSP;
 import com.bit.service.TicketService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -228,7 +229,7 @@ public class TicketDAOTest {
 		try {
 			buffered = new 
 					BufferedReader( 
-							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-soriana.txt") );
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-aurrera-2.txt") );
 			
 			while((line = buffered.readLine()) != null) {
                 lineas.add(line);
@@ -261,9 +262,9 @@ public class TicketDAOTest {
 		try {
 			buffered = new 
 					BufferedReader(
-							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/error.txt") );
+//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/error.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-7eleven-3.txt") );
-//							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-3.txt") );
+							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-4.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-walmart-2.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-aurrera.txt") );
 //							new FileReader("/Users/juanosorioalvarez/Documents/Bit/ShinShin/ocr-ticket-superama.txt") );
@@ -315,7 +316,7 @@ public class TicketDAOTest {
 		List<Object> total = ticketDAO.obtieneTotalTicketsPorSemana();
 		for(int i = 0; i <= total.size(); i++) {
 			Object[] t = (Object[]) total.get(i);
-		System.out.println("Total de tickets registrados: " + t[0] + " semana: " + t[1] + " año: " + t[2]);
+		System.out.println("Total de tickets registrados: " + t[0] + " semana: " + t[1] + " aï¿½o: " + t[2]);
 		}
 	}
 	
@@ -325,7 +326,7 @@ public class TicketDAOTest {
 		List<Object> total = ticketDAO.obtieneTotalTicketsPorMes();
 		for(int i = 0; i <= total.size(); i++) {
 			Object[] t = (Object[]) total.get(i);
-		System.out.println("Total de tickets registrados: " + t[0] + " mes: " + t[1] + " año: " + t[2]);
+		System.out.println("Total de tickets registrados: " + t[0] + " mes: " + t[1] + " aï¿½o: " + t[2]);
 		}
 	}
 	
@@ -365,6 +366,36 @@ public class TicketDAOTest {
 		List<Item> totalTickets = ticketDAO.obtieneTicketsPorMesAnio(2020);
 		for(Item i : totalTickets) {
 			System.out.println(i.getIndice() + " : " + i.getTotal());
+		}
+	}
+	
+	/*
+	 * Relacionados con relacionados a las paginas de estadisticas-tickets-detalle, 
+	 * estadisticas-tickets-detalle-segundoDetalle
+	 */
+	@Test
+	@Transactional
+	public void obtieneTicketsPorFecha() {
+		String fecha = "2019-05-21";
+		List<TicketItem> list = ticketDAO.obtieneTicketsPorFecha(fecha);
+		
+		for( TicketItem t : list ) {
+			t.setFechaFormateada( Utils.formatDateToString(t.getFecha(), "dd-MMM-yyyy") );
+			t.setHoraFormateada( Utils.formatDateToString(t.getFecha(), "hh:mm:ss") );
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+			System.out.println( t );
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void obtieneTicketsPorId() {
+		Integer id = 50;
+		List<TicketItem> list = ticketDAO.obtieneDetalleTicketPorId(id);
+		
+		for( TicketItem t : list ) {
+			t.setImporteFormateado( Utils.formatNumeros(t.getImporte(), "$###,###,###.00") );
+			System.out.println( t );
 		}
 	}
 }

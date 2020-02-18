@@ -20,6 +20,7 @@ import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.ProductosTiendas;
+import com.bit.model.dto.Item;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
 
@@ -210,10 +211,16 @@ public class ProductoDAOTest {
 	@Test
 	@Transactional
 	public void productosEscaneadosPorDia() {
-		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorDia();
-		for(int i = 0; i <= total.size(); i++) {
-			Object t[] = (Object[]) total.get(i);
-			System.out.println("Productos: " + t[0] + " dia: " + t[1] + " fecha: " + t[2]);
+//		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorDia();
+//		for(int i = 0; i < total.size(); i++) {
+//			Object t[] = (Object[]) total.get(i);
+//			System.out.println("Productos: " + t[0] + " dia: " + t[1] + " fecha: " + t[2]);
+//		}
+		
+		
+		List<Item> list = productoDAO.obtieneTotalEscaneosProductosPorDiaMesAnio(2019, 12);
+		for (Item item : list) {
+			System.out.println( item.getIndice() + ": " + item.getTotal() );
 		}
 	}
 	
@@ -221,9 +228,14 @@ public class ProductoDAOTest {
 	@Transactional
 	public void productosEscaneadosPorSemana() {
 		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorSemana();
-		for(int i = 0; i <= total.size(); i++) {
+		for(int i = 0; i < total.size(); i++) {
 			Object t[] = (Object[]) total.get(i);
-			System.out.println("Productos: " + t[0] + " semana: " + t[1] + " año: " + t[2]);
+			System.out.println("Productos: " + t[0] + " semana: " + t[1] + " anio: " + t[2]);
+		}
+		
+		List<Item> list = productoDAO.obtieneTotalEscaneosProductosPorSemanaMesAnio(2019, 12);
+		for (Item item : list) {
+			System.out.println( item.getIndice() + ": " + item.getTotal() );
 		}
 	}
 	
@@ -231,9 +243,15 @@ public class ProductoDAOTest {
 	@Transactional
 	public void productosEscaneadosPorMes() {
 		List<Object> total = productoDAO.obtieneTotalEscaneosProductosPorMes();
-		for(int i = 0; i <= total.size(); i++) {
+		for(int i = 0; i < total.size(); i++) {
 			Object t[] = (Object[]) total.get(i);
-			System.out.println("Productos: " + t[0] + " mes: " + t[1] + " año: " + t[2]);
+			System.out.println("Productos: " + t[0] + " mes: " + t[1] + " anio: " + t[2]);
+		}
+		
+		
+		List<Item> list = productoDAO.obtieneTotalEscaneosProductosPorMesAnio(2019, 12);
+		for (Item item : list) {
+			System.out.println( item.getIndice() + ": " + item.getTotal() );
 		}
 	}
 }

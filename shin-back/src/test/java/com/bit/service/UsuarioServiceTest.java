@@ -9,6 +9,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.bit.config.WebConfig;
 import com.bit.model.Usuario;
+import com.bit.model.dto.Category;
+import com.bit.model.dto.Item;
+import com.bit.model.dto.response.EstadisticasGeneralRSP;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -32,5 +35,30 @@ public class UsuarioServiceTest {
 	@Test
 	public void estadisitcasUsuariosTest() {
 		estadisticasService.obtieneEstadisticasUsuarios();
+	}
+	
+	@Test
+	public void estadisticasGeneral() {
+		estadisticasService.obtieneEstadisticasGeneral();
+	}
+	
+	@Test
+	public void estadisticasMarcas() {
+		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasMarcas();
+		for( Category c : rsp.getTotalEscaneaosDepartamentoMes() ) {
+			System.out.println( c.getTitulo() );
+			
+			for( Item i : c.getItems() ) {
+				System.out.println( i.getTopico() + " - " + i.getIndice() + " - " + i.getTotal() );
+			}
+		}
+		
+		for( Category c : rsp.getTotalEscaneaosTiendaMes() ) {
+			System.out.println( c.getTitulo() );
+			
+			for( Item i : c.getItems() ) {
+				System.out.println( i.getTopico() + " - " + i.getIndice() + " - " + i.getTotal() );
+			}
+		}
 	}
 }

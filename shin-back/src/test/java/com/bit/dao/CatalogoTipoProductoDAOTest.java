@@ -1,6 +1,7 @@
 package com.bit.dao;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,9 @@ public class CatalogoTipoProductoDAOTest {
 	@Autowired
 	private CatalogoTipoProductoDAO catalogoTipoProductoDAO;
 	
+	@Autowired
+	private CatalogoTiendaDAO catalogoTiendaDAO;
+	
 	@Transactional
 	@Test
 	public void crudTest() {
@@ -44,10 +48,40 @@ public class CatalogoTipoProductoDAOTest {
 		catalogoTipoProductoDAO.save(item);
 	}
 	
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void delete() {
+		System.out.println( "Inicio: " + new Date() );
+		
+		CatalogoTipoProducto item = new CatalogoTipoProducto();
+//		item.setIdCatalogoTipoProducto(1L);
+		item = catalogoTipoProductoDAO.findByPK( 1L );
+		item.setEstatus(false);
+		
+//		catalogoTipoProductoDAO.eliminaDepartamento(item);
+		catalogoTipoProductoDAO.update(item);
+		System.out.println( "Fin: " + new Date() );
+	}
+	
 	@Test
 	@Transactional
 	public void totalDepartamentos() {
 		BigInteger total = catalogoTipoProductoDAO.obtieneDepartamentosRegistrados();
 		System.out.println("Departamentos: " + total);
 	}
+	
+	@Test
+	@Transactional
+	public void obtieneResumenTiendas() {
+		catalogoTiendaDAO.obtieneResumenTiendas();
+	}
+	
+	@Test
+	@Transactional
+	public void obtieneResumenDeptos() {
+		catalogoTipoProductoDAO.obtieneResumenDepartamento();
+	}
+	
+	
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -22,9 +23,9 @@ import com.bit.config.WebConfig;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
+import com.bit.model.dto.Item;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
-import com.bit.model.dto.response.Item;
 import com.bit.model.dto.response.MedioBonificacionUsuario;
 import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
@@ -128,6 +129,14 @@ public class UsuarioDAOTest {
 		System.out.println(respuesta.getMessage() + "\n" + respuesta.getCode());
 	}
 
+	@Transactional
+	@Test
+	public void reenviarSMS() {
+		Usuario u = new Usuario();
+		u.setIdUsuario(2L);
+		usuarioService.reenviarCodigoUsuario(u, Source.REST_CONTROLLER);
+	}
+	
 	@Transactional
 	@Test
 	@Rollback(true)
@@ -577,4 +586,13 @@ public class UsuarioDAOTest {
 			System.out.println("Usuarios: " + t[0] + " Dia: " + t[1] + " Fecha: " + t[2]);
 		}
 	}
+	
+	@Test
+	@Transactional
+	public void obtieneTotalProductos() {
+		Usuario item = new Usuario();
+		item.setIdUsuario(100l);
+		usuarioDAO.obtieneTotalProductosPorUsario(item);
+	}
+	
 }
