@@ -3,7 +3,9 @@ package com.bit.controllers.portal.administrador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,8 +141,8 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de getCatDepartamentoEdit" );
 
-//		return "cat_departamentos";
-		return "redirect:/portal-administrador/departamento/save";
+//		return "redirect:/portal-administrador/departamento/save";
+		return "cat_departamentos";
 	}
 	
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.POST)
@@ -151,6 +153,18 @@ public class CatalogosController {
 		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
 		
 		log.info( "Saliendo de postCatDepartamentoEdit" );
+
+		return "redirect:/portal-administrador/departamento/list";
+	}
+	
+	@RequestMapping(value = "/departamento/delete/{id}", method = RequestMethod.POST)
+	public String postCatDepartamentoDelete(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model, @PathVariable String id) {
+		
+		log.info( "Entrando en postCatDepartamentoDelete" );
+		item.setIdCatalogoTipoProducto( Long.parseLong(id) );
+		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
+		
+		log.info( "Saliendo de postCatDepartamentoDelete" );
 
 		return "redirect:/portal-administrador/departamento/list";
 	}
@@ -753,6 +767,12 @@ public class CatalogosController {
 		
 		log.info("Entrando a getObtenerUsuarioDetalle");
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
 		Usuario item = new Usuario();
 		item.setIdUsuario( Long.parseLong(id) );
 		InformacionUsuarioRSP rsp = usuarioService.obtieneDetalleUsuario(item);
@@ -771,14 +791,51 @@ public class CatalogosController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
+		//Mostrar la fecha actual en formato dd/MMM/yyyyy
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		
-		model.addAttribute("item", u);
+		BonificacionItem item = new BonificacionItem();
+		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
+		
+		List<BonificacionItem> currentList = estadisticasService.obtieneHistoricoBonificaciones( item );
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
+		model.addAttribute("currentList", currentList);
+		model.addAttribute("list", list);
+ 		model.addAttribute("fecha", "Hoy " + fecha);
+		
 		
 		Log.info("Saliendo de redirectionalBonificacionesDepositos");
 		return "administrador/bonificaciones-depositos";
+	}
+	
+	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
+	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
+		
+		log.info("Entrando a getObtenerDeporistosDetalle");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+		BonificacionItem item = new BonificacionItem();
+		//La fecha viene como dd-MMM-yyyy
+		//Convertir a yyyy-MM-dd
+		Date d = Utils.formatStringToDate(fecha, "dd-MMM-yyyy");
+		String f = Utils.formatDateToString(d, "yyyy-MM-dd");
+		
+		item.setFechaFormateada( f );
+		item.setIdTipo( BigInteger.valueOf( 3 ) );
+		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
+		model.addAttribute("list", list);
+		model.addAttribute("solicitudes", Utils.formatNumeros(Integer.valueOf( list.size() ).doubleValue(), "###,###,###"));
+		
+		double total = list.stream().mapToDouble( i -> i.getImporte() ).sum();
+		
+		model.addAttribute("importe", Utils.formatNumeros(total, "$###,###,###.00"));
+		
+		return "administrador/bonificaciones-depositos-detalle";
 	}
 	
 	@RequestMapping(value = "/bonificaciones-recargas", method = RequestMethod.GET)
@@ -811,11 +868,10 @@ public class CatalogosController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
-		Usuario u = new Usuario();
-		u.setImgUrl("http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg");
-		u.setNombre("Juan Oso");
-		
-		model.addAttribute("item", u);
+		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
+		model.addAttribute("totalDepositos", rsp.getTotalDepositos());
+		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
+		model.addAttribute("totalBonificaciones", rsp.getTotalBonificaciones());
 		
 		Log.info("Saliendo de redirectionalBonificacionesGeneral");
 		return "administrador/bonificaciones-general";

@@ -14,6 +14,8 @@ public interface CatalogoTipoProductoService {
 
 	SimpleResponse actualizarCatalogoTipoProductos(MultipartFile file, CatalogoTipoProducto item);
 	
+	SimpleResponse eliminaCatalogoTipoProductos(CatalogoTipoProducto item);
+	
 	CatalogoTipoProducto findById(Long id);
 
 }

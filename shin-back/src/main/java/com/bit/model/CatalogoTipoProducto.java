@@ -19,6 +19,9 @@ public class CatalogoTipoProducto {
 
 	@Column(name = "img_url")
 	private String imgUrl;
+	
+	@Column(name = "active")
+	private boolean active;
 
 	public void setIdCatalogoTipoProducto(Long idCatalogoTipoProducto) {
 		this.idCatalogoTipoProducto = idCatalogoTipoProducto;
@@ -42,6 +45,14 @@ public class CatalogoTipoProducto {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setEstatus(boolean active) {
+		this.active = active;
 	}
 
 }

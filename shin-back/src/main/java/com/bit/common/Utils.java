@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -122,6 +124,17 @@ public class Utils {
 		return date;
 	}
 	
+	public static String getCurrentFormatDate( String format ) {
+		LocalDate localDate = LocalDate.now(ZoneId.of("UTC"));
+		
+		if( null == format || "".equals(format.trim()) ) {
+			format = "dd-MMM-yy";
+		}
+		String formattedDate = localDate.format(DateTimeFormatter.ofPattern(format));
+		
+		return formattedDate;
+	}
+	
 	public static String formatNumeros( Double numero, String format ) {
 		
 		if( null == numero ) {
@@ -133,6 +146,12 @@ public class Utils {
 	}
 	
 	public static void main (String[] args) throws ParseException {
+		
+		LocalDate localDate = LocalDate.now(ZoneId.of("UTC"));
+		System.out.println( "LocalDate: " + localDate.toString() );
+		
+		String formattedDate = localDate.format(DateTimeFormatter.ofPattern("dd-MMM-yy"));
+		System.out.println( "LocalDate custom format: " + formattedDate );
 		
 		String s = "5534714616";
 		System.out.printf("%s es email valido?: %s \n", s, Utils.isEmail(s));

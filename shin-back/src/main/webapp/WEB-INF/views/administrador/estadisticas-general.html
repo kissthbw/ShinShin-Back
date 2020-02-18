@@ -261,15 +261,15 @@
 								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li class="nav-item"><a class="nav-link active"
+									<li id="btnUsersDay" class="nav-item"><a class="nav-link active"
 										id="pills-home-tab" data-toggle="pill" href="#pills-home"
 										role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 									</li>
-									<li class="nav-item"><a class="nav-link"
+									<li id="btnUsersWeek" class="nav-item"><a class="nav-link"
 										id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li class="nav-item"><a class="nav-link"
+									<li id="btnUsersMonth" class="nav-item"><a class="nav-link"
 										id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -335,16 +335,16 @@
 								<div class="card-body">
 									<h6 class="big-title">Escaneados</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-										<li class="nav-item"><a class="nav-link active"
+										<li id="btnTicketsDay" class="nav-item"><a class="nav-link active"
 											id="pills-home-tab" data-toggle="pill" href="#pills-home"
 											role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<li id="btnTicketsWeek" class="nav-item"><a class="nav-link"
 											id="pills-profile-tab" data-toggle="pill"
 											href="#pills-profile" role="tab"
 											aria-controls="pills-profile" aria-selected="false">Semana</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<li id = "btnTicketsMonth" class="nav-item"><a class="nav-link"
 											id="pills-contact-tab" data-toggle="pill"
 											href="#pills-contact" role="tab"
 											aria-controls="pills-contact" aria-selected="false">Mes</a></li>
@@ -411,16 +411,16 @@
 								<div class="card-body">
 									<h6 class="big-title">Escaneados</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-										<li class="nav-item"><a class="nav-link active"
+										<li id="btnProductosDay" class="nav-item"><a class="nav-link active"
 											id="pills-home-tab" data-toggle="pill" href="#pills-home"
 											role="tab" aria-controls="pills-home" aria-selected="true">Día</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<li id="btnProductosWeek" class="nav-item"><a class="nav-link"
 											id="pills-profile-tab" data-toggle="pill"
 											href="#pills-profile" role="tab"
 											aria-controls="pills-profile" aria-selected="false">Semana</a>
 										</li>
-										<li class="nav-item"><a class="nav-link"
+										<li id="btnProductosMonth" class="nav-item"><a class="nav-link"
 											id="pills-contact-tab" data-toggle="pill"
 											href="#pills-contact" role="tab"
 											aria-controls="pills-contact" aria-selected="false">Mes</a></li>
@@ -467,7 +467,7 @@
 						<div class="card ">
 							<div class="card-header ">
 								<h5 class="card-title">Tiendas</h5>
-								<p class="card-category">24 Hours performance</p>
+								<p class="card-category"></p>
 							</div>
 							<div class="card-body ">
 								<div class="chartjs-size-monitor"
@@ -511,7 +511,7 @@
 						<div class="card ">
 							<div class="card-header ">
 								<h5 class="card-title">Departamentos</h5>
-								<p class="card-category">24 Hours performance</p>
+								<p class="card-category"></p>
 							</div>
 							<div class="card-body ">
 								<div class="chartjs-size-monitor"
@@ -552,92 +552,6 @@
 					</div>
 
 				</div>
-
-				<!--  
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Email Statistics</h5>
-                <p class="card-category">Last Campaign Performance</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartDonut1" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-info"></i> Open
-                </div>
-                <hr/>
-                <div class="stats">
-                  <i class="fa fa-calendar"></i> Number of emails sent
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">New Visitators</h5>
-                <p class="card-category">Out Of Total Number</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartDonut2" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-warning"></i> Visited
-                </div>
-                <hr/>
-                <div class="stats">
-                  <i class="fa fa-check"></i> Campaign sent 2 days ago
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Orders</h5>
-                <p class="card-category">Total number</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartDonut3" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-danger"></i> Completed
-                </div>
-                <hr/>
-                <div class="stats">
-                  <i class="fa fa-clock-o"></i> Updated 3 minutes ago
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card ">
-              <div class="card-header ">
-                <h5 class="card-title">Subscriptions</h5>
-                <p class="card-category">Our Users</p>
-              </div>
-              <div class="card-body ">
-                <canvas id="chartDonut4" class="ct-chart ct-perfect-fourth" width="456" height="300"></canvas>
-              </div>
-              <div class="card-footer ">
-                <div class="legend">
-                  <i class="fa fa-circle text-secondary"></i> Ended
-                </div>
-                <hr/>
-                <div class="stats">
-                  <i class="fa fa-history"></i> Total users
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      -->
-
 			</div>
 
 
@@ -695,10 +609,81 @@
 	<script th:src="@{/resources/assets/demo/estadisticas-general-chart.js}"></script>
 	<script>
 		$(document).ready(function() {
-			// Javascript method's body can be found in assets/js/demos.js}
-			//demo.initDashboardPageCharts();
-			//demo.initVectorMap();
-			//demo.initChartPageCharts();
+				$('#btnUsersDay').click(function(){
+					usuariosPorDiaChart();
+				});
+
+				$('#btnUsersWeek').click(()=>{
+					usuariosPorSemanaChart();
+				});
+
+				$('#btnUsersMonth').click(()=>{
+					usuariosPorMesChart()
+				});
+				
+				//
+				$('#btnTicketsDay').click(function(){
+					ticketsPorDiaChart();
+				});
+
+				$('#btnTicketsWeek').click(()=>{
+					ticketsPorSemanaChart();
+				});
+
+				$('#btnTicketsMonth').click(()=>{
+					ticketsPorMesChart()
+				});
+				
+				//
+				$('#btnProductosDay').click(function(){
+					productosPorDiaChart();
+				});
+
+				$('#btnProductosWeek').click(()=>{
+					productosPorSemanaChart();
+				});
+
+				$('#btnProductosMonth').click(()=>{
+					productosPorMesChart()
+				});
+				
+				function usuariosPorDiaChart() {
+					estadisticas_general.usuariosPorDiaChart();
+				}
+
+				function usuariosPorSemanaChart() {
+					estadisticas_general.usuariosPorSemanaChart();
+				}
+
+				function usuariosPorMesChart() {
+					estadisticas_general.usuariosPorMesChart();
+				}
+				
+				//
+				function ticketsPorDiaChart() {
+					estadisticas_general.ticketsPorDiaChart();
+				}
+
+				function ticketsPorSemanaChart() {
+					estadisticas_general.ticketsPorSemanaChart();
+				}
+
+				function ticketsPorMesChart() {
+					estadisticas_general.ticketsPorMesChart();
+				}
+				
+				//
+				function productosPorDiaChart() {
+					estadisticas_general.productosPorDiaChart();
+				}
+
+				function productosPorSemanaChart() {
+					estadisticas_general.productosPorSemanaChart();
+				}
+
+				function productosPorMesChart() {
+					estadisticas_general.productosPorMesChart();
+				}
 		});
 	</script>
 </body>

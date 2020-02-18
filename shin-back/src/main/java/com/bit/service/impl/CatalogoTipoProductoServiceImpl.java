@@ -112,6 +112,24 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 
 	@Override
 	@Transactional
+	public SimpleResponse eliminaCatalogoTipoProductos(CatalogoTipoProducto item) {
+		log.info("Eliminado logico de tipo de producto con id: {}", item.getIdCatalogoTipoProducto());
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = catalogoTipoProductoDAO.findByPK( item.getIdCatalogoTipoProducto() );
+		item.setEstatus(false);
+		catalogoTipoProductoDAO.update(item);
+		
+		item = catalogoTipoProductoDAO.update(item);
+		rsp.setId(item.getIdCatalogoTipoProducto());
+		return rsp;
+	}
+	
+	@Override
+	@Transactional
 	public CatalogoTipoProducto findById(Long id) {
 		
 		log.info("Buscando departamento por id: {}", id);		

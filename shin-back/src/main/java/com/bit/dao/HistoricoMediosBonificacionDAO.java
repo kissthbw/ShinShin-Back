@@ -41,7 +41,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<BonificacionItem> obtieneHistoricoBonificaciones(){
+	public List<BonificacionItem> obtieneHistoricoBonificaciones( BonificacionItem item ){
 		
 		StringBuilder sql = new StringBuilder();
 		
@@ -54,10 +54,19 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
 		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		
+		if ( null != item ) {
+			sql.append( " WHERE h.fecha_bonificacion = :year " );
+		}
+		
 		sql.append(" GROUP BY tipo, fecha;");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(BonificacionItem.class)) );
+		
+		if ( null != item ) {
+			q.setParameter("year", item.getFechaFormateada());
+		}
 		
 		List<BonificacionItem> list = q.list();
 		
@@ -108,6 +117,9 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
 		sql.append(" WHERE h.fecha_bonificacion = :year");
 		sql.append(" AND c.id_catalogo_medio_bonificacion = :idCatalogo");
+		
+		
+		
 		sql.append(" ORDER BY h.id_historico_medios_bonificacion DESC");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).

@@ -2,7 +2,7 @@ var estadisticas_general = {
 		
 		loadCharts : function() {
 			//http://shinshin-env.m7izq9trpe.us-east-2.elasticbeanstalk.com
-			//http://localhost:8080/shin-back
+			//http://www.shingshing.com
 			//www.shingshing.com
 			$.ajax({
 				url : "http://www.shingshing.com/estadisticas/general",
@@ -242,13 +242,13 @@ var estadisticas_general = {
 				var ctx = document.getElementById('usuariosChart').getContext('2d');
 
 				//Elmina dataset anterior
-				window.myChart.data.labels.splice(0,window.myChart.data.labels.length);
-				window.myChart.data.datasets.forEach(function(dataset) {
+				window.usuariosChart.data.labels.splice(0,window.usuariosChart.data.labels.length);
+				window.usuariosChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.myChart.data.datasets.pop();
+				window.usuariosChart.data.datasets.pop();
 				
-				window.myChart.update();
+				window.usuariosChart.update();
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
@@ -271,9 +271,9 @@ var estadisticas_general = {
 						data: usuariosData
 				};
 				
-				window.myChart.data.labels = usuarioslabel;
-				window.myChart.data.datasets.push(newDataset);
-				window.myChart.update();
+				window.usuariosChart.data.labels = usuarioslabel;
+				window.usuariosChart.data.datasets.push(newDataset);
+				window.usuariosChart.update();
 			}
 		});
 	},
@@ -297,13 +297,13 @@ var estadisticas_general = {
 				var ctx = document.getElementById('usuariosChart').getContext('2d');
 
 				//Elmina dataset anterior
-				window.myChart.data.labels.splice(0,window.myChart.data.labels.length);
-				window.myChart.data.datasets.forEach(function(dataset) {
+				window.usuariosChart.data.labels.splice(0,window.usuariosChart.data.labels.length);
+				window.usuariosChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.myChart.data.datasets.pop();
+				window.usuariosChart.data.datasets.pop();
 				
-				window.myChart.update();
+				window.usuariosChart.update();
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
@@ -326,9 +326,9 @@ var estadisticas_general = {
 						data: usuariosData
 				};
 				
-				window.myChart.data.labels = usuarioslabel;
-				window.myChart.data.datasets.push(newDataset);
-				window.myChart.update();
+				window.usuariosChart.data.labels = usuarioslabel;
+				window.usuariosChart.data.datasets.push(newDataset);
+				window.usuariosChart.update();
 			}
 		});
 	},
@@ -352,13 +352,13 @@ var estadisticas_general = {
 				var ctx = document.getElementById('usuariosChart').getContext('2d');
 
 				//Elmina dataset anterior
-				window.myChart.data.labels.splice(0,window.myChart.data.labels.length);
-				window.myChart.data.datasets.forEach(function(dataset) {
+				window.usuariosChart.data.labels.splice(0,window.usuariosChart.data.labels.length);
+				window.usuariosChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.myChart.data.datasets.pop();
+				window.usuariosChart.data.datasets.pop();
 				
-				window.myChart.update();
+				window.usuariosChart.update();
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
@@ -381,13 +381,335 @@ var estadisticas_general = {
 						data: usuariosData
 				};
 				
-				window.myChart.data.labels = usuarioslabel;
-				window.myChart.data.datasets.push(newDataset);
-				window.myChart.update();
+				window.usuariosChart.data.labels = usuarioslabel;
+				window.usuariosChart.data.datasets.push(newDataset);
+				window.usuariosChart.update();
 
 			}
 		});
 	},
+	
+	//Tickets
+	ticketsPorDiaChart : function() {
+
+		$.ajax({
+			url : "http://www.shingshing.com/estadisticas/general",
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalEscaneosDias, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push("D " + item.indice)
+					
+				});
+
+				//Elmina dataset anterior
+				window.ticketsChart.data.labels.splice(0,window.ticketsChart.data.labels.length);
+				window.ticketsChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.ticketsChart.data.datasets.pop();
+				
+				window.ticketsChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: 'Total' ,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.ticketsChart.data.labels = usuarioslabel;
+				window.ticketsChart.data.datasets.push(newDataset);
+				window.ticketsChart.update();
+			}
+		});
+	},
+	ticketsPorSemanaChart : function(){
+		$.ajax({
+			url : "http://www.shingshing.com/estadisticas/general",
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalEscaneosSemana, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push("Semana " + item.indice)
+					
+				});
+
+				//Elmina dataset anterior
+				window.ticketsChart.data.labels.splice(0,window.ticketsChart.data.labels.length);
+				window.ticketsChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.ticketsChart.data.datasets.pop();
+				
+				window.ticketsChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: 'Total' ,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.ticketsChart.data.labels = usuarioslabel;
+				window.ticketsChart.data.datasets.push(newDataset);
+				window.ticketsChart.update();
+			}
+		});
+	},
+	ticketsPorMesChart : function(){
+		$.ajax({
+			url : "http://www.shingshing.com/estadisticas/general",
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalEscaneosMes, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push(item.topico)
+					
+				});
+
+				//Elmina dataset anterior
+				window.ticketsChart.data.labels.splice(0,window.ticketsChart.data.labels.length);
+				window.ticketsChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.ticketsChart.data.datasets.pop();
+				
+				window.ticketsChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: 'Total' ,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.ticketsChart.data.labels = usuarioslabel;
+				window.ticketsChart.data.datasets.push(newDataset);
+				window.ticketsChart.update();
+
+			}
+		});
+	},
+	
+	//Productos
+	productosPorDiaChart : function() {
+
+		$.ajax({
+			url : "http://www.shingshing.com/estadisticas/general",
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalProductosEscaneadosDias, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push("D " + item.indice)
+					
+				});
+
+				//Elmina dataset anterior
+				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
+				window.productosChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.productosChart.data.datasets.pop();
+				
+				window.productosChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: 'Total' ,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.productosChart.data.labels = usuarioslabel;
+				window.productosChart.data.datasets.push(newDataset);
+				window.productosChart.update();
+			}
+		});
+	},
+	productosPorSemanaChart : function(){
+		$.ajax({
+			url : "http://www.shingshing.com/estadisticas/general",
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalProductosEscaneadosSemana, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push("Semana " + item.indice)
+					
+				});
+
+				//Elmina dataset anterior
+				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
+				window.productosChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.productosChart.data.datasets.pop();
+				
+				window.productosChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: 'Total' ,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.productosChart.data.labels = usuarioslabel;
+				window.productosChart.data.datasets.push(newDataset);
+				window.productosChart.update();
+			}
+		});
+	},
+	productosPorMesChart : function(){
+		$.ajax({
+			url : "http://www.shingshing.com/estadisticas/general",
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalProductosEscaneadosMes, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push(item.topico)
+					
+				});
+
+				//Elmina dataset anterior
+				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
+				window.productosChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.productosChart.data.datasets.pop();
+				
+				window.productosChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: 'Total' ,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.productosChart.data.labels = usuarioslabel;
+				window.productosChart.data.datasets.push(newDataset);
+				window.productosChart.update();
+
+			}
+		});
+	},
+	
+	
 	init : function() {
 		estadisticas_general.loadCharts();
 	}

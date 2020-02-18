@@ -281,7 +281,7 @@ public class UsuarioAdministrationController {
 	public String getObtenerDepositos(Model model) {
 		
 		log.info("Entrando a getObtenerDeporistos");
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones();
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones(null);
 		model.addAttribute("list", list);
 		
 		return "administrador/bonificaciones-depositos";

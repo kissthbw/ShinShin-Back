@@ -282,8 +282,8 @@ public class ProductoServiceImpl implements ProductoService {
 		log.info("Obteniento lista de productos: {}", items.toString());
 		log.info("Obteniento lista de productos por identificador de tienda: {}", idEmpresa);
 
-		List<Producto> list = productoDAO.getProductosPorIDYEmpresa(items);
-//		List<Producto> list = productosTiendasDAO.getProductosPorIDYEmpresa(items);
+//		List<Producto> list = productoDAO.getProductosPorIDYEmpresa(items);
+		List<Producto> list = productosTiendasDAO.getProductosPorIDYEmpresa(items);
 
 		return transform(list);
 	}

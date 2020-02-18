@@ -25,7 +25,6 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		c.addOrder(Property.forName("idCatalogoTipoProducto").desc());
 		
 		return c.list();
-			
 	}
 	
 	public BigInteger obtieneDepartamentosRegistrados() {
@@ -34,6 +33,19 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		BigInteger total = (BigInteger)q.uniqueResult();
 		
 		return total;
+	}
+	
+	public int eliminaDepartamento( CatalogoTipoProducto item ) {
+		StringBuilder sql = new StringBuilder();
+		sql.append( " UPDATE catalogo_tipo_producto " );
+		sql.append( " SET active = 0 " );
+		sql.append( " WHERE id_catalogo_tipo_producto = :id " );
+		
+		Query q = getSessionFactory().getCurrentSession().createQuery( sql.toString() );
+		q.setParameter("id", item.isActive());
+		int rows = q.executeUpdate();
+		
+		return rows;
 	}
 
 	public List<Item> obtieneTotalEscaneosPorTiendaDepartamentoAnio( int year, String departamento ) {

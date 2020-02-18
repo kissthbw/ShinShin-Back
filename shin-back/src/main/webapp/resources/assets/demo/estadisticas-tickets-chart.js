@@ -62,7 +62,7 @@ var estadisticas_tickets = {
 				var ctx = document.getElementById('ticketsTiendaChart').getContext(
 						'2d');
 
-				window.myChart = new Chart(ctx, {
+				window.tiendaChart = new Chart(ctx, {
 					type : 'bar',
 					data : {
 						labels : label,
@@ -262,13 +262,13 @@ var estadisticas_tickets = {
 						.getContext('2d');
 
 				// Elmina dataset anterior
-				window.myChart.data.labels.splice(0,window.myChart.data.labels.length);
-				window.myChart.data.datasets.forEach(function(dataset) {
+				window.tiendaChart.data.labels.splice(0,window.tiendaChart.data.labels.length);
+				window.tiendaChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.myChart.data.datasets.pop();
+				window.tiendaChart.data.datasets.pop();
 
-				window.myChart.update();
+				window.tiendaChart.update();
 
 				// Actualizar con nuevos datos
 				var newDataset = {
@@ -287,9 +287,9 @@ var estadisticas_tickets = {
 					data : ticketsTiendaData
 				};
 
-				window.myChart.data.labels = ticketsTiendalabel;
-				window.myChart.data.datasets.push(newDataset);
-				window.myChart.update();
+				window.tiendaChart.data.labels = ticketsTiendalabel;
+				window.tiendaChart.data.datasets.push(newDataset);
+				window.tiendaChart.update();
 			}
 		});
 	},
@@ -311,13 +311,13 @@ var estadisticas_tickets = {
 						.getContext('2d');
 
 				// Elmina dataset anterior
-				window.myChart.data.labels.splice(0,window.myChart.data.labels.length);
-				window.myChart.data.datasets.forEach(function(dataset) {
+				window.tiendaChart.data.labels.splice(0,window.tiendaChart.data.labels.length);
+				window.tiendaChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.myChart.data.datasets.pop();
+				window.tiendaChart.data.datasets.pop();
 
-				window.myChart.update();
+				window.tiendaChart.update();
 
 				// Actualizar con nuevos datos
 				var newDataset = {
@@ -336,9 +336,9 @@ var estadisticas_tickets = {
 					data : ticketsTiendaData
 				};
 
-				window.myChart.data.labels = ticketsTiendalabel;
-				window.myChart.data.datasets.push(newDataset);
-				window.myChart.update();
+				window.tiendaChart.data.labels = ticketsTiendalabel;
+				window.tiendaChart.data.datasets.push(newDataset);
+				window.tiendaChart.update();
 			}
 		});
 	},
@@ -360,13 +360,13 @@ var estadisticas_tickets = {
 						.getContext('2d');
 
 				// Elmina dataset anterior
-				window.myChart.data.labels.splice(0,window.myChart.data.labels.length);
-				window.myChart.data.datasets.forEach(function(dataset) {
+				window.tiendaChart.data.labels.splice(0,window.tiendaChart.data.labels.length);
+				window.tiendaChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.myChart.data.datasets.pop();
+				window.tiendaChart.data.datasets.pop();
 
-				window.myChart.update();
+				window.tiendaChart.update();
 
 				// Actualizar con nuevos datos
 				var newDataset = {
@@ -385,9 +385,9 @@ var estadisticas_tickets = {
 					data : ticketsTiendaData
 				};
 
-				window.myChart.data.labels = ticketsTiendalabel;
-				window.myChart.data.datasets.push(newDataset);
-				window.myChart.update();
+				window.tiendaChart.data.labels = ticketsTiendalabel;
+				window.tiendaChart.data.datasets.push(newDataset);
+				window.tiendaChart.update();
 			}
 		});
 	},

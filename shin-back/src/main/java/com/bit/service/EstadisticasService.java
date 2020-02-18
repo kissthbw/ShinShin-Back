@@ -46,7 +46,7 @@ public interface EstadisticasService {
 	 * Obtiene resumen de bonificaciones por tipo
 	 * @return
 	 */
-	List<BonificacionItem> obtieneHistoricoBonificaciones();
+	List<BonificacionItem> obtieneHistoricoBonificaciones( BonificacionItem item );
 	
 	/**
 	 * Obtiene el detalle de bonificaciones por dia y tipo

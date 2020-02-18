@@ -172,6 +172,12 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 
 		EstadisticasGeneralRSP rsp = new EstadisticasGeneralRSP();
 
+		// Se debe determinar el anio y mes actual
+		// para mostrar los usuarios registrados del anio y mes en curso
+		LocalDate now = LocalDate.now();
+		int year = now.getYear();
+		int month = now.getMonthValue();
+		
 		// Total de usuarios
 		BigInteger total = usuarioDAO.obtieneTotalUsuarios();
 		rsp.setTotalUsuarios(  null != total ? total.intValue() : 0);
@@ -183,11 +189,6 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		rsp.setTotalUsuariosMes(listaUsuariosMensuales);
 
 		// Usuarios por semana
-		// Se debe determinar el anio y mes actual
-		// para mostrar los usuarios registrados del anio y mes en curso
-		LocalDate now = LocalDate.now();
-		int year = now.getYear();
-		int month = now.getMonthValue();
 		List<Item> usuariosSemanales = usuarioDAO.obtieneUsuariosPorSemanaMesAnio(year, month);
 		rsp.setTotalUsuariosSemana(usuariosSemanales);
 
@@ -195,11 +196,15 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		rsp.setTotalUsuariosDias(usuariosDiarios);
 
 		//Tickets escaneados
-		//TODO: Agregar DAO
-		rsp.setTotalTicketsEscaneados( 0 );
-		rsp.setTotalEscaneosDias( new ArrayList<Item>() );
-		rsp.setTotalEscaneosSemana( new ArrayList<Item>() );
-		rsp.setTotalEscaneosMes( new ArrayList<Item>() );
+		rsp.setTotalTicketsEscaneados( null != ticketDAO.obtieneTotalTickets() ? ticketDAO.obtieneTotalTickets().intValue()
+				: 0);
+		rsp.setTotalEscaneosDias( ticketDAO.obtieneTicketsPorDiaMesAnio(year, month) );
+		rsp.setTotalEscaneosSemana( ticketDAO.obtieneTicketsPorSemanaMesAnio(year, month) );
+		
+		List<Item> ticketsPorMes = ticketDAO.obtieneTicketsPorMesAnio(year);
+		List<Item> listaTicketsMensuales = new ArrayList<>();
+		initEscaneosPorMes(listaTicketsMensuales, ticketsPorMes);
+		rsp.setTotalEscaneosMes(listaTicketsMensuales);
 		
 		//Productos escaneados
 		BigInteger totalProductos = productoDAO.obtieneTotalEscaneosProductos();
@@ -348,26 +353,38 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		EstadisticasRSP rsp = new EstadisticasRSP();
 		
+		LocalDate now = LocalDate.now();
+		int year = now.getYear();
+		int month = now.getMonthValue();
+		
 		// Total de tickets
 		BigInteger total = ticketDAO.obtieneTotalTickets();
 		rsp.setTotalTickets(null != total ? total.intValue() : 0);
 		
 		//Tickets por mes
-		List<Item> ticketsMensuales = ticketDAO.obtieneTicketsPorMesAnio(2020);
+		List<Item> ticketsMensuales = ticketDAO.obtieneTicketsPorMesAnio(year);
 		List<Item> listaTicketsMensual = new ArrayList<>();
 		initEscaneosPorMes(listaTicketsMensual, ticketsMensuales);
 		rsp.setTotalTicketsMes(listaTicketsMensual);
 		
 		//Tickets por semana
-		LocalDate now = LocalDate.now();
-		int year = now.getYear();
-		int month = now.getMonthValue();
 		List<Item> ticketsSemanales = ticketDAO.obtieneTicketsPorSemanaMesAnio(year, month);
 		rsp.setTotalTicketsSemana(ticketsSemanales);
 		
 		//Tickets por dia
 		List<Item> ticketsDiarios = ticketDAO.obtieneTicketsPorDiaMesAnio(year, month);
 		rsp.setTotalTicketsDia(ticketsDiarios);
+		
+		
+//		rsp.setTotalTicketsEscaneados( null != ticketDAO.obtieneTotalTickets() ? ticketDAO.obtieneTotalTickets().intValue()
+//				: 0);
+//		rsp.setTotalEscaneosDias( ticketDAO.obtieneTicketsPorDiaMesAnio(year, month) );
+//		rsp.setTotalEscaneosSemana( ticketDAO.obtieneTicketsPorSemanaMesAnio(year, month) );
+//		
+//		List<Item> ticketsPorMes = ticketDAO.obtieneTicketsPorMesAnio(year);
+//		List<Item> listaTicketsMensuales = new ArrayList<>();
+//		initEscaneosPorMes(listaTicketsMensuales, ticketsPorMes);
+//		rsp.setTotalEscaneosMes(listaTicketsMensuales);
 		
 		//Tickets por tienda mes
 		List<Item> ticketsTiendaMesnuales = ticketDAO.obtieneTicketsPorTiendaMes(2020);
@@ -427,14 +444,14 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 
 	@Override
 	@Transactional
-	public List<BonificacionItem> obtieneHistoricoBonificaciones() {
-		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones();
+	public List<BonificacionItem> obtieneHistoricoBonificaciones( BonificacionItem item ) {
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones( item );
 		
 		//Formatear fecha dd-MMM-yyyy
 		//Formatear solicitudes y bonificaciones
-		for (BonificacionItem item : list) {
-			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
-			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
+		for (BonificacionItem b : list) {
+			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd-MMM-yyyy") );
+			b.setImporteFormateado( Utils.formatNumeros(b.getImporte(), "$###,###,###.00") );
 		}
 		
 		return list;

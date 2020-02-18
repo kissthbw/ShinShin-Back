@@ -33,7 +33,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 	// Metodos especificos
 	public List<Producto> getProductos() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
-		c.setMaxResults(50);
+		c.setMaxResults(300);
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();
