@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.common.Analizer;
 import com.bit.common.Utils;
 import com.bit.dao.TicketDAO;
 import com.bit.exception.TicketException;
@@ -25,6 +24,7 @@ import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.dto.response.OCRTicketRSP;
 import com.bit.service.ProductoService;
 import com.bit.service.TicketService;
+import com.bit.service.analizer.Analizer;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -36,6 +36,9 @@ public class TicketServiceImpl implements TicketService {
 	
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired
+	private Analizer analizer;
 
 	@Override
 	@Transactional
@@ -83,7 +86,8 @@ public class TicketServiceImpl implements TicketService {
 		}
 		
 		try {
-			rsp = Analizer.analize(rqt.getLineas(), fake);
+//			rsp = AnalizerImpl.analize(rqt.getLineas(), fake);
+			rsp = analizer.analize(rqt.getLineas(), fake);
 			log.info("Ticket correcto");
 		} catch (TicketException e) {
 			log.error("Error al analizar ticket", e);
@@ -106,7 +110,7 @@ public class TicketServiceImpl implements TicketService {
 		}
 		
 		
-		log.info( "Guardando indormacio de ticket con id de transaccion: {}", rsp.getTransaccion() );
+		log.info( "Guardando informacion de ticket con id de transaccion: {}", rsp.getTransaccion() );
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		rsp.setProductos(productos);

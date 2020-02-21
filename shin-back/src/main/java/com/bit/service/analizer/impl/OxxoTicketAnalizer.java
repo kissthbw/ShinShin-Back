@@ -1,4 +1,4 @@
-package com.bit.common;
+package com.bit.service.analizer.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,19 +7,42 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
+import com.bit.service.analizer.Analizer;
+import com.bit.service.analizer.TicketAnalizer;
 
+@Service
 public class OxxoTicketAnalizer implements TicketAnalizer {
 
-	private static final String OXXO_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](19|20)\\d\\d";
-	private static final String OXXO_HORA_PATTERN = "(\\d\\d:\\d\\d)";
-	private static final String OXXO_PRODUCTOS_PATTERN = "[a-zA-Z0-9]*\\.?\\d*\\.?\\d*";
-	private static final String OXXO_FOLIO_VENTA = "[a-zA-Z]+\\s?[a-zA-Z]+:[0-9]+";
-	private static final String OXXO_ID_VENTA = "ID[=|a-zA-Z0-9]+";
-	private static final String OXXO_CIFRAS = "^-?\\d*\\.{1,1}\\d+$";
-	private static final String OXXO_CAJA = "\\b[0-9]+\\b";
+	private static final Logger log = LoggerFactory.getLogger(OxxoTicketAnalizer.class);
+	
+	private static final String ID_TIENDA_CATALOGO_PATTERN = "OXXO";
+	
+	private static final String ID_OXXO_FECHA_PATTERN = "ID_OXXO_FECHA_PATTERN";
+	private static final String ID_OXXO_HORA_PATTERN = "ID_OXXO_HORA_PATTERN";
+	private static final String ID_OXXO_PRODUCTOS_PATTERN = "ID_OXXO_PRODUCTOS_PATTERN";
+	private static final String ID_OXXO_FOLIO_VENTA = "ID_OXXO_FOLIO_VENTA";
+	private static final String ID_OXXO_ID_VENTA = "ID_OXXO_ID_VENTA";
+	private static final String ID_OXXO_CIFRAS = "ID_OXXO_CIFRAS";
+	private static final String ID_OXXO_CAJA = "ID_OXXO_CAJA";
+	
+	private String OXXO_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](19|20)\\d\\d";
+	private String OXXO_HORA_PATTERN = "(\\d\\d:\\d\\d)";
+	private String OXXO_PRODUCTOS_PATTERN = "[a-zA-Z0-9]*\\.?\\d*\\.?\\d*";
+	private String OXXO_FOLIO_VENTA = "[a-zA-Z]+\\s?[a-zA-Z]+:[0-9]+";
+	private String OXXO_ID_VENTA = "ID[=|a-zA-Z0-9]+";
+	private String OXXO_CIFRAS = "^-?\\d*\\.{1,1}\\d+$";
+	private String OXXO_CAJA = "\\b[0-9]+\\b";
 
+	@Autowired
+	private Analizer analizer;
+	
 	private static Map<String, String> OXXO_HEADERS = new HashMap<>();
 	static {
 		OXXO_HEADERS.put("PERIFERICO", "PERIFERICO");
@@ -46,6 +69,17 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		String valor = null;
 
+		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
+		if( !patternMap.isEmpty() ) {
+			OXXO_FECHA_PATTERN = patternMap.get( ID_OXXO_FECHA_PATTERN ) != null ? patternMap.get( ID_OXXO_FECHA_PATTERN ) : OXXO_FECHA_PATTERN;
+			OXXO_HORA_PATTERN = patternMap.get( ID_OXXO_HORA_PATTERN ) != null ? patternMap.get( ID_OXXO_HORA_PATTERN ) : OXXO_HORA_PATTERN;
+			OXXO_PRODUCTOS_PATTERN = patternMap.get( ID_OXXO_PRODUCTOS_PATTERN ) != null ? patternMap.get( ID_OXXO_PRODUCTOS_PATTERN ) : OXXO_PRODUCTOS_PATTERN;
+			OXXO_FOLIO_VENTA = patternMap.get( ID_OXXO_FOLIO_VENTA ) != null ? patternMap.get( ID_OXXO_FOLIO_VENTA ) : OXXO_FOLIO_VENTA;
+			OXXO_ID_VENTA = patternMap.get( ID_OXXO_ID_VENTA ) != null ? patternMap.get( ID_OXXO_ID_VENTA ) : OXXO_ID_VENTA;
+			OXXO_CIFRAS = patternMap.get( ID_OXXO_CIFRAS ) != null ? patternMap.get( ID_OXXO_CIFRAS ) : OXXO_CIFRAS;
+			OXXO_CAJA = patternMap.get( ID_OXXO_CAJA ) != null ? patternMap.get( ID_OXXO_CAJA ) : OXXO_CAJA;
+		}
+		
 		rsp.setTienda("OXXO");
 		rsp.setTieneCB(false);
 
@@ -86,7 +120,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		return rsp;
 	}
 
-	private static void depuraHeader(ListIterator<String> it) {
+	private void depuraHeader(ListIterator<String> it) {
 
 		while (it.hasNext()) {
 			String linea = it.next();
@@ -103,7 +137,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 
 	}
 
-	private static void depuraFooter(ListIterator<String> it) {
+	private void depuraFooter(ListIterator<String> it) {
 		boolean borrar = false;
 		while (it.hasNext()) {
 			String linea = it.next();
@@ -129,7 +163,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 
 	}
 
-	private static String detectaFecha(ListIterator<String> it) {
+	private String detectaFecha(ListIterator<String> it) {
 
 		String valor = "";
 
@@ -151,7 +185,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		return valor;
 	}
 
-	private static String detectaHora(ListIterator<String> it) {
+	private String detectaHora(ListIterator<String> it) {
 		String valor = "";
 
 		search: while (it.hasNext()) {
@@ -172,7 +206,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		return valor;
 	}
 
-	private static String detectaPatternAndDelete(ListIterator<String> it, String pattern, boolean delete) {
+	private String detectaPatternAndDelete(ListIterator<String> it, String pattern, boolean delete) {
 		String valor = "";
 
 		search: while (it.hasNext()) {
@@ -205,7 +239,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		return valor;
 	}
 
-	private static void depuraElementosVacios(ListIterator<String> it) {
+	private void depuraElementosVacios(ListIterator<String> it) {
 		while (it.hasNext()) {
 			String linea = it.next();
 
@@ -215,7 +249,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		}
 	}
 
-	private static String detectaPosibleProducto(String linea) {
+	private String detectaPosibleProducto(String linea) {
 		Pattern p = Pattern.compile(OXXO_PRODUCTOS_PATTERN);
 		Matcher m = p.matcher(linea);
 		String valor = "";

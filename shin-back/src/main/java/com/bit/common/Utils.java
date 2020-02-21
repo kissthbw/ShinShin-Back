@@ -65,7 +65,10 @@ public class Utils {
 		return mapper.writeValueAsString(o);
 	}
 	
-	public static void cargaCatalogoDocumentosFilenet( List<CatalogoDiccionarioTiendas> list ){
+	public static void cargaDiccionario( List<CatalogoDiccionarioTiendas> list ){
+		
+		DICCIONARIO.clear();
+		
 		for( CatalogoDiccionarioTiendas item : list ){
 			DICCIONARIO.put( item.getClaveDiccionario(), item.getValorDiccionario());
 		}
