@@ -125,7 +125,7 @@ Shing-Shing - Tipo Productos
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Depositos</span>
+										class="sidebar-normal">Retiros</span>
 									</a>
 								</li>
 								<li>
@@ -306,7 +306,34 @@ Shing-Shing - Tipo Productos
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
+	//document.getElementById("TypeValidation").addEventListener("submit", submit);
+	
+	function submit(e) {
+		// Cancelams el envio a la espera de que valide el formulario
+		e.preventDefault();
+	 confirm();
+		
+	}
+	
+	function confirm(){
+		swal({
+			  title: "¡Atencion!",
+			  text: "Confirme para guardar los cambios.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  document.getElementById("TypeValidation").submit();
+			  } else {
+			    swal.close();
+			  }
+			});
+		
+	}
 		function setFormValidation(id) {
 			$(id).validate(
 					{

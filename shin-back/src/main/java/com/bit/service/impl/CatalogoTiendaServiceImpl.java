@@ -73,6 +73,7 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 			}
 		}
 		
+		item.setactive(1);
 		item = catalogoTiendaDAO.save(item);
 		rsp.setId(item.getIdCatalogoTienda());
 		
@@ -105,7 +106,7 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 				log.error("Ocurrio un error al subir imagen", e);
 			}
 		}
-		
+		item.setactive(1);
 		item = catalogoTiendaDAO.update(item);
 		rsp.setId(item.getIdCatalogoTienda());
 		
@@ -128,5 +129,25 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 		item.setImagenTienda( entity.getImagenTienda() );
 		
 		return item;
+	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse eliminaCatalogoTienda(CatalogoTienda item) {
+		log.info("Eliminado logico de tienda con id: {}", item.getIdCatalogoTienda());
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = catalogoTiendaDAO.findByPK( item.getIdCatalogoTienda() );
+		item.setactive(0);
+		catalogoTiendaDAO.update(item);
+		
+		item = catalogoTiendaDAO.update(item);
+		//int rows = catalogoTiendaDAO.eliminaTienda(item);
+		//log.info("Filas afectadas "+rows);;
+		rsp.setId(item.getIdCatalogoTienda());
+		return rsp;
 	}
 }

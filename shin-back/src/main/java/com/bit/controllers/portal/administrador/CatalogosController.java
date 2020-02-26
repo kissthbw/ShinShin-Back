@@ -145,6 +145,16 @@ public class CatalogosController {
 		return "cat_departamentos";
 	}
 	
+	@RequestMapping (value="/departamento/delete/{id}", method=RequestMethod.GET)
+	public String deleteCatDepartamento(Model model, @PathVariable String id) {
+		log.info("Entrando a deleteCatDepartamento "+id);
+		CatalogoTipoProducto item = catalogoTipoProductoService.findById(Long.parseLong(id));
+		SimpleResponse rsp=catalogoTipoProductoService.eliminaCatalogoTipoProductos(item);
+		log.info("saliendo a deleteCatDepartamento "+id);
+		return "redirect:/portal-administrador/departamento/list";
+	}
+	
+	
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.POST)
 	public String postCatDepartamentoEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model, @PathVariable String id) {
 		
@@ -154,7 +164,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatDepartamentoEdit" );
 
-		return "redirect:/portal-administrador/departamento/list";
+		return "redirect:/portal-administrador/departamento/list?id="+id;
 	}
 	
 	@RequestMapping(value = "/departamento/delete/{id}", method = RequestMethod.POST)
@@ -169,6 +179,7 @@ public class CatalogosController {
 		return "redirect:/portal-administrador/departamento/list";
 	}
 
+	
 	/*
 	 * MARCA
 	 */
@@ -242,7 +253,7 @@ public class CatalogosController {
 
 		return "catalogo_marca";
 	}
-	
+	//Si hay que eliminar la imagen de la marca agregar metodo sin file, agregar codigo y comentar el anterior
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.POST)
 	public String postCatMarcaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model, @PathVariable String id) {
 		
@@ -252,6 +263,15 @@ public class CatalogosController {
 
 		log.info( "Saliendo de postCatMarcaEdit" );
 		
+		return "redirect:/portal-administrador/marca/list";
+	}
+	
+	@RequestMapping (value="/marca/delete/{id}", method=RequestMethod.GET)
+	public String deleteMarca(Model model, @PathVariable String id) {
+		log.info("Entrando a deleteMarcas "+id);
+		CatalogoMarca item =  catalogoMarcaService.findById(Long.parseLong(id));
+		SimpleResponse rsp=catalogoMarcaService.eliminaMarcas(item);
+		log.info("saliendo a deleteMarcas "+id);
 		return "redirect:/portal-administrador/marca/list";
 	}
 
@@ -378,6 +398,16 @@ public class CatalogosController {
 
 		return "redirect:/portal-administrador/tienda/list";
 	}
+	
+	@RequestMapping (value="/tienda/delete/{id}", method=RequestMethod.GET)
+	public String deleteCatTienda(Model model, @PathVariable String id) {
+		log.info("Entrando a deleteCatTienda "+id);
+		CatalogoTienda item = catalogoTiendaService.findById(Long.parseLong(id));
+		SimpleResponse rsp=catalogoTiendaService.eliminaCatalogoTienda(item);
+		log.info("saliendo a deleteCatTienda "+id);
+		return "redirect:/portal-administrador/tienda/list";
+	}
+	
 
 	/*
 	 * PRODUCTOS
@@ -524,6 +554,15 @@ public class CatalogosController {
 
 		log.info( "Saliendo de postCatProductoEdit" );
 		
+		return "redirect:/portal-administrador/producto/list";
+	}
+	
+	@RequestMapping (value="/producto/delete/{id}", method=RequestMethod.GET)
+	public String deleteProducto(Model model, @PathVariable String id) {
+		log.info("Entrando a deleteProducto "+id);
+		Producto item = productoService.findById(Long.parseLong(id));
+		SimpleResponse rsp=productoService.eliminaProducto(item);
+		log.info("saliendo a deleteProducto "+id);
 		return "redirect:/portal-administrador/producto/list";
 	}
 	

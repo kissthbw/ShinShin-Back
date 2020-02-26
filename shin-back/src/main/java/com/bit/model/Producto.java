@@ -77,6 +77,7 @@ public class Producto {
 	@JoinColumn(name = "id_catalogo_tienda")
 	private CatalogoTienda catalogoTienda;
 	
+	
 //	@ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(
 //        name = "productos_tiendas", 
@@ -90,6 +91,18 @@ public class Producto {
 	@Column(name = "img_url")
 	private String imgUrl;
 
+	@Column
+	private int active;
+	
+	public int getactive() {
+		return this.active;
+	}
+	
+	public void setactive(int active) {
+		this.active=active;
+	}
+
+	
 	public void setIdProducto(Long idProducto) {
 		this.idProducto = idProducto;
 	}

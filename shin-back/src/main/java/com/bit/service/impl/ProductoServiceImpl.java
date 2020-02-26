@@ -149,7 +149,7 @@ public class ProductoServiceImpl implements ProductoService {
 		//rgb(241, 138, 49)
 		//dejar solo 241, 138, 49
 		item.setColorBanner( bannerColor( item.getColorBanner() ) );
-
+		item.setactive(1);
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
@@ -210,6 +210,7 @@ public class ProductoServiceImpl implements ProductoService {
 		for( ProductosTiendas t : item.getTiendas() ) {
 			t.setProducto(item);
 		}
+		item.setactive(1);
 		
 		Producto t = productoDAO.update(item);
 		rsp.setId(t.getIdProducto());
@@ -427,5 +428,25 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		
 		return list;
+	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse eliminaProducto(Producto item) {
+		log.info("Eliminado logico de producto con id: {}", item.getIdProducto());
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item = productoDAO.findByPK( item.getIdProducto() );
+		item.setactive(0);
+		productoDAO.update(item);
+		
+		item = productoDAO.update(item);
+		//int rows = catalogoTiendaDAO.eliminaTienda(item);
+		//log.info("Filas afectadas "+rows);;
+		rsp.setId(item.getIdProducto());
+		return rsp;
 	}
 }

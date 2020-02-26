@@ -71,6 +71,7 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
+		item.setEstatus(true);
 		item = catalogoTipoProductoDAO.save(item);
 		rsp.setId(item.getIdCatalogoTipoProducto());
 		return rsp;
@@ -104,7 +105,7 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		rsp.setCode(200);
 		
 //		catalogoTipoProductoDAO.findByPK(item.getIdCatalogoTipoProducto());
-		
+		item.setEstatus(true);
 		item = catalogoTipoProductoDAO.update(item);
 		rsp.setId(item.getIdCatalogoTipoProducto());
 		return rsp;
@@ -124,6 +125,8 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		catalogoTipoProductoDAO.update(item);
 		
 		item = catalogoTipoProductoDAO.update(item);
+		int rows = catalogoTipoProductoDAO.eliminaDepartamentoProductos(item);
+		log.info("Filas afectadas "+rows);;
 		rsp.setId(item.getIdCatalogoTipoProducto());
 		return rsp;
 	}

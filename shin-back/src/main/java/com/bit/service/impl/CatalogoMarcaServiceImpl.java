@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.model.CatalogoMarca;
+import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMarcaService;
@@ -73,6 +75,7 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
+		item.setactive(1);
 		item = catalogoMarcaDAO.save(item);
 		rsp.setId(item.getIdCatalogoMarca());
 		return rsp;
@@ -104,7 +107,7 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 				log.error("Ocurrio un error al subir imagen", e);
 			}
 		}
-		
+		item.setactive(1);
 		item = catalogoMarcaDAO.update(item);
 		rsp.setId(item.getIdCatalogoMarca());
 		return rsp;
@@ -129,4 +132,25 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		
 		return item;
 	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse eliminaMarcas(CatalogoMarca item) {
+		log.info("Eliminado logico de Marca con id: {}", item.getIdCatalogoMarca());
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item =  catalogoMarcaDAO.findByPK(item.getIdCatalogoMarca() );
+		item.setactive(0);
+		catalogoMarcaDAO.update(item);
+		
+		item = catalogoMarcaDAO.update(item);
+		int rows = catalogoMarcaDAO.eliminaMarcaProductos(item);
+		log.info("Filas afectadas: "+rows);
+		rsp.setId(item.getIdCatalogoMarca());
+		return rsp;
+	}
+	
 }

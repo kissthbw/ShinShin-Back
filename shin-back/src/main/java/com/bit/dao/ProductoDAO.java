@@ -35,6 +35,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		c.setMaxResults(300);
 		c.addOrder(Property.forName("idProducto").desc());
+		c.add(Property.forName("active").eq(1));
 
 		return c.list();
 	}
