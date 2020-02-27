@@ -108,7 +108,7 @@
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Depositos</span>
+										class="sidebar-normal">Retiros</span>
 									</a>
 								</li>
 								<li>
@@ -237,9 +237,9 @@
 										<tr>
 											<th>Id</th>
 											<th>Producto</th>
-											<th>Precio</th>
+											<!-- <th>Precio</th>  -->
 											<th>Contenido</th>
-											<th>Imagen</th>
+											<!--  <th>Imagen</th> -->
 											<th>Bonificacion</th>
 											<th>Marca</th>
 											<th>Departamento</th>
@@ -250,9 +250,9 @@
 										<tr>
 											<th>Id</th>
 											<th>Producto</th>
-											<th>Precio</th>
+											<!-- <th>Precio</th>  -->
 											<th>Contenido</th>
-											<th>Imagen</th>
+											<!--  <th>Imagen</th> -->
 											<th>Bonificacion</th>
 											<th>Marca</th>
 											<th>Departamento</th>
@@ -264,14 +264,14 @@
 											<tr>
 												<td th:text="${item.idProducto}"></td>
 												<td th:text="${item.nombreProducto}"></td>
-												<td th:text="${item.precio}"></td>
+												<!-- <td th:text="${item.precio}"></td>  -->
 												<td th:text="${item.contenido}"></td>
-												<td th:text="${item.urlImagenProducto}"></td>
+												<!--  <td th:text="${item.urlImagenProducto}"></td> -->
 												<td th:text="${item.cantidadBonificacion}"></td>
 												<td th:text="${item.catalogoMarca.nombreMarca}"></td>
 												<td th:text="${item.catalogoTipoProducto.nombreTipoProducto}"></td>
 												<td class="text-center">
-													<a th:href="@{'/portal-administrador/producto/edit/' + ${item.idProducto}}">Ver</a>
+													<a th:href="@{'/portal-administrador/producto/edit/' + ${item.idProducto}}">Editar</a>
 												</td>
 											</tr>
 										</th:block>

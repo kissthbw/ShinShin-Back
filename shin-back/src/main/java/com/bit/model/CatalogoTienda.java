@@ -19,6 +19,17 @@ public class CatalogoTienda {
 
 	@Column(name = "imagen_tienda")
 	private String imagenTienda;
+	
+	@Column
+	private int active;
+	
+	public int getactive() {
+		return this.active;
+	}
+	
+	public void setactive(int active) {
+		this.active=active;
+	}
 
 	public Long getIdCatalogoTienda() {
 		return idCatalogoTienda;

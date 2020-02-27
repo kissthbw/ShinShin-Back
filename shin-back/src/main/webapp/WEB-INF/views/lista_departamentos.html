@@ -108,7 +108,7 @@
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">.</span> <span
-										class="sidebar-normal">Depositos</span>
+										class="sidebar-normal">Retiros</span>
 									</a>
 								</li>
 								<li>
@@ -251,7 +251,7 @@
 												<td th:text="${item.idCatalogoTipoProducto}"></td>
 												<td th:text="${item.nombreTipoProducto}"></td>
 												<td class="text-center">
-												<a th:href="@{'/portal-administrador/departamento/edit/' + ${item.idCatalogoTipoProducto}}">Ver</a>
+												<a th:href="@{'/portal-administrador/departamento/edit/' + ${item.idCatalogoTipoProducto}}">Editar</a>
 												</td>
 											</tr>
 										</th:block>
@@ -334,8 +334,20 @@
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
   <script th:src="@{/assets/demo/demo.js}"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   -->
 	<script>
+	
+	var id= location.search;
+	var res = id.split("=");
+	var a = parseInt(res[1]);
+	if(a>0){
+		
+		//swal("Guardado Exitoso!", "Departamento id "+a+" modificado correctamente.", "success");
+		//alert();
+	}
+	console.log(res[1]);
 	<!--/catalogoTiendas/list -->
 		$(document).ready(
 				function() {

@@ -111,7 +111,7 @@
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Depositos</span>
+										class="sidebar-normal">Retiros</span>
 									</a>
 								</li>
 								<li>
@@ -223,7 +223,7 @@
 				<div class="row">
 
 					<div class="col-md-12">
-						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post" enctype="multipart/form-data">
+						<form id="TypeValidation" class="form-horizontal" th:object="${item}" enctype="multipart/form-data" method="post">
 							<div class="card ">
 								<div class="card-header">
 									<h4 class="card-title">Datos del Departamento</h4>
@@ -265,9 +265,9 @@
 									
 								</div>
 								<div class="card-footer text-center">
-									<button type="submit" class="btn btn-primary">Guardar</button>
+									<button class="btn btn-primary" type="submit">Guardar</button>
 									<a th:href="@{'/portal-administrador/departamento/delete/' + ${item.idCatalogoTipoProducto}}"
-									class="btn btn-primary btn-link btn-sm" role="button" aria-disabled="true">Eliminar</a>
+									class="btn btn-primary" role="button" aria-disabled="true">Eliminar</a>
 								</div>
 							</div>
 						</form>
@@ -412,7 +412,34 @@
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
+	//document.getElementById("TypeValidation").addEventListener("submit", submit);
+	
+	function submit(e) {
+		// Cancelams el envio a la espera de que valide el formulario
+		e.preventDefault();
+	 confirm();
+		
+	}
+	
+	function confirm(){
+		swal({
+			  title: "¡Atencion!",
+			  text: "Confirme para guardar los cambios.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  document.getElementById("TypeValidation").submit();
+			  } else {
+			    swal.close();
+			  }
+			});
+		
+	}
 		function setFormValidation(id) {
 			$(id).validate(
 					{

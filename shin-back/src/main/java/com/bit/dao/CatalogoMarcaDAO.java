@@ -8,9 +8,11 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Property;
 import org.hibernate.transform.Transformers;
+import org.jfree.util.Log;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.CatalogoMarca;
+import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.Item;
 
 @Repository
@@ -22,7 +24,8 @@ public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMarca.class);
 		c.setMaxResults(50);
 		c.addOrder(Property.forName("idCatalogoMarca").desc());
-
+		c.add(Property.forName("active").eq(1));
+		
 		return c.list();
 	}
 	
@@ -96,5 +99,17 @@ public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 		List<Item> total = q.list();
 		
 		return total;
+	}
+	public int eliminaMarcaProductos( CatalogoMarca item ) {
+		Log.info("Entrando eliminaMarcaProductos");
+		StringBuilder sql = new StringBuilder();
+		sql.append( " UPDATE producto " );
+		sql.append( " SET active = 0 " );
+		sql.append( " WHERE id_catalogo_marca = :id " );
+		Query q = getSessionFactory().getCurrentSession().createQuery( sql.toString() );
+		q.setParameter("id", item.getIdCatalogoMarca());
+		int rows = q.executeUpdate();
+		
+		return rows;
 	}
 }

@@ -116,7 +116,7 @@ Shing-Shing - Marcas
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Depositos</span>
+										class="sidebar-normal">Retiros</span>
 									</a>
 								</li>
 								<li>
@@ -246,13 +246,13 @@ Shing-Shing - Marcas
 											<code>Obligatorio</code>
 										</label>
 									</div>
-									
+									 
 									<div class="row">
 											<label class="col-sm-2 col-form-label Label-on-left">Imagen</label>
 											<div class="col-md-4 col-sm-4">
 												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 	                      							<div class="fileinput-new thumbnail">
-	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..." id="image"></img>
 	                      							</div>
 	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
 	                      							<div>
@@ -261,15 +261,22 @@ Shing-Shing - Marcas
 	                          								<span class="fileinput-exists">Change</span>
 	                          								<input type="file" name="file" />
 	                        							</span>
+	                        							<span class="btn btn-rose btn-round btn-file">
+	                        								<span class="fileinput-new" th:onclick="'dropImage('+${item.idCatalogoMarca}+')'">Drop Image</span>
+	                        							</span>
+	                        							
 	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
 	                       									<i class="fa fa-times"></i>Remove</a>
 	                      							</div>
 	                    						</div>
 											</div>
 									</div>
+									 
 								</div>
 								<div class="card-footer text-center">
 									<button type="submit" class="btn btn-primary">Guardar</button>
+										<a th:href="@{'/portal-administrador/marca/delete/' + ${item.idCatalogoMarca}}"
+									class="btn btn-primary" role="button" aria-disabled="true">Eliminar</a>
 								</div>
 							</div>
 						</form>
@@ -339,7 +346,39 @@ Shing-Shing - Marcas
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
+	//document.getElementById("TypeValidation").addEventListener("submit", submit);
+	
+	function submit(e) {
+		// Cancelams el envio a la espera de que valide el formulario
+		e.preventDefault();
+	 confirm();
+		
+	}
+	
+	function confirm(){
+		swal({
+			  title: "¡Atencion!",
+			  text: "Confirme para guardar los cambios.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  document.getElementById("TypeValidation").submit();
+			  } else {
+			    swal.close();
+			  }
+			});
+		
+	}
+		function dropImage(id){
+			$("#image").attr("src","");
+			$("#imgUrl").val("");
+		}
+	
 		function setFormValidation(id) {
 			$(id).validate(
 					{

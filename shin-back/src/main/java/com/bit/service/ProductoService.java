@@ -44,4 +44,6 @@ public interface ProductoService {
 	SimpleResponse registraSugerencia(SugerenciaProducto item);
 
 	List<ProductoReport> getAllProductoReport();
+	
+	SimpleResponse eliminaProducto(Producto item);
 }

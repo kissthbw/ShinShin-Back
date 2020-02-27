@@ -19,6 +19,17 @@ public class CatalogoMarca {
 
 	@Column(name = "img_url")
 	private String imgUrl;
+	
+	@Column
+	private int active;
+	
+	public void setactive(int active) {
+		this.active=active;
+	}
+	
+	public int getactive() {
+		return this.active;
+	}
 
 	public void setIdCatalogoMarca(Long idCatalogoMarca) {
 		this.idCatalogoMarca = idCatalogoMarca;

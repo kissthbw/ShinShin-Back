@@ -23,6 +23,7 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoTipoProducto.class);
 		c.setMaxResults(50);
 		c.addOrder(Property.forName("idCatalogoTipoProducto").desc());
+		c.add(Property.forName("active").eq(true));
 		
 		return c.list();
 	}
@@ -35,14 +36,14 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		return total;
 	}
 	
-	public int eliminaDepartamento( CatalogoTipoProducto item ) {
+	public int eliminaDepartamentoProductos( CatalogoTipoProducto item ) {
 		StringBuilder sql = new StringBuilder();
-		sql.append( " UPDATE catalogo_tipo_producto " );
+		sql.append( " UPDATE producto " );
 		sql.append( " SET active = 0 " );
 		sql.append( " WHERE id_catalogo_tipo_producto = :id " );
 		
 		Query q = getSessionFactory().getCurrentSession().createQuery( sql.toString() );
-		q.setParameter("id", item.isActive());
+		q.setParameter("id", item.getIdCatalogoTipoProducto());
 		int rows = q.executeUpdate();
 		
 		return rows;

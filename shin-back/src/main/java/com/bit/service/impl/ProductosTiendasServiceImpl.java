@@ -47,7 +47,6 @@ public class ProductosTiendasServiceImpl implements ProductosTiendasService {
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setCode(200);
 		rsp.setMessage("Exitoso");
-
 		item = productosTiendasDAO.save(item);
 		rsp.setId(item.getIdProductoTienda());
 

@@ -114,7 +114,7 @@
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Depositos</span>
+										class="sidebar-normal">Retiros</span>
 									</a>
 								</li>
 								<li>
@@ -416,6 +416,8 @@
 
 									<div class="card-footer text-center">
 										<button type="submit" class="btn btn-primary">Guardar</button>
+												<a th:href="@{'/portal-administrador/producto/delete/' + ${item.idProducto}}"
+									class="btn btn-primary" role="button" aria-disabled="true">Eliminar</a>
 									</div>
 								</div>
 							</div>
@@ -487,8 +489,37 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<script th:src="@{/resources/assets/colorpicker/dist/js/bootstrap-colorpicker.js}"></script>
+	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
+	//document.getElementById("TypeValidation").addEventListener("submit", submit);
+	
+	function submit(e) {
+		// Cancelams el envio a la espera de que valide el formulario
+		e.preventDefault();
+	 confirm();
+		
+	}
+	
+	function confirm(){
+		
+		swal({
+			  title: "¡Atencion!",
+			  text: "Confirme para guardar los cambios.",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  document.getElementById("TypeValidation").submit();
+			  } else {
+			    swal.close();
+			  }
+			});
+		
+	}
 		function setFormValidation(id) {
+			
 			$(id).validate(
 					{
 						highlight : function(element) {
@@ -514,6 +545,7 @@
 			setFormValidation('#TypeValidation');
 			setFormValidation('#LoginValidation');
 			setFormValidation('#RangeValidation');
+			
 		});
 
 		$(function () {
