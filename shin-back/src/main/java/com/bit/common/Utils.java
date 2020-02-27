@@ -86,11 +86,29 @@ public class Utils {
 		return m.find();
 	}
 	
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        Double.parseDouble(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
+	}
+	
 	public static Period calcularEdad( Calendar fechaNac ) {
 		LocalDate today = LocalDate.now();
-		LocalDate birthday = LocalDate.of(fechaNac.get( Calendar.YEAR ), 
-				fechaNac.get( Calendar.MONTH ), 
-				fechaNac.get( Calendar.DAY_OF_MONTH ));
+		
+		int year = fechaNac.get( Calendar.YEAR );
+		int month = fechaNac.get( Calendar.MONTH ) + 1;
+		int dayOfMonth = fechaNac.get( Calendar.DAY_OF_MONTH );
+		
+		
+		LocalDate birthday = LocalDate.of(year, 
+				month, 
+				dayOfMonth);
 		 
 		Period p = Period.between(birthday, today);
 		 
