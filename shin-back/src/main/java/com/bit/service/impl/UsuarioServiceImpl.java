@@ -124,6 +124,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		    return "E-Mail";
 		}
 	}
+	
+	public static final String MOBILE_PLACEHOLDER = "+5215555555555";
 
 	@Override
 	@Transactional
@@ -255,9 +257,26 @@ public class UsuarioServiceImpl implements UsuarioService{
 		InformacionUsuarioRSP infoRSP = new InformacionUsuarioRSP();
 		infoRSP.setMessage("Exitoso");
 		infoRSP.setCode(200);
-
+		
+		//Cuando es registro por red social el usuario es el correo electronico
+		
 		Usuario entity = usuarioDAO.findBySocialMediaUser(item);
 		if (entity == null) {
+			
+			if( MOBILE_PLACEHOLDER.equals( item.getTelMovil().trim() ) ) {
+				item.setTelMovil( null );
+			}
+			else {
+				boolean exist = usuarioDAO.existUserByPhone(item);
+				if (exist) {
+					infoRSP.setMessage("Usuario ya existe (telefono ya existente)");
+					infoRSP.setCode(500);
+
+					return infoRSP;
+				}
+			}
+
+			
 			log.info( "Registrando usuario social media: {}", item.getUsuario() );
 			item.setCodigoVerificacion("0000");
 			item.setEstatusActivacion(true);
@@ -267,6 +286,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		
 		log.info( "Obteniendo informacion usuario social media: {}", item.getUsuario() );
+		
 		
 		Usuario tmp = datosUsuario(entity);
 		infoRSP.setId( tmp.getIdUsuario() );
