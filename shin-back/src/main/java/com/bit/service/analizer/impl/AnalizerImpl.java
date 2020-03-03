@@ -1,4 +1,4 @@
-package com.bit.common;
+package com.bit.service.analizer.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,13 +7,29 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.common.Utils;
+import com.bit.dao.CatalogoTiendaPatternDAO;
 import com.bit.exception.TicketException;
+import com.bit.model.CatalogoTiendaPattern;
 import com.bit.model.dto.response.OCRTicketRSP;
+import com.bit.service.analizer.Analizer;
+import com.bit.service.analizer.TicketAnalizer;
+import com.bit.service.analizer.TicketAnalizerFactory;
 
-public class Analizer {
+@Service
+public class AnalizerImpl implements Analizer {
 	
-	private static final Logger log = LoggerFactory.getLogger(Analizer.class);
+	private static final Logger log = LoggerFactory.getLogger(AnalizerImpl.class);
+	
+	@Autowired
+	private TicketAnalizerFactory factory;
+	
+	@Autowired
+	private CatalogoTiendaPatternDAO catalogoTiendaPatternDAO;
 	
 	//
 	private static Map<String, String> tiendas = new HashMap<>();
@@ -38,7 +54,8 @@ public class Analizer {
 		
 	}
 	
-	public static OCRTicketRSP analize(List<String> lineas, boolean fake) throws TicketException {
+	@Override
+	public OCRTicketRSP analize(List<String> lineas, boolean fake) throws TicketException {
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		
@@ -58,7 +75,8 @@ public class Analizer {
 		valor = detectarTienda(it);
 		
 		if ( null != valor == !"".equals( valor ) ) {
-			TicketAnalizer analizer = TicketAnalizerFactory.getAnalizer(valor.toUpperCase());
+//			TicketAnalizer analizer = TicketAnalizerFactory.getAnalizer(valor.toUpperCase());
+			TicketAnalizer analizer = factory.getAnalizer( valor.toUpperCase() );
 			
 			if( null != analizer ) {
 				rsp = analizer.analize(lineas);
@@ -77,6 +95,19 @@ public class Analizer {
 		return rsp;
 	}
 	
+	@Transactional
+	@Override
+	public Map<String, String> obtieneCatalogoPattern( String idTienda ){
+		Map<String, String> patternMap = new HashMap<>();
+		
+		List<CatalogoTiendaPattern> list = catalogoTiendaPatternDAO.getPatternsByTienda( idTienda );
+		for (CatalogoTiendaPattern c : list) {
+			patternMap.put( c.getIdPattern(), c.getPattern());
+		}
+		
+		return patternMap;
+	}
+	
 	
 	private static String detectarTienda( ListIterator<String> it ) {
 		String valor = "";
@@ -85,7 +116,7 @@ public class Analizer {
 		while( it.hasNext() ) {
 			String linea = it.next();
 			
-			for (Map.Entry<String, String> entry : tiendas.entrySet()) {
+			for (Map.Entry<String, String> entry : Utils.obtieneCatalogo().entrySet()) {
 			    String key = entry.getKey();
 			    String value = entry.getValue();
 			    

@@ -3,10 +3,8 @@ package com.bit.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.bit.model.Usuario;
@@ -15,11 +13,13 @@ public class UsuarioShingShingDetailService implements UserDetails {
 
 	private static final long serialVersionUID = 7194255311203623879L;
 	private Usuario user;
+	private boolean isSocialNetworkLogin = false;
 	List<GrantedAuthority> authorities = new ArrayList<>();
 	
-	public UsuarioShingShingDetailService(Usuario user, List<GrantedAuthority> authorities) {
+	public UsuarioShingShingDetailService(Usuario user, List<GrantedAuthority> authorities, boolean isSocialNetworkLogin) {
 		this.user = user;
 		this.authorities = authorities;
+		this.isSocialNetworkLogin = isSocialNetworkLogin;
 	}
 
 	
@@ -31,7 +31,13 @@ public class UsuarioShingShingDetailService implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return user.getContrasenia();
+		if (isSocialNetworkLogin){
+			return user.getHash();
+		}
+		else {
+			return user.getContrasenia();
+		}
+		
 	}
 
 	@Override

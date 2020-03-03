@@ -1,4 +1,4 @@
-package com.bit.common;
+package com.bit.service.analizer.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,15 +9,35 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
+import com.bit.service.analizer.Analizer;
+import com.bit.service.analizer.TicketAnalizer;
 
+@Service
 public class SorianaTicketAnalizer implements TicketAnalizer {
+	
+	private static final Logger log = LoggerFactory.getLogger(SorianaTicketAnalizer.class);
 
-	private static final String SORIANA_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](20)\\d\\d";
-	private static final String SORIANA_HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d)";
-	private static final String SUCURSAL = "\\d{3}\\s\\d{3}\\s\\d+\\s\\d+";
-	private static final String SERIAL_NUMBER = "[0-9]{5}";
+	private static final String ID_TIENDA_CATALOGO_PATTERN = "SORIANA";
+	
+	private static final String ID_SORIANA_FECHA_PATTERN = "ID_SORIANA_FECHA_PATTERN";
+	private static final String ID_SORIANA_HORA_PATTERN =   "ID_SORIANA_HORA_PATTERN";
+	private static final String ID_SUCURSAL =   "ID_SUCURSAL";
+	private static final String ID_SERIAL_NUMBER =   "ID_SERIAL_NUMBER";
+	
+	private String SORIANA_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](20)\\d\\d";
+	private String SORIANA_HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d)";
+	private String SUCURSAL = "\\d{3}\\s\\d{3}\\s\\d+\\s\\d+";
+	private String SERIAL_NUMBER = "[0-9]{5}";
+	
+	@Autowired
+	private Analizer analizer;
 	
 	private static Map<String, String> FOOTERS = new HashMap<>();
 	static {
@@ -31,6 +51,15 @@ public class SorianaTicketAnalizer implements TicketAnalizer {
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		rsp.setTienda("SORIANA");
 		rsp.setTieneCB(true);
+		
+		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
+		if( !patternMap.isEmpty() ) {
+			SORIANA_FECHA_PATTERN = patternMap.get( ID_SORIANA_FECHA_PATTERN ) != null ? patternMap.get( ID_SORIANA_FECHA_PATTERN ) : SORIANA_FECHA_PATTERN;
+			SORIANA_HORA_PATTERN = patternMap.get( ID_SORIANA_HORA_PATTERN ) != null ? patternMap.get( ID_SORIANA_HORA_PATTERN ) : SORIANA_HORA_PATTERN;
+			SUCURSAL = patternMap.get( ID_SUCURSAL ) != null ? patternMap.get( ID_SUCURSAL ) : SUCURSAL;
+			SERIAL_NUMBER = patternMap.get( ID_SERIAL_NUMBER ) != null ? patternMap.get( ID_SERIAL_NUMBER ) : SERIAL_NUMBER;
+
+		}
 		
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();

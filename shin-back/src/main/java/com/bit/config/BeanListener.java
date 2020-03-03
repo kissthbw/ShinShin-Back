@@ -27,10 +27,8 @@ public class BeanListener implements ApplicationListener<ContextRefreshedEvent> 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		log.info("Cargando diccionario");
 		List<CatalogoDiccionarioTiendas> list = diccionario.getCatalogoDiccionarioTiendas();
-		Utils.cargaCatalogoDocumentosFilenet(list);
-		for(CatalogoDiccionarioTiendas i : list) {
-			log.info("{}: {}", i.getClaveDiccionario(), i.getValorDiccionario());
-		}
+		Utils.cargaDiccionario(list);
+		
 	}
 
 }

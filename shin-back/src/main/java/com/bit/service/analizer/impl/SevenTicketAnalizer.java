@@ -1,4 +1,4 @@
-package com.bit.common;
+package com.bit.service.analizer.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,19 +11,35 @@ import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
+import com.bit.service.analizer.Analizer;
+import com.bit.service.analizer.TicketAnalizer;
 
+@Service
 public class SevenTicketAnalizer implements TicketAnalizer {
 
 	private static final Logger log = LoggerFactory.getLogger(SevenTicketAnalizer.class);
 	
-	private static final String FECHA_PATTERN = "(0[1-9]|1[012])[/ .](0[1-9]|[12][0-9]|3[01])[/ .](19|20)";
-	private static final String HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d\\s(PM|AM))";
-	private static final String SUCURSAL = "\\d+\\s\\d+\\s\\d+\\s\\d+";
-	private static final String SERIAL_NUMBER = "[0-9]{5}";
-	private static final String CANTIDAD = "\\d+\\s";
+	private static final String ID_TIENDA_CATALOGO_PATTERN = "7ELEVEN";
+	
+	private static final String ID_FECHA_PATTERN = "ID_FECHA_PATTERN";
+	private static final String ID_HORA_PATTERN = "ID_HORA_PATTERN";
+	private static final String ID_SUCURSAL = "ID_SUCURSAL";
+	private static final String ID_SERIAL_NUMBER = "ID_SERIAL_NUMBER";
+	private static final String ID_CANTIDAD = "ID_CANTIDAD";
+	
+	private String FECHA_PATTERN = "(0[1-9]|1[012])[/ .](0[1-9]|[12][0-9]|3[01])[/ .](19|20)";
+	private String HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d\\s(PM|AM))";
+	private String SUCURSAL = "\\d+\\s\\d+\\s\\d+\\s\\d+";
+	private String SERIAL_NUMBER = "[0-9]{5}";
+	private String CANTIDAD = "\\d+\\s";
+	
+	@Autowired
+	private Analizer analizer;
 	
 	private static Map<String, String> FOOTERS = new HashMap<>();
 	static {
@@ -37,6 +53,15 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		rsp.setTienda("7ELEVEN");
 		rsp.setTieneCB(true);
+		
+		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
+		if( !patternMap.isEmpty() ) {
+			FECHA_PATTERN = patternMap.get( ID_FECHA_PATTERN ) != null ? patternMap.get( ID_FECHA_PATTERN ) : FECHA_PATTERN;
+			HORA_PATTERN = patternMap.get( ID_HORA_PATTERN ) != null ? patternMap.get( ID_HORA_PATTERN ) : HORA_PATTERN;
+			SUCURSAL = patternMap.get( ID_SUCURSAL ) != null ? patternMap.get( ID_SUCURSAL ) : SUCURSAL;
+			SERIAL_NUMBER = patternMap.get( ID_SERIAL_NUMBER ) != null ? patternMap.get( ID_SERIAL_NUMBER ) : SERIAL_NUMBER;
+			CANTIDAD = patternMap.get( ID_CANTIDAD ) != null ? patternMap.get( ID_CANTIDAD ) : CANTIDAD;
+		}
 		
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();

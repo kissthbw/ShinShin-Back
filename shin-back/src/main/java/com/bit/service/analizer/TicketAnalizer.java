@@ -1,4 +1,4 @@
-package com.bit.common;
+package com.bit.service.analizer;
 
 import java.util.List;
 

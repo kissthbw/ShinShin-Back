@@ -133,6 +133,14 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		return c.list();
 	}
 	
+	public List<Usuario> findUserByPhone(String tel) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
+		c.add(Restrictions.eq("telMovil", tel));
+		c.add(Restrictions.not( Restrictions.eq("estatus", 2) ));
+		
+		return c.list();
+	}
+	
 	public Usuario findBySocialMediaUser(Usuario item) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Usuario.class);
 		c.add(Restrictions.like("usuario", item.getUsuario()));
