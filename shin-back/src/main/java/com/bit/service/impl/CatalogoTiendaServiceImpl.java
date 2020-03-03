@@ -1,6 +1,7 @@
 package com.bit.service.impl;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.CatalogoTiendaDAO;
+import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.SimpleResponse;
@@ -43,6 +45,16 @@ public class CatalogoTiendaServiceImpl implements CatalogoTiendaService {
 		log.info("Obteniendo una lista de tiendas");
 		
 		List<CatalogoTienda> list = catalogoTiendaDAO.getCatalogoTienda();
+		
+		for(CatalogoTienda lista : list) {
+			BigInteger productos=catalogoTiendaDAO.getProducts(lista.getIdCatalogoTienda());
+			if(productos!=null) {
+				lista.setProducts(productos);
+			}else {
+				lista.setProducts(BigInteger.valueOf(0));
+			}
+
+		}
 		
 		rsp.setTiendas(list);
 		return rsp;

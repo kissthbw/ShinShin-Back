@@ -1,6 +1,7 @@
 package com.bit.service.impl;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +43,16 @@ public class CatalogoTipoProductoServiceImpl implements CatalogoTipoProductoServ
 		
 		List<CatalogoTipoProducto> list = catalogoTipoProductoDAO.getCatalogoTipoProductos();
 		
+		for(CatalogoTipoProducto lista : list) {
+			Long n=lista.getIdCatalogoTipoProducto();
+			BigInteger productos=catalogoTipoProductoDAO.getProducts(lista.getIdCatalogoTipoProducto());
+			if(productos!=null) {
+				lista.setProducts(productos);
+			}else {
+				lista.setProducts(BigInteger.valueOf(0));
+			}
+
+		}
 		rsp.setTipoProductos(list);
 		return rsp;
 	}

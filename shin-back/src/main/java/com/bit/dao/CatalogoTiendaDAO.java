@@ -1,5 +1,6 @@
 package com.bit.dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -27,6 +28,15 @@ public class CatalogoTiendaDAO extends DAOTemplate<CatalogoTienda, Long> {
 		c.add(Property.forName("active").eq(1));
 		return c.list();
 	}
+	
+	public BigInteger getProducts(Long productos) {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
+				+ "SELECT COUNT(*) FROM catalogo_tienda a left join producto b on a.id_catalogo_tienda=b.id_catalogo_tienda where a.id_catalogo_tienda="+productos+" and b.active=1 group by a.id_catalogo_tienda ;");
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
 	
 	//metodo correspondiente a estadisticas-general
 	//metodo que obtiene total escaneos por tienda al mes

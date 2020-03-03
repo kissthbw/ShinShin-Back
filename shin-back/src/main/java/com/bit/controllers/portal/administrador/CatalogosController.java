@@ -3,6 +3,8 @@ package com.bit.controllers.portal.administrador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.File;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.ResourceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -123,7 +126,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatDepartamento" );
 
-		return "redirect:/portal-administrador/departamento/list";
+		return "redirect:/portal-administrador/departamento/list?id=1&type=1";
 	}
 	
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.GET)
@@ -151,7 +154,7 @@ public class CatalogosController {
 		CatalogoTipoProducto item = catalogoTipoProductoService.findById(Long.parseLong(id));
 		SimpleResponse rsp=catalogoTipoProductoService.eliminaCatalogoTipoProductos(item);
 		log.info("saliendo a deleteCatDepartamento "+id);
-		return "redirect:/portal-administrador/departamento/list";
+		return "redirect:/portal-administrador/departamento/list?id="+id+"&type=0";
 	}
 	
 	
@@ -164,7 +167,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatDepartamentoEdit" );
 
-		return "redirect:/portal-administrador/departamento/list?id="+id;
+		return "redirect:/portal-administrador/departamento/list?id="+id+"&type=1";
 	}
 	
 	@RequestMapping(value = "/departamento/delete/{id}", method = RequestMethod.POST)
@@ -176,7 +179,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatDepartamentoDelete" );
 
-		return "redirect:/portal-administrador/departamento/list";
+		return "redirect:/portal-administrador/departamento/list?id="+id+"&type=0";
 	}
 
 	
@@ -233,7 +236,7 @@ public class CatalogosController {
 		catalogoMarcaService.registrarMarcas(file, item);
 
 		log.info( "Saliendo de postCatMarca" );
-		return "redirect:/portal-administrador/marca/list";
+		return "redirect:/portal-administrador/marca/list?id=1&type=1";
 	}
 	
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.GET)
@@ -263,7 +266,7 @@ public class CatalogosController {
 
 		log.info( "Saliendo de postCatMarcaEdit" );
 		
-		return "redirect:/portal-administrador/marca/list";
+		return "redirect:/portal-administrador/marca/list?id="+id+"&type=1";
 	}
 	
 	@RequestMapping (value="/marca/delete/{id}", method=RequestMethod.GET)
@@ -272,7 +275,7 @@ public class CatalogosController {
 		CatalogoMarca item =  catalogoMarcaService.findById(Long.parseLong(id));
 		SimpleResponse rsp=catalogoMarcaService.eliminaMarcas(item);
 		log.info("saliendo a deleteMarcas "+id);
-		return "redirect:/portal-administrador/marca/list";
+		return "redirect:/portal-administrador/marca/list?id="+id+"&type=0";
 	}
 
 	/*
@@ -303,7 +306,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatMarcaEdit" );
 
-		return "redirect:/portal-administrador/mediosBonificacion/list";
+		return "redirect:/portal-administrador/mediosBonificacion/list?id=1&type=1";
 	}
 	
 	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.GET)
@@ -333,7 +336,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatMedioBonificacionEdit" );
 
-		return "redirect:/portal-administrador/mediosBonificacion/list";
+		return "redirect:/portal-administrador/mediosBonificacion/list?id="+id+"&type=1";
 	}
 	
 
@@ -366,7 +369,7 @@ public class CatalogosController {
 		log.info( "Saliendo de postCatTienda" );
 
 //		return "redirect:/portal-administrador/tienda/save";
-		return "redirect:/portal-administrador/tienda/list";
+		return "redirect:/portal-administrador/tienda/list?id=1&type=1";
 	}
 	
 	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.GET)
@@ -396,7 +399,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatTiendaEdit" );
 
-		return "redirect:/portal-administrador/tienda/list";
+		return "redirect:/portal-administrador/tienda/list?id="+id+"&type=1";
 	}
 	
 	@RequestMapping (value="/tienda/delete/{id}", method=RequestMethod.GET)
@@ -405,7 +408,7 @@ public class CatalogosController {
 		CatalogoTienda item = catalogoTiendaService.findById(Long.parseLong(id));
 		SimpleResponse rsp=catalogoTiendaService.eliminaCatalogoTienda(item);
 		log.info("saliendo a deleteCatTienda "+id);
-		return "redirect:/portal-administrador/tienda/list";
+		return "redirect:/portal-administrador/tienda/list?id="+id+"&type=0";
 	}
 	
 
@@ -450,8 +453,13 @@ public class CatalogosController {
 	@RequestMapping(value = "/producto/report", method = RequestMethod.GET)
 	@ResponseBody
 	public void getProductoReport(Model model, HttpServletResponse response) throws JRException, IOException {
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Productos1.2.jasper");
-	    Map<String,Object> params = new HashMap<>();
+		log.info("Entrando report");
+		
+		File file= ResourceUtils.getFile("classpath:Productos1.2.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream(file.getAbsolutePath());
+		log.info("Product source");
+		log.info(System.getProperty("user.dir"));
+		Map<String,Object> params = new HashMap<>();
 	    List<ProductoReport> list = new ArrayList<>();
 //	    ProductoReport p = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
 //	    ProductoReport p1 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
@@ -476,9 +484,9 @@ public class CatalogosController {
 //	    response.setContentType("application/octet-stream");
 //	    response.setHeader("Connection", "close");
 //	    response.setHeader("Content-Disposition", "attachment;filename=\"" + new String(fileName.getBytes("utf-8"),"ISO-8859-1") + "\"");
-	    
+	   // log.info(list);
 	    final OutputStream outStream = response.getOutputStream();
-	    
+	    log.info("exception");
 //	    JRXlsExporter xlsExporter = new JRXlsExporter();
 //	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
 //	    xlsExporter.setExporterInput( new SimpleExporterInput(jasperPrint) );
@@ -502,7 +510,7 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de postCatProducto" );
 
-		return "redirect:/portal-administrador/producto/list";
+		return "redirect:/portal-administrador/producto/list?id=1&type=1";
 	}
 	
 	@RequestMapping(value = "/producto/edit/{id}", method = RequestMethod.GET)
@@ -554,7 +562,7 @@ public class CatalogosController {
 
 		log.info( "Saliendo de postCatProductoEdit" );
 		
-		return "redirect:/portal-administrador/producto/list";
+		return "redirect:/portal-administrador/producto/list?id="+id+"&type=1";
 	}
 	
 	@RequestMapping (value="/producto/delete/{id}", method=RequestMethod.GET)
@@ -563,7 +571,7 @@ public class CatalogosController {
 		Producto item = productoService.findById(Long.parseLong(id));
 		SimpleResponse rsp=productoService.eliminaProducto(item);
 		log.info("saliendo a deleteProducto "+id);
-		return "redirect:/portal-administrador/producto/list";
+		return "redirect:/portal-administrador/producto/list?id="+id+"&type=0";
 	}
 	
 	

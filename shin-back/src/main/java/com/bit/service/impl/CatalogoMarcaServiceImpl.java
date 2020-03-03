@@ -1,6 +1,7 @@
 package com.bit.service.impl;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,16 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		log.info("Obteniendo lista de marcas");
 		
 		List<CatalogoMarca> list = catalogoMarcaDAO.getCatalogoMarca();
+		
+		for(CatalogoMarca lista : list) {
+			BigInteger productos=catalogoMarcaDAO.getProducts(lista.getIdCatalogoMarca());
+			if(productos!=null) {
+				lista.setProducts(productos);
+			}else {
+				lista.setProducts(BigInteger.valueOf(0));
+			}
+
+		}
 		
 		rsp.setMarcas(list);
 		return rsp;

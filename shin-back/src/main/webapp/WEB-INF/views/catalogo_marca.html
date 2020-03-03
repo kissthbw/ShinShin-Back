@@ -19,6 +19,8 @@ Shing-Shing - Marcas
 <link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> 
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> 
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
 
@@ -87,12 +89,7 @@ Shing-Shing - Marcas
 										<span class="sidebar-normal"> Tiendas </span>
 									</a>
 								</li>
-								<li>
-									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Medios bonificacion </span>
-									</a>
-								</li>
+								
 								<li>
 									<a th:href="@{/portal-administrador/producto/list}">
 										<span class="sidebar-mini-icon">·</span>
@@ -129,6 +126,12 @@ Shing-Shing - Marcas
 									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
 										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Recargas</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span>
+										<span class="sidebar-normal"> Medios bonificacion </span>
 									</a>
 								</li>
 							</ul>
@@ -196,7 +199,7 @@ Shing-Shing - Marcas
 									class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
-						<a class="navbar-brand" href="#pablo">Shing-Shing</a>
+						<a class="navbar-brand" href="#pablo"><b><h4 class="title-cat">Marca</h4></b></a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navigation" aria-controls="navigation-index"
@@ -211,7 +214,7 @@ Shing-Shing - Marcas
 						<ul class="navbar-nav">
 							<li class="nav-item"><a class="nav-link btn-magnify"
 								th:href="@{/portal-administrador/admin_logout}"> <i
-									class="nc-icon nc-layout-11"></i>
+									class="fa fa-sign-out"></i>
 									<p>
 										<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
 									</p>
@@ -274,16 +277,41 @@ Shing-Shing - Marcas
 									 
 								</div>
 								<div class="card-footer text-center">
-									<button type="submit" class="btn btn-primary">Guardar</button>
-										<a th:href="@{'/portal-administrador/marca/delete/' + ${item.idCatalogoMarca}}"
-									class="btn btn-primary" role="button" aria-disabled="true">Eliminar</a>
+
+									<button onclick="del()"
+									class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
+									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
+										
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-			
+			<!-- Modal -->
+			<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document" >
+			    <div class="modal-content" style="border-radius:20px;">
+			      <div class="modal-body" style="text-align:center;">
+			        <h1>
+			         <i class="fa fa-bell-o" aria-hidden="true"></i>
+			        </h1>
+			        <h3>
+			          Eliminar marca
+			        </h3>
+			        <p>
+			          ¿Seguro que quieres eliminar esta marca?
+			        </p>
+			      </div>
+			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+			        <a class="btn btn-primary" th:href="@{'/portal-administrador/marca/delete/' + ${item.idCatalogoMarca}}">Si, Eliminar</a>
+			        <br></br>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- Modal -->
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
@@ -348,16 +376,15 @@ Shing-Shing - Marcas
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
-	//document.getElementById("TypeValidation").addEventListener("submit", submit);
+	document.getElementById("TypeValidation").addEventListener("submit", submit);
 	
 	function submit(e) {
 		// Cancelams el envio a la espera de que valide el formulario
 		e.preventDefault();
-	 confirm();
-		
 	}
 	
 	function confirm(){
+		/*
 		swal({
 			  title: "¡Atencion!",
 			  text: "Confirme para guardar los cambios.",
@@ -371,8 +398,13 @@ Shing-Shing - Marcas
 			  } else {
 			    swal.close();
 			  }
-			});
+			});*/
+		 document.getElementById("TypeValidation").submit();
 		
+	}
+	
+	function del(){
+		$("#modalConfirm").modal();
 	}
 		function dropImage(id){
 			$("#image").attr("src","");

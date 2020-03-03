@@ -13,7 +13,7 @@ Shing-Shing - Tipo Productos
 <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <!--     Fonts and icons     -->
 
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
 <!-- CSS Files -->
 
@@ -245,7 +245,30 @@ Shing-Shing - Tipo Productos
 					</div>
 				</div>
 			</div>
-			
+			<!-- Modal -->
+			<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document" >
+			    <div class="modal-content" style="border-radius:20px;">
+			      <div class="modal-body" style="text-align:center;">
+			        <h1>
+			         <i class="fa fa-bell-o" aria-hidden="true"></i>
+			        </h1>
+			        <h3>
+			          Eliminar tipo producto
+			        </h3>
+			        <p>
+			          ¿Seguro que quieres eliminar tipo producto?
+			        </p>
+			      </div>
+			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+			        <a class="btn btn-primary" th:href="@{'/portal-administrador/producto/delete/' + ${item.idProducto}}">Si, Eliminar</a>
+			        <br></br>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- Modal -->
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
@@ -308,16 +331,17 @@ Shing-Shing - Tipo Productos
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
-	//document.getElementById("TypeValidation").addEventListener("submit", submit);
+	<script>
+	document.getElementById("TypeValidation").addEventListener("submit", submit);
 	
 	function submit(e) {
 		// Cancelams el envio a la espera de que valide el formulario
 		e.preventDefault();
-	 confirm();
 		
 	}
 	
 	function confirm(){
+		/*
 		swal({
 			  title: "¡Atencion!",
 			  text: "Confirme para guardar los cambios.",
@@ -331,8 +355,13 @@ Shing-Shing - Tipo Productos
 			  } else {
 			    swal.close();
 			  }
-			});
+			});*/
+		 document.getElementById("TypeValidation").submit();
 		
+	}
+	
+	function del(){
+		$("#modalConfirm").modal();
 	}
 		function setFormValidation(id) {
 			$(id).validate(

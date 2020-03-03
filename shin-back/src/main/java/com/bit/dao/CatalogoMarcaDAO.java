@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
 import org.hibernate.transform.Transformers;
 import org.jfree.util.Log;
@@ -23,11 +24,21 @@ public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 	public List<CatalogoMarca> getCatalogoMarca() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMarca.class);
 		c.setMaxResults(50);
-		c.addOrder(Property.forName("idCatalogoMarca").desc());
+		//c.addOrder(Property.forName("idCatalogoMarca").desc());
+		c.addOrder(Order.asc("nombreMarca"));
 		c.add(Property.forName("active").eq(1));
 		
 		return c.list();
 	}
+	
+	public BigInteger getProducts(Long productos) {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
+				+ "SELECT COUNT(*) FROM catalogo_marca a left join producto b on a.id_catalogo_marca=b.id_catalogo_marca where a.id_catalogo_marca="+productos+" and b.active=1 group by a.id_catalogo_marca ;");
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
 	
 	//metodos correspondientes a estadisticas-marcas
 	//metodo para obtener total de marcas registradas

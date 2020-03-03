@@ -1,10 +1,14 @@
 package com.bit.model;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.Formula;
 
 @Entity(name = "catalogo_tienda")
 public class CatalogoTienda {
@@ -22,6 +26,17 @@ public class CatalogoTienda {
 	
 	@Column
 	private int active;
+	
+	@Formula("(select 0)")
+	private BigInteger products;
+	
+	public void setProducts(BigInteger productos) {
+		this.products=productos;
+	}
+	
+	public BigInteger getProducts(){
+		return this.products;
+	}
 	
 	public int getactive() {
 		return this.active;

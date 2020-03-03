@@ -28,6 +28,14 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		return c.list();
 	}
 	
+	public BigInteger getProducts(Long productos) {
+		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
+				+ "SELECT COUNT(*) FROM catalogo_tipo_producto a left join producto b on a.id_catalogo_tipo_producto=b.id_catalogo_tipo_producto where a.id_catalogo_tipo_producto="+productos+" and b.active=1 group by a.id_catalogo_tipo_producto ;");
+		BigInteger total = (BigInteger)q.uniqueResult();
+		
+		return total;
+	}
+	
 	public BigInteger obtieneDepartamentosRegistrados() {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
 				+ "SELECT COUNT(*) AS departamentos FROM catalogo_tipo_producto;");
