@@ -217,6 +217,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		auts.add(aut);
 		
 		item.setAuthorities(auts);
+		item.setFecha_registro( Calendar.getInstance().getTime() );
 		item = usuarioDAO.save(item);
 		
 		try {
