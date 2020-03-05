@@ -282,6 +282,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			item.setCodigoVerificacion("0000");
 			item.setEstatusActivacion(true);
 			item.setEstatus(1);
+			item.setFecha_registro( Calendar.getInstance().getTime() );
 			entity = usuarioDAO.save(item);
 		} 
 		
