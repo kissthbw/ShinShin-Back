@@ -1,5 +1,6 @@
 package com.bit.common;
 
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +31,7 @@ public class Utils {
 	 
 	
 	private static final Map<String, String> DICCIONARIO;
+	private static InputStream credentialsStream = null;
 	static{
 		DICCIONARIO = new HashMap<String, String>();
 	}
@@ -73,6 +74,14 @@ public class Utils {
 			DICCIONARIO.put( item.getClaveDiccionario(), item.getValorDiccionario());
 		}
 		
+	}
+	
+	public static void setCredentialsStream( InputStream stream ) {
+		credentialsStream = stream;
+	}
+	
+	public static InputStream getCredentialsStream() {
+		return credentialsStream;
 	}
 	
 	public static Map<String, String> obtieneCatalogo(){
@@ -123,7 +132,7 @@ public class Utils {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
+//		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
 		return sdf.format(date);
 	}
 	
@@ -134,7 +143,7 @@ public class Utils {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
+//		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
 		try {
 			date = sdf.parse(strDate);
 		} catch (ParseException e) {
