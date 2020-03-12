@@ -64,12 +64,12 @@ Shing-Shing - Medios Bonificacion
 				<ul class="nav">
 					<!-- Las opciones del menu debe ir entre <li></li> -->
 
-					<li class="active">
+					<li>
 						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
 							<i class="nc-icon nc-ruler-pencil"></i>
 							<p>Catalogos<b class="caret"></b></p>
 						</a>
-						<div class="collapse show" id="catalogos">
+						<div class="collapse" id="catalogos">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/departamento/list}">
@@ -100,7 +100,7 @@ Shing-Shing - Medios Bonificacion
 						</div>
 					</li>
 					
-										<li>
+					<li class="active">
 						<a data-toggle="collapse" href="#bonificaciones">
 							<i class="nc-icon nc-money-coins"></i>
 							<p>
@@ -108,7 +108,7 @@ Shing-Shing - Medios Bonificacion
 							</p>
 						</a>
 
-						<div class="collapse" id="bonificaciones">
+						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span

@@ -691,7 +691,9 @@ public class CatalogosController {
 		return user;
 	}
 	
-	//setting para pruebas en los html
+	/*
+	 * INICIO SECCION DE ESTADISTICAS
+	 */
 	@RequestMapping(value = "/estadisticas-tickets", method = RequestMethod.GET)
 	public String redirectionalEstadisticasTickets(Model model) {
 		Log.info("Entrando en redirectionalEstadisticasTicket");
@@ -827,7 +829,13 @@ public class CatalogosController {
 		
 		return "administrador/usuario-detalle";
 	}
+	/*
+	 * FIN SECCION DE ESTADISTICAS
+	 */
 	
+	/*
+	 * INICIO SECCION DE BONIFICACIONES
+	 */
 	@RequestMapping(value = "/bonificaciones-depositos", method = RequestMethod.GET)
 	public String redirectionalBonificacionesDepositos(Model model) {
 		Log.info("Entrando en redirectionalBonificacionesDepositos");
@@ -923,4 +931,8 @@ public class CatalogosController {
 		Log.info("Saliendo de redirectionalBonificacionesGeneral");
 		return "administrador/bonificaciones-general";
 	}
+	
+	/*
+	 * FIN SECCION DE BONIFICACIONES
+	 */
 }
