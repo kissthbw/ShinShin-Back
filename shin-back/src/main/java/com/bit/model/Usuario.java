@@ -176,6 +176,9 @@ public class Usuario {
 	@JoinTable(name = "user_authority", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "authority_id") })
 	private Set<Authority> authorities = new HashSet<>();
+	
+	@Column(name="device_token")
+	private String deviceToken;
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
@@ -549,6 +552,14 @@ public class Usuario {
 
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public String getDeviceToken() {
+		return deviceToken;
+	}
+
+	public void setDeviceToken(String deviceToken) {
+		this.deviceToken = deviceToken;
 	}
 
 }

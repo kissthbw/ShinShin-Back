@@ -1,5 +1,8 @@
 package com.bit.config;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.common.Utils;
 import com.bit.dao.CatalogoDiccionarioTiendasDAO;
+import com.bit.dao.ConfigDAO;
 import com.bit.model.CatalogoDiccionarioTiendas;
+import com.bit.model.Config;
 
 @Component
 public class BeanListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -22,6 +27,9 @@ public class BeanListener implements ApplicationListener<ContextRefreshedEvent> 
 	@Autowired
 	private CatalogoDiccionarioTiendasDAO diccionario;
 	
+	@Autowired
+	private ConfigDAO configDAO;
+	
 	@Override
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -29,6 +37,11 @@ public class BeanListener implements ApplicationListener<ContextRefreshedEvent> 
 		List<CatalogoDiccionarioTiendas> list = diccionario.getCatalogoDiccionarioTiendas();
 		Utils.cargaDiccionario(list);
 		
+		log.info( "Leyendo configuracion" );
+		Config c = configDAO.findByPK("FCM_KEY");
+		byte[] data = Base64.getDecoder().decode( c.getKeyData() );
+		InputStream inputStream = new ByteArrayInputStream(data);
+		Utils.setCredentialsStream( inputStream );
 	}
 
 }

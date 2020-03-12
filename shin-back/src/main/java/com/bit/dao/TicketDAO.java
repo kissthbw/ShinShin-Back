@@ -37,6 +37,24 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		return c.list();
 	}
 	
+	/*
+	 * Guardar relacion usuario - ticket
+	 */
+	public void saveUsuarioTicket( Long idUsuario, Long idTicket ) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" INSERT INTO historico_tickets ");
+		sql.append(" (usuario_id_usuario,ticket_id_ticket)");
+		sql.append(" VALUES (:idUsuario,:idTicket)");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() );
+		q.setParameter("idUsuario", idUsuario);
+		q.setParameter("idTicket", idTicket);
+		
+		int i = q.executeUpdate();
+		
+//		return total;
+	}
+	
 	public boolean existeTicketByTransaccionTienda(Ticket item) {
 		SQLQuery q = getSessionFactory().getCurrentSession().
 				createSQLQuery("SELECT id_ticket FROM ticket "

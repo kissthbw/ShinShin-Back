@@ -55,12 +55,12 @@
           		</div>
 				</div>
 				<ul class="nav">
-					<li class="active">
+					<li>
 						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
 							<i class="nc-icon nc-ruler-pencil"></i>
 							<p>Catalogos<b class="caret"></b></p>
 						</a>
-						<div class="collapse show" id="catalogos">
+						<div class="collapse" id="catalogos">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/departamento/list}">
@@ -90,7 +90,7 @@
 							</ul>
 						</div>
 					</li>
-					<li>
+					<li class="active">
 						<a data-toggle="collapse" href="#bonificaciones">
 							<i class="nc-icon nc-money-coins"></i>
 							<p>
@@ -98,7 +98,7 @@
 							</p>
 						</a>
 
-						<div class="collapse" id="bonificaciones">
+						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span

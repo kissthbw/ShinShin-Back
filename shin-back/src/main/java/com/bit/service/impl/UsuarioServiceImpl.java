@@ -13,8 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import javax.persistence.Transient;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +21,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.common.Utils;
+import com.bit.communication.CloundinaryService;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.CatalogoMediosBonificacionDAO;
 import com.bit.dao.ContactoDAO;
+import com.bit.dao.FotografiasTicketDAO;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.dao.MediosBonificacionDAO;
 import com.bit.dao.TicketDAO;
@@ -35,12 +35,14 @@ import com.bit.model.Authority;
 import com.bit.model.AuthorityType;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.Contacto;
+import com.bit.model.FotografiasTicket;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.EMailDTO;
+import com.bit.model.dto.ImageItem;
 import com.bit.model.dto.SMSDTO;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
@@ -78,6 +80,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	private ContactoDAO contactoDAO;
+	
+	@Autowired
+	private FotografiasTicketDAO fotografiasTicketDAO;
+	
+	@Autowired
+	private CloundinaryService cloundinaryService;
 	
 	public enum Source{
 		REST_CONTROLLER,
@@ -652,6 +660,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		else {
 			
+			//Actualizar el device token
+			user.setDeviceToken( item.getDeviceToken() );
+			
 			if ( !user.isEstatusActivacion() ){
 				infoRSP.setCode(500);
 				infoRSP.setMessage("Usuario no esta activado");
@@ -815,8 +826,49 @@ public class UsuarioServiceImpl implements UsuarioService{
 			
 			if(!existe) {
 				Usuario tmp = usuarioDAO.findByPK( item.getIdUsuario() );
-				tmp.addTicket( t );
-				tmp = usuarioDAO.update(tmp);
+				
+				//Guardar ticket
+				t = ticketDAO.save( t );
+				
+				//Guardar relacion ticket-usuario
+				ticketDAO.saveUsuarioTicket(item.getIdUsuario(), t.getIdTicket());
+				
+				//Guardar imagenes ticket 
+				log.info( "Subiendo imagenes a cloudinary" );
+				if ( null != t.getTicketPhotos() ) {
+//					Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+//							  "cloud_name", "shingshing",
+//							  "api_key", "657472936977876",
+//							  "api_secret", "cZ8wZWzSvTqXdqBO7P1e62xnzVY")); 
+					
+					if( !t.getTicketPhotos().isEmpty() ) {
+						
+						for( ImageItem image : t.getTicketPhotos() ) {
+							
+							if( !image.getImageData().equals( "" ) ) {
+								try {
+									Map params = ObjectUtils.asMap(
+											   "public_id", "shingshing/tickets/" + t.getIdTicket() + "-" + image.getIdentifier(), 
+											   "overwrite", true
+											);
+									
+									log.info( "Subiendo imagen de usuario: {} y ticket: {}", item.getIdUsuario(), t.getIdTicket() );
+									byte[] bytes = Base64.getMimeDecoder().decode( image.getImageData() );
+									
+									String url = cloundinaryService.uploadImage(bytes, params);
+									log.info( "Url: {}", url );
+									FotografiasTicket f = new FotografiasTicket();
+									f.setIdTicket(t.getIdTicket());
+									f.setUrlFotoTicket(url);
+									fotografiasTicketDAO.save(f);
+									
+								} catch (Exception e) {
+									log.error( "Ocurrio un error al subir imagen: {}", e );
+								}
+							}
+						}
+					}
+				}
 			}
 			else {
 				rsp.setCode(203);

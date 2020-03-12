@@ -17,6 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.bit.model.dto.ImageItem;
+
 @Entity(name = "ticket")
 public class Ticket {
 
@@ -81,6 +83,9 @@ public class Ticket {
 	
 	@Transient
 	private int totalProductos;
+	
+	@Transient
+	private List<ImageItem> ticketPhotos;
 
 	public void setIdTicket(Long idTicket) {
 		this.idTicket = idTicket;
@@ -212,6 +217,14 @@ public class Ticket {
 
 	public void setTotalProductos(int totalProductos) {
 		this.totalProductos = totalProductos;
+	}
+
+	public List<ImageItem> getTicketPhotos() {
+		return ticketPhotos;
+	}
+
+	public void setTicketPhotos(List<ImageItem> ticketPhotos) {
+		this.ticketPhotos = ticketPhotos;
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.bit.service.impl;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.Ticket;
+import com.bit.model.dto.ImageItem;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.request.OCRTicketRQT;
@@ -25,6 +28,8 @@ import com.bit.model.dto.response.OCRTicketRSP;
 import com.bit.service.ProductoService;
 import com.bit.service.TicketService;
 import com.bit.service.analizer.Analizer;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -68,6 +73,39 @@ public class TicketServiceImpl implements TicketService {
 
 		log.info( "Verificando id transaccion de ticket y tienda: {}, {}", 
 				item.getTicket_tienda(), item.getTicket_transaccion() );
+		
+		log.info( "Subiendo imagenes a cloudinary" );
+		if ( null != item.getTicketPhotos() ) {
+			Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+					  "cloud_name", "shingshing",
+					  "api_key", "657472936977876",
+					  "api_secret", "cZ8wZWzSvTqXdqBO7P1e62xnzVY")); 
+			
+			if( !item.getTicketPhotos().isEmpty() ) {
+				
+				for( ImageItem image : item.getTicketPhotos() ) {
+					
+					if( !image.equals( "" ) ) {
+						try {
+							Map params = ObjectUtils.asMap(
+									   "public_id", "shingshing/tickets/" + image.getIdentifier(), 
+									   "overwrite", true
+									);
+							
+							log.info( "Subiendo imagen de usuario" );
+							byte[] bytes = Base64.getMimeDecoder().decode( image.getImageData() );
+							
+							Map uploadResult = cloudinary.uploader().upload(bytes, params);
+							String url2 = (String) uploadResult.get("url");
+							log.info( "Url: {}", url2 );
+//							entity.setImgUrl(url2);
+						} catch (Exception e) {
+							log.error( "Ocurrio un error al subir imagen: {}", e );
+						}
+					}
+				}
+			}
+		}
 		
 		item = ticketDAO.save(item);
 		rsp.setId(item.getIdTicket());

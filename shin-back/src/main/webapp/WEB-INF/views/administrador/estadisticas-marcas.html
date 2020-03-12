@@ -11,23 +11,18 @@
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
 	name='viewport' />
-<!--     Fonts and icons     -->
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-	rel="stylesheet"></link>
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-	rel="stylesheet"></link>
-<!-- CSS Files -->
-<link th:href="@{/resources/assets/css/bootstrap.min.css}"
-	rel="stylesheet"></link>
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
-	rel="stylesheet"></link>
-<link th:href="@{/resources/assets/css/style-panel.css}"
-	rel="stylesheet"></link>
-<!-- CSS Just for demo purpose, don't include it in your project 
-      <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet"></link>
-    -->
+		<!--     Fonts and icons     -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- CSS Files -->
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -183,7 +178,7 @@
 		</div>
 
 		<!--  -->
-		<div class="main-panel main-bkg">
+		<div class="main-panel">
 			<!-- Navbar -->
 			<nav
 				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
@@ -204,7 +199,7 @@
 									class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
-						<a class="navbar-brand" href="#pablo">Estadisticas</a>
+						<a class="navbar-brand" href="#pablo"><b><h4 class="title-cat">Estadisticas</h4></b></a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navigation" aria-controls="navigation-index"
@@ -213,6 +208,22 @@
 							class="navbar-toggler-bar navbar-kebab"></span> <span
 							class="navbar-toggler-bar navbar-kebab"></span>
 					</button>
+					
+					<div class="collapse navbar-collapse justify-content-end"
+						id="navigation">
+
+						<ul class="navbar-nav">
+							<li class="nav-item"><a class="nav-link btn-magnify"
+								th:href="@{/portal-administrador/admin_logout}"> <i
+									class="fa fa-sign-out"></i>
+									<p>
+										<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
+									</p>
+							</a></li>
+
+						</ul>
+					</div>
+					
 				</div>
 			</nav>
 			<!-- End Navbar -->
