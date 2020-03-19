@@ -167,7 +167,7 @@
 								<li>
 									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
 										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Usarios</span>
+										<span class="sidebar-normal">Usuarios</span>
 									</a>
 								</li>
 							</ul>
@@ -259,7 +259,7 @@
 									</div>
 									<div class="col-7 col-md-8">
 										<div class="numbers">
-											<p class="card-category">Usarios</p>
+											<p class="card-category">Usuarios</p>
 											<p class="card-title" th:text="${totalUsuarios}">{totalUsuarios}</p>
 										</div>
 									</div>
@@ -267,8 +267,12 @@
 							</div>
 
 							<div class="card-footer ">
-								<hr/>
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
+								<hr />
 							</div>
+
 
 							<div class="card-body">
 								<h6 class="big-title">Registrados</h6>
@@ -343,9 +347,13 @@
 							</div>
 
 							<div class="card-footer ">
-								<hr/>
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
+								<hr />
+							</div>
 
-								<div class="card-body">
+															<div class="card-body">
 									<h6 class="big-title">Escaneados</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 										<li id="btnTicketsDay" class="nav-item"><a class="nav-link active"
@@ -395,8 +403,6 @@
 										</div>
 									</div>
 								</div>
-
-							</div>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-sm-6">
@@ -416,12 +422,15 @@
 									</div>
 								</div>
 							</div>
-
-
+							
 							<div class="card-footer ">
-								<hr/>
-
-								<div class="card-body">
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
+								<hr />
+							</div>
+							
+															<div class="card-body">
 									<h6 class="big-title">Escaneados</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 										<li id="btnProductosDay" class="nav-item"><a class="nav-link active"
@@ -471,8 +480,7 @@
 										</div>
 									</div>
 								</div>
-
-							</div>
+							
 						</div>
 					</div>
 
@@ -482,6 +490,14 @@
 								<h5 class="card-title">Tiendas</h5>
 								<p class="card-category"></p>
 							</div>
+							
+							<div class="card-footer ">
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
+								<hr />
+							</div>
+							
 							<div class="card-body ">
 								<div class="chartjs-size-monitor"
 									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -526,6 +542,14 @@
 								<h5 class="card-title">Departamentos</h5>
 								<p class="card-category"></p>
 							</div>
+							
+							<div class="card-footer ">
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
+								<hr />
+							</div>
+							
 							<div class="card-body ">
 								<div class="chartjs-size-monitor"
 									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">

@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.common.Utils;
+import com.bit.dao.CatalogoMediosBonificacionDAO.MedioBonificacionID;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTienda;
@@ -707,6 +708,9 @@ public class CatalogosController {
 		model.addAttribute("totalTickets", rsp.getTotalTickets());
 		model.addAttribute("tickets", rsp.getHistoricoTickets());
 		
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+		model.addAttribute("fecha", fecha);
+		
 		Log.info("Saliendo de redirectionalEstadisticasTickets");
 		return "administrador/estadisticas-tickets";
 	}
@@ -768,6 +772,9 @@ public class CatalogosController {
 		model.addAttribute("totalTickets", rsp.getTotalTicketsEscaneados());
 		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
 		
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+		model.addAttribute("fecha", fecha);
+		
 		Log.info("Saliendo de redirectionalEstadisticasGeneral");
 		return "administrador/estadisticas-general";
 	}
@@ -788,6 +795,9 @@ public class CatalogosController {
 		model.addAttribute("listaResumenTiendas", rsp.getListaResumenTiendas());
 		model.addAttribute("listaResumenDepartamentos", rsp.getListaResumenDepartamentos());
 		
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+		model.addAttribute("fecha", fecha);
+		
 		Log.info("Saliendo de redirectionalEstadisticasMarcas");
 		return "administrador/estadisticas-marcas";
 	}
@@ -806,6 +816,9 @@ public class CatalogosController {
 		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
 		model.addAttribute("promedioEdad", rsp.getPromedioEdadUsuarios());
 		model.addAttribute("listaUsuarios", usuarios.getUsuarios());
+		
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+		model.addAttribute("fecha", fecha);
 		
 		Log.info("Saliendo de redirectionalEstadisticasUsuarios");
 		return "administrador/estadisticas-usuarios";
@@ -903,14 +916,53 @@ public class CatalogosController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
 		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
 		
 		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
 		model.addAttribute("list", list);
 		
+		model.addAttribute("fecha", fecha);
+		
 		Log.info("Saliendo de redirectionalBonificacionesRecargas");
 		return "administrador/bonificaciones-recargas";
+	}
+	
+//	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
+//	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
+	
+	@RequestMapping(value = "/bonificaciones-recargas-detalle/{fecha}", method = RequestMethod.GET)
+	public String redirectionalBonificacionesRecargasDetalle(Model model, @PathVariable String fecha) {
+		Log.info("Entrando en redirectionalBonificacionesRecargas");
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
+//		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+//		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
+//		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
+		
+//		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
+//		model.addAttribute("list", list);
+		//"2020-01-28"
+		
+		Date d = Utils.formatStringToDate(fecha, "dd-MMM-yyyy");
+		String f = Utils.formatDateToString(d, "yyyy-MM-dd");
+		
+		BonificacionItem item = new BonificacionItem();
+		item.setFechaFormateada( f );
+		item.setIdTipo( BigInteger.valueOf( MedioBonificacionID.RECARGA.value() ) );
+		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
+		model.addAttribute("list", list);
+		
+		model.addAttribute("fecha", fecha);
+		
+		Log.info("Saliendo de redirectionalBonificacionesRecargasDetalle");
+		return "administrador/bonificaciones-recargas-detalle";
 	}
 	
 	@RequestMapping(value = "/bonificaciones-general", method = RequestMethod.GET)
@@ -923,10 +975,13 @@ public class CatalogosController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+		
 		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
 		model.addAttribute("totalDepositos", rsp.getTotalDepositos());
 		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
 		model.addAttribute("totalBonificaciones", rsp.getTotalBonificaciones());
+		model.addAttribute("fecha", fecha);
 		
 		Log.info("Saliendo de redirectionalBonificacionesGeneral");
 		return "administrador/bonificaciones-general";

@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.HistoricoMediosBonificacion;
@@ -187,7 +188,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return total;
 	}
 	
-	public List<Item> obtieneTotalBonificacionesPorTipoDiaMesAnio( int year, int month, Integer[] tipos ){
+	public List<Item> obtieneTotalBonificacionesPorTipoDiaMesAnio( int year, int month, int day, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -200,14 +201,16 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
 		sql.append(" WHERE ");
 		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
-		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
-		sql.append("     AND c.id_catalogo_medio_bonificacion IN (:tipos)");
+		sql.append(" 	AND DAY(h.fecha_bonificacion) = :day");
+		sql.append("    AND c.id_catalogo_medio_bonificacion IN (:tipos)");
 		sql.append(" GROUP BY indice");
 		
-		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
-				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
+				.addScalar("indice", StandardBasicTypes.INTEGER)
+				.addScalar("total", StandardBasicTypes.BIG_INTEGER)
+				.setResultTransformer( (Transformers.aliasToBean(Item.class)) );
 		q.setParameter("year", year);
-		q.setParameter("month", month);
+		q.setParameter("day", day);
 		q.setParameterList("tipos", tipos);
 		
 		List<Item> list = q.list();
@@ -220,7 +223,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(h.id_historico_medios_bonificacion) AS total,");
-		sql.append("     WEEK(h.fecha_bonificacion) AS indice,");
+		sql.append("     WEEK(h.fecha_bonificacion, 1) AS indice,");
 		sql.append("     'S' as topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
@@ -269,7 +272,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneBonificacionesPorTipoDiaMesAnio( int year, int month, Integer[] tipos ){
+	public List<Item> obtieneBonificacionesPorTipoDiaMesAnio( int year, int month, int day, Integer[] tipos ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -281,14 +284,16 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append("    INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
 		sql.append(" WHERE ");
 		sql.append("	YEAR(h.fecha_bonificacion) = :year");
-		sql.append("	AND month(h.fecha_bonificacion) = :month");
+		sql.append("	AND DAY(h.fecha_bonificacion) = :day");
 		sql.append("    AND c.id_catalogo_medio_bonificacion IN (:tipos)");
 		sql.append(" GROUP BY indice");
 		
-		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
-				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
+				.addScalar("indice", StandardBasicTypes.INTEGER)
+				.addScalar("importe", StandardBasicTypes.DOUBLE)
+				.setResultTransformer( (Transformers.aliasToBean(Item.class)) );
 		q.setParameter("year", year);
-		q.setParameter("month", month);
+		q.setParameter("day", day);
 		q.setParameterList("tipos", tipos);
 		
 		List<Item> list = q.list();
@@ -301,7 +306,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT");
 		sql.append("     SUM(h.cantidad_bonificacion) as importe,");
-		sql.append("     WEEK(h.fecha_bonificacion) AS indice");
+		sql.append("     WEEK(h.fecha_bonificacion, 1) AS indice");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
 		sql.append("     INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
@@ -348,7 +353,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		return list;
 	}
 	
-	public List<Item> obtieneRecargasPorCompaniaDiaMesAnio( int year, int month, String compania ){
+	public List<Item> obtieneRecargasPorCompaniaDiaMesAnio( int year, int month, int day, String compania ){
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT");
@@ -361,15 +366,18 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append("     INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
 		sql.append(" WHERE ");
 		sql.append(" 	YEAR(h.fecha_bonificacion) = :year");
-		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
+		sql.append(" 	AND DAY(h.fecha_bonificacion) = :day");
 		sql.append("     AND c.id_catalogo_medio_bonificacion IN (3)");
 		sql.append("     AND m.compania_medio_bonificacion = :compania");
 		sql.append(" GROUP BY indice, topico");
 		
-		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
-				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
+				.addScalar("total", StandardBasicTypes.BIG_INTEGER)
+				.addScalar("indice", StandardBasicTypes.INTEGER)
+				.addScalar("topico", StandardBasicTypes.STRING)
+				.setResultTransformer( (Transformers.aliasToBean(Item.class)) );
 		q.setParameter("year", year);
-		q.setParameter("month", month);
+		q.setParameter("day", day);
 		q.setParameter("compania", compania);
 		
 		List<Item> list = q.list();
@@ -382,7 +390,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT");
 		sql.append(" 	COUNT(m.compania_medio_bonificacion) AS total,");
-		sql.append("     WEEK(h.fecha_bonificacion) AS indice,");
+		sql.append("     WEEK(h.fecha_bonificacion, 1) AS indice,");
 		sql.append("     m.compania_medio_bonificacion AS topico");
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
@@ -393,7 +401,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		sql.append(" 	AND month(h.fecha_bonificacion) = :month");
 		sql.append("     AND c.id_catalogo_medio_bonificacion IN (3)");
 		sql.append("     AND m.compania_medio_bonificacion = :compania");
-		sql.append(" GROUP BY indice, m.compania_medio_bonificacion");
+		sql.append(" GROUP BY indice, topico");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
@@ -432,5 +440,4 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		return list;
 	}
-	
 }

@@ -1,14 +1,45 @@
+var chartBackground = [
+	'rgba(255, 99, 132, 0.2)',
+	'rgba(54, 162, 235, 0.2)',
+	'rgba(255, 206, 86, 0.2)',
+	'rgba(75, 192, 192, 0.2)',
+	'rgba(153, 102, 255, 0.2)',
+	'rgba(255, 159, 64, 0.2)',
+	'rgba(250, 99, 132, 0.2)',
+	'rgba(49, 162, 235, 0.2)',
+	'rgba(250, 206, 86, 0.2)',
+	'rgba(70, 192, 192, 0.2)',
+	'rgba(148, 102, 255, 0.2)',
+	'rgba(250, 159, 64, 0.2)'
+]
+
+var chartBackgroundBorder = [
+	'rgba(255, 99, 132, 1)',
+	'rgba(54, 162, 235, 1)',
+	'rgba(255, 206, 86, 1)',
+	'rgba(75, 192, 192, 1)',
+	'rgba(153, 102, 255, 1)',
+	'rgba(255, 159, 64, 1)',
+	'rgba(250, 99, 132, 1)',
+	'rgba(49, 162, 235, 1)',
+	'rgba(250, 206, 86, 1)',
+	'rgba(70, 192, 192, 1)',
+	'rgba(148, 102, 255, 1)',
+	'rgba(250, 159, 64, 1)'
+]
+
+var url = 'http://www.shingshing.com'
+//var url = 'http://localhost:8080/shin-back'
+	
 var estadisticas_marcas = {
 		
 		loadCharts : function() {
 
 			$.ajax({
-				url : "http://www.shingshing.com/estadisticas/marcas",
+				url : url + "/estadisticas/marcas",
 				dataType : "json",
 				success : function(result) {
-
-					console.log(result);
-
+					
 					var tiendaslabel = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 					var tiendasDatasets =[];
 					var deptoslabel = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
@@ -28,40 +59,13 @@ var estadisticas_marcas = {
 						
 						var tmpDataset = {
 								label: tienda.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: tiendasData
 						};
 						
 						tiendasDatasets.push(tmpDataset)
-						console.log( tiendasDatasets )
 					});
 					
 					$.each(result.totalEscaneaosDepartamentoMes, function(index, depto) {
@@ -74,40 +78,13 @@ var estadisticas_marcas = {
 						
 						var tmpDataset = {
 								label: depto.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: deptosData
 						};
 						
 						deptosDatasets.push(tmpDataset)
-						console.log( tiendasDatasets )
 					});
 
 					
@@ -157,11 +134,10 @@ var estadisticas_marcas = {
 	usuariosPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/marcas",
+			url :  url + "/estadisticas/marcas",
 			dataType : "json",
 			success : function(result) {
 
-				console.log(result);
 				var usuariosData=[], usuarioslabel=[];
 				
 
@@ -186,20 +162,8 @@ var estadisticas_marcas = {
 				//Actualizar con nuevos datos
 				var newDataset = {
 						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -212,11 +176,10 @@ var estadisticas_marcas = {
 	},
 	usuariosPorSemanaChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/marcas",
+			url : url + "/estadisticas/marcas",
 			dataType : "json",
 			success : function(result) {
 
-				console.log(result);
 				var usuariosData=[], usuarioslabel=[];
 				
 
@@ -241,20 +204,8 @@ var estadisticas_marcas = {
 				//Actualizar con nuevos datos
 				var newDataset = {
 						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -267,11 +218,10 @@ var estadisticas_marcas = {
 	},
 	usuariosPorMesChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/marcas",
+			url : url + "/estadisticas/marcas",
 			dataType : "json",
 			success : function(result) {
 
-				console.log(result);
 				var usuariosData=[], usuarioslabel=[];
 				
 
@@ -296,20 +246,8 @@ var estadisticas_marcas = {
 				//Actualizar con nuevos datos
 				var newDataset = {
 						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};

@@ -7,10 +7,13 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.IsoFields;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -175,7 +178,29 @@ public class Utils {
 		return dm.format(numero);
 	}
 	
+	public static String getDateRangeFromWeek( long week ) {
+		String format = "dd-MMM-yy";
+		
+		LocalDate startDate = LocalDate.now()
+	            .with(IsoFields.WEEK_OF_WEEK_BASED_YEAR, week)
+	            .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+		
+		LocalDate endDate = startDate.plusDays(6);
+		
+		String strStartDate = startDate.format(DateTimeFormatter.ofPattern(format));
+		String strEndDate = endDate.format(DateTimeFormatter.ofPattern(format));
+		
+		return strStartDate + " - " + strEndDate; 
+	}
+	
 	public static void main (String[] args) throws ParseException {
+		
+		final long calendarWeek = 1;
+		LocalDate startDate = LocalDate.now()
+		            .with(IsoFields.WEEK_OF_WEEK_BASED_YEAR, calendarWeek)
+		            .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+		
+		System.out.println( startDate + " - " + startDate.plusDays(6) );
 		
 		LocalDate localDate = LocalDate.now(ZoneId.of("UTC"));
 		System.out.println( "LocalDate: " + localDate.toString() );

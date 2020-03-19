@@ -7,10 +7,8 @@
 <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
 <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing Shing / Depósitos</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-	name='viewport' />
+<title>Shing Shing / Depósitos detalle</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
 	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
@@ -60,97 +58,119 @@
 					</div>
 
 				<!-- MENU -->
-				<ul class="nav">
-					<!-- Las opciones del menu debe ir entre <li></li> -->
-					<li><a data-toggle="collapse" href="#catalogos"> <i
-							class="nc-icon nc-ruler-pencil"></i>
-							<p>
-								Catalogos <b class="caret"></b>
-							</p>
-					</a>
-						<div class="collapse " id="catalogos">
-							<ul class="nav">
-								<li>
-									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Departamentos </span>
-								</a>
-								</li>
-								<li><a th:href="@{/catalogos/marca/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Marcas </span>
-								</a></li>
-								<li><a th:href="@{/catalogos/tienda/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Tiendas </span>
-								</a></li>
-								<li><a th:href="@{/catalogos/producto/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Productos </span>
-								</a></li>
-							</ul>
-						</div></li>
+									<ul class="nav">
+						<!-- Las opciones del menu debe ir entre <li></li> -->
+						<li>
+							<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
+								<i class="nc-icon nc-ruler-pencil"></i>
+								<p>Catalogos<b class="caret"></b></p>
+							</a>
+							<div class="collapse " id="catalogos">
+								<ul class="nav">
+									<li>
+										<a th:href="@{/portal-administrador/departamento/list}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Departamentos </span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/marca/list}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Marcas </span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/tienda/list}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Tiendas </span>
+										</a>
+									</li>
+									
+									<li>
+										<a th:href="@{/portal-administrador/producto/save}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Productos </span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
 
-					<li class="active"><a data-toggle="collapse"
-						href="#bonificaciones"> <i class="nc-icon nc-money-coins"></i>
-							<p>
-								Bonificaciones <b class="caret"></b>
-							</p>
-					</a>
+						<li class="active">
+							<a data-toggle="collapse" href="#bonificaciones">
+								<i class="nc-icon nc-money-coins"></i>
+								<p>
+									Bonificaciones <b class="caret"></b>
+								</p>
+							</a>
 
-						<div class="collapse show" id="bonificaciones">
-							<ul class="nav">
-								<li><a th:href="@{/catalogos/marca/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">General</span>
-								</a></li>
-								<li class="active"><a
-									th:href="@{/catalogos/departamento/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Retiros</span>
-								</a></li>
-								<li><a th:href="@{/catalogos/marca/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Medios</span>
-								</a></li>
-								<li><a th:href="@{/catalogos/marca/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Recargas</span>
-								</a></li>
-							</ul>
-						</div></li>
+							<div class="collapse show" id="bonificaciones">
+								<ul class="nav">
+									<li class="active">
+										<a th:href="@{/portal-administrador/bonificaciones-depositos}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Retiros</span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/bonificaciones-general}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">General</span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/bonificaciones-recargas}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Recargas</span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/mediosBonificacion/list}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Medios bonificacion </span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
 
-					<li><a data-toggle="collapse" href="#estadisticas"> <i
-							class="nc-icon nc-chart-bar-32"></i>
-							<p>
-								Estadisticas <b class="caret"></b>
-							</p>
-					</a>
-						<div class="collapse " id="estadisticas">
-							<ul class="nav">
-								<li>
-									<!--  --> <a th:href="@{/catalogos/departamento/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">General</span>
-								</a>
-								</li>
-								<li class="active"><a th:href="@{/catalogos/marca/save}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Productos</span>
-								</a></li>
-								<li><a th:href="@{/catalogos/tienda/save}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Tickets</span>
-								</a></li>
-								<li><a th:href="@{/catalogos/medioBonificacion/save}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Usarios</span>
-								</a></li>
-							</ul>
-						</div></li>
-
-
-				</ul>
+						<li>
+							<a data-toggle="collapse" href="#estadisticas">
+								<i class="nc-icon nc-chart-bar-32"></i>
+								<p>
+									Estadisticas <b class="caret"></b>
+								</p>
+							</a>
+							<div class="collapse " id="estadisticas">
+								<ul class="nav">
+									<li>
+										<a th:href="@{/portal-administrador/estadisticas-general}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">General</span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/estadisticas-tickets}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Tickets</span>
+										</a>
+									</li>
+									<li class="active">
+										<a th:href="@{/portal-administrador/estadisticas-marcas}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Marcas</span>
+										</a>
+									</li>
+									<li>
+										<a th:href="@{/portal-administrador/estadisticas-usuarios}">
+											<span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Usarios</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
 			</div>
 		</div>
 
@@ -213,7 +233,7 @@
 				<div class="row">
 					<div class="col-8">
 						<h3 class="card-title">
-							<a href="bonificaciones-depositos.html">Depósitos</a> /
+							<a th:href="@{/portal-administrador/bonificaciones-depositos}">>Depósitos</a> /
 							db4122019
 						</h3>
 					</div>

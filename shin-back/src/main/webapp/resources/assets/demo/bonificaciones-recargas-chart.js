@@ -1,9 +1,42 @@
+var chartBackground = [
+	'rgba(255, 99, 132, 0.2)',
+	'rgba(54, 162, 235, 0.2)',
+	'rgba(255, 206, 86, 0.2)',
+	'rgba(75, 192, 192, 0.2)',
+	'rgba(153, 102, 255, 0.2)',
+	'rgba(255, 159, 64, 0.2)',
+	'rgba(250, 99, 132, 0.2)',
+	'rgba(49, 162, 235, 0.2)',
+	'rgba(250, 206, 86, 0.2)',
+	'rgba(70, 192, 192, 0.2)',
+	'rgba(148, 102, 255, 0.2)',
+	'rgba(250, 159, 64, 0.2)'
+]
+
+var chartBackgroundBorder = [
+	'rgba(255, 99, 132, 1)',
+	'rgba(54, 162, 235, 1)',
+	'rgba(255, 206, 86, 1)',
+	'rgba(75, 192, 192, 1)',
+	'rgba(153, 102, 255, 1)',
+	'rgba(255, 159, 64, 1)',
+	'rgba(250, 99, 132, 1)',
+	'rgba(49, 162, 235, 1)',
+	'rgba(250, 206, 86, 1)',
+	'rgba(70, 192, 192, 1)',
+	'rgba(148, 102, 255, 1)',
+	'rgba(250, 159, 64, 1)'
+]
+
+var url = 'http://www.shingshing.com'
+//var url = 'http://localhost:8080/shin-back'
+	
 var bonificaciones_recargas = {
 		
 		loadCharts : function() {
 
 			$.ajax({
-				url : "http://www.shingshing.com/estadisticas/bonificaciones-general",
+				url : url + "/estadisticas/bonificaciones-general",
 				dataType : "json",
 				success : function(result) {
 
@@ -26,24 +59,10 @@ var bonificaciones_recargas = {
 						data: {
 							labels: recargasLabel,
 							datasets: [{
-								label: 'Total',
+								label: '#',
 								data: recargasData,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 159, 64, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 159, 64, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1
 							}]
 						},
@@ -63,7 +82,7 @@ var bonificaciones_recargas = {
 			
 			//Para la grafica de recargas por compania
 			$.ajax({
-				url : "http://www.shingshing.com/estadisticas/bonificaciones-recargas?categoria=d",
+				url : url + "/estadisticas/bonificaciones-recargas?categoria=d",
 				dataType : "json",
 				success : function(result) {
 
@@ -79,39 +98,13 @@ var bonificaciones_recargas = {
 						
 						$.each(tienda.items, function(i, t){
 							tiendasData.push( t.total )
-							label.push( t.indice )
+							label.push( "D " + t.indice )
 						});
 						
 						var tmpDataset = {
 								label: tienda.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: tiendasData
 						};
@@ -145,7 +138,7 @@ var bonificaciones_recargas = {
 		console.log( idChart + ' ' + tipo + ' ' + categoria )
 		
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/bonificaciones-recargas?tipo="+tipo+"&categoria="+categoria,
+			url : url + "/estadisticas/bonificaciones-general?tipo="+tipo+"&categoria="+categoria,
 			dataType : "json",
 			success : function(result) {
 
@@ -157,6 +150,9 @@ var bonificaciones_recargas = {
 						depositosData.push(item.total)
 						
 						if( categoria == 'm' ){
+							depositosLabel.push(item.topico)
+						}
+						else if( categoria == 's' ) {
 							depositosLabel.push(item.topico)
 						}
 						else{
@@ -173,6 +169,9 @@ var bonificaciones_recargas = {
 						if( categoria == 'm' ){
 							depositosLabel.push(item.topico)
 						}
+						else if( categoria == 's' ) {
+							depositosLabel.push(item.topico)
+						}
 						else{
 							depositosLabel.push("D " + item.indice)
 						}
@@ -184,6 +183,9 @@ var bonificaciones_recargas = {
 					$.each(result.recargas, function(index, item) {
 						depositosData.push(item.total)
 						if( categoria == 'm' ){
+							depositosLabel.push(item.topico)
+						}
+						else if( categoria == 's' ) {
 							depositosLabel.push(item.topico)
 						}
 						else{
@@ -200,7 +202,7 @@ var bonificaciones_recargas = {
 		console.log( idChart + ' ' + tipo + ' ' + categoria )
 		
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/bonificaciones-recargas?categoria="+categoria,
+			url : url + "/estadisticas/bonificaciones-recargas?categoria="+categoria,
 			dataType : "json",
 			success : function(result) {
 
@@ -216,39 +218,13 @@ var bonificaciones_recargas = {
 						
 						$.each(tienda.items, function(i, t){
 							tiendasData.push( t.total )
-							label.push( t.indice )
+							label.push( "D " + t.indice )
 						});
 						
 						var tmpDataset = {
 								label: tienda.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: tiendasData
 						};
@@ -269,39 +245,13 @@ var bonificaciones_recargas = {
 						
 						$.each(tienda.items, function(i, t){
 							tiendasData.push( t.total )
-							label.push( t.indice )
+							label.push( t.topico )
 						});
 						
 						var tmpDataset = {
 								label: tienda.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: tiendasData
 						};
@@ -327,34 +277,8 @@ var bonificaciones_recargas = {
 						
 						var tmpDataset = {
 								label: tienda.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: tiendasData
 						};
@@ -380,21 +304,9 @@ var bonificaciones_recargas = {
 		
 		//Actualizar con nuevos datos
 		var newDataset = {
-				label: 'Total' ,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)'
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)'
-				],
+				label: '#' ,
+				backgroundColor: chartBackground,
+				borderColor: chartBackgroundBorder,
 				borderWidth: 1,
 				data: data
 		};
@@ -417,21 +329,9 @@ var bonificaciones_recargas = {
 		
 		//Actualizar con nuevos datos
 		var newDataset = {
-				label: 'Total' ,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)'
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)'
-				],
+				label: '#' ,
+				backgroundColor: chartBackground,
+				borderColor: chartBackgroundBorder,
 				borderWidth: 1,
 				data: data
 		};
@@ -454,21 +354,9 @@ var bonificaciones_recargas = {
 		
 		//Actualizar con nuevos datos
 		var newDataset = {
-				label: 'Total' ,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)'
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)'
-				],
+				label: '#' ,
+				backgroundColor: chartBackground,
+				borderColor: chartBackgroundBorder,
 				borderWidth: 1,
 				data: data
 		};
@@ -490,21 +378,9 @@ var bonificaciones_recargas = {
 		
 		//Actualizar con nuevos datos
 		var newDataset = {
-				label: 'Total' ,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)'
-				],
-				borderColor: [
-					'rgba(255, 99, 132, 1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)'
-				],
+				label: '#' ,
+				backgroundColor: chartBackground,
+				borderColor: chartBackgroundBorder,
 				borderWidth: 1,
 				data: data
 		};

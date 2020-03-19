@@ -237,7 +237,7 @@
 					</div>
 
 					<!--  Escaneos   -->
-					<div class="col-lg-4 col-md-4 col-sm-6">
+					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div class="card card-stats">
 							<div class="card-body ">
 								<div class="row">
@@ -256,6 +256,9 @@
 							</div>
 
 							<div class="card-footer ">
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
 								<hr />
 							</div>
 
@@ -322,7 +325,7 @@
 					</div>
 
 					<!--  Tiendas   -->
-					<div class="col-lg-8 col-md-6 col-sm-6">
+					<div class="col-lg-6 col-md-6 col-sm-6">
 						<div class="card card-stats">
 							<div class="card-body"></div>
 
@@ -333,6 +336,14 @@
 										<p class="card-title" th:text="${totalTicketsTienda}">{totalTicketsTienda}</p>
 									</div>
 								</div>
+								
+							<div class="card-footer ">
+								<div class="stats text-center">
+									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
+								</div>
+								<hr />
+							</div>
+								
 								<div class="card-body">
 									<h6 class="big-title">Tiendas</h6>
 									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">

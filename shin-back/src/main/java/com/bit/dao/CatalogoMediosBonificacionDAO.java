@@ -12,6 +12,19 @@ import com.bit.model.CatalogoMediosBonificacion;
 public class CatalogoMediosBonificacionDAO extends DAOTemplate<CatalogoMediosBonificacion, Long> {
 
 	private static final long serialVersionUID = 3628640656482549065L;
+	
+	public enum MedioBonificacionID{
+		BANCARIA(1), PAYPAL(2), RECARGA(3);
+		private int id;
+		
+		MedioBonificacionID( int id ) {
+			this.id = id;
+		}
+		
+		public int value() {
+			return id;
+		}
+	}
 
 	public List<CatalogoMediosBonificacion> getCatalogoMediosBonificacion() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMediosBonificacion.class);
@@ -20,5 +33,11 @@ public class CatalogoMediosBonificacionDAO extends DAOTemplate<CatalogoMediosBon
 
 		return c.list();
 
+	}
+	
+	public static void main(String[] args) {
+		MedioBonificacionID BANCO = MedioBonificacionID.BANCARIA;
+		
+		System.out.println( BANCO.id );
 	}
 }

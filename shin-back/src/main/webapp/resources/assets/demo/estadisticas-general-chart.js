@@ -1,3 +1,36 @@
+var chartBackground = [
+	'rgba(255, 99, 132, 0.2)',
+	'rgba(54, 162, 235, 0.2)',
+	'rgba(255, 206, 86, 0.2)',
+	'rgba(75, 192, 192, 0.2)',
+	'rgba(153, 102, 255, 0.2)',
+	'rgba(255, 159, 64, 0.2)',
+	'rgba(250, 99, 132, 0.2)',
+	'rgba(49, 162, 235, 0.2)',
+	'rgba(250, 206, 86, 0.2)',
+	'rgba(70, 192, 192, 0.2)',
+	'rgba(148, 102, 255, 0.2)',
+	'rgba(250, 159, 64, 0.2)'
+]
+
+var chartBackgroundBorder = [
+	'rgba(255, 99, 132, 1)',
+	'rgba(54, 162, 235, 1)',
+	'rgba(255, 206, 86, 1)',
+	'rgba(75, 192, 192, 1)',
+	'rgba(153, 102, 255, 1)',
+	'rgba(255, 159, 64, 1)',
+	'rgba(250, 99, 132, 1)',
+	'rgba(49, 162, 235, 1)',
+	'rgba(250, 206, 86, 1)',
+	'rgba(70, 192, 192, 1)',
+	'rgba(148, 102, 255, 1)',
+	'rgba(250, 159, 64, 1)'
+]
+
+var url = 'http://www.shingshing.com'
+//var url = 'http://localhost:8080/shin-back'
+
 var estadisticas_general = {
 		
 		loadCharts : function() {
@@ -5,7 +38,7 @@ var estadisticas_general = {
 			//http://www.shingshing.com
 			//www.shingshing.com
 			$.ajax({
-				url : "http://www.shingshing.com/estadisticas/general",
+				url : url + "/estadisticas/general",
 				dataType : "json",
 				success : function(result) {
 
@@ -45,34 +78,8 @@ var estadisticas_general = {
 						
 						var tmpDataset = {
 								label: tienda.titulo,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1,
 								data: tiendasData
 						};
@@ -89,24 +96,10 @@ var estadisticas_general = {
 						data: {
 							labels: usuariosLabel,
 							datasets: [{
-								label: 'Total',
+								label: '#',
 								data: usuariosData,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 159, 64, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 159, 64, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1
 							}
 							]
@@ -129,19 +122,10 @@ var estadisticas_general = {
 						data: {
 							labels: ticketsLabel,
 							datasets: [{
-								label: 'Total',
+								label: '#',
 								data: ticketsData,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1
 							}]
 						},
@@ -163,24 +147,10 @@ var estadisticas_general = {
 						data: {
 							labels: productosLabel,
 							datasets: [{
-								label: 'Total',
+								label: '#',
 								data: productosData,
-								backgroundColor: [
-									'rgba(255, 99, 132, 0.2)',
-									'rgba(54, 162, 235, 0.2)',
-									'rgba(255, 206, 86, 0.2)',
-									'rgba(75, 192, 192, 0.2)',
-									'rgba(153, 102, 255, 0.2)',
-									'rgba(255, 159, 64, 0.2)'
-								],
-								borderColor: [
-									'rgba(255, 99, 132, 1)',
-									'rgba(54, 162, 235, 1)',
-									'rgba(255, 206, 86, 1)',
-									'rgba(75, 192, 192, 1)',
-									'rgba(153, 102, 255, 1)',
-									'rgba(255, 159, 64, 1)'
-								],
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
 								borderWidth: 1
 							}]
 						},
@@ -224,7 +194,7 @@ var estadisticas_general = {
 	usuariosPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -252,21 +222,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -279,7 +237,7 @@ var estadisticas_general = {
 	},
 	usuariosPorSemanaChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -307,21 +265,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -334,7 +280,7 @@ var estadisticas_general = {
 	},
 	usuariosPorMesChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -362,21 +308,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -393,7 +327,7 @@ var estadisticas_general = {
 	ticketsPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -418,21 +352,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackgroundBorder,
+						borderColor: chartBackground,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -445,7 +367,7 @@ var estadisticas_general = {
 	},
 	ticketsPorSemanaChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -470,21 +392,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -497,7 +407,7 @@ var estadisticas_general = {
 	},
 	ticketsPorMesChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -522,21 +432,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -553,7 +451,7 @@ var estadisticas_general = {
 	productosPorDiaChart : function() {
 
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -578,21 +476,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -605,7 +491,7 @@ var estadisticas_general = {
 	},
 	productosPorSemanaChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -630,21 +516,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
@@ -657,7 +531,7 @@ var estadisticas_general = {
 	},
 	productosPorMesChart : function(){
 		$.ajax({
-			url : "http://www.shingshing.com/estadisticas/general",
+			url : url + "/estadisticas/general",
 			dataType : "json",
 			success : function(result) {
 
@@ -682,21 +556,9 @@ var estadisticas_general = {
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
-						label: 'Total' ,
-						backgroundColor: [
-							'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)'
-						],
-						borderColor: [
-							'rgba(255, 99, 132, 1)',
-							'rgba(54, 162, 235, 1)',
-							'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)',
-							'rgba(153, 102, 255, 1)'
-						],
+						label: '#' ,
+						backgroundColor: chartBackgroundBorder,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};

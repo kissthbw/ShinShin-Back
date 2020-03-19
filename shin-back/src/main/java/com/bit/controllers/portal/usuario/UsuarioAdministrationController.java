@@ -329,6 +329,7 @@ public class UsuarioAdministrationController {
 		item.setIdTipo( BigInteger.valueOf( 3 ) );
 		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
 		model.addAttribute("list", list);
+		model.addAttribute("item", new Usuario());
 		
 		return "administrador/bonificaciones-recargas-detalle";
 	}
