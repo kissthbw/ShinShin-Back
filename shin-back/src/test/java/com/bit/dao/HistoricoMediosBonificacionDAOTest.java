@@ -116,12 +116,13 @@ public class HistoricoMediosBonificacionDAOTest {
 	public void obtieneEstadisticasBonificacionesGeneral() throws JsonProcessingException {
 		int year = 2020;
 		int month = 1;
+		int day = 1;
 		Integer[] tipos = new Integer[] {1, 2, 3};
 		
 		historicoMediosBonificacionDAO.obtieneTotalBonificaciones();
 		
 		
-		List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+		List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, day, tipos);
 		System.out.println( Utils.objectToJSON(list1) );
 		Category c = new Category();
 		c.setTitulo("Diario");
@@ -152,13 +153,14 @@ public class HistoricoMediosBonificacionDAOTest {
 		LocalDate now = LocalDate.now();
 		int year = now.getYear();
 		int month = now.getMonthValue();
+		int day = now.getDayOfMonth();
 		
 		//Agregar catalogo en BD
 		String[] companias = {"Telcel", "ATT&T"};
 		
 		List<Category> list = new ArrayList<Category>();
 		for( String com : companias ) {
-			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
+			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, day, com);
 			List<Item> listaEscaneoDeptos = new ArrayList<>();
 //			initEscaneosPorMes(listaEscaneoDeptos, listaTmpRecargas);
 			

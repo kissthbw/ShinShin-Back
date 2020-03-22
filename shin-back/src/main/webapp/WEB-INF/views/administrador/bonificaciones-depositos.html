@@ -108,7 +108,7 @@ xmlns:th="http://www.thymeleaf.org">
 									<li class="active">
 										<a th:href="@{/portal-administrador/bonificaciones-depositos}">
 											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">Retiros</span>
+											<span class="sidebar-normal">Depositos</span>
 										</a>
 									</li>
 									<li>
@@ -226,6 +226,8 @@ xmlns:th="http://www.thymeleaf.org">
 					<div class="row">
 						<div class="col-8">
 							<!-- Titulo -->
+								<a th:href="@{/portal-administrador/bonificaciones-depositos/report}"
+									class="btn btn-secundary" role="button" aria-disabled="true">Exportar a PDF</a>
 							<h3 class="card-title">Depósitos</h3>
 						</div>
 						<div class="col-md-12">

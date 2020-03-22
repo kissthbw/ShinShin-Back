@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bit.common.Analizer;
+import com.bit.service.analizer.Analizer;
 import com.bit.common.Utils;
 import com.bit.config.WebConfig;
 import com.bit.exception.TicketException;
@@ -282,14 +282,13 @@ public class TicketDAOTest {
 			e.printStackTrace();
 		}
 		
-		try {
-			
+		/*try {
 			Analizer.analize(lineas, false);
 			System.out.println( "Fin: " + new Date() );
 		} catch (TicketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 	

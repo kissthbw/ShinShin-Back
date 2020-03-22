@@ -1,9 +1,11 @@
 #toast-container{
 	margin-top:25px;
+	opacity:1 !important;
 }
 
 #toast-container > .toast {
     background-image: none !important;
+    opacity:1 !important;
 }
 
 #toast-container > .toast:before {
@@ -22,18 +24,27 @@
   
 #toast-container > .toast-info {
   background-image: none !important;
+  opacity:1 !important;
 }
 #toast-container > .toast-error {
   background-image: none !important;
+  opacity:1 !important;
 }
 #toast-container > .toast-success {
   background-image: none !important;
+  background-color: #CEFFCB !important;
+  color: #54A151 !important;
+  opacity:1 !important;
 }
 #toast-container > .toast-warning {
   background-image: none !important;
+   background-color: #FFEAD9 !important;
+  color: #FE6F010 !important;
+  opacity:1 !important;
 }   
 #toast-container > .toast-warning:before {
     content: "\f05a";
+    color: #FE6F010 !important;
 }
 #toast-container > .toast-error:before {
     content: "\f001";
@@ -43,6 +54,7 @@
 }
 #toast-container > .toast-success:before {
     content: "\f058";
+    color: #54A151 !important;
 }
 
 #toast-container > .toast-warning {

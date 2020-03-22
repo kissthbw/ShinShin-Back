@@ -24,9 +24,10 @@ public class ReportServiceImpl implements ReportService {
 	public List<Item> getBonificacionesGeneralInfo() {
 		int year = 2020;
 		int month = 1;
+		int day = 1;
 		Integer[] tipos = new Integer[] {1, 2, 3};
 	    
-	    List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, tipos);
+	    List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, day, tipos);
 		List<Item> list2 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, tipos);		
 		List<Item> list3 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, tipos);
 
@@ -52,9 +53,10 @@ public class ReportServiceImpl implements ReportService {
 		HashMap<String, List<Item>> result = new HashMap<String, List<Item>>();
 		int year = 2020;
 		int month = 1;
+		int day = 1;
 		
 		//Recargas, dia, semana, mes
-		List<Item> recargasDia =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, new Integer[] {3});
+		List<Item> recargasDia =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, day, new Integer[] {3});
 		List<Item> recargasSemana =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, new Integer[] {3});
 		List<Item> recargasMes =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, new Integer[] {3});
 //		initListaMensual(listaMensual, list1);
@@ -70,12 +72,12 @@ public class ReportServiceImpl implements ReportService {
 		List<Item> listCompanias = new ArrayList<Item>();
 		
 		for( String com : companias ) {
-			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
+			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, day, com);
 			listCompanias.addAll(listaTmpRecargas);
 		}
 		
 		for( String com : companias ) {
-			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, com);
+			List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaDiaMesAnio(year, month, day, com);
 			listCompanias.addAll(listaTmpRecargas);
 		}
 		for( String com : companias ) {

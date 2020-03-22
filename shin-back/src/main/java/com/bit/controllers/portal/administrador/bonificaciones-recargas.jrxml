@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bonificaciones-recargas" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7c6ba35e-fde8-428d-a6de-f76f5352eb8a">
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[c2hpbnNoaW4uY2F0YWxvZ29fbWVkaW9zX2JvbmlmaWNhY2lvbiAsNTMyLDEzMywzOTJlN2QyMC1l
+OTRhLTRjNDQtYjI5NS0xMzRlMTRmZDdkZjQ7c2hpbnNoaW4uaGlzdG9yaWNvX21lZGlvc19ib25p
+ZmljYWNpb24gLDE1LDgwLGEwY2E3MmVkLWFkN2ItNDJhZS1iNGIyLWYzZDQyNDBlZWQzYTtzaGlu
+c2hpbi5tZWRpb3NfYm9uaWZpY2FjaW9uICwyNzYsMTUsZDM4MmNlNzQtZGU2Zi00YjA0LWE1NTQt
+ODgxZGUxN2YzZjM3Ow==]]>
+	</property>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<queryString language="SQL">
+		<![CDATA[SELECT shinshin.catalogo_medios_bonificacion.nombre_medio_bonificacion AS tipo,
+	shinshin.historico_medios_bonificacion.fecha_bonificacion AS fecha,
+	sum( shinshin.historico_medios_bonificacion.cantidad_bonificacion) AS importe,
+	count( shinshin.historico_medios_bonificacion.id_historico_medios_bonificacion) AS solicitudes
+FROM shinshin.historico_medios_bonificacion
+	INNER JOIN shinshin.medios_bonificacion ON 
+	 shinshin.historico_medios_bonificacion.id_medios_bonificacion = shinshin.medios_bonificacion.id_medios_bonificacion 
+	INNER JOIN shinshin.catalogo_medios_bonificacion ON 
+	 shinshin.medios_bonificacion.id_catalogo_medio_bonificacion = shinshin.catalogo_medios_bonificacion.id_catalogo_medio_bonificacion]]>
+	</queryString>
+	<field name="tipo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="tipo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="catalogo_medios_bonificacion"/>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="historico_medios_bonificacion"/>
+	</field>
+	<field name="importe" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="importe"/>
+	</field>
+	<field name="solicitudes" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="solicitudes"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="10" width="470" height="64" uuid="29cf920f-7b67-47d4-912b-7836cc598d80"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bonificaciones-recargas"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="68" y="0" width="100" height="30" uuid="c179f150-ca4a-45d4-b236-ccd9b0941193">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c041e43e-b6c5-4995-8bef-270894733f27"/>
+				</reportElement>
+				<text><![CDATA[tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="100" height="30" uuid="7081c6da-2d66-4d67-8c51-3fb9d0e7b846">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3970c0f-911d-4a4b-b5fe-69d346d3767c"/>
+				</reportElement>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="f4b7bc42-9403-4d1d-b490-c31a9d7b115a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75a155f4-53e5-405f-b5f0-dc03d28a5698"/>
+				</reportElement>
+				<text><![CDATA[importe]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="68" y="42" width="100" height="30" uuid="cb9fcb1c-ab01-4734-a9c2-7730d07996f9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c041e43e-b6c5-4995-8bef-270894733f27"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="46" width="100" height="30" uuid="2568e493-f4d8-4b62-b0e3-e0b9bd47ce37">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d3970c0f-911d-4a4b-b5fe-69d346d3767c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="50" width="100" height="30" uuid="01ebc147-35aa-4326-bf7c-acd5b9c7a9c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="75a155f4-53e5-405f-b5f0-dc03d28a5698"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="480" y="30" width="100" height="30" uuid="b02bb89a-b431-4934-a345-c372554647c7"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

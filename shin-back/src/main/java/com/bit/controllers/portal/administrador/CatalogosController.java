@@ -456,8 +456,9 @@ public class CatalogosController {
 	public void getProductoReport(Model model, HttpServletResponse response) throws JRException, IOException {
 		log.info("Entrando report");
 		
-		File file= ResourceUtils.getFile("classpath:Productos1.2.jasper");
-		InputStream jasperStream = this.getClass().getResourceAsStream(file.getAbsolutePath());
+		/*File file= ResourceUtils.getFile("classpath:Productos1.2.jasper");
+		InputStream jasperStream = this.getClass().getResourceAsStream(file.getAbsolutePath());*/
+		InputStream jasperStream = this.getClass().getResourceAsStream("Productos1.2.jasper");
 		log.info("Product source");
 		log.info(System.getProperty("user.dir"));
 		Map<String,Object> params = new HashMap<>();
@@ -876,6 +877,32 @@ public class CatalogosController {
 		return "administrador/bonificaciones-depositos";
 	}
 	
+	@RequestMapping(value = "/bonificaciones-depositos/report", method = RequestMethod.GET)
+	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
+		Log.info("Entrando en bonificaciones-depositos report");
+		
+		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-depositos.jasper");
+	    Map<String,Object> params = new HashMap<>();
+		//Mostrar la fecha actual en formato dd/MMM/yyyyy
+		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
+		
+		BonificacionItem item = new BonificacionItem();
+		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
+
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
+		
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		Log.info("Saliendo en bonificaciones-depositos report");
+	}
+	
 	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
 	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
 		
@@ -928,6 +955,31 @@ public class CatalogosController {
 		Log.info("Saliendo de redirectionalBonificacionesRecargas");
 		return "administrador/bonificaciones-recargas";
 	}
+	/*
+	@RequestMapping(value = "/bonificaciones-recargas/report", method = RequestMethod.GET)
+	public void reportBonificacionesRecargas(Model model, HttpServletResponse response) throws JRException, IOException {
+		Log.info("Entrando en bonificaciones-recargas report");
+		
+		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-recargas.jasper");
+	    Map<String,Object> params = new HashMap<>();
+		
+		BonificacionItem item = new BonificacionItem();
+		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
+
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
+		
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		Log.info("Saliendo en bonificaciones-recargas report");
+	}
+	*/
 	
 //	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
 //	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
@@ -986,6 +1038,31 @@ public class CatalogosController {
 		Log.info("Saliendo de redirectionalBonificacionesGeneral");
 		return "administrador/bonificaciones-general";
 	}
+	/*
+	@RequestMapping(value = "/bonificaciones-general/report", method = RequestMethod.GET)
+	public void reportBonificacionesGeneral(Model model, HttpServletResponse response) throws JRException, IOException {
+		Log.info("Entrando en bonificaciones-general report");
+		
+		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-general.jasper");
+	    Map<String,Object> params = new HashMap<>();
+		
+		BonificacionItem item = new BonificacionItem();
+		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
+
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
+		
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		Log.info("Saliendo en bonificaciones-depositos report");
+	}
+	*/
 	
 	/*
 	 * FIN SECCION DE BONIFICACIONES
