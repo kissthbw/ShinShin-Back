@@ -53,7 +53,7 @@ public interface EstadisticasService {
 	 * @param fecha en formato 2020-01-28
 	 * @return
 	 */
-	List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo( BonificacionItem item );
+	List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo( BonificacionItem item, Integer[] tipos );
 	
 	//Funcionalidad relacionada a la pagina bonificaciones-general y bonificaciones-recargas
 	EstadisticasBonificacionRSP obtieneBonificacionesGenerales( String tipo, String categoria );

@@ -1,6 +1,7 @@
 package com.bit.common;
 
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,17 +22,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bit.model.CatalogoDiccionarioTiendas;
+import com.bit.model.dto.Item;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Utils {
 	
 	private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-	 
+	private static final String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"}; 
 	
 	private static final Map<String, String> DICCIONARIO;
 	private static InputStream credentialsStream = null;
@@ -135,7 +138,7 @@ public class Utils {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-//		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
+		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
 		return sdf.format(date);
 	}
 	
@@ -146,7 +149,7 @@ public class Utils {
 		}
 		
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-//		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
+		sdf.setTimeZone( TimeZone.getTimeZone( "UTC" ) );
 		try {
 			date = sdf.parse(strDate);
 		} catch (ParseException e) {
@@ -191,6 +194,50 @@ public class Utils {
 		String strEndDate = endDate.format(DateTimeFormatter.ofPattern(format));
 		
 		return strStartDate + " - " + strEndDate; 
+	}
+	
+	
+	public static void initEscaneosPorMes(List<Item> list, List<Item> resultData) {
+		
+		//Se inicializa la lista con objetos Item, con los valores del mes
+		for( String mes : meses ) {
+			list.add( new Item(mes, BigInteger.valueOf(0)) );
+		}
+		
+		//Se busca el elemento en la lista que coincida con el valor del campo indice
+		//del resultData para asignar el total correspondiente
+		for( Item data : resultData ) {
+			Item i = list.get( data.getIndice() - 1 );
+			
+			if( null != i ) {
+				i.setTotal( data.getTotal() );
+			}
+		}
+	}
+	
+	public static void initListaMensual(List<Item> list, List<Item> resultData) {
+		
+		//Se inicializa la lista con objetos Item, con los valores del mes
+		for( String mes : meses ) {
+			list.add( new Item(mes, BigInteger.valueOf(0)) );
+		}
+		
+		//Se busca el elemento en la lista que coincida con el valor del campo indice
+		//del resultData para asignar el total correspondiente
+		for( Item data : resultData ) {
+			Item i = list.get( data.getIndice() - 1 );
+			
+			if( null != i ) {
+				i.setTotal( data.getTotal() );
+			}
+		}
+	}
+	
+	public static void initListaSemanal( List<Item> list ) {
+		for (Item item : list) {
+			String range = Utils.getDateRangeFromWeek( item.getIndice() );
+			item.setTopico(range);
+		}
 	}
 	
 	public static void main (String[] args) throws ParseException {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bit.common.Utils;
+import com.bit.dao.CatalogoMediosBonificacionDAO.MedioBonificacionID;
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.SimpleResponse;
@@ -295,7 +296,8 @@ public class UsuarioAdministrationController {
 		//Estos valores deben ser tomados del URL como QueryParams
 		item.setFechaFormateada("2020-01-28");
 		item.setIdTipo( BigInteger.valueOf( 3 ) );
-		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
+		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item,
+				new Integer[] {MedioBonificacionID.BANCARIA.value(), MedioBonificacionID.PAYPAL.value(), MedioBonificacionID.RECARGA.value()});
 		model.addAttribute("list", list);
 		model.addAttribute("solicitudes", Utils.formatNumeros(Integer.valueOf( list.size() ).doubleValue(), "###,###,###"));
 		
@@ -327,7 +329,8 @@ public class UsuarioAdministrationController {
 		//Estos valores deben ser tomados del URL como QueryParams
 		item.setFechaFormateada("2020-01-28");
 		item.setIdTipo( BigInteger.valueOf( 3 ) );
-		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
+		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item,
+				new Integer[] {MedioBonificacionID.BANCARIA.value(), MedioBonificacionID.PAYPAL.value(), MedioBonificacionID.RECARGA.value()});
 		model.addAttribute("list", list);
 		model.addAttribute("item", new Usuario());
 		

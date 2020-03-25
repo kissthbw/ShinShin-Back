@@ -3,10 +3,8 @@ package com.bit.controllers.portal.administrador;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.File;
-
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.ResourceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,6 +38,7 @@ import com.bit.model.Producto;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
+import com.bit.model.dto.Item;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.response.EstadisticasBonificacionRSP;
@@ -51,6 +49,7 @@ import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.report.MarcaReport;
 import com.bit.model.report.ProductoReport;
 import com.bit.model.report.UsuarioReport;
+import com.bit.service.CSVExporter;
 import com.bit.service.CatalogoMarcaService;
 import com.bit.service.CatalogoMediosBonificacionService;
 import com.bit.service.CatalogoTiendaService;
@@ -60,6 +59,8 @@ import com.bit.service.ProductoService;
 import com.bit.service.TicketService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
+import com.bit.service.impl.CSVExporterImpl;
+import com.bit.service.impl.EstadisticasServiceImpl;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -846,225 +847,5 @@ public class CatalogosController {
 	/*
 	 * FIN SECCION DE ESTADISTICAS
 	 */
-	
-	/*
-	 * INICIO SECCION DE BONIFICACIONES
-	 */
-	@RequestMapping(value = "/bonificaciones-depositos", method = RequestMethod.GET)
-	public String redirectionalBonificacionesDepositos(Model model) {
-		Log.info("Entrando en redirectionalBonificacionesDepositos");
-		
-		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
-			model.addAttribute("item", current.getUsuario());
-		}
-		
-		//Mostrar la fecha actual en formato dd/MMM/yyyyy
-		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
-		
-		BonificacionItem item = new BonificacionItem();
-		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
-		
-		List<BonificacionItem> currentList = estadisticasService.obtieneHistoricoBonificaciones( item );
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
-		model.addAttribute("currentList", currentList);
-		model.addAttribute("list", list);
- 		model.addAttribute("fecha", "Hoy " + fecha);
-		
-		
-		Log.info("Saliendo de redirectionalBonificacionesDepositos");
-		return "administrador/bonificaciones-depositos";
-	}
-	
-	@RequestMapping(value = "/bonificaciones-depositos/report", method = RequestMethod.GET)
-	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
-		Log.info("Entrando en bonificaciones-depositos report");
-		
-		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-depositos.jasper");
-	    Map<String,Object> params = new HashMap<>();
-		//Mostrar la fecha actual en formato dd/MMM/yyyyy
-		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
-		
-		BonificacionItem item = new BonificacionItem();
-		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
 
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
-		
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
-
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-		Log.info("Saliendo en bonificaciones-depositos report");
-	}
-	
-	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
-	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
-		
-		log.info("Entrando a getObtenerDeporistosDetalle");
-		
-		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
-			model.addAttribute("item", current.getUsuario());
-		}
-		
-		BonificacionItem item = new BonificacionItem();
-		//La fecha viene como dd-MMM-yyyy
-		//Convertir a yyyy-MM-dd
-		Date d = Utils.formatStringToDate(fecha, "dd-MMM-yyyy");
-		String f = Utils.formatDateToString(d, "yyyy-MM-dd");
-		
-		item.setFechaFormateada( f );
-		item.setIdTipo( BigInteger.valueOf( 3 ) );
-		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
-		model.addAttribute("list", list);
-		model.addAttribute("solicitudes", Utils.formatNumeros(Integer.valueOf( list.size() ).doubleValue(), "###,###,###"));
-		
-		double total = list.stream().mapToDouble( i -> i.getImporte() ).sum();
-		
-		model.addAttribute("importe", Utils.formatNumeros(total, "$###,###,###.00"));
-		
-		return "administrador/bonificaciones-depositos-detalle";
-	}
-	
-	@RequestMapping(value = "/bonificaciones-recargas", method = RequestMethod.GET)
-	public String redirectionalBonificacionesRecargas(Model model) {
-		Log.info("Entrando en redirectionalBonificacionesRecargas");
-		
-		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
-			model.addAttribute("item", current.getUsuario());
-		}
-		
-		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
-		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
-		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
-		
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
-		model.addAttribute("list", list);
-		
-		model.addAttribute("fecha", fecha);
-		
-		Log.info("Saliendo de redirectionalBonificacionesRecargas");
-		return "administrador/bonificaciones-recargas";
-	}
-	/*
-	@RequestMapping(value = "/bonificaciones-recargas/report", method = RequestMethod.GET)
-	public void reportBonificacionesRecargas(Model model, HttpServletResponse response) throws JRException, IOException {
-		Log.info("Entrando en bonificaciones-recargas report");
-		
-		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-recargas.jasper");
-	    Map<String,Object> params = new HashMap<>();
-		
-		BonificacionItem item = new BonificacionItem();
-		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
-
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
-		
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
-
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-		Log.info("Saliendo en bonificaciones-recargas report");
-	}
-	*/
-	
-//	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
-//	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
-	
-	@RequestMapping(value = "/bonificaciones-recargas-detalle/{fecha}", method = RequestMethod.GET)
-	public String redirectionalBonificacionesRecargasDetalle(Model model, @PathVariable String fecha) {
-		Log.info("Entrando en redirectionalBonificacionesRecargas");
-		
-		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
-			model.addAttribute("item", current.getUsuario());
-		}
-		
-//		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
-//		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
-//		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
-		
-//		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
-//		model.addAttribute("list", list);
-		//"2020-01-28"
-		
-		Date d = Utils.formatStringToDate(fecha, "dd-MMM-yyyy");
-		String f = Utils.formatDateToString(d, "yyyy-MM-dd");
-		
-		BonificacionItem item = new BonificacionItem();
-		item.setFechaFormateada( f );
-		item.setIdTipo( BigInteger.valueOf( MedioBonificacionID.RECARGA.value() ) );
-		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item);
-		model.addAttribute("list", list);
-		
-		model.addAttribute("fecha", fecha);
-		
-		Log.info("Saliendo de redirectionalBonificacionesRecargasDetalle");
-		return "administrador/bonificaciones-recargas-detalle";
-	}
-	
-	@RequestMapping(value = "/bonificaciones-general", method = RequestMethod.GET)
-	public String redirectionalBonificacionesGeneral(Model model) {
-		Log.info("Entrando en redirectionalBonificacionesGeneral");
-		
-		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
-			model.addAttribute("item", current.getUsuario());
-		}
-		
-		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
-		
-		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
-		model.addAttribute("totalDepositos", rsp.getTotalDepositos());
-		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
-		model.addAttribute("totalBonificaciones", rsp.getTotalBonificaciones());
-		model.addAttribute("fecha", fecha);
-		
-		Log.info("Saliendo de redirectionalBonificacionesGeneral");
-		return "administrador/bonificaciones-general";
-	}
-	/*
-	@RequestMapping(value = "/bonificaciones-general/report", method = RequestMethod.GET)
-	public void reportBonificacionesGeneral(Model model, HttpServletResponse response) throws JRException, IOException {
-		Log.info("Entrando en bonificaciones-general report");
-		
-		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-general.jasper");
-	    Map<String,Object> params = new HashMap<>();
-		
-		BonificacionItem item = new BonificacionItem();
-		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
-
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
-		
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
-
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-		Log.info("Saliendo en bonificaciones-depositos report");
-	}
-	*/
-	
-	/*
-	 * FIN SECCION DE BONIFICACIONES
-	 */
 }

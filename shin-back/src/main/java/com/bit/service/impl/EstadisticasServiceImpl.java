@@ -77,6 +77,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 	public final static String dia = "d";
 	public final static String semana = "s";
 	public final static String mes = "m";
+	public final static String all = "all";
 	
 	@Override
 	@Transactional
@@ -106,7 +107,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		// Usuarios por mes
 		List<Item> usuariosMensuales = usuarioDAO.obtieneUsuariosPorMesYAnio(2020);
 		List<Item> listaUsuariosMensuales = new ArrayList<>();
-		initListaMensual(listaUsuariosMensuales, usuariosMensuales);
+		Utils.initListaMensual(listaUsuariosMensuales, usuariosMensuales);
 		rsp.setTotalUsuariosMes(listaUsuariosMensuales);
 		
 		// Usuarios por semana
@@ -142,7 +143,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			List<Item> listaTmpEscaneoTiendas = catalogoTiendaDAO.obtieneTotalEscaneosPorUsuarioTiendaMesAnio(item.getIdUsuario(), year,
 					t.getNombreTienda());
 			List<Item> listaEscaneoTiendas = new ArrayList<>();
-			initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
+			Utils.initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
 
 			Category c = new Category(t.getNombreTienda(), listaEscaneoTiendas);
 
@@ -159,31 +160,6 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		rsp.setListaTopDeptos(topDeptos);
 
 		return rsp;
-	}
-	
-	private void initListaSemanal( List<Item> list ) {
-		for (Item item : list) {
-			String range = Utils.getDateRangeFromWeek( item.getIndice() );
-			item.setTopico(range);
-		}
-	}
-	
-	private void initListaMensual(List<Item> list, List<Item> resultData) {
-		
-		//Se inicializa la lista con objetos Item, con los valores del mes
-		for( String mes : meses ) {
-			list.add( new Item(mes, BigInteger.valueOf(0)) );
-		}
-		
-		//Se busca el elemento en la lista que coincida con el valor del campo indice
-		//del resultData para asignar el total correspondiente
-		for( Item data : resultData ) {
-			Item i = list.get( data.getIndice() - 1 );
-			
-			if( null != i ) {
-				i.setTotal( data.getTotal() );
-			}
-		}
 	}
 
 	@Override
@@ -207,7 +183,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		// Usuarios por mes
 		List<Item> usuariosMensuales = usuarioDAO.obtieneUsuariosPorMesYAnio(2020);
 		List<Item> listaUsuariosMensuales = new ArrayList<>();
-		initListaMensual(listaUsuariosMensuales, usuariosMensuales);
+		Utils.initListaMensual(listaUsuariosMensuales, usuariosMensuales);
 		rsp.setTotalUsuariosMes(listaUsuariosMensuales);
 
 		// Usuarios por semana
@@ -225,7 +201,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		List<Item> ticketsPorMes = ticketDAO.obtieneTicketsPorMesAnio(year);
 		List<Item> listaTicketsMensuales = new ArrayList<>();
-		initEscaneosPorMes(listaTicketsMensuales, ticketsPorMes);
+		Utils.initEscaneosPorMes(listaTicketsMensuales, ticketsPorMes);
 		rsp.setTotalEscaneosMes(listaTicketsMensuales);
 		
 		//Productos escaneados
@@ -240,7 +216,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		List<Item> escaneosPorMes = productoDAO.obtieneTotalEscaneosProductosPorMesAnio(year, month);
 		List<Item> listaEscaneosMensuales = new ArrayList<>();
-		initEscaneosPorMes(listaEscaneosMensuales, escaneosPorMes);
+		Utils.initEscaneosPorMes(listaEscaneosMensuales, escaneosPorMes);
 		rsp.setTotalProductosEscaneadosMes(listaEscaneosMensuales);
 		
 		//Tiendas
@@ -249,7 +225,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		for( CatalogoTienda t : tiendas ) {
 			List<Item> listaTmpEscaneoTiendas = catalogoTiendaDAO.obtieneTotalEscaneosPorTiendaMesAnio(year, t.getNombreTienda());
 			List<Item> listaEscaneoTiendas = new ArrayList<>();
-			initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
+			Utils.initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
 			
 			Category c = new Category( t.getNombreTienda(), listaEscaneoTiendas );
 			
@@ -264,45 +240,6 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		
 		return rsp;
 	}
-	
-	private void initEscaneosPorMes(List<Item> list, List<Item> resultData) {
-		
-		//Se inicializa la lista con objetos Item, con los valores del mes
-		for( String mes : meses ) {
-			list.add( new Item(mes, BigInteger.valueOf(0)) );
-		}
-		
-		//Se busca el elemento en la lista que coincida con el valor del campo indice
-		//del resultData para asignar el total correspondiente
-		for( Item data : resultData ) {
-			Item i = list.get( data.getIndice() - 1 );
-			
-			if( null != i ) {
-				i.setTotal( data.getTotal() );
-			}
-		}
-	}
-
-	
-//	private void initEscaneosPorMes(List<Item> list, List<Item> resultData) {
-//		
-//		//Se inicializa la lista con objetos Item, con los valores del mes
-//		for( String mes : meses ) {
-//			list.add( new Item(mes, BigInteger.valueOf(0)) );
-//		}
-//		
-//		//Se busca el elemento en la lista que coincida con el valor del campo indice
-//		//del resultData para asignar el total correspondiente
-//		for( Item data : resultData ) {
-//			Item i = list.get( data.getIndice() - 1 );
-//			
-//			if( null != i ) {
-//				i.setTotal( data.getTotal() );
-//			}
-//			
-//		}
-//	}
-
 
 	@Override
 	@Transactional
@@ -334,7 +271,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		for( CatalogoTipoProducto d : deptos ) {
 			List<Item> listaTmpEscaneoDeptos = catalogoTipoProductoDAO.obtieneTotalEscaneosPorTiendaDepartamentoAnio(year, d.getNombreTipoProducto());
 			List<Item> listaEscaneoDeptos = new ArrayList<>();
-			initEscaneosPorMes(listaEscaneoDeptos, listaTmpEscaneoDeptos);
+			Utils.initEscaneosPorMes(listaEscaneoDeptos, listaTmpEscaneoDeptos);
 			
 			Category c = new Category( d.getNombreTipoProducto(), listaEscaneoDeptos );
 			
@@ -348,7 +285,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		for( CatalogoTienda t : tiendas ) {
 			List<Item> listaTmpEscaneoTiendas = catalogoTiendaDAO.obtieneTotalEscaneosPorTiendaMesAnio(year, t.getNombreTienda());
 			List<Item> listaEscaneoTiendas = new ArrayList<>();
-			initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
+			Utils.initEscaneosPorMes(listaEscaneoTiendas, listaTmpEscaneoTiendas);
 			
 			Category c = new Category( t.getNombreTienda(), listaEscaneoTiendas );
 			
@@ -386,7 +323,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		//Tickets por mes
 		List<Item> ticketsMensuales = ticketDAO.obtieneTicketsPorMesAnio(year);
 		List<Item> listaTicketsMensual = new ArrayList<>();
-		initEscaneosPorMes(listaTicketsMensual, ticketsMensuales);
+		Utils.initEscaneosPorMes(listaTicketsMensual, ticketsMensuales);
 		rsp.setTotalTicketsMes(listaTicketsMensual);
 		
 		//Tickets por semana
@@ -411,7 +348,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		//Tickets por tienda mes
 		List<Item> ticketsTiendaMesnuales = ticketDAO.obtieneTicketsPorTiendaMes(2020);
 		List<Item> listaTicketsTiendaMensual= new ArrayList<>();
-		initEscaneosPorMes(listaTicketsTiendaMensual, ticketsTiendaMesnuales);
+		Utils.initEscaneosPorMes(listaTicketsTiendaMensual, ticketsTiendaMesnuales);
 		rsp.setTotalTicketsTiendaMesHora(ticketsTiendaMesnuales);
 		
 		//Tickest por tienda semana
@@ -482,9 +419,9 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 
 	@Override
 	@Transactional
-	public List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo(BonificacionItem item) {
+	public List<BonificacionItem> obtieneDetalleHistoricoBonificacionesPorFechaYTipo(BonificacionItem item, Integer[] tipos) {
 		
-		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item);
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item, tipos);
 		
 		for (BonificacionItem i : list) {
 			i.setFechaFormateada( Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy") );
@@ -623,7 +560,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 				if( semana.equalsIgnoreCase( categoria ) ) {
 					List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, 
 							mediosWithoutRecarga);
-					initListaSemanal(list1);
+					Utils.initListaSemanal(list1);
 					rsp.setDepositos(list1);
 				}
 				
@@ -631,7 +568,24 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 					List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, 
 							mediosWithoutRecarga);
 					List<Item> listaMensual = new ArrayList<>();
-					initListaMensual(listaMensual, list1);
+					Utils.initListaMensual(listaMensual, list1);
+					rsp.setDepositos(listaMensual);
+				}
+				if( all.equalsIgnoreCase( categoria ) ) {
+					List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoDiaMesAnio(year, month, day, 
+							mediosWithoutRecarga);
+					rsp.setDepositos(list1);
+					
+					List<Item> list2 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, 
+							mediosWithoutRecarga);
+					Utils.initListaSemanal(list2);
+					rsp.setDepositos(list2);
+					
+					
+					List<Item> list3 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, 
+							mediosWithoutRecarga);
+					List<Item> listaMensual = new ArrayList<>();
+					Utils.initListaMensual(listaMensual, list3);
 					rsp.setDepositos(listaMensual);
 				}
 			}
@@ -644,7 +598,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 				
 				if( semana.equalsIgnoreCase( categoria ) ) {
 					List<Item> list1 =  historicoMediosBonificacionDAO.obtieneBonificacionesPorTipoSemanaMesAnio(year, month, mediosFull);
-					initListaSemanal(list1);
+					Utils.initListaSemanal(list1);
 					rsp.setBonificaciones(list1);
 				}
 				
@@ -664,14 +618,14 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 				
 				if( semana.equalsIgnoreCase( categoria ) ) {
 					List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoSemanaMesAnio(year, month, mediosOnlyRecarga);
-					initListaSemanal(list1);
+					Utils.initListaSemanal(list1);
 					rsp.setRecargas(list1);
 				}
 				
 				if( mes.equalsIgnoreCase( categoria ) ) {
 					List<Item> list1 =  historicoMediosBonificacionDAO.obtieneTotalBonificacionesPorTipoMesAnio(year, mediosOnlyRecarga);
 					List<Item> listaMensual = new ArrayList<>();
-					initListaMensual(listaMensual, list1);
+					Utils.initListaMensual(listaMensual, list1);
 					rsp.setRecargas(listaMensual);
 				}
 			}
@@ -723,9 +677,9 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		int month = now.getMonthValue();
 		int day = now.getDayOfMonth();
 		
-		year = 2020;
-		month = 1;
-		day = 28;
+//		year = 2020;
+//		month = 1;
+//		day = 28;
 		
 		//Agregar catalogo en BD
 		String[] companias = {"Telcel", "ATT&T"};
@@ -747,7 +701,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			for( String com : companias ) {
 				List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaSemanaMesAnio(year, month, com);
 				List<Item> listaEscaneoDeptos = new ArrayList<>();
-				initListaSemanal(listaTmpRecargas);
+				Utils.initListaSemanal(listaTmpRecargas);
 				Category c = new Category( com, listaTmpRecargas );
 				
 				list.add( c );
@@ -758,7 +712,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 			for( String com : companias ) {
 				List<Item> listaTmpRecargas = historicoMediosBonificacionDAO.obtieneRecargasPorCompaniaMesAnio(year, com);
 				List<Item> listaEscaneoDeptos = new ArrayList<>();
-				initEscaneosPorMes(listaEscaneoDeptos, listaTmpRecargas);
+				Utils.initEscaneosPorMes(listaEscaneoDeptos, listaTmpRecargas);
 				
 				Category c = new Category( com, listaEscaneoDeptos );
 				
