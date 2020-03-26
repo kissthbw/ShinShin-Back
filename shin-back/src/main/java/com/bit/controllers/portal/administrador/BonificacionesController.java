@@ -22,14 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bit.common.Utils;
 import com.bit.dao.CatalogoMediosBonificacionDAO.MedioBonificacionID;
 import com.bit.model.dto.BonificacionItem;
-import com.bit.model.dto.Item;
 import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.service.BonificacionesService;
 import com.bit.service.CSVExporter;
 import com.bit.service.EstadisticasService;
 import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.service.impl.CSVExporterImpl;
-import com.bit.service.impl.EstadisticasServiceImpl;
 
 import net.sf.jasperreports.engine.JRException;
 
@@ -75,22 +73,29 @@ public class BonificacionesController {
 		return "administrador/bonificaciones-depositos";
 	}
 	
+	//TODO: Agregar reporte general
 	@RequestMapping(value = "/bonificaciones-depositos/report", method = RequestMethod.GET)
 	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
-                "depositos.csv");
+                "recargas-general.csv");
         response.setHeader(headerKey, headerValue);
 		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
+
+		
+		List<List<Object>> rows = bonificacionesService.obtieneInfoReporteBonificacionesDepositosGeneral();
+
 		CSVExporter csv = new CSVExporterImpl();
 		
-		String [] headers = {"ID", "Nombre", "Cuenta"};
+		String [] headers = {"Dia", "Cantidad", "Compañia"};
 		
-		List<List<Object>> rows = new ArrayList<>();
-		rows.add( Arrays.asList( new Object[] { "1", "Juan Osorio", "2102" } ) );
-		rows.add( Arrays.asList( new Object[] { "2", "Paola Sanchez Pardo", "2102" } ) );
-		rows.add( Arrays.asList( new Object[] { "3", "Joshua Sanchez", "2102" } ) );
+		
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
 			
@@ -98,6 +103,9 @@ public class BonificacionesController {
 			e.printStackTrace();
 		}
 		
+		
+		
+		Log.info("Saliendo en bonificaciones-recargas report");
 	}
 	
 	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
@@ -199,31 +207,42 @@ public class BonificacionesController {
 		Log.info("Saliendo de redirectionalBonificacionesRecargas");
 		return "administrador/bonificaciones-recargas";
 	}
-	/*
+	
 	@RequestMapping(value = "/bonificaciones-recargas/report", method = RequestMethod.GET)
 	public void reportBonificacionesRecargas(Model model, HttpServletResponse response) throws JRException, IOException {
-		Log.info("Entrando en bonificaciones-recargas report");
+		log.info("Entrando en bonificaciones-recargas report");
 		
-		InputStream jasperStream = this.getClass().getResourceAsStream("bonificaciones-recargas.jasper");
-	    Map<String,Object> params = new HashMap<>();
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "recargas-general.csv");
+        response.setHeader(headerKey, headerValue);
 		
-		BonificacionItem item = new BonificacionItem();
-		item.setFechaFormateada( Utils.getCurrentFormatDate("yyyy-MM-dd") );
-
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
+		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
-		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		if ( null != current ) {
+			model.addAttribute("item", current.getUsuario());
+		}
 
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=bonificaciones-depositos.pdf");
+		
+		List<List<Object>> rows = bonificacionesService.obtieneInfoReporteRecargasGeneral();
 
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		CSVExporter csv = new CSVExporterImpl();
+		
+		String [] headers = {"Dia", "Cantidad", "Compañia"};
+		
+		
+		try {
+			csv.writeCSV(response.getWriter(), headers, rows);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 		Log.info("Saliendo en bonificaciones-recargas report");
 	}
-	*/
 	
 //	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
 //	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {

@@ -8,6 +8,7 @@ public class BonificacionItem {
 	private String id;
 	private BigInteger idTipo;
 	private String tipo;
+	private String company;
 	private Date fecha;
 	private Date hora;
 	private String fechaFormateada;
@@ -55,6 +56,14 @@ public class BonificacionItem {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	public Date getFecha() {

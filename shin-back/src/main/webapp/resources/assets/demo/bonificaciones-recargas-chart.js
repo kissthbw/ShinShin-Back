@@ -28,8 +28,8 @@ var chartBackgroundBorder = [
 	'rgba(250, 159, 64, 1)'
 ]
 
-var url = 'http://www.shingshing.com'
-//var url = 'http://localhost:8080/shin-back'
+//var url = 'http://www.shingshing.com'
+var url = 'http://localhost:8080/shin-back'
 	
 var bonificaciones_recargas = {
 		
@@ -153,7 +153,7 @@ var bonificaciones_recargas = {
 							depositosLabel.push(item.topico)
 						}
 						else if( categoria == 's' ) {
-							depositosLabel.push(item.topico)
+							depositosLabel.push("S " + item.indice)
 						}
 						else{
 							depositosLabel.push("D " + item.indice)
@@ -170,7 +170,7 @@ var bonificaciones_recargas = {
 							depositosLabel.push(item.topico)
 						}
 						else if( categoria == 's' ) {
-							depositosLabel.push(item.topico)
+							depositosLabel.push("S " + item.indice)
 						}
 						else{
 							depositosLabel.push("D " + item.indice)
@@ -186,7 +186,7 @@ var bonificaciones_recargas = {
 							depositosLabel.push(item.topico)
 						}
 						else if( categoria == 's' ) {
-							depositosLabel.push(item.topico)
+							depositosLabel.push("S " + item.indice)
 						}
 						else{
 							depositosLabel.push("D " + item.indice)
@@ -245,7 +245,7 @@ var bonificaciones_recargas = {
 						
 						$.each(tienda.items, function(i, t){
 							tiendasData.push( t.total )
-							label.push( t.topico )
+							label.push( "S " + t.indice )
 						});
 						
 						var tmpDataset = {

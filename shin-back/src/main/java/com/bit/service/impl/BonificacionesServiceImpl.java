@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.common.Utils;
 import com.bit.dao.CatalogoMediosBonificacionDAO.MedioBonificacionID;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
+import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.Item;
 import com.bit.service.BonificacionesService;
 
@@ -75,5 +76,39 @@ public class BonificacionesServiceImpl implements BonificacionesService {
 		
 		return rows;
 	}
+	
+	@Override
+	@Transactional
+	public List<List<Object>> obtieneInfoReporteBonificacionesDepositosGeneral() {
+		List<List<Object>> rows = new ArrayList<>();
+		
+		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesDepositosGeneral();
+		for( BonificacionItem i : list ) {
+//			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
+			rows.add( Arrays.asList( new Object[] { Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy"), 
+					i.getSolicitudes(),
+					i.getCompany()} ) );
+		}
 
+		
+		return rows;
+	}
+
+	@Override
+	@Transactional
+	public List<List<Object>> obtieneInfoReporteRecargasGeneral() {
+		
+		List<List<Object>> rows = new ArrayList<>();
+		
+		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesRecargasGeneral();
+		for( BonificacionItem i : list ) {
+//			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
+			rows.add( Arrays.asList( new Object[] { Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy"), 
+					i.getSolicitudes(),
+					i.getCompany()} ) );
+		}
+
+		
+		return rows;
+	}
 }

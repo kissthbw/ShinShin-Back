@@ -75,6 +75,72 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<BonificacionItem> obtieneBonificacionesDepositosGeneral(){
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("     c.nombre_medio_bonificacion AS tipo,");
+		sql.append("     m.compania_medio_bonificacion AS company,");
+		sql.append("     h.fecha_bonificacion AS fecha,");
+		sql.append("     h.cantidad_bonificacion AS importe,");
+		sql.append("     h.id_historico_medios_bonificacion AS solicitudes,");
+		sql.append("     h.usuario_id_usuario AS idUsuario");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+//		sql.append(" -- WHERE h.fecha_bonificacion = '2020-01-28'");
+		sql.append("    AND c.id_catalogo_medio_bonificacion IN (1, 2, 3)");
+		sql.append(" ORDER BY h.id_historico_medios_bonificacion DESC");
+
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
+				.addScalar("tipo", StandardBasicTypes.STRING)
+				.addScalar("company", StandardBasicTypes.STRING)
+				.addScalar("fecha", StandardBasicTypes.DATE)
+				.addScalar("importe", StandardBasicTypes.DOUBLE)
+				.addScalar("solicitudes", StandardBasicTypes.BIG_INTEGER)
+				.setResultTransformer( (Transformers.aliasToBean(BonificacionItem.class)) );
+		
+		List<BonificacionItem> list = q.list();
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<BonificacionItem> obtieneBonificacionesRecargasGeneral(){
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("     c.nombre_medio_bonificacion AS tipo,");
+		sql.append("     m.compania_medio_bonificacion AS company,");
+		sql.append("     h.fecha_bonificacion AS fecha,");
+		sql.append("     h.cantidad_bonificacion AS importe,");
+		sql.append("     h.id_historico_medios_bonificacion AS solicitudes,");
+		sql.append("     h.usuario_id_usuario AS idUsuario");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+//		sql.append(" -- WHERE h.fecha_bonificacion = '2020-01-28'");
+//		sql.append(" -- AND c.id_catalogo_medio_bonificacion = 3");
+		sql.append(" ORDER BY h.id_historico_medios_bonificacion DESC");
+
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
+				.addScalar("tipo", StandardBasicTypes.STRING)
+				.addScalar("company", StandardBasicTypes.STRING)
+				.addScalar("fecha", StandardBasicTypes.DATE)
+				.addScalar("importe", StandardBasicTypes.DOUBLE)
+				.addScalar("solicitudes", StandardBasicTypes.BIG_INTEGER)
+				.setResultTransformer( (Transformers.aliasToBean(BonificacionItem.class)) );
+		
+		List<BonificacionItem> list = q.list();
+		
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<BonificacionItem> obtieneHistoricoBonificacionesPorTipo( Integer[] tipos ){
 		
 		StringBuilder sql = new StringBuilder();
