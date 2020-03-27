@@ -93,8 +93,7 @@ public class BonificacionesController {
 
 		CSVExporter csv = new CSVExporterImpl();
 		
-		String [] headers = {"Dia", "Cantidad", "Compañia"};
-		
+		String [] headers = {"Dia", "Cantidad", "Compañia", "Tipo"};
 		
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
@@ -346,14 +345,14 @@ public class BonificacionesController {
 		return "administrador/bonificaciones-general";
 	}
 	
-	@RequestMapping(value = "/bonificaciones-general/report/{tipo}", method = RequestMethod.GET)
-	public void reportBonificacionesGeneral(Model model, HttpServletResponse response, @PathVariable String tipo) throws JRException, IOException {
+	@RequestMapping(value = "/bonificaciones-general/report", method = RequestMethod.GET)
+	public void reportBonificacionesGeneral(Model model, HttpServletResponse response) throws JRException, IOException {
 		log.info("Entrando a obtieneReporteDepositosDetalle");
 		
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
-                "depositos-general" + tipo + ".csv");
+                "depositos-general.csv");
         response.setHeader(headerKey, headerValue);
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
@@ -363,8 +362,8 @@ public class BonificacionesController {
 		}
 		
 		
-		String [] headers = {"", ""};
-		List<List<Object>> rows = bonificacionesService.obtieneReporteDepositosGeneral();
+		String [] headers = {"Dia", "Cantidad", "Compañia", "Tipo"};
+		List<List<Object>> rows = bonificacionesService.obtieneInfoReporteBonificacionesDepositosGeneral();
 
 		CSVExporter csv = new CSVExporterImpl();
 		
