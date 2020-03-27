@@ -521,9 +521,9 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		int month = now.getMonthValue();
 		int day = now.getDayOfMonth();
 		
-		year = 2020;
-		month = 1;
-		day = 28;
+//		year = 2020;
+//		month = 1;
+//		day = 28;
 		
 		if ( null == tipo && null == categoria ) {
 			BigInteger totalDepositos = historicoMediosBonificacionDAO.obtieneTotalDepositos();

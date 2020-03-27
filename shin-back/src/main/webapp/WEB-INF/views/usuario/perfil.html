@@ -6,7 +6,7 @@
 	<meta charset="utf-8" />
 	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing-Shing - Retiros</title>
+	<title>Shing-Shing - Lista Medios Bonificacion</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
 	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -43,11 +43,11 @@
       <div class="sidebar-wrapper">
         <div class="user">
           <div class="photo">
-            <img th:src="${item.usuario.imgUrl} ? ${item.usuario.imgUrl} : ''" alt="..."></img>
+            <img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="..."></img>
           </div>
           <div class="info">
-            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-              <span  th:text="${item.usuario.nombre}">
+            <a data-toggle="collapse" th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
+              <span  th:text="${info.usuario.nombre}">
                 <!-- User -->
                 <b class="caret"></b>
               </span>
@@ -55,53 +55,72 @@
             <div class="clearfix"></div>
           </div>
         </div>
-			
+
 		<!-- MENU -->
 		<ul class="nav">
-          <li>
-            <a th:href="@{/portal-usuario/dashboard}">
-              <i class="nc-icon nc-bank"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <!-- Las opciones del menu debe ir entre <li></li> -->
-          
-          <li>
-            <a data-toggle="collapse" href="#historial" aria-expanded="true">
-              <i class="nc-icon nc-ruler-pencil"></i>
-              <p>
-                Historial
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse show" id="historial">
-              <ul class="nav">
-                <li>
-                	<!--  -->
-                  <a th:href="@{/portal-usuario/dashboard/tickets}">
-                    <span class="sidebar-mini-icon">·</span>
-                    <span class="sidebar-normal"> Tickets </span>
-                  </a>
-                </li>
-                <li class="active">
-                  <a th:href="@{/portal-usuario/dashboard/retiros}">
-                    <span class="sidebar-mini-icon">·</span>
-                    <span class="sidebar-normal"> Retiros </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/portal-usuario/dashboard/cuentas}">
-                    <span class="sidebar-mini-icon">·</span>
-                    <span class="sidebar-normal"> Cuentas </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-				
-				<!-- TERMINA MENU -->
-			</div>
+			<li >
+				<a th:href="@{/portal-usuario/dashboard}">
+					<i class="nc-icon nc-bank"></i>
+					<p>Dashboard</p>
+				</a>
+			</li>
+			<!-- Las opciones del menu debe ir entre <li></li> -->
+
+			<!-- Perfil -->
+			<li class="active">
+				<a data-toggle="collapse" href="#perfil"> <i
+					class="nc-icon nc-ruler-pencil"></i>
+					<p>
+						Perfil <b class="caret"></b>
+					</p>
+				</a>
+				<div class="collapse show" id="perfil">
+					<ul class="nav">
+						<li class="active"> 
+							<a th:href="@{/portal-usuario/dashboard/perfil}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Editar perfil </span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+
+			<li >
+				<a data-toggle="collapse" href="#historial"> <i
+					class="nc-icon nc-ruler-pencil"></i>
+					<p>
+						Historial <b class="caret"></b>
+					</p>
+				</a>
+				<div class="collapse" id="historial">
+					<ul class="nav">
+						<li>
+							<a th:href="@{/portal-usuario/dashboard/tickets}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Tickets </span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/portal-usuario/dashboard/retiros}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Retiros </span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/portal-usuario/dashboard/cuentas}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Cuentas </span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+
+		<!-- TERMINA MENU -->	
+		
+		</div>
 		</div>
 			
 			
@@ -158,54 +177,34 @@
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Historial de retiros</h4>
-							</div>
-							<div class="card-body">
-								<div class="toolbar">
-									<!--        Here you can write extra buttons/actions for the toolbar              -->
+						
+						<form id="FormID" class="form-horizontal" method="post" th:object="${item}" enctype="multipart/form-data">
+						
+							<div class="card ">
+								<div class="card-header ">
+									<h4 class="card-title">Perfil</h4>
 								</div>
-								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Fecha</th>
-											<th>Cantidad</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Fecha</th>
-											<th>Cantidad</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</tfoot>
-									<tbody>
-										<th:block th:each="item : ${items}">
-											<tr>
-												<td th:text="${item.idHistoricoMediosBonificacion}"></td>
-												<td th:text="${item.fechaBonificacion}"></td>
-												<td th:text="${item.cantidadBonificacion}"></td>
-												<td class="text-center">
-													<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
-														<i class="fa fa-edit"></i>
-													</a>
-												</td>
-											</tr>
-										</th:block>
-									</tbody>
-								</table>
+								
+								<div class="card-body ">
+									<div class="row">
+										<label class="col-sm-2 col-form-label">Nombre</label>
+										<div class="col-sm-7">
+											<div class="form-group">
+												<input class="form-control" type="text" th:field="*{nombre}" required="true" />
+											</div>
+										</div>
+										<label class="card-sm-3 Label-on-right">
+											<code>*</code>
+										</label>
+									</div>
+								</div>
+								
 							</div>
-							<!-- end content-->
-						</div>
-						<!--  end card  -->
+						
+						</form>
+						
 					</div>
-					<!-- end col-md-12 -->
 				</div>
-				<!-- end row -->
 			</div>
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">

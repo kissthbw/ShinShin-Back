@@ -58,7 +58,26 @@ public class UserDashboardController {
 		
 		
 		
-		return "user_dashboard";
+		return "usuario/user_dashboard";
+	}
+	
+	@GetMapping(value="/dashboard/perfil")
+	public String obtienePerfil(Model model) {
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			
+			model.addAttribute("info", info);
+			model.addAttribute("item", item);
+		}
+		
+		
+		return "usuario/perfil";
 	}
 	
 	@GetMapping(value="/dashboard/tickets")
@@ -76,7 +95,7 @@ public class UserDashboardController {
 			model.addAttribute("items", rsp.getTickets());
 		}
 		
-		return "tickets";
+		return "usuario/tickets";
 	}
 	
 	@GetMapping(value="/dashboard/retiros")
@@ -94,7 +113,7 @@ public class UserDashboardController {
 			model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
 		}
 		
-		return "retiros";
+		return "usuario/retiros";
 	}
 	
 	@GetMapping(value="/dashboard/cuentas")
@@ -119,7 +138,7 @@ public class UserDashboardController {
 		}
 		
 		
-		return "cuentas";
+		return "usuario/cuentas";
 	}
 	
 	private UsuarioShingShingDetailService getAuthenticationUser() {

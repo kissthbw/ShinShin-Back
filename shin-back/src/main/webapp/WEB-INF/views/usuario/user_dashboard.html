@@ -59,52 +59,70 @@
             
           </div>
         </div>
-        
-        <!-- MENU -->
-        <ul class="nav">
-          <li class="active">
-          	<a th:href="@{/portal-usuario/dashboard}">
-              <i class="nc-icon nc-bank"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-          <!-- Las opciones del menu debe ir entre <li></li> -->
-          
-          <li>
-            <a data-toggle="collapse" href="#historial">
-              <i class="nc-icon nc-ruler-pencil"></i>
-              <p>
-                Historial
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="historial">
-              <ul class="nav">
-                <li>
-                	<!--  -->
-                  <a th:href="@{/portal-usuario/dashboard/tickets}">
-                    <span class="sidebar-mini-icon">·</span>
-                    <span class="sidebar-normal"> Tickets </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/portal-usuario/dashboard/retiros}">
-                    <span class="sidebar-mini-icon">·</span>
-                    <span class="sidebar-normal"> Retiros </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/portal-usuario/dashboard/cuentas}">
-                    <span class="sidebar-mini-icon">·</span>
-                    <span class="sidebar-normal"> Cuentas </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      
-      	<!-- TERMINA MENU -->
+
+		<!-- MENU -->
+		<ul class="nav">
+			<li class="active">
+				<a th:href="@{/portal-usuario/dashboard}">
+					<i class="nc-icon nc-bank"></i>
+					<p>Dashboard</p>
+				</a>
+			</li>
+			<!-- Las opciones del menu debe ir entre <li></li> -->
+
+			<!-- Perfil -->
+			<li>
+				<a data-toggle="collapse" href="#perfil"> <i
+					class="nc-icon nc-ruler-pencil"></i>
+					<p>
+						Perfil <b class="caret"></b>
+					</p>
+				</a>
+				<div class="collapse " id="perfil">
+					<ul class="nav">
+						<li> 
+							<a th:href="@{/portal-usuario/dashboard/perfil}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Editar perfil </span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+
+			<li>
+				<a data-toggle="collapse" href="#historial"> <i
+					class="nc-icon nc-ruler-pencil"></i>
+					<p>
+						Historial <b class="caret"></b>
+					</p>
+				</a>
+				<div class="collapse " id="historial">
+					<ul class="nav">
+						<li>
+							<a th:href="@{/portal-usuario/dashboard/tickets}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Tickets </span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/portal-usuario/dashboard/retiros}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Retiros </span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/portal-usuario/dashboard/cuentas}">
+								<span class="sidebar-mini-icon">·</span> <span
+								class="sidebar-normal"> Cuentas </span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+
+		<!-- TERMINA MENU -->
       </div>
     </div>
     
