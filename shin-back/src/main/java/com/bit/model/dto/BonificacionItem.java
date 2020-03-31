@@ -6,7 +6,7 @@ import java.util.Date;
 public class BonificacionItem {
 
 	private String id;
-	private BigInteger idTipo;
+	private Integer idTipo;
 	private String tipo;
 	private String company;
 	private Date fecha;
@@ -21,7 +21,7 @@ public class BonificacionItem {
 	public BonificacionItem() {
 	}
 
-	public BonificacionItem(String id, BigInteger idTipo, String tipo, Date fecha, Date hora, BigInteger solicitudes,
+	public BonificacionItem(String id, Integer idTipo, String tipo, Date fecha, Date hora, BigInteger solicitudes,
 			Double importe, Integer idUsuario) {
 		super();
 		this.id = id;
@@ -42,11 +42,11 @@ public class BonificacionItem {
 		this.id = id;
 	}
 
-	public BigInteger getIdTipo() {
+	public Integer getIdTipo() {
 		return idTipo;
 	}
 
-	public void setIdTipo(BigInteger idTipo) {
+	public void setIdTipo(Integer idTipo) {
 		this.idTipo = idTipo;
 	}
 

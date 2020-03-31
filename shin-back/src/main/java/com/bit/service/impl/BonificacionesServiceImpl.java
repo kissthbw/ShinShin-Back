@@ -35,16 +35,30 @@ public class BonificacionesServiceImpl implements BonificacionesService {
 	
 	@Override
 	@Transactional
+	/*
+	 * Reporte de la pagina: bonificaciones-depositos
+	 */
 	public List<List<Object>> obtieneInfoReporteBonificacionesDepositosGeneral() {
 		List<List<Object>> rows = new ArrayList<>();
 		
-		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesDepositosGeneral();
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones( null );
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		for (BonificacionItem b : list) {
+			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd-MMM-yyyy") );
+			b.setImporteFormateado( Utils.formatNumeros(b.getImporte(), "$###,###,###.00") );
+		}
+		
+		
+//		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesDepositosGeneral();
 		for( BonificacionItem i : list ) {
-//			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
-			rows.add( Arrays.asList( new Object[] { Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy"), 
+			rows.add( Arrays.asList( new Object[] {
+					i.getTipo(),
+					i.getFechaFormateada(), 
 					i.getSolicitudes(),
-					i.getCompany(),
-					i.getTipo()} ) );
+					i.getImporteFormateado()
+					} ) );
 		}
 
 		
@@ -55,14 +69,26 @@ public class BonificacionesServiceImpl implements BonificacionesService {
 	@Transactional
 	public List<List<Object>> obtieneInfoReporteRecargasGeneral() {
 		
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificacionesPorTipo( new Integer[] { MedioBonificacionID.RECARGA.value() } );
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		for (BonificacionItem item : list) {
+			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
+			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
+		}
+		
+		
 		List<List<Object>> rows = new ArrayList<>();
 		
-		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesRecargasGeneral();
+//		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesRecargasGeneral();
 		for( BonificacionItem i : list ) {
 //			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
-			rows.add( Arrays.asList( new Object[] { Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy"), 
+			rows.add( Arrays.asList( new Object[] { 
+					i.getFechaFormateada(), 
 					i.getSolicitudes(),
-					i.getCompany()} ) );
+					i.getImporteFormateado()
+			} ) );
 		}
 
 		

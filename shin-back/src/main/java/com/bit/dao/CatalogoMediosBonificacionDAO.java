@@ -14,15 +14,28 @@ public class CatalogoMediosBonificacionDAO extends DAOTemplate<CatalogoMediosBon
 	private static final long serialVersionUID = 3628640656482549065L;
 	
 	public enum MedioBonificacionID{
-		BANCARIA(1), PAYPAL(2), RECARGA(3);
-		private int id;
+		BANCARIA(1, "BA"), PAYPAL(2, "PP"), RECARGA(3, "RT"), DESCONOCIDO(0, "");
+		private Integer id;
+		private String code;
 		
-		MedioBonificacionID( int id ) {
+		MedioBonificacionID( int id, String code ) {
 			this.id = id;
+			this.code = code;
 		}
 		
 		public int value() {
 			return id;
+		}
+		
+		public String code() {
+			return code;
+		}
+		
+		public static String getById(int id) {
+		    for(MedioBonificacionID e : values()) {
+		        if(e.id.equals(id)) return e.code();
+		    }
+		    return DESCONOCIDO.code();
 		}
 	}
 

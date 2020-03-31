@@ -79,7 +79,7 @@ public class BonificacionesController {
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
-                "recargas-general.csv");
+                "bonificaciones-depositos.csv");
         response.setHeader(headerKey, headerValue);
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
@@ -93,7 +93,7 @@ public class BonificacionesController {
 
 		CSVExporter csv = new CSVExporterImpl();
 		
-		String [] headers = {"Dia", "Cantidad", "Compañia", "Tipo"};
+		String [] headers = {"Tipo", "Fecha", "Solicitudes", "Importe"};
 		
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
@@ -143,11 +143,17 @@ public class BonificacionesController {
 	public void obtieneReporteDepositosDetalle(Model model, HttpServletResponse response, @PathVariable String fecha) {
 		
 		log.info("Entrando a obtieneReporteDepositosDetalle");
+		String fileName = "depositos-";
+		int p = fecha.indexOf("fn");
+		if( p >= 0 ) {
+			fileName = fecha.substring( (p + 2), fecha.length());
+			fecha = fecha.substring(0, p);
+		}
 		
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
-                "depositos-" + fecha + ".csv");
+                fileName + ".csv");
         response.setHeader(headerKey, headerValue);
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
@@ -198,7 +204,7 @@ public class BonificacionesController {
 		EstadisticasBonificacionRSP rsp = estadisticasService.obtieneBonificacionesGenerales(null, null);
 		model.addAttribute("totalRecargas", rsp.getTotalRecargas());
 		
-		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] {3} );
+		List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificacionesPorTipo( new Integer[] { MedioBonificacionID.RECARGA.value() } );
 		model.addAttribute("list", list);
 		
 		model.addAttribute("fecha", fecha);
@@ -283,10 +289,17 @@ public class BonificacionesController {
 		
 		log.info("Entrando a obtieneReporteDepositosDetalle");
 		
+		String fileName = "recargas-";
+		int p = fecha.indexOf("fn");
+		if( p >= 0 ) {
+			fileName = fecha.substring( (p + 2), fecha.length());
+			fecha = fecha.substring(0, p);
+		}
+		
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
-                "recargas-" + fecha + ".csv");
+                fileName + ".csv");
         response.setHeader(headerKey, headerValue);
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
@@ -362,7 +375,7 @@ public class BonificacionesController {
 		}
 		
 		
-		String [] headers = {"Dia", "Cantidad", "Compañia", "Tipo"};
+		String [] headers = {"Tipo", "Fecha", "Solicitudes", "Importe"};
 		List<List<Object>> rows = bonificacionesService.obtieneInfoReporteBonificacionesDepositosGeneral();
 
 		CSVExporter csv = new CSVExporterImpl();

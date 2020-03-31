@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bit.model.MediosBonificacion;
+import com.bit.model.Producto;
 import com.bit.model.Usuario;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
@@ -139,6 +140,66 @@ public class UserDashboardController {
 		
 		
 		return "usuario/cuentas";
+	}
+	
+	/*
+	 * SECCION DE RETIROS
+	 */
+	@GetMapping(value="/dashboard/retiro-bancario")
+	public String getRetiroBancario(Model model) {
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			
+			model.addAttribute("info", info);
+			model.addAttribute("item", new Producto());
+		}
+		
+		
+		return "usuario/retiro-bancario";
+	}
+	
+	@GetMapping(value="/dashboard/retiro-paypal")
+	public String getRetiroPayPal(Model model) {
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			
+			model.addAttribute("info", info);
+			model.addAttribute("item", new Producto());
+		}
+		
+		
+		return "usuario/retiro-paypal";
+	}
+	
+	@GetMapping(value="/dashboard/retiro-telefonico")
+	public String getRetiroTelefonico(Model model) {
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			
+			model.addAttribute("info", info);
+			model.addAttribute("item", new Producto());
+		}
+		
+		
+		return "usuario/retiro-telefonico";
 	}
 	
 	private UsuarioShingShingDetailService getAuthenticationUser() {

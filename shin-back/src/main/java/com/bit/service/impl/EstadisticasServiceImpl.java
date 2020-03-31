@@ -411,6 +411,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		for (BonificacionItem b : list) {
 			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd-MMM-yyyy") );
 			b.setImporteFormateado( Utils.formatNumeros(b.getImporte(), "$###,###,###.00") );
+			b.setId( "R-" + MedioBonificacionID.getById( b.getIdTipo() ) + "-" + Utils.formatDateToString(b.getFecha(), "ddMMyyyy") );
 		}
 		
 		return list;
@@ -662,6 +663,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		for (BonificacionItem item : list) {
 			item.setFechaFormateada( Utils.formatDateToString(item.getFecha(), "dd-MMM-yyyy") );
 			item.setImporteFormateado( Utils.formatNumeros(item.getImporte(), "$###,###,###.00") );
+			item.setId( "RT-" + MedioBonificacionID.getById( item.getIdTipo() ) + "-" + Utils.formatDateToString(item.getFecha(), "ddMMyyyy") );
 		}
 		
 		return list;

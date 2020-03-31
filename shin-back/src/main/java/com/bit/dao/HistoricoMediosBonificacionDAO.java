@@ -48,6 +48,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT ");
 		sql.append("     c.nombre_medio_bonificacion AS tipo,");
+		sql.append("     c.id_catalogo_medio_bonificacion AS idTipo,");
 		sql.append("     h.fecha_bonificacion AS fecha,");
 		sql.append("     SUM(h.cantidad_bonificacion) AS importe,");
 		sql.append("     COUNT(h.id_historico_medios_bonificacion) AS solicitudes");
@@ -60,7 +61,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 			sql.append( " WHERE h.fecha_bonificacion = :year " );
 		}
 		
-		sql.append(" GROUP BY tipo, fecha;");
+		sql.append(" GROUP BY tipo, idTipo, fecha;");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(BonificacionItem.class)) );
@@ -147,6 +148,7 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		
 		sql.append(" SELECT ");
 		sql.append("     c.nombre_medio_bonificacion AS tipo,");
+		sql.append("     c.id_catalogo_medio_bonificacion AS idTipo,");
 		sql.append("     h.fecha_bonificacion AS fecha,");
 		sql.append("     SUM(h.cantidad_bonificacion) AS importe,");
 		sql.append("     COUNT(h.id_historico_medios_bonificacion) AS solicitudes");

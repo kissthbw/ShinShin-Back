@@ -295,7 +295,7 @@ public class UsuarioAdministrationController {
 		BonificacionItem item = new BonificacionItem();
 		//Estos valores deben ser tomados del URL como QueryParams
 		item.setFechaFormateada("2020-01-28");
-		item.setIdTipo( BigInteger.valueOf( 3 ) );
+		item.setIdTipo( Integer.valueOf( 3 ) );
 		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item,
 				new Integer[] {MedioBonificacionID.BANCARIA.value(), MedioBonificacionID.PAYPAL.value(), MedioBonificacionID.RECARGA.value()});
 		model.addAttribute("list", list);
@@ -328,7 +328,7 @@ public class UsuarioAdministrationController {
 		BonificacionItem item = new BonificacionItem();
 		//Estos valores deben ser tomados del URL como QueryParams
 		item.setFechaFormateada("2020-01-28");
-		item.setIdTipo( BigInteger.valueOf( 3 ) );
+		item.setIdTipo( Integer.valueOf( 3 ) );
 		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item,
 				new Integer[] {MedioBonificacionID.BANCARIA.value(), MedioBonificacionID.PAYPAL.value(), MedioBonificacionID.RECARGA.value()});
 		model.addAttribute("list", list);
