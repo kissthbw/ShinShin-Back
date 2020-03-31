@@ -311,8 +311,8 @@
 										<div class="col-sm-7">
 											<div class="form-group">
 												<select class="form-control" th:field="*{banner}" >
-													<option value="1">Básico</option>
-													<option value="0">Popular</option>
+													<option value="0">Básico</option>
+													<option value="1">Popular</option>
 													<option value="0">Principal</option>
 												</select>
 											</div>
@@ -323,7 +323,7 @@
 										<label class="col-sm-2 col-form-label">Color de Banner</label>
 										<div class="col-sm-7">
 											<div id="demo" class="input-group">
-												<input class="form-control input-lg" type="text" data-color="rgb(241, 138, 49)" th:field="*{colorBanner}" />
+												<input class="form-control input-lg" type="text" th:field="*{colorBanner}" />
 												<span class="input-group-append">
     												<span class="input-group-text colorpicker-input-addon"><i></i></span>
   												</span>
@@ -418,7 +418,7 @@
 									</div>
 
 									<div class="card-footer text-center">
-
+									<button onclick="cancel()" class="btn btn-secundary" role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
 									<button onclick="del()"
 									class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
 									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
@@ -436,6 +436,32 @@
 				</div>
 			</div>
 			<!-- Modal -->
+			
+<!-- Modal -->
+			<div class="modal fade right" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document" >
+			    <div class="modal-content" style="border-radius:20px;">
+			      <div class="modal-body" style="text-align:center;">
+			        <h1>
+			         <i class="fa fa-bell-o" aria-hidden="true"></i>
+			        </h1>
+			        <h3>
+			          Aún no agregas el producto
+			        </h3>
+			        <p>
+			          ¿Seguro que quieres salir de aqui?
+			        </p>
+			      </div>
+			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+			        <a class="btn btn-primary" th:href="@{/portal-administrador/producto/list}">Si, Salir</a>
+			        <br></br>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- Modal -->
+			
 			<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document" >
 			    <div class="modal-content" style="border-radius:20px;">
@@ -527,7 +553,20 @@
 	<script>
 	  //<![CDATA[
 	document.getElementById("TypeValidation").addEventListener("submit", submit);
+	$(window).on("load",function(){
 	
+		var URLactual = window.location;
+		//alert(URLactual);
+		if(String(URLactual).indexOf("save")==-1){
+			document.getElementById("Cancelar").style.display="none";
+		}else{
+			document.getElementById("Eliminar").style.display="none";
+		}
+		
+	});
+	function cancel(){
+		$("#modalCancel").modal();
+	}
 	function submit(e) {
 		// Cancelams el envio a la espera de que valide el formulario
 		e.preventDefault();
@@ -619,8 +658,12 @@
 		});
 
 		$(function () {
+			var color=$("#colorBanner").val();
+			color=color.replace("rgb(","");
+			color=color.replace(")","");
 		    $('#demo').colorpicker({
-		      useAlpha: false
+		      useAlpha: false,
+		      color: color
 		    });
 		  });
 		//]]>

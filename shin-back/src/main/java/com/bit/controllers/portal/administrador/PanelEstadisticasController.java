@@ -38,47 +38,47 @@ public class PanelEstadisticasController {
 	@Autowired
 	private ReportService reportService;
 
-//	@RequestMapping(value = "/bonificaciones-general/report", method = RequestMethod.GET)
-//	@ResponseBody
-//	public void getBonificacionesGeneralReport(Model model, HttpServletResponse response) throws JRException, IOException {
-//		InputStream jasperStream = this.getClass().getResourceAsStream("/Bonificaciones-general.jasper");
-//	    Map<String,Object> params = new HashMap<>();
-//	    
+	@RequestMapping(value = "/bonificaciones-general/reporte", method = RequestMethod.GET)
+	@ResponseBody
+	public void getBonificacionesGeneralReport(Model model, HttpServletResponse response) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Bonificaciones-general.jasper");
+	    Map<String,Object> params = new HashMap<>();
+	    
+	    List<Item> list = reportService.getBonificacionesGeneralInfo();
+	    
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Bonificaciones-general.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+		
+	}
+	/*
+	@RequestMapping(value = "/bonificaciones-recargas/report", method = RequestMethod.GET)
+	@ResponseBody
+	public void getBonificacionesRecargasReport(Model model, HttpServletResponse response) throws JRException, IOException {
+		InputStream jasperStream = this.getClass().getResourceAsStream("/Bonificaciones-recargas.jasper");
+	    Map<String,Object> params = new HashMap<>();
+	    
 //	    List<Item> list = reportService.getBonificacionesGeneralInfo();
-//	    
-//	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-//	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-//	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-//
-//	    response.setContentType("application/x-pdf");
-//	    response.setHeader("Content-disposition", "inline; filename=Bonificaciones-general.pdf");
-//
-//	    final OutputStream outStream = response.getOutputStream();
-//	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-//		
-//	}
-	
-//	@RequestMapping(value = "/bonificaciones-recargas/report", method = RequestMethod.GET)
-//	@ResponseBody
-//	public void getBonificacionesRecargasReport(Model model, HttpServletResponse response) throws JRException, IOException {
-//		InputStream jasperStream = this.getClass().getResourceAsStream("/Bonificaciones-recargas.jasper");
-//	    Map<String,Object> params = new HashMap<>();
-//	    
-////	    List<Item> list = reportService.getBonificacionesGeneralInfo();
-//	    Map<String, List<Item>> result = reportService.getBonificacionesRecargasInfo();
-//	    
-//	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-//	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource( result.get("Recargas") );
-////	    JRBeanCollectionDataSource dataSource2 = new JRBeanCollectionDataSource( result.get("Companias") );
-//	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-////	    JasperPrint jasperPrint2 = JasperFillManager.fillReport(jasperReport, params, dataSource2);
-//
-//	    response.setContentType("application/x-pdf");
-//	    response.setHeader("Content-disposition", "inline; filename=Bonificaciones-recargas.pdf");
-////	    response.setHeader("Content-disposition", "inline; filename=Bonificaciones-companias.pdf");
-//
-//	    final OutputStream outStream = response.getOutputStream();
-//	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-////	    JasperExportManager.exportReportToPdfStream(jasperPrint2, outStream);
-//	}
+	    Map<String, List<Item>> result = reportService.getBonificacionesRecargasInfo();
+	    
+	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource( result.get("Recargas") );
+//	    JRBeanCollectionDataSource dataSource2 = new JRBeanCollectionDataSource( result.get("Companias") );
+	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+//	    JasperPrint jasperPrint2 = JasperFillManager.fillReport(jasperReport, params, dataSource2);
+
+	    response.setContentType("application/x-pdf");
+	    response.setHeader("Content-disposition", "inline; filename=Bonificaciones-recargas.pdf");
+//	    response.setHeader("Content-disposition", "inline; filename=Bonificaciones-companias.pdf");
+
+	    final OutputStream outStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+//	    JasperExportManager.exportReportToPdfStream(jasperPrint2, outStream);
+	}*/
 }

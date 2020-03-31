@@ -44,7 +44,7 @@ var estadisticas_tickets = {
 				var ticketsMesData = [], label = [];
 				var ticketsTiendaData = [], ticketsTiendaLabel = [];
 
-				$.each(result.totalTicketsMes, function(index, item) {
+				$.each(result.totalTicketsDia, function(index, item) {
 					ticketsMesData.push(item.total)
 					label.push(item.topico)
 

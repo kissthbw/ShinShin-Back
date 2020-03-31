@@ -269,7 +269,7 @@ Shing-Shing - Tiendas
 									</div>
 								</div>
 								<div class="card-footer text-center">
-
+										<button onclick="cancel()" class="btn btn-secundary" role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
 										<button onclick="del()"
 									class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
 									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
@@ -304,6 +304,32 @@ Shing-Shing - Tiendas
 			  </div>
 			</div>
 			<!-- Modal -->
+			
+<!-- Modal -->
+			<div class="modal fade right" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document" >
+			    <div class="modal-content" style="border-radius:20px;">
+			      <div class="modal-body" style="text-align:center;">
+			        <h1>
+			         <i class="fa fa-bell-o" aria-hidden="true"></i>
+			        </h1>
+			        <h3>
+			          Aún no agregas la tienda
+			        </h3>
+			        <p>
+			          ¿Seguro que quieres salir de aqui?
+			        </p>
+			      </div>
+			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+			        <a class="btn btn-primary" th:href="@{/portal-administrador/tienda/list}">Si, Salir</a>
+			        <br></br>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- Modal -->
+			
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
@@ -369,13 +395,27 @@ Shing-Shing - Tiendas
 	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 	document.getElementById("TypeValidation").addEventListener("submit", submit);
-	
+	function cancel(){
+		$("#modalCancel").modal();
+	}
+
 	function submit(e) {
 		// Cancelams el envio a la espera de que valide el formulario
 		e.preventDefault();
 		
 	}
 	
+
+	$(window).on("load",function(){
+			var URLactual = window.location;
+			//alert(URLactual);
+			if(String(URLactual).indexOf("save")==-1){
+				document.getElementById("Cancelar").style.display="none";
+			}else{
+				document.getElementById("Eliminar").style.display="none";
+			}
+			
+		});
 	function confirm(){
 		/*
 		swal({
