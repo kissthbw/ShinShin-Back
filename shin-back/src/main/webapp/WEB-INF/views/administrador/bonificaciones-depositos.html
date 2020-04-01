@@ -282,7 +282,7 @@ xmlns:th="http://www.thymeleaf.org">
 													$ 99,999.00
 												</td>
 												<td class="text-right">
-													<a th:href="@{'/portal-administrador/bonificaciones-depositos-detalle/' + ${item.fechaFormateada}}">
+													<a th:href="@{'/portal-administrador/bonificaciones-depositos-detalle/' + ${item.fechaFormateada} + 'fn' + ${item.id}}">
 														<button type="button" rel="tooltip" class="btn btn-link btn-icon btn-sm " data-original-title="" title="">
 															<i class="fa fa-eye"></i>
 														</button>
@@ -365,7 +365,7 @@ xmlns:th="http://www.thymeleaf.org">
 													$ 99,999.00
 												</td>
 												<td class="text-right">
-													<a th:href="@{'/portal-administrador/bonificaciones-depositos-detalle/' + ${item.fechaFormateada}}">
+													<a th:href="@{'/portal-administrador/bonificaciones-depositos-detalle/' + ${item.fechaFormateada} + 'fn' + ${item.id}}">
 														<button type="button" rel="tooltip" class="btn btn-link btn-icon btn-sm " data-original-title="" title="">
 															<i class="fa fa-eye"></i>
 														</button>

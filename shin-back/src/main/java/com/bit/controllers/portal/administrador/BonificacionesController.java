@@ -109,6 +109,11 @@ public class BonificacionesController {
 		log.info("Entrando a getObtenerDeporistosDetalle");
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
+		String fileName = "";
+		int p = fecha.indexOf("fn");
+		if( p >= 0 ) {
+			fileName = fecha.substring( (p + 2), fecha.length());
+		}
 		
 		if ( null != current ) {
 			model.addAttribute("item", current.getUsuario());
@@ -125,6 +130,7 @@ public class BonificacionesController {
 		List<BonificacionItem> list = estadisticasService.obtieneDetalleHistoricoBonificacionesPorFechaYTipo(item,
 				new Integer[] {MedioBonificacionID.BANCARIA.value(), MedioBonificacionID.PAYPAL.value(), MedioBonificacionID.RECARGA.value()});
 		model.addAttribute("fecha", fecha);
+		model.addAttribute("fileName", fileName);
 		model.addAttribute("list", list);
 		model.addAttribute("solicitudes", Utils.formatNumeros(Integer.valueOf( list.size() ).doubleValue(), "###,###,###"));
 		
