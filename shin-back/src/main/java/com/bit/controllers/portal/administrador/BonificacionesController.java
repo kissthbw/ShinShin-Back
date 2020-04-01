@@ -73,7 +73,6 @@ public class BonificacionesController {
 		return "administrador/bonificaciones-depositos";
 	}
 	
-	//TODO: Agregar reporte general
 	@RequestMapping(value = "/bonificaciones-depositos/report", method = RequestMethod.GET)
 	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
 		response.setContentType("text/csv");
@@ -102,9 +101,6 @@ public class BonificacionesController {
 			e.printStackTrace();
 		}
 		
-		
-		
-		Log.info("Saliendo en bonificaciones-recargas report");
 	}
 	
 	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
@@ -249,6 +245,37 @@ public class BonificacionesController {
 		Log.info("Saliendo en bonificaciones-recargas report");
 	}
 	
+	@RequestMapping(value = "/bonificaciones-recargas-compañias/report", method = RequestMethod.GET)
+	public void reportBonificacionesRecargasCompañias(Model model, HttpServletResponse response) throws JRException, IOException {
+		Log.info("Entrando en bonificaciones-recargas report");
+		
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "recargas.csv");
+        response.setHeader(headerKey, headerValue);
+       
+        List<BonificacionItem> list = estadisticasService.obtieneHistoricoBonificaciones( null );
+        
+		CSVExporter csv = new CSVExporterImpl();
+		
+		String [] headers = {"ID","tipo", "fechaBonificacion", "horaBonificacion","cantidadBonificacion"};
+		
+		
+		List<List<Object>> rows = new ArrayList<>();
+		for(int j=0;j<list.size();j++) {
+			rows.add( Arrays.asList( new Object[] { list.get(j).getId(),list.get(j).getTipo(), list.get(j).getFecha(),list.get(j).getHoraFormateada(),list.get(j).getImporteFormateado() } ) );
+		}
+		try {
+			csv.writeCSV(response.getWriter(), headers, rows);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.info("Saliendo en bonificaciones-recargas report");
+	}
+	
+	
 //	@RequestMapping(value = "/bonificaciones-depositos-detalle/{fecha}", method = RequestMethod.GET)
 //	public String getObtenerDepositosDetalle(Model model, @PathVariable String fecha) {
 	
@@ -374,8 +401,8 @@ public class BonificacionesController {
 			model.addAttribute("item", current.getUsuario());
 		}
 		
-		
 		String [] headers = {"Tipo", "Fecha", "Solicitudes", "Importe"};
+
 		List<List<Object>> rows = bonificacionesService.obtieneInfoReporteBonificacionesDepositosGeneral();
 
 		CSVExporter csv = new CSVExporterImpl();

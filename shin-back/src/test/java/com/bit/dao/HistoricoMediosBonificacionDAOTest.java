@@ -105,9 +105,9 @@ public class HistoricoMediosBonificacionDAOTest {
 		
 		item.setFecha( new Date() );
 		item.setFechaFormateada("2020-01-28");
-		item.setIdTipo( BigInteger.valueOf( 3 ) );
+		item.setIdTipo( Integer.valueOf( 3 ) );
 		
-		historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item);		
+		//historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item);		
 		
 	}
 	

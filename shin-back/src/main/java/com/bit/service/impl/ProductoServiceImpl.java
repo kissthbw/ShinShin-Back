@@ -204,14 +204,14 @@ public class ProductoServiceImpl implements ProductoService {
 			}
 		}
 		
-		item.setColorBanner( bannerColor( item.getColorBanner() ) );
+		//item.setColorBanner( bannerColor( item.getColorBanner() ) );
 
 		//Analizando la lista de nombres para las tiendas
 		for( ProductosTiendas t : item.getTiendas() ) {
 			t.setProducto(item);
 		}
 		item.setactive(1);
-		
+		log.info("Color del banner "+item.getColorBanner());
 		Producto t = productoDAO.update(item);
 		rsp.setId(t.getIdProducto());
 		return rsp;

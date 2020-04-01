@@ -205,32 +205,7 @@ public class CatalogosController {
 		return "catalogo_marca";
 	}
 	
-	@RequestMapping(value = "/marca/report", method = RequestMethod.GET)
-	@ResponseBody
-	public void getMarcaReport(Model model, HttpServletResponse response) throws JRException, IOException {
-		InputStream jasperStream = this.getClass().getResourceAsStream("/Marcas.jasper");
-	    Map<String,Object> params = new HashMap<>();
-	    List<MarcaReport> list = new ArrayList<>();
-	    MarcaReport p = new MarcaReport( 1L, "Comex" );
-	    MarcaReport p1 = new MarcaReport( 1L, "Herdez" );
-	    MarcaReport p2 = new MarcaReport( 1L, "Bonafont" );
-	    
-	    list.add(p);
-	    list.add(p1);
-	    list.add(p2);
-	    
-	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=Marcas.pdf");
-
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-		
-	}
-
+	
 	@RequestMapping(value = "/marca/save", method = RequestMethod.POST)
 	public String postCatMarca(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model) {
 
@@ -456,53 +431,33 @@ public class CatalogosController {
 	@ResponseBody
 	public void getProductoReport(Model model, HttpServletResponse response) throws JRException, IOException {
 		log.info("Entrando report");
-		
-		/*File file= ResourceUtils.getFile("classpath:Productos1.2.jasper");
-		InputStream jasperStream = this.getClass().getResourceAsStream(file.getAbsolutePath());*/
-		InputStream jasperStream = this.getClass().getResourceAsStream("Productos1.2.jasper");
-		log.info("Product source");
-		log.info(System.getProperty("user.dir"));
-		Map<String,Object> params = new HashMap<>();
+				
 	    List<ProductoReport> list = new ArrayList<>();
-//	    ProductoReport p = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
-//	    ProductoReport p1 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
-//	    ProductoReport p2 = new ProductoReport( 1L, "SN:098713123123", "Switch", "Nintendo", true );
-//	    
-//	    list.add(p);
-//	    list.add(p1);
-//	    list.add(p2);
-	    
+//	   
 	    list = productoService.getAllProductoReport();
-	    
-	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
-
-	    
-	    //For PDF 
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=Productos.pdf");
-
-//	    String fileName = "productos.xls";
-//	    response.setContentType("application/octet-stream");
-//	    response.setHeader("Connection", "close");
-//	    response.setHeader("Content-Disposition", "attachment;filename=\"" + new String(fileName.getBytes("utf-8"),"ISO-8859-1") + "\"");
-	   // log.info(list);
-	    final OutputStream outStream = response.getOutputStream();
-	    log.info("exception");
-//	    JRXlsExporter xlsExporter = new JRXlsExporter();
-//	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-//	    xlsExporter.setExporterInput( new SimpleExporterInput(jasperPrint) );
-//	    xlsExporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outStream));
-//	    xlsExporter.setParameter(JRExporterParameter.INPUT_FILE_NAME,
-//	    		jasperPrint);
-//	    xlsExporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
-//	               "C://sample_report.xls");
-	    
-
-//	    xlsExporter.exportReport();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+	    response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "productos.csv");
+        response.setHeader(headerKey, headerValue);
+        
+		CSVExporter csv = new CSVExporterImpl();
 		
+		String [] headers = {"idProducto", "nombreProducto","codigoBarras","Marca"};
+		
+		
+		List<List<Object>> rows = new ArrayList<>();
+		for(int j=0;j<list.size();j++) {
+			rows.add( Arrays.asList( new Object[] { list.get(j).getIdProducto(),list.get(j).getNombreProducto(),list.get(j).getCodigoBarras(),list.get(j).getMarca() } ) );
+		}
+		try {
+			csv.writeCSV(response.getWriter(), headers, rows);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    
+	    log.info("Saliendo report");
 	}
 
 	@RequestMapping(value = "/producto/save", method = RequestMethod.POST)
@@ -611,6 +566,31 @@ public class CatalogosController {
 		return "lista_marcas";
 	}
 
+	@RequestMapping(value = "/marca/report", method = RequestMethod.GET)
+	public void reportMarca(Model model, HttpServletResponse response) throws JRException, IOException {
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "marca.csv");
+        response.setHeader(headerKey, headerValue);
+        List<CatalogoMarca> list =  catalogoMarcaService.getCatalogoMarca().getMarcas();       
+		CSVExporter csv = new CSVExporterImpl();
+		
+		String [] headers = {"ID", "NombreMarca", "Products"};
+		
+		
+		List<List<Object>> rows = new ArrayList<>();
+		for(int j=0;j<list.size();j++) {
+			rows.add( Arrays.asList( new Object[] { list.get(j).getIdCatalogoMarca(),list.get(j).getNombreMarca(),list.get(j).getProducts()  } ) );
+		}
+		try {
+			csv.writeCSV(response.getWriter(), headers, rows);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	@RequestMapping(value = "/tienda/list", method = RequestMethod.GET)
 	public String redirectionaListaTienda(Model model) {
 		log.info( "Entrando en redirectionaListaTienda" );
@@ -626,6 +606,33 @@ public class CatalogosController {
 		return "lista_tiendas";
 	}
 	
+	@RequestMapping(value = "/tienda/report", method = RequestMethod.GET)
+	public void reportTienda(Model model, HttpServletResponse response) throws JRException, IOException {
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "tiendas.csv");
+        response.setHeader(headerKey, headerValue);
+        List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
+        
+		CSVExporter csv = new CSVExporterImpl();
+		
+		String [] headers = {"ID", "Nombre", "#Productos"};
+		
+		
+		List<List<Object>> rows = new ArrayList<>();
+		for(int j=0;j<list.size();j++) {
+			rows.add( Arrays.asList( new Object[] { list.get(j).getIdCatalogoTienda(),list.get(j).getNombreTienda(),list.get(j).getProducts() } ) );
+		}
+		try {
+			csv.writeCSV(response.getWriter(), headers, rows);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	@RequestMapping(value = "/departamento/list", method = RequestMethod.GET)
 	public String redirectionaListaDepartamento(Model model) {
 		log.info( "Entrando en redirectionaListaDepartamento" );
@@ -639,6 +646,33 @@ public class CatalogosController {
 		
 		log.info( "Saliendo de redirectionaListaDepartamento" );
 		return "lista_departamentos";
+	}
+	
+	@RequestMapping(value = "/departamento/report", method = RequestMethod.GET)
+	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "departamentos.csv");
+        response.setHeader(headerKey, headerValue);
+        List<CatalogoTipoProducto> list = catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos();
+        
+		CSVExporter csv = new CSVExporterImpl();
+		
+		String [] headers = {"ID", "Nombre", "#Productos"};
+		
+		
+		List<List<Object>> rows = new ArrayList<>();
+		for(int j=0;j<list.size();j++) {
+			rows.add( Arrays.asList( new Object[] { list.get(j).getIdCatalogoTipoProducto(),list.get(j).getNombreTipoProducto(),list.get(j).getProducts() } ) );
+		}
+		try {
+			csv.writeCSV(response.getWriter(), headers, rows);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
