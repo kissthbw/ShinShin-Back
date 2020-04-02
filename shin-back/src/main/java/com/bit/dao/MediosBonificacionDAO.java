@@ -35,4 +35,15 @@ public class MediosBonificacionDAO extends DAOTemplate<MediosBonificacion, Long>
 		
 		return (List<MediosBonificacion>) c.list();
 	}
+	
+	public List<MediosBonificacion> findMediosByIdUserAndIdCatMedio(Long idUser, Long id) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(MediosBonificacion.class);
+		c.createAlias("usuario", "user");
+		c.add(Restrictions.eq("user.idUsuario", idUser));
+		c.add(Restrictions.eq("catalogoMediosBonificacion.idCatalogoMedioBonificacion", id));
+		c.add(Restrictions.or(Restrictions.eq("estatus", null), Restrictions.eq("estatus", 1)));
+		c.addOrder(Property.forName("idMediosBonificacion").desc());
+		
+		return (List<MediosBonificacion>) c.list();
+	}
 }
