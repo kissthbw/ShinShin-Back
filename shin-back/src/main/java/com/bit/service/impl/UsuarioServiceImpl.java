@@ -484,6 +484,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		
 		boolean exist = false;
+//		boolean emailUpdated = false;
+//		boolean mobileUpdate = false;
 		
 		//El correo electronico y tel movil son elementos que siempre son enviados desde el movil
 		//El correo de item compararlo contra el correo del entity
@@ -495,7 +497,31 @@ public class UsuarioServiceImpl implements UsuarioService{
 				infoRSP.setCode(500);
 
 				return infoRSP;
-			} 
+			}
+			//TODO: El correo ingresado es nuevo y no existe en otro usuario, se manda
+			//bandera al movil para dirigirlo a la pantalla correspondiente
+			else {
+//				emailUpdated = true;
+				infoRSP.setEmailUpdated(true);
+				
+				try {
+					//Generar el link con un hash a partir de la hora de solicitud
+					String key = Calendar.getInstance().toString();
+					log.info( "Calendar to string: {}", key );
+					String link = Utils.generaHash(key);
+					
+					entity.setPassword_restore_link( link );
+					entity.setTime_restore_link( Calendar.getInstance().getTime() );
+					
+					String url = "www.shingshing.com/portal-usuario/restaurar/captura/" + link;
+					log.info( "Link: {}", url );
+					usuarioDAO.update(entity);
+					
+					prepareEmail(item.getCorreoElectronico(), url);
+				} catch (Exception e) {
+					log.error( "", e );
+				}
+			}
 		}
 		
 		if( !item.getTelMovil().equalsIgnoreCase( entity.getTelMovil() ) ) {
@@ -506,6 +532,29 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 				return infoRSP;
 			} 
+			//TODO: El telefono es ingresado es nuevo y no existe en otro usuario, se manda
+			//bandera al movil para dirigirlo a la pantalla correspondiente
+			else {
+//				mobileUpdate = true;
+				
+				String codigo = Utils.generaCodigoVerficacion();
+				entity.setCodigoVerificacion(codigo);
+				entity.setEstatusActivacion(false);
+				entity.setEstatus(1);
+				
+				//Enviar SMS de confirmacion
+				SMSDTO sms = new SMSDTO();
+				sms.setToMobileNumber(item.getTelMovil());
+				sms.setBody("Tu codigo es: " + entity.getCodigoVerificacion());
+				
+				try {
+					mediosComunicacionService.sendSMS(sms);
+				} catch (CommunicationException e) {
+					log.error("", e);
+				}
+				
+				infoRSP.setMobileUpdate( true );
+			}
 		}
 		
 		//Validar password, en caso de haber sido actualizado
@@ -1081,15 +1130,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 				usuarioDAO.update(entity);
 				
 				//Enviar correo
-				Personalization personalization = new Personalization(); 
-				personalization.addDynamicTemplateData("link", url);
-				EMailDTO data = new EMailDTO();
-				data.setToAccount( item.getCorreoElectronico() );
-				data.setSubject("Restaurar password");
-				data.setBody(url);
-				data.setPersonalization(personalization);
-				
-				mediosComunicacionService.sendEmail(data);
+				prepareEmail(entity.getCorreoElectronico(), url);
 			}
 			else {
 				rsp.setCode(404);
@@ -1104,6 +1145,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}
 		
 		return rsp;
+	}
+	
+	private void prepareEmail( String email, String body ) throws CommunicationException {
+		Personalization personalization = new Personalization(); 
+		personalization.addDynamicTemplateData("link", body);
+		EMailDTO data = new EMailDTO();
+		data.setToAccount( email );
+		data.setSubject("Restaurar password");
+		data.setBody( body );
+		data.setPersonalization(personalization);
+		
+		mediosComunicacionService.sendEmail(data);
 	}
 
 	@Override

@@ -26,6 +26,10 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 	private List<MedioBonificacionUsuario> mediosBonificacion = new ArrayList<>();
 	private List<MediosBonificacion> listaMediosBonificaciones;
 	private List<Ticket> listaTickets;
+	
+	//Solo para la respuesta de actualizacion de usuario
+	boolean emailUpdated;
+	boolean mobileUpdate;
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -109,5 +113,21 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 
 	public void setListaTickets(List<Ticket> listaTickets) {
 		this.listaTickets = listaTickets;
+	}
+
+	public boolean isEmailUpdated() {
+		return emailUpdated;
+	}
+
+	public void setEmailUpdated(boolean emailUpdated) {
+		this.emailUpdated = emailUpdated;
+	}
+
+	public boolean isMobileUpdate() {
+		return mobileUpdate;
+	}
+
+	public void setMobileUpdate(boolean mobileUpdate) {
+		this.mobileUpdate = mobileUpdate;
 	}
 }
