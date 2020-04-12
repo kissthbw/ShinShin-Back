@@ -5,9 +5,9 @@ public class ProductoReport {
 	private String codigoBarras;
 	private String nombreProducto;
 	private String marca;
-	private Boolean banner;
+	private int banner;
 
-	public ProductoReport(Long idProducto, String codigoBarras, String nombreProducto, String marca, Boolean banner) {
+	public ProductoReport(Long idProducto, String codigoBarras, String nombreProducto, String marca, int banner) {
 		this.idProducto = idProducto;
 		this.codigoBarras = codigoBarras;
 		this.nombreProducto = nombreProducto;
@@ -47,11 +47,11 @@ public class ProductoReport {
 		this.marca = marca;
 	}
 
-	public Boolean getBanner() {
+	public int getBanner() {
 		return banner;
 	}
 
-	public void setBanner(Boolean banner) {
+	public void setBanner(int banner) {
 		this.banner = banner;
 	}
 

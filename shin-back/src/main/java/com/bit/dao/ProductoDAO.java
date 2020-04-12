@@ -10,6 +10,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
+import org.jfree.util.Log;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.setMaxResults(300);
 		c.addOrder(Property.forName("idProducto").desc());
 		c.add(Property.forName("active").eq(1));
-
+		
 		return c.list();
 	}
 	
@@ -62,7 +63,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 	public List<Producto> getBanners() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		c.setMaxResults(50);
-		c.add( Restrictions.eq("banner", true) );
+		//c.add( Restrictions.eq("banner", true) );
 		c.addOrder(Property.forName("idProducto").desc());
 
 		return c.list();

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class ProductoServiceImpl implements ProductoService {
 		log.info("Obteniento lista de productos de la base de datos");
 
 		List<Producto> list = productoDAO.getProductos();
-
+		
 		rsp.setProductos(transform(list));
 		return rsp;
 	}
@@ -250,7 +251,7 @@ public class ProductoServiceImpl implements ProductoService {
 		String nombreProducto = i.getNombreProducto();
 
 		List<Producto> list = productoDAO.getProductosPorTipo(tipoProducto, nombreProducto);
-
+		
 		rsp.setProductos(transform(list));
 		return rsp;
 	}
@@ -268,7 +269,7 @@ public class ProductoServiceImpl implements ProductoService {
 		String nombreProducto = i.getNombreProducto();
 
 		List<Producto> list = productoDAO.getProductosPorNombre(nombreProducto);
-
+		
 		rsp.setProductos(transform(list));
 		return rsp;
 	}
@@ -301,7 +302,7 @@ public class ProductoServiceImpl implements ProductoService {
 	public Producto findById(Long id) {
 		log.info("Buscando producto por id: {}", id);
 		Producto item = productoDAO.findByPK(id);
-		
+		log.info("El banner es "+Integer.toString(item.getBanner()));
 		return transform(item);
 	}
 	
@@ -323,9 +324,27 @@ public class ProductoServiceImpl implements ProductoService {
 		item.setVigenciaPromocion(entity.getVigenciaPromocion());
 		item.setUrlImagenProducto(entity.getUrlImagenProducto());
 		item.setCantidadBonificacion(entity.getCantidadBonificacion());
-		item.setBanner(entity.isBanner());
+		item.setBanner(entity.getBanner());
 		item.setColorBanner( "rgb(" + entity.getColorBanner() + ")");
 		item.setImgUrl( entity.getImgUrl() );
+		switch (entity.getBanner()) {
+		case 1:
+			Log.info("1");
+			item.setTipoString("Basico");
+			break;
+		case 2:
+			Log.info("2");
+			item.setTipoString("Popular");
+			break;
+		case 3:
+			Log.info("3");
+			item.setTipoString("Principal");
+			break;
+		default:
+			Log.info("cero");
+			item.setTipoString("Sin especificar");
+			break;
+		}
 		
 		m.setIdCatalogoMarca(entity.getCatalogoMarca().getIdCatalogoMarca());
 		m.setNombreMarca(entity.getCatalogoMarca().getNombreMarca());
@@ -382,9 +401,27 @@ public class ProductoServiceImpl implements ProductoService {
 			pTemp.setVigenciaPromocion(item.getVigenciaPromocion());
 			pTemp.setUrlImagenProducto(item.getUrlImagenProducto());
 			pTemp.setCantidadBonificacion(item.getCantidadBonificacion());
-			pTemp.setBanner(item.isBanner());
+			pTemp.setBanner(item.getBanner());
 			pTemp.setColorBanner(item.getColorBanner());
 			pTemp.setImgUrl( item.getImgUrl() );
+			switch (item.getBanner()) {
+			case 1:
+				Log.info("1");
+				pTemp.setTipoString("Basico");
+				break;
+			case 2:
+				Log.info("2");
+				pTemp.setTipoString("Popular");
+				break;
+			case 3:
+				Log.info("3");
+				pTemp.setTipoString("Principal");
+				break;
+			default:
+				Log.info("cero");
+				pTemp.setTipoString("Sin especificar");
+				break;
+			}
 
 			m.setIdCatalogoMarca(item.getCatalogoMarca().getIdCatalogoMarca());
 			m.setNombreMarca(item.getCatalogoMarca().getNombreMarca());
@@ -428,7 +465,7 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		for( Producto e : entities ) {
 			ProductoReport item = new ProductoReport(e.getIdProducto(), e.getCodigoBarras(), 
-					e.getNombreProducto(), e.getCatalogoMarca().getNombreMarca(), e.isBanner());
+					e.getNombreProducto(), e.getCatalogoMarca().getNombreMarca(), e.getBanner());
 			
 			list.add(item);
 		}

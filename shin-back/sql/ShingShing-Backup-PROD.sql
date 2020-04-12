@@ -7,7 +7,7 @@
 #
 # Host: shinshin.cvvjdff1wc6u.us-east-2.rds.amazonaws.com (MySQL 5.7.22-log)
 # Base de datos: ShinShin
-# Tiempo de Generaci�n: 2020-03-21 02:24:45 +0000
+# Tiempo de Generaci�n: 2020-04-12 16:45:23 +0000
 # ************************************************************
 
 
@@ -157,7 +157,9 @@ VALUES
 	(40,'Milpa Real ','',1),
 	(41,'Tía Rosa','',1),
 	(42,'Quaker','',1),
-	(43,'Hola, soy un Demo','',0);
+	(43,'Hola, soy un Demo','',0),
+	(44,'Nueva marca','',0),
+	(45,'Hola, soy un Demooo','',0);
 
 /*!40000 ALTER TABLE `catalogo_marca` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -261,7 +263,10 @@ VALUES
 	(6,'Chedraui','',1),
 	(7,'Superama','',1),
 	(8,'Mega','',1),
-	(9,'tiendita de Juan','',0);
+	(9,'tiendita de Juan','',0),
+	(10,'Nueva tienda Demo','',0),
+	(11,'demooooojghfc','http://res.cloudinary.com/shingshing/image/upload/v1584825790/shingshing/tiendas/demooooo.png',0),
+	(12,'demo','',1);
 
 /*!40000 ALTER TABLE `catalogo_tienda` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -374,7 +379,9 @@ VALUES
 	(17,'Higiene','http://res.cloudinary.com/shingshing/image/upload/v1582661096/shingshing/departamentos/Higiene.png',1),
 	(18,'Limpieza','http://res.cloudinary.com/shingshing/image/upload/v1582661030/shingshing/departamentos/Limpieza.png',1),
 	(19,'Nuevo','',0),
-	(20,'Demo','http://res.cloudinary.com/shingshing/image/upload/v1582667097/shingshing/departamentos/Demo.png',0);
+	(20,'Demo','http://res.cloudinary.com/shingshing/image/upload/v1582667097/shingshing/departamentos/Demo.png',0),
+	(21,'Hola soy un demo','http://res.cloudinary.com/shingshing/image/upload/v1584824076/shingshing/departamentos/Hola%20soy%20un%20demo.png',0),
+	(22,'demo','',1);
 
 /*!40000 ALTER TABLE `catalogo_tipo_producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -414,7 +421,8 @@ LOCK TABLES `contacto` WRITE;
 
 INSERT INTO `contacto` (`id`, `topico`, `detalle`, `id_usuario`)
 VALUES
-	(1,'no funciona','no funciona',88);
+	(1,'no funciona','no funciona',88),
+	(2,'hola','hola',86);
 
 /*!40000 ALTER TABLE `contacto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -498,7 +506,10 @@ VALUES
 	(2,'2020-01-28','02:38:05',30,127,2),
 	(4,'2020-01-29','02:38:05',30.5,127,2),
 	(5,'2020-01-31','02:38:05',20,130,2),
-	(6,'2020-02-03','12:38:05',20,127,2);
+	(6,'2020-02-03','12:38:05',20,127,2),
+	(7,'2020-03-30',NULL,100,153,2),
+	(8,'2020-03-30',NULL,20,128,2),
+	(9,'2020-03-30',NULL,50,161,2);
 
 /*!40000 ALTER TABLE `historico_medios_bonificacion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -570,9 +581,74 @@ VALUES
 	(129,'Hijo','5534714616','Telcel',3,NULL,NULL,2,NULL,2,NULL),
 	(130,'Hija','5534714616','ATT&T',3,NULL,NULL,2,NULL,2,NULL),
 	(131,'libreton','4152313364159520','VISA',1,NULL,NULL,88,3,1,'BBVA'),
-	(132,'cel','5521891769','TELCEL',3,NULL,NULL,88,NULL,1,NULL);
+	(132,'cel','5521891769','TELCEL',3,NULL,NULL,88,NULL,1,NULL),
+	(136,'hi','h@h.com',NULL,2,NULL,'1234567890123',90,NULL,1,NULL),
+	(137,'2','j@h.com',NULL,2,NULL,'qwertyuiopasd',90,NULL,1,NULL),
+	(138,'hola ajuste Nuevo','j@gmail.com',NULL,2,NULL,'yuioplkjhgfds',90,NULL,1,NULL),
+	(139,'4','ho@gmail.com',NULL,2,NULL,'hjklajhsgydjk',90,NULL,1,NULL),
+	(140,'hola','h@gmail.com',NULL,2,NULL,'jhhklabsjsos ',90,NULL,1,NULL),
+	(141,'6','12@gmail.com',NULL,2,NULL,'nnagwhomabaja',90,NULL,1,NULL),
+	(142,'7','hello@j.com',NULL,2,NULL,'lljjjjjjjjjjj',90,NULL,1,NULL),
+	(143,'8','uiihhh@gmail.com',NULL,2,NULL,'klksbskkskkkk',90,NULL,1,NULL),
+	(144,'9','hola@gmail.com',NULL,2,NULL,'kksjbsbkslkvs',90,NULL,1,NULL),
+	(145,'10','h@gmail.com',NULL,2,NULL,'langsllahvklj',90,NULL,1,NULL),
+	(146,'11','j@gmail.com',NULL,2,NULL,'hjklkjhgfdhjk',90,NULL,1,NULL),
+	(147,'12','u@gmail.com',NULL,2,NULL,'hjkjhgffsffff',90,NULL,1,NULL),
+	(148,'13','jh@gmail.com',NULL,2,NULL,'jhjhjhjhjhjhj',90,NULL,1,NULL),
+	(149,'14','k@gmail.com',NULL,2,NULL,'khhjkjhjjhgff',90,NULL,1,NULL),
+	(150,'15','h@gmail.com',NULL,2,NULL,'uyhjiuhjygtrf',90,NULL,1,NULL),
+	(151,'PayPay Personal','kissthbw@gmail.com',NULL,2,NULL,'kissthbwpaypa',2,NULL,1,NULL),
+	(152,'PayPal esposa','kissthbw@gmail.com',NULL,2,NULL,'kiss-PayPalEs',2,NULL,1,NULL),
+	(153,'PayPal esposa','kissthbw@gmail.com',NULL,2,NULL,'kiss-PayPalEs',2,NULL,1,NULL),
+	(154,'hola','herickov@gmail.com',NULL,2,NULL,'nnkkhhkkjjkkb',90,NULL,1,NULL),
+	(155,'mmknnn','h@gmail.com',NULL,2,NULL,'12345678912334',42,NULL,1,NULL),
+	(156,'kkk','h@gmail.com',NULL,2,NULL,'mkvvkjjjjjjjjjjjjj',42,NULL,1,NULL),
+	(157,'jjkk','7778888988887777','',1,NULL,NULL,42,3,1,'BBVA'),
+	(158,'herick','5550679875','TELCEL',3,NULL,NULL,42,NULL,1,NULL),
+	(161,'DEBITO','5579 1001 8464 5800',NULL,1,NULL,NULL,2,3,1,'SANTANDER'),
+	(162,'Débito 2','5579 1001 8464 5800',NULL,1,NULL,NULL,2,3,1,'SANTANDER'),
+	(163,'demo ok cambio','herickov@gmail.com',NULL,2,NULL,'jkjjjjjjkkkkl',42,NULL,1,NULL),
+	(164,'cuentaprueba','4000 0012 3456 7899','VISA',1,NULL,NULL,73,3,2,'BBVA'),
+	(165,'pruebapaypal','prueba@prueba.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(166,'bbv','4000001234567899','VISA',1,NULL,NULL,73,3,1,'BBVA'),
+	(167,'bbv2','4002001234567899','VISA',1,NULL,NULL,73,3,1,'BBVA'),
+	(168,'Débito','5579 1001 8464 5800',NULL,1,NULL,NULL,81,3,1,'SANTANDER'),
+	(169,'pruebapaypal','prueba@prueba.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(170,'PPP','prueba@prueba.com',NULL,2,NULL,'S-7FNADHDMDHDM',73,NULL,2,NULL),
+	(171,'ppp','prueba@prueba.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(172,'ppp','p@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(173,'ppp','g@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(174,'ggg','g@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(175,'ggg','g@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(176,'ggg','g@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(177,'ppv','g@g.com',NULL,2,NULL,'S-7FNADHDMHHM',73,NULL,2,NULL),
+	(178,'ppp','g@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(179,'pg','g@g.com',NULL,2,NULL,'S-7FNADHDMHHDM',73,NULL,2,NULL),
+	(180,'hg','g@h.com',NULL,2,NULL,'S-7FNAHDHDHDHD',73,NULL,1,NULL);
 
 /*!40000 ALTER TABLE `medios_bonificacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Volcado de tabla problema
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `problema`;
+
+CREATE TABLE `problema` (
+  `id_problema` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `problema` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id_problema`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `problema` WRITE;
+/*!40000 ALTER TABLE `problema` DISABLE KEYS */;
+
+INSERT INTO `problema` (`id_problema`, `problema`)
+VALUES
+	(1,'Tengo un problema !!!');
+
+/*!40000 ALTER TABLE `problema` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -687,7 +763,9 @@ VALUES
 	(71,'hola',0,NULL,NULL,'hola','hola',0,NULL,NULL,6,1,'241,138,49',3,3,NULL,'',0),
 	(72,'Demo',0,NULL,NULL,'1 l','',0,NULL,NULL,0,0,'241,138,49',1,1,NULL,'',0),
 	(73,'Pelota amarrilla',0,NULL,NULL,'1 pza','Es una pelota de color amarillo, olor banana.',0,NULL,NULL,2,0,'255,219,4',1,9,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582667790/shingshing/productos/Pelota%20amarrilla.png',0),
-	(74,'Desodorante en aerosol Stefano',0,NULL,NULL,'s','ss',0,NULL,NULL,0,0,'241,138,49',14,1,NULL,'',0);
+	(74,'Desodorante en aerosol Stefano',0,NULL,NULL,'s','ss',0,NULL,NULL,0,0,'241,138,49',14,1,NULL,'',0),
+	(75,'Demoo',0,NULL,NULL,'demoo','hola',0,NULL,NULL,3,0,'241,138,49',14,1,NULL,'',1),
+	(76,'Prueba',0,NULL,NULL,'--...','aaaa',0,NULL,NULL,0,0,'241,138,49',14,1,NULL,'',1);
 
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1248,7 +1326,24 @@ VALUES
 	(505,'',74,4),
 	(506,'',74,3),
 	(507,'',74,2),
-	(508,'',74,1);
+	(508,'',74,1),
+	(509,'ee',75,8),
+	(510,'',75,7),
+	(511,'',75,6),
+	(512,'',75,5),
+	(513,'',75,4),
+	(514,'',75,3),
+	(515,'',75,2),
+	(516,'',75,1),
+	(517,'aa',76,12),
+	(518,'',76,8),
+	(519,'',76,7),
+	(520,'',76,6),
+	(521,'',76,5),
+	(522,'',76,4),
+	(523,'',76,3),
+	(524,'',76,2),
+	(525,'',76,1);
 
 /*!40000 ALTER TABLE `productos_tiendas` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1274,7 +1369,20 @@ LOCK TABLES `sugerencia_producto` WRITE;
 INSERT INTO `sugerencia_producto` (`id`, `nombre_producto`, `id_usuario`)
 VALUES
 	(1,'arroz',73),
-	(2,'bacardi',88);
+	(2,'bacardi',88),
+	(3,'CHILES RELLENOS',89),
+	(4,'videojuegos',2),
+	(5,'Videojuegos',2),
+	(6,'videojuegos ',2),
+	(7,'Videojuegos ',2),
+	(8,'Gadgets',2),
+	(9,'Juegos',2),
+	(10,'Juegos',2),
+	(11,'PCs',2),
+	(12,'Dulces',2),
+	(13,'Magazine ',2),
+	(14,'Victoria ',97),
+	(15,'Botanas',2);
 
 /*!40000 ALTER TABLE `sugerencia_producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1409,19 +1517,27 @@ LOCK TABLES `usuario` WRITE;
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `ap_paterno`, `ap_materno`, `fecha_nac`, `foto_usuario`, `tel_movil`, `correo_electronico`, `usuario`, `contrasenia`, `calle`, `num_ext`, `num_int`, `colonia`, `codigo_postal`, `del_mun`, `estado`, `estatus_activacion`, `codigo_verificacion`, `id_catalogo_sexo`, `id_catalogo_red_social`, `estatus`, `img_url`, `hash`, `password_restore_link`, `time_restore_link`, `activation_link`, `fecha_registro`, `device_token`)
 VALUES
-	(2,'Juan Oso',NULL,NULL,'1983-09-11',NULL,'+5215534714616','kissthbw@gmail.com','kissthbw@gmail.com','isaias53',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'6241',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1573231784/shingshing/usuarios/2.jpg','12ba4e44b53b2434aeb6fa48f6f1e08ff845151a8077f595dc76018e89eb4a3b','55d45a800b2d6d8794af76e97e20db2e03af8a7ab78d28ed1be0974318d118c6','2019-11-27 19:25:47',NULL,'2019-07-10 18:04:50','cldXXo0LYsc:APA91bHvY7TDyE_arNFUb9_LG4uLfgDe6h7Vl8sZook2CTdLOuKg7g8STM1VLL-WXcmAVcxLoLThgyt-F5dLzS9VXM_vieUi_Q7yi9CZSKpv4fXHwHbyNLXiWKIfrIHVC26SHn31qkHa'),
-	(42,'Erick Alvarez',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1573850413/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,'2020-03-08 18:10:08',NULL,'2020-01-10 19:04:50',NULL),
+	(2,'Juan Oso',NULL,NULL,'1983-09-11',NULL,'+5215534714616','kissthbw@gmail.com','kissthbw@gmail.com','kiss2101',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'6941',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586641767/shingshing/usuarios/2.jpg','0cec40c1ba68e43ddc243e6a1f53418580c3fb1edf637e4111c9acc17d0886de','db189554bd17028c3d4e33167ed0df3641471880d541f8f8203c1d784c1bb8a1','2020-04-11 21:50:54',NULL,'2019-07-10 18:04:50','dDCOkfYPQJE:APA91bEhxaZjKSTyF1l8aFMt6AZfDDdt-TutdFBlAqieKeZYtOZltJXvNu_Gfrl6RTzAdqAwhSd3chDJVSB9zFpv8DSzHxbNp6EYTQbu7v3Zfm33sKUJLomaatXBbSWCGBewQNLylhiS'),
+	(42,'Erick Alvarez',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,2,'http://res.cloudinary.com/shingshing/image/upload/v1586634980/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,'2020-04-11 20:15:13',NULL,'2020-01-10 19:04:50',NULL),
 	(59,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'+5215555555551','juan.osorio@gmail.com','juan.osorio@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'7650',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
-	(73,'Roberto',NULL,NULL,'1990-09-17',NULL,'+5215520777555','roberto.htamayo@gmail.com','roberto.htamayo@gmail.com','robe2019',NULL,NULL,NULL,NULL,'14030',NULL,NULL,1,'3958',1,NULL,1,NULL,'8308506504be11dd0dccc8e4c8ee0c14ecc73c67ea2df1b4cf9fc71144686265',NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
+	(73,'Roberto',NULL,NULL,'1990-09-17',NULL,'+5215520777555','roberto.htamayo@gmail.com','roberto.htamayo@gmail.com','robe2019',NULL,NULL,NULL,NULL,'14030',NULL,NULL,1,'3958',1,NULL,1,NULL,'8308506504be11dd0dccc8e4c8ee0c14ecc73c67ea2df1b4cf9fc71144686265','1e086d4e01679504d27cda152dc9cf213a0287674fcb9afcb0f3a8ea0567dd4d','2020-03-24 02:51:11',NULL,'2020-01-10 19:04:50',NULL),
 	(78,'Paola Patricia',NULL,NULL,'1982-10-10',NULL,'+5215548998388','beyota_paola@hotmail.com','beyota_paola@hotmail.com','10PAOLA10',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'4714',2,NULL,1,NULL,'c293f727c75868bc0dd3fc067b4f1d384710b6dc0cc18315c5c3a8162a2f9ccd',NULL,NULL,'133effcb4bfe768975657285171833f9b714c2359779dd7881d10f0f7e9956d2','2020-01-10 19:04:50',NULL),
 	(81,'Juan Osorio Alvarez',NULL,NULL,'1970-01-01',NULL,'+5215555555555','kissthbw@hotmail.com','kissthbw@hotmail.com','kissthbw@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
 	(82,'Adrian','Osorio','Alvarez','1984-10-02','','+5215540150544','masterboy@gmail.com','masterboy84','qwerty12387','Pataguas','115','','La Perla','57820','Nezahualcoyotl','Estado de México',0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-15 19:18:00',NULL),
 	(83,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'*5215534714616','juan.osorio.alvarez2@gmail.com','juan.osorio.alvarez2@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'8549',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,'9cf39fd9dc66a0a5416f2e323e1ad2a2a1dbdf689089c8c919aaae1f0d8a2bc7','2020-03-05 16:35:41',NULL),
-	(84,'jeovanny ',NULL,NULL,'1989-10-06',NULL,'+5215543197733','jeovanny156@gmail.com','jeovanny156@gmail.com','12345678',NULL,NULL,NULL,NULL,'06450',NULL,NULL,0,'6588',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f','0f9500816972ab42da490bf3dd7b57ba291673cffd3de7458eb9c61241365f2c','2020-03-09 06:16:22','33822a00be34a988d706d0b4c1b34060ea62e2d3e4e25215155f900b5f7e8b38','2020-03-05 16:35:41',NULL),
-	(86,'Laboratorio',NULL,NULL,'1992-03-04',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'6605',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-03-05 17:31:57',NULL),
+	(84,'jeovanny ',NULL,NULL,'1989-10-06',NULL,'+5215543197733','jeovanny156@gmail.com','jeovanny156@gmail.com','laplace1527',NULL,NULL,NULL,NULL,'06450',NULL,NULL,0,'6588',1,NULL,1,NULL,'3aea8623b78388086490d17483dfb4be0c25930a0c466bb9102e93c61c5c83b0','d93acf0e908eab19c72815a63e9b2eba0e99f1ccde85ab2d038f0b700388efad','2020-04-02 18:59:36','33822a00be34a988d706d0b4c1b34060ea62e2d3e4e25215155f900b5f7e8b38','2020-03-05 16:35:41',NULL),
+	(86,'Laboratorio',NULL,NULL,'1992-03-04',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'6605',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-03-05 17:31:57','eOH1GQT-Xz4:APA91bEDR7LMUaQp4bRTkxQYpkGm9fKf-H7vAGzlBWlOuyBn1b4eHm4UQY-ycXlcsB_tdmGSLXnDQkTqp--CRWdFdVoBa73tLQm64_0y59mNps9lA_Ou8Z0GUVRkmtWSFqE7NcOEwIwe'),
 	(87,'Valeria ',NULL,NULL,'1992-03-05',NULL,'+5215526772646','lau.81002@gmail.com','lau.81002@gmail.com','vanesita',NULL,NULL,NULL,NULL,'80100',NULL,NULL,1,'9278',1,NULL,1,NULL,'cc7668ae305ef83b4654363c147e4c0a677361e69893e9cbca44b1c6346c3588',NULL,NULL,NULL,'2020-03-05 17:34:10',NULL),
 	(88,'Roberto ',NULL,NULL,'1981-01-25',NULL,'+5215549442851','roberto.guadarrama@tradenial.com','roberto.guadarrama@tradenial.com','prueba123',NULL,NULL,NULL,NULL,'10640',NULL,NULL,1,'9448',1,NULL,1,NULL,'ff960cb55673958c594d0daaab1e368651c75c02f9687192a1811e7b180336a7',NULL,NULL,NULL,'2020-03-05 20:48:39',NULL),
-	(89,'Joshua ',NULL,NULL,'2002-02-01',NULL,'+5215563753841','joshuagraff02@gmail.com','joshuagraff02@gmail.com','vidarendida',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'3759',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1584139495/shingshing/usuarios/89.jpg','dee2f76503aa5aa28cb8b59b066caf44f1981c74068844a5834cbdf763d7e61f',NULL,NULL,NULL,'2020-03-13 22:40:28',NULL);
+	(89,'Joshua ',NULL,NULL,'2002-02-01',NULL,'+5215563753841','joshuagraff02@gmail.com','joshuagraff02@gmail.com','vidarendida',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'3759',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1584139495/shingshing/usuarios/89.jpg','dee2f76503aa5aa28cb8b59b066caf44f1981c74068844a5834cbdf763d7e61f',NULL,NULL,NULL,'2020-03-13 22:40:28',NULL),
+	(90,'Bures Bures',NULL,NULL,'1970-01-01',NULL,NULL,'buures@hotmail.com','buures@hotmail.com','buures@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-03-22 03:59:23',NULL),
+	(91,'Erick Alvarez',NULL,NULL,'1970-01-01',NULL,NULL,'herickov@gmail.com','herickov@gmail.com','herickov@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,'88b085083654edc49d1f079482b29aa105e4278d669b1cd4b7494290491c3f4a','2020-04-01 03:06:00',NULL,'2020-03-22 04:00:14',NULL),
+	(92,'Laura Aguirre',NULL,NULL,'1970-01-01',NULL,NULL,'lauhrk81092@gmail.com','lauhrk81092@gmail.com','lauhrk81092@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,2,NULL,NULL,NULL,NULL,NULL,'2020-03-22 18:25:50',NULL),
+	(93,'Paola Patricia Sanchez Pardo',NULL,NULL,'1970-01-01',NULL,NULL,'beyotapao@gmail.com','beyotapao@gmail.com','beyotapao@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-03-25 02:18:57',NULL),
+	(94,'null null',NULL,NULL,'1970-01-01',NULL,NULL,'sistemas@zubalav.com.mx','sistemas@zubalav.com.mx','sistemas@zubalav.com.mx',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-04-08 18:04:41',NULL),
+	(95,'Lidia Hernández',NULL,NULL,'1970-01-01',NULL,NULL,'lidiaht60@gmail.com','lidiaht60@gmail.com','lidiaht60@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-04-08 18:19:33',NULL),
+	(96,'Jeovanny Nava',NULL,NULL,'1970-01-01',NULL,NULL,'jeovanny_hskqaek_nava@tfbnw.net','jeovanny_hskqaek_nava@tfbnw.net','jeovanny_hskqaek_nava@tfbnw.net',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-09 00:29:41',NULL),
+	(97,'Jeovanny Nava',NULL,NULL,'1970-01-01',NULL,NULL,'jeovanny156@hotmail.com','jeovanny156@hotmail.com','jeovanny156@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-09 04:08:25',NULL);
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;

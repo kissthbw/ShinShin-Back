@@ -1,0 +1,73 @@
+<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row" th:fragment="form-reporte-problema">
+	<input type="text" style="display:none;" th:value="@{/portal-administrador/envia-problema}" id="url"/>
+	<!-- Modal -->
+	<div class="modal fade" id="problem" tabindex="-1" role="dialog" aria-labelledby="modalProblem" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header pb0 bdr0">
+	        <h5 class="strong" id="exampleModalLongTitle">Reportar problema</h5>
+	       <!--  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button> -->
+	      </div>
+	      <div class="form-control modal-body text-center pt0">
+	        <label class="mg-10 mb-10">Cuéntanos, ¿Qué problema tienes con la plataforma?</label>
+	        <textarea id="textProblem" rows="7" class="form-control problemArea"></textarea>
+	      </div>
+	      <div class="text-center">
+	        <button type="button" class="btn btn-primary btn-lg p80" id="envProblema" onclick="enviaProblema()">Enviar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="col-md-6 text-left">
+		<a data-toggle="modal" data-target="#problem" href="">Reportar Problema</a>
+	</div>
+	<div class="col-md-6 text-right">
+		©2020 Shing-Shing
+	</div>
+</div>
+
+<script th:fragment="script-reporte-problema">
+$(document).ready(
+		function(){
+			$("#envProblema").attr("disabled",true); 
+			$("#textProblem").keypress(function(){
+		   var name = $('#textProblem').val().trim();
+		   console.log("Entro");
+		   if(name.length==0){
+			   $("#envProblema").attr("disabled",true);
+		   }else{
+			   $("#envProblema").attr("disabled",false);
+		   }
+		 });
+		}
+		);
+
+function enviaProblema(){
+	   $("#envProblema").attr("disabled",true);
+	   //console.log("Enviando problema");
+	   var formdata = {
+	   		problema:$("#textProblem").val()
+	   }
+	   var URL = $("#url").val();
+	   console.log(URL);
+    $.ajax({
+        url: URL,
+        data: formdata,
+        method:"POST",
+        success: function (data) {
+     	   toasts =  [new Toast('success', 'toast-top-full-width', 'Reporte enviado, <b>Pronto nos pondremos en contacto contigo.</b>')];
+        		console.log(data);
+        		$('#problem').modal('toggle');
+        	 window.setTimeout(function () { showToast(); }, 1);
+        },error:function(error){
+     		console.log("Error: "+error);   
+        }
+	   });
+    $('#problem').on('hidden.bs.modal', function (e) {
+        $("#textProblem").val("");
+    });
+}
+
+</script>

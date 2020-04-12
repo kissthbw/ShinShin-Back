@@ -203,7 +203,7 @@ public class TicketServiceImpl implements TicketService {
 			pTemp.setVigenciaPromocion(item.getVigenciaPromocion());
 			pTemp.setUrlImagenProducto(item.getUrlImagenProducto());
 			pTemp.setCantidadBonificacion(item.getCantidadBonificacion());
-			pTemp.setBanner(item.isBanner());
+			pTemp.setBanner(item.getBanner());
 			pTemp.setColorBanner(item.getColorBanner());
 
 			m.setIdCatalogoMarca(item.getCatalogoMarca().getIdCatalogoMarca());

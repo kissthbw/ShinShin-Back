@@ -2,6 +2,23 @@
 	margin-top:25px;
 	opacity:1 !important;
 }
+.label-default{
+	font-weight: 700;
+	font-size: 15px;
+	text-align: center;
+}
+.input-grey{
+	height: 48px;
+	background-color: #f2f2f2;
+	text-align: center;
+	border-radius: 10px;
+	border-style: none;
+}
+.input-grey:focus{
+	background-color: #e9e9e9;
+	border-color: transparent !important;
+	box-shadow: none !important;
+}
 
 #toast-container > .toast {
     background-image: none !important;
@@ -80,7 +97,30 @@ body{
 .sidebar .logo a.logo-mini{
 	display:none !important;
 }
+.p80{
+	width:80%;
+}
 
+.strong{
+	font-weight:600 !important;
+}
+
+.pb0{
+	padding-bottom:0 !important;
+}
+.pt0{
+	padding-top:0 !important;
+}
+
+.bdr0{
+	border:0 !important;
+}
+.mg-10 {
+	margin-top: 10px;
+}
+.mb-10 {
+	margin-bottom: 10px;
+}
 .btn-primary{
 	background-color: #ff6600 !important;
 	text-transform: none !important;
@@ -223,4 +263,20 @@ body{
 }
 tr th, ul li a, .toolbar .btn-primary {
 	text-transform: none !important;
+}
+
+.form-control.problemArea{
+	background-color:#e7e9ea !important;
+	border-radius:13px;
+	width:100%;
+	padding: 5px 10px;
+}
+
+.main-panel > .content {
+    min-height: calc(100vh - 160px) !important;
+}
+
+.content a,
+.footer a {
+    color: #007bff !important;
 }

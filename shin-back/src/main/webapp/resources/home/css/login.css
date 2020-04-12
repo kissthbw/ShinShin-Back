@@ -134,6 +134,7 @@ button:focus{
 	font-weight: 700;
 	font-size: 15px;
 	text-align: center;
+	color:black !important;
 }
 .input-grey{
 	height: 48px;

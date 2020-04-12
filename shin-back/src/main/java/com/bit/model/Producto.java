@@ -1,5 +1,6 @@
 package com.bit.model;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Formula;
 
 @Entity(name = "producto")
 public class Producto {
@@ -57,7 +60,7 @@ public class Producto {
 	private double cantidadBonificacion;
 
 	@Column(name = "banner")
-	private boolean banner;
+	public int banner;
 
 	@Column(name = "color_banner")
 	private String colorBanner;
@@ -93,6 +96,17 @@ public class Producto {
 
 	@Column
 	private int active;
+	
+	@Formula("(select '')")
+	private String TipoString;
+	
+	public String getTipoString() {
+		return TipoString;
+	}
+	
+	public void setTipoString(String TipoString) {
+		this.TipoString=TipoString;
+	}
 	
 	public int getactive() {
 		return this.active;
@@ -191,11 +205,11 @@ public class Producto {
 		return cantidadBonificacion;
 	}
 
-	public void setBanner(boolean banner) {
+	public void setBanner(int banner) {
 		this.banner = banner;
 	}
 
-	public boolean isBanner() {
+	public int getBanner() {
 		return banner;
 	}
 

@@ -271,13 +271,24 @@
 						<!--  end card  -->
 					</div>
 					<!-- end col-md-12 -->
-				</div>
+				</div>					
 				<!-- end row -->
 			</div>
+			
+			
+			
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
-						<nav class="footer-nav">
+						
+						
+
+ <div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+<nav class="footer-nav">
+
+
+
+
 							<ul>
 								<!-- <li>
 									<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
@@ -356,23 +367,7 @@
 	var a = parseInt(res[1]);
 	var toasts = [];
 	if(a>0){
-		toastr.options = {
-		  "closeButton": false,
-		  "debug": false,
-		  "newestOnTop": false,
-		  "progressBar": false,
-		  "positionClass": "toast-top-full-width",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "5000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		}
+		
 		if(b==1)
 			 toasts =  [new Toast('success', 'toast-top-full-width', '<b>De lujo</b>, Departamento guardado.')];
 		else
@@ -388,21 +383,30 @@
 	console.log(res[1]);
 	<!--/catalogoTiendas/list -->
 	
-	   function Toast(type, css, msg) {
-	        this.type = type;
-	        this.css = css;
-	        this.msg = msg;
-	    }
-	   
-	   function showToast() {
-	
-		   var t = toasts[0];
-	        toastr.options.positionClass = t.css;
-	        toastr[t.type](t.msg);
-
-	 
-	
-	    }
+	   /*
+	   function enviaProblema(){
+		   $("#envProblema").attr("disabled",true);
+		   console.log("Enviando problema");
+		   var formdata = {
+		   		problema:$("#textProblem").val()
+		   }
+		   var URL = $("#url").val();
+		   console.log(URL);
+           $.ajax({
+               url: URL,
+               data: formdata,
+               method:"POST",
+               success: function (data) {
+            	   toasts =  [new Toast('success', 'toast-top-full-width', 'Reporte enviado, <b>Pronto nos pondremos en contacto contigo.</b>')];
+               		console.log(data);
+               		$('#problem').modal('toggle');
+               	 window.setTimeout(function () { showToast(); }, 1);
+               },error:function(error){
+            		console.log("Error: "+error);   
+               }
+		   });
+	   }
+	  */
 	   
 	function parametroURL(_par) {
 		  var _p = null;
@@ -426,6 +430,7 @@
 	
 		$(document).ready(
 				function() {
+					//$("#envProblema").attr("disabled",true);
 					$('#datatable').DataTable(
 							{
 								"pagingType" : "full_numbers",
@@ -461,9 +466,25 @@
 					table.on('click', '.like', function() {
 						alert('You clicked on Like button');
 					});
-					
+					/*
+					   $("#textProblem").keypress(function(){
+						   var name = $('#textProblem').val().trim();
+						   console.log("Entro");
+						   if(name.length==0){
+							   $("#envProblema").attr("disabled",true);
+						   }else{
+							   $("#envProblema").attr("disabled",false);
+						   }
+						 });
+					   
+					  	 $('#problem').on('hidden.bs.modal', function (e) {
+				            $("#textProblem").val("");
+				        });*/
 				});
 	</script>
 </body>
 
 </html>
+ <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/toast::toast-config"></script>

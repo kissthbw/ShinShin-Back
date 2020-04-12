@@ -252,7 +252,7 @@ public class BonificacionesController {
 	}
 	
 	@RequestMapping(value = "/bonificaciones-recargas-compañias/report", method = RequestMethod.GET)
-	public void reportBonificacionesRecargasCompañias(Model model, HttpServletResponse response) throws JRException, IOException {
+	public void reportBonificacionesRecargasCompanias(Model model, HttpServletResponse response) throws JRException, IOException {
 		Log.info("Entrando en bonificaciones-recargas report");
 		
 		response.setContentType("text/csv");

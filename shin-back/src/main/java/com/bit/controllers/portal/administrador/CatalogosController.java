@@ -496,6 +496,7 @@ public class CatalogosController {
 		
 		model.addAttribute("nombres", nombres);
 		model.addAttribute("item", item);
+		log.info("Controller  "+Integer.toString(item.getBanner()));
 		
 //		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
 		
@@ -686,7 +687,6 @@ public class CatalogosController {
 		}
 		
 		model.addAttribute("productos", productoService.getProductos().getProductos());
-		
 		log.info( "Saliendo de redirectionaListaProducto" );
 		return "lista_productos";
 	}

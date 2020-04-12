@@ -278,7 +278,7 @@
 												<td th:text="${item.contenido}"></td>
 												<!--  <td th:text="${item.urlImagenProducto}"></td> -->
 												<td th:text="${item.cantidadBonificacion}"></td>
-												<td th:text="${item.banner}"></td>
+												<td th:text="${item.TipoString}"></td>
 												<td th:text="${item.catalogoMarca.nombreMarca}"></td>
 												<td th:text="${item.catalogoTipoProducto.nombreTipoProducto}"></td>
 												<td class="text-center">
@@ -300,7 +300,14 @@
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
+						
+
+						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
+
+
+
+
 							<ul>
 								<!-- <li>
 									<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
@@ -492,3 +499,6 @@
 
 
 </html>
+ <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/toast::toast-config"></script>

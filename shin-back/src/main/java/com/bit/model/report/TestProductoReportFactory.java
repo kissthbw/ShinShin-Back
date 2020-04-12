@@ -4,7 +4,7 @@ public class TestProductoReportFactory {
     public static ProductoReport[] generateBeanArray()
     {
     	ProductoReport[] list = new ProductoReport[2];
-        list[0] = new ProductoReport( 1L, "", "Switch", "Nintendo", true );
+        list[0] = new ProductoReport( 1L, "", "Switch", "Nintendo", 0 );
 
         return list;
     }
@@ -12,7 +12,7 @@ public class TestProductoReportFactory {
     public static java.util.Collection genereateCollection()
     {
         java.util.Vector collection = new java.util.Vector();
-        collection.add(new ProductoReport( 1L, "", "Switch", "Nintendo", true ));
+        collection.add(new ProductoReport( 1L, "", "Switch", "Nintendo", 0 ));
       
         return collection;
     }

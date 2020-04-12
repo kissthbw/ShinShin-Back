@@ -1,0 +1,34 @@
+<script th:fragment="toast-config">
+toastr.options = {
+		  "closeButton": false,
+		  "debug": false,
+		  "newestOnTop": false,
+		  "progressBar": false,
+		  "positionClass": "toast-top-full-width",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+function Toast(type, css, msg) {
+    this.type = type;
+    this.css = css;
+    this.msg = msg;
+}
+
+function showToast() {
+
+   var t = toasts[0];
+    toastr.options.positionClass = t.css;
+    toastr[t.type](t.msg);
+
+
+
+}
+</script>
