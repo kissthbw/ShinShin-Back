@@ -230,13 +230,105 @@
 										<label class="label-default col-12">Nombre</label>
 										<div class="col-sm-5">
 											<div class="form-group">
-												<input class="form-control input-grey col-12" type="text" th:field="*{nombre}" required="true" />
+												<input class="form-control input-grey col-12" type="text" th:field="*{nombre}" 
+												aria-label="Name" aria-describedby="basic-addon1" required="true" />
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right">
 											<code>*</code>
 										</label>
 									</div>
+									
+									<div class="row justify-content-center">
+										<label class="label-default col-12">Email</label>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<input class="form-control input-grey col-12" type="text" th:field="*{correoElectronico}" 
+												aria-label="Name" aria-describedby="basic-addon1" required="true" />
+											</div>
+										</div>
+										<label class="card-sm-3 Label-on-right">
+											<code>*</code>
+										</label>
+										<div class="invalid-feedback">
+							          		Ingresa un correo válido.
+							        	</div>
+							        	<div class="invalid-feedback">
+							          		El email ingresado ya ha sido utilizado en otra cuenta.
+							        	</div>
+									</div>
+									
+									<div class="row justify-content-center">
+										<label class="label-default col-12">Telefono</label>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<input class="form-control input-grey col-12" type="text" th:field="*{telMovil}" 
+												aria-label="Name" aria-describedby="basic-addon1" required="true" />
+											</div>
+										</div>
+										<label class="card-sm-3 Label-on-right">
+											<code>*</code>
+										</label>
+										<div class="invalid-feedback">
+							          		Ingresa tu teléfono a 8 digitos.
+							        	</div>
+									</div>
+									
+									<div class="col-12">
+										<label class="label-default col-12">Cumpleaños</label>
+									</div>
+									
+									<div class="col-10 col-sm-8 col-md-6 col-lg-4">
+										<div class="row justify-content-between">
+												<div class="col col-lg-4">
+													<div class="row justify-content-center">
+														
+														<div class="row justify-content-center">
+															<label class="label-default label-secondary col-12">Día</label>
+															<div class="col-sm-5">
+																<div class="form-group">
+																	<input class="form-control input-grey col-12" type="text" th:field="*{dia}" 
+																	aria-label="Name" aria-describedby="basic-addon1" required="true" />
+																</div>
+															</div>
+															<label class="card-sm-3 Label-on-right">
+																<code>*</code>
+															</label>
+															<div class="invalid-feedback">
+												          		Ingresa tu teléfono a 8 digitos.
+												        	</div>
+														</div>
+														
+													</div>
+												</div>
+												
+												<div class="col col-lg-4">
+													<div class="row justify-content-center">
+														<div class="row justify-content-center">
+															<label class="label-default label-secondary col-12">Mes</label>
+															<div class="col-sm-5">
+																<div class="form-group">
+																	<input class="form-control input-grey col-12" type="text" th:field="*{mes}" 
+																	aria-label="Name" aria-describedby="basic-addon1" required="true" />
+																</div>
+															</div>
+															<label class="card-sm-3 Label-on-right">
+																<code>*</code>
+															</label>
+															<div class="invalid-feedback">
+												          		Ingresa tu teléfono a 8 digitos.
+												        	</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col col-lg-4">
+													<div class="row justify-content-center">
+													</div>
+												</div>
+										</div>
+									</div>
+									
 								</div>
 								
 							</div>
