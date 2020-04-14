@@ -48,6 +48,15 @@ public class ProductosRestController {
 		return rsp;
 	}
 	
+	@GetMapping(value = "/list/porTipo")
+	public @ResponseBody ListItemsRSP getProductosPortTipoProducto(@RequestParam(name = "id") String id) {
+		
+		log.info("Entrando a getProductos");
+		ListItemsRSP rsp =  productoService.getProductosPorTipoProducto( Long.parseLong( id ) );
+
+		return rsp;
+	}
+	
 	//Este servcio de ve regresar N numero de registros segun se especifique en los paramemtros
 	//Debe regresar el total de registros en BD
 	//La pagina que se esta mostrando
