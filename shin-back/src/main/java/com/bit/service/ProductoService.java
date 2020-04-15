@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.model.CatalogoMarca;
+import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductosTiendas;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
@@ -22,6 +24,10 @@ public interface ProductoService {
 	 * @return
 	 */
 	ListItemsRSP getProductos();
+	
+	ListItemsRSP getProductosPorTipoProducto( long idCatalogoTipoProducto );
+	
+	List<CatalogoTienda> getTiendasPorProducto( Long idProducto );
 	
 	ListItemsRSP getProductosPorPaginas(int page, int max);
 	

@@ -1,5 +1,7 @@
 package com.bit.controllers.rest;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.CatalogoMarca;
+import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.SugerenciaProducto;
@@ -53,6 +56,15 @@ public class ProductosRestController {
 		
 		log.info("Entrando a getProductos");
 		ListItemsRSP rsp =  productoService.getProductosPorTipoProducto( Long.parseLong( id ) );
+
+		return rsp;
+	}
+	
+	@GetMapping(value = "/tiendas/porProducto")
+	public @ResponseBody List<CatalogoTienda> getObtieneTiendasPorProducto(@RequestParam(name = "id") String id) {
+		
+		log.info("Entrando a getProductos");
+		List<CatalogoTienda> rsp =  productoService.getTiendasPorProducto( Long.parseLong( id ) );
 
 		return rsp;
 	}

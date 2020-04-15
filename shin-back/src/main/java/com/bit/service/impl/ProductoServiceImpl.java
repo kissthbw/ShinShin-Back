@@ -64,6 +64,42 @@ public class ProductoServiceImpl implements ProductoService {
 	
 	@Override
 	@Transactional
+	public ListItemsRSP getProductosPorTipoProducto(long idCatalogoTipoProducto) {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
+
+		log.info("Obteniento lista de productos de la base de datos");
+
+		List<Producto> list = productoDAO.getProductosPorTipoProducto(idCatalogoTipoProducto);
+		
+		rsp.setProductos(transform(list));
+		return rsp;
+		
+	}
+	
+	@Override
+	@Transactional
+	public List<CatalogoTienda> getTiendasPorProducto( Long idProducto ){
+		List<ProductosTiendas> list = productosTiendasDAO.getTiendasPorProducto( idProducto );
+		List<CatalogoTienda> result = new ArrayList<>();
+		
+		for( ProductosTiendas i : list ) {
+			
+			if( null != i.getProductoTienda() && !"".equals( i.getProductoTienda() ) ) {
+				CatalogoTienda c = new CatalogoTienda();
+				c.setNombreTienda( i.getCatalogoTienda().getNombreTienda() );
+				c.setImagenTienda( i.getCatalogoTienda().getImagenTienda() );
+				result.add(c);
+			}
+		}
+		
+		return result;
+	}
+	
+	@Override
+	@Transactional
 	public ListItemsRSP getProductosPorPaginas(int page, int max) {
 		ListItemsRSP rsp = new ListItemsRSP();
 		rsp.setCode(200);
@@ -441,7 +477,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 			tmp.add(pTemp);
 		}
-
+		
 		return tmp;
 	}
 
