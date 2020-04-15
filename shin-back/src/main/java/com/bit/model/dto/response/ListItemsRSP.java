@@ -1,5 +1,6 @@
 package com.bit.model.dto.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bit.model.CatalogoMarca;
@@ -29,7 +30,7 @@ public class ListItemsRSP extends SimpleResponse{
 	private Long pages;
 	private Boolean hasMore;
 	
-	private List<Producto> productos;
+	private List<Producto> productos = new ArrayList<>();
 	private List<CatalogoMarca> marcas;
 	private List<CatalogoMediosBonificacion> mediosBonificacion;
 	private List<CatalogoTipoBancaria> tiposBancarias;
