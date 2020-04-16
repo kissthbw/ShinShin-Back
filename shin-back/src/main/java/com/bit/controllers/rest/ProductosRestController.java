@@ -17,6 +17,7 @@ import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductoFavorito;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
@@ -79,6 +80,24 @@ public class ProductosRestController {
 		
 		log.info("Entrando a getProductos page: {}, max results: {}", page, maxResults);
 		ListItemsRSP rsp =  productoService.getProductosPorPaginas(Integer.valueOf(page), Integer.valueOf(maxResults));
+
+		return rsp;
+	}
+	
+	@PostMapping(value = "/agregar-favorito/usuario")
+	public @ResponseBody SimpleResponse postAgregarProductoFavoritoUsuario( @RequestBody ProductoFavorito request ) {
+		
+		log.info("Entrando a postAgregarProductoFavoritoUsuario");
+		SimpleResponse rsp =  productoService.agregarProductoFavoritoUsuario(request);
+
+		return rsp;
+	}
+	
+	@GetMapping(value = "/favoritos/porUsuario")
+	public @ResponseBody ListItemsRSP getProductosFavoritosPorUsuario(@RequestParam(name = "id") String idUsuario) {
+		
+		log.info("Entrando a getProductos");
+		ListItemsRSP rsp =  productoService.getProductosFavoritosPorUsuario( Long.valueOf( idUsuario ) );
 
 		return rsp;
 	}

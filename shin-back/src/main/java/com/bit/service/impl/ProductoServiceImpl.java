@@ -15,12 +15,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.ProductoDAO;
+import com.bit.dao.ProductoFavoritoDAO;
 import com.bit.dao.ProductosTiendasDAO;
 import com.bit.dao.SugerenciaProductoDAO;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductoFavorito;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
@@ -45,6 +47,9 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
 	private CloundinaryService cloundinaryService;
+	
+	@Autowired
+	private ProductoFavoritoDAO productoFavoritoDAO;
 	
 	@Override
 	@Transactional
@@ -527,6 +532,44 @@ public class ProductoServiceImpl implements ProductoService {
 		//int rows = catalogoTiendaDAO.eliminaTienda(item);
 		//log.info("Filas afectadas "+rows);;
 		rsp.setId(item.getIdProducto());
+		return rsp;
+	}
+	
+	/*
+	 * Productos Favoritos
+	 */
+	@Override
+	@Transactional
+	public SimpleResponse agregarProductoFavoritoUsuario(ProductoFavorito item) {
+		log.info( "Agregando producto: {} a usuario: {}", item.getProducto().getIdProducto(), item.getUsuario().getIdUsuario() );
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		productoFavoritoDAO.save( item );
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public ListItemsRSP getProductosFavoritosPorUsuario(long idUsuario) {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
+
+		log.info("Obteniento lista de productos de la base de datos");
+		
+		List<ProductoFavorito> list = productoFavoritoDAO.getProductosFavoritosPorUsuario( idUsuario );
+		List<Producto> productos = new ArrayList<>();
+		
+		for( ProductoFavorito pf : list ) {
+			productos.add( pf.getProducto() );
+		}
+		
+		rsp.setProductos(transform(productos));
 		return rsp;
 	}
 }
