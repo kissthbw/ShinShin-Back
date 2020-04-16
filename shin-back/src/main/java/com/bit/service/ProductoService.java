@@ -8,6 +8,7 @@ import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
+import com.bit.model.ProductoFavorito;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
@@ -52,4 +53,11 @@ public interface ProductoService {
 	List<ProductoReport> getAllProductoReport();
 	
 	SimpleResponse eliminaProducto(Producto item);
+	
+	/*
+	 * Productos favoritos
+	 * 
+	 */
+	SimpleResponse agregarProductoFavoritoUsuario( ProductoFavorito item );
+	ListItemsRSP getProductosFavoritosPorUsuario( long idUsuario );
 }
