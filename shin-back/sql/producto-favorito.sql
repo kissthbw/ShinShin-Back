@@ -1,0 +1,4 @@
+ALTER TABLE `ShinShin`.`producto_favorito` 
+ADD COLUMN `id` INT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`id`);
+;
