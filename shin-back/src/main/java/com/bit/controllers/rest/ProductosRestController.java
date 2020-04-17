@@ -18,8 +18,10 @@ import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.ProductoFavorito;
+import com.bit.model.ProductoValoracion;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.DetalleProducoRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.ProductoService;
 
@@ -61,11 +63,12 @@ public class ProductosRestController {
 		return rsp;
 	}
 	
-	@GetMapping(value = "/tiendas/porProducto")
-	public @ResponseBody List<CatalogoTienda> getObtieneTiendasPorProducto(@RequestParam(name = "id") String id) {
+	@GetMapping(value = "/detalle/producto")
+	public @ResponseBody DetalleProducoRSP getDetalleProducto(@RequestParam(name = "idProducto") String idProducto,
+			@RequestParam(name = "idUsuario") String idUsuario) {
 		
-		log.info("Entrando a getProductos");
-		List<CatalogoTienda> rsp =  productoService.getTiendasPorProducto( Long.parseLong( id ) );
+		log.info("Entrando a infoDetalleProducto");
+		DetalleProducoRSP rsp =  productoService.getDetalleProducto( Long.parseLong( idProducto ), Long.parseLong( idUsuario ) );
 
 		return rsp;
 	}
@@ -84,11 +87,24 @@ public class ProductosRestController {
 		return rsp;
 	}
 	
+	/*
+	 * Productos favoritos
+	 */
+	
 	@PostMapping(value = "/agregar-favorito/usuario")
 	public @ResponseBody SimpleResponse postAgregarProductoFavoritoUsuario( @RequestBody ProductoFavorito request ) {
 		
 		log.info("Entrando a postAgregarProductoFavoritoUsuario");
 		SimpleResponse rsp =  productoService.agregarProductoFavoritoUsuario(request);
+
+		return rsp;
+	}
+	
+	@PostMapping(value = "/eliminar-favorito/usuario")
+	public @ResponseBody SimpleResponse postEliminarProductoFavoritoUsuario( @RequestBody ProductoFavorito request ) {
+		
+		log.info("Entrando a postAgregarProductoFavoritoUsuario");
+		SimpleResponse rsp =  productoService.eliminarProductoFavoritoUsuario(request);
 
 		return rsp;
 	}
@@ -101,6 +117,28 @@ public class ProductosRestController {
 
 		return rsp;
 	}
+	
+	/*
+	 * Productos valoracion
+	 */
+	@PostMapping(value = "/agregar-ranking/usuario")
+	public @ResponseBody SimpleResponse postAgregarProductoValoracionUsuario( @RequestBody ProductoValoracion request ) {
+		
+		log.info("Entrando a postAgregarProductoValoracionUsuario");
+		SimpleResponse rsp =  productoService.agregarProductoValoracionUsuario(request);
+
+		return rsp;
+	}
+	
+	@PostMapping(value = "/eliminar-ranking/usuario")
+	public @ResponseBody SimpleResponse postEliminarProductoValoracionUsuario( @RequestBody ProductoValoracion request ) {
+		
+		log.info("Entrando a postEliminarProductoValoracionUsuario");
+		SimpleResponse rsp =  productoService.eliminarProductoValoracionUsuario(request);
+
+		return rsp;
+	}
+	
 	
 	@GetMapping(value = "/listBanner")
 	public @ResponseBody ListItemsRSP getBanners() {

@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.model.CatalogoMarca;
-import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.ProductoFavorito;
-import com.bit.model.ProductosTiendas;
+import com.bit.model.ProductoValoracion;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.DetalleProducoRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.report.ProductoReport;
 
@@ -28,7 +28,7 @@ public interface ProductoService {
 	
 	ListItemsRSP getProductosPorTipoProducto( long idCatalogoTipoProducto );
 	
-	List<CatalogoTienda> getTiendasPorProducto( Long idProducto );
+	DetalleProducoRSP getDetalleProducto( long idProducto, long idUsuario );
 	
 	ListItemsRSP getProductosPorPaginas(int page, int max);
 	
@@ -59,5 +59,12 @@ public interface ProductoService {
 	 * 
 	 */
 	SimpleResponse agregarProductoFavoritoUsuario( ProductoFavorito item );
+	SimpleResponse eliminarProductoFavoritoUsuario( ProductoFavorito item );
 	ListItemsRSP getProductosFavoritosPorUsuario( long idUsuario );
+	
+	/*
+	 * Productos valoracion
+	 */
+	SimpleResponse agregarProductoValoracionUsuario( ProductoValoracion item );
+	SimpleResponse eliminarProductoValoracionUsuario( ProductoValoracion item );
 }

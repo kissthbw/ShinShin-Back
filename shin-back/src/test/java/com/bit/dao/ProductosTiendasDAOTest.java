@@ -89,4 +89,15 @@ public class ProductosTiendasDAOTest {
 			System.out.println(item.getProductoTienda());
 		}
 	}
+	
+	@Transactional
+	@Test
+	public void obtenerTiendasPorProducto() {
+		List<ProductosTiendas> list = productosTiendasDAO.getTiendasPorProducto( 35L );
+		
+		for( ProductosTiendas p : list ) {
+			System.out.println( p.getProducto() + " - " + p.getCatalogoTienda().getNombreTienda() 
+					+ " - " + p.getCatalogoTienda().getImagenTienda() );
+		}
+	}
 }

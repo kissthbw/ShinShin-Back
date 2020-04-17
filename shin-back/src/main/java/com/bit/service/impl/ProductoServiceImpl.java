@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.ProductoDAO;
 import com.bit.dao.ProductoFavoritoDAO;
+import com.bit.dao.ProductoValoracionDAO;
 import com.bit.dao.ProductosTiendasDAO;
 import com.bit.dao.SugerenciaProductoDAO;
 import com.bit.model.CatalogoMarca;
@@ -23,9 +24,12 @@ import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.ProductoFavorito;
+import com.bit.model.ProductoValoracion;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.SugerenciaProducto;
+import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
+import com.bit.model.dto.response.DetalleProducoRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.report.ProductoReport;
 import com.bit.service.ProductoService;
@@ -50,6 +54,9 @@ public class ProductoServiceImpl implements ProductoService {
 	
 	@Autowired
 	private ProductoFavoritoDAO productoFavoritoDAO;
+	
+	@Autowired
+	private ProductoValoracionDAO productoValoracionDAO;
 	
 	@Override
 	@Transactional
@@ -86,7 +93,31 @@ public class ProductoServiceImpl implements ProductoService {
 	
 	@Override
 	@Transactional
-	public List<CatalogoTienda> getTiendasPorProducto( Long idProducto ){
+	public DetalleProducoRSP getDetalleProducto( long idProducto, long idUsuario ){
+		
+		DetalleProducoRSP rsp = new DetalleProducoRSP();
+		rsp.setCode(200);
+		rsp.setMessage("Exitoso");
+		
+		//Determina si es favorito para el usuario que lo esta consultando
+		boolean isFavorite = productoFavoritoDAO.existeFavoritoPorProductoYUsuario(idProducto, idUsuario);
+		rsp.setFavorite( isFavorite );
+		
+		//Determina el ranking asignado por el usuario
+		ProductoValoracion pv = new ProductoValoracion();
+		Producto p = new Producto();
+		p.setIdProducto( idProducto );
+		Usuario u = new Usuario();
+		u.setIdUsuario( idUsuario );
+		pv.setProducto(p);
+		pv.setUsuario(u);
+		
+		List<ProductoValoracion> pvList = productoValoracionDAO.getValoracionPorProdcutoyUsuario(pv);
+		for( ProductoValoracion i : pvList ) {
+			rsp.setRanking( i.getValoracion() );
+		}
+		
+		//Determina las tiendas donde esta disponible el producto
 		List<ProductosTiendas> list = productosTiendasDAO.getTiendasPorProducto( idProducto );
 		List<CatalogoTienda> result = new ArrayList<>();
 		
@@ -100,7 +131,9 @@ public class ProductoServiceImpl implements ProductoService {
 			}
 		}
 		
-		return result;
+		rsp.setTiendas(result);
+		
+		return rsp;
 	}
 	
 	@Override
@@ -551,6 +584,20 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		return rsp;
 	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse eliminarProductoFavoritoUsuario(ProductoFavorito item) {
+		log.info( "Eliminando producto: {} a usuario: {}", item.getProducto().getIdProducto(), item.getUsuario().getIdUsuario() );
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		productoFavoritoDAO.deletePorProductoYUsuario(item.getProducto().getIdProducto(), item.getUsuario().getIdUsuario());
+		
+		return rsp;
+	}
 
 	@Override
 	@Transactional
@@ -572,4 +619,38 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setProductos(transform(productos));
 		return rsp;
 	}
+
+	/*
+	 * Productos valoracion
+	 */
+	@Override
+	@Transactional
+	public SimpleResponse agregarProductoValoracionUsuario(ProductoValoracion item) {
+		log.info( "Agregando producto valoracion: {} a usuario: {}", item.getProducto().getIdProducto(), item.getUsuario().getIdUsuario() );
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		//Verifica que exista el ranking del producto para el usuario
+		List<ProductoValoracion> list = productoValoracionDAO.getValoracionPorProdcutoyUsuario(item);
+		if ( list.isEmpty() ) {
+			productoValoracionDAO.save(item);
+		}
+		else {
+			for( ProductoValoracion pv : list ) {
+				pv.setValoracion( item.getValoracion() );
+				productoValoracionDAO.update(pv);
+			}
+		}
+		
+		return rsp;
+	}
+
+	@Override
+	public SimpleResponse eliminarProductoValoracionUsuario(ProductoValoracion item) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
