@@ -7,13 +7,17 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.config.WebConfig;
+import com.bit.model.Producto;
 import com.bit.model.ProductoValoracion;
+import com.bit.model.Usuario;
+import com.bit.service.ProductoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = WebConfig.class)
@@ -24,6 +28,9 @@ public class ProductoValoracionDAOTest {
 	
 	@Autowired
 	private ProductoValoracionDAO productoValoracionDAO;
+	
+	@Autowired
+	private ProductoService productoService;
 
 	@Transactional
 	@Test
@@ -43,6 +50,25 @@ public class ProductoValoracionDAOTest {
 		for(ProductoValoracion nombre : listProductoValoracion) {
 			System.out.println("Producto: " + nombre.getProducto().getNombreProducto());
 		}
+		
+	}
+	
+	@Transactional
+	@Test
+	@Rollback(false)
+	public void guardaValoracionProductoUsuario() {
+		ProductoValoracion pv = new ProductoValoracion();
+		pv.setValoracion(5);
+		pv.setComentario( "" );
+		Producto p = new Producto();
+		p.setIdProducto(64L);
+		
+		Usuario u = new Usuario();
+		u.setIdUsuario( 89L );
+		pv.setProducto(p);
+		pv.setUsuario(u);
+		
+		productoService.agregarProductoValoracionUsuario(pv);
 		
 	}
 
