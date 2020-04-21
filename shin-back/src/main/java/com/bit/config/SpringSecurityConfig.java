@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.ForwardAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.bit.config.security.SimpleAuthenticationFilter;
@@ -25,6 +24,86 @@ import com.bit.config.security.SimpleAuthenticationFilter;
 @EnableWebSecurity(debug = false)
 public class SpringSecurityConfig {
 
+	
+	@Configuration
+	@Order(6)
+	public static class EmpresaSecurityConfig extends WebSecurityConfigurerAdapter{
+
+		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
+
+		
+		@Autowired
+		private UserDetailsService userService;
+		
+		@Bean
+	    public BCryptPasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
+		
+		public SimpleAuthenticationFilter authenticationFilter() throws Exception {
+	        SimpleAuthenticationFilter filter = new SimpleAuthenticationFilter();
+	        filter.setAuthenticationManager(authenticationManagerBean());
+	        filter.setAuthenticationFailureHandler(failureHandler());
+	        filter.setFilterProcessesUrl( "/portal-empresa/login" );
+	        filter.setAuthenticationSuccessHandler(successHandler());
+	        return filter;
+	    }
+		
+		public SimpleUrlAuthenticationFailureHandler failureHandler() {
+	        return new SimpleUrlAuthenticationFailureHandler("/portal-empresa/empresaLogin?error=loginError");
+	    }
+		
+		public ForwardAuthenticationSuccessHandler successHandler() {
+			return new ForwardAuthenticationSuccessHandler("/portal-empresa/postEmpresaLogin");
+	    }
+		
+		@Autowired
+	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	        auth.authenticationProvider(authProvider());
+	    }
+
+	    public AuthenticationProvider authProvider() {
+	        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+	        provider.setUserDetailsService(userService);
+	        return provider;
+	    }
+		
+		@Override
+		protected void configure(HttpSecurity http) throws Exception{
+			
+			log.info( "Configure user security" );
+			http
+			.antMatcher("/portal-empresa/**")
+	          .authorizeRequests()
+	          .anyRequest()
+	          .hasRole("USER")
+	          .and()
+	          .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+	          .formLogin()
+	          .loginPage("/portal-empresa/empresaLogin")
+	          .usernameParameter("username")
+	          .passwordParameter("password").permitAll()
+	          .loginProcessingUrl("/portal-empresa/login")
+	          .successForwardUrl("/portal-empresa/postEmpresaLogin")
+	          .failureUrl("/portal-empresa/empresaLogin?error=loginError")
+	           
+	          .and()
+	          .logout()
+	          .logoutUrl("/portal-empresa/empresa_logout")
+	          .logoutSuccessUrl("/portal-empresa/empresaLogin")
+	          .deleteCookies("JSESSIONID")
+	          .invalidateHttpSession(true)
+	           
+	          .and()
+	          .exceptionHandling()
+	          .accessDeniedPage("/portal-empresa/403")
+	           
+	          .and()
+	          .csrf().disable();
+		}
+	
+	}
+	
 	@Configuration
 	@Order(5)
 	public static class AdminSecurityConfig extends WebSecurityConfigurerAdapter{

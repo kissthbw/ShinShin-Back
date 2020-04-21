@@ -241,27 +241,24 @@
 									<thead>
 										<tr>
 											<th>Id</th>
-											<th>Marca</th>
-											<th>Productos</th>
+											<th>Correo</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
 											<th>Id</th>
-											<th>Marca</th>
-											<th>Productos</th>
+											<th>Correo</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</tfoot>
 									<tbody>
-										<th:block th:each="item : ${marcas}">
+										<th:block th:each="item : ${proveedores}">
 											<tr>
-												<td th:text="${item.idCatalogoMarca}"></td>
-												<td th:text="${item.nombreMarca}"></td>
-												<td th:text="${item.products}"></td>
+												<td th:text="${item.id}"></td>
+												<td th:text="${item.email}"></td>
 												<td class="text-center">
-													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">Editar</a>
+													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.id}}">Editar</a>
 												</td>
 											</tr>
 										</th:block>

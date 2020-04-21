@@ -13,24 +13,26 @@ import com.bit.model.MediosBonificacion;
 import com.bit.model.Producto;
 import com.bit.model.ProductoValoracion;
 import com.bit.model.ProductosTiendas;
+import com.bit.model.Proveedor;
 import com.bit.model.Ticket;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonInclude(value=Include.NON_EMPTY)
-public class ListItemsRSP extends SimpleResponse{
+@JsonInclude(value = Include.NON_EMPTY)
+public class ListItemsRSP extends SimpleResponse {
 
 	private static final long serialVersionUID = 4428570789013267038L;
-	
-	//Campos usados para la paginacion
+
+	// Campos usados para la paginacion
 	private Long total;
 	private Long page;
 	private Long pages;
 	private Boolean hasMore;
-	
+
 	private List<Producto> productos = new ArrayList<>();
+	private List<Proveedor> proveedores = new ArrayList<>();
 	private List<CatalogoMarca> marcas;
 	private List<CatalogoMediosBonificacion> mediosBonificacion;
 	private List<CatalogoTipoBancaria> tiposBancarias;
@@ -81,6 +83,14 @@ public class ListItemsRSP extends SimpleResponse{
 
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
+	}
+
+	public List<Proveedor> getProveedores() {
+		return proveedores;
+	}
+
+	public void setProveedores(List<Proveedor> proveedores) {
+		this.proveedores = proveedores;
 	}
 
 	public List<CatalogoMarca> getMarcas() {

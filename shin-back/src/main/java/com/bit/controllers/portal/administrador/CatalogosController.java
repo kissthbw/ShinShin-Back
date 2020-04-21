@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.common.Utils;
-import com.bit.dao.CatalogoMediosBonificacionDAO.MedioBonificacionID;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTienda;
@@ -37,16 +35,12 @@ import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Producto;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.Usuario;
-import com.bit.model.dto.BonificacionItem;
-import com.bit.model.dto.Item;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.TicketItem;
-import com.bit.model.dto.response.EstadisticasBonificacionRSP;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.EstadisticasRSP;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
-import com.bit.model.report.MarcaReport;
 import com.bit.model.report.ProductoReport;
 import com.bit.model.report.UsuarioReport;
 import com.bit.service.CSVExporter;
@@ -60,7 +54,6 @@ import com.bit.service.TicketService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.service.impl.CSVExporterImpl;
-import com.bit.service.impl.EstadisticasServiceImpl;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -556,6 +549,8 @@ public class CatalogosController {
 	public String redirectionaListaMarca(Model model) {
 		log.info( "Entrando en redirectionaListaMarca" );
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
+		model.addAttribute("proveedores", catalogoMarcaService.getProveedoresMarca().getProveedores());
+		
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		

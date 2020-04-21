@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class SimpleAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+	public static final String SPRING_SECURITY_FORM_EMPRESA_KEY = "empresa";
 	public static final String SPRING_SECURITY_FORM_DOMAIN_KEY = "domain";
 	public static final String SOCIAL_NETWORK_TOKEN = "hash:";
 
@@ -28,6 +29,18 @@ public class SimpleAuthenticationFilter extends UsernamePasswordAuthenticationFi
 	}
 
 	private UsernamePasswordAuthenticationToken getAuthRequest(HttpServletRequest request) {
+		
+		
+		String empresa = obtainEmpresa(request);
+		
+		if( null != empresa ) {
+			String username = obtainUsername(request);
+			String password = obtainPassword(request);
+			
+			username = username + SPRING_SECURITY_FORM_EMPRESA_KEY;
+			
+			return new UsernamePasswordAuthenticationToken(username, password);
+		}
 		
 		//Si el inicio de sesion el password es de 32 posiciones y el prefijo hash:
 		//es inicio de sesion por red social
@@ -52,6 +65,11 @@ public class SimpleAuthenticationFilter extends UsernamePasswordAuthenticationFi
 		return new UsernamePasswordAuthenticationToken(username, password);
 	}
 
+	
+	private String obtainEmpresa(HttpServletRequest request) {
+		return request.getParameter(SPRING_SECURITY_FORM_EMPRESA_KEY);
+	}
+	
 	private String obtainDomain(HttpServletRequest request) {
 		return request.getParameter(SPRING_SECURITY_FORM_DOMAIN_KEY);
 	}

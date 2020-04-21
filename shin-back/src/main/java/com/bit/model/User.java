@@ -9,6 +9,7 @@ public class User implements Serializable {
 	private long idUsuario;
 	private String username;
 	private String password;
+	private String empresa;
 
 	public long getIdUsuario() {
 		return idUsuario;
@@ -32,6 +33,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
 	}
 
 }

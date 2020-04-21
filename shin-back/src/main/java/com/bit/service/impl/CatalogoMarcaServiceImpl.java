@@ -2,10 +2,10 @@ package com.bit.service.impl;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.CatalogoMarcaDAO;
+import com.bit.dao.ProveedorDAO;
 import com.bit.model.CatalogoMarca;
-import com.bit.model.CatalogoTipoProducto;
+import com.bit.model.Proveedor;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.CatalogoMarcaService;
@@ -29,6 +30,9 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 	
 	@Autowired
 	private CatalogoMarcaDAO catalogoMarcaDAO;
+	
+	@Autowired
+	private ProveedorDAO proveedorDAO;
 	
 	@Autowired
 	private CloundinaryService cloundinaryService;
@@ -52,11 +56,70 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 			}else {
 				lista.setProducts(BigInteger.valueOf(0));
 			}
-
 		}
 		
 		rsp.setMarcas(list);
 		return rsp;
+	}
+	
+	@Override
+	@Transactional
+	public ListItemsRSP getProveedoresMarca() {
+		
+		ListItemsRSP rsp = new ListItemsRSP();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		log.info("Obteniendo lista de proveedores");
+		
+		List<Proveedor> list = proveedorDAO.getProveedores();
+		List<Proveedor> dtoList = new ArrayList<>();
+		
+		for( Proveedor p :list ) {
+			Proveedor dto = toDto( p );
+			dtoList.add(dto);
+		}
+		
+		rsp.setProveedores(dtoList);
+		
+		return rsp;
+	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse registrarProveedorMarca(Proveedor item) {
+		log.info("Registrando un proveedor de marca");
+		
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+
+		proveedorDAO.save(item);
+		return rsp;
+	}
+	
+	private Proveedor toDto( Proveedor entity ) {
+		Proveedor dto = new Proveedor();
+		CatalogoMarca m = new CatalogoMarca();
+		
+		dto.setId( entity.getId() );
+		dto.setNombre( entity.getNombre() );
+		dto.setEmail( entity.getEmail() );
+		dto.setPassword( entity.getPassword() );
+		
+		CatalogoMarca marca = entity.getMarca();
+		
+		if ( null != marca ) {
+			m.setactive( marca.getactive() );
+			m.setIdCatalogoMarca( marca.getIdCatalogoMarca() );
+			m.setNombreMarca( marca.getNombreMarca() );
+			m.setImgUrl( marca.getImgUrl() );
+			dto.setMarca(marca);
+		}
+		
+		
+		return dto;
 	}
 
 	@Override
@@ -163,5 +226,5 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setId(item.getIdCatalogoMarca());
 		return rsp;
 	}
-	
+
 }
