@@ -17,6 +17,16 @@ public class CatalogoMediosBonificacion {
 	@Column(name = "nombre_medio_bonificacion")
 	private String nombreMedioBonificacion;
 
+	@Column(name="active")
+	private int active;
+	
+	public void setactive(int active) {
+		this.active=active;
+	}
+	
+	public int getactive() {
+		return active;
+	}
 	public void setIdCatalogoMedioBonificacion(Long idCatalogoMedioBonificacion) {
 		this.idCatalogoMedioBonificacion = idCatalogoMedioBonificacion;
 	}

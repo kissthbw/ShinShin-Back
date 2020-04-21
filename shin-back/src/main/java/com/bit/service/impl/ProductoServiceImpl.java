@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -376,7 +375,7 @@ public class ProductoServiceImpl implements ProductoService {
 	public Producto findById(Long id) {
 		log.info("Buscando producto por id: {}", id);
 		Producto item = productoDAO.findByPK(id);
-		log.info("El banner es "+Integer.toString(item.getBanner()));
+		
 		return transform(item);
 	}
 	
@@ -403,19 +402,19 @@ public class ProductoServiceImpl implements ProductoService {
 		item.setImgUrl( entity.getImgUrl() );
 		switch (entity.getBanner()) {
 		case 1:
-			Log.info("1");
+			log.info("1");
 			item.setTipoString("Basico");
 			break;
 		case 2:
-			Log.info("2");
+			log.info("2");
 			item.setTipoString("Popular");
 			break;
 		case 3:
-			Log.info("3");
+			log.info("3");
 			item.setTipoString("Principal");
 			break;
 		default:
-			Log.info("cero");
+			log.info("cero");
 			item.setTipoString("Sin especificar");
 			break;
 		}
@@ -480,19 +479,19 @@ public class ProductoServiceImpl implements ProductoService {
 			pTemp.setImgUrl( item.getImgUrl() );
 			switch (item.getBanner()) {
 			case 1:
-				Log.info("1");
+				log.info("1");
 				pTemp.setTipoString("Basico");
 				break;
 			case 2:
-				Log.info("2");
+				log.info("2");
 				pTemp.setTipoString("Popular");
 				break;
 			case 3:
-				Log.info("3");
+				log.info("3");
 				pTemp.setTipoString("Principal");
 				break;
 			default:
-				Log.info("cero");
+				log.info("cero");
 				pTemp.setTipoString("Sin especificar");
 				break;
 			}

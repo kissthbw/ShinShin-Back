@@ -269,16 +269,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		//Cuando es registro por red social el usuario es el correo electronico
 		
-		Usuario entity = usuarioDAO.findBySocialMediaUser(item);
+		//Usuario entity = usuarioDAO.findBySocialMediaUser(item);
+		Usuario entity=usuarioDAO.findUserByEmail(item.getCorreoElectronico());
 		if (entity == null) {
 			
 			if( MOBILE_PLACEHOLDER.equals( item.getTelMovil().trim() ) ) {
 				item.setTelMovil( null );
 			}
 			else {
-				boolean exist = usuarioDAO.existUserByPhone(item);
+				//boolean exist = usuarioDAO.existUserByPhone(item);
+				boolean exist = usuarioDAO.existUserByEmail(item);
 				if (exist) {
-					infoRSP.setMessage("Usuario ya existe (telefono ya existente)");
+					infoRSP.setMessage("Usuario ya existe (email ya existente)");
 					infoRSP.setCode(500);
 
 					return infoRSP;

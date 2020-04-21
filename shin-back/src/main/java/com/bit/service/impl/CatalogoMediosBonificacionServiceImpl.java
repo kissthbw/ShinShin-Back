@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.dao.CatalogoMediosBonificacionDAO;
 import com.bit.dao.CatalogoTipoBancariaDAO;
+import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoMediosBonificacion;
 import com.bit.model.CatalogoTipoBancaria;
 import com.bit.model.Producto;
@@ -68,7 +69,7 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
-		
+		item.setactive(1);
 		item = catalogoMediosBonificacionDAO.save(item);
 		rsp.setId(item.getIdCatalogoMedioBonificacion());
 		
@@ -86,7 +87,7 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 		rsp.setCode(200);
 		
 		catalogoMediosBonificacionDAO.findByPK(item.getIdCatalogoMedioBonificacion());
-		
+		item.setactive(1);
 		item = catalogoMediosBonificacionDAO.update(item);
 		rsp.setId(item.getIdCatalogoMedioBonificacion());
 		
@@ -110,4 +111,27 @@ public class CatalogoMediosBonificacionServiceImpl implements CatalogoMediosBoni
 		
 		return item;
 	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse eliminaMedioBonificacion(CatalogoMediosBonificacion item) {
+		log.info("Eliminado logico de Marca con id: {}", item.getIdCatalogoMedioBonificacion());
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		item =  catalogoMediosBonificacionDAO.findByPK(item.getIdCatalogoMedioBonificacion() );
+		item.setactive(0);
+		catalogoMediosBonificacionDAO.update(item);
+		
+		item = catalogoMediosBonificacionDAO.update(item);
+		/*
+		int rows = catalogoMarcaDAO.eliminaMarcaProductos(item);
+		log.info("Filas afectadas: "+rows);
+		*/
+		rsp.setId(item.getIdCatalogoMedioBonificacion());
+		return rsp;
+	}
+	
 }

@@ -249,7 +249,13 @@ Shing-Shing - Medios Bonificacion
 									</div>
 								</div>
 								<div class="card-footer text-center">
-									<button type="submit" class="btn btn-primary">Guardar</button>
+								<button onclick="cancel()"
+									class="btn btn-secundary" role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
+									<button onclick="del()"
+									class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
+									
+									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
+									
 								</div>
 							</div>
 						</form>
@@ -265,15 +271,38 @@ Shing-Shing - Medios Bonificacion
 			         <i class="fa fa-bell-o" aria-hidden="true"></i>
 			        </h1>
 			        <h3>
-			          Eliminar Medio Bonificacion
+			          Eliminar Medio Bonificación
 			        </h3>
 			        <p>
-			          ¿Seguro que quieres eliminar este Medio?
+			          ¿Seguro que quieres eliminar este Medio Bonificación?
 			        </p>
 			      </div>
 			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
 			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
-			        <a class="btn btn-primary" >Si, Eliminar</a>
+			        <a class="btn btn-primary" th:href="@{'/portal-administrador/medioBonificacion/delete/' + ${item.idCatalogoMedioBonificacion}}">Si, Eliminar</a>
+			        <br></br>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade right" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document" >
+			    <div class="modal-content" style="border-radius:20px;">
+			      <div class="modal-body" style="text-align:center;">
+			        <h1>
+			         <i class="fa fa-bell-o" aria-hidden="true"></i>
+			        </h1>
+			        <h3>
+			          Aún no agregas el Medio Bonificación
+			        </h3>
+			        <p>
+			          ¿Seguro que quieres salir de aqui?
+			        </p>
+			      </div>
+			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+			        <a class="btn btn-primary" th:href="@{/portal-administrador/mediosBonificacion/list}">Si, Salir</a>
 			        <br></br>
 			      </div>
 			    </div>
@@ -350,37 +379,58 @@ Shing-Shing - Medios Bonificacion
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 		<script>
-	document.getElementById("TypeValidation").addEventListener("submit", submit);
-	
-	function submit(e) {
-		// Cancelams el envio a la espera de que valide el formulario
-		e.preventDefault();
-		confirm();
-	}
-	
-	function confirm(){
-		/*
-		swal({
-			  title: "¡Atencion!",
-			  text: "Confirme para guardar los cambios.",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-			  if (willDelete) {
-				  document.getElementById("TypeValidation").submit();
-			  } else {
-			    swal.close();
-			  }
-			});*/
-		 document.getElementById("TypeValidation").submit();
+		document.getElementById("TypeValidation").addEventListener("submit", submit);
+		$(window).on("load",function(){
+			var URLactual = window.location;
+			//alert(URLactual);
+			if(String(URLactual).indexOf("save")==-1){
+				document.getElementById("Cancelar").style.display="none";
+			}else{
+				document.getElementById("Eliminar").style.display="none";
+			}
+			
+		});
 		
-	}
-	
-	function del(){
-		$("#modalConfirm").modal();
-	}
+		function submit(e) {
+			// Cancelams el envio a la espera de que valide el formulario
+			e.preventDefault();
+			/*if (btn=="Guardar"){
+				 confirm();
+			}else{
+				del();
+			}
+		*/
+			
+		}
+		
+		function confirm(){
+			
+			/*swal({
+				  title: "¡Atencion!",
+				  text: "Confirme para guardar los cambios.",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  document.getElementById("TypeValidation").submit();
+				  } else {
+				    swal.close();
+				  }
+				});
+			*/
+			setFormValidation('#TypeValidation');
+			document.getElementById("TypeValidation").submit();
+			
+		}
+		
+		function del(){
+			$("#modalConfirm").modal();
+		}
+		function cancel(){
+			$("#modalCancel").modal();
+		}
 		function setFormValidation(id) {
 			$(id).validate(
 					{

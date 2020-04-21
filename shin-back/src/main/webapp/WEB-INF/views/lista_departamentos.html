@@ -355,7 +355,9 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
   <script th:src="@{/assets/demo/demo.js}"></script>
   -->
-
+ <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/toast::toast-config"></script>
 	<script>
 	// <![CDATA[
 		
@@ -485,6 +487,3 @@
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
-<script th:replace="administrador/fragments/toast::toast-config"></script>

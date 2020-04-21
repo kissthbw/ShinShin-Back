@@ -86,16 +86,16 @@
 
 				<!-- MENU -->
 				<ul class="nav">
-					<li class="active"><a th:href="@{/portal-empresa/dashboard}">
-							<i class="nc-icon nc-bank"></i>
+					<li><a th:href="@{/portal-empresa/dashboard}"> <i
+							class="nc-icon nc-bank"></i>
 							<p>General</p>
 					</a></li>
-					<li><a th:href="@{/portal-empresa/finanzas}"> <i
+					<li class="active"><a th:href="@{/portal-empresa/finanzas}"> <i
 							class="nc-icon nc-bank"></i>
 							<p>Finanzas</p>
 					</a></li>
-					<li><a th:href="@{/portal-empresa/productos}"> <i
-							class="nc-icon nc-bank"></i>
+					<li><a th:href="@{/portal-empresa/productos}">
+							<i class="nc-icon nc-bank"></i>
 							<p>Productos</p>
 					</a></li>
 					<li><a th:href="@{/portal-empresa/usuarios}"> <i
@@ -210,9 +210,9 @@
 </div> -->
 			<div class="content">
 				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12 mt15 row">
+					<div class="mt15 col-md-12 col-sm-12 col-xs-12 mt15 row">
 						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h3 class="title-cat">General</h3>
+							<h3 class="title-cat">Finanzas</h3>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
 							<a href="#" class="btn btn-primary float-right" role="button"
@@ -221,27 +221,26 @@
 
 					</div>
 
-					<!-- Finanzas -->
-					<div class="col-lg-4 col-md-6 col-sm-6">
+				<!-- Usuarios -->
+					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="card card-stats">
 							<div class="card-body ">
 								<div class="row">
 									<div class="col-5 col-md-4">
-										<div class="icon-big text-center icon-warning gray">
+										<div class="icon-big icon-warning gray">
 											<i class="nc-icon nc-bank text-warning"></i>
 										</div>
 									</div>
 									<div class="col-7 col-md-8">
 										<div class="numbers">
-											<p class="card-category">Finanzas</p>
-											<p class="card-title" th:text="${totalDepositos}">99</p>
+											<p class="card-category">Total de Bonificaciones</p>
+											<p class="card-title" >$99,999</p>
 										</div>
 									</div>
 								</div>
 							</div>
 
 							<hr />
-
 
 							<div class="card-body">
 
@@ -289,287 +288,57 @@
 									</div>
 								</div>
 							</div>
-							<div class="card-footer">
-								<hr />
-								<div class="row">
-									<div class="col-sm-7">
-										<div class="footer-title">
-											<a
-												th:href="@{'/portal-administrador/bonificaciones-general/report'}">
-												<i class="nc-icon nc-paper"></i>
-											</a>
-										</div>
-									</div>
-									<div class="col-sm-5">
-										<div class="pull-right">
-											<a href="bonificaciones-depositos.html"
-												class="btn btn-secondary btn-link btn-sm" role="button"
-												aria-disabled="true"> Ver + </a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Fin Finanzas -->
-					<!-- Productos -->
-					<div class="col-lg-4 col-md-6 col-sm-6">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-5 col-md-4">
-										<div class="icon-big text-center icon-warning gray">
-											<i class="nc-icon nc-bank text-warning"></i>
-										</div>
-									</div>
-									<div class="col-7 col-md-8">
-										<div class="numbers">
-											<p class="card-category">Productos</p>
-											<p class="card-title" th:text="${totalDepositos}">99</p>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<hr />
-
-
-							<div class="card-body">
-
-								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayDepositosBtn" class="nav-item"><a
-										class="nav-link active" id="pills-home-tab" data-toggle="pill"
-										href="#pills-home" role="tab" aria-controls="pills-home"
-										aria-selected="true">Día</a></li>
-									<li id="weekDepositosBtn" class="nav-item"><a
-										class="nav-link" id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="monthDepositosBtn" class="nav-item"><a
-										class="nav-link" id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
-								</ul>
-								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
-										<div class="chartjs-size-monitor"
-											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div class="chartjs-size-monitor-expand"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
-											</div>
-											<div class="chartjs-size-monitor-shrink"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
-											</div>
-										</div>
-										<canvas id="depositosChart" width="558" height="256"
-											class="chartjs-render-monitor"
-											style="display: block; height: 128px; width: 279px;"></canvas>
-									</div>
-									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-										aria-labelledby="pills-profile-tab">
-										<canvas id="depositosChart" width="826" height="380"></canvas>
-									</div>
-									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-										aria-labelledby="pills-contact-tab">
-										<canvas id="depositosChart" width="826" height="380"></canvas>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<hr />
-								<div class="row">
-									<div class="col-sm-7">
-										<div class="footer-title">
-											<a
-												th:href="@{'/portal-administrador/bonificaciones-general/report'}">
-												<i class="nc-icon nc-paper"></i>
-											</a>
-										</div>
-									</div>
-									<div class="col-sm-5">
-										<div class="pull-right">
-											<a href="bonificaciones-depositos.html"
-												class="btn btn-secondary btn-link btn-sm" role="button"
-												aria-disabled="true"> Ver + </a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Fin Productos -->
-					<!-- Usuarios -->
-					<div class="col-lg-4 col-md-6 col-sm-6">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-5 col-md-4">
-										<div class="icon-big text-center icon-warning gray">
-											<i class="nc-icon nc-bank text-warning"></i>
-										</div>
-									</div>
-									<div class="col-7 col-md-8">
-										<div class="numbers">
-											<p class="card-category">Usuarios</p>
-											<p class="card-title" th:text="${totalDepositos}">99</p>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<hr />
-
-
-							<div class="card-body">
-
-								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayDepositosBtn" class="nav-item"><a
-										class="nav-link active" id="pills-home-tab" data-toggle="pill"
-										href="#pills-home" role="tab" aria-controls="pills-home"
-										aria-selected="true">Día</a></li>
-									<li id="weekDepositosBtn" class="nav-item"><a
-										class="nav-link" id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="monthDepositosBtn" class="nav-item"><a
-										class="nav-link" id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
-								</ul>
-								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
-										<div class="chartjs-size-monitor"
-											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div class="chartjs-size-monitor-expand"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
-											</div>
-											<div class="chartjs-size-monitor-shrink"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
-											</div>
-										</div>
-										<canvas id="depositosChart" width="558" height="256"
-											class="chartjs-render-monitor"
-											style="display: block; height: 128px; width: 279px;"></canvas>
-									</div>
-									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-										aria-labelledby="pills-profile-tab">
-										<canvas id="depositosChart" width="826" height="380"></canvas>
-									</div>
-									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-										aria-labelledby="pills-contact-tab">
-										<canvas id="depositosChart" width="826" height="380"></canvas>
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<hr />
-								<div class="row">
-									<div class="col-sm-7">
-										<div class="footer-title">
-											<a
-												th:href="@{'/portal-administrador/bonificaciones-general/report'}">
-												<i class="nc-icon nc-paper"></i>
-											</a>
-										</div>
-									</div>
-									<div class="col-sm-5">
-										<div class="pull-right">
-											<a href="bonificaciones-depositos.html"
-												class="btn btn-secondary btn-link btn-sm" role="button"
-												aria-disabled="true"> Ver + </a>
-										</div>
-									</div>
-								</div>
-							</div>
+						
 						</div>
 					</div>
 					<!-- Fin Usuarios -->
-				</div>
-				<!-- Tiendas -->
-				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="card card-stats">
+					
+					<div class="col-12 col-lg-12 col-md-12 col-sm-12 card card-stats">
 						<div class="card-body ">
-							<div class="row">
-
-								<div class="col-12 col-md-12">
-
-									<h5 class="title-cat">Tiendas</h5>
-
-								</div>
-							</div>
-						</div>
-
-						<hr />
-
-
-						<div class="card-body">
+						<h5 class="title-cat">Histórico</h5>
+							<table id="datatable" class="table table-striped table-bordered"
+								cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Fecha</th>
+										<!-- <th>Precio</th>  -->
+										<th>Bonificacion</th>
+										<!--  <th>Imagen</th> -->
 
 
-							<div class="tab-content" id="pills-tabContent">
-								<div class="tab-pane fade show active" id="pills-home"
-									role="tabpanel" aria-labelledby="pills-home-tab">
-									<div class="chartjs-size-monitor"
-										style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-										<div class="chartjs-size-monitor-expand"
-											style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div
-												style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
-										</div>
-										<div class="chartjs-size-monitor-shrink"
-											style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div
-												style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
-										</div>
-									</div>
-									<canvas id="depositosChart" width="558" height="256"
-										class="chartjs-render-monitor"
-										style="display: block; height: 128px; width: 279px;"></canvas>
-								</div>
-								<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-									aria-labelledby="pills-profile-tab">
-									<canvas id="depositosChart" width="826" height="380"></canvas>
-								</div>
-								<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-									aria-labelledby="pills-contact-tab">
-									<canvas id="depositosChart" width="826" height="380"></canvas>
-								</div>
-							</div>
-						</div>
-						<div class="card-footer">
-							<hr />
-							<div class="row">
-								<div class="col-sm-7">
-									<div class="footer-title">
-										<a
-											th:href="@{'/portal-administrador/bonificaciones-general/report'}">
-											<i class="nc-icon nc-paper"></i>
-										</a>
-									</div>
-								</div>
-								<div class="col-sm-5">
-									<div class="pull-right">
-										<a href="bonificaciones-depositos.html"
-											class="btn btn-secondary btn-link btn-sm" role="button"
-											aria-disabled="true"> Ver + </a>
-									</div>
-								</div>
-							</div>
+										<th class="disabled-sorting text-right"></th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th>Id</th>
+										<th>Fecha</th>
+										<!-- <th>Precio</th>  -->
+										<th>Bonificacion</th>
+										<!--  <th>Imagen</th> -->
+
+
+										<th class="disabled-sorting text-right"></th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<!-- <th:block th:each="item : ${productos}"> -->
+									<tr>
+										<!--  <td th:text="${item.idProducto}"></td>-->
+										<td>1</td>
+										<td>01/01/2020</td>
+										<td>$999,999</td>
+										<td class="text-center"><a href="#"> <i
+												class="fa fa-search" aria-hidden="true"></i></a></td>
+									</tr>
+
+									<!-- </th:block> -->
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
-				<!-- Fin Tiendas -->
-
-
 				<!--  
         <div class="row">
           <div class="col-md-3">
@@ -713,13 +482,46 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<script>
-		$(document).ready(function() {
-			// Javascript method's body can be found in assets/js/demos.js
-			demo.initDashboardPageCharts();
+		$(document).ready(
 
-			demo.initVectorMap();
+				function() {
+					$('#datatable').DataTable(
+							{
+								"pagingType" : "full_numbers",
+								"lengthMenu" : [ [ 10, 25, 50, -1 ],
+										[ 10, 25, 50, "Todas" ] ],
+								responsive : true,
+								language : {
+									search : "_INPUT_",
+									searchPlaceholder : "Busqueda",
+								}
 
-		});
+							});
+
+					var table = $('#datatable').DataTable();
+
+					// Edit record
+					table.on('click', '.edit', function() {
+						$tr = $(this).closest('tr');
+
+						var data = table.row($tr).data();
+						alert('You press on Row: ' + data[0] + ' ' + data[1]
+								+ ' ' + data[2] + '\'s row.');
+					});
+
+					// Delete a record
+					table.on('click', '.remove', function(e) {
+						$tr = $(this).closest('tr');
+						table.row($tr).remove().draw();
+						e.preventDefault();
+					});
+
+					//Like record
+					table.on('click', '.like', function() {
+						alert('You clicked on Like button');
+					});
+
+				});
 	</script>
 </body>
 
