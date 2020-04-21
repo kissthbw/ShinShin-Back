@@ -42,8 +42,9 @@ public class CatalogoMediosBonificacionDAO extends DAOTemplate<CatalogoMediosBon
 	public List<CatalogoMediosBonificacion> getCatalogoMediosBonificacion() {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(CatalogoMediosBonificacion.class);
 		c.setMaxResults(50);
+		c.add(Property.forName("active").eq(1));
 		c.addOrder(Property.forName("idCatalogoMedioBonificacion").desc());
-
+		
 		return c.list();
 
 	}

@@ -16,4 +16,6 @@ public interface CatalogoMediosBonificacionService {
 	
 	CatalogoMediosBonificacion findById(Long id);
 
+	SimpleResponse eliminaMedioBonificacion(CatalogoMediosBonificacion item);
+
 }

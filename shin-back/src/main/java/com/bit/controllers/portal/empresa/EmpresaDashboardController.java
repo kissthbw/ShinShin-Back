@@ -33,4 +33,47 @@ public class EmpresaDashboardController {
 		
 		return "empresa_dashboard";
 	}
+	@GetMapping(value="/productos")
+	public String productos(Model model, 
+			@ModelAttribute("currentUser") Usuario currentUser) {
+		
+		
+//		Usuario item = new Usuario();
+//		item.setIdUsuario( currentUser.getIdUsuario() );
+//		
+//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
+//		
+//		model.addAttribute("item", rsp);
+		
+		return "productos_empresa";
+	}
+	@GetMapping(value="/finanzas")
+	public String finanzas(Model model, 
+			@ModelAttribute("currentUser") Usuario currentUser) {
+		
+		
+//		Usuario item = new Usuario();
+//		item.setIdUsuario( currentUser.getIdUsuario() );
+//		
+//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
+//		
+//		model.addAttribute("item", rsp);
+		
+		return "empresa_finanzas";
+	}
+	
+	@GetMapping(value="/usuarios")
+	public String usuarios(Model model, 
+			@ModelAttribute("currentUser") Usuario currentUser) {
+		
+		
+//		Usuario item = new Usuario();
+//		item.setIdUsuario( currentUser.getIdUsuario() );
+//		
+//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
+//		
+//		model.addAttribute("item", rsp);
+		
+		return "empresa_usuarios";
+	}
 }

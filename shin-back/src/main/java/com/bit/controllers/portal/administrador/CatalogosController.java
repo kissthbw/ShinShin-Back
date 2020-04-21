@@ -88,234 +88,247 @@ public class CatalogosController {
 
 	@Autowired
 	private ProductoService productoService;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
-	
+
 	@Autowired
 	private TicketService ticketService;
-	
+
 	@Autowired
 	private EstadisticasService estadisticasService;
-	
-	private static Logger log = LoggerFactory.getLogger( CatalogosController.class );
+
+	private static Logger log = LoggerFactory.getLogger(CatalogosController.class);
 
 	/*
-	 * Seccion de formularios y tablas
-	 * DEPARTAMENTOS
+	 * Seccion de formularios y tablas DEPARTAMENTOS
 	 */
 	@RequestMapping(value = "/departamento/save", method = RequestMethod.GET)
 	public String gerCatDepartamento(Model model) {
-		log.info( "Entrando en gerCatDepartamento" );
+		log.info("Entrando en gerCatDepartamento");
 		model.addAttribute("item", new CatalogoTipoProducto());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de gerCatDepartamento" );
-		
+
+		log.info("Saliendo de gerCatDepartamento");
+
 		return "cat_departamentos";
 	}
 
 	@RequestMapping(value = "/departamento/save", method = RequestMethod.POST)
-	public String postCatDepartamento(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model) {
+	public String postCatDepartamento(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item,
+			BindingResult errors, Model model) {
 
-		log.info( "Entrando en postCatDepartamento" );
+		log.info("Entrando en postCatDepartamento");
 		catalogoTipoProductoService.registrarCatalogoTipoProductos(file, item);
-		
-		log.info( "Saliendo de postCatDepartamento" );
+
+		log.info("Saliendo de postCatDepartamento");
 
 		return "redirect:/portal-administrador/departamento/list?id=1&type=1";
 	}
-	
+
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.GET)
 	public String getCatDepartamentoEdit(Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en getCatDepartamentoEdit" );
+
+		log.info("Entrando en getCatDepartamentoEdit");
 		CatalogoTipoProducto item = catalogoTipoProductoService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatDepartamentoEdit" );
+
+		log.info("Saliendo de getCatDepartamentoEdit");
 
 //		return "redirect:/portal-administrador/departamento/save";
 		return "cat_departamentos";
 	}
-	
-	@RequestMapping (value="/departamento/delete/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/departamento/delete/{id}", method = RequestMethod.GET)
 	public String deleteCatDepartamento(Model model, @PathVariable String id) {
-		log.info("Entrando a deleteCatDepartamento "+id);
+		log.info("Entrando a deleteCatDepartamento " + id);
 		CatalogoTipoProducto item = catalogoTipoProductoService.findById(Long.parseLong(id));
-		SimpleResponse rsp=catalogoTipoProductoService.eliminaCatalogoTipoProductos(item);
-		log.info("saliendo a deleteCatDepartamento "+id);
-		return "redirect:/portal-administrador/departamento/list?id="+id+"&type=0";
+		SimpleResponse rsp = catalogoTipoProductoService.eliminaCatalogoTipoProductos(item);
+		log.info("saliendo a deleteCatDepartamento " + id);
+		return "redirect:/portal-administrador/departamento/list?id=" + id + "&type=0";
 	}
-	
-	
+
 	@RequestMapping(value = "/departamento/edit/{id}", method = RequestMethod.POST)
-	public String postCatDepartamentoEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en postCatDepartamentoEdit" );
-		item.setIdCatalogoTipoProducto( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
-		
-		log.info( "Saliendo de postCatDepartamentoEdit" );
+	public String postCatDepartamentoEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item,
+			BindingResult errors, Model model, @PathVariable String id) {
 
-		return "redirect:/portal-administrador/departamento/list?id="+id+"&type=1";
+		log.info("Entrando en postCatDepartamentoEdit");
+		item.setIdCatalogoTipoProducto(Long.parseLong(id));
+		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
+
+		log.info("Saliendo de postCatDepartamentoEdit");
+
+		return "redirect:/portal-administrador/departamento/list?id=" + id + "&type=1";
 	}
-	
+
 	@RequestMapping(value = "/departamento/delete/{id}", method = RequestMethod.POST)
-	public String postCatDepartamentoDelete(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item, BindingResult errors, Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en postCatDepartamentoDelete" );
-		item.setIdCatalogoTipoProducto( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
-		
-		log.info( "Saliendo de postCatDepartamentoDelete" );
+	public String postCatDepartamentoDelete(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item,
+			BindingResult errors, Model model, @PathVariable String id) {
 
-		return "redirect:/portal-administrador/departamento/list?id="+id+"&type=0";
+		log.info("Entrando en postCatDepartamentoDelete");
+		item.setIdCatalogoTipoProducto(Long.parseLong(id));
+		SimpleResponse rsp = catalogoTipoProductoService.actualizarCatalogoTipoProductos(file, item);
+
+		log.info("Saliendo de postCatDepartamentoDelete");
+
+		return "redirect:/portal-administrador/departamento/list?id=" + id + "&type=0";
 	}
 
-	
 	/*
 	 * MARCA
 	 */
 	@RequestMapping(value = "/marca/save", method = RequestMethod.GET)
 	public String getCatMarca(Model model) {
 
-		log.info( "Entrando en getCatMarca" );
+		log.info("Entrando en getCatMarca");
 		model.addAttribute("item", new CatalogoMarca());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatMarca" );
+
+		log.info("Saliendo de getCatMarca");
 
 		return "catalogo_marca";
 	}
-	
-	
-	@RequestMapping(value = "/marca/save", method = RequestMethod.POST)
-	public String postCatMarca(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model) {
 
-		log.info( "Entrando en postCatMarca" );
+	@RequestMapping(value = "/marca/save", method = RequestMethod.POST)
+	public String postCatMarca(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item,
+			BindingResult errors, Model model) {
+
+		log.info("Entrando en postCatMarca");
 		catalogoMarcaService.registrarMarcas(file, item);
 
-		log.info( "Saliendo de postCatMarca" );
+		log.info("Saliendo de postCatMarca");
 		return "redirect:/portal-administrador/marca/list?id=1&type=1";
 	}
-	
+
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.GET)
 	public String getCatMarcaEdit(Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en getCatMarcaEdit" );
+
+		log.info("Entrando en getCatMarcaEdit");
 		CatalogoMarca item = catalogoMarcaService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatMarcaEdit" );
+
+		log.info("Saliendo de getCatMarcaEdit");
 
 		return "catalogo_marca";
 	}
-	//Si hay que eliminar la imagen de la marca agregar metodo sin file, agregar codigo y comentar el anterior
+
+	// Si hay que eliminar la imagen de la marca agregar metodo sin file, agregar
+	// codigo y comentar el anterior
 	@RequestMapping(value = "/marca/edit/{id}", method = RequestMethod.POST)
-	public String postCatMarcaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en postCatMarcaEdit" );
-		item.setIdCatalogoMarca( Long.parseLong(id) );
+	public String postCatMarcaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item,
+			BindingResult errors, Model model, @PathVariable String id) {
+
+		log.info("Entrando en postCatMarcaEdit");
+		item.setIdCatalogoMarca(Long.parseLong(id));
 		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(file, item);
 
-		log.info( "Saliendo de postCatMarcaEdit" );
-		
-		return "redirect:/portal-administrador/marca/list?id="+id+"&type=1";
+		log.info("Saliendo de postCatMarcaEdit");
+
+		return "redirect:/portal-administrador/marca/list?id=" + id + "&type=1";
 	}
-	
-	@RequestMapping (value="/marca/delete/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/marca/delete/{id}", method = RequestMethod.GET)
 	public String deleteMarca(Model model, @PathVariable String id) {
-		log.info("Entrando a deleteMarcas "+id);
-		CatalogoMarca item =  catalogoMarcaService.findById(Long.parseLong(id));
-		SimpleResponse rsp=catalogoMarcaService.eliminaMarcas(item);
-		log.info("saliendo a deleteMarcas "+id);
-		return "redirect:/portal-administrador/marca/list?id="+id+"&type=0";
+		log.info("Entrando a deleteMarcas " + id);
+		CatalogoMarca item = catalogoMarcaService.findById(Long.parseLong(id));
+		SimpleResponse rsp = catalogoMarcaService.eliminaMarcas(item);
+		log.info("saliendo a deleteMarcas " + id);
+		return "redirect:/portal-administrador/marca/list?id=" + id + "&type=0";
 	}
 
 	/*
 	 * MEDIOS DE BONIFICACION
 	 */
+	@RequestMapping(value = "/medioBonificacion/delete/{id}", method = RequestMethod.GET)
+	public String deletemedioBonificacion(Model model, @PathVariable String id) {
+		log.info("Entrando a deleteMarcas " + id);
+		CatalogoMediosBonificacion item = catalogoMediosBonificacionService.findById(Long.parseLong(id));
+		SimpleResponse rsp = catalogoMediosBonificacionService.eliminaMedioBonificacion(item);
+		log.info("saliendo a deleteMarcas " + id);
+		return "redirect:/portal-administrador/mediosBonificacion/list?id=" + id + "&type=0";
+	}
+
 	@RequestMapping(value = "/medioBonificacion/save", method = RequestMethod.GET)
 	public String getCatMedioBonificacion(Model model) {
 
-		log.info( "Entrando en getCatMedioBonificacion" );
+		log.info("Entrando en getCatMedioBonificacion");
 		model.addAttribute("item", new CatalogoMediosBonificacion());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatMedioBonificacion" );
+
+		log.info("Saliendo de getCatMedioBonificacion");
 
 		return "catalogo_medios_bonificacion";
 	}
 
 	@RequestMapping(value = "/medioBonificacion/save", method = RequestMethod.POST)
-	public String postCatMedioBonificacion(@ModelAttribute CatalogoMediosBonificacion item, BindingResult errors, Model model) {
+	public String postCatMedioBonificacion(@ModelAttribute CatalogoMediosBonificacion item, BindingResult errors,
+			Model model) {
 
-		log.info( "Entrando en postCatMarcaEdit" );
+		log.info("Entrando en postCatMarcaEdit");
 		catalogoMediosBonificacionService.registrarCatalogoMediosBonificacion(item);
-		
-		log.info( "Saliendo de postCatMarcaEdit" );
+
+		log.info("Saliendo de postCatMarcaEdit");
 
 		return "redirect:/portal-administrador/mediosBonificacion/list?id=1&type=1";
 	}
-	
+
 	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.GET)
 	public String getCatMedioBonificacionEdit(Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en getCatMedioBonificacionEdit" );
+
+		log.info("Entrando en getCatMedioBonificacionEdit");
 		CatalogoMediosBonificacion item = catalogoMediosBonificacionService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatMedioBonificacionEdit" );
+
+		log.info("Saliendo de getCatMedioBonificacionEdit");
 
 		return "catalogo_medios_bonificacion";
 	}
-	
-	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.POST)
-	public String postCatMedioBonificacionEdit(@ModelAttribute CatalogoMediosBonificacion item, BindingResult errors, Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en postCatMedioBonificacionEdit" );
-		item.setIdCatalogoMedioBonificacion( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoMediosBonificacionService.actualizarCatalogoMediosBonificacion(item);
-		
-		log.info( "Saliendo de postCatMedioBonificacionEdit" );
 
-		return "redirect:/portal-administrador/mediosBonificacion/list?id="+id+"&type=1";
+	@RequestMapping(value = "/medioBonificacion/edit/{id}", method = RequestMethod.POST)
+	public String postCatMedioBonificacionEdit(@ModelAttribute CatalogoMediosBonificacion item, BindingResult errors,
+			Model model, @PathVariable String id) {
+
+		log.info("Entrando en postCatMedioBonificacionEdit");
+		item.setIdCatalogoMedioBonificacion(Long.parseLong(id));
+		SimpleResponse rsp = catalogoMediosBonificacionService.actualizarCatalogoMediosBonificacion(item);
+
+		log.info("Saliendo de postCatMedioBonificacionEdit");
+
+		return "redirect:/portal-administrador/mediosBonificacion/list?id=" + id + "&type=1";
 	}
-	
 
 	/*
 	 * TIENDA
@@ -323,71 +336,72 @@ public class CatalogosController {
 	@RequestMapping(value = "tienda/save", method = RequestMethod.GET)
 	public String getCatTienda(Model model) {
 
-		log.info( "Entrando en getCatTienda" );
+		log.info("Entrando en getCatTienda");
 		model.addAttribute("item", new CatalogoTienda());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatTienda" );
+
+		log.info("Saliendo de getCatTienda");
 
 		return "catalogo_tienda";
 	}
 
 	@RequestMapping(value = "/tienda/save", method = RequestMethod.POST)
-	public String postCatTienda(@RequestParam MultipartFile file, @ModelAttribute CatalogoTienda item, BindingResult errors, Model model) {
+	public String postCatTienda(@RequestParam MultipartFile file, @ModelAttribute CatalogoTienda item,
+			BindingResult errors, Model model) {
 
-		log.info( "Entrando en postCatTienda" );
+		log.info("Entrando en postCatTienda");
 		catalogoTiendaService.registrarTiendas(file, item);
-		
-		log.info( "Saliendo de postCatTienda" );
+
+		log.info("Saliendo de postCatTienda");
 
 //		return "redirect:/portal-administrador/tienda/save";
 		return "redirect:/portal-administrador/tienda/list?id=1&type=1";
 	}
-	
+
 	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.GET)
 	public String getCatTiendaEdit(Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en getCatTiendaEdit" );
+
+		log.info("Entrando en getCatTiendaEdit");
 		CatalogoTienda item = catalogoTiendaService.findById(Long.parseLong(id));
 		model.addAttribute("item", item);
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatTiendaEdit" );
+
+		log.info("Saliendo de getCatTiendaEdit");
 
 		return "catalogo_tienda";
 	}
-	
-	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.POST)
-	public String postCatTiendaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTienda item, BindingResult errors, Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en postCatTiendaEdit" );
-		item.setIdCatalogoTienda( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(file, item);
-		
-		log.info( "Saliendo de postCatTiendaEdit" );
 
-		return "redirect:/portal-administrador/tienda/list?id="+id+"&type=1";
+	@RequestMapping(value = "/tienda/edit/{id}", method = RequestMethod.POST)
+	public String postCatTiendaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoTienda item,
+			BindingResult errors, Model model, @PathVariable String id) {
+
+		log.info("Entrando en postCatTiendaEdit");
+		item.setIdCatalogoTienda(Long.parseLong(id));
+		SimpleResponse rsp = catalogoTiendaService.actualizarTiendas(file, item);
+
+		log.info("Saliendo de postCatTiendaEdit");
+
+		return "redirect:/portal-administrador/tienda/list?id=" + id + "&type=1";
 	}
-	
-	@RequestMapping (value="/tienda/delete/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/tienda/delete/{id}", method = RequestMethod.GET)
 	public String deleteCatTienda(Model model, @PathVariable String id) {
-		log.info("Entrando a deleteCatTienda "+id);
+		log.info("Entrando a deleteCatTienda " + id);
 		CatalogoTienda item = catalogoTiendaService.findById(Long.parseLong(id));
-		SimpleResponse rsp=catalogoTiendaService.eliminaCatalogoTienda(item);
-		log.info("saliendo a deleteCatTienda "+id);
-		return "redirect:/portal-administrador/tienda/list?id="+id+"&type=0";
+		SimpleResponse rsp = catalogoTiendaService.eliminaCatalogoTienda(item);
+		log.info("saliendo a deleteCatTienda " + id);
+		return "redirect:/portal-administrador/tienda/list?id=" + id + "&type=0";
 	}
-	
 
 	/*
 	 * PRODUCTOS
@@ -395,175 +409,174 @@ public class CatalogosController {
 	@RequestMapping(value = "/producto/save", method = RequestMethod.GET)
 	public String getCatProducto(Model model) {
 
-		log.info( "Entrando en getCatProducto" );
+		log.info("Entrando en getCatProducto");
 		Producto item = new Producto();
-		
-		
+
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
-		
+
 		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
-		
+
 		model.addAttribute("catalogoTiendas", list);
-		
+
 		List<ProductosTiendas> nombres = new ArrayList<>();
-		for( CatalogoTienda c : list ) {
+		for (CatalogoTienda c : list) {
 			ProductosTiendas tmp = new ProductosTiendas();
-			tmp.setCatalogoTienda( c );
-			nombres.add( tmp );
+			tmp.setCatalogoTienda(c);
+			nombres.add(tmp);
 		}
 		item.setTiendas(nombres);
 		model.addAttribute("nombres", nombres);
 		model.addAttribute("item", item);
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatProducto" );
+
+		log.info("Saliendo de getCatProducto");
 
 		return "producto";
 	}
-	
+
 	@RequestMapping(value = "/producto/report", method = RequestMethod.GET)
 	@ResponseBody
 	public void getProductoReport(Model model, HttpServletResponse response) throws JRException, IOException {
 		log.info("Entrando report");
-				
-	    List<ProductoReport> list = new ArrayList<>();
+
+		List<ProductoReport> list = new ArrayList<>();
 //	   
-	    list = productoService.getAllProductoReport();
-	    response.setContentType("text/csv");
+		list = productoService.getAllProductoReport();
+		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"",
-                "productos.csv");
-        response.setHeader(headerKey, headerValue);
-        
+		String headerValue = String.format("attachment; filename=\"%s\"", "productos.csv");
+		response.setHeader(headerKey, headerValue);
+
 		CSVExporter csv = new CSVExporterImpl();
-		
-		String [] headers = {"idProducto", "nombreProducto","codigoBarras","Marca"};
-		
-		
+
+		String[] headers = { "idProducto", "nombreProducto", "codigoBarras", "Marca" };
+
 		List<List<Object>> rows = new ArrayList<>();
-		for(int j=0;j<list.size();j++) {
-			rows.add( Arrays.asList( new Object[] { list.get(j).getIdProducto(),list.get(j).getNombreProducto(),list.get(j).getCodigoBarras(),list.get(j).getMarca() } ) );
+		for (int j = 0; j < list.size(); j++) {
+			rows.add(Arrays.asList(new Object[] { list.get(j).getIdProducto(), list.get(j).getNombreProducto(),
+					list.get(j).getCodigoBarras(), list.get(j).getMarca() }));
 		}
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    
-	    log.info("Saliendo report");
+
+		log.info("Saliendo report");
 	}
 
 	@RequestMapping(value = "/producto/save", method = RequestMethod.POST)
-	public String postCatProducto(@RequestParam MultipartFile file, @ModelAttribute Producto item, BindingResult errors, Model model) {
+	public String postCatProducto(@RequestParam MultipartFile file, @ModelAttribute Producto item, BindingResult errors,
+			Model model) {
 
-		log.info( "Entrando en postCatProducto" );
+		log.info("Entrando en postCatProducto");
 		productoService.registrarProductos(file, item);
-		
-		log.info( "Saliendo de postCatProducto" );
+
+		log.info("Saliendo de postCatProducto");
 
 		return "redirect:/portal-administrador/producto/list?id=1&type=1";
 	}
-	
+
 	@RequestMapping(value = "/producto/edit/{id}", method = RequestMethod.GET)
 	public String getCatProductoEdit(Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en getCatProductoEdit" );
+
+		log.info("Entrando en getCatProductoEdit");
 		Producto item = productoService.findById(Long.parseLong(id));
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
-		
+
 		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
-		
+
 		model.addAttribute("catalogoTiendas", list);
-		
+
 		List<ProductosTiendas> nombres = new ArrayList<>();
-		for( CatalogoTienda c : list ) {
+		for (CatalogoTienda c : list) {
 			ProductosTiendas tmp = new ProductosTiendas();
-			tmp.setCatalogoTienda( c );
-			nombres.add( tmp );
+			tmp.setCatalogoTienda(c);
+			nombres.add(tmp);
 		}
-		
-		if( item.getTiendas().isEmpty() ) {
+
+		if (item.getTiendas().isEmpty()) {
 			item.setTiendas(nombres);
 		}
-		
+
 		model.addAttribute("nombres", nombres);
 		model.addAttribute("item", item);
-		log.info("Controller  "+Integer.toString(item.getBanner()));
-		
+		log.info("Controller  " + Integer.toString(item.getBanner()));
+
 //		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
-		
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("user", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de getCatProductoEdit" );
+
+		log.info("Saliendo de getCatProductoEdit");
 
 		return "producto";
 	}
-	
+
 	@RequestMapping(value = "/producto/edit/{id}", method = RequestMethod.POST)
-	public String postCatProductoEdit(@RequestParam MultipartFile file, @ModelAttribute Producto item, BindingResult errors, Model model, @PathVariable String id) {
-		
-		log.info( "Entrando en postCatProductoEdit" );
-		item.setIdProducto( Long.parseLong(id) );
+	public String postCatProductoEdit(@RequestParam MultipartFile file, @ModelAttribute Producto item,
+			BindingResult errors, Model model, @PathVariable String id) {
+
+		log.info("Entrando en postCatProductoEdit");
+		item.setIdProducto(Long.parseLong(id));
 		SimpleResponse rsp = productoService.actualizarProductos(file, item);
 
-		log.info( "Saliendo de postCatProductoEdit" );
-		
-		return "redirect:/portal-administrador/producto/list?id="+id+"&type=1";
+		log.info("Saliendo de postCatProductoEdit");
+
+		return "redirect:/portal-administrador/producto/list?id=" + id + "&type=1";
 	}
-	
-	@RequestMapping (value="/producto/delete/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/producto/delete/{id}", method = RequestMethod.GET)
 	public String deleteProducto(Model model, @PathVariable String id) {
-		log.info("Entrando a deleteProducto "+id);
+		log.info("Entrando a deleteProducto " + id);
 		Producto item = productoService.findById(Long.parseLong(id));
-		SimpleResponse rsp=productoService.eliminaProducto(item);
-		log.info("saliendo a deleteProducto "+id);
-		return "redirect:/portal-administrador/producto/list?id="+id+"&type=0";
+		SimpleResponse rsp = productoService.eliminaProducto(item);
+		log.info("saliendo a deleteProducto " + id);
+		return "redirect:/portal-administrador/producto/list?id=" + id + "&type=0";
 	}
-	
-	
+
 	/*
 	 * SECCION DE TABLAS
 	 */
 	@RequestMapping(value = "/mediosBonificacion/list", method = RequestMethod.GET)
 	public String redireccionaListaMediosBonificacion(Model model) {
-		log.info( "Entrando en redireccionaListaMediosBonificacion" );
-		model.addAttribute("medios", catalogoMediosBonificacionService.getCatalogoMediosBonificacion().getMediosBonificacion());
-		
+		log.info("Entrando en redireccionaListaMediosBonificacion");
+		model.addAttribute("medios",
+				catalogoMediosBonificacionService.getCatalogoMediosBonificacion().getMediosBonificacion());
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de redireccionaListaMediosBonificacion" );
+
+		log.info("Saliendo de redireccionaListaMediosBonificacion");
 		return "lista_mediosBonificacion";
 	}
-	
+
 	@RequestMapping(value = "/marca/list", method = RequestMethod.GET)
 	public String redirectionaListaMarca(Model model) {
-		log.info( "Entrando en redirectionaListaMarca" );
+		log.info("Entrando en redirectionaListaMarca");
 		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de redirectionaListaMarca" );
+
+		log.info("Saliendo de redirectionaListaMarca");
 		return "lista_marcas";
 	}
 
@@ -571,257 +584,256 @@ public class CatalogosController {
 	public void reportMarca(Model model, HttpServletResponse response) throws JRException, IOException {
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"",
-                "marca.csv");
-        response.setHeader(headerKey, headerValue);
-        List<CatalogoMarca> list =  catalogoMarcaService.getCatalogoMarca().getMarcas();       
+		String headerValue = String.format("attachment; filename=\"%s\"", "marca.csv");
+		response.setHeader(headerKey, headerValue);
+		List<CatalogoMarca> list = catalogoMarcaService.getCatalogoMarca().getMarcas();
 		CSVExporter csv = new CSVExporterImpl();
-		
-		String [] headers = {"ID", "NombreMarca", "Products"};
-		
-		
+
+		String[] headers = { "ID", "NombreMarca", "Products" };
+
 		List<List<Object>> rows = new ArrayList<>();
-		for(int j=0;j<list.size();j++) {
-			rows.add( Arrays.asList( new Object[] { list.get(j).getIdCatalogoMarca(),list.get(j).getNombreMarca(),list.get(j).getProducts()  } ) );
+		for (int j = 0; j < list.size(); j++) {
+			rows.add(Arrays.asList(new Object[] { list.get(j).getIdCatalogoMarca(), list.get(j).getNombreMarca(),
+					list.get(j).getProducts() }));
 		}
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	@RequestMapping(value = "/tienda/list", method = RequestMethod.GET)
 	public String redirectionaListaTienda(Model model) {
-		log.info( "Entrando en redirectionaListaTienda" );
+		log.info("Entrando en redirectionaListaTienda");
 		model.addAttribute("tiendas", catalogoTiendaService.getCatalogoTienda().getTiendas());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de redirectionaListaTienda" );
+
+		log.info("Saliendo de redirectionaListaTienda");
 		return "lista_tiendas";
 	}
-	
+
 	@RequestMapping(value = "/tienda/report", method = RequestMethod.GET)
 	public void reportTienda(Model model, HttpServletResponse response) throws JRException, IOException {
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"",
-                "tiendas.csv");
-        response.setHeader(headerKey, headerValue);
-        List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
-        
+		String headerValue = String.format("attachment; filename=\"%s\"", "tiendas.csv");
+		response.setHeader(headerKey, headerValue);
+		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
+
 		CSVExporter csv = new CSVExporterImpl();
-		
-		String [] headers = {"ID", "Nombre", "#Productos"};
-		
-		
+
+		String[] headers = { "ID", "Nombre", "#Productos" };
+
 		List<List<Object>> rows = new ArrayList<>();
-		for(int j=0;j<list.size();j++) {
-			rows.add( Arrays.asList( new Object[] { list.get(j).getIdCatalogoTienda(),list.get(j).getNombreTienda(),list.get(j).getProducts() } ) );
+		for (int j = 0; j < list.size(); j++) {
+			rows.add(Arrays.asList(new Object[] { list.get(j).getIdCatalogoTienda(), list.get(j).getNombreTienda(),
+					list.get(j).getProducts() }));
 		}
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@RequestMapping(value = "/departamento/list", method = RequestMethod.GET)
 	public String redirectionaListaDepartamento(Model model) {
-		log.info( "Entrando en redirectionaListaDepartamento" );
+		log.info("Entrando en redirectionaListaDepartamento");
 		model.addAttribute("tipos", catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos());
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		log.info( "Saliendo de redirectionaListaDepartamento" );
+
+		log.info("Saliendo de redirectionaListaDepartamento");
 		return "lista_departamentos";
 	}
-	
+
 	@RequestMapping(value = "/departamento/report", method = RequestMethod.GET)
-	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
+	public void reportBonificacionesDepositos(Model model, HttpServletResponse response)
+			throws JRException, IOException {
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"",
-                "departamentos.csv");
-        response.setHeader(headerKey, headerValue);
-        List<CatalogoTipoProducto> list = catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos();
-        
+		String headerValue = String.format("attachment; filename=\"%s\"", "departamentos.csv");
+		response.setHeader(headerKey, headerValue);
+		List<CatalogoTipoProducto> list = catalogoTipoProductoService.getCatalogoTipoProductos().getTipoProductos();
+
 		CSVExporter csv = new CSVExporterImpl();
-		
-		String [] headers = {"ID", "Nombre", "#Productos"};
-		
-		
+
+		String[] headers = { "ID", "Nombre", "#Productos" };
+
 		List<List<Object>> rows = new ArrayList<>();
-		for(int j=0;j<list.size();j++) {
-			rows.add( Arrays.asList( new Object[] { list.get(j).getIdCatalogoTipoProducto(),list.get(j).getNombreTipoProducto(),list.get(j).getProducts() } ) );
+		for (int j = 0; j < list.size(); j++) {
+			rows.add(Arrays.asList(new Object[] { list.get(j).getIdCatalogoTipoProducto(),
+					list.get(j).getNombreTipoProducto(), list.get(j).getProducts() }));
 		}
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@RequestMapping(value = "/producto/list", method = RequestMethod.GET)
 	public String redirectionaListaProducto(Model model) {
-		log.info( "Entrando en redirectionaListaProducto" );
-		
+		log.info("Entrando en redirectionaListaProducto");
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
+
 		model.addAttribute("productos", productoService.getProductos().getProductos());
-		log.info( "Saliendo de redirectionaListaProducto" );
+		log.info("Saliendo de redirectionaListaProducto");
 		return "lista_productos";
 	}
-	
+
 	@RequestMapping(value = "/usuario/report", method = RequestMethod.GET)
 	@ResponseBody
 	public void getUsuarioReport(Model model, HttpServletResponse response) throws JRException, IOException {
 		InputStream jasperStream = this.getClass().getResourceAsStream("/Usuarios.jasper");
-	    Map<String,Object> params = new HashMap<>();
-	    List<UsuarioReport> list = new ArrayList<>();
-	    UsuarioReport p = new UsuarioReport( 1L, "Comex", "", "" );
-	    UsuarioReport p1 = new UsuarioReport( 1L, "Herdez", "", "" );
-	    UsuarioReport p2 = new UsuarioReport( 1L, "Bonafont", "", "" );
-	    
-	    list.add(p);
-	    list.add(p1);
-	    list.add(p2);
-	    
-	    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
-	    JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
-	    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+		Map<String, Object> params = new HashMap<>();
+		List<UsuarioReport> list = new ArrayList<>();
+		UsuarioReport p = new UsuarioReport(1L, "Comex", "", "");
+		UsuarioReport p1 = new UsuarioReport(1L, "Herdez", "", "");
+		UsuarioReport p2 = new UsuarioReport(1L, "Bonafont", "", "");
 
-	    response.setContentType("application/x-pdf");
-	    response.setHeader("Content-disposition", "inline; filename=Usuarios.pdf");
+		list.add(p);
+		list.add(p1);
+		list.add(p2);
 
-	    final OutputStream outStream = response.getOutputStream();
-	    JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
-		
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperStream);
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(list);
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, dataSource);
+
+		response.setContentType("application/x-pdf");
+		response.setHeader("Content-disposition", "inline; filename=Usuarios.pdf");
+
+		final OutputStream outStream = response.getOutputStream();
+		JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
+
 	}
-	
+
 	private UsuarioShingShingDetailService getAuthenticationUser() {
 		UsuarioShingShingDetailService user = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+
 		if (principal instanceof UsuarioShingShingDetailService) {
 			user = (UsuarioShingShingDetailService) principal;
 		}
-		
+
 		return user;
 	}
-	
+
 	/*
 	 * INICIO SECCION DE ESTADISTICAS
 	 */
 	@RequestMapping(value = "/estadisticas-tickets", method = RequestMethod.GET)
 	public String redirectionalEstadisticasTickets(Model model) {
 		Log.info("Entrando en redirectionalEstadisticasTicket");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
 		EstadisticasRSP rsp = estadisticasService.obtieneEstadisticasTickets();
 		model.addAttribute("totalTickets", rsp.getTotalTickets());
 		model.addAttribute("tickets", rsp.getHistoricoTickets());
-		
+
 		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		model.addAttribute("fecha", fecha);
-		
+
 		Log.info("Saliendo de redirectionalEstadisticasTickets");
 		return "administrador/estadisticas-tickets";
 	}
-	
+
 	@RequestMapping(value = "/estadisticas-tickets-detalle/{fecha}", method = RequestMethod.GET)
 	public String redirectionalEstadisticasTicketsDetalle(Model model, @PathVariable String fecha) {
 		Log.info("Entrando en redirectionalEstadisticasTicket");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		List<TicketItem> list = estadisticasService.obtieneTicketsPorFecha( fecha );
+
+		List<TicketItem> list = estadisticasService.obtieneTicketsPorFecha(fecha);
 		model.addAttribute("fecha", fecha);
 		model.addAttribute("tickets", list);
-		
+
 		Log.info("Saliendo de redirectionalEstadisticasTickets");
 		return "administrador/estadisticas-tickets-detalle";
 	}
-	
+
 	@RequestMapping(value = "/estadisticas-tickets-detalle/ticket/{id}", method = RequestMethod.GET)
 	public String redirectionalEstadisticasTicketsDetalleSegundoDetalle(Model model, @PathVariable String id) {
 		Log.info("Entrando en redirectionalEstadisticasTicket");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
-		List<TicketItem> list = estadisticasService.obtieneDetalleTicketPorId( Integer.parseInt(id) );
-		Integer total = list.stream().map( x -> x.getCantidad().intValue() ).reduce( 0, Integer::sum );
-		Double importeTotal = list.stream().map( x -> x.getImporte() ).reduce( 0.0, Double::sum );
+
+		List<TicketItem> list = estadisticasService.obtieneDetalleTicketPorId(Integer.parseInt(id));
+		Integer total = list.stream().map(x -> x.getCantidad().intValue()).reduce(0, Integer::sum);
+		Double importeTotal = list.stream().map(x -> x.getImporte()).reduce(0.0, Double::sum);
 		String strImporteTotal = Utils.formatNumeros(importeTotal, "$###,###,###.00");
-		
+
 		model.addAttribute("id", id);
 		model.addAttribute("tickets", list);
 		model.addAttribute("total", total);
 		model.addAttribute("importeTotal", strImporteTotal);
-		
+
 		Log.info("Saliendo de redirectionalEstadisticasTickets");
 		return "administrador/estadisticas-tickets-detalle-segundoDetalle";
 	}
-	
+
 	@RequestMapping(value = "/estadisticas-general", method = RequestMethod.GET)
 	public String redirectionalEstadisticasGeneral(Model model) {
 		Log.info("Entrando en redirectionalEstadisticasGeneral");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
+
 		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasGeneral();
 		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
 		model.addAttribute("totalTickets", rsp.getTotalTicketsEscaneados());
 		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
-		
+
 		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		model.addAttribute("fecha", fecha);
-		
+
 		Log.info("Saliendo de redirectionalEstadisticasGeneral");
 		return "administrador/estadisticas-general";
 	}
-	
+
 	@RequestMapping(value = "/estadisticas-marcas", method = RequestMethod.GET)
 	public String redirectionalEstadisticasMarcas(Model model) {
 		Log.info("Entrando en redirectionalEstadisticasMarcas");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
 		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasMarcas();
@@ -830,21 +842,21 @@ public class CatalogosController {
 		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
 		model.addAttribute("listaResumenTiendas", rsp.getListaResumenTiendas());
 		model.addAttribute("listaResumenDepartamentos", rsp.getListaResumenDepartamentos());
-		
+
 		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		model.addAttribute("fecha", fecha);
-		
+
 		Log.info("Saliendo de redirectionalEstadisticasMarcas");
 		return "administrador/estadisticas-marcas";
 	}
-	
+
 	@RequestMapping(value = "/estadisticas-usuarios", method = RequestMethod.GET)
 	public String redirectionalEstadisticasUsuarios(Model model) {
 		Log.info("Entrando en redirectionalEstadisticasUsuarios");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
 		ListItemsRSP usuarios = usuarioService.getUsuarios();
@@ -852,30 +864,30 @@ public class CatalogosController {
 		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
 		model.addAttribute("promedioEdad", rsp.getPromedioEdadUsuarios());
 		model.addAttribute("listaUsuarios", usuarios.getUsuarios());
-		
+
 		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		model.addAttribute("fecha", fecha);
-		
+
 		Log.info("Saliendo de redirectionalEstadisticasUsuarios");
 		return "administrador/estadisticas-usuarios";
 	}
-	
+
 	@RequestMapping(value = "/usuario-detalle/{id}", method = RequestMethod.GET)
 	public String getObtenerUsuarioDetalle(Model model, @PathVariable String id) {
-		
+
 		log.info("Entrando a getObtenerUsuarioDetalle");
-		
+
 		UsuarioShingShingDetailService current = getAuthenticationUser();
-		
-		if ( null != current ) {
+
+		if (null != current) {
 			model.addAttribute("item", current.getUsuario());
 		}
-		
+
 		Usuario item = new Usuario();
-		item.setIdUsuario( Long.parseLong(id) );
+		item.setIdUsuario(Long.parseLong(id));
 		InformacionUsuarioRSP rsp = usuarioService.obtieneDetalleUsuario(item);
 		model.addAttribute("rsp", rsp);
-		
+
 		return "administrador/usuario-detalle";
 	}
 	/*
