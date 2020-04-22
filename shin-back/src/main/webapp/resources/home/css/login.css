@@ -202,6 +202,9 @@ button:focus{
 .m-40{
 	margin-bottom: 80px;
 }
+.bg-trs {
+	background-color: transparent !important;
+}
 @media (min-width: 576px){
 #principal #logo-header{
 	height: 40px;

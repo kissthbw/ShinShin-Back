@@ -216,7 +216,7 @@ body {
 }
 
 .form-control {
-	background-color: #DDDDDD !important;
+	background-color: #DDDDDD;
 	border-style: none !important;
 	border-radius: 10px !important;
 }
