@@ -100,7 +100,7 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setCode(200);
 
 		Authority aut = new Authority();
-		aut.setId(2);
+		aut.setId(1);
 		aut.setName(AuthorityType.ROLE_ADMIN);
 		Set<Authority> auts = new HashSet<>();
 		auts.add(aut);
