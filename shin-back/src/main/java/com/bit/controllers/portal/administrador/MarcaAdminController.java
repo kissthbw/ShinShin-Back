@@ -64,9 +64,10 @@ public class MarcaAdminController {
 	@RequestMapping(value = "/marca-admin/edit/{id}", method = RequestMethod.GET)
 	public String getCatMarcaEdit(Model model, @PathVariable String id) {
 		
-		log.info( "Entrando en getCatMarcaEdit" );
-		CatalogoMarca item = catalogoMarcaService.findById(Long.parseLong(id));
+		log.info( "Entrando en GET editar proveedor" );
+		Proveedor item = catalogoMarcaService.findProveedorById(Long.parseLong(id));
 		model.addAttribute("item", item);
+		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
@@ -80,12 +81,13 @@ public class MarcaAdminController {
 	}
 	//Si hay que eliminar la imagen de la marca agregar metodo sin file, agregar codigo y comentar el anterior
 	@RequestMapping(value = "/marca-admin/edit/{id}", method = RequestMethod.POST)
-	public String postCatMarcaEdit(@RequestParam MultipartFile file, @ModelAttribute CatalogoMarca item, BindingResult errors, Model model, @PathVariable String id) {
+	public String postCatMarcaEdit(@ModelAttribute Proveedor item, BindingResult errors, Model model, @PathVariable String id) {
 		
-		log.info( "Entrando en postCatMarcaEdit" );
-		item.setIdCatalogoMarca( Long.parseLong(id) );
-		SimpleResponse rsp = catalogoMarcaService.actualizarMarcas(file, item);
+		log.info( "Entrando en POST editar proveedor" );
+		item.setId( Long.parseLong(id) );
 
+		catalogoMarcaService.actualizaProveedorMarca(item);
+		
 		log.info( "Saliendo de postCatMarcaEdit" );
 		
 		return "redirect:/portal-administrador/marca/list?id="+id+"&type=1";
@@ -93,10 +95,14 @@ public class MarcaAdminController {
 	
 	@RequestMapping (value="/marca-admin/delete/{id}", method=RequestMethod.GET)
 	public String deleteMarca(Model model, @PathVariable String id) {
-		log.info("Entrando a deleteMarcas "+id);
-		CatalogoMarca item =  catalogoMarcaService.findById(Long.parseLong(id));
-		SimpleResponse rsp=catalogoMarcaService.eliminaMarcas(item);
-		log.info("saliendo a deleteMarcas "+id);
+		log.info("Entrando a deleteProveedorrMarcas "+id);
+		
+		Proveedor item = new Proveedor();
+		item.setId( Long.parseLong(id) );
+		
+		catalogoMarcaService.eliminaProveedorMarca(item);
+		
+		log.info("saliendo a deleteProveedorMarca "+id);
 		return "redirect:/portal-administrador/marca/list?id="+id+"&type=0";
 	}
 	

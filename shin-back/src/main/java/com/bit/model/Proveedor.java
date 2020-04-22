@@ -48,6 +48,9 @@ public class Proveedor {
 	
 	@Transient
 	private String marcaImageURL;
+	
+	@Column(name = "active")
+	private Boolean active;
 
 	public Long getId() {
 		return id;
@@ -103,5 +106,13 @@ public class Proveedor {
 
 	public void setMarcaImageURL(String marcaImageURL) {
 		this.marcaImageURL = marcaImageURL;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

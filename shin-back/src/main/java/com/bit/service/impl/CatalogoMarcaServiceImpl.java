@@ -3,8 +3,10 @@ package com.bit.service.impl;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bit.communication.CloundinaryService;
 import com.bit.dao.CatalogoMarcaDAO;
 import com.bit.dao.ProveedorDAO;
+import com.bit.model.Authority;
+import com.bit.model.AuthorityType;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.Proveedor;
 import com.bit.model.dto.SimpleResponse;
@@ -95,7 +99,52 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 
+		Authority aut = new Authority();
+		aut.setId(2);
+		aut.setName(AuthorityType.ROLE_ADMIN);
+		Set<Authority> auts = new HashSet<>();
+		auts.add(aut);
+		item.setActive(true);
+		item.setAuthorities(auts);
+		
 		proveedorDAO.save(item);
+		return rsp;
+	}
+	
+	@Override
+	@Transactional
+	public SimpleResponse actualizaProveedorMarca(Proveedor item) {
+		log.info("Actualizando un provedor de marca");
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		proveedorDAO.findByPK( item.getId() );
+		
+
+		item.setActive( true );
+		item = proveedorDAO.update(item);
+		rsp.setId(item.getId());
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public SimpleResponse eliminaProveedorMarca(Proveedor item) {
+
+		log.info("Elimnando un provedor de marca");
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setMessage("Exitoso");
+		rsp.setCode(200);
+		
+		proveedorDAO.deleteById( item.getId() );
+		
+
+//		item.setActive( false );
+//		item = proveedorDAO.update(item);
+		rsp.setId(item.getId());
 		return rsp;
 	}
 	
@@ -195,6 +244,15 @@ public class CatalogoMarcaServiceImpl implements CatalogoMarcaService {
 		
 		
 		return transform(item);
+	}
+	
+	@Override
+	@Transactional
+	public Proveedor findProveedorById(Long id) {
+		log.info("Buscando proveedor por id: {}", id);		
+		Proveedor item = proveedorDAO.findByPK(id);
+		
+		return toDto(item);
 	}
 	
 	private CatalogoMarca transform( CatalogoMarca entity ) {

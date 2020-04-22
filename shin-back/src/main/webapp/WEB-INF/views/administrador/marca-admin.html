@@ -233,7 +233,8 @@ Shing-Shing - Marcas
 						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post" enctype="multipart/form-data">
 							<div class="card ">
 								<div class="card-header ">
-									<h4 class="card-title">Nuevo administrador</h4>
+									<!-- <h4 class="card-title" >Nuevo administrador</h4>  -->
+									<h4 th:text="*{email}?: 'Nuevo administrador'">Nuevo administrador</h4>
 								</div>
 								<div class="card-body ">
 									<div class="row">
@@ -309,7 +310,7 @@ Shing-Shing - Marcas
 			      </div>
 			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
 			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
-			        <a class="btn btn-primary" th:href="@{'/portal-administrador/marca/delete/' + ${item.id}}">Si, Eliminar</a>
+			        <a class="btn btn-primary" th:href="@{'/portal-administrador/marca-admin/delete/' + ${item.id}}">Si, Eliminar</a>
 			        <br></br>
 			      </div>
 			    </div>

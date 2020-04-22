@@ -15,6 +15,10 @@ public interface CatalogoMarcaService {
 
 	SimpleResponse registrarProveedorMarca(Proveedor item);
 	
+	SimpleResponse actualizaProveedorMarca(Proveedor item);
+	
+	SimpleResponse eliminaProveedorMarca(Proveedor item);
+	
 	SimpleResponse registrarMarcas(MultipartFile file, CatalogoMarca item);
 
 	SimpleResponse actualizarMarcas(MultipartFile file, CatalogoMarca item);
@@ -22,5 +26,7 @@ public interface CatalogoMarcaService {
 	SimpleResponse eliminaMarcas(CatalogoMarca item);
 	
 	CatalogoMarca findById(Long id);
+	
+	Proveedor findProveedorById(Long id);
 
 }
