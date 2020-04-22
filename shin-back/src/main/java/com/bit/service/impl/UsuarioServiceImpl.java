@@ -268,17 +268,20 @@ public class UsuarioServiceImpl implements UsuarioService{
 		infoRSP.setCode(200);
 		
 		//Cuando es registro por red social el usuario es el correo electronico
+		Usuario entity = usuarioDAO.findBySocialMediaUser(item);
+		//log.info(entity.toString());
 		
-		//Usuario entity = usuarioDAO.findBySocialMediaUser(item);
-		Usuario entity=usuarioDAO.findUserByEmail(item.getCorreoElectronico());
+		//Usuario entity=usuarioDAO.findUserByEmail(item.getCorreoElectronico());
 		if (entity == null) {
-			
+			log.info("no existe el usuario");
 			if( MOBILE_PLACEHOLDER.equals( item.getTelMovil().trim() ) ) {
 				item.setTelMovil( null );
 			}
 			else {
-				//boolean exist = usuarioDAO.existUserByPhone(item);
-				boolean exist = usuarioDAO.existUserByEmail(item);
+				
+				boolean exist = usuarioDAO.existUserByPhone(item);
+				//boolean exist = usuarioDAO.existUserByEmail(item);
+				
 				if (exist) {
 					infoRSP.setMessage("Usuario ya existe (email ya existente)");
 					infoRSP.setCode(500);
@@ -294,20 +297,26 @@ public class UsuarioServiceImpl implements UsuarioService{
 			item.setEstatus(1);
 			item.setFecha_registro( Calendar.getInstance().getTime() );
 			entity = usuarioDAO.save(item);
-		} 
+		}else {
+			infoRSP.setMessage("Usuario ya existe (email ya existente)");
+			infoRSP.setCode(500);
+		}
 		
-		
-		log.info( "Obteniendo informacion usuario social media: {}", item.getUsuario() );
-		
-		
-		Usuario tmp = datosUsuario(entity);
-		infoRSP.setId( tmp.getIdUsuario() );
-		infoRSP.setUsuario(tmp);
-		BigDecimal credito = calculaCreditoTotal(tmp);			
-		infoRSP.setBonificacion( credito.doubleValue() );
+			log.info( "Obteniendo informacion usuario social media: {}", item.getUsuario() );
+			
+			
 
-		infoRSP.setId(tmp.getIdUsuario());
-		return infoRSP;
+			Usuario tmp = datosUsuario(entity);
+			infoRSP.setId( tmp.getIdUsuario() );
+			infoRSP.setUsuario(tmp);
+			BigDecimal credito = calculaCreditoTotal(tmp);			
+			infoRSP.setBonificacion( credito.doubleValue() );
+
+			infoRSP.setId(tmp.getIdUsuario());
+			return infoRSP;
+		
+		
+		
 	}
 
 	private Usuario datosUsuario(Usuario user) {
