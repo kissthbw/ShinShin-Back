@@ -1,5 +1,6 @@
 package com.bit.controllers.portal.empresa;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bit.model.Usuario;
+import com.bit.service.ProveedorDetailService;
 
 @Controller
 @RequestMapping(value="/portal-empresa")
@@ -18,6 +20,13 @@ public class EmpresaDashboardController {
 	@GetMapping(value="/dashboard")
 	public String dasdboard(Model model, 
 			@ModelAttribute("currentUser") Usuario currentUser) {
+		
+		ProveedorDetailService current = getAuthenticationUser();
+		
+		if (null != current) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		
 		//Se obtiene informacion del usuario logueado
 		//1. Saldo total
 		//2. Numero de tickets del mes
@@ -75,5 +84,16 @@ public class EmpresaDashboardController {
 //		model.addAttribute("item", rsp);
 		
 		return "empresa_usuarios";
+	}
+	
+	private ProveedorDetailService getAuthenticationUser() {
+		ProveedorDetailService user = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof ProveedorDetailService) {
+			user = (ProveedorDetailService) principal;
+		}
+
+		return user;
 	}
 }

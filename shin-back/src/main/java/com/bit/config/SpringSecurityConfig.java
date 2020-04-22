@@ -76,7 +76,7 @@ public class SpringSecurityConfig {
 			.antMatcher("/portal-empresa/**")
 	          .authorizeRequests()
 	          .anyRequest()
-	          .hasRole("USER")
+	          .hasRole("ADMIN")
 	          .and()
 	          .addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 	          .formLogin()

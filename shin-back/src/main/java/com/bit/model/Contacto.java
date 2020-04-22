@@ -22,6 +22,12 @@ public class Contacto {
 
 	@Column(name = "id_usuario")
 	private Long idUsuario;
+	
+	@Column(name = "nombre")
+	private String nombre;
+	
+	@Column(name = "email")
+	private String email;
 
 	public Long getId() {
 		return id;
@@ -53,6 +59,22 @@ public class Contacto {
 
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

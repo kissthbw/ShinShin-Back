@@ -83,7 +83,7 @@
 					</div>
 				</div>
 
-				<a href="usuario.html">
+				<a th:href="@{/}">
 					<div class="col-12">
 						<div class="row justify-content-between">
 								<button class="btn btn-primary cta-white m-40 col">Vale</button>
@@ -119,6 +119,7 @@
 		<!-- Content principal -->
 		<div id="content-principal">
 			<div class="container">
+				<form  id="LoginValidation" class="form" method="post" th:object="${item}">
 				<div class="row justify-content-center">
 
 					<div class="col-12 title-login">
@@ -134,7 +135,7 @@
 
 								<div class="col">
 									<label class="label-default col-12">Nombre</label>
-									<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Username" aria-describedby="basic-addon1"/>
+									<input type="text" th:field="*{nombre}" class="form-control input-grey col-12" placeholder="" aria-label="Username" aria-describedby="basic-addon1"/>
 							        <div class="invalid-feedback">
 							          Ingresa tu email.
 							        </div>
@@ -152,7 +153,7 @@
 
 								<div class="col">
 									<label class="label-default col-12">Email</label>
-									<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Username" aria-describedby="basic-addon1"/>
+									<input type="text" th:field="*{email}" class="form-control input-grey col-12" placeholder="" aria-label="Username" aria-describedby="basic-addon1"/>
 							        <div class="invalid-feedback">
 							          Ingresa tu email.
 							        </div>
@@ -170,7 +171,7 @@
 
 								<div class="col">
 									<label class="label-default col-12">Mensaje</label>
-									<textarea class="form-control input-grey" id="exampleFormControlTextarea1" rows="3"></textarea>
+									<textarea th:field="*{detalle}" class="form-control input-grey" id="exampleFormControlTextarea1" rows="3"></textarea>
 							        <div class="invalid-feedback">
 							          Escribe tu mensaje
 							        </div>
@@ -185,8 +186,8 @@
 							<button type="submit" class="btn btn-primary cta-orange m-40 col" data-toggle="modal" data-target="#exampleModal">Enviar</button>
 						</div>
 					</div>	
-
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

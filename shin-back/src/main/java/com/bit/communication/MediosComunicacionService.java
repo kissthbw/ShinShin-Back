@@ -19,6 +19,8 @@ public interface MediosComunicacionService {
 	 */
 	SimpleResponse sendEmail( EMailDTO data ) throws CommunicationException;
 	
+	SimpleResponse sendContactEmail( EMailDTO data ) throws CommunicationException;
+	
 	/**
 	 * Envio de SMS, usualmente se envia el codigo de activacion dentro del body
 	 * @param data, contiene el numero del destinatario y el cuerpo del mensaje

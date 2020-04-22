@@ -27,7 +27,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 
 	// Mover a variables de ambiente o archivo de propiedades
 	public static final String ACCOUNT_SID = "AC021b53d8f2e2a1ba77deee1627bfad27";
-	public static final String AUTH_TOKEN = "33b7acd3bf9aacfd8187448db9ac7d1f";
+	public static final String AUTH_TOKEN = "";
 
 	@Autowired
 	private MediosComunicacionService mediosComunicacionService;
@@ -109,6 +109,66 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		}
 
 		return rsp;
+	}
+
+	@Override
+	public SimpleResponse sendContactEmail(EMailDTO data) throws CommunicationException {
+
+
+		SimpleResponse rsp = new SimpleResponse();
+		Personalization personalization = new Personalization();
+			
+		// 1. Correo del emisor, debe ser de la cuenta del cliente
+		Email from = new Email("contacto@tradenial.com");
+
+		// 2. Correo del usuario que se registro
+		Email to = new Email();
+		to.setName( "Shing Shing" );
+		to.setEmail( "contacto@tradenial.com" );
+		personalization.addTo(to);
+
+		// 3. Asunto del correo, definir un titulo constante
+		String subject = data.getSubject();
+
+		// 4. Definir el contenido del correo, el cual debe incluir el codigo de
+		// verificacion
+//		Content content = new Content("text/html", "www.espinof.com");
+		String link = data.getBody();
+		System.out.println( link );
+		
+//		personalization.addDynamicTemplateData("link", link);
+		personalization.addDynamicTemplateData("link", data.getBody());
+//		Mail mail = new Mail(from, subject, to, content);
+		Mail mail = new Mail();
+		mail.setFrom(from);
+		mail.setSubject(subject);
+		
+		mail.setTemplateId("d-742ba7f42e044ec69d629bfb7dcd8e09");
+		mail.addPersonalization(personalization);
+
+//		Map<String, String> envs = System.getenv();
+//		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+		// El API KEY debe ser puesto en una variable de ambiente
+		SendGrid sg = new SendGrid("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");
+		Request request = new Request();
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+			rsp.setCode(response.getStatusCode());
+			rsp.setMessage(response.getBody());
+
+			System.out.println(response.getStatusCode());
+			System.out.println(response.getBody());
+			System.out.println(response.getHeaders());
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
+		}
+
+		return rsp;
+	
 	}
 
 }

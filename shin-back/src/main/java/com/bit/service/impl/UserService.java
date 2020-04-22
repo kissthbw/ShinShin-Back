@@ -46,6 +46,10 @@ public class UserService implements  UserDetailsService {
 			username = username.replace(SimpleAuthenticationFilter.SPRING_SECURITY_FORM_EMPRESA_KEY, "");
 			
 			Proveedor p = proveedorDAO.finfByEmail(username);
+			if( null != p.getMarca().getImgUrl() ) {
+				p.setMarcaImageURL( p.getMarca().getImgUrl() );
+			}
+			
 			ProveedorDetailService detail = new ProveedorDetailService(p, getGrantedAuthorities(p));
 			
 			return detail;

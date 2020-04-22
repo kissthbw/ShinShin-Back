@@ -21,3 +21,7 @@ CREATE TABLE `proveedor_authority` (
   CONSTRAINT `fk_authority_p` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_proveedor` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+ALTER TABLE `ShinShin`.`contacto` 
+ADD COLUMN `nombre` VARCHAR(80) NULL AFTER `id_usuario`,
+ADD COLUMN `email` VARCHAR(100) NULL AFTER `nombre`;

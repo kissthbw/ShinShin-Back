@@ -42,7 +42,7 @@ public class HomeEmpresa {
 		
 //		usuarioService.findUserByUserAndPassword(item);
 		
-		return new RedirectView("producto/list");
+		return new RedirectView("dashboard");
 		
 //		return "redirect:/portal-administrador/producto/list";
 	}

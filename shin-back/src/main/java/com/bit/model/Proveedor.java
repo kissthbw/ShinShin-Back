@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -44,6 +45,9 @@ public class Proveedor {
 	@JoinTable(name = "proveedor_authority", joinColumns = { @JoinColumn(name = "proveedor_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "authority_id") })
 	private Set<Authority> authorities = new HashSet<>();
+	
+	@Transient
+	private String marcaImageURL;
 
 	public Long getId() {
 		return id;
@@ -91,5 +95,13 @@ public class Proveedor {
 
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
+	}
+
+	public String getMarcaImageURL() {
+		return marcaImageURL;
+	}
+
+	public void setMarcaImageURL(String marcaImageURL) {
+		this.marcaImageURL = marcaImageURL;
 	}
 }

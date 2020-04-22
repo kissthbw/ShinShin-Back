@@ -98,7 +98,7 @@
 		<!-- Content principal -->
 		<div id="content-principal">
 			<div class="container">
-				<form id="LoginValidation" class="form" action="admin_login" method="post"
+				<form id="LoginValidation" class="form" action="empresa_login" method="post"
 					th:object="${item}">
 					<div class="row justify-content-center">
 
@@ -111,6 +111,7 @@
 											type="text" class="form-control input-grey col-12"
 											placeholder="" th:field="*{username}" aria-label="Username"
 											aria-describedby="basic-addon1" required="true"/>
+										<input type="hidden" id="empresa" value="empresa"/>
 									</div>
 								</div>
 							</div>

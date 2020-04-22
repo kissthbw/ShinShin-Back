@@ -1100,6 +1100,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		contactoDAO.save(item);
 		
+		try {
+			prepareContactoEmail(item.getEmail(), item.getNombre() + "Mensaje: " + item.getDetalle());
+		} catch (CommunicationException e) {
+			log.error( "", e );
+		}
+		
 		return rsp;
 	}
 
@@ -1159,6 +1165,18 @@ public class UsuarioServiceImpl implements UsuarioService{
 		data.setPersonalization(personalization);
 		
 		mediosComunicacionService.sendEmail(data);
+	}
+	
+	private void prepareContactoEmail( String email, String body ) throws CommunicationException {
+		Personalization personalization = new Personalization(); 
+		personalization.addDynamicTemplateData("link", body);
+		EMailDTO data = new EMailDTO();
+		data.setToAccount( email );
+		data.setSubject("Contacto");
+		data.setBody( body );
+		data.setPersonalization(personalization);
+		
+		mediosComunicacionService.sendContactEmail(data);
 	}
 
 	@Override
