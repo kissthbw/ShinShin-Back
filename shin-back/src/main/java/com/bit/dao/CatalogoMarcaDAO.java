@@ -13,7 +13,6 @@ import org.jfree.util.Log;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.CatalogoMarca;
-import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.dto.Item;
 
 @Repository

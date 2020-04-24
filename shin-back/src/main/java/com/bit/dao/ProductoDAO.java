@@ -233,4 +233,5 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 			
 		return total;
 	}
+	
 }

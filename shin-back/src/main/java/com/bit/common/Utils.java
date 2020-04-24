@@ -211,6 +211,7 @@ public class Utils {
 			
 			if( null != i ) {
 				i.setTotal( data.getTotal() );
+				i.setImporte( data.getImporte() );
 			}
 		}
 	}
@@ -229,6 +230,7 @@ public class Utils {
 			
 			if( null != i ) {
 				i.setTotal( data.getTotal() );
+				i.setImporte( data.getImporte() );
 			}
 		}
 	}

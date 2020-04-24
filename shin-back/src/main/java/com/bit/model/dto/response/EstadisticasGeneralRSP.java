@@ -31,6 +31,10 @@ public class EstadisticasGeneralRSP {
 	private List<Item> totalProductosEscaneadosDias;
 	private List<Item> totalProductosEscaneadosSemana;
 	private List<Item> totalProductosEscaneadosMes;
+	// Bonificaciones escaneos
+	private List<Item> totalBonificacionesDias;
+	private List<Item> totalBonificacionesSemana;
+	private List<Item> totalBonificacionesMes;
 
 	private List<Item> listaTopMarcas;
 	private List<Item> listaTopDeptos;
@@ -166,6 +170,30 @@ public class EstadisticasGeneralRSP {
 
 	public void setTotalProductosEscaneadosMes(List<Item> totalProductosEscaneadosMes) {
 		this.totalProductosEscaneadosMes = totalProductosEscaneadosMes;
+	}
+
+	public List<Item> getTotalBonificacionesDias() {
+		return totalBonificacionesDias;
+	}
+
+	public void setTotalBonificacionesDias(List<Item> totalBonificacionesDias) {
+		this.totalBonificacionesDias = totalBonificacionesDias;
+	}
+
+	public List<Item> getTotalBonificacionesSemana() {
+		return totalBonificacionesSemana;
+	}
+
+	public void setTotalBonificacionesSemana(List<Item> totalBonificacionesSemana) {
+		this.totalBonificacionesSemana = totalBonificacionesSemana;
+	}
+
+	public List<Item> getTotalBonificacionesMes() {
+		return totalBonificacionesMes;
+	}
+
+	public void setTotalBonificacionesMes(List<Item> totalBonificacionesMes) {
+		this.totalBonificacionesMes = totalBonificacionesMes;
 	}
 
 	public List<Item> getListaTopMarcas() {

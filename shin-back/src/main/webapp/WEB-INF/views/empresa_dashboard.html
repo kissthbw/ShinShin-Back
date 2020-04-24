@@ -59,8 +59,10 @@
 					</div>
 					<div class="info">
 						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span> NESTLE <b class="caret"></b>
+							class="collapsed"> <span id="marcaID"  th:text="${item.marca.nombreMarca}">  <b class="caret"></b>
+							
 						</span>
+						<input type="hidden" id="idMarca" th:value="${item.marca.idCatalogoMarca}"></input>
 						</a>
 						<div class="clearfix"></div>
 						<div class="collapse" id="collapseExample">
@@ -190,7 +192,7 @@
 
 						<ul class="navbar-nav">
 							<li class="nav-item"><a class="nav-link btn-magnify"
-								th:href="@{/portal-empresa/user_logout}"> <i
+								th:href="@{/portal-empresa/empresa_logout}"> <i
 									class="fa fa-sign-out"></i>
 									<p>
 										<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
@@ -215,8 +217,8 @@
 							<h3 class="title-cat">General</h3>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-							<a href="#" class="btn btn-primary float-right" role="button"
-								aria-disabled="true">Resumen</a>
+							<a th:href="@{'/portal-empresa/dashboard/report'}" class="btn btn-primary float-right" role="button"
+								aria-disabled="true">Resum&eacute;n</a>
 						</div>
 
 					</div>
@@ -234,7 +236,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Finanzas</p>
-											<p class="card-title" th:text="${totalDepositos}">99</p>
+											<p class="card-title" th:text="${info.totalBonificaciones}">99</p>
 										</div>
 									</div>
 								</div>
@@ -246,15 +248,15 @@
 							<div class="card-body">
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayDepositosBtn" class="nav-item"><a
+									<li id="dayFinanzasBtn" class="nav-item"><a
 										class="nav-link active" id="pills-home-tab" data-toggle="pill"
 										href="#pills-home" role="tab" aria-controls="pills-home"
 										aria-selected="true">Día</a></li>
-									<li id="weekDepositosBtn" class="nav-item"><a
+									<li id="weekFinanzasBtn" class="nav-item"><a
 										class="nav-link" id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li id="monthDepositosBtn" class="nav-item"><a
+									<li id="monthFinanzasBtn" class="nav-item"><a
 										class="nav-link" id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -295,7 +297,7 @@
 									<div class="col-sm-7">
 										<div class="footer-title">
 											<a
-												th:href="@{'/portal-administrador/bonificaciones-general/report'}">
+												th:href="@{'/portal-empresa/dashboard/report'}">
 												<i class="nc-icon nc-paper"></i>
 											</a>
 										</div>
@@ -325,7 +327,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Productos</p>
-											<p class="card-title" th:text="${totalDepositos}">99</p>
+											<p class="card-title" th:text="${info.totalProductos}">99</p>
 										</div>
 									</div>
 								</div>
@@ -337,15 +339,15 @@
 							<div class="card-body">
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayDepositosBtn" class="nav-item"><a
+									<li id="btnProductosDay" class="nav-item"><a
 										class="nav-link active" id="pills-home-tab" data-toggle="pill"
 										href="#pills-home" role="tab" aria-controls="pills-home"
 										aria-selected="true">Día</a></li>
-									<li id="weekDepositosBtn" class="nav-item"><a
+									<li id="btnProductosWeek" class="nav-item"><a
 										class="nav-link" id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li id="monthDepositosBtn" class="nav-item"><a
+									<li id="btnProductosMonth" class="nav-item"><a
 										class="nav-link" id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -366,17 +368,17 @@
 													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
-										<canvas id="finanzasChart" width="558" height="256"
+										<canvas id="productosChart" width="558" height="256"
 											class="chartjs-render-monitor"
 											style="display: block; height: 128px; width: 279px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="finanzasChart" width="826" height="380"></canvas>
+										<canvas id="productosChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="finanzasChart" width="826" height="380"></canvas>
+										<canvas id="productosChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -386,7 +388,7 @@
 									<div class="col-sm-7">
 										<div class="footer-title">
 											<a
-												th:href="@{'/portal-administrador/bonificaciones-general/report'}">
+												th:href="@{'/portal-empresa/dashboard/report'}">
 												<i class="nc-icon nc-paper"></i>
 											</a>
 										</div>
@@ -416,7 +418,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Usuarios</p>
-											<p class="card-title" th:text="${totalDepositos}">99</p>
+											<p class="card-title" th:text="${info.totalUsuarios}">99</p>
 										</div>
 									</div>
 								</div>
@@ -428,15 +430,15 @@
 							<div class="card-body">
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayDepositosBtn" class="nav-item"><a
+									<li id="btnUsersDay" class="nav-item"><a
 										class="nav-link active" id="pills-home-tab" data-toggle="pill"
 										href="#pills-home" role="tab" aria-controls="pills-home"
 										aria-selected="true">Día</a></li>
-									<li id="weekDepositosBtn" class="nav-item"><a
+									<li id="btnUsersWeek" class="nav-item"><a
 										class="nav-link" id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li id="monthDepositosBtn" class="nav-item"><a
+									<li id="btnUsersMonth" class="nav-item"><a
 										class="nav-link" id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -477,7 +479,7 @@
 									<div class="col-sm-7">
 										<div class="footer-title">
 											<a
-												th:href="@{'/portal-administrador/bonificaciones-general/report'}">
+												th:href="@{'/portal-empresa/dashboard/report'}">
 												<i class="nc-icon nc-paper"></i>
 											</a>
 										</div>
@@ -551,7 +553,7 @@
 								<div class="col-sm-7">
 									<div class="footer-title">
 										<a
-											th:href="@{'/portal-administrador/bonificaciones-general/report'}">
+											th:href="@{'/portal-empresa/dashboard/report'}">
 											<i class="nc-icon nc-paper"></i>
 										</a>
 									</div>
@@ -712,12 +714,97 @@
 		type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	<script th:src="@{/resources/assets/demo/empresa-dashboard-chart.js}"></script>
 	<script>
 		$(document).ready(function() {
+			var str = $('#marca.idCatalogoMarca').val();
+			console.log( "HTML Proveedor: " + str );
+			
+			var v = $("#marcaID").text();
+			var idMarca = $("#idMarca").val();
+			
+			//Finanzas
+			$('#dayFinanzasBtn').click(function(){
+				finanzasPorDiaChart();
+			});
+
+			$('#weekFinanzasBtn').click(()=>{
+				finanzasPorSemanaChart();
+			});
+
+			$('#monthFinanzasBtn').click(()=>{
+				finanzasPorMesChart()
+			});
+			
+			//Productos
+			$('#btnProductosDay').click(function(){
+				productosPorDiaChart();
+			});
+
+			$('#btnProductosWeek').click(()=>{
+				productosPorSemanaChart();
+			});
+
+			$('#btnProductosMonth').click(()=>{
+				productosPorMesChart()
+			});
+			
+			//Usuarios
+			$('#btnUsersDay').click(function(){
+				usuariosPorDiaChart();
+			});
+
+			$('#btnUsersWeek').click(()=>{
+				usuariosPorSemanaChart();
+			});
+
+			$('#btnUsersMonth').click(()=>{
+				usuariosPorMesChart()
+			});
+			
+			function finanzasPorDiaChart() {
+				estadisticas_general.finanzasPorDiaChart( idMarca, "1", "d" );
+			}
+
+			function finanzasPorSemanaChart() {
+				estadisticas_general.finanzasPorSemanaChart( idMarca, "1", "s" );
+			}
+
+			function finanzasPorMesChart() {
+				estadisticas_general.finanzasPorMesChart( idMarca, "1", "m" );
+			}
+			
+			function productosPorDiaChart() {
+				estadisticas_general.productosPorDiaChart( idMarca, "2", "d" );
+			}
+
+			function productosPorSemanaChart() {
+				estadisticas_general.productosPorSemanaChart( idMarca, "2", "s" );
+			}
+
+			function productosPorMesChart() {
+				estadisticas_general.productosPorMesChart( idMarca, "2", "m" );
+			}
+			
+			function usuariosPorDiaChart() {
+				estadisticas_general.usuariosPorDiaChart( idMarca, "3", "d" );
+			}
+
+			function usuariosPorSemanaChart() {
+				estadisticas_general.usuariosPorSemanaChart( idMarca, "3", "s" );
+			}
+
+			function usuariosPorMesChart() {
+				estadisticas_general.usuariosPorMesChart( idMarca, "3", "m" );
+			}
+			
+			
+			//function loadChart( idChart, tipo, categoria ) {
+			//	bonificaciones_generales.loadChart( idChart, tipo, categoria );
+			//}
 
 		});
 	</script>
+	<script th:src="@{/resources/assets/demo/empresa-dashboard-chart.js}"></script>
 </body>
 
 </html>

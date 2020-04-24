@@ -37,32 +37,54 @@ var estadisticas_general = {
 			//http://shinshin-env.m7izq9trpe.us-east-2.elasticbeanstalk.com
 			//http://www.shingshing.com
 			//www.shingshing.com
+			
+			//usuarios
+			//dia: total, indice
+			//semana: total, indice
+			//mes: total, indice o topico
+			
+			//bonificaciones
+			//dia: importe, indice
+			//semana: importe, indice
+			//mes: importe, indide o  topico
+			
+			//productos
+			//dia: total, indice
+			//semana: total, indice
+			//mes: total, indice o topico
+			
+			var str = $("#marca.idCatalogoMarca").val();
+			var idMarca = $("#idMarca").val();
+			var params = "?idMarca=" + idMarca;
+			//console.log( "Proveedor: " + str + " - " + v1 );
+			
 			$.ajax({
-				url : url + "/estadisticas/general",
+				url : url + "/estadisticas/empresa/charts/dashboard" + params,
 				dataType : "json",
 				success : function(result) {
 
 					console.log(result);
 					var usuariosData=[], usuariosLabel=[];
-					var ticketsData=[], ticketsLabel=[];
-					var productosData=[], productosLabel=[];
+					var escaneosData=[], escaneosLabel=[];
+					var bonificacionesData=[], bonificacionesLabel=[];
 					var tiendasDatasets =[];
+					
+					//Finanzas(Bonificaciones), Productos, Usuarios
+					$.each(result.totalBonificacionesDias, function(index, item) {
+						bonificacionesData.push(item.importe)
+						bonificacionesLabel.push(item.topico)
+						
+					});
 
-					$.each(result.totalUsuariosMes, function(index, item) {
+					$.each(result.totalEscaneosDias, function(index, item) {
+						escaneosData.push(item.total)
+						escaneosLabel.push(item.topico)
+						
+					});
+					
+					$.each(result.totalUsuariosDias, function(index, item) {
 						usuariosData.push(item.total)
 						usuariosLabel.push(item.topico)
-						
-					});
-					
-					$.each(result.totalEscaneosMes, function(index, item) {
-						ticketsData.push(item.total)
-						ticketsLabel.push(item.topico)
-						
-					});
-					
-					$.each(result.totalProductosEscaneadosMes, function(index, item) {
-						productosData.push(item.total)
-						productosLabel.push(item.topico)
 						
 					});
 					
@@ -87,8 +109,57 @@ var estadisticas_general = {
 						tiendasDatasets.push(tmpDataset)
 						console.log( tiendasDatasets )
 					});
-
 					
+					var ctx = document.getElementById('finanzasChart').getContext('2d');
+
+					window.finanzasChart = new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: escaneosLabel,
+							datasets: [{
+								label: '#',
+								data: escaneosData,
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
+								borderWidth: 1
+							}]
+						},
+						options: {
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true
+									}
+								}]
+							}
+						}
+					 });
+					
+					var ctx = document.getElementById('productosChart').getContext('2d');
+
+					window.productosChart = new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: bonificacionesLabel,
+							datasets: [{
+								label: '#',
+								data: bonificacionesData,
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
+								borderWidth: 1
+							}]
+						},
+						options: {
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true
+									}
+								}]
+							}
+						}
+					 });
+
 					var ctx = document.getElementById('usuariosChart').getContext('2d');
 
 					window.usuariosChart = new Chart(ctx, {
@@ -115,86 +186,36 @@ var estadisticas_general = {
 						}
 					 });
 					
-					var ctx = document.getElementById('ticketsChart').getContext('2d');
-
-					window.ticketsChart = new Chart(ctx, {
-						type: 'bar',
-						data: {
-							labels: ticketsLabel,
-							datasets: [{
-								label: '#',
-								data: ticketsData,
-								backgroundColor: chartBackground,
-								borderColor: chartBackgroundBorder,
-								borderWidth: 1
-							}]
-						},
-						options: {
-							scales: {
-								yAxes: [{
-									ticks: {
-										beginAtZero: true
-									}
-								}]
-							}
-						}
-					 });
-					
-					var ctx = document.getElementById('productosChart').getContext('2d');
-
-					window.productosChart = new Chart(ctx, {
-						type: 'bar',
-						data: {
-							labels: productosLabel,
-							datasets: [{
-								label: '#',
-								data: productosData,
-								backgroundColor: chartBackground,
-								borderColor: chartBackgroundBorder,
-								borderWidth: 1
-							}]
-						},
-						options: {
-							scales: {
-								yAxes: [{
-									ticks: {
-										beginAtZero: true
-									}
-								}]
-							}
-						}
-					 });
-
-					
-					
-					var ctx = document.getElementById('tiendasChart').getContext('2d');
-
-					window.tiendasChart = new Chart(ctx, {
-						type: 'bar',
-						data: {
-							labels: usuariosLabel,
-							datasets: tiendasDatasets
-						},
-						options: {
-							scales: {
-								yAxes: [{
-									ticks: {
-										beginAtZero: true
-									}
-								}]
-							}
-						}
-					 });
+//					var ctx = document.getElementById('tiendasChart').getContext('2d');
+//
+//					window.tiendasChart = new Chart(ctx, {
+//						type: 'bar',
+//						data: {
+//							labels: usuariosLabel,
+//							datasets: tiendasDatasets
+//						},
+//						options: {
+//							scales: {
+//								yAxes: [{
+//									ticks: {
+//										beginAtZero: true
+//									}
+//								}]
+//							}
+//						}
+//					 });
 				},
 				error: function() {
 			        console.log("No se ha podido obtener la información");
 			    }
 			});
 	},
-	usuariosPorDiaChart : function() {
+	usuariosPorDiaChart : function( idMarca, tipo, categoria ) {
 
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
 		$.ajax({
-			url : url + "/estadisticas/general",
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
 			dataType : "json",
 			success : function(result) {
 
@@ -235,9 +256,12 @@ var estadisticas_general = {
 			}
 		});
 	},
-	usuariosPorSemanaChart : function(){
+	usuariosPorSemanaChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
 		$.ajax({
-			url : url + "/estadisticas/general",
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
 			dataType : "json",
 			success : function(result) {
 
@@ -278,9 +302,12 @@ var estadisticas_general = {
 			}
 		});
 	},
-	usuariosPorMesChart : function(){
+	usuariosPorMesChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
 		$.ajax({
-			url : url + "/estadisticas/general",
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
 			dataType : "json",
 			success : function(result) {
 
@@ -323,11 +350,145 @@ var estadisticas_general = {
 		});
 	},
 	
-	//Tickets
-	ticketsPorDiaChart : function() {
+	//Finanzas
+	finanzasPorDiaChart : function( idMarca, tipo, categoria ) {
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
 
 		$.ajax({
-			url : url + "/estadisticas/general",
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalBonificacionesDias, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push("D " + item.indice)
+					
+				});
+
+				//Elmina dataset anterior
+				window.finanzasChart.data.labels.splice(0,window.finanzasChart.data.labels.length);
+				window.finanzasChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.finanzasChart.data.datasets.pop();
+				
+				window.finanzasChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: '#' ,
+						backgroundColor: chartBackgroundBorder,
+						borderColor: chartBackground,
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.finanzasChart.data.labels = usuarioslabel;
+				window.finanzasChart.data.datasets.push(newDataset);
+				window.finanzasChart.update();
+			}
+		});
+	},
+	finanzasPorSemanaChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
+		$.ajax({
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalBonificacionesSemana, function(index, item) {
+					usuariosData.push(item.total)
+					usuarioslabel.push("Semana " + item.indice)
+					
+				});
+
+				//Elmina dataset anterior
+				window.finanzasChart.data.labels.splice(0,window.finanzasChart.data.labels.length);
+				window.finanzasChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.finanzasChart.data.datasets.pop();
+				
+				window.finanzasChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.finanzasChart.data.labels = usuarioslabel;
+				window.finanzasChart.data.datasets.push(newDataset);
+				window.finanzasChart.update();
+			}
+		});
+	},
+	finanzasPorMesChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
+		$.ajax({
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var usuariosData=[], usuarioslabel=[];
+				
+
+				$.each(result.totalBonificacionesMes, function(index, item) {
+					usuariosData.push(item.importe)
+					usuarioslabel.push(item.topico)
+					
+				});
+
+				//Elmina dataset anterior
+				window.finanzasChart.data.labels.splice(0,window.finanzasChart.data.labels.length);
+				window.finanzasChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.finanzasChart.data.datasets.pop();
+				
+				window.finanzasChart.update();
+				
+				//Actualizar con nuevos datos
+				var newDataset = {
+						label: '#' ,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
+						borderWidth: 1,
+						data: usuariosData
+				};
+				
+				window.finanzasChart.data.labels = usuarioslabel;
+				window.finanzasChart.data.datasets.push(newDataset);
+				window.finanzasChart.update();
+
+			}
+		});
+	},
+	
+	//Productos
+	productosPorDiaChart : function( idMarca, tipo, categoria ) {
+
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
+		$.ajax({
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
 			dataType : "json",
 			success : function(result) {
 
@@ -342,32 +503,35 @@ var estadisticas_general = {
 				});
 
 				//Elmina dataset anterior
-				window.ticketsChart.data.labels.splice(0,window.ticketsChart.data.labels.length);
-				window.ticketsChart.data.datasets.forEach(function(dataset) {
+				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
+				window.productosChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.ticketsChart.data.datasets.pop();
+				window.productosChart.data.datasets.pop();
 				
-				window.ticketsChart.update();
+				window.productosChart.update();
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
 						label: '#' ,
-						backgroundColor: chartBackgroundBorder,
-						borderColor: chartBackground,
+						backgroundColor: chartBackground,
+						borderColor: chartBackgroundBorder,
 						borderWidth: 1,
 						data: usuariosData
 				};
 				
-				window.ticketsChart.data.labels = usuarioslabel;
-				window.ticketsChart.data.datasets.push(newDataset);
-				window.ticketsChart.update();
+				window.productosChart.data.labels = usuarioslabel;
+				window.productosChart.data.datasets.push(newDataset);
+				window.productosChart.update();
 			}
 		});
 	},
-	ticketsPorSemanaChart : function(){
+	productosPorSemanaChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
 		$.ajax({
-			url : url + "/estadisticas/general",
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
 			dataType : "json",
 			success : function(result) {
 
@@ -382,13 +546,13 @@ var estadisticas_general = {
 				});
 
 				//Elmina dataset anterior
-				window.ticketsChart.data.labels.splice(0,window.ticketsChart.data.labels.length);
-				window.ticketsChart.data.datasets.forEach(function(dataset) {
+				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
+				window.productosChart.data.datasets.forEach(function(dataset) {
 					dataset.data.pop();
 				});
-				window.ticketsChart.data.datasets.pop();
+				window.productosChart.data.datasets.pop();
 				
-				window.ticketsChart.update();
+				window.productosChart.update();
 				
 				//Actualizar con nuevos datos
 				var newDataset = {
@@ -399,15 +563,18 @@ var estadisticas_general = {
 						data: usuariosData
 				};
 				
-				window.ticketsChart.data.labels = usuarioslabel;
-				window.ticketsChart.data.datasets.push(newDataset);
-				window.ticketsChart.update();
+				window.productosChart.data.labels = usuarioslabel;
+				window.productosChart.data.datasets.push(newDataset);
+				window.productosChart.update();
 			}
 		});
 	},
-	ticketsPorMesChart : function(){
+	productosPorMesChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
 		$.ajax({
-			url : url + "/estadisticas/general",
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
 			dataType : "json",
 			success : function(result) {
 
@@ -416,130 +583,6 @@ var estadisticas_general = {
 				
 
 				$.each(result.totalEscaneosMes, function(index, item) {
-					usuariosData.push(item.total)
-					usuarioslabel.push(item.topico)
-					
-				});
-
-				//Elmina dataset anterior
-				window.ticketsChart.data.labels.splice(0,window.ticketsChart.data.labels.length);
-				window.ticketsChart.data.datasets.forEach(function(dataset) {
-					dataset.data.pop();
-				});
-				window.ticketsChart.data.datasets.pop();
-				
-				window.ticketsChart.update();
-				
-				//Actualizar con nuevos datos
-				var newDataset = {
-						label: '#' ,
-						backgroundColor: chartBackground,
-						borderColor: chartBackgroundBorder,
-						borderWidth: 1,
-						data: usuariosData
-				};
-				
-				window.ticketsChart.data.labels = usuarioslabel;
-				window.ticketsChart.data.datasets.push(newDataset);
-				window.ticketsChart.update();
-
-			}
-		});
-	},
-	
-	//Productos
-	productosPorDiaChart : function() {
-
-		$.ajax({
-			url : url + "/estadisticas/general",
-			dataType : "json",
-			success : function(result) {
-
-				console.log(result);
-				var usuariosData=[], usuarioslabel=[];
-				
-
-				$.each(result.totalProductosEscaneadosDias, function(index, item) {
-					usuariosData.push(item.total)
-					usuarioslabel.push("D " + item.indice)
-					
-				});
-
-				//Elmina dataset anterior
-				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
-				window.productosChart.data.datasets.forEach(function(dataset) {
-					dataset.data.pop();
-				});
-				window.productosChart.data.datasets.pop();
-				
-				window.productosChart.update();
-				
-				//Actualizar con nuevos datos
-				var newDataset = {
-						label: '#' ,
-						backgroundColor: chartBackground,
-						borderColor: chartBackgroundBorder,
-						borderWidth: 1,
-						data: usuariosData
-				};
-				
-				window.productosChart.data.labels = usuarioslabel;
-				window.productosChart.data.datasets.push(newDataset);
-				window.productosChart.update();
-			}
-		});
-	},
-	productosPorSemanaChart : function(){
-		$.ajax({
-			url : url + "/estadisticas/general",
-			dataType : "json",
-			success : function(result) {
-
-				console.log(result);
-				var usuariosData=[], usuarioslabel=[];
-				
-
-				$.each(result.totalProductosEscaneadosSemana, function(index, item) {
-					usuariosData.push(item.total)
-					usuarioslabel.push("Semana " + item.indice)
-					
-				});
-
-				//Elmina dataset anterior
-				window.productosChart.data.labels.splice(0,window.productosChart.data.labels.length);
-				window.productosChart.data.datasets.forEach(function(dataset) {
-					dataset.data.pop();
-				});
-				window.productosChart.data.datasets.pop();
-				
-				window.productosChart.update();
-				
-				//Actualizar con nuevos datos
-				var newDataset = {
-						label: '#' ,
-						backgroundColor: chartBackground,
-						borderColor: chartBackgroundBorder,
-						borderWidth: 1,
-						data: usuariosData
-				};
-				
-				window.productosChart.data.labels = usuarioslabel;
-				window.productosChart.data.datasets.push(newDataset);
-				window.productosChart.update();
-			}
-		});
-	},
-	productosPorMesChart : function(){
-		$.ajax({
-			url : url + "/estadisticas/general",
-			dataType : "json",
-			success : function(result) {
-
-				console.log(result);
-				var usuariosData=[], usuarioslabel=[];
-				
-
-				$.each(result.totalProductosEscaneadosMes, function(index, item) {
 					usuariosData.push(item.total)
 					usuarioslabel.push(item.topico)
 					
