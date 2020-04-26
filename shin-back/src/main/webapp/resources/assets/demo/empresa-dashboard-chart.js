@@ -28,8 +28,8 @@ var chartBackgroundBorder = [
 	'rgba(250, 159, 64, 1)'
 ]
 
-//var url = 'http://www.shingshing.com'
-var url = 'http://localhost:8080/shin-back'
+var url = 'http://www.shingshing.com'
+//var url = 'http://localhost:8080/shin-back'
 
 var estadisticas_general = {
 		
@@ -84,7 +84,7 @@ var estadisticas_general = {
 					
 					$.each(result.totalUsuariosDias, function(index, item) {
 						usuariosData.push(item.total)
-						usuariosLabel.push(item.topico)
+						usuariosLabel.push('D' + item.indice)
 						
 					});
 					

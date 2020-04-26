@@ -348,19 +348,27 @@ public class ProveedorServiceImpl implements ProveedorService {
 
 		List<Usuario> list = proveedorDAO.obtieneInformacionUsuariosEmpresa( item.getMarca().getIdCatalogoMarca() );
 		List<Usuario> usuarios = proveedorDAO.obtieneListaUsuariosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		int total = 0; 
+		long totalM = 0;
+		long totalF = 0;
+		double promedioEdad = 0.0;
+		double porcentajeHombres = 0.0;
+		double porcentajeMujeres = 0.0;
 		
-		long totalM = list.stream().filter( i -> i.getIdCatalogoSexo() == 1 ).count();
-		long totalF = list.stream().filter( i -> i.getIdCatalogoSexo() == 3 ).count();
-		
-		double promedioEdad = list
-			    .stream()
-			    .mapToInt(Usuario::getEdad)
-			    .average()
-			    .getAsDouble();
-		
-		int total = list.size(); 
-		double porcentajeHombres = ( totalM * 100 ) /  total;
-		double porcentajeMujeres = ( totalF * 100 ) /  total;
+		if( !list.isEmpty() ) {
+			totalM = list.stream().filter( i -> i.getIdCatalogoSexo() == 1 ).count();
+			totalF = list.stream().filter( i -> i.getIdCatalogoSexo() == 3 ).count();
+			
+			promedioEdad = list
+				    .stream()
+				    .mapToInt(Usuario::getEdad)
+				    .average()
+				    .getAsDouble();
+			
+			total = list.size(); 
+			porcentajeHombres = ( totalM * 100 ) /  total;
+			porcentajeMujeres = ( totalF * 100 ) /  total;
+		}
 		
 		rsp.setTotalUsuarios( Long.valueOf( total ) );
 		rsp.setPorcentajeH( String.valueOf( porcentajeHombres ) + " %" );
