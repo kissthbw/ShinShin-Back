@@ -22,6 +22,32 @@
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
   <script src="https://apis.google.com/js/api:client.js"></script>
+
+
+<script>
+
+
+ 
+ function LoginFacebook(){
+	  
+	  FB.login(function (response){
+
+		  if(response.status =='connected'){
+
+		 // person.userID = response.authReponse.userID;
+		
+		  FB.api('/me?fields=id,name,first_name, last_name,email, picture.type(large)', function(userData){
+			  //person.name=userData.name;
+			  //person.email=userData.email;
+			  //person.picture=userData.picture.data.url;
+			  console.log(userData)
+			  validateSocialMediaUser(userData);
+			  });
+		  }
+	  })
+  }
+</script>
+
 	<script>
 	function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
 	    console.log('statusChangeCallback');
@@ -44,7 +70,8 @@
 
 	  window.fbAsyncInit = function() {
 	    FB.init({
-	      appId      : '480515842728115',
+	    appId      : '576243033099558',
+	      //appId      : '480515842728115',appId anterior
 	      cookie     : true,                     // Enable cookies to allow the server to access the session.
 	      xfbml      : true,                     // Parse social plugins on this webpage.
 	      version    : 'v6.0'           // Use this Graph API version for this call.
@@ -119,32 +146,37 @@
 	  }
 
   	function validateSocialMediaUser(profile){
+  		console.log(profile)
+  		var url='http://www.shingshing.com/shin-back/usuarios/social/registrar';
   		$.ajax({
 			method: "POST",
-			url: "http://www.shingshing.com/usuarios/social/registrar",
+			url: 'http://www.shingshing.com/shin-back/usuarios/social/registrar',
 		    dataType: "json",
             contentType: "application/json;charset=utf-8",
 			data: JSON.stringify({ 
-				'nombre': profile.getName(),
+				'nombre': profile.name,
 			  	'fechaNac': '1970-01-01',
-			  	'correoElectronico': profile.getEmail(),
-			  	'usuario':profile.getEmail(),
-			  	'contrasenia': profile.getEmail(),
+			  	'correoElectronico': profile.email,
+			  	'usuario':profile.email,
+			  	'contrasenia': profile.email,
 			  	'codigoPostal': '00000',
 			  	'idCatalogoSexo': 3,
 			  	'idRedSocial': 1
-	  			})
+	  			}), success: function (response) {
+                    
+	                 console.log(response);
+	                $('#username').val( response.usuario.correoElectronico );
+	         		$('#password').val( response.usuario.correoElectronico );
+	         		$('#LoginValidation').submit();
+                 
+            },
+            error: function (error) {
+                console.log(error)
+            }
 	})
-		.done(function( data ) {
-			console.log( data.code );
-			$('#username').val( data.usuario.usuario );
-			$('#password').val( 'hash:' + data.usuario.hash );
-			$('#LoginValidation').submit();
-			//document.getElementById('username').val( data.usuario.usuario );
-			//document.getElementById('password').val( data.usuario.usuario );
-			//alert( "Data Saved: " + data );
-		});
+		
 	}
+
   </script>
   <!-- Imagenes -->
   <style type="text/css">
@@ -208,57 +240,64 @@
 		<!-- Content principal -->
 		<div id="content-principal">
 			<div class="container">
-				<form  id="LoginValidation" class="form" action="login" method="post" th:object="${item}">
-				<div class="row justify-content-center">
+				<form id="LoginValidation" class="form" action="login" method="post"
+					th:object="${item}">
+					<div class="row justify-content-center">
 
-					<div class="col-12">
-						<div class="row justify-content-center">
-							<div class="mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-								<div class="col">
-									<label class="label-default col-12">Email / Teléfono</label>
-									<input type="text" class="form-control input-grey col-12" 
-									placeholder="" th:field="*{username}" aria-label="Username" aria-describedby="basic-addon1" required="true"/>
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
+									<div class="col">
+										<label class="label-default col-12">Email / Teléfono</label> <input
+											type="text" class="form-control input-grey col-12"
+											placeholder="" th:field="*{username}" aria-label="Username"
+											aria-describedby="basic-addon1" required="true" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="col-12">
-						<div class="row justify-content-center">
-							<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-								<div class="col">
-									<label class="label-default col-12">Contraseña</label>
-									<input type="password" class="form-control input-grey col-12" placeholder="" th:field="*{password}" aria-label="Username" aria-describedby="basic-addon1"
-									required="true"/>
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
+									<div class="col">
+										<label class="label-default col-12">Contraseña</label> <input
+											type="password" class="form-control input-grey col-12"
+											placeholder="" th:field="*{password}" aria-label="Username"
+											aria-describedby="basic-addon1" required="true" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div class="col-12">
-						<div class="row justify-content-center">
-                        	<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error}">
-  								Email / Teléfono o contraseña incorrecta. 
-  								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    								<span aria-hidden="true">&times;</span>
-  								</button>
-							</div>
-						</div>	
-					</div>
 
-					<div class="col-10 col-sm-8 col-md-6 col-lg-4">
-						<div class="row justify-content-between">
-							<div class="col">
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<div class="alert alert-danger alert-dismissible fade show"
+									role="alert" th:if="${param.error}">
+									Email / Teléfono o contraseña incorrecta.
+									<button type="button" class="close" data-dismiss="alert"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-10 col-sm-8 col-md-6 col-lg-4">
+							<div class="row justify-content-between">
+								<div class="col">
 									<div class="form-group form-check col">
-										<input type="checkbox" class="form-check-input check-style" id="exampleCheck1"/>
-										<label class="form-check-label checkbox-style" for="exampleCheck1">Recuérdame</label>
-									</div>	
+										<input type="checkbox" class="form-check-input check-style"
+											id="exampleCheck1" /> <label
+											class="form-check-label checkbox-style" for="exampleCheck1">Recuérdame</label>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-primary cta-orange col">Iniciar
+									Sesión</button>
 							</div>
-							<button type="submit" class="btn btn-primary cta-orange col">Iniciar Sesión</button>
 						</div>
-					</div>	
 
-				</div>
+					</div>
 				</form>
 			</div>
 			
@@ -277,7 +316,7 @@
 
 							<div class="col-12 col-lg-4">
 								<a href="#">
-									<button class="btn-social-login bkg-fb">
+									<button class="btn-social-login bkg-fb" onclick="LoginFacebook()">
 										<div class="row justify-content-center cont-fb">
 											<div class="logo-fb col"></div>
 											<div class="col fb-style">Facebook</div>

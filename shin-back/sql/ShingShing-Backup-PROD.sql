@@ -7,7 +7,7 @@
 #
 # Host: shinshin.cvvjdff1wc6u.us-east-2.rds.amazonaws.com (MySQL 5.7.22-log)
 # Base de datos: ShinShin
-# Tiempo de Generaci�n: 2020-04-21 04:37:19 +0000
+# Tiempo de Generaci�n: 2020-04-26 16:55:08 +0000
 # ************************************************************
 
 
@@ -173,18 +173,19 @@ DROP TABLE IF EXISTS `catalogo_medios_bonificacion`;
 CREATE TABLE `catalogo_medios_bonificacion` (
   `id_catalogo_medio_bonificacion` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_medio_bonificacion` varchar(45) NOT NULL,
+  `active` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`id_catalogo_medio_bonificacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `catalogo_medios_bonificacion` WRITE;
 /*!40000 ALTER TABLE `catalogo_medios_bonificacion` DISABLE KEYS */;
 
-INSERT INTO `catalogo_medios_bonificacion` (`id_catalogo_medio_bonificacion`, `nombre_medio_bonificacion`)
+INSERT INTO `catalogo_medios_bonificacion` (`id_catalogo_medio_bonificacion`, `nombre_medio_bonificacion`, `active`)
 VALUES
-	(1,'Bancaria'),
-	(2,'Paypal'),
-	(3,'Recarga telefónica'),
-	(4,'Nuevo!!');
+	(1,'Bancaria',1),
+	(2,'Paypal',1),
+	(3,'Recarga telefónica',1),
+	(4,'Nuevo!!',1);
 
 /*!40000 ALTER TABLE `catalogo_medios_bonificacion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -412,6 +413,8 @@ CREATE TABLE `contacto` (
   `topico` varchar(200) DEFAULT NULL,
   `detalle` varchar(200) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
+  `nombre` varchar(80) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usuario_contacto_idx` (`id_usuario`),
   CONSTRAINT `id_usuario_contacto` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -420,11 +423,24 @@ CREATE TABLE `contacto` (
 LOCK TABLES `contacto` WRITE;
 /*!40000 ALTER TABLE `contacto` DISABLE KEYS */;
 
-INSERT INTO `contacto` (`id`, `topico`, `detalle`, `id_usuario`)
+INSERT INTO `contacto` (`id`, `topico`, `detalle`, `id_usuario`, `nombre`, `email`)
 VALUES
-	(1,'no funciona','no funciona',88),
-	(2,'hola','hola',86),
-	(3,'Camara','Error al tomar foto',2);
+	(1,'no funciona','no funciona',88,NULL,NULL),
+	(2,'hola','hola',86,NULL,NULL),
+	(3,'Camara','Error al tomar foto',2,NULL,NULL),
+	(4,'Problema con la App','Se cierra en la pantalla principal, al scrollear ',2,NULL,NULL),
+	(5,'Escaneo de un Ticket','Problema al escanear ticket de Walmart',2,NULL,NULL),
+	(6,'Problemas con el APP','jhkjhkjh',107,NULL,NULL),
+	(7,'Comentarios','12345',107,NULL,NULL),
+	(8,'Problemas con el APP','12345',107,NULL,NULL),
+	(9,'Comentarios','sdasdasd',107,NULL,NULL),
+	(10,'Problemas con el APP','Hola probando',107,NULL,NULL),
+	(11,'Problemas con el APP','Hola',107,NULL,NULL),
+	(12,'Problemas con el APP','akjshkjashd',107,NULL,NULL),
+	(13,'Comentarios','12345',107,NULL,NULL),
+	(14,'Comentarios','Hola ultima prueba',107,NULL,NULL),
+	(15,'Problemas con el APP','123456789',107,NULL,NULL),
+	(16,'Problemas con el APP','Hola que tal',107,NULL,NULL);
 
 /*!40000 ALTER TABLE `contacto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -810,8 +826,6 @@ VALUES
 	(3,2,57),
 	(5,2,61),
 	(8,2,64),
-	(12,107,76),
-	(13,107,75),
 	(14,107,5),
 	(15,107,41);
 
@@ -844,7 +858,7 @@ INSERT INTO `producto_valoracion` (`id_producto_valoracion`, `valoracion`, `come
 VALUES
 	(1,4,'',61,2),
 	(2,1,'',64,2),
-	(3,2,'',76,107),
+	(3,3,'',76,107),
 	(4,4,'',75,107),
 	(5,3,'',5,107),
 	(6,3,'',41,107);
@@ -1395,6 +1409,61 @@ VALUES
 UNLOCK TABLES;
 
 
+# Volcado de tabla proveedor
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `proveedor`;
+
+CREATE TABLE `proveedor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `id_marca` int(11) DEFAULT NULL,
+  `active` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `fk_proveedor_marca_idx` (`id_marca`),
+  CONSTRAINT `fk_proveedor_marca` FOREIGN KEY (`id_marca`) REFERENCES `catalogo_marca` (`id_catalogo_marca`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `proveedor` WRITE;
+/*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
+
+INSERT INTO `proveedor` (`id`, `nombre`, `email`, `password`, `id_marca`, `active`)
+VALUES
+	(1,NULL,'kissthbw@gmail.com','kissthbw',25,1),
+	(2,NULL,'kissthbw@hotmail.com','12345678',15,1);
+
+/*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Volcado de tabla proveedor_authority
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `proveedor_authority`;
+
+CREATE TABLE `proveedor_authority` (
+  `authority_id` int(11) DEFAULT NULL,
+  `proveedor_id` int(11) DEFAULT NULL,
+  KEY `fk_authority_p_idx` (`authority_id`),
+  KEY `fk_proveedor_idx` (`proveedor_id`),
+  CONSTRAINT `fk_authority_p` FOREIGN KEY (`authority_id`) REFERENCES `authority` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proveedor` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedor` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `proveedor_authority` WRITE;
+/*!40000 ALTER TABLE `proveedor_authority` DISABLE KEYS */;
+
+INSERT INTO `proveedor_authority` (`authority_id`, `proveedor_id`)
+VALUES
+	(2,1),
+	(1,2);
+
+/*!40000 ALTER TABLE `proveedor_authority` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
 # Volcado de tabla sugerencia_producto
 # ------------------------------------------------------------
 
@@ -1428,7 +1497,12 @@ VALUES
 	(12,'Dulces',2),
 	(13,'Magazine ',2),
 	(14,'Victoria ',97),
-	(15,'Botanas',2);
+	(15,'Botanas',2),
+	(16,'Computadoras',2),
+	(17,NULL,NULL),
+	(18,NULL,NULL),
+	(19,NULL,NULL),
+	(20,NULL,NULL);
 
 /*!40000 ALTER TABLE `sugerencia_producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1514,7 +1588,8 @@ VALUES
 	(2,107),
 	(2,109),
 	(2,110),
-	(2,111);
+	(2,111),
+	(2,112);
 
 /*!40000 ALTER TABLE `user_authority` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1571,7 +1646,7 @@ LOCK TABLES `usuario` WRITE;
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `ap_paterno`, `ap_materno`, `fecha_nac`, `foto_usuario`, `tel_movil`, `correo_electronico`, `usuario`, `contrasenia`, `calle`, `num_ext`, `num_int`, `colonia`, `codigo_postal`, `del_mun`, `estado`, `estatus_activacion`, `codigo_verificacion`, `id_catalogo_sexo`, `id_catalogo_red_social`, `estatus`, `img_url`, `hash`, `password_restore_link`, `time_restore_link`, `activation_link`, `fecha_registro`, `device_token`)
 VALUES
 	(2,'Juan Oso',NULL,NULL,'1983-09-11',NULL,'+5215534714616','kissthbw@gmail.com','kissthbw@gmail.com','kiss2101',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'6941',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586641767/shingshing/usuarios/2.jpg','0cec40c1ba68e43ddc243e6a1f53418580c3fb1edf637e4111c9acc17d0886de','db189554bd17028c3d4e33167ed0df3641471880d541f8f8203c1d784c1bb8a1','2020-04-11 21:50:54',NULL,'2019-07-10 18:04:50',NULL),
-	(42,'Erick Alvarez',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586634980/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,'2020-04-15 03:27:37',NULL,'2020-01-10 19:04:50',NULL),
+	(42,'Erick Alvarezz',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586634980/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,'2020-04-15 03:27:37',NULL,'2020-01-10 19:04:50',NULL),
 	(59,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'+5215555555551','juan.osorio@gmail.com','juan.osorio@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'7650',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
 	(73,'Roberto',NULL,NULL,'1990-09-17',NULL,'+5215520777555','roberto.htamayo@gmail.com','roberto.htamayo@gmail.com','robe2019',NULL,NULL,NULL,NULL,'14030',NULL,NULL,1,'3958',1,NULL,1,NULL,'8308506504be11dd0dccc8e4c8ee0c14ecc73c67ea2df1b4cf9fc71144686265','1e086d4e01679504d27cda152dc9cf213a0287674fcb9afcb0f3a8ea0567dd4d','2020-03-24 02:51:11',NULL,'2020-01-10 19:04:50',NULL),
 	(78,'Paola Patricia',NULL,NULL,'1982-10-10',NULL,'+5215548998388','beyota_paola@hotmail.com','beyota_paola@hotmail.com','10PAOLA10',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'4714',2,NULL,1,NULL,'c293f727c75868bc0dd3fc067b4f1d384710b6dc0cc18315c5c3a8162a2f9ccd',NULL,NULL,'133effcb4bfe768975657285171833f9b714c2359779dd7881d10f0f7e9956d2','2020-01-10 19:04:50',NULL),
@@ -1579,9 +1654,9 @@ VALUES
 	(82,'Adrian','Osorio','Alvarez','1984-10-02','','+5215540150544','masterboy@gmail.com','masterboy84','qwerty12387','Pataguas','115','','La Perla','57820','Nezahualcoyotl','Estado de México',0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-15 19:18:00',NULL),
 	(83,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'*5215534714616','juan.osorio.alvarez2@gmail.com','juan.osorio.alvarez2@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'8549',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,'9cf39fd9dc66a0a5416f2e323e1ad2a2a1dbdf689089c8c919aaae1f0d8a2bc7','2020-03-05 16:35:41',NULL),
 	(84,'jeovanny ',NULL,NULL,'1989-10-06',NULL,'+5215543197733','jeovanny156@gmail.com','jeovanny156@gmail.com','laplace1527',NULL,NULL,NULL,NULL,'06450',NULL,NULL,0,'6588',1,NULL,1,NULL,'3aea8623b78388086490d17483dfb4be0c25930a0c466bb9102e93c61c5c83b0','d93acf0e908eab19c72815a63e9b2eba0e99f1ccde85ab2d038f0b700388efad','2020-04-02 18:59:36','33822a00be34a988d706d0b4c1b34060ea62e2d3e4e25215155f900b5f7e8b38','2020-03-05 16:35:41',NULL),
-	(86,'Laboratorio',NULL,NULL,'1992-03-04',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'6605',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-03-05 17:31:57',NULL),
+	(86,'***Laboratorio',NULL,NULL,'1992-03-04',NULL,'***15531813109','***hello@lab92.mx','***hello@lab92.mx','***12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'6605',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-03-05 17:31:57',NULL),
 	(87,'Valeria ',NULL,NULL,'1992-03-05',NULL,'+5215526772646','lau.81002@gmail.com','lau.81002@gmail.com','vanesita',NULL,NULL,NULL,NULL,'80100',NULL,NULL,1,'9278',1,NULL,1,NULL,'cc7668ae305ef83b4654363c147e4c0a677361e69893e9cbca44b1c6346c3588',NULL,NULL,NULL,'2020-03-05 17:34:10',NULL),
-	(88,'Roberto ',NULL,NULL,'1981-01-25',NULL,'+5215549442851','roberto.guadarrama@tradenial.com','roberto.guadarrama@tradenial.com','prueba123',NULL,NULL,NULL,NULL,'10640',NULL,NULL,1,'9448',1,NULL,1,NULL,'ff960cb55673958c594d0daaab1e368651c75c02f9687192a1811e7b180336a7',NULL,NULL,NULL,'2020-03-05 20:48:39',NULL),
+	(88,'Roberto ',NULL,NULL,'1981-01-25',NULL,'+5215521891769','roberto.guadarrama@tradenial.com','roberto.guadarrama@tradenial.com','prueba123',NULL,NULL,NULL,NULL,'10640',NULL,NULL,1,'6236',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1587578173/shingshing/usuarios/88.jpg','ff960cb55673958c594d0daaab1e368651c75c02f9687192a1811e7b180336a7',NULL,'2020-04-22 17:52:12',NULL,'2020-03-05 20:48:39',NULL),
 	(89,'Joshua ',NULL,NULL,'2002-02-01',NULL,'+5215563753841','joshuagraff02@gmail.com','joshuagraff02@gmail.com','vidarendida',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'3759',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1584139495/shingshing/usuarios/89.jpg','dee2f76503aa5aa28cb8b59b066caf44f1981c74068844a5834cbdf763d7e61f',NULL,NULL,NULL,'2020-03-13 22:40:28',NULL),
 	(90,'Bures Bures',NULL,NULL,'1970-01-01',NULL,NULL,'buures@hotmail.com','buures@hotmail.com','buures@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-03-22 03:59:23',NULL),
 	(91,'Erick Alvarez',NULL,NULL,'1970-01-01',NULL,NULL,'herickov@gmail.com','herickov@gmail.com','herickov@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,'88b085083654edc49d1f079482b29aa105e4278d669b1cd4b7494290491c3f4a','2020-04-01 03:06:00',NULL,'2020-03-22 04:00:14',NULL),
@@ -1590,7 +1665,7 @@ VALUES
 	(94,'null null',NULL,NULL,'1970-01-01',NULL,NULL,'sistemas@zubalav.com.mx','sistemas@zubalav.com.mx','sistemas@zubalav.com.mx',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-04-08 18:04:41',NULL),
 	(95,'Lidia Hernández',NULL,NULL,'1970-01-01',NULL,NULL,'lidiaht60@gmail.com','lidiaht60@gmail.com','lidiaht60@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-04-08 18:19:33',NULL),
 	(96,'Jeovanny Nava',NULL,NULL,'1970-01-01',NULL,NULL,'jeovanny_hskqaek_nava@tfbnw.net','jeovanny_hskqaek_nava@tfbnw.net','jeovanny_hskqaek_nava@tfbnw.net',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-09 00:29:41',NULL),
-	(97,'Jeovanny Nava',NULL,NULL,'1970-01-01',NULL,NULL,'jeovanny156@hotmail.com','jeovanny156@hotmail.com','jeovanny156@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-09 04:08:25',NULL),
+	(97,'Jeovanny Nava',NULL,NULL,'1970-01-01',NULL,NULL,'jeovanny156@hotmail.com','jeovanny156@hotmail.com','jeovanny156@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,'d8f81d8baa05e2cf440797e3488d6d1ba47bed6cf11e973afcfadfcde11c8a15',NULL,NULL,NULL,'2020-04-09 04:08:25',NULL),
 	(98,'German RIvera',NULL,NULL,'1977-05-28',NULL,'+5215528809746','germanriverahdez@gmail.com','germanriverahdez@gmail.com','Alheloska2007',NULL,NULL,NULL,NULL,'02160',NULL,NULL,0,'3873',1,NULL,1,NULL,'9cc0bec56e0468e289efe01f122758efed219a89c717e4aaab44e15ca88be536',NULL,NULL,'beeb8977120dbae35f3557c6de8352bef68d5d2fe7bcfb62714df2895506c112','2020-04-12 21:21:52',NULL),
 	(99,'Shing User-X',NULL,NULL,'1970-01-01',NULL,NULL,'shing_hmbwbtx_user@tfbnw.net-X','shing_hmbwbtx_user@tfbnw.net-X','shing_hmbwbtx_user@tfbnw.net-X',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-13 23:14:49',NULL),
 	(100,'Emily Montes',NULL,NULL,'1970-01-01',NULL,NULL,'emily_fqbgtag_montes@tfbnw.net','emily_fqbgtag_montes@tfbnw.net','emily_fqbgtag_montes@tfbnw.net',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-14 02:49:32',NULL),
@@ -1604,7 +1679,8 @@ VALUES
 	(108,'Shing User',NULL,NULL,'1970-01-01',NULL,NULL,'shing_hmbwbtx_user@tfbnw.net','shing_hmbwbtx_user@tfbnw.net','shing_hmbwbtx_user@tfbnw.net',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-16 01:52:16',NULL),
 	(109,'nonbre ',NULL,NULL,'2020-04-07',NULL,'+5215549463464','nonbr@gmail.com','nonbr@gmail.com','12345678',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0658',2,NULL,2,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 00:57:28',NULL),
 	(110,'Nombre',NULL,NULL,'2020-04-02',NULL,'+5215512345678','nombre@gmail.com','nombre@gmail.com','12345678',NULL,NULL,NULL,NULL,'01010',NULL,NULL,1,'3381',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 01:12:50',NULL),
-	(111,'Martin Nava',NULL,NULL,'1963-02-25',NULL,'+5215541759253','martinnava@gmail.com','martinnava@gmail.com','12345678',NULL,NULL,NULL,NULL,'06450',NULL,NULL,1,'1256',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 01:23:34',NULL);
+	(111,'Martin Nava',NULL,NULL,'1963-02-25',NULL,'+5215541759253','martinnava@gmail.com','martinnava@gmail.com','12345678',NULL,NULL,NULL,NULL,'06450',NULL,NULL,1,'1256',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 01:23:34',NULL),
+	(112,'erick',NULL,NULL,'1992-02-15',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'08100',NULL,NULL,1,'5161',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-21 04:56:24',NULL);
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
