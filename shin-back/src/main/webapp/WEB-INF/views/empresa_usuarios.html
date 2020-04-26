@@ -215,8 +215,8 @@
 							<h3 class="title-cat">Usuarios</h3>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-							<a href="#" class="btn btn-primary float-right" role="button"
-								aria-disabled="true">Resumen</a>
+							<a th:href="@{'/portal-empresa/usuarios/report'}" class="btn btn-primary float-right" role="button"
+								aria-disabled="true">Resum&eacute;n</a>
 						</div>
 
 					</div>
@@ -233,8 +233,8 @@
 									</div>
 									<div class="col-7 col-md-8">
 										<div class="numbers">
-											<p class="card-category">Usuarios de tus productos</p>
-											<p class="card-title">99</p>
+											<p class="card-category" >Usuarios de tus productos</p>
+											<p class="card-title" th:text="${info.totalUsuarios}" >99</p>
 										</div>
 									</div>
 								</div>
@@ -250,7 +250,7 @@
 									<div class="col-12 col-md-12">
 										<div class="numbers">
 											<p class="card-category">Mujeres</p>
-											<p class="card-title">50%</p>
+											<p class="card-title" th:text="${info.porcentajeM}" >50%</p>
 										</div>
 									</div>
 								</div>
@@ -266,7 +266,7 @@
 									<div class="col-12 col-md-12">
 										<div class="numbers">
 											<p class="card-category">Hombres</p>
-											<p class="card-title">50%</p>
+											<p class="card-title" th:text="${info.porcentajeH}" >50%</p>
 										</div>
 									</div>
 								</div>
@@ -282,7 +282,7 @@
 									<div class="col-12 col-md-12">
 										<div class="numbers">
 											<p class="card-category">Edad</p>
-											<p class="card-title">30.5</p>
+											<p class="card-title" th:text="${info.promedioEdad}" >30.5</p>
 										</div>
 									</div>
 								</div>
@@ -386,20 +386,18 @@
 											</tr>
 										</tfoot>
 										<tbody>
-											<!-- <th:block th:each="item : ${productos}"> -->
+											<th:block th:each="item : ${info.usuarios}">
 											<tr>
-												<!--  <td th:text="${item.idProducto}"></td>-->
-												<td>U1</td>
-												<td>Ivan Erick Osorio</td>
-												<td>40</td>
-												<td>Hombre</td>
-												<td>999,999</td>
-
+												<td th:text="${item.idUsuario}"></td>
+												<td th:text="${item.nombre}"></td>
+												<td th:text="${item.edad}"></td>
+												<td th:text="${item.sexo}"></td>
+												<td th:text="${item.escaneos}"></td>
 												<td class="text-center"><a href="#"><i
 														class="fa fa-search" aria-hidden="true"></i></a></td>
 											</tr>
 
-											<!-- </th:block> -->
+											</th:block>
 										</tbody>
 									</table>
 								</div>

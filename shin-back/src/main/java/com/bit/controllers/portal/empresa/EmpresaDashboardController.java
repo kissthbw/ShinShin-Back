@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,7 +20,6 @@ import com.bit.model.dto.response.InformacionDashboardProveedorRSP;
 import com.bit.service.CSVExporter;
 import com.bit.service.ProveedorDetailService;
 import com.bit.service.ProveedorService;
-import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.service.impl.CSVExporterImpl;
 
 import net.sf.jasperreports.engine.JRException;
@@ -50,21 +48,13 @@ public class EmpresaDashboardController {
 		
 		//Se obtiene la siguiente informacion:
 		//Dinero que ellos han dado para las bonificaciones de los productos, por ejemplo:
-		//hoy escaneron 10 aguas y por agua es $1, entonces debería pintar miércoles una barra diciendo $10
-
-		
-//		Usuario item = new Usuario();
-//		item.setIdUsuario( currentUser.getIdUsuario() );
-//		
-//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
-//		
-		
+		//hoy escaneron 10 aguas y por agua es $1, entonces debería pintar miércoles una barra diciendo $10		
 		
 		return "empresa_dashboard";
 	}
 	
 	@RequestMapping(value = "/dashboard/report", method = RequestMethod.GET)
-	public void reportBonificacionesDepositos(Model model, HttpServletResponse response) throws JRException, IOException {
+	public void reportDasdboardEmpresa(Model model, HttpServletResponse response) throws JRException, IOException {
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
         String headerValue = String.format("attachment; filename=\"%s\"",
@@ -96,48 +86,152 @@ public class EmpresaDashboardController {
 		
 	}
 	
-	@GetMapping(value="/productos")
-	public String productos(Model model, 
-			@ModelAttribute("currentUser") Usuario currentUser) {
-		
-		
-//		Usuario item = new Usuario();
-//		item.setIdUsuario( currentUser.getIdUsuario() );
-//		
-//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
-//		
-//		model.addAttribute("item", rsp);
-		
-		return "productos_empresa";
-	}
+	/*
+	 * Dashboad de finanzas
+	 */
 	@GetMapping(value="/finanzas")
 	public String finanzas(Model model, 
 			@ModelAttribute("currentUser") Usuario currentUser) {
 		
+		ProveedorDetailService current = getAuthenticationUser();
 		
-//		Usuario item = new Usuario();
-//		item.setIdUsuario( currentUser.getIdUsuario() );
-//		
-//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
-//		
-//		model.addAttribute("item", rsp);
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			model.addAttribute("item", p);
+			
+			InformacionDashboardProveedorRSP rsp = proveedorService.obtieneTotalesDashboardFinanzasProductos(p);
+			
+			model.addAttribute("info", rsp);
+		}
 		
 		return "empresa_finanzas";
 	}
+	
+	@RequestMapping(value = "/finanzas/report", method = RequestMethod.GET)
+	public void reportDasdboardEmpresaFinanzas(Model model, HttpServletResponse response) throws JRException, IOException {
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "general-proveedor-finanzas.csv");
+        response.setHeader(headerKey, headerValue);
+		
+        ProveedorDetailService current = getAuthenticationUser();
+		
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			
+			List<List<Object>> rows = proveedorService.obtieneInfoReporteEmpresaProductos(p);
+
+			CSVExporter csv = new CSVExporterImpl();
+			
+			String [] headers = {"Id", "Fecha", "Bonificacion"};
+			
+			try {
+				csv.writeCSV(response.getWriter(), headers, rows);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/*
+	 * Dashboard de productos
+	 */
+	@GetMapping(value="/productos")
+	public String productos(Model model, 
+			@ModelAttribute("currentUser") Usuario currentUser) {
+		
+		ProveedorDetailService current = getAuthenticationUser();
+		
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			model.addAttribute("item", p);
+			
+			InformacionDashboardProveedorRSP rsp = proveedorService.obtieneTotalesDashboardEmpresaProductos(p);
+			
+			model.addAttribute("info", rsp);
+		}
+		
+		return "productos_empresa";
+	}
+	
+	@RequestMapping(value = "/productos/report", method = RequestMethod.GET)
+	public void reportDasdboardEmpresaProductos(Model model, HttpServletResponse response) throws JRException, IOException {
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "general-proveedor-productos.csv");
+        response.setHeader(headerKey, headerValue);
+		
+        ProveedorDetailService current = getAuthenticationUser();
+		
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			
+			List<List<Object>> rows = proveedorService.obtieneInfoReporteEmpresaProductos(p);
+
+			CSVExporter csv = new CSVExporterImpl();
+			
+			String [] headers = {"Id", "Nombre", "Bonificacion", "Escaneos"};
+			
+			try {
+				csv.writeCSV(response.getWriter(), headers, rows);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/*
+	 * Dashboard de usuarios
+	 */
 	
 	@GetMapping(value="/usuarios")
 	public String usuarios(Model model, 
 			@ModelAttribute("currentUser") Usuario currentUser) {
 		
+		ProveedorDetailService current = getAuthenticationUser();
 		
-//		Usuario item = new Usuario();
-//		item.setIdUsuario( currentUser.getIdUsuario() );
-//		
-//		InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
-//		
-//		model.addAttribute("item", rsp);
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			model.addAttribute("item", p);
+			
+			InformacionDashboardProveedorRSP rsp = proveedorService.obtieneTotalesDashboardEmpresaUsuarios(p);
+			
+			model.addAttribute("info", rsp);
+		}
 		
 		return "empresa_usuarios";
+	}
+	
+	@RequestMapping(value = "/usuarios/report", method = RequestMethod.GET)
+	public void reportDasdboardEmpresaUSuarios(Model model, HttpServletResponse response) throws JRException, IOException {
+		response.setContentType("text/csv");
+		String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                "general-proveedor-usuarios.csv");
+        response.setHeader(headerKey, headerValue);
+		
+        ProveedorDetailService current = getAuthenticationUser();
+		
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			
+			List<List<Object>> rows = proveedorService.obtieneInfoReporteEmpresaUsuarios(p);
+
+			CSVExporter csv = new CSVExporterImpl();
+			
+			String [] headers = {"Id", "Usuario", "Edad", "Sexo", "Escaneos"};
+			
+			try {
+				csv.writeCSV(response.getWriter(), headers, rows);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private ProveedorDetailService getAuthenticationUser() {

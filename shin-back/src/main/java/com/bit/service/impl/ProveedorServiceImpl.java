@@ -15,7 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bit.common.Utils;
 import com.bit.dao.ProveedorDAO;
 import com.bit.dao.UsuarioDAO;
+import com.bit.model.Producto;
 import com.bit.model.Proveedor;
+import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.ProductoItem;
@@ -240,4 +242,156 @@ public class ProveedorServiceImpl implements ProveedorService {
 		
 		return rows;
 	}
+
+	
+	/*
+	 * Dashboard empresa - Finanzas -
+	 */
+	@Override
+	@Transactional
+	public InformacionDashboardProveedorRSP obtieneTotalesDashboardFinanzasProductos(Proveedor item) {
+		InformacionDashboardProveedorRSP rsp = new InformacionDashboardProveedorRSP();
+		
+		Double totalBonificaciones = proveedorDAO.obtieneTotalBonificacionesPorMarca( item.getMarca().getIdCatalogoMarca() );
+		List<BonificacionItem> list = proveedorDAO.obtieneListaBonificacionesEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
+		for (BonificacionItem b : list) {
+			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd-MMM-yyyy") );
+			b.setImporteFormateado( Utils.formatNumeros(b.getImporte(), "$###,###,###.00") );
+		}
+		
+		rsp.setTotalBonificaciones( null != totalBonificaciones ? totalBonificaciones : 0.0 );
+		rsp.setBonificaciones(list);
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public List<List<Object>> obtieneInfoReporteEmpresaFinanzas(Proveedor item) {
+		List<List<Object>> rows = new ArrayList<>();
+		
+		List<BonificacionItem> list = proveedorDAO.obtieneListaBonificacionesEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		for (BonificacionItem b : list) {
+			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd-MMM-yyyy") );
+			b.setImporteFormateado( Utils.formatNumeros(b.getImporte(), "$###,###,###.00") );
+		}
+		
+		for( BonificacionItem i : list ) {
+			rows.add( Arrays.asList( new Object[] {
+					i.getId(),
+					i.getFechaFormateada(),
+					i.getImporteFormateado(), 
+					} ) );
+		}
+
+		
+		return rows;
+	}
+	
+	
+	/*
+	 * Dashboard empresa - Productos -
+	 */
+	
+	@Override
+	@Transactional
+	public InformacionDashboardProveedorRSP obtieneTotalesDashboardEmpresaProductos(Proveedor item) {
+		
+		InformacionDashboardProveedorRSP rsp = new InformacionDashboardProveedorRSP();
+		
+		BigInteger totalEscaneados = proveedorDAO.obtieneTotalProductosEscaneadosPorMarca( item.getMarca().getIdCatalogoMarca() );
+		BigInteger totalProductos =  proveedorDAO.obtieneTotalProductosPorMarca( item.getMarca().getIdCatalogoMarca() );
+		List<Producto> list = proveedorDAO.obtieneListaProductosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
+		rsp.setTotalProductosEscaneados( null != totalEscaneados ? totalEscaneados.longValue() : 0L );
+		rsp.setTotalProductos( null != totalProductos ? totalProductos.longValue() : 0L );
+		rsp.setProductos(list);
+		
+		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public List<List<Object>> obtieneInfoReporteEmpresaProductos(Proveedor item) {
+		List<List<Object>> rows = new ArrayList<>();
+		
+		List<Producto> list = proveedorDAO.obtieneListaProductosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		
+		for( Producto i : list ) {
+			rows.add( Arrays.asList( new Object[] {
+					i.getIdProducto(),
+					i.getNombreProducto(), 
+					i.getTotalBonificacion(),
+					i.getTotalEscaneos()
+					} ) );
+		}
+
+		
+		return rows;
+	}
+	
+	/*
+	 * Dashboard empresa - Usuarios -
+	 */
+	@Override
+	@Transactional
+	public InformacionDashboardProveedorRSP obtieneTotalesDashboardEmpresaUsuarios(Proveedor item) {
+
+		InformacionDashboardProveedorRSP rsp = new InformacionDashboardProveedorRSP();
+
+		List<Usuario> list = proveedorDAO.obtieneInformacionUsuariosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		List<Usuario> usuarios = proveedorDAO.obtieneListaUsuariosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
+		long totalM = list.stream().filter( i -> i.getIdCatalogoSexo() == 1 ).count();
+		long totalF = list.stream().filter( i -> i.getIdCatalogoSexo() == 3 ).count();
+		
+		double promedioEdad = list
+			    .stream()
+			    .mapToInt(Usuario::getEdad)
+			    .average()
+			    .getAsDouble();
+		
+		int total = list.size(); 
+		double porcentajeHombres = ( totalM * 100 ) /  total;
+		double porcentajeMujeres = ( totalF * 100 ) /  total;
+		
+		rsp.setTotalUsuarios( Long.valueOf( total ) );
+		rsp.setPorcentajeH( String.valueOf( porcentajeHombres ) + " %" );
+		rsp.setPorcentajeM( String.valueOf( porcentajeMujeres ) + " %" );
+		rsp.setPromedioEdad( String.valueOf( promedioEdad ) );
+		
+		rsp.setUsuarios(usuarios);
+		
+		return rsp;
+	}
+
+	@Override
+	public List<List<Object>> obtieneInfoReporteEmpresaUsuarios(Proveedor item) {
+		List<List<Object>> rows = new ArrayList<>();
+		
+//		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones( null );
+		List<Usuario> list = proveedorDAO.obtieneListaUsuariosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
+		//Formatear fecha dd-MMM-yyyy
+		//Formatear solicitudes y bonificaciones
+		
+		for( Usuario i : list ) {
+			rows.add( Arrays.asList( new Object[] {
+					i.getIdUsuario(),
+					i.getSexo(), 
+					i.getEdad(),
+					i.getEscaneos()
+					} ) );
+		}
+
+		
+		return rows;
+	}	
 }

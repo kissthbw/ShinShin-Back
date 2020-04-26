@@ -20,4 +20,22 @@ public interface ProveedorService {
 	EstadisticasGeneralRSP obtieneEstadisticasEmpresaGeneral( Proveedor item, String tipo, String categoria);
 	
 	public List<List<Object>> obtieneInfoReporteEmpresaGeneral( Proveedor item );
+	
+	/*
+	 * Dashboard empresa - Finanzas -
+	 */
+	InformacionDashboardProveedorRSP obtieneTotalesDashboardFinanzasProductos( Proveedor item );
+	public List<List<Object>> obtieneInfoReporteEmpresaFinanzas( Proveedor item );
+	
+	/*
+	 * Dashboard empresa - Productos -
+	 */
+	InformacionDashboardProveedorRSP obtieneTotalesDashboardEmpresaProductos( Proveedor item );
+	public List<List<Object>> obtieneInfoReporteEmpresaProductos( Proveedor item );
+	
+	/*
+	 * Dashboard empresa - Usuarios -
+	 */
+	InformacionDashboardProveedorRSP obtieneTotalesDashboardEmpresaUsuarios( Proveedor item );
+	public List<List<Object>> obtieneInfoReporteEmpresaUsuarios( Proveedor item );
 }

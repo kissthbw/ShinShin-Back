@@ -59,8 +59,9 @@
 					</div>
 					<div class="info">
 						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span> NESTLE <b class="caret"></b>
+							class="collapsed"> <span id="marcaID"  th:text="${item.marca.nombreMarca}"> <b class="caret"></b>
 						</span>
+						<input type="hidden" id="idMarca" th:value="${item.marca.idCatalogoMarca}"></input>
 						</a>
 						<div class="clearfix"></div>
 						<div class="collapse" id="collapseExample">
@@ -215,7 +216,7 @@
 							<h3 class="title-cat">Finanzas</h3>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-							<a href="#" class="btn btn-primary float-right" role="button"
+							<a th:href="@{'/portal-empresa/finanzas/report'}" class="btn btn-primary float-right" role="button"
 								aria-disabled="true">Resumen</a>
 						</div>
 
@@ -234,7 +235,7 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Total de Bonificaciones</p>
-											<p class="card-title" >$99,999</p>
+											<p class="card-title" th:text="${info.totalBonificaciones}" >$99,999</p>
 										</div>
 									</div>
 								</div>
@@ -245,15 +246,15 @@
 							<div class="card-body">
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayDepositosBtn" class="nav-item"><a
+									<li id="dayFinanzasBtn" class="nav-item"><a
 										class="nav-link active" id="pills-home-tab" data-toggle="pill"
 										href="#pills-home" role="tab" aria-controls="pills-home"
 										aria-selected="true">Día</a></li>
-									<li id="weekDepositosBtn" class="nav-item"><a
+									<li id="weekFinanzasBtn" class="nav-item"><a
 										class="nav-link" id="pills-profile-tab" data-toggle="pill"
 										href="#pills-profile" role="tab" aria-controls="pills-profile"
 										aria-selected="false">Semana</a></li>
-									<li id="monthDepositosBtn" class="nav-item"><a
+									<li id="monthFinanzasBtn" class="nav-item"><a
 										class="nav-link" id="pills-contact-tab" data-toggle="pill"
 										href="#pills-contact" role="tab" aria-controls="pills-contact"
 										aria-selected="false">Mes</a></li>
@@ -274,17 +275,17 @@
 													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
-										<canvas id="depositosChart" width="558" height="256"
+										<canvas id="finanzasChart" width="558" height="256"
 											class="chartjs-render-monitor"
 											style="display: block; height: 128px; width: 279px;"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
 										aria-labelledby="pills-profile-tab">
-										<canvas id="depositosChart" width="826" height="380"></canvas>
+										<canvas id="finanzasChart" width="826" height="380"></canvas>
 									</div>
 									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
 										aria-labelledby="pills-contact-tab">
-										<canvas id="depositosChart" width="826" height="380"></canvas>
+										<canvas id="finanzasChart" width="826" height="380"></canvas>
 									</div>
 								</div>
 							</div>
@@ -314,26 +315,22 @@
 									<tr>
 										<th>Id</th>
 										<th>Fecha</th>
-										<!-- <th>Precio</th>  -->
 										<th>Bonificacion</th>
-										<!--  <th>Imagen</th> -->
-
 
 										<th class="disabled-sorting text-right"></th>
 									</tr>
 								</tfoot>
 								<tbody>
-									<!-- <th:block th:each="item : ${productos}"> -->
+									<th:block th:each="item : ${info.bonificaciones}">
 									<tr>
-										<!--  <td th:text="${item.idProducto}"></td>-->
-										<td>1</td>
-										<td>01/01/2020</td>
-										<td>$999,999</td>
+										<td th:text="${item.id}"></td>
+										<td th:text="${item.fechaFormateada}"></td>
+										<td th:text="${item.importeFormateado}"></td>
 										<td class="text-center"><a href="#"> <i
 												class="fa fa-search" aria-hidden="true"></i></a></td>
 									</tr>
 
-									<!-- </th:block> -->
+									</th:block>
 								</tbody>
 							</table>
 						</div>
@@ -483,8 +480,35 @@
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<script>
 		$(document).ready(
-
 				function() {
+					
+					var idMarca = $("#idMarca").val();
+					
+					//Finanzas
+					$('#dayFinanzasBtn').click(function(){
+						finanzasPorDiaChart();
+					});
+
+					$('#weekFinanzasBtn').click(()=>{
+						finanzasPorSemanaChart();
+					});
+
+					$('#monthFinanzasBtn').click(()=>{
+						finanzasPorMesChart()
+					});
+					
+					function finanzasPorDiaChart() {
+						estadisticas_general.finanzasPorDiaChart( idMarca, "1", "d" );
+					}
+
+					function finanzasPorSemanaChart() {
+						estadisticas_general.finanzasPorSemanaChart( idMarca, "1", "s" );
+					}
+
+					function finanzasPorMesChart() {
+						estadisticas_general.finanzasPorMesChart( idMarca, "1", "m" );
+					}
+					
 					$('#datatable').DataTable(
 							{
 								"pagingType" : "full_numbers",
@@ -526,6 +550,7 @@
 </body>
 
 </html>
+<script th:src="@{/resources/assets/demo/empresa-finanzas-dashboard-chart.js}"></script>
 <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script
 	th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>

@@ -135,6 +135,9 @@ public class Usuario {
 	// Sexo.
 	@Transient
 	private String sexo;
+	
+	@Transient
+	private Long escaneos;
 
 	// Tipo.
 	@Transient
@@ -453,6 +456,14 @@ public class Usuario {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	public Long getEscaneos() {
+		return escaneos;
+	}
+
+	public void setEscaneos(Long escaneos) {
+		this.escaneos = escaneos;
 	}
 
 	public String getRedSocial() {

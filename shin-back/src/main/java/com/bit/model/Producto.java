@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
 
@@ -102,6 +103,12 @@ public class Producto {
 	
 	@Formula("(select '')")
 	private String TipoString;
+	
+	@Transient
+	private Long totalEscaneos;
+	
+	@Transient
+	private Double totalBonificacion;
 	
 	public String getTipoString() {
 		return TipoString;
@@ -270,6 +277,22 @@ public class Producto {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public Long getTotalEscaneos() {
+		return totalEscaneos;
+	}
+
+	public void setTotalEscaneos(Long totalEscaneos) {
+		this.totalEscaneos = totalEscaneos;
+	}
+
+	public Double getTotalBonificacion() {
+		return totalBonificacion;
+	}
+
+	public void setTotalBonificacion(Double totalBonificacion) {
+		this.totalBonificacion = totalBonificacion;
 	}
 
 }
