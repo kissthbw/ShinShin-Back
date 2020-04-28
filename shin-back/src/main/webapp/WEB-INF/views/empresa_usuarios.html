@@ -55,11 +55,11 @@
 			<div class="sidebar-wrapper">
 				<div class="user">
 					<div class="photo">
-						<!--  <img th:src="@{/resources/assets/img/faces/ayo-ogunseinde-2.jpg}" /> -->
+						<img th:src="${item.marcaImageURL} ? ${item.marcaImageURL} : ''" alt="..."></img>
 					</div>
 					<div class="info">
 						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span> NESTLE <b class="caret"></b>
+							class="collapsed"> <span id="marcaID"  th:text="${item.marca.nombreMarca}"> <b class="caret"></b>
 						</span>
 						</a>
 						<div class="clearfix"></div>
@@ -176,7 +176,7 @@
 									class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
-						<a class="navbar-brand" href="#pablo">Nestle</a>
+						<a class="navbar-brand" href="#pablo"><span id="marcaID"  th:text="${item.marca.nombreMarca}">{Marca}</span></a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navigation" aria-controls="navigation-index"

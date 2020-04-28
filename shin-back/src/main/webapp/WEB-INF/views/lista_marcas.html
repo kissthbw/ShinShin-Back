@@ -289,7 +289,7 @@
 									<a th:href="@{/portal-administrador/marca/save}"
 									class="btn btn-primary" role="button" aria-disabled="true"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
 								</div>
-								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+								<table id="datatable2" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>Id</th>
@@ -520,6 +520,43 @@
 
 					//Like record
 					table.on('click', '.like', function() {
+						alert('You clicked on Like button');
+					});
+					
+					//Table 2
+					$('#datatable2').DataTable(
+							{
+								"pagingType" : "full_numbers",
+								"lengthMenu" : [ [ 10, 25, 50, -1 ],
+										[ 10, 25, 50, "All" ] ],
+								responsive : true,
+								language : {
+									search : "_INPUT_",
+									searchPlaceholder : "Search records",
+								}
+
+							});
+
+					var table2 = $('#datatable2').DataTable();
+
+					// Edit record
+					table2.on('click', '.edit', function() {
+						$tr = $(this).closest('tr');
+
+						var data = table2.row($tr).data();
+						alert('You press on Row: ' + data[0] + ' ' + data[1]
+								+ ' ' + data[2] + '\'s row.');
+					});
+
+					// Delete a record
+					table2.on('click', '.remove', function(e) {
+						$tr = $(this).closest('tr');
+						table2.row($tr).remove().draw();
+						e.preventDefault();
+					});
+
+					//Like record
+					table2.on('click', '.like', function() {
 						alert('You clicked on Like button');
 					});
 				}

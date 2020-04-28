@@ -17,6 +17,7 @@ import com.bit.config.security.SimpleAuthenticationFilter;
 import com.bit.dao.ProveedorDAO;
 import com.bit.dao.UsuarioDAO;
 import com.bit.model.Authority;
+import com.bit.model.CatalogoMarca;
 import com.bit.model.Proveedor;
 import com.bit.model.Usuario;
 import com.bit.service.ProveedorDetailService;
@@ -45,8 +46,10 @@ public class UserService implements  UserDetailsService {
 		if( username.contains( SimpleAuthenticationFilter.SPRING_SECURITY_FORM_EMPRESA_KEY ) ) {
 			username = username.replace(SimpleAuthenticationFilter.SPRING_SECURITY_FORM_EMPRESA_KEY, "");
 			
+//			CatalogoMarca m = new CatalogoMarca();
 			Proveedor p = proveedorDAO.finfByEmail(username);
 			if( null != p.getMarca().getImgUrl() ) {
+//				m.setIdCatalogoMarca( p.getMarca().getIdCatalogoMarca() );
 				p.setMarcaImageURL( p.getMarca().getImgUrl() );
 			}
 			

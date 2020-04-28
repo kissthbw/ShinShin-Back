@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,12 +23,15 @@ import com.bit.service.CSVExporter;
 import com.bit.service.ProveedorDetailService;
 import com.bit.service.ProveedorService;
 import com.bit.service.impl.CSVExporterImpl;
+import com.bit.service.impl.ProveedorServiceImpl;
 
 import net.sf.jasperreports.engine.JRException;
 
 @Controller
 @RequestMapping(value="/portal-empresa")
 public class EmpresaDashboardController {
+	
+	private static final Logger log = LoggerFactory.getLogger(EmpresaDashboardController.class);
 	
 	@Autowired
 	private ProveedorService proveedorService;
@@ -39,6 +44,9 @@ public class EmpresaDashboardController {
 		
 		if (null != current) {
 			Proveedor p = current.getUsuario();
+			
+			log.info( p.getMarca().getNombreMarca() );
+			
 			model.addAttribute("item", p);
 			
 			InformacionDashboardProveedorRSP rsp = proveedorService.obtieneTotalesDashboard( p );
@@ -105,6 +113,7 @@ public class EmpresaDashboardController {
 		}
 		
 		return "empresa_finanzas";
+		
 	}
 	
 	@RequestMapping(value = "/finanzas/report", method = RequestMethod.GET)
