@@ -300,6 +300,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 		}else {
 			infoRSP.setMessage("Usuario ya existe (email ya existente)");
 			infoRSP.setCode(500);
+			
+			//Actualizar device token cuando no sea null o vacio
+			if( null != item.getDeviceToken() ) {
+				entity.setDeviceToken( item.getDeviceToken() );
+				usuarioDAO.update(entity);
+			}
 		}
 		
 			log.info( "Obteniendo informacion usuario social media: {}", item.getUsuario() );
@@ -1360,5 +1366,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		
 		return rsp;
+	}
+
+	@Override
+	@Transactional
+	public String obtieneDeviceTokenPorUsuario(Usuario item) {
+		return usuarioDAO.obtieneDeviceTokenPorUsuario(item);
 	}
 }

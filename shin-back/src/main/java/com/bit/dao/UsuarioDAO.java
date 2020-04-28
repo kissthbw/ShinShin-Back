@@ -384,4 +384,18 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		
 		return total;
 	}
+	
+	public String obtieneDeviceTokenPorUsuario(Usuario item) {
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append( " SELECT device_token FROM usuario " );
+		sql.append( " WHERE id_usuario = :idUsuario" );
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() );
+		q.setParameter("idUsuario", item.getIdUsuario());
+		
+		String deviceToken = (String)q.uniqueResult();
+		
+		return deviceToken;
+	}
 }

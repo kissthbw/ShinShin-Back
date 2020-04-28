@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bit.communication.FireBaseAdmin;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.Usuario;
@@ -27,6 +28,9 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	FireBaseAdmin fireBaseAdmin;
 
 	@Override
 	@Transactional
@@ -81,6 +85,18 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 		else {
 			item = historicoMediosBonificacionDAO.save(item);
 			rsp.setId(item.getIdHistoricoMediosBonificacion());
+			
+			//Integrar con Proveedor de recargas
+			
+			//Enviar notificación
+			//Obtener el device token del usuario
+			String deviceToken = usuarioService.obtieneDeviceTokenPorUsuario( user );
+			
+			if( null != deviceToken && !"".equals( deviceToken ) ) {
+				log.info( "Enviando push notification a usuario: {}", deviceToken );
+				fireBaseAdmin.sendPushNotificationToDevice( deviceToken,
+						"Se esta procesando tu solicitud");
+			}
 		}
 		
 		return rsp;

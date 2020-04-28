@@ -30,6 +30,7 @@ public class FireBaseAdminImpl implements FireBaseAdmin {
 
 	private static final Logger log = LoggerFactory.getLogger(FireBaseAdminImpl.class);
 
+	
 //	public FireBaseAdminImpl() {
 //
 //		
@@ -62,7 +63,7 @@ public class FireBaseAdminImpl implements FireBaseAdmin {
 		
 		log.info("Enviando notificacion a usuario con token: {}", deviceToken);
 		
-		init();
+//		init();
 		
 		Map<String, String> data = new HashMap<>();
 		data.put("id", "id");
@@ -95,8 +96,7 @@ public class FireBaseAdminImpl implements FireBaseAdmin {
 //				Config c = configDAO.findByPK("FCM_KEY");
 //				byte[] data = Base64.getDecoder().decode( c.getKeyData() );
 //				InputStream inputStream = new ByteArrayInputStream(data);
-//				
-				
+
 				FirebaseOptions options = new FirebaseOptions.Builder()
 						.setCredentials(GoogleCredentials.fromStream( Utils.getCredentialsStream() ))
 						.setDatabaseUrl("https://shingshing-69c1f.firebaseio.com").build();
@@ -109,7 +109,7 @@ public class FireBaseAdminImpl implements FireBaseAdmin {
 
 
 	public void send(Map<String, String> data) throws InterruptedException, ExecutionException {
-		String clientToken = "c92M8s_qOyc:APA91bEHJ3KLEEX8UVbIv4GsO2VTsPmBbIodr__se3g_UFON_hkO2XVQEDtgNjTeP0RT_qoZ1XWNF2ifoVIOUcGhUjwFGWB2LKkt2LAtp62h_XudIQEwt-BJs1eECgTQ3AU2FLr9YUt3";
+		String clientToken = "dZP_oT_pRz0:APA91bFU4FP6Pk1RN8YDuoZMGcdnvJaeWgGp1FWnXL_e12odbALwQN_Rp6tW0Jo957GtAwjPkpnMCpYTUUiv8jhv5F-xeFWgMaYQZtUxFJkjana6xKt6Zclw1c_z7qPuvRZSHJ-fge3R";
 
 		AndroidConfig androidConfig = AndroidConfig.builder().setTtl(Duration.ofMinutes(2).toMillis())
 				.setCollapseKey("personal").setPriority(Priority.HIGH)

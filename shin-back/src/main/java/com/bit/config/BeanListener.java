@@ -1,6 +1,7 @@
 package com.bit.config;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
@@ -18,6 +19,9 @@ import com.bit.dao.CatalogoDiccionarioTiendasDAO;
 import com.bit.dao.ConfigDAO;
 import com.bit.model.CatalogoDiccionarioTiendas;
 import com.bit.model.Config;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 @Component
 public class BeanListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -39,9 +43,30 @@ public class BeanListener implements ApplicationListener<ContextRefreshedEvent> 
 		
 		log.info( "Leyendo configuracion" );
 		Config c = configDAO.findByPK("FCM_KEY");
-		byte[] data = Base64.getDecoder().decode( c.getKeyData() );
-		InputStream inputStream = new ByteArrayInputStream(data);
-		Utils.setCredentialsStream( inputStream );
+		
+		if ( null != c ) {
+			log.info( "Cargando configuracion de Firebase" );
+			byte[] data = Base64.getDecoder().decode( c.getKeyData() );
+			InputStream inputStream = new ByteArrayInputStream(data);
+			
+			try {
+				
+				log.info( "Leyendo configuracion" );
+//				Config c = configDAO.findByPK("FCM_KEY");
+//				byte[] data = Base64.getDecoder().decode( c.getKeyData() );
+//				InputStream inputStream = new ByteArrayInputStream(data);
+
+				FirebaseOptions options = new FirebaseOptions.Builder()
+						.setCredentials(GoogleCredentials.fromStream( inputStream ))
+						.setDatabaseUrl("https://shingshing-69c1f.firebaseio.com").build();
+
+				FirebaseApp.initializeApp(options);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			Utils.setCredentialsStream( inputStream );
+		}
 	}
 
 }

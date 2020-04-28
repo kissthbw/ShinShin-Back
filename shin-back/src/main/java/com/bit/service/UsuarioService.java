@@ -61,4 +61,5 @@ public interface UsuarioService {
 	//
 	InformacionUsuarioRSP obtieneDetalleUsuario( Usuario item );
 	
+	String obtieneDeviceTokenPorUsuario( Usuario item );
 }
