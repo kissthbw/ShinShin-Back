@@ -1,3 +1,10 @@
+
+i.back-circle{
+	color:#66615B;
+	background-color:#e7e7e7;
+	border-radius: 50%;
+	padding:10px;
+}
 #toast-container {
 	margin-top: 25px;
 	opacity: 1 !important;
