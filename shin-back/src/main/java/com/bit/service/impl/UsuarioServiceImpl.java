@@ -24,6 +24,7 @@ import com.bit.common.Utils;
 import com.bit.communication.CloundinaryService;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.CatalogoMediosBonificacionDAO;
+import com.bit.dao.CatalogoSexoDAO;
 import com.bit.dao.ContactoDAO;
 import com.bit.dao.FotografiasTicketDAO;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
@@ -34,6 +35,7 @@ import com.bit.exception.CommunicationException;
 import com.bit.model.Authority;
 import com.bit.model.AuthorityType;
 import com.bit.model.CatalogoMediosBonificacion;
+import com.bit.model.CatalogoSexo;
 import com.bit.model.Contacto;
 import com.bit.model.FotografiasTicket;
 import com.bit.model.HistoricoMediosBonificacion;
@@ -68,6 +70,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 	
 	@Autowired
 	private CatalogoMediosBonificacionDAO catalogoMediosBonificacionDAO;
+	
+	@Autowired
+	private CatalogoSexoDAO catalogoSexoDAO;
 
 	@Autowired
 	private MediosComunicacionService mediosComunicacionService;
@@ -342,6 +347,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		
 		tmp.setFechaRegistro( Utils.formatDateToString(user.getFecha_registro(), "dd-MMM-yyyy") );
+
 		
 		//Agregar Edad en base a fecha nac.
 //		LocalDate birthday = LocalDate.of(1983, Month.SEPTEMBER, 11);
@@ -349,6 +355,10 @@ public class UsuarioServiceImpl implements UsuarioService{
 		birthday.setTime( tmp.getFechaNac() );
 		Period p = Utils.calcularEdad(birthday);
 		tmp.setEdad( p.getYears() );
+		
+		tmp.setDia( String.valueOf( birthday.get( Calendar.DAY_OF_MONTH ) ) );
+		tmp.setMes( String.valueOf( birthday.get( Calendar.MONTH ) ) );
+		tmp.setAnio( String.valueOf( birthday.get( Calendar.YEAR ) ) );
 		
 		//Agregar Sexo.
 		tmp.setSexo( Sexo.getNombreById( tmp.getIdCatalogoSexo() ) );
@@ -483,7 +493,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	@Transactional
-	public InformacionUsuarioRSP actualizarUsuarios(Usuario item) {
+	public InformacionUsuarioRSP actualizarUsuarios(Usuario item, Source source) {
 
 		log.info("Actualizando el/los valor(es) de usuario");
 
@@ -500,6 +510,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 			return infoRSP;
 		}
 		
+		if( source == Source.CONTROLLER ) {
+			log.info( "La actualizacion viene del web" );
+			
+		}
+		
+		
 		boolean exist = false;
 //		boolean emailUpdated = false;
 //		boolean mobileUpdate = false;
@@ -511,7 +527,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			exist = usuarioDAO.existUserByEmail(item);
 			if (exist) {
 				infoRSP.setMessage("Este email ya existe");
-				infoRSP.setCode(500);
+				infoRSP.setCode(406);
 
 				return infoRSP;
 			}
@@ -545,7 +561,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 			exist = usuarioDAO.existUserByPhone(item);
 			if (exist) {
 				infoRSP.setMessage("Este numero ya existe");
-				infoRSP.setCode(500);
+				infoRSP.setCode(406);
 
 				return infoRSP;
 			} 
@@ -578,7 +594,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		if ( null != item.getContrasenia() ) {
 			if ( !entity.getContrasenia().equals( item.getContraseniaActual() ) ) {
 				infoRSP.setMessage("Contraseña actual incorrecta");
-				infoRSP.setCode(202);
+				infoRSP.setCode(406);
 				
 				return infoRSP;
 			}
@@ -630,6 +646,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 		infoRSP.setId(item.getIdUsuario());
 		log.info( "Actualizacion exitosa" );
 		return infoRSP;
+	}
+	
+	@Override
+	@Transactional
+	public List<CatalogoSexo> obtieneCatalogoSexo(){
+		return catalogoSexoDAO.obtieneCatalogo();
 	}
 	
 	private void updateUsuario( Usuario item, Usuario entity ) {

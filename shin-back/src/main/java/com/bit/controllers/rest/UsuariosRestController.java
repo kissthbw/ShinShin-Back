@@ -104,7 +104,7 @@ public class UsuariosRestController {
 	public @ResponseBody InformacionUsuarioRSP actualizarUsuario(@RequestBody Usuario item) {
 		
 		log.info("Entrando a actualizarUsuarios para modificar uno o varios valores de usuario");
-		InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item);
+		InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item, Source.REST_CONTROLLER);
 		
 		return rsp;
 	}

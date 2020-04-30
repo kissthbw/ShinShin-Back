@@ -147,7 +147,7 @@ public class UsuarioDAOTest {
 		item.setIdUsuario(2L);
 		item.setCodigoPostal( "57300" );
 
-		InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item);
+		InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item, Source.REST_CONTROLLER);
 		System.out.println( rsp.getCode() );
 		System.out.println( rsp.getUsuario().getNombre() );
 		System.out.println( rsp.getUsuario().getCorreoElectronico() );

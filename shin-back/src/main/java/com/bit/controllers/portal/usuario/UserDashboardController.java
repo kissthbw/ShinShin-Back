@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bit.common.Utils;
 import com.bit.controllers.portal.administrador.CatalogosController;
+import com.bit.model.CatalogoSexo;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Usuario;
@@ -24,6 +26,7 @@ import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
+import com.bit.service.impl.UsuarioServiceImpl.Source;
 import com.ibm.icu.util.Calendar;
 
 @Controller
@@ -83,17 +86,64 @@ public class UserDashboardController {
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
 		if ( null != current ) {
-			Usuario item = new Usuario();
-			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+//			Usuario item = new Usuario();
+//			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+
 			
-			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
+			List<CatalogoSexo> sexos = usuarioService.obtieneCatalogoSexo();
 			
+			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario( current.getUsuario() );
+			//Depurar el telefono y quitar el +521
+			String movil = info.getUsuario().getTelMovil().replace("+521", "");
+			info.getUsuario().setContrasenia(null);
+			info.getUsuario().setConfirmarContrasenia(null);
+			info.getUsuario().setContraseniaActual(null);
+			info.getUsuario().setTelMovil( movil );
+			
+			model.addAttribute("dias", Utils.obtieneDias());
+			model.addAttribute("meses", Utils.obtieneMeses());
+			model.addAttribute("anios", Utils.obtieneAnios());
+			
+			model.addAttribute("sexos", sexos);
 			model.addAttribute("info", info);
-			model.addAttribute("item", item);
+			model.addAttribute("item", info.getUsuario());
 		}
 		
 		
 		return "usuario/perfil";
+	}
+	
+//	public String postCatDepartamento(@RequestParam MultipartFile file, @ModelAttribute CatalogoTipoProducto item,
+//			BindingResult errors, Model model) {
+//
+//		log.info("Entrando en postCatDepartamento");
+//		catalogoTipoProductoService.registrarCatalogoTipoProductos(file, item);
+//
+//		log.info("Saliendo de postCatDepartamento");
+//
+//		return "redirect:/portal-administrador/departamento/list?id=1&type=1";
+//	}
+	
+	@PostMapping(value="/dashboard/perfil")
+	public String actualizaPerfil(Model model, @ModelAttribute Usuario item, BindingResult errors) {
+		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+		
+		if ( null != current ) {
+//			Usuario item = new Usuario();
+			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			
+			if( null != item.getTelMovil() && item.getTelMovil().length() == 10 ) {
+				item.setTelMovil( "+521" + item.getTelMovil() );
+			}
+
+			
+			log.info("Entrando a actualizarUsuarios para modificar uno o varios valores de usuario");
+			InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item, Source.CONTROLLER);
+		}
+		
+		
+		return "redirect:/portal-usuario/dashboard";
 	}
 	
 	@GetMapping(value="/dashboard/tickets")

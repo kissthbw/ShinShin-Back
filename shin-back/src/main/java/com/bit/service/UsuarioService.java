@@ -1,7 +1,9 @@
 package com.bit.service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.bit.model.CatalogoSexo;
 import com.bit.model.Contacto;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
@@ -23,7 +25,9 @@ public interface UsuarioService {
 	
 	SimpleResponse eliminarUsuario(Usuario item);
 
-	InformacionUsuarioRSP actualizarUsuarios(Usuario item);
+	InformacionUsuarioRSP actualizarUsuarios(Usuario item, Source source);
+	
+	List<CatalogoSexo> obtieneCatalogoSexo();
 
 	Usuario findUserByPK(Usuario item);
 	
