@@ -23,28 +23,17 @@ Shing-Shing - Tipo Productos
 <link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
 <!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
-
+<link th:href="@{/resources/assets/css/style-howDo.css}"
+	rel="stylesheet" />
 </head>
 
 <body class="">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="white" data-active-color="danger">
 		<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
-			<div class="logo">
-        		<a href="" class="simple-text logo-mini">
-          			<div class="logo-image-small">
-          
-            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
-          			</div>
-        		</a>
-        		<a href="" class="simple-text logo-no rmal">
-          			<div class="logo-image-big">
-            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
-          			</div>
-        		</a>
-      		</div>
 			
 			<div class="sidebar-wrapper">
+			<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
 					<div class="photo">
 					<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
@@ -185,41 +174,12 @@ Shing-Shing - Tipo Productos
 		</div>
 
 		<div class="main-panel">
-			<!-- Navbar -->
-			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-				<div class="container-fluid">
-					<div class="navbar-wrapper">
-						<div class="navbar-minimize">
-							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-							</button>
-						</div>
-						<div class="navbar-toggle">
-							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span>
-								<span class="navbar-toggler-bar bar2"></span>
-								<span class="navbar-toggler-bar bar3"></span>
-							</button>
-						</div>
-						<a class="navbar-brand" href="#pablo">Paper Dashboard 2 PRO</a>
-					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span>
-						<span class="navbar-toggler-bar navbar-kebab"></span>
-						<span class="navbar-toggler-bar navbar-kebab"></span>
-					</button>
-				</div>
-			</nav>
-			<!-- End Navbar -->
-			<!-- <div class="panel-header panel-header-sm"></div> -->
-			
+			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Catalogos')"></nav>
+			<!-- <div class="panel-header"></div> -->
 			<div class="content">
-				<div class="row">
+				<div class="row">	
 					<div class="col-md-12">
-						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post">
+					<b><h4 class="title-cat">Tipo producto</h4></b>						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post">
 							<div class="card ">
 								<div class="card-header ">
 									<h4 class="card-title">Datos de Tipo de Producto</h4>

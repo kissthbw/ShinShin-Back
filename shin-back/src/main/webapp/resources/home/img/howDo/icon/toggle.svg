@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="25px" viewBox="0 0 30 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>icon/menu/grey</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="1.33333333 4.39115022 30.623136 4.39115022 30.623136 6.34666667 1.33333333 6.34666667"></polygon>
+        <polygon id="path-3" points="1.33333333 15.4961244 30.623136 15.4961244 30.623136 17.45168 1.33333333 17.45168"></polygon>
+        <polygon id="path-5" points="1.33333333 26.6011769 30.623136 26.6011769 30.623136 28.5567324 1.33333333 28.5567324"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="header/mobile" transform="translate(-273.000000, -32.000000)">
+            <g id="icon/menu/white" transform="translate(272.000000, 28.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-2"></g>
+                <path d="M29.6453582,6.34666667 L2.31099378,6.34666667 C1.77086933,6.34666667 1.333216,5.90901333 1.333216,5.36888889 C1.333216,4.82876444 1.77086933,4.39111111 2.31099378,4.39111111 L29.6453582,4.39111111 C30.1854827,4.39111111 30.623136,4.82876444 30.623136,5.36888889 C30.623136,5.90901333 30.1854827,6.34666667 29.6453582,6.34666667" id="Fill-1" fill="#FFFFFF" fill-rule="evenodd" mask="url(#mask-2)"></path>
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="Clip-5"></g>
+                <path d="M29.6453582,17.45168 L2.31099378,17.45168 C1.77086933,17.45168 1.333216,17.0140267 1.333216,16.4739022 C1.333216,15.9337778 1.77086933,15.4961244 2.31099378,15.4961244 L29.6453582,15.4961244 C30.1854827,15.4961244 30.623136,15.9337778 30.623136,16.4739022 C30.623136,17.0140267 30.1854827,17.45168 29.6453582,17.45168" id="Fill-4" fill="#FFFFFF" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <mask id="mask-6" fill="white">
+                    <use xlink:href="#path-5"></use>
+                </mask>
+                <g id="Clip-8"></g>
+                <path d="M29.6453582,28.5567324 L2.31099378,28.5567324 C1.77086933,28.5567324 1.333216,28.1190791 1.333216,27.5789547 C1.333216,27.0388302 1.77086933,26.6011769 2.31099378,26.6011769 L29.6453582,26.6011769 C30.1854827,26.6011769 30.623136,27.0388302 30.623136,27.5789547 C30.623136,28.1190791 30.1854827,28.5567324 29.6453582,28.5567324" id="Fill-7" fill="#FFFFFF" fill-rule="evenodd" mask="url(#mask-6)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

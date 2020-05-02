@@ -1,0 +1,63 @@
+h1{
+	font-size: 48px;
+}
+h2{
+	font-size: 40px;
+	font-weight: 800;
+}
+h3{
+	font-size: 24px;
+	font-weight: 600;
+}
+h4{
+	font-size: 18px;
+	font-weight: 800;
+}
+h5{
+	font-size: 16px;
+	font-weight: 600;
+}
+.bold{
+	font-weight: 700;
+}
+.cont-h4{
+	padding-left: 24px;
+    border-left-color: #ccc;
+    border-left-style: solid;
+    border-left-width: 1px;
+}
+.logo-hd{
+	width: 100%;
+	padding: 24px 24px 64px 24px;
+	background: rgba(256,111,11,1);
+    background: -moz-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(255,202,166,1)), color-stop(51%, rgba(255,102,0,1)), color-stop(100%, rgba(255,102,0,1)));
+    background: -webkit-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: -o-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: -ms-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(256,111,11,1) 51%, rgba(256,111,11,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffcaa6', endColorstr='#FE6F01', GradientType=1 );
+}
+.sidebar-wrapper{
+	height: 100% !important;
+}
+.pleca{
+	margin-top: -32px;
+	height: 32px;
+	background-color: #ffffff;
+	border-top-left-radius: 24px;
+	border-top-right-radius: 24px;
+}
+.container-fluid a{
+	color: #007bff !important;
+}
+.container-fluid a{
+	margin-left: 24px;
+}
+.card-body img{
+	border-radius: 16px;
+}
+
+.img-HD{
+	width: 100%;
+}

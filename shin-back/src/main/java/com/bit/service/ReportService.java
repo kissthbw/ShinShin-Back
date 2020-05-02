@@ -10,6 +10,9 @@ public interface ReportService {
 	List<Item> getBonificacionesGeneralInfo();
 	HashMap<String, List<Item>> getBonificacionesRecargasInfo();
 	
-	
-	void getEstadisticasGeneralCSV(PrintWriter pWriter);
+	/**
+	 * 
+	 * @param pWriter
+	 */
+	void makeEstadisticasGeneralCSVReport(PrintWriter pWriter);
 }

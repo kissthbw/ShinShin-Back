@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<link rel="shortcut icon"
+	th:href="@{/resources/home/img/brands/favicon.png}" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Shing-Shing - How do</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
+<!--     Fonts and icons     -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet" />
+<!-- CSS Files -->
+<link th:href="@{/resources/assets/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-panel.css}"
+	rel="stylesheet"></link>
+<link th:href="@{/resources/assets/css/style-howDo.css}"
+	rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body style="position: relative;">
+	<div class="wrapper ">
+		<div class="sidebar" data-color="white" data-active-color="danger">
+			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
+
+			<div class="sidebar-wrapper">
+				<div class="logo-hd">
+					<img th:src="@{/resources/home/img/howDo/HD/ss-hd-blanco.svg}" />
+				</div>
+				<div class="pleca"></div>
+				<nav class="navbar navbar-light bg-light" id="myScrollspy">
+					<!-- MENU -->
+					<ul class="nav nav-stacked" data-spy="affix" data-offset-top="205" id="selectHow">
+
+						<li><a href="#1"> <i class="nc-icon nc-ruler-pencil"></i>
+								<p>Microcopy</p>
+						</a>
+
+							<div id="catalogos">
+								<ul class="nav">
+
+									<li><a href="#1-1"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Abreviaturas </span>
+									</a></li>
+
+									<li><a href="#1-2"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal"> Taxonomía </span>
+									</a></li>
+
+								</ul>
+							</div></li>
+
+						<li><a href="#2"> <i class="nc-icon nc-money-coins"></i>
+								<p>Panel</p>
+						</a>
+
+							<div>
+								<ul class="nav">
+
+									<li><a href="#2-1"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Interfaz</span>
+									</a></li>
+
+									<li><a href="#2-2"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Login</span>
+									</a></li>
+
+									<li><a href="#2-3"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Cuentas</span>
+									</a></li>
+
+									<li><a href="#2-4"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Catálogos </span>
+									</a></li>
+
+									<li><a href="#2-5"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Retiros </span>
+									</a></li>
+
+									<li><a href="#2-6"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Recargas telefónicas </span>
+									</a></li>
+
+									<li><a href="#2-7"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Push Notification </span>
+									</a></li>
+
+									<li><a href="#2-8"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Estadísticas </span>
+									</a></li>
+
+								</ul>
+							</div></li>
+
+						<li><a href="#3"> <i class="nc-icon nc-chart-bar-32"></i>
+								<p>Brand</p>
+						</a>
+							<div id="estadisticas">
+								<ul class="nav">
+									<li><a href="#3-1"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Logotipo</span>
+									</a></li>
+
+									<li><a href="#3-2"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Color</span>
+									</a></li>
+									<li><a href="#3-3"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Tipografía</span>
+									</a></li>
+									<li><a href="#3-4"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Iconos</span>
+									</a></li>
+									<li><a href="#3-5"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Ilustraciones</span>
+									</a></li>
+									<li><a href="#3-6"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">WEB</span>
+									</a></li>
+
+									<li><a href="#3-7"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">App</span>
+									</a></li>
+									<li><a href="#3-8"> <span class="sidebar-mini-icon">·</span>
+											<span class="sidebar-normal">Social Media</span>
+									</a></li>
+
+								</ul>
+							</div></li>
+					</ul>
+				</nav>
+			</div>
+
+		</div>
+
+
+		<div class="main-panel" data-spy="scroll" data-target="#myScrollspy"
+			data-offset="15">
+			<!-- Navbar -->
+			<nav
+				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" style="border-bottom: 1px solid gray !important;">
+				<div class="container-fluid col-md-12 row pr-0">
+					<div class="navbar-wrapper col-md-8">
+						<div class="navbar-toggle">
+							<button type="button" class="navbar-toggler">
+								<span class="navbar-toggler-bar bar1"></span> <span
+									class="navbar-toggler-bar bar2"></span> <span
+									class="navbar-toggler-bar bar3"></span>
+							</button>
+						</div>
+						<font class="navbar-brand">How Do</font>
+					</div>
+					<div class="col-md-4 pr-0" style="text-align:right;;">
+						<a th:href="@{/portal-administrador/producto/list}">Panel</a> <a
+							th:href="@{/portal-administrador/admin_logout}">Salir<img
+							th:src="@{/resources/home/img/howDo/icon/exit.svg}"
+							style="margin-left: 8px; height: 16px;" /></a>
+					</div>
+				</div>
+			</nav>
+
+			<!-- End Navbar -->
+
+			<!-- <div class="panel-header"></div> -->
+			<div class="content">
+				<div class="row">
+
+					<div id="1" class="col-12 col-md-8">
+						<!-- Titulo -->
+						<h1 class="card-title">Microcopy</h1>
+						<br />
+					</div>
+
+					<div class="col-md-12">
+
+						<!-- Abreviaturas -->
+						<div id="1-1" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Abreviaturas</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										<p>
+											Con el fin de homologar el uso de las abreviaturas,
+											principalmente en los contenidos de los productos. Hemos
+											establecido una forma de escribirlas, esto nos ayudará a
+											tener contenidos uniformes y coherentes entre sí. <br /> <br />
+											Esta lista de abreviaturas se estará enriqueciendo conforme a
+											las necesidades nos las vaya requiriendo. <br /> <br />
+										</p>
+
+										<hr />
+										<h3>Unidades de medida</h3>
+										<p>
+											Su uso principal es en la descripción del contenido de los
+											productos. <br /> Omitimos las abreviaturas plurales para
+											tener una descripción los más mínima posible. Existe una
+											excepción con la palabras Pieza(s) ya que es necesario
+											mencionar el plural o singular, esta decisión se debe tomar
+											con base a su uso. <br /> <br /> Ej. Pieza (pza), Piezas
+											(pzas). <br /> <br />
+										</p>
+
+										<div class="col-8">
+											<table class="table col-12 col-sm-6">
+												<thead>
+													<tr>
+														<th scope="col" style="font-weight: 700;">Unidad</th>
+														<th scope="col" style="font-weight: 700;">Abreviatura</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<th scope="row">Gramos</th>
+														<td>g</td>
+													</tr>
+													<tr>
+														<th scope="row">Kilogramos</th>
+														<td>kg</td>
+													</tr>
+													<tr>
+														<th scope="row">Litros</th>
+														<td>l</td>
+													</tr>
+													<tr>
+														<th scope="row">Miligramos</th>
+														<td>mg</td>
+													</tr>
+													<tr>
+														<th scope="row">Mililitros</th>
+														<td>ml</td>
+													</tr>
+													<tr>
+														<th scope="row">Pieza</th>
+														<td>pza</td>
+													</tr>
+													<tr>
+														<th scope="row">Piezas</th>
+														<td>pzas</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Taxonomía -->
+						<div id="1-2" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Taxonomía</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										<p>
+											Establecimos una forma de nombrar las Imágenes y documentos
+											Administrativos del Panel de control, para poderlos
+											diferenciar, ubicar y utilizar adecuadamente. <br /> <br />
+											Estas taxonomías son modulares, ya que pueden ser utilizadas
+											entre diferentes cruces de información. Marcamos la base de
+											un sistema de nomenclatura escalable a los diversos
+											requerimientos que se puedan tener con el paso de los tiempo
+											y las necesidades que vayan surgiendo. <br /> <br />
+										</p>
+
+										<hr />
+										<h3>Imágenes</h3>
+										El nombre de todas las imágenes están definidos por estas
+										reglas: <br /> <br />
+										<ul>
+											<li>La separación entre conceptos va con un guión medio
+												(-); En caso de tener dos palabras un concepto, se
+												diferenciarán con un Camel case (la segunda palabra deberá
+												empezar con mayúscula sin dejar espacio intermedio entre
+												ambas palabras. Ej. fresaCereza, chocolateBlanco).</li>
+											<li>La taxonomía de imágenes solo es alfanumérica (no
+												utilices acentos ni signos extraños, incluida la “ñ”.
+												Gracias! :))</li>
+											<li>Todas las palabras inician con minúsculas, a
+												excepción de los nombres de marcas y submarcas. Ej.
+												CocaCola, SantaClara.</li>
+											<li>Todas las imágenes las utilizamos en formato .png
+												con fondo transparente y optimizadas para uso WEB.</li>
+										</ul>
+										<br />
+
+										<div class="cont-h4">
+											<h4>Departamentos</h4>
+											<p>
+												<font style="font-weight: 900">Tipo:</font> Departamento <br />
+												<br /> <font style="font-weight: 900">Nombre:</font> Autos,
+												Bebés, Belleza, Carnes, Cremería, Deportes, Electrónica,
+												Farmacia, Hogar, Licores, Limpieza o Vegetales <br /> <br />
+												<font style="font-weight: 900">Extensión:</font> .png <br />
+												<br />
+											</p>
+											Ejemplos: <br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Departamento</th>
+															<th scope="col" style="font-weight: 700;">Formato</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">departamento</th>
+															<td>autos</td>
+															<td>.png</td>
+															<td>departamento-autos.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">departamento</th>
+															<td>bebes</td>
+															<td>.png</td>
+															<td>departamento-bebes.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">departamento</th>
+															<td>belleza</td>
+															<td>.png</td>
+															<td>departamento-belleza.png</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<!-- Imagen -->
+											<img th:src="@{/resources/home/img/howDo/HD/taxonomia-1.png}"
+												class="img-HD" /> <br />
+
+											<hr />
+											<h4>Tiendas</h4>
+											<p>
+												<font style="font-weight: 700">Tipo:</font> Tienda <br /> <font
+													style="font-weight: 700">Nombre:</font> Aurrera, Comercial
+												Mexicana, Soriana, etc. <br /> <font
+													style="font-weight: 700">Extensión:</font> .png
+											</p>
+											<br /> <br /> Ejemplos:
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Tienda</th>
+															<th scope="col" style="font-weight: 700;">Formato</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">tienda</th>
+															<td>Aurrera</td>
+															<td>.png</td>
+															<td>tienda-Aurrera.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">tienda</th>
+															<td>Comercial Mexicana</td>
+															<td>.png</td>
+															<td>tienda-ComercialMexicana.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">tienda</th>
+															<td>Soriana</td>
+															<td>.png</td>
+															<td>tienda-Soriana.png</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<!-- Imagen -->
+											<img th:src="@{/resources/home/img/howDo/HD/taxonomia-2.png}"
+												class="img-HD" /> <br />
+
+											<hr />
+											<h4>Poductos</h4>
+											<br /> <font style="font-weight: 700">Tipo:</font>
+											<ul>
+												<li>Delimitamos el tipo de producto que estamos
+													mostrando en la imagen.</li>
+												<li>Este apartado no incluye el nombre de marcas,
+													submarcas o detalles.</li>
+												<li>Podemos utilizar singular o plural, según lo
+													requiera nuestro producto.</li>
+												<li>Este dato es obligatorio en el nombre de la imagen
+													del producto.</li>
+											</ul>
+											<br />
+
+											<h5>Marca</h5>
+
+											Esta es la marca del producto, comenzamos con la primera
+											letra en mayúscula, si la marca consta de dos palabras o más,
+											se quita el espacio y se pone en una sola palabra, separando
+											cada palabra con Camel case. <br /> Este dato es obligatorio
+											en el nombre de la imagen del producto. <br /> <br />
+											Ejemplos: San Juan, CocaCola, DelFuerte, etc. <br /> <br />
+											<br />
+
+											<h5>Submarca</h5>
+											En caso de tener, sigue los mismos parámetros de la Marca,
+											también comenzando con letra mayúscula. En caso de no tener
+											una Submarca definida, continua con el Detalle, no te
+											preocupes por dejar este espacio. Este dato no es
+											obligatorio. <br /> <br /> Ejemplos: Levite seria la
+											Submarca de Bonafont, Takis de Barcel, Nito de bimbo, etc. <br />
+											<br /> <br />
+
+											<h5>Detalle</h5>
+											Se define por la característica más notoria del producto,
+											puede ser olor, sabor o color. <br /> Si el detalle del
+											producto consta de dos o más palabra , quita el espacio y
+											coloca las palabras juntas utilizando el Camel case. <br />
+											Este dato no es obligatorio. <br /> <br /> Ejemplos:
+											lavanda, mango, azul. <br /> <br /> <br />
+
+											<h5>Contenido</h5>
+											Colocamos la cantidad con base a las unidades de medida (peso
+											y contenido) sin dejar espacios entre el número y la unidad.
+											<br /> Este dato es obligatorio. <br /> <br /> Ejemplos:
+											200ml, 12pzas, 1pza. <br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Marca</th>
+															<th scope="col" style="font-weight: 700;">Submarca</th>
+															<th scope="col" style="font-weight: 700;">Detalle</th>
+															<th scope="col" style="font-weight: 700;">Contenido</th>
+															<th scope="col" style="font-weight: 700;">Extensión</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">crema</th>
+															<td>Alpura</td>
+															<td>-</td>
+															<td>-</td>
+															<td>200ml</td>
+															<td>.png</td>
+															<td style="font-size: 12px;">crema-Alpura-200ml.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">huevo</th>
+															<td>SanJuan</td>
+															<td>-</td>
+															<td>blanco</td>
+															<td>12pzas</td>
+															<td>.png</td>
+															<td style="font-size: 12px;">huevo-SanJuan-blanco-12pzas.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">shampoo</th>
+															<td>Stefano</td>
+															<td>-</td>
+															<td>-</td>
+															<td>1l</td>
+															<td>.png</td>
+															<td style="font-size: 12px;">shampoo-Stefano-1l.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">chamoy</th>
+															<td>MegaChamoy</td>
+															<td>-</td>
+															<td>-</td>
+															<td>1l</td>
+															<td>.png</td>
+															<td style="font-size: 12px;">chamoy-MegaChamoy-1l.png</td>
+														</tr>
+
+														<tr>
+															<th scope="row">agua</th>
+															<td>Bonafont</td>
+															<td>Levite</td>
+															<td>pinaCoco</td>
+															<td>1l</td>
+															<td>.png</td>
+															<td style="font-size: 12px;">agua-Bonafont-Levite-pinaCoco-1l.png</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<!-- Imagen -->
+											<img th:src="@{/resources/home/img/howDo/HD/taxonomia-3.png}"
+												class="img-HD" />
+										</div>
+
+										<br /> <br />
+										<h3>Administrativa</h3>
+										El nombre de los archivos están diseñados con base a estas
+										reglas: <br /> <br />
+										<ul>
+											<li>La separación entre conceptos va con un guión medio
+												(-) a excepción de las fechas, donde día, mes y año van
+												juntos.</li>
+											<li>La taxonomía es alfanumérica (no utilices acentos ni
+												signos extraños, incluida la “ñ”. gracias! :))</li>
+											<li>Todas las letras son mayúsculas.</li>
+											<li>Las abreviaturas de los conceptos son la primer
+												letra de la palabra, en caso de ser necesario abstraer dos
+												palabras juntas o que ya exista previamente una similar,
+												agrega otra letra, estas deben estar en mayúsculas y juntas.
+												Ej. Recarga telefónica = RT.</li>
+										</ul>
+
+										<div class="cont-h4">
+											<h4>Retiros</h4>
+											<font class="bold">Tipo:</font> <br /> Retiro = R <br /> <br />
+											<font class="bold">Subtipo:</font> <br /> Definimos la
+											acción que realiza el cliente: <br /> <br /> Bancario = BA
+											<br /> PayPal = PP <br /> Recarga telefónica = RT <br /> <br />
+											<font class="bold">Fecha:</font> <br /> En la que se
+											solicitó el retiro <br /> <br /> Día = ## <br /> Mes = ##
+											<br /> Año = #### <br /> <br /> Ejemplos: <br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Subtipo</th>
+															<th scope="col" style="font-weight: 700;">Día</th>
+															<th scope="col" style="font-weight: 700;">Mes</th>
+															<th scope="col" style="font-weight: 700;">Año</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">R</th>
+															<td>BA</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">R-BA-02032021</td>
+														</tr>
+
+														<tr>
+															<th scope="row">R</th>
+															<td>PP</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">R-PP-03032020</td>
+														</tr>
+
+														<tr>
+															<th scope="row">R</th>
+															<td>RT</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">R-RT-03032020</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<br /> Para nombrar los ID de retiros individuales, se debe
+											seguir la misma taxonomía de retiros generales, agregando el
+											ID de usuario y el número consecutivo de la solicitud
+											realizada. <br /> <br /> El # de solicitud es consecutivo
+											cuando estas se hagan el mismo día sin importar el tipo de
+											solicitud, por lo que cuando sea un día nuevo el # se
+											solicitud se reiniciará desde el 1. <br /> <br /> Ejemplo:
+											<br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Subtipo</th>
+															<th scope="col" style="font-weight: 700;">Usuario</th>
+															<th scope="col" style="font-weight: 700;">#
+																Solicitud</th>
+															<th scope="col" style="font-weight: 700;">Día</th>
+															<th scope="col" style="font-weight: 700;">Mes</th>
+															<th scope="col" style="font-weight: 700;">Año</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">R</th>
+															<td>BA</td>
+															<td>U1</td>
+															<td>1</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">R-BA-U1-1-02032021</td>
+														</tr>
+
+														<tr>
+															<th scope="row">R</th>
+															<td>PP</td>
+															<td>U1</td>
+															<td>2</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">R-PP-U1-2-03032020</td>
+														</tr>
+
+														<tr>
+															<th scope="row">R</th>
+															<td>RT</td>
+															<td>U1</td>
+															<td>3</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">R-RT-U1-3-03032020</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<hr />
+											<h4>Tickets</h4>
+											<font class="bold">Tipo:</font> <br /> Ticket = T <br />
+											Usuario = U <br /> <br /> <font class="bold">Marcas:</font>
+											<br /> 7eleven = 7E <br /> Aurrera = AUR <br /> Comercial
+											= COM <br /> HEB = HEB <br /> Megacomercial = MEG <br />
+											Oxxo = OX <br /> Soriana = SOR <br /> Superama = SUP <br />
+											Waltmart = WAL <br /> <br /> <font class="bold">Nombre
+												de Usuario:</font> <br /> Comenzará desde el 1 <br /> <br /> <font
+												class="bold">Número consecutivo:</font> <br /> Ticket
+											escaneado al día por el usuario comenzará desde el 1 <br />
+											<br /> <font class="bold">Fecha:</font> <br /> En la que se
+											solicitó el retiro <br /> <br /> Día = ## <br /> Mes = ##
+											<br /> Año = #### <br /> <br /> Ejemplos: <br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Marca</th>
+															<th scope="col" style="font-weight: 700;">Usuario</th>
+															<th scope="col" style="font-weight: 700;"># Escaneo</th>
+															<th scope="col" style="font-weight: 700;">Día</th>
+															<th scope="col" style="font-weight: 700;">Mes</th>
+															<th scope="col" style="font-weight: 700;">Año</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">T</th>
+															<td>AUR</td>
+															<td>U1</td>
+															<td>1</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">T-AUR-U1-1-02032021</td>
+														</tr>
+
+														<tr>
+															<th scope="row">T</th>
+															<td>7EL</td>
+															<td>U1</td>
+															<td>2</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">T-7EL-U1-2-03032020</td>
+														</tr>
+
+														<tr>
+															<th scope="row">T</th>
+															<td>WAL</td>
+															<td>U1</td>
+															<td>3</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">T-WAL-U1-3-03032020</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<hr />
+											<h4>Bonificaciones</h4>
+											<br /> <font class="bold">Tipo:</font> <br />
+											Bonificaciones = B <br /> Usuarios = U <br /> <br /> <font
+												class="bold">Bonificación al día:</font> <br />
+											Bonificación al día por el usuario comenzará desde el 1 <br />
+											<br /> <font class="bold">Fecha:</font> <br /> En que se
+											hizo la bonificación <br /> <br /> Día = ## <br /> Mes =
+											## <br /> Año = #### <br /> <br /> Ejemplos: <br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Usuario</th>
+															<th scope="col" style="font-weight: 700;">#
+																Bonificación</th>
+															<th scope="col" style="font-weight: 700;">Día</th>
+															<th scope="col" style="font-weight: 700;">Mes</th>
+															<th scope="col" style="font-weight: 700;">Año</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">B</th>
+															<td>U1</td>
+															<td>1</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">B-U1-1-02032021</td>
+														</tr>
+
+														<tr>
+															<th scope="row">B</th>
+															<td>U1</td>
+															<td>2</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">B-U1-2-03032020</td>
+														</tr>
+
+														<tr>
+															<th scope="row">B</th>
+															<td>U1</td>
+															<td>3</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">B-U1-3-03032020</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<hr />
+											<h4>Recargas Telefónicas</h4>
+											<br /> <font class="bold">Tipo:</font> <br /> Recarga
+											Telefónica = RT <br /> Usuarios = U <br /> <br /> <font
+												class="bold">Recarga telefónica al día:</font> <br />
+											Comenzará desde el 1 <br /> <br /> <font class="bold">Fecha:</font>
+											<br /> En que se hizo la bonificación <br /> <br /> Día =
+											## <br /> Mes = ## <br /> Año = #### <br /> <br />
+
+											<div style="overflow-x: auto;">
+												<table class="table">
+													<thead>
+														<tr>
+															<th scope="col" style="font-weight: 700;">Tipo</th>
+															<th scope="col" style="font-weight: 700;">Usuario</th>
+															<th scope="col" style="font-weight: 700;"># Recarga</th>
+															<th scope="col" style="font-weight: 700;">Día</th>
+															<th scope="col" style="font-weight: 700;">Mes</th>
+															<th scope="col" style="font-weight: 700;">Año</th>
+															<th scope="col" style="font-weight: 700;">Resultado</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">RT</th>
+															<td>U1</td>
+															<td>1</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">RT-U1-1-02032021</td>
+														</tr>
+
+														<tr>
+															<th scope="row">RT</th>
+															<td>U1</td>
+															<td>2</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">RT-U1-2-03032020</td>
+														</tr>
+
+														<tr>
+															<th scope="row">RT</th>
+															<td>U1</td>
+															<td>3</td>
+															<td>01</td>
+															<td>01</td>
+															<td>2020</td>
+															<td style="font-size: 12px;">RT-U1-3-03032020</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="2" class="col-12 col-md-8">
+							<!-- Titulo -->
+							<br /> <br />
+							<hr />
+							<h1 class="card-title">Panel</h1>
+
+							<h4 class="bold">Cerebro de Shing Shing.</h4>
+							Este es el centro de control de la marca, donde puedes gestionar
+							todo lo relacionado a la App y sus datos generados. Encontrarás
+							información sobre los catálogos de productos, tiendas, marcas,
+							bonificaciones, retiros y todas las estadísticas que se generan
+							día a día con el uso de la App. <br /> <br /> <br />
+						</div>
+
+						<div id="2-1" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Interfaz</h2>
+							</div>
+							<div class="card-body ">
+								<div class="row">
+									<div class="col-12">
+
+										El diseño de la interfaz está diseñada con el fin de
+										transparentar y eficientar la gestión de los contenidos y
+										datos generados por Shing Shing. <br /> <br /> Dentro del
+										panel de administración puedes agregar, editar, eliminar y
+										consultar reportes de los diferentes contenidos de Shing Shin.
+										<br /> <br /> Aquí puedes agregar cuentas, administrar los
+										catálogos de los productos y sus contenidos, así como ver todo
+										lo relacionado a los números de la App y sus estadísticas. <br />
+										<br /> <br />
+
+										<h3>Header</h3>
+										En el header encuentras el logo de Shing Shing, nombre de la
+										sección en la que te encuentras, enlace al How Do y otro para
+										cerrar sesión. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/interfaz-1.png}"
+											class="img-HD" /> <br /> <br />
+
+										<hr />
+										<h3>Navegación</h3>
+										A la izquierda se ubica el menú principal de navegación, al
+										dar clic en alguna de sus opciones te llevará al contenido
+										correspondiente. <br /> Este siempre se mantiene visible para
+										tener la disposición de navegar entre los contenidos. <br />
+										<br /> <img
+											th:src="@{/resources/home/img/howDo/HD/interfaz-2.png}"
+											class="img-HD" /> <br /> <br />
+
+										<hr />
+										<h3>Footer</h3>
+										En el footer tenemos un enlace donde puedes reportar cualquier
+										problema presentado con el Panel, el equipo de desarrollo lo
+										atenderá tan pronto como sea posible. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/interfaz-3.png}"
+											class="img-HD" /> <br /> <br />
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Login -->
+						<div id="2-2" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Login</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										<h3 class="card-title">Acceso</h3>
+										Para poder ingresar al gestor de Shing Shing debes tener tu
+										correo y contraseña asignada, en caso de no contar con estos
+										datos puedes darle clic en Solicitar accesos y enviar tu
+										solicitud. <br /> <br />
+
+										<hr />
+										<h3>Restablecer contraseña</h3>
+										De la misma forma puedes recuperar tu contraseña dando clic en
+										Olvidé mi contraseña :(, te llegará un correo para que puedas
+										restablecerla. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/interfaz-4.png}"
+											class="img-HD" /> <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Cuentas -->
+						<div id="2-3" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Cuentas</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										Puedes gestionar todo lo relacionado a las cuentas de
+										administradores y las marcas que tienen su propio panel en la
+										plataforma. <br /> <br /> <br />
+
+										<h3>Agregar</h3>
+										Para agregar una cuenta de Administrador y Marca: <br /> <br />
+										<ol>
+											<li>Para agregar una cuenta de Administrador y Marca:
+												Debes dar clic en el botón + Agregar de color naranja que se
+												encuentra en la parte derecha del contenido</li>
+											<li>Luego, ingresar el correo que deseas agregar como
+												administrador y asignarle una contraseña, en el caso de
+												perfil de marca, debes seleccionar el nombre de la marca a
+												la que tendrá acceso el usuario nuevo</li>
+											<li>Clic en Guardar. Listo!</li>
+										</ol>
+										<br />
+
+										<hr />
+										<h3>Editar</h3>
+										Para editar las cuentas de Administrador y Marca: <br /> <br />
+										<ol>
+											<li>Debes dar clic en la opción Editar que se encuentra
+												al final de cada usuario dentro de sus respectivas tablas</li>
+											<li>Una vez en la información de la cuenta, ya sea de
+												Administrador o Marca, puedes hacer los ajustes necesarios
+												al usuario</li>
+											<li>Una vez hechos los cambios, das clic en Guardar. Si
+												no deseas guardar los cambios hechos, puedes dar clic en
+												Cancelar.</li>
+										</ol>
+										<br />
+
+										<hr />
+										<h3>Eliminar</h3>
+										Para eliminar una cuenta de Administrador y Marca: <br /> <br />
+										<ol>
+											<li>Debes dar clic en la opción Editar que se encuentra
+												al final de cada usuario dentro de sus respectivas tablas.</li>
+											<br />
+											<li>Una vez en la información de la cuenta, en la parte
+												inferior del contenido encontrarás el enlace Eliminar, das
+												clic en el</li>
+											<br />
+											<li>Confirmas la eliminación de la cuenta.</li>
+										</ol>
+										<br />
+
+										<hr />
+										<h3>Buscar</h3>
+										En la parte inferior de cada título de los tipos de cuentas
+										(Administrador y Marcas) encuentras un espacio para búsqueda,
+										en el cual puedes escribir el ID, correo o marca que estés
+										buscando. <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Catálogos -->
+						<div id="2-4" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Catálogos</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										Aquí puedes gestionar los productos y sus contenidos
+										relacionados, tales como Departamentos, Marcas y Tiendas. <br />
+										<br />
+
+										<!-- Departamentos -->
+										<h3>Departamentos</h3>
+
+										Son los diferentes apartados donde puede vivir cada producto,
+										por ej. Autos, Bebés, Belleza...etc. Cada producto solo puede
+										estar en un departamento: <br />
+
+										<div class="cont-h4">
+											<h4>Agregar</h4>
+											<ol>
+												<li>En el menú izquierdo, da clic en la sección
+													Catálogos y luego en la opción Departamentos</li>
+												<li>Después, da clic en el botón + Agregar</li>
+												<li>Rellena todos los campos solicitados</li>
+												<li>Da clic en guardar. ¡Listo, Departamento agregado!</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Editar</h4>
+											<ol>
+												<li>En la tabla de los departamentos. Da clic en el
+													enlace Editar que se encuentra al final de cada
+													departamento</li>
+												<br />
+												<li>Una vez en los detalles del Departamentos realiza
+													los ajustes necesarios y da clic en Guardar. Si no deseas
+													guardar los cambios hechos, puedes dar clic en Cancelar.</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Eliminar</h4>
+											<ol>
+												<li>En la tabla de los departamentos. Da clic en el
+													enlace Editar que se encuentra al final de cada
+													departamento</li>
+												<br />
+												<li>Una vez en la información del departamento, en la
+													parte inferior del contenido encontrarás el enlace
+													Eliminar, das clic en el</li>
+												<br />
+												<li>Confirmas la eliminación de la cuenta.</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Reportes</h4>
+											Da clic en el botón Reporte, se encuentra en la parte
+											superior del contenido general de los departamentos.
+										</div>
+										<br /> <br />
+
+										<!-- Marcas -->
+										<h3>Marcas</h3>
+										Aquí puedes administrar las marcas participantes en Shing
+										Shing para después agregar sus respectivos productos.
+										Importante mencionar que antes de agregar algún producto,
+										debes agregar la marca: <br /> <br />
+
+										<div class="cont-h4">
+											<h4>Agregar</h4>
+											<ol>
+												<li>En el menú izquierdo, da clic en la sección
+													Catálogos y luego en la opción Marcas</li>
+												<li>Después, da clic en el botón + Agregar</li>
+												<li>Rellena todos los campos solicitados</li>
+												<li>Da clic en guardar. ¡Listo, Marca agregada!</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Editar</h4>
+											<ol>
+												<li>En la tabla de las Marcas. Da clic en el enlace
+													Editar que se encuentra al final de cada marca</li>
+												<li>Una vez en los detalles de la marca, realiza los
+													ajustes necesarios y da clic en Guardar. Si no deseas
+													guardar los cambios hechos, puedes dar clic en Cancelar</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Eliminar</h4>
+											<ol>
+												<li>En la tabla de las Marcas. Da clic en el enlace
+													Editar que se encuentra al final de cada departamento</li>
+												<li>Una vez en la información de la marca, en la parte
+													inferior del contenido encontrarás el enlace Eliminar, das
+													clic en el</li>
+												<li>Confirmas la eliminación de la marca.</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Reportes</h4>
+											Da clic en el botón Reporte, se encuentra en la parte
+											superior del contenido general de las marcas.
+										</div>
+										<br /> <br />
+
+										<!-- Tiendas -->
+										<h3>Tiendas</h3>
+										Aquí puedes administrar las Tiendas participantes en Shing
+										Shing, para después agregar sus respectivos productos con sus
+										claves. Importante mencionar que antes de agregar algún
+										producto, debes agregar la tienda para que te aparesca el
+										espacio de agregar la clave a la hora de agregar un producto.
+										<br />
+
+										<div class="cont-h4">
+											<h4>Agregar</h4>
+											Antes de comenzar, es importante mencionar que agregar una
+											nueva tienda en este panel ayuda a poder visualizar la tienda
+											en la App y poder asignar productos a esta, pero para su
+											correcto funcionamiento en la App lleva más trabajo en la
+											parte del desarrollo de la plataforma, ya que se debe
+											desarrollar la lectura del Ticket de la tienda por agregar. <br />
+											<br /> Para solo agregar la Tienda en el Panel sin poder
+											leer el Ticket en la App, realiza los siguientes pasos: <br />
+											<br />
+											<ol>
+												<li>En el menú izquierdo, da clic en la sección
+													Catálogos y luego en la opción Tiendas</li>
+												<li>Después, da clic en el botón + Agregar</li>
+												<li>Rellena todos los campos solicitados</li>
+												<li>Da clic en guardar. ¡Listo, Tienda agregada!</li>
+											</ol>
+											<br /> Si deseas agregar una tienda para que se puedan
+											escanear sus Tickets, ponte en contacto con el equipo de
+											desarrollo: developer@shingshing.com <br /> <br />
+
+											<hr />
+											<h4>Editar</h4>
+											<ol>
+												<li>En la tabla de las Tiendas. Da clic en el enlace
+													Editar que se encuentra al final de cada tiendas</li>
+												<li>Una vez en los detalles de la tienda, realiza los
+													ajustes necesarios y da clic en Guardar. Si no deseas
+													guardar los cambios hechos, puedes dar clic en Cancelar.</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Eliminar</h4>
+											<ol>
+												<li>En la tabla de las Tiendas. Da clic en el enlace
+													Editar que se encuentra al final de cada tienda</li>
+												<li>Una vez en la información de la tienda, en la parte
+													inferior del contenido encontrarás el enlace Eliminar, das
+													clic en el</li>
+												<li>Confirmas la eliminación de la tienda</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Reportes</h4>
+											Da clic en el botón Reporte, se encuentra en la parte
+											superior del contenido general de las marcas.
+										</div>
+										<br /> <br />
+
+										<!-- Productos -->
+										<h3>Productos</h3>
+										Visualiza y administra todos los productos que se encuentran
+										cargados a la App: <br />
+
+										<div class="cont-h4">
+											<h4>Agregar</h4>
+											<ol>
+												<li>En el menú izquierdo, da clic en la sección
+													Catálogos y luego en la opción Productos</li>
+												<li>Después, da clic en el botón + Agregar</li>
+												<li>Rellena todos los campos solicitados</li>
+												<li>Da clic en guardar. ¡Listo, Producto agregado!</li>
+											</ol>
+											<br />
+											<hr />
+											<h4>Editar</h4>
+											<ol>
+												<li>En la tabla de los Productos. Da clic en el enlace
+													Editar que se encuentra al final de cada producto.</li>
+												<li>En la tabla de los Productos. Da clic en el enlace
+													Editar que se encuentra al final de cada producto.</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Eliminar</h4>
+											<ol>
+												<li>En la tabla de los Productos. Da clic en el enlace
+													Editar que se encuentra al final de cada producto</li>
+												<li>Una vez en la información del producto, en la parte
+													inferior del contenido encontrarás el enlace Eliminar, das
+													clic en el.</li>
+												<li>Confirmas la eliminación del producto.</li>
+											</ol>
+											<br />
+
+											<hr />
+											<h4>Reportes</h4>
+											Da clic en el botón Reporte, se encuentra en la parte
+											superior del contenido general de las marcas.
+										</div>
+										<br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Retiros -->
+						<div id="2-5" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Retiros</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										Son las operaciones realizadas para retirar dinero acumulado
+										en la App a una cuenta Bancaria o PayPal, aquí puedes
+										consultar el histórico de los retiros realizados y descargar
+										el formato con las solicitudes de retiros del día. <br /> <br />
+
+										<h3>Descargas</h3>
+										<ol>
+											<li>Da clic en el menú izquierdo en la sección de
+												Bonificaciones y luego en Retiros</li>
+											<li>En la parte superior del contenido encontrarás los 2
+												archivos que contienen las solicitudes de retiros para
+												deposito Bancario y PayPal respectivamente</li>
+											<li>Estos formatos se deben subir a la plataforma
+												correspondiente del banco donde está la cuenta master de
+												Shing Shing (Bancaria y PayPal).</li>
+										</ol>
+										<br /> El corte de solicitudes se hace a las 18:00 h. Pasada
+										esta hora, se genera un formato nuevo con las solicitudes del
+										nuevo día. <br /> <br />
+
+										<hr />
+										<h3>Histórico</h3>
+										<ol>
+											<li>Da clic en el menú izquierdo en la sección de
+												Bonificaciones y luego en Retiros</li>
+											<li>Encontrarás una sección llamada Histórico, donde
+												podrás ver y consultar las anteriores solicitudes</li>
+											<li>Para visualizar cada uno, en la parte derecha de
+												cada elemento de la tabla encuentras dos iconos: El Ojo es
+												para ver las solicitudes del día seleccionado y el otro
+												icono es para descargar el formato en .csv.</li>
+										</ol>
+										<br />
+
+										<hr />
+										<h3>Reportes</h3>
+										En el contenido principal de la sección
+										Bonificaciones/Retiros, puedes encontrar en la parte superior
+										derecha un botón que dice Resumen, el cual te descarga un
+										archivo .csv con todo el histórico de las solicitudes de
+										Retiros. Si quieres consultar un reporte individual por día,
+										en el apartado Histórico puedes descargar un día en
+										específico, solo debes dar clic al icono de Descarga en el día
+										que lo necesites. <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Recargas telefónicas -->
+						<div id="2-6" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Recargas telefónicas</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										Son las operaciones realizadas por los usuarios con el saldo
+										acumulado en la App. Donde se realiza una recarga telefónica a
+										alguna de las compañías telefónicas disponibles. <br />
+
+										<h4>Consultas</h4>
+										<ol>
+											<li>Da clic en el menú izquierdo en la sección de
+												Bonificaciones y luego en Recargas.</li>
+											<li>En el contenido puedes visualizar el total de
+												recargas realizadas y las principales compañías destino</li>
+											<li>Desplazandote hacia abajo, encontrarás el Histórico
+												de todas las recargas realizadas por los usuarios</li>
+										</ol>
+										<br />
+
+										<hr />
+										<h4>Reportes</h4>
+										En el contenido principal de la sección
+										Bonificaciones/Recargas, puedes encontrar en la parte superior
+										derecha un botón que dice Resumen, el cual te descarga un
+										archivo .csv con todo el histórico de las solicitudes de
+										Recargas. <br /> <br /> Si quieres consultar un reporte
+										individual por recargas, en el apartado Histórico puedes
+										descargar movimientos específicos, solo debes dar clic al
+										icono de Descarga en el movimientos que lo necesites. <br />
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Push -->
+						<div id="2-7" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Push Notifications</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										Estas notificaciones aparecen con el objetivo de mantener al
+										tanto a los usuarios con respecto a noticias sobre la App y
+										movimientos realizados en las misma, como lo pueden ser
+										retiros, recargas y bonificaciones. <br /> <br /> Este
+										componente es primordial para el lanzamiento de campañas y
+										nuevos productos en la plataforma. <br /> <br />
+										<h3>Envíos</h3>
+										<ol>
+											<li>Entra al sitio de Firebase: <a
+												href="https://console.firebase.google.com/" target="blanco">https://console.firebase.google.com/</a></li>
+											<li>Ingresa con los siguientes datos:
+												tradenial@gmail.com password: hola2019</li>
+											<li>Ve a la sección Cloud Messaging que se encuentra en
+												el menú lateral izquierdo del sitio</li>
+											<li>Da clic en nueva Notificación</li>
+											<li>Escribe el Título de la notificación, esta siempre
+												será “Shing Shing”</li>
+											<li>Escribe el Texto de la notificación, esta es la
+												descripción que aparecerá en la notificación y da clic en
+												siguiente</li>
+											<li>Selecciona el segmento al que va dirigida tu Push
+												Notification</li>
+											<li>Después, da clic en Revisar</li>
+											<li>Valida tu información y ¡publica tu Push!</li>
+											<font style="font-style: italic; color: #ff6699;">[Video]</font>
+										</ol>
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Estadisticas -->
+						<div id="2-8" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Estadísticas</h2>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-12">
+										En este apartado encuentras todo lo relacionado a Usuarios,
+										Productos y Tickets. <br /> <br /> Para llegar a este
+										contenido debes dar clic en el menú lateral izquierdo en la
+										sección Estadisticas/General. Para ver más a detalle cada una
+										de las secciones, debes dar clic en VER +, que se encuentra al
+										final de cada Card del contenido. <br /> <br /> <br />
+										<h3>Tickets</h3>
+										Puedes consultar el total de escaneos realizados por tienda y
+										sus datos históricos <br /> <br />
+
+										<hr />
+										<h3>Marcas</h3>
+										Puedes consultar el total de marcas, productos en App y
+										productos escaneados. También puedes visualizar los productos
+										escaneados por tienda, marcas y las bonificaciones que han
+										generado. <br /> <br />
+
+										<hr />
+										<h3>Usuarios</h3>
+										Visualiza el total de usuarios en la plataforma, edades y sexo
+										promedio. También puedes consultar usuarios en particular para
+										visualizar su actividad en la App. <br /> <br />
+
+										<hr />
+										<h3>Reportes</h3>
+										Solo da clic en el botón superior derecho Resumen, y
+										descargarás un archivo .csv con toda la información estes en
+										la sección que estés. <br /> <br /> <br />
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+						<!-- Brand -->
+						<div id="3" class="col-12 col-md-8">
+							<!-- Titulo -->
+							<br /> <br />
+							<hr />
+							<h1 class="card-title">Brand</h1>
+							Aquí tienes las guías visuales para la generación de nuevos
+							materiales de Shing Shing, encontrarás la línea de imagen a
+							seguir para cuidar la identidad de la marca. <br /> <br /> Es
+							de suma importancia dar continuidad a la identidad planteada para
+							lograr que al visualizar nuestros sitios en cualquier plataforma,
+							ya sea mediante la App o en la WEB, logremos transmitir a los
+							clientes una imagen homogénea y estandarizada. De igual forma con
+							esto buscamos reﬂejar y fortalecer la seguridad y conﬁabilidad
+							que transmite la marca al utilizar sus servicios. <br /> <br />
+							Los contenidos mostrados son referenciales visuales, los cuales
+							están diseñados para generar diseños escalables y modulares que
+							se puedan adaptar a cualquiera de las plataformas que se
+							requieren hoy en día. <br /> <br /> Aquí encuentras cómo
+							utilizar el logotipo con su tamaño y contraste correcto
+							manteniendo la identidad de la marca, los colores y tipografía
+							que nos identiﬁcan, así como los iconos e ilustraciones que nos
+							ayudan a complementar y sumar valor a los contenidos de Shing
+							Shing. <br /> <br /> Esta guía visual no es una limitante a la
+							hora de generar materiales, ya que es una base con la cual
+							podemos partir para crear nuevas aplicaciones y usos de esta
+							línea gráﬁca. <br /> <br /> En caso de tener dudas sobre el uso
+							de cualquiera de los elementos planteados, puedes acercarte con
+							el equipo de diseño para dar solución y una aplicación óptima a
+							tu necesidad. <br /> <br /> Vamos, ¡A diseñar! <br /> <br />
+							Desarca la guía visual en. PDF aquí: <a href="#">aquí</a> <br />
+							<br />
+						</div>
+
+						<!-- Logotípo -->
+						<div id="3-1" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Logotipo</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										Nuestro logotipo está constituido por un isotipo y una
+										tipografía. <br /> <br /> El isotipo se creó con base al
+										concepto de Comprar, representado con un carrito de super, que
+										se puede ver con los dos puntos que tiene en la parte
+										inferior, representando las llantas, así como la base que se
+										encuentra arriba de estas. En la parte central se utilizó una
+										“S” de Shing Shing para lograr identiﬁcar esta icónica imagen
+										de carrito de compras a una imagen única de la marca. <br />
+										<br /> Puedes utilizar sólo el isotipo para representar la
+										marca, procura no utilizar solo el texto como logotipo, esto
+										con el ﬁn de comenzar a causar memorabilidad del logotipo y se
+										comience a identiﬁcar dentro del mercado de aplicaciones, con
+										el paso del tiempo se logrará diferenciar inmediatamente la
+										marca. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/logo-1.png}"
+											class="img-HD" /> <br /> <br />
+
+										<hr />
+										<h3>Retícula</h3>
+										Asignamos tamaños mínimos y áreas de resguardo para el uso del
+										isotipo y logotipo, con esto garantizamos la claridad y
+										visibilidad de nuestra marca. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/reticula-1.png}"
+											class="img-HD" /> <br /> <br />
+
+										<hr />
+										<h3>Iso App</h3>
+										El isotipo diseñado lo implementamos en una envolvente para su
+										aplicación como icono de app, en el background tiene un
+										gradiante muy sutil de naranja a un tono mas claro. <br /> <br />
+										El iso de distingue fácilmente dentro del universo de los
+										iconos de otras Apps. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/iso-1.png}"
+											class="img-HD" /> <br /> <br />
+
+										<hr />
+										<h3>Contraste</h3>
+										Cuidamos tener un óptimo contraste para visualizar nuestra
+										marca sobre cualquier plataforma de manera perfecta,
+										planteando que tendremos diferentes escenarios donde
+										utilizaremos nuestro logotipo, debemos tomar la decisión de si
+										es o no, el contraste adecuado para conservar la visibilidad
+										de este, procura mantener el máximo contraste posible y evita
+										en su totalidad el efecto de fusionar el logotipo con el
+										fondo, que se crea al utilizar un fondo con un tono parecido
+										al de nuestro logotipo / iso. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/contraste-1.png}"
+											class="img-HD" /> <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Color -->
+						<div id="3-2" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Color</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										La paleta de colores está dividida en colores Primarios y
+										Secundarios (+ Neutrales y Terciarios), cuida y sigue sus
+										patrones de su uso, ya que esto nos permitirá generar
+										contenidos uniformes y transmitir el mensaje correcto de la
+										marca. <br /> <br />
+
+										<hr />
+										<h3>Primarios</h3>
+										Nuestro color primario es un tono de naranja intenso, el cual,
+										como principal cualidad, nos genera una motivación a la
+										acción, esto quiere decir que es un color dinámico y atrevido.
+										Este color, predomina en casi el 100% de los materiales
+										generados en Shing Shing, este tono nos distingue entre otras
+										marcas y con el paso del tiempos se reforzará el concepto del
+										color con la marca. <br /> <br />
+
+										<hr />
+										<h3>Secundarios</h3>
+										Los tonos Secundarios, Neutrales y Terciarios, apoyan a
+										nuestro color primario, ayudando a enfatizar información y
+										contenidos según sea el caso, como el color Neutral, que nos
+										ayuda con los textos de nuestros materiales, el azul para
+										enlaces de acción en nuestra plataforma y el amarillo para
+										resaltar detalles en nuestras ilustraciones, por mencionar
+										algunos ejemplos. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/color-1.png}"
+											class="img-HD" /> <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Tipografía -->
+						<div id="3-3" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Tipografía</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										La tipografía Nunito cuenta con terminaciones redondas,
+										apoyando nuestro concepto de flexible, divertido y juvenil.
+										Esta fuente fue creada con el fin de tener una buena lectura
+										en digital e impreso, así que puedes utilizarla en todos los
+										casos, procura no utilizar una fuente extra a esta, ya que
+										estaríamos quebrantando nuestra línea gráfica, tenemos
+										variedad de estilos para solventar cualquier necesidad que se
+										nos presente en el futuro. <br /> <br /> Link de descarga: <br />
+										<a
+											href="https://fonts.google.com/?query= nunit&;selection.family=Nunito">https://fonts.google.com/?query=
+											nunit&amp;selection.family=Nunito</a> <br /> <br /> Incrusta a
+										código: <br /> <font style="font-size: 14px;">&lt;
+											link href="https://fonts.googleapis.com/css?
+											family=Nunito&amp;display=swap" rel="stylesheet" %gl;</font> <br />
+										<br /> <img
+											th:src="@{/resources/home/img/howDo/HD/tipografia-1.png}"
+											class="img-HD" /> <br /> <br />
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Iconos -->
+						<div id="3-4" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Iconos</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										La galería de iconos diseñada es a base de un estilo light con
+										derivados en bold, estos iconos nos ayudan a ilustrar pequeñas
+										acciones y mensajes. <br /> <br /> Este grupo de iconos
+										estará creciendo conforme pase el tiempo y según se vaya
+										requiriendo. <br /> <br /> Desarca los iconos: <a href="#">aquí</a>
+										<br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/iconos-1.png}"
+											class="img-HD" /> <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Ilustraciones -->
+						<div id="3-5" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Ilustraciones</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										Las ilustraciones nos ayudan a representar y generar emociones
+										que no se podrían quedar en sólo un icono, son más elaboradas
+										y con varios elementos para abstraer una idea. <br /> <br />
+										Visualmente utilizamos formas orgánicas y con plastas de color
+										apoyadas por degradados en menor cantidad. <br /> <br />
+										Desarca las ilustraciones: <a href="#">aquí</a> <br /> <br />
+										<img
+											th:src="@{/resources/home/img/howDo/HD/ilustracion-1.png}"
+											class="img-HD" /> <br /> <br /> Las ilustraciones nos
+										ayudan a representar y generar emociones que no se podrían
+										quedar en sólo un icono, son más elaboradas y con varios
+										elementos para abstraer una idea. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/ilustracion-2.png}"
+											class="img-HD" /> <br /> <br /> Ejemplo de como las
+										ilustraciones nos ayudan a complementar la información en
+										determinados instantes en el flujo de la App.
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- WEB -->
+						<div id="3-6" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">WEB</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										El sitio web muestra las principales funciones que tiene Shing
+										Shing, esta armada a base de componentes modulares, los cuales
+										pueden ser reutilizados dentro de la WEB y la App, así como
+										los paneles de usuarios y de administración, tanto como para
+										Shing Shing como para las marcas participantes que tienen
+										acceso a estos. <br /> <br /> Los componentes tienen un
+										estilo flat, el cual carece de gradientes, solo se usan en
+										algunos de color naranja como se han mostrados en algunos
+										ejemplos con el fin de crear un poco de volumen a los
+										backgrounds. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/web-1.png}"
+											class="img-HD" /> <br /> <br /> La página web es
+										totalmente responsiva y se puede adaptar con fluidez en
+										dispositivos móviles, Tablet y escritorios, manteniendo la
+										información y las funcionalidades generales implementadas. <br />
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- App -->
+						<div id="3-7" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">App</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										La aplicación es nuestro producto central, en esta podemos
+										encontrar todas las funcionalidades que desarrollamos como
+										Shing Shing, capturar Tickets, solicitar depósitos de
+										bonificaciones a nuestras cuentas bancarias o PayPal, así como
+										recargas electrónicas, por mencionar unos ejemplos. <br /> <br />
+										Los componentes diseñados para esta plataforma son la base
+										medular para la creación de diferentes recursos a otras
+										plataformas, nos guiamos por el concepto First Mobile, es
+										decir, todos nuestros diseño UI se crean primero en mobile y
+										posteriormente a dispositivos de mayor tamaño de pantalla,
+										esto con el fin de centralizar y optimizar nuestros recursos
+										en los dispositivos móviles. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/app-1.png}"
+											class="img-HD" /> <br /> <br /> Siempre buscamos ofrecer
+										una interfaz minimalista, careciendo de sombras en los
+										elementos básicos, componentes y modulares, proyectando una
+										interfaz limpia, amigable y directa para los usuarios,
+										reforzamos este concepto con los espacios en blanco, que nos
+										ayuda a dar descansos visuales y sensación de paz en la
+										interacción con nuestra app. <br /> <br /> <img
+											th:src="@{/resources/home/img/howDo/HD/app-2.png}"
+											class="img-HD" /> <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Social Media -->
+						<div id="3-8" class="card col-12 col-md-8">
+							<div class="card-header ">
+								<h2 class="card-title">Social Media</h2>
+							</div>
+							<div class="card-body ">
+
+								<div class="row">
+									<div class="col-12">
+										Las redes sociales son un punto focal de nuestra marca, es
+										aquí donde gran parte de nuestros usuarios llegarán a la App,
+										esto es un motivo más para ser muy creativos y generar
+										contenido de impacto y valor que logre atrapar a mas y mas
+										usuarios. <br /> <br /> El color naranja es predominante con
+										pequeños acentos de azul para acentuar elementos. <br /> <br />
+										<img
+											th:src="@{/resources/home/img/howDo/HD/social-media-1.png}"
+											class="img-HD" /> <br /> <br /> Ejemplos de como
+										promocionar productos por medio de las redes sociales. <br />
+										<br /> Mantenemos el mismo estilo que se muestra dentro de la
+										App para mostrar uniformidad en nuestros contenidos. <br /> <br />
+										<img
+											th:src="@{/resources/home/img/howDo/HD/social-media-2.png}"
+											class="img-HD" /> <br /> <br />
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end row -->
+
+		<footer class="footer footer-black  footer-white ">
+			<div class="container-fluid">
+				<div class="row">
+					<nav class="footer-nav">
+						<ul>
+						</ul>
+					</nav>
+					<div class="credits ml-auto"></div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!--   Core JS Files   -->
+	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
+	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
+	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
+	<!--  Plugin for Sweet Alert -->
+	<script th:src="@{/resources/assets/js/plugins/sweetalert2.min.js}"></script>
+	<!-- Forms Validations Plugin -->
+	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
+	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+	<script
+		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js} "></script>
+	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js} "></script>
+	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+	<script
+		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js} "></script>
+	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js} "></script>
+	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+	<script
+		th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js} "></script>
+	<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+	<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js} "></script>
+	<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js} "></script>
+	<!--  Plugin for the Bootstrap Table -->
+	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js} "></script>
+	<!--  Google Maps Plugin    -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	<!-- Chart JS -->
+	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js} "></script>
+	<!--  Notifications Plugin    -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js} "></script>
+	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+	<script
+		th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1} "
+		type="text/javascript"></script>
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+	<script th:src="@{/resources/assets/demo/demo.js} "></script>
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
+  <script th:src="@{/assets/demo/demo.js}"></script>
+  -->
+	<script>
+	<!--/catalogoTiendas/list -->
+		$(document).ready(
+				function() {
+					$('#datatable').DataTable(
+							{
+								"pagingType" : "full_numbers",
+								"lengthMenu" : [ [ 10, 25, 50, -1 ],
+										[ 10, 25, 50, "All" ] ],
+								responsive : true,
+								language : {
+									search : "_INPUT_",
+									searchPlaceholder : "Search records",
+								}
+
+							});
+
+					var table = $('#datatable').DataTable();
+
+					// Edit record
+					table.on('click', '.edit', function() {
+						$tr = $(this).closest('tr');
+
+						var data = table.row($tr).data();
+						alert('You press on Row: ' + data[0] + ' ' + data[1]
+								+ ' ' + data[2] + '\'s row.');
+					});
+
+					// Delete a record
+					table.on('click', '.remove', function(e) {
+						$tr = $(this).closest('tr');
+						table.row($tr).remove().draw();
+						e.preventDefault();
+					});
+
+					//Like record
+					table.on('click', '.like', function() {
+						alert('You clicked on Like button');
+					});
+				});
+	</script>
+</body>
+
+</html>

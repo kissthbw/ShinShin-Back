@@ -1,6 +1,7 @@
 package com.bit.dao;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -11,10 +12,12 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 
+import com.bit.model.CatalogoTipoProducto;
 import com.bit.model.Ticket;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.TicketItem;
 import com.bit.model.dto.response.EstadisticaGeneralCSV;
+import com.bit.model.report.EstadisticaGeneralTotalTicketCSV;
 
 @Repository
 public class TicketDAO extends DAOTemplate<Ticket, Long> {
@@ -312,25 +315,306 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		return total;
 	}
 
+	/**
+	 * Sacar las estadisticas de los usuarios que sacaron tickets
+	 * 
+	 * @return
+	 */
 	public List<EstadisticaGeneralCSV> obtieneEstadisticasTickets() {
 		StringBuilder sql = new StringBuilder();
 
 		sql.append(" SELECT ");
 		sql.append("   t.fecha as fecha, ");
-		sql.append("   COUNT(ht.ticket_id_ticket) as totalUsuarios, ");
-		sql.append("   AVG(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE())) AS totalEdadPromedio ");
+		sql.append("   COUNT(ht.ticket_id_ticket) as totalUsuarios,");
+		sql.append("   AVG(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE())) AS totalEdadPromedio,");
+		sql.append("   COUNT(IF(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) BETWEEN 18 AND 24,1,NULL)) as avg1824,");
+		sql.append("   COUNT(IF(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) BETWEEN 25 AND 29,1,NULL)) as avg2529,");
+		sql.append("   COUNT(IF(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) BETWEEN 30 AND 39,1,NULL)) as avg3039,");
+		sql.append("   COUNT(IF(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) BETWEEN 40 AND 49,1,NULL)) as avg4049,");
+		sql.append("   COUNT(IF(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) BETWEEN 50 AND 59,1,NULL)) as avg5059,");
+		sql.append("   COUNT(IF(TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) > 60,1,NULL)) as avgMAS60,");
+		sql.append("   COUNT(IF(u.id_catalogo_sexo=1,1,NULL)) as hombres,");
+		sql.append("   COUNT(IF(u.id_catalogo_sexo=2,1,NULL)) as mujeres");
 		sql.append("   FROM ticket t ");
 		sql.append("   INNER JOIN historico_tickets ht ON ht.ticket_id_ticket = t.id_ticket ");
 		sql.append("   INNER JOIN usuario u ON u.id_usuario = ht.usuario_id_usuario ");
 		sql.append("   GROUP BY fecha ");
 		sql.append("   ORDER BY fecha DESC;");
-		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString())
-				.setResultTransformer(
-						Transformers.aliasToBean(EstadisticaGeneralCSV.class));
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralCSV.class));
 
 		List<EstadisticaGeneralCSV> total = q.list();
 
 		return total;
 
+	}
+
+	/**
+	 * Obtiene el total de tickets escaneados por tiendas
+	 * 
+	 * @return
+	 */
+	public List<EstadisticaGeneralCSV> calculaTotalTicketEscaneadosTiendas(List<EstadisticaGeneralCSV> dataPrincipal) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append(" SELECT ");
+		sql.append("   t.fecha AS fecha,");
+		sql.append("   COUNT(t.nombre_tienda) AS totalEscaneos");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_tickets ht ON ht.ticket_id_ticket = t.id_ticket ");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   WHERE t.fecha IS NOT NULL");
+		sql.append("    GROUP BY t.fecha");
+		sql.append("   ORDER BY t.fecha DESC;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralTotalTicketCSV.class));
+
+		List<EstadisticaGeneralTotalTicketCSV> total = q.list();
+
+		// Mezcla
+		for(int x = 0; x<total.size(); x++) {
+			dataPrincipal.get(x).setTotalEscaneadosTiendas(
+					total.get(x).getTotalEscaneos());
+		}
+		
+		return dataPrincipal;
+	}
+	
+	/**
+	 * Obtiene el total de tickets escaneados por una tienda en una fecha.
+	 * 
+	 * @return
+	 */
+	public EstadisticaGeneralTotalTicketCSV  obtieneEstadisticaGeneralTotalTicketCSVPorFechaYTienda(Date fecha, String nomTienda) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   t.fecha AS fecha,");
+		sql.append("   COUNT(t.nombre_tienda) AS totalEscaneos");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append("   WHERE t.fecha=:date and t.nombre_tienda=:nomT");
+		sql.append("   GROUP BY t.fecha;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		q.setParameter("date", fecha);
+		q.setParameter("nomT", nomTienda);		
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralTotalTicketCSV.class));
+		
+		EstadisticaGeneralTotalTicketCSV total = q.uniqueResult() != null ? 
+				(EstadisticaGeneralTotalTicketCSV)q.uniqueResult(): null;
+		
+		
+		return total;
+		
+	}
+	
+
+	/**
+	 * Obtiene todos los departamentos donde a habido tickets.
+	 * 
+	 * @return
+	 */
+	public List<String> obtieneTiendasConTicket() {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   t.nombre_tienda as nombre");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_tickets ht ON ht.ticket_id_ticket = t.id_ticket");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append("   INNER JOIN catalogo_tienda ct ON p.id_catalogo_tienda = ct.id_catalogo_tienda");
+		sql.append("   GROUP BY nombre");
+		sql.append("   order by nombre asc;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		
+		List<String> total = q.list();
+		
+		return total;
+	}
+	
+	/**
+	 * Obtiene todos los departamentos donde a habido tickets.
+	 * 
+	 * @return
+	 */
+	public List<String> obtieneDepartamentosConTicket() {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   ctp.nombre_tipo_producto AS nombre");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append("   INNER JOIN catalogo_tipo_producto ctp ON p.id_catalogo_tipo_producto = ctp.id_catalogo_tipo_producto");
+		sql.append("   GROUP BY nombre;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		
+		List<String> total = q.list();
+		
+		return total;
+	}
+	
+	/**
+	 * CALCULA LOS PRODUCTOS ESCANEADOS EN UN TICKET POR DEPARTAMENTO
+	 * 
+	 * @return
+	 */
+	public List<EstadisticaGeneralCSV> calculaTotalProductosEscaneados(List<EstadisticaGeneralCSV> dataPrincipal) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   t.fecha AS fecha,");
+		sql.append("   COUNT(ctp.nombre_tipo_producto) AS totalEscaneos");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_tickets ht ON ht.ticket_id_ticket = t.id_ticket ");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto ");
+		sql.append("   INNER JOIN catalogo_tipo_producto ctp ON p.id_catalogo_tipo_producto = ctp.id_catalogo_tipo_producto");
+		sql.append("    GROUP BY t.fecha");
+		sql.append("   ORDER BY t.fecha DESC;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralTotalTicketCSV.class));
+		
+		List<EstadisticaGeneralTotalTicketCSV> total = q.list();
+		
+		// Mezcla
+		for(int x = 0; x<total.size(); x++) {
+			if(x<dataPrincipal.size()) {
+				dataPrincipal.get(x).setTotalProductosEscaneadosDesptos(
+						total.get(x).getTotalEscaneos());
+			}
+		}
+		
+		return dataPrincipal;
+	}
+	/**
+	 * Obtiene el total de tickets escaneados por una departamento en una fecha.
+	 * 
+	 * @return
+	 */
+	public EstadisticaGeneralTotalTicketCSV  obtieneEstadisticaGeneralTotalTicketCSVPorFechaYDepto(Date fecha, String nomDepto) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   t.fecha AS fecha,");
+		sql.append("   COUNT(ctp.nombre_tipo_producto) AS totalEscaneos");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append("   INNER JOIN catalogo_tipo_producto ctp ON p.id_catalogo_tipo_producto = ctp.id_catalogo_tipo_producto");
+		sql.append("   WHERE t.fecha=:date and ctp.nombre_tipo_producto=:nom");
+		sql.append("   GROUP BY t.fecha;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		q.setParameter("date", fecha);
+		q.setParameter("nom", nomDepto);		
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralTotalTicketCSV.class));
+		
+		EstadisticaGeneralTotalTicketCSV total = q.uniqueResult() != null ? 
+				(EstadisticaGeneralTotalTicketCSV)q.uniqueResult(): null;
+				
+				
+				return total;
+				
+	}
+	
+	/**
+	 * Las marcas de los productos que tienen los tickets escaneados.
+	 * 
+	 * @return
+	 */
+	public List<String> obtieneMarcasConTicket() {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   cm.nombre_marca AS nombre");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append("   INNER JOIN catalogo_marca cm ON p.id_catalogo_marca = cm.id_catalogo_marca");
+		sql.append("   GROUP BY nombre");
+		sql.append("   ORDER BY nombre ASC;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		
+		List<String> total = q.list();
+				
+		return total;
+	}
+
+	/**
+	 * CALCULA LOS PRODUCTOS ESCANEADOS EN UN TICKET POR marca
+	 * 
+	 * @return
+	 */
+	public List<EstadisticaGeneralCSV> calculaTotalMarcaProductosEscaneados(List<EstadisticaGeneralCSV> dataPrincipal) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append(" SELECT ");
+		sql.append("   t.fecha AS fecha,");
+		sql.append("   COUNT(cm.nombre_marca) AS totalEscaneos");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_tickets ht ON ht.ticket_id_ticket = t.id_ticket ");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto ");
+		sql.append("   INNER JOIN catalogo_marca cm ON p.id_catalogo_marca = cm.id_catalogo_marca");
+		sql.append("    GROUP BY t.fecha");
+		sql.append("   ORDER BY t.fecha DESC;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralTotalTicketCSV.class));
+
+		List<EstadisticaGeneralTotalTicketCSV> total = q.list();
+
+		// Mezcla
+		for(int x = 0; x<total.size(); x++) {
+			if(x<dataPrincipal.size()) {
+				dataPrincipal.get(x).setTotalProductosEscaneadosMarcas(
+						total.get(x).getTotalEscaneos());
+			}
+		}
+		
+		return dataPrincipal;
+	}
+	/**
+	 * Obtiene el total de tickets escaneados por una marca en una fecha.
+	 * 
+	 * @return
+	 */
+	public EstadisticaGeneralTotalTicketCSV  obtieneEstadisticaGeneralTotalTicketCSVPorFechaYMarca(Date fecha, String nomDepto) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("   t.fecha AS fecha,");
+		sql.append("   COUNT(cm.nombre_marca) AS totalEscaneos");
+		sql.append("   FROM ticket t");
+		sql.append("   INNER JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append("   INNER JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append("   INNER JOIN catalogo_marca cm ON p.id_catalogo_marca = cm.id_catalogo_marca");
+		sql.append("   WHERE t.fecha=:date and cm.nombre_marca=:nom");
+		sql.append("   GROUP BY t.fecha;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		q.setParameter("date", fecha);
+		q.setParameter("nom", nomDepto);		
+		q.setResultTransformer(Transformers.aliasToBean(EstadisticaGeneralTotalTicketCSV.class));
+		
+		EstadisticaGeneralTotalTicketCSV total = q.uniqueResult() != null ? 
+				(EstadisticaGeneralTotalTicketCSV)q.uniqueResult(): null;
+		
+		
+		return total;
+		
 	}
 }

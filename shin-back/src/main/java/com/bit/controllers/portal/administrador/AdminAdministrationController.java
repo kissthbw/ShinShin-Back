@@ -250,4 +250,12 @@ public class AdminAdministrationController {
 		return "administrador/validacion_success";
 
 	}
+	@RequestMapping(value = "howdo", method = RequestMethod.GET)
+	public String howDo(Model model) {
+		
+		log.info("Direccionando a how do");
+		return "administrador/how-do";
+
+	}
+	
 }

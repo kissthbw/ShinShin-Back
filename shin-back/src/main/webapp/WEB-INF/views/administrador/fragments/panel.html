@@ -1,0 +1,84 @@
+<div th:fragment="head-side-fragment(logo)">
+	<div class="logo-hd">
+		
+		<img th:if="${logo}=='panel'" th:src="@{/resources/home/img/logo-head/logo-ss-seccion-panel-blanco.png}" />
+		<img th:if="${logo}=='marcas'" th:src="@{/resources/home/img/logo-head/logo-ss-seccion-marcas-blanco.png}" />
+		<img th:if="${logo}=='howdo'" th:src="@{/resources/home/img/logo-head/logo-ss-seccion-howDo-blanco.png}" />
+		
+	</div>
+	<div class="pleca"></div>
+</div>
+
+<!-- Navbar -->
+<nav th:fragment="navbar-fragment"
+	class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+	<div class="container-fluid">
+		<div class="navbar-wrapper">
+			<div class="navbar-minimize">
+				<button id="minimizeSidebar" class="btn btn-icon btn-round">
+					<i
+						class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
+					<i
+						class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
+				</button>
+			</div>
+			<div class="navbar-toggle">
+				<button type="button" class="navbar-toggler">
+					<span class="navbar-toggler-bar bar1"></span> <span
+						class="navbar-toggler-bar bar2"></span> <span
+						class="navbar-toggler-bar bar3"></span>
+				</button>
+			</div>
+			<a class="navbar-brand" href="#pablo"><b><h4
+						class="title-cat">Productos</h4></b></a>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navigation" aria-controls="navigation-index"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-bar navbar-kebab"></span> <span
+				class="navbar-toggler-bar navbar-kebab"></span> <span
+				class="navbar-toggler-bar navbar-kebab"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end"
+			id="navigation">
+
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link btn-magnify"
+					th:href="@{/portal-administrador/admin_logout}"> <i
+						class="fa fa-sign-out"></i>
+						<p>
+							<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
+						</p>
+				</a></li>
+
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- End Navbar -->
+
+<!-- Navbar -->
+<nav th:fragment="navbarPanel-fragment(title)"
+	class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" style="border-bottom: 1px solid gray !important;">
+	<div class="container-fluid">
+		<div class="navbar-wrapper">
+			<div class="navbar-toggle">
+				<button type="button" class="navbar-toggler">
+					<span class="navbar-toggler-bar bar1"></span> <span
+						class="navbar-toggler-bar bar2"></span> <span
+						class="navbar-toggler-bar bar3"></span>
+				</button>
+			</div>
+			<font class="navbar-brand" th:text="${title}">Title</font>
+		</div>
+		<div>
+			<a th:href="@{/portal-administrador/howdo}">How Do</a> <a
+				th:href="@{/portal-administrador/admin_logout}">Salir<img
+				th:src="@{/resources/home/img/howDo/icon/exit.svg}"
+				style="margin-left: 8px; height: 16px;" /></a>
+		</div>
+	</div>
+</nav>
+
+<!-- End Navbar -->

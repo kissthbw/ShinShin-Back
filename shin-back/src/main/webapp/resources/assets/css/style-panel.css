@@ -1,10 +1,14 @@
-
-i.back-circle{
-	color:#66615B;
-	background-color:#e7e7e7;
+i.back-circle {
+	color: #66615B;
+	background-color: #e7e7e7;
 	border-radius: 50%;
-	padding:10px;
+	padding: 10px;
 }
+#selectHow a{
+	width:100%;
+}
+
+
 #toast-container {
 	margin-top: 25px;
 	opacity: 1 !important;
@@ -14,12 +18,15 @@ i.back-circle{
 	background-image: none !important;
 	opacity: 1 !important;
 }
-.mb20p{
-	margin-bottom:20px;
+
+.mb20p {
+	margin-bottom: 20px;
 }
-.mt15p{
-	margin-top:15px;
+
+.mt15p {
+	margin-top: 15px;
 }
+
 #toast-container>.toast:before {
 	position: fixed;
 	font-family: FontAwesome;
@@ -180,7 +187,8 @@ body {
 
 .title-cat {
 	margin: 0;
-	font-weight: 600;
+	font-weight: 500;
+	font-size: 40px;
 }
 
 .wrapper .sidebar .logo, .wrapper .sidebar .sidebar-wrapper, .wrapper .sidebar .nav
@@ -240,14 +248,14 @@ body {
 .nav li.active>a[data-toggle="collapse"] i, .sidebar[data-active-color="danger"] 
 .nav li.active>a[data-toggle="collapse"] ~ div>ul>li.active .sidebar-mini-icon,
 	.sidebar[data-active-color="danger"] .nav li.active>a[data-toggle="collapse"] 
-	~ div>ul>li.active>a, .off-canvas-sidebar[data-active-color="danger"] 
+	 ~ div>ul>li.active>a, .off-canvas-sidebar[data-active-color="danger"] 
 .nav li.active>a, .off-canvas-sidebar[data-active-color="danger"] 
 .nav li.active>a i, .off-canvas-sidebar[data-active-color="danger"] 
 .nav li.active>a[data-toggle="collapse"], .off-canvas-sidebar[data-active-color="danger"] 
 .nav li.active>a[data-toggle="collapse"] i, .off-canvas-sidebar[data-active-color="danger"] 
 .nav li.active>a[data-toggle="collapse"] ~ div>ul>li.active .sidebar-mini-icon,
 	.off-canvas-sidebar[data-active-color="danger"] .nav li.active>a[data-toggle="collapse"] 
-	~ div>ul>li.active>a, .collapse .active .sidebar-mini-icon {
+	 ~ div>ul>li.active>a, .collapse .active .sidebar-mini-icon {
 	color: #FF6600 !important;
 	font-weight: 800;
 }
@@ -314,6 +322,22 @@ tr th, ul li a, .toolbar .btn-primary {
 .content a, .footer a {
 	color: #007bff !important;
 }
-.content a.nav-link{
-	color:#232323 !important;
+
+.content a.nav-link {
+	color: #232323 !important;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 12px 8px;
+    vertical-align: bottom;
+    font-size: 13px !important;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 0px solid #FFFFFF;
+    border-top: 0px solid #dee2e6 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.00);
 }

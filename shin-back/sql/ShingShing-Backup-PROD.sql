@@ -7,7 +7,7 @@
 #
 # Host: shinshin.cvvjdff1wc6u.us-east-2.rds.amazonaws.com (MySQL 5.7.22-log)
 # Base de datos: ShinShin
-# Tiempo de Generaci�n: 2020-04-26 16:55:08 +0000
+# Tiempo de Generaci�n: 2020-05-02 00:26:22 +0000
 # ************************************************************
 
 
@@ -116,8 +116,8 @@ LOCK TABLES `catalogo_marca` WRITE;
 INSERT INTO `catalogo_marca` (`id_catalogo_marca`, `nombre_marca`, `img_url`, `active`)
 VALUES
 	(1,'Bonafont','',1),
-	(2,'Coca Cola',NULL,1),
-	(3,'Nestle',NULL,1),
+	(2,'Coca Cola','http://res.cloudinary.com/shingshing/image/upload/v1588108110/shingshing/marcas/Coca%20Cola.png',1),
+	(3,'Nestle',NULL,0),
 	(4,'Herdez',NULL,0),
 	(5,'Sony',NULL,1),
 	(6,'Microsoft',NULL,1),
@@ -128,7 +128,7 @@ VALUES
 	(11,'Starder','',1),
 	(12,'Del Valle',NULL,1),
 	(13,'Royal','http://res.cloudinary.com/shingshing/image/upload/v1570290421/shingshing/Royal.png',1),
-	(14,'Yakult','',1),
+	(14,'Yakult','',0),
 	(15,'Petalo','',1),
 	(16,'Santa Clara ','',1),
 	(17,'Stefano','',1),
@@ -156,7 +156,7 @@ VALUES
 	(39,'Tressemé','',1),
 	(40,'Milpa Real ','',1),
 	(41,'Tía Rosa','',1),
-	(42,'Quaker','',1),
+	(42,'Quaker State','',1),
 	(43,'Hola, soy un Demo','',0),
 	(44,'Nueva marca','',0),
 	(45,'Hola, soy un Demooo','',0);
@@ -258,17 +258,23 @@ LOCK TABLES `catalogo_tienda` WRITE;
 INSERT INTO `catalogo_tienda` (`id_catalogo_tienda`, `nombre_tienda`, `imagen_tienda`, `active`)
 VALUES
 	(1,'Oxxo','http://res.cloudinary.com/shingshing/image/upload/v1586926379/shingshing/tiendas/Oxxo.png',1),
-	(2,'Neto','',1),
-	(3,'Grupo Walmart','http://res.cloudinary.com/shingshing/image/upload/v1586926407/shingshing/tiendas/Grupo%20Walmart.png',1),
+	(2,'Neto','',0),
+	(3,'Walmart','http://res.cloudinary.com/shingshing/image/upload/v1586926407/shingshing/tiendas/Grupo%20Walmart.png',1),
 	(4,'7 Eleven','http://res.cloudinary.com/shingshing/image/upload/v1586926346/shingshing/tiendas/7%20Eleven.png',1),
-	(5,'K-Mart','',1),
-	(6,'Chedraui','http://res.cloudinary.com/shingshing/image/upload/v1586926464/shingshing/tiendas/Chedraui.png',1),
+	(5,'K-Mart','',0),
+	(6,'Chedraui','http://res.cloudinary.com/shingshing/image/upload/v1586926464/shingshing/tiendas/Chedraui.png',0),
 	(7,'Superama','http://res.cloudinary.com/shingshing/image/upload/v1586926502/shingshing/tiendas/Superama.png',1),
-	(8,'Mega','http://res.cloudinary.com/shingshing/image/upload/v1586926531/shingshing/tiendas/Mega.png',1),
+	(8,'Mega','http://res.cloudinary.com/shingshing/image/upload/v1586926531/shingshing/tiendas/Mega.png',0),
 	(9,'tiendita de Juan','',0),
 	(10,'Nueva tienda Demo','',0),
 	(11,'demooooojghfc','http://res.cloudinary.com/shingshing/image/upload/v1584825790/shingshing/tiendas/demooooo.png',0),
-	(12,'demo','',1);
+	(12,'demo','',0),
+	(13,'Aurrera','',1),
+	(14,'Comercial Mexicana','',1),
+	(15,'HEB','',0),
+	(16,'Megacomercial','',1),
+	(17,'Soriana','',1),
+	(18,'HEB','',1);
 
 /*!40000 ALTER TABLE `catalogo_tienda` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -401,6 +407,15 @@ CREATE TABLE `config` (
   PRIMARY KEY (`key_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+LOCK TABLES `config` WRITE;
+/*!40000 ALTER TABLE `config` DISABLE KEYS */;
+
+INSERT INTO `config` (`key_name`, `key_value`, `key_data`)
+VALUES
+	('FCM_KEY','FCM_KEY_FILE','ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAic2hpbmdzaGluZy02OWMxZiIsCiAgInByaXZhdGVfa2V5X2lkIjogImMwYTcwYzJjY2NmZDFjMDQ5NDYwZDI4MzRmNmJiZTBjMjQyNWViZDEiLAogICJwcml2YXRlX2tleSI6ICItLS0tLUJFR0lOIFBSSVZBVEUgS0VZLS0tLS1cbk1JSUV2Z0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktnd2dnU2tBZ0VBQW9JQkFRREhBVlhMeG1OaVVXMzlcbjJtUElZQmt2eFV0UlExK2lhdHhWWlRoQ1RVMzhiOGVHN1FQUHVhYVkrNE1Zai80N2l5V3A4eVZjcE43M2d5VC9cbkhuUjNCRTFESDBEQ0QwVGxxbHlRVjJHNzR3OTFoWGFJNUF3WUNqTjg3VG9QSTZaRnVlVUZ2Rzk4SDV5VWNnMXlcbnBsVEhtS3VoZkxhYzlvaXpJeTZNYmpyR2tYTS9WbExxaUgzbGcxWWk1R1hJYXBwN2FLb2N1ZWZTRVpOVDY1ZjlcbmlkanNDY20rTG9sS1ViTXV6cmxwZVJDdlM3N1JoNXR4Y1N6NFZhamV4K3VJL2xHUjdRZGFKYXliMnVEN1dPNTFcbnJ6UHduOFdEaUZrN2FNcC9oTnoyY002TEpGSGc3Wk9UR1R1TnhVa01DMUs2cHBPUXVLSWNickVUalhoYjZTM0Zcbkszak42Z2J6QWdNQkFBRUNnZ0VBQWZwSFJyVkpsR2xEbkNLa2QzKzcxek5EY241TERia21iTk5tUWQ3OThQdVFcbmlWVzU3OVBSeFFUYi9mSVJoeVk5MmtyeFNvbXdWaUVSOFRIMWtnMDM1SHh4YytEU3JwbWJQaXRtL29iYy9jQnJcbjdyWlVVUUtPcUNXWWhXVzFjTitwb1NIMnNSZUVlVU40VXdjMkllZGZONDZldVdSUlBYVmJubG52T1ppRlRJa2FcbnZGUXFhcVZQbm1lWW1WWDE0ekk3MCtvM251MG9oWXZVWU93TUJ4VkNHRUV5dDdTUms3Ry9CbXZzYUhzTk1Za3lcbjJ5ZTZySERDL2VqZHFrczhtZTNSQWRmKy9qc1RyUDkwQ2FLVHcwRzd2Sk9LUXI1SlBQcmI2bmlGTGRYeVdDNWFcbkF3bXFld3o5c3J3WlpWbjIwNUZFUGcrV0dJZGtNNVM1Y0V1ZFFjZTBTUUtCZ1FEbCtNTjRUMnB1bXV0Qis4b3pcbnVvRGtqR29IUDAyc1c5UEE5cTBxTHFyVkVTdk5FbzVPZ3A1TkVjY0I5UmRtMytUNHhhQjZiK1N6OWd2K3FoTitcblF4bldxa3RqaCtXN1BwSlppdXhrSlQrZVJsQmdualhDYWE0OEI5akYyd1FXTXdPclowMkRkZDRkZHhWandTN2RcbnNubldma0h1UkJWdGZxcHhrSW5UbitzQ1R3S0JnUURkaDFmSzdMeFJKMXpBMURZOXdiTTBFZVVJWXAzdmM3Y3NcbnMzbjhaMmF3N0MzNzBoSVFnanA0OTVVWDhpMHIrRlR2UEpKRVMzVHhLZTFXbVg2M2NueDFtNFl0UDlkc1dSd3pcbldGcWF2VUUzTzdUQUVibk9KTHlkWUlaUXBlbXh0OXdoUE5NS01BZ2VST2tVVHEyYWJOWWxPSnNZZEVFQnFvTWZcbkZTcEZyV3Y4SFFLQmdRREZJSXpscHlWemMrWXZaRmE2S3FkcndaVHRhMno0VHFwZjROTWtzbVlMUjdIRkVwL2JcbldvbTVSSURUQTdVd29NRVVJY3RpeUdGQmhhcFlmSTlERHQrcUs4VjlwckxjNDFEdDRuQ3BrMmhLRXJtNWFFUnFcbnhzM3NkVWx5cUQrRGkrMGNVdXVWd1VaSStaZmpMMmd0NzF3UzZaMDRVVElRN3AvSnd2eng0MFcrYndLQmdRQ0Jcblo0MHVPY25yc2cycGlvMUEyQVNobHc1dUxvVkptaFBYWmVRTlFDMnBqZDF5cTR6bjNkcmdUT2ZuL0F6TkVad3pcbnYvTkZON3JSSVlmRnZaWmEvT0tkSk1ObGJWU2VzeE1aSHpTV0RaV3ArUk9sMnZUcDZXWFFuTkQ1RFdJTThYVUNcbmFYQnlGQXE1KzlFWGpybzBhZjFSOHRZT20rSlpZY3lFZksyYjFDa3ZOUUtCZ0FtTVgvaWVxdDludEpmSFB1ZXBcbmtUeERxandHejhIL3ZEK1hLR1lkNi9TQ0FiM1d1NERQWWg3elBlaFBlRVhZSzdOdkdGNEZrQlVVY2RFY2xwZVhcbmhyWkorU2NJYjFtOERqR3pJdEpkYjMza29qS2NUYnAxdVdpcC95VTFMTytmMTdqVkZTY0g3ZzVFZTM3R242bHNcbnVVbVhsTDRweUNRQk4zOHR3NEJTVlpndlxuLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLVxuIiwKICAiY2xpZW50X2VtYWlsIjogImZpcmViYXNlLWFkbWluc2RrLXduN2lsQHNoaW5nc2hpbmctNjljMWYuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLAogICJjbGllbnRfaWQiOiAiMTAyMDAxNzYyNDgyMDI5NTU1OTg4IiwKICAiYXV0aF91cmkiOiAiaHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tL28vb2F1dGgyL2F1dGgiLAogICJ0b2tlbl91cmkiOiAiaHR0cHM6Ly9vYXV0aDIuZ29vZ2xlYXBpcy5jb20vdG9rZW4iLAogICJhdXRoX3Byb3ZpZGVyX3g1MDlfY2VydF91cmwiOiAiaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vb2F1dGgyL3YxL2NlcnRzIiwKICAiY2xpZW50X3g1MDlfY2VydF91cmwiOiAiaHR0cHM6Ly93d3cuZ29vZ2xlYXBpcy5jb20vcm9ib3QvdjEvbWV0YWRhdGEveDUwOS9maXJlYmFzZS1hZG1pbnNkay13bjdpbCU0MHNoaW5nc2hpbmctNjljMWYuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iCn0K');
+
+/*!40000 ALTER TABLE `config` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Volcado de tabla contacto
@@ -440,7 +455,14 @@ VALUES
 	(13,'Comentarios','12345',107,NULL,NULL),
 	(14,'Comentarios','Hola ultima prueba',107,NULL,NULL),
 	(15,'Problemas con el APP','123456789',107,NULL,NULL),
-	(16,'Problemas con el APP','Hola que tal',107,NULL,NULL);
+	(16,'Problemas con el APP','Hola que tal',107,NULL,NULL),
+	(17,'Problemas con el APP','asdassdadasd',107,NULL,NULL),
+	(18,'Problema con la App','Hola de nuevo !',42,NULL,NULL),
+	(19,'Problemas con el APP','hola!¡¿$:¡$;*×;¡#:¿$, v',42,NULL,NULL),
+	(20,NULL,'hola !',NULL,'ERICK','8ures92@gmail.com'),
+	(21,NULL,'',NULL,'',''),
+	(22,NULL,'',NULL,'',''),
+	(23,'Problema con la App','Comportamiento extraño al iniciar',117,NULL,NULL);
 
 /*!40000 ALTER TABLE `contacto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -490,7 +512,40 @@ VALUES
 	(50,24),
 	(51,1),
 	(51,1),
-	(52,44);
+	(52,44),
+	(53,67),
+	(54,67),
+	(55,67),
+	(56,67),
+	(57,67),
+	(58,67),
+	(59,71),
+	(60,71),
+	(61,71),
+	(62,71),
+	(63,71),
+	(64,28),
+	(65,28),
+	(66,28),
+	(67,28),
+	(68,28),
+	(69,27),
+	(70,27),
+	(71,75),
+	(72,75),
+	(73,75),
+	(74,75),
+	(75,75),
+	(76,75),
+	(77,75),
+	(78,75),
+	(79,75),
+	(80,75),
+	(81,28),
+	(82,28),
+	(83,28),
+	(84,28),
+	(85,28);
 
 /*!40000 ALTER TABLE `historico_bonificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -527,7 +582,21 @@ VALUES
 	(6,'2020-02-03','12:38:05',20,127,2),
 	(7,'2020-03-30',NULL,100,153,2),
 	(8,'2020-03-30',NULL,20,128,2),
-	(9,'2020-03-30',NULL,50,161,2);
+	(9,'2020-03-30',NULL,50,161,2),
+	(10,'2020-04-27','10:23:05',20,127,2),
+	(14,'2020-04-27',NULL,20,128,2),
+	(15,'2020-04-27',NULL,20,128,2),
+	(16,'2020-04-27',NULL,20,128,2),
+	(17,'2020-04-28',NULL,20,128,2),
+	(18,'2020-04-28',NULL,10,128,2),
+	(19,'2020-04-28',NULL,10,128,2),
+	(20,'2020-04-28',NULL,20,128,2),
+	(21,'2020-04-29',NULL,100,191,42),
+	(22,'2020-04-29',NULL,100,191,42),
+	(23,'2020-04-29',NULL,100,191,42),
+	(24,'2020-04-29',NULL,100,155,42),
+	(25,'2020-04-29',NULL,100,189,42),
+	(26,'2020-04-29',NULL,10,189,42);
 
 /*!40000 ALTER TABLE `historico_medios_bonificacion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -557,7 +626,40 @@ VALUES
 	(2,49),
 	(2,50),
 	(2,51),
-	(2,52);
+	(2,52),
+	(42,53),
+	(42,54),
+	(42,55),
+	(42,56),
+	(42,57),
+	(42,58),
+	(42,59),
+	(42,60),
+	(42,61),
+	(42,62),
+	(42,63),
+	(42,64),
+	(42,65),
+	(42,66),
+	(42,67),
+	(42,68),
+	(42,69),
+	(42,70),
+	(42,71),
+	(42,72),
+	(42,73),
+	(42,74),
+	(42,75),
+	(42,76),
+	(42,77),
+	(42,78),
+	(42,79),
+	(42,80),
+	(42,81),
+	(42,82),
+	(42,83),
+	(42,84),
+	(42,85);
 
 /*!40000 ALTER TABLE `historico_tickets` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -652,7 +754,12 @@ VALUES
 	(187,'android cambio','7766666','',1,NULL,NULL,42,3,1,'BBVA'),
 	(188,'android cambio','ksj@g.com',NULL,2,NULL,'lsnkkkkkkkkkkk',42,NULL,1,NULL),
 	(189,'android con cambio','5550679876','TELCEL',3,NULL,NULL,42,NULL,1,NULL),
-	(190,'bbv3','667877665556','',1,NULL,NULL,2,3,1,'BBVA');
+	(190,'bbv3','667877665556','',1,NULL,NULL,2,3,1,'BBVA'),
+	(191,'demo BBVa','5555 5555 5555 5555',NULL,1,NULL,NULL,42,3,1,'BBVA'),
+	(193,'Debito Juan','5579 1001 8464 5800',NULL,1,NULL,NULL,117,3,1,'SANTANDER'),
+	(194,'Debito Banorte Juan','4915 6664 3817 0692',NULL,1,NULL,NULL,117,3,1,'SCOTIA BANK'),
+	(195,'PayPal Personal','kissthbw@gmail.com',NULL,2,NULL,'PayPalPersona',117,NULL,1,NULL),
+	(196,'Personal','5534714616','Telcel',3,NULL,NULL,117,NULL,1,NULL);
 
 /*!40000 ALTER TABLE `medios_bonificacion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -675,7 +782,8 @@ LOCK TABLES `problema` WRITE;
 INSERT INTO `problema` (`id_problema`, `problema`)
 VALUES
 	(1,'Tengo un problema !!!'),
-	(2,'Tengo un problema!');
+	(2,'Tengo un problema!'),
+	(3,'nop se!');
 
 /*!40000 ALTER TABLE `problema` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -719,82 +827,83 @@ LOCK TABLES `producto` WRITE;
 
 INSERT INTO `producto` (`id_producto`, `nombre_producto`, `precio`, `codigo_barras`, `presentacion`, `contenido`, `descripcion`, `aplica_promocion`, `vigencia_promocion`, `url_imagen_producto`, `cantidad_bonificacion`, `banner`, `color_banner`, `id_catalogo_marca`, `id_catalogo_tipo_producto`, `id_catalogo_tienda`, `img_url`, `active`)
 VALUES
-	(1,'Laptop',0,NULL,NULL,'1 pza','Dispositivo de streaming',0,NULL,NULL,90,0,'#000000',2,1,NULL,'',0),
-	(2,'Agua Bonafont',0,NULL,NULL,'1 l','Agua natural',0,NULL,NULL,1,0,'#000000',1,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663344/shingshing/productos/Agua%20Bonafont.png',0),
-	(3,'Agua Bonafont',0,NULL,NULL,'1.5 litros','Agua natural',0,NULL,NULL,1,0,'#000000',1,1,NULL,'',1),
-	(4,'Paq 2 Aguas Bonafont',0,NULL,NULL,'1.5 litros','Agua natural',0,NULL,NULL,5,1,'255,134,195',1,1,NULL,'',1),
-	(5,'Aceite Quaker State',0,NULL,NULL,'960 ml','Aceite para motor, dale vida tu motor',0,NULL,NULL,10,1,'0,131,70',1,3,NULL,'',1),
-	(6,'Cereal Ciniminis',0,NULL,NULL,'900 g','Cereal de trigo con canela',0,NULL,NULL,10,1,'229,204,205',1,1,NULL,'',1),
-	(7,'Cereal Kellogs',0,NULL,NULL,'900 g','Cereal clasico de hojuelas de maiz',0,NULL,NULL,10,1,'0,153,76',8,1,NULL,'',1),
-	(8,'Burrito Clásico',0,NULL,NULL,'182 g','Burrito de frijoles con queso en tortilla de ',0,NULL,NULL,10,1,'0,153,76',8,1,NULL,'',1),
-	(9,'Agua Natural Bonafont',0,NULL,NULL,'1.2 litros','Agua Bonafont con sabor natural',0,NULL,NULL,10,1,'0,153,86',8,1,NULL,'',1),
-	(10,'Desodorante en aerosol AXE',0,NULL,NULL,'125 ml','Desodorante en aerosol de 125 ml. con fragancia fresca que dura 24 horas',0,NULL,NULL,7,1,'14,111,198',9,8,NULL,'',1),
-	(11,'Aceite 1-2-3 ',0,NULL,NULL,'1 litro','Aceite vegetal comestible, que no contiene colesterol',0,NULL,NULL,7,1,'249,17,6',10,1,NULL,'',1),
-	(12,'Colgate triple acción',0,NULL,NULL,'150 ml','Pasta de dientes xtra frescura, que contiene anticaries con fluor',0,NULL,NULL,2,1,'130,231,140',10,1,NULL,'',1),
-	(13,'Cacahuates Herdez',0,NULL,NULL,'250 g','Cacahuates japonés, sabor saladillo, crujiente ideal para calmar el hambre',0,NULL,NULL,5,0,'31,38,170',10,1,NULL,'',1),
-	(14,'Desodorante Rexona Clinical',0,NULL,NULL,'250 ml','Aerosol en aerosol con olor fresco por 24 hrs',0,NULL,NULL,6,1,'15,206,79',9,8,NULL,'',1),
-	(15,'Yougurt Natural Yoplait',0,NULL,NULL,'125 ml','Yogurt para beber Yoplait de sabor natural',0,NULL,NULL,2,1,'235,17,131',10,8,NULL,'',1),
-	(16,'Desodorante en aerosol Stefano',0,NULL,NULL,'125 ml','Desodorante en spray para un olor fresco por 12 horas',0,NULL,NULL,3,0,'154,184,26',9,8,NULL,'',1),
-	(17,'Desodorante en aerosol Stefano',0,NULL,NULL,'125 ml','Desodorante en aerosol, con fragancia fresca que para tener un olor agradable por hasta 24 horas ',0,NULL,NULL,5,0,'49,186,241',9,8,NULL,'',1),
-	(18,'Area para Gato',0,NULL,NULL,'2 Kg','Arena para gato',0,NULL,NULL,2,1,'170,106,51',10,1,NULL,'',1),
-	(19,'AMERICANO 5 DEMO',0,NULL,NULL,'BALON DE AMERICANO','BALON DE AMERICANO DE TAMAÑO REGULAR',0,NULL,NULL,30,1,'49,104,241',11,9,NULL,'',0),
-	(20,'PELOTA',18.9,'7506271756965','PELOTA DE PLASTICO','PELOTA DE PLASTICO','PELOTA DE PLASTICO COLOR VERDE, TAMAÑO REGULAR',0,NULL,'/pelota',2,0,'49,241,86',11,9,3,NULL,0),
-	(21,'Jugo Del Valle',0,NULL,NULL,'500 ml','Jugo Del Valle sabor mango',0,NULL,NULL,1,0,'241,138,49',12,1,NULL,'',1),
-	(22,'Desodorante en barra Dove',0,NULL,NULL,'50 ml','Desodorante en barra',0,NULL,NULL,4,1,'159,49,241',9,8,NULL,'',1),
-	(23,'Nintendo Switch',6999,'978128713','','1 pieza','',1,'2019-10-27','/home/img/chrome.jpg',90,0,NULL,7,2,1,NULL,0),
-	(24,'Nintendo Switch',6999,'978128713','','1 pieza','',1,'2019-10-29','/home/img/chrome.jpg',90,0,NULL,7,2,1,NULL,0),
-	(25,'Nintendo Switch',6999,'978128713','','1 pieza','',1,'2019-10-29','/home/img/chrome.jpg',99,0,NULL,7,2,1,NULL,0),
-	(26,'New Nintendo 3DS',5999,'210134987654','Caja con producto','1 pieza','Consola portátil de nintendo, con tecnologia 3D',1,NULL,'/new3ds',80,0,'241,138,49',7,2,3,NULL,0),
-	(27,'SNES Mini',2999,'210198765409','1 Caja','Consola de videojuegos retro','Revive los mejores juegos del Super Nintendo',0,NULL,'/snes',75,1,'83,17,190',7,2,3,NULL,0),
-	(28,'iPhone 7 (Refurbished)',0,NULL,NULL,'Dispositivo Movil Apple reacondicionado','Dispositivo Movil Apple reacondicionado.',0,NULL,NULL,50,1,'67,127,192',6,2,NULL,NULL,0),
-	(29,'Nintendo Switch Hola',0,NULL,NULL,'1 pieza','',0,NULL,NULL,100,0,'#000000',7,16,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581443207/shingshing/productos/Nintendo%20Switch.jpg',0),
-	(30,'Rancheritos',0,NULL,NULL,'50 gr','Rancheritos',0,NULL,NULL,1,0,'241,138,49',15,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581467902/shingshing/productos/Rancheritos.jpg',1),
-	(31,'Papel Higiénico Pétalo ',0,NULL,NULL,'4 rollos','Papel higiénico con 234 hojas dobles C/U',0,NULL,NULL,5,1,'5,93,172',15,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581399965/shingshing/productos/7506425600397%20Petalo.png',0),
-	(32,'Papel Higiénico Pétalo',0,NULL,NULL,'4 rollos','Papel higiénico con 234 hojas dobles C/U',0,NULL,NULL,2,0,'21,110,190',15,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581399965/shingshing/productos/7506425600397%20Petalo.png',1),
-	(33,'Leche Santa Clara',0,NULL,NULL,'200 ml','Leche Entera Ultrapasterurizada',0,NULL,NULL,2,1,'101,23,125',16,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581474253/shingshing/productos/Leche%20Santa%20Clara.jpg',1),
-	(34,'Shampoo Stefano',0,NULL,NULL,'532 ml','Shampoo Stefano alpha control caída para caballero.',0,NULL,NULL,2,1,'55,47,40',17,17,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581569032/shingshing/productos/Shampoo%20Stefano.png',1),
-	(35,'Mega Chamoy',0,NULL,NULL,'1 kg','Mega Salsa de Chamoy ',0,NULL,NULL,1,1,'82,14,144',18,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581574863/shingshing/productos/Mega%20Chamoy.png',1),
-	(36,'Huevo San Juan',0,NULL,NULL,'12 huevos','Huevo Blanco San Juan',0,NULL,NULL,1,1,'87,215,245',19,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581568618/shingshing/productos/Huevo%20San%20Juan.png',1),
-	(37,'Crema Alpura',0,NULL,NULL,'900 ml','Crema Alpura ácida regular',0,NULL,NULL,1,1,'39,9,219',20,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581574509/shingshing/productos/Crema%20Alpura.png',1),
-	(38,'Pure de Tomate',0,NULL,NULL,'1 kg','Pure de Tomate del Fuerte Natural',0,NULL,NULL,1,1,'198,22,22',21,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581575491/shingshing/productos/Pure%20de%20Tomate.png',1),
-	(39,'Yogurth Danone',0,NULL,NULL,'140 g','Yoghurt Danone Mix Sabor Fresa Con Arroz Inflado',0,NULL,NULL,1,1,'253,215,244',22,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581478078/shingshing/productos/Yogurth%20Danone.png',1),
-	(40,'Jugo Ades',0,NULL,NULL,'946 ml','Jugo de Soya Ades Sabor Manzana',0,NULL,NULL,0,0,'19,146,13',23,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581479100/shingshing/productos/Jugo%20Ades.png',1),
-	(41,'Crema Dental Colgate',0,NULL,NULL,'50 ml','Cema dental con Flúor',0,NULL,NULL,1,1,'102,149,243',24,5,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581479348/shingshing/productos/Crema%20Dental%20Colgate.png',1),
-	(42,'La Lechera',0,NULL,NULL,'387 g','Leche condensada Nestlé La Lechera',0,NULL,NULL,2,0,'227,162,106',25,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582664004/shingshing/productos/La%20Lechera.png',1),
-	(43,'Crema Lala',0,NULL,NULL,'450 ml','Crema Lala Entera Acida ',0,NULL,NULL,2,1,'223,135,139',26,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581480374/shingshing/productos/Crema%20Lala.png',1),
-	(44,'Agua natural Epura',0,NULL,NULL,'5 l','Agua Purificada Epura Natural',0,NULL,NULL,2,1,'121,152,226',27,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581656184/shingshing/productos/AGUA%20NATURAL%20EPURA.png',1),
-	(45,'Sofùl',0,NULL,NULL,'105 g','Sofúl Yakult natural sin azúcar',0,NULL,NULL,1,1,'254,71,86',28,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581481413/shingshing/productos/Sof%C3%B9l.png',1),
-	(46,'Avena Granvita',0,NULL,NULL,'35 g','Avena Instantánea Integral Con Arándanos',0,NULL,NULL,1,1,'199,122,60',30,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581653910/shingshing/productos/Avena%20Granvita.png',1),
-	(47,'Bebida V8 Splash Kiwifresón',0,NULL,NULL,'200 ml','Bebida V8 Splash Kiwifresón De Zanahoria, Manzana, Kiwi Y Fresa, Con Vitamina A Y C, Sin Conservadores.',0,NULL,NULL,1,0,'225,122,5',31,1,NULL,'',1),
-	(48,'Leche Santa Clara',0,NULL,NULL,'1 litro','Leche Santa Clara Entera ',0,NULL,NULL,2,1,'217,186,206',32,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581483756/shingshing/productos/Leche%20Santa%20Clara.png',1),
-	(49,'Papel Higiénico Kleenex Cottonelle',0,NULL,NULL,'4 rollos','Papel higiénico Cottonelle ULTRA ComfortCare \r\n',0,NULL,NULL,1,1,'142,98,162',33,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581657220/shingshing/productos/Papel%20Higi%C3%A9nico%20Kleenex%20Cottonelle.png',1),
-	(50,'Yoghurt Lala',0,NULL,NULL,'125 g','Yoghurt Lala Con Fresa',0,NULL,NULL,1,1,'241,138,49',26,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581484962/shingshing/productos/Yoghurt%20Lala.png',1),
-	(51,'Agua Bonafont',0,NULL,NULL,'1 litro','Agua Natural Bonafont',0,NULL,NULL,1,1,'225,138,110',1,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663344/shingshing/productos/Agua%20Bonafont.png',1),
-	(52,'Azúcar',0,NULL,NULL,'1 kg','Azúcar Estándar',0,NULL,NULL,1,1,'252,90,71',34,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581531092/shingshing/productos/Az%C3%BAcar.png',1),
-	(53,'Avena Quaker Instantanea',0,NULL,NULL,'296 g','Avena Quaker Instantanea Nuez, Pasas y Datiles \r\n',0,NULL,NULL,2,1,'217,183,154',35,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581487779/shingshing/productos/Avena%20Quaker%20Instantanea.png',1),
-	(54,'Crema Alpura Selecta',0,NULL,NULL,'450 ml','Crema Alpura Selecta Premium',0,NULL,NULL,2,0,'241,138,49',20,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581490033/shingshing/productos/Crema%20Alpura%20Selecta.png',1),
-	(55,'Leche Lala',0,NULL,NULL,'1 litro','Leche Lala Light Ultrapasteurizada\r\n',0,NULL,NULL,1,1,'112,173,174',26,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581491642/shingshing/productos/Leche%20Lala.png',1),
-	(56,'Limpiador Fabuloso',0,NULL,NULL,'1 litro','Fabuloso Limpiador liquido multiusos Frescura Activa Antibacterial',0,NULL,NULL,1,1,'204,167,55',36,18,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663303/shingshing/productos/Limpiador%20Fabuloso.png',1),
-	(57,'Axion',0,NULL,NULL,'750 ml','Lavatrastes líquido Axion aroma limón ',0,NULL,NULL,1,1,'242,25,5',37,18,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663258/shingshing/productos/Axion.png',1),
-	(58,'Axion',0,NULL,NULL,'640  ml','Lavatrastes líquido Axion Complete Antibacterial',0,NULL,NULL,1,1,'140,4,118',37,18,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581651879/shingshing/productos/Axion.png',1),
-	(59,'Ganchos Inova',0,NULL,NULL,'10 ganchos','Set de 10 Ganchos Inova Abadimex Premium Azul',0,NULL,NULL,2,1,'26,144,217',38,16,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581577269/shingshing/productos/Ganchos%20Inova.png',1),
-	(60,'Shampoo Tressemé',0,NULL,NULL,'100 ml','Shampoo Tressemé Smooth and Silky',0,NULL,NULL,2,1,'8,100,185',39,17,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581577018/shingshing/productos/Shampoo%20Tressem%C3%A9.png',1),
-	(61,'Tostadas',0,NULL,NULL,'360 g','Tostadas Milpa Real onduladas',0,NULL,NULL,1,1,'255,217,49',40,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581575590/shingshing/productos/Tostadas.png',1),
-	(62,'Tortillas de Harinas',0,NULL,NULL,'12 pzas','Tortillinas Tía Rosa de Harina ',0,NULL,NULL,1,1,'222,80,78',41,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581575645/shingshing/productos/Tortillas%20de%20Harina.png',1),
-	(63,'Avena instantanea',0,NULL,NULL,'1412 g','Cereal Quaker Instant de avena variedad de sabores.',0,NULL,NULL,1,1,'242,159,5',42,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581576397/shingshing/productos/Avena%20instantanea.png',1),
-	(64,'Avena Quaker',0,NULL,NULL,'475 g','Avena Quaker de hojuela natural',0,NULL,NULL,1,0,'191,42,55',35,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581576019/shingshing/productos/Avena%20Quaker.png',1),
-	(65,'Agua Levite Bonafont',0,NULL,NULL,'1 litro','Levite Agua clásica sabor Piña-coco',0,NULL,NULL,2,1,'217,176,54',1,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581576847/shingshing/productos/Agua%20Levite%20Bonafont.png',1),
-	(66,'Hola',0,NULL,NULL,'Hola','',0,NULL,NULL,0,0,'241,138,49',2,3,NULL,'',0),
-	(67,'Prueba',0,NULL,NULL,'Prueba','hola hola',0,NULL,NULL,5,1,'241,138,49',18,11,NULL,'',0),
-	(68,'Prueba',0,NULL,NULL,'-mnbhjklkjhnbnxxxxx','',0,NULL,NULL,0,0,'241,138,49',2,3,NULL,'',0),
-	(69,'hola!',0,NULL,NULL,'hola!','',0,NULL,NULL,1,0,'241,138,49',1,1,NULL,'',0),
-	(70,'hola!',0,NULL,NULL,'hola!','',0,NULL,NULL,5,0,'241,138,49',1,1,NULL,'',0),
-	(71,'hola',0,NULL,NULL,'hola','hola',0,NULL,NULL,6,1,'241,138,49',3,3,NULL,'',0),
-	(72,'Demo',0,NULL,NULL,'1 l','',0,NULL,NULL,0,0,'241,138,49',1,1,NULL,'',0),
-	(73,'Pelota amarrilla',0,NULL,NULL,'1 pza','Es una pelota de color amarillo, olor banana.',0,NULL,NULL,2,0,'255,219,4',1,9,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582667790/shingshing/productos/Pelota%20amarrilla.png',0),
-	(74,'Desodorante en aerosol Stefano',0,NULL,NULL,'s','ss',0,NULL,NULL,0,0,'241,138,49',14,1,NULL,'',0),
-	(75,'Demoo',0,NULL,NULL,'demoo','hola',0,NULL,NULL,3,0,'241,138,49',14,1,NULL,'',1),
-	(76,'Prueba',0,NULL,NULL,'--...','aaaa',0,NULL,NULL,0,0,'241,138,49',14,1,NULL,'',1);
+	(1,'Laptop',0,NULL,NULL,'1 pza','Dispositivo de streaming',0,NULL,NULL,90,0,'#FF6600',2,1,NULL,'',0),
+	(2,'Agua Bonafont',0,NULL,NULL,'1 l','Agua natural',0,NULL,NULL,1,0,'#FF6600',1,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663344/shingshing/productos/Agua%20Bonafont.png',0),
+	(3,'Agua Bonafont',0,NULL,NULL,'1.5 lt','Agua natural',0,NULL,NULL,1,0,'#FF6600',1,1,NULL,'',1),
+	(4,'Paq 2 Aguas Bonafont',0,NULL,NULL,'1.5 lt','Agua natural',0,NULL,NULL,5,1,'#FF6600',1,1,NULL,'',1),
+	(5,'Aceite Quaker State',0,NULL,NULL,'960 ml','Aceite para motor, dale vida tu motor',0,NULL,NULL,10,1,'#FF6600',1,3,NULL,'',1),
+	(6,'Cereal Ciniminis',0,NULL,NULL,'900 g','Cereal de trigo con canela',0,NULL,NULL,10,1,'#FF6600',1,1,NULL,'',1),
+	(7,'Cereal Kellogs',0,NULL,NULL,'900 g','Cereal clasico de hojuelas de maiz',0,NULL,NULL,10,1,'#FF6600',8,1,NULL,'',1),
+	(8,'Burrito Clásico',0,NULL,NULL,'182 g','Burrito de frijoles con queso en tortilla de ',0,NULL,NULL,10,1,'#FF6600',8,1,NULL,'',1),
+	(9,'Agua Natural Bonafont',0,NULL,NULL,'1.2 lt','Agua Bonafont con sabor natural',0,NULL,NULL,10,1,'#FF6600',8,1,NULL,'',1),
+	(10,'Desodorante en aerosol AXE',0,NULL,NULL,'125 ml','Desodorante en aerosol de 125 ml. con fragancia fresca que dura 24 horas',0,NULL,NULL,7,1,'#FF6600',9,8,NULL,'',1),
+	(11,'Aceite 1-2-3 ',0,NULL,NULL,'1 lt','Aceite vegetal comestible, que no contiene colesterol',0,NULL,NULL,7,1,'#FF6600',10,1,NULL,'',1),
+	(12,'Colgate triple acción',0,NULL,NULL,'150 ml','Pasta de dientes xtra frescura, que contiene anticaries con fluor',0,NULL,NULL,2,1,'#FF6600',10,1,NULL,'',1),
+	(13,'Cacahuates Herdez',0,NULL,NULL,'250 g','Cacahuates japonés, sabor saladillo, crujiente ideal para calmar el hambre',0,NULL,NULL,5,0,'#FF6600',10,1,NULL,'',1),
+	(14,'Desodorante Rexona Clinical',0,NULL,NULL,'250 ml','Aerosol en aerosol con olor fresco por 24 hrs',0,NULL,NULL,6,1,'#FF6600',9,8,NULL,'',1),
+	(15,'Yougurt Natural Yoplait',0,NULL,NULL,'125 ml','Yogurt para beber Yoplait de sabor natural',0,NULL,NULL,2,1,'#FF6600',10,8,NULL,'',1),
+	(16,'Desodorante en aerosol Stefano',0,NULL,NULL,'125 ml','Desodorante en spray para un olor fresco por 12 horas',0,NULL,NULL,3,0,'#FF6600',9,8,NULL,'',1),
+	(17,'Desodorante en aerosol Stefano',0,NULL,NULL,'125 ml','Desodorante en aerosol, con fragancia fresca que para tener un olor agradable por hasta 24 horas ',0,NULL,NULL,5,0,'#FF6600',9,8,NULL,'',1),
+	(18,'Area para Gato',0,NULL,NULL,'2 Kg','Arena para gato',0,NULL,NULL,2,1,'#FF6600',10,1,NULL,'',1),
+	(19,'AMERICANO 5 DEMO',0,NULL,NULL,'BALON DE AMERICANO','BALON DE AMERICANO DE TAMAÑO REGULAR',0,NULL,NULL,30,1,'#FF6600',11,9,NULL,'',0),
+	(20,'PELOTA',18.9,'7506271756965','PELOTA DE PLASTICO','PELOTA DE PLASTICO','PELOTA DE PLASTICO COLOR VERDE, TAMAÑO REGULAR',0,NULL,'/pelota',2,0,'#FF6600',11,9,3,NULL,0),
+	(21,'Jugo Del Valle',0,NULL,NULL,'500 ml','Jugo Del Valle sabor mango',0,NULL,NULL,1,0,'#FF6600',12,1,NULL,'',1),
+	(22,'Desodorante en barra Dove',0,NULL,NULL,'50 ml','Desodorante en barra',0,NULL,NULL,4,1,'#FF6600',9,8,NULL,'',1),
+	(23,'Nintendo Switch',6999,'978128713','','1 pieza','',1,'2019-10-27','/home/img/chrome.jpg',90,0,'#FF6600',7,2,1,NULL,0),
+	(24,'Nintendo Switch',6999,'978128713','','1 pieza','',1,'2019-10-29','/home/img/chrome.jpg',90,0,'#FF6600',7,2,1,NULL,0),
+	(25,'Nintendo Switch',6999,'978128713','','1 pieza','',1,'2019-10-29','/home/img/chrome.jpg',99,0,'#FF6600',7,2,1,NULL,0),
+	(26,'New Nintendo 3DS',5999,'210134987654','Caja con producto','1 pieza','Consola portátil de nintendo, con tecnologia 3D',1,NULL,'/new3ds',80,0,'#FF6600',7,2,3,NULL,0),
+	(27,'SNES Mini',2999,'210198765409','1 Caja','Consola de videojuegos retro','Revive los mejores juegos del Super Nintendo',0,NULL,'/snes',75,1,'#FF6600',7,2,3,NULL,0),
+	(28,'iPhone 7 (Refurbished)',0,NULL,NULL,'Dispositivo Movil Apple reacondicionado','Dispositivo Movil Apple reacondicionado.',0,NULL,NULL,50,1,'#FF6600',6,2,NULL,NULL,0),
+	(29,'Nintendo Switch Hola',0,NULL,NULL,'1 pieza','',0,NULL,NULL,100,0,'#FF6600',7,16,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581443207/shingshing/productos/Nintendo%20Switch.jpg',0),
+	(30,'Rancheritos',0,NULL,NULL,'50 gr','Rancheritos',0,NULL,NULL,1,0,'#FF6600',15,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581467902/shingshing/productos/Rancheritos.jpg',1),
+	(31,'Papel Higiénico Pétalo ',0,NULL,NULL,'4 rollos','Papel higiénico con 234 hojas dobles C/U',0,NULL,NULL,5,1,'#FF6600',15,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581399965/shingshing/productos/7506425600397%20Petalo.png',0),
+	(32,'Papel Higiénico Pétalo',0,NULL,NULL,'4 rollos','Papel higiénico con 234 hojas dobles C/U',0,NULL,NULL,2,0,'#FF6600',15,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581399965/shingshing/productos/7506425600397%20Petalo.png',1),
+	(33,'Leche Santa Clara',0,NULL,NULL,'200 ml','Leche Entera Ultrapasterurizada',0,NULL,NULL,2,1,'#FF6600',16,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581474253/shingshing/productos/Leche%20Santa%20Clara.jpg',1),
+	(34,'Shampoo Stefano',0,NULL,NULL,'532 ml','Shampoo Stefano alpha control caída para caballero.',0,NULL,NULL,2,1,'#FF6600',17,17,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581569032/shingshing/productos/Shampoo%20Stefano.png',1),
+	(35,'Mega Chamoy',0,NULL,NULL,'1 kg','Mega Salsa de Chamoy ',0,NULL,NULL,1,1,'#FF6600',18,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581574863/shingshing/productos/Mega%20Chamoy.png',1),
+	(36,'Huevo San Juan',0,NULL,NULL,'12 pzs','Huevo Blanco San Juan',0,NULL,NULL,1,1,'#FF6600',19,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581568618/shingshing/productos/Huevo%20San%20Juan.png',1),
+	(37,'Crema Alpura',0,NULL,NULL,'900 ml','Crema Alpura ácida regular',0,NULL,NULL,1,1,'#FF6600',20,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581574509/shingshing/productos/Crema%20Alpura.png',1),
+	(38,'Pure de Tomate',0,NULL,NULL,'1 kg','Pure de Tomate del Fuerte Natural',0,NULL,NULL,1,1,'#FF6600',21,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581575491/shingshing/productos/Pure%20de%20Tomate.png',1),
+	(39,'Yogurth Danone',0,NULL,NULL,'140 g','Yoghurt Danone Mix Sabor Fresa Con Arroz Inflado',0,NULL,NULL,1,1,'#FF6600',22,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581478078/shingshing/productos/Yogurth%20Danone.png',1),
+	(40,'Jugo Ades',0,NULL,NULL,'946 ml','Jugo de Soya Ades Sabor Manzana',0,NULL,NULL,0,0,'#FF6600',23,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581479100/shingshing/productos/Jugo%20Ades.png',1),
+	(41,'Crema Dental Colgate',0,NULL,NULL,'50 ml','Cema dental con Flúor',0,NULL,NULL,1,1,'#FF6600',24,5,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581479348/shingshing/productos/Crema%20Dental%20Colgate.png',1),
+	(42,'La Lechera',0,NULL,NULL,'387 g','Leche condensada Nestlé La Lechera',0,NULL,NULL,2,0,'#FF6600',25,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582664004/shingshing/productos/La%20Lechera.png',1),
+	(43,'Crema Lala',0,NULL,NULL,'450 ml','Crema Lala Entera Acida ',0,NULL,NULL,2,1,'#FF6600',26,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581480374/shingshing/productos/Crema%20Lala.png',1),
+	(44,'Agua natural Epura',0,NULL,NULL,'5 lt','Agua Purificada Epura Natural',0,NULL,NULL,2,1,'#FF6600',27,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581656184/shingshing/productos/AGUA%20NATURAL%20EPURA.png',1),
+	(45,'Sofùl',0,NULL,NULL,'105 g','Sofúl Yakult natural sin azúcar',0,NULL,NULL,1,1,'#FF6600',28,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581481413/shingshing/productos/Sof%C3%B9l.png',1),
+	(46,'Avena Granvita',0,NULL,NULL,'35 g','Avena Instantánea Integral Con Arándanos',0,NULL,NULL,1,1,'#FF6600',30,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581653910/shingshing/productos/Avena%20Granvita.png',1),
+	(47,'Bebida V8 Splash Kiwifresón',0,NULL,NULL,'200 ml','Bebida V8 Splash Kiwifresón De Zanahoria, Manzana, Kiwi Y Fresa, Con Vitamina A Y C, Sin Conservadores.',0,NULL,NULL,1,0,'#FF6600',31,1,NULL,'',1),
+	(48,'Leche Santa Clara',0,NULL,NULL,'1 litro','Leche Santa Clara Entera ',0,NULL,NULL,2,1,'#FF6600',32,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581483756/shingshing/productos/Leche%20Santa%20Clara.png',1),
+	(49,'Papel Higiénico Kleenex Cottonelle',0,NULL,NULL,'4 rollos','Papel higiénico Cottonelle ULTRA ComfortCare \r\n',0,NULL,NULL,1,1,'#FF6600',33,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581657220/shingshing/productos/Papel%20Higi%C3%A9nico%20Kleenex%20Cottonelle.png',1),
+	(50,'Yoghurt Lala',0,NULL,NULL,'125 g','Yoghurt Lala Con Fresa',0,NULL,NULL,1,1,'#FF6600',26,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581484962/shingshing/productos/Yoghurt%20Lala.png',1),
+	(51,'Agua Bonafont',0,NULL,NULL,'1 lt','Agua Natural Bonafont',0,NULL,NULL,1,1,'#FF6600',1,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663344/shingshing/productos/Agua%20Bonafont.png',1),
+	(52,'Azúcar',0,NULL,NULL,'1 kg','Azúcar Estándar',0,NULL,NULL,1,1,'#FF6600',34,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581531092/shingshing/productos/Az%C3%BAcar.png',1),
+	(53,'Avena Quaker Instantanea',0,NULL,NULL,'296 g','Avena Quaker Instantanea Nuez, Pasas y Datiles \r\n',0,NULL,NULL,2,1,'#FF6600',35,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581487779/shingshing/productos/Avena%20Quaker%20Instantanea.png',1),
+	(54,'Crema Alpura Selecta',0,NULL,NULL,'450 ml','Crema Alpura Selecta Premium',0,NULL,NULL,2,0,'#FF6600',20,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581490033/shingshing/productos/Crema%20Alpura%20Selecta.png',1),
+	(55,'Leche Lala',0,NULL,NULL,'1 litro','Leche Lala Light Ultrapasteurizada\r\n',0,NULL,NULL,1,1,'#FF6600',26,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581491642/shingshing/productos/Leche%20Lala.png',1),
+	(56,'Limpiador Fabuloso',0,NULL,NULL,'1 litro','Fabuloso Limpiador liquido multiusos Frescura Activa Antibacterial',0,NULL,NULL,1,1,'#FF6600',36,18,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663303/shingshing/productos/Limpiador%20Fabuloso.png',1),
+	(57,'Axion',0,NULL,NULL,'750 ml','Lavatrastes líquido Axion aroma limón ',0,NULL,NULL,1,1,'#FF6600',37,18,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582663258/shingshing/productos/Axion.png',1),
+	(58,'Axion',0,NULL,NULL,'640  ml','Lavatrastes líquido Axion Complete Antibacterial',0,NULL,NULL,1,1,'#FF6600',37,18,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581651879/shingshing/productos/Axion.png',1),
+	(59,'Ganchos Inova',0,NULL,NULL,'10 ganchos','Set de 10 Ganchos Inova Abadimex Premium Azul',0,NULL,NULL,2,1,'#FF6600',38,16,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581577269/shingshing/productos/Ganchos%20Inova.png',1),
+	(60,'Shampoo Tressemé',0,NULL,NULL,'100 ml','Shampoo Tressemé Smooth and Silky',0,NULL,NULL,2,1,'#FF6600',39,17,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581577018/shingshing/productos/Shampoo%20Tressem%C3%A9.png',1),
+	(61,'Tostadas',0,NULL,NULL,'360 g','Tostadas Milpa Real onduladas',0,NULL,NULL,1,1,'#FF6600',40,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581575590/shingshing/productos/Tostadas.png',1),
+	(62,'Tortillas de Harinas',0,NULL,NULL,'12 pzas','Tortillinas Tía Rosa de Harina ',0,NULL,NULL,1,1,'#FF6600',41,14,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581575645/shingshing/productos/Tortillas%20de%20Harina.png',1),
+	(63,'Avena instantanea',0,NULL,NULL,'1412 g','Cereal Quaker Instant de avena variedad de sabores.',0,NULL,NULL,1,1,'#FF6600',35,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581576397/shingshing/productos/Avena%20instantanea.png',1),
+	(64,'Avena Quaker',0,NULL,NULL,'475 g','Avena Quaker de hojuela natural',0,NULL,NULL,1,0,'#FF6600',35,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581576019/shingshing/productos/Avena%20Quaker.png',1),
+	(65,'Agua Levite Bonafont',0,NULL,NULL,'1 litro','Levite Agua clásica sabor Piña-coco',0,NULL,NULL,2,1,'#FF6600',1,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1581576847/shingshing/productos/Agua%20Levite%20Bonafont.png',1),
+	(66,'Hola',0,NULL,NULL,'Hola','',0,NULL,NULL,0,0,'#FF6600',2,3,NULL,'',0),
+	(67,'Prueba',0,NULL,NULL,'Prueba','hola hola',0,NULL,NULL,5,1,'#FF6600',18,11,NULL,'',0),
+	(68,'Prueba',0,NULL,NULL,'-mnbhjklkjhnbnxxxxx','',0,NULL,NULL,0,0,'#FF6600',2,3,NULL,'',0),
+	(69,'hola!',0,NULL,NULL,'hola!','',0,NULL,NULL,1,0,'#FF6600',1,1,NULL,'',0),
+	(70,'hola!',0,NULL,NULL,'hola!','',0,NULL,NULL,5,0,'#FF6600',1,1,NULL,'',0),
+	(71,'hola',0,NULL,NULL,'hola','hola',0,NULL,NULL,6,1,'#FF6600',3,3,NULL,'',0),
+	(72,'Demo',0,NULL,NULL,'1 l','',0,NULL,NULL,0,0,'#FF6600',1,1,NULL,'',0),
+	(73,'Pelota amarrilla',0,NULL,NULL,'1 pza','Es una pelota de color amarillo, olor banana.',0,NULL,NULL,2,0,'#FF6600',1,9,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1582667790/shingshing/productos/Pelota%20amarrilla.png',0),
+	(74,'Desodorante en aerosol Stefano',0,NULL,NULL,'s','ss',0,NULL,NULL,0,0,'#FF6600',14,1,NULL,'',0),
+	(75,'Demoo',0,NULL,NULL,'demoo','hola',0,NULL,NULL,3,0,'#FF6600',14,1,NULL,'',0),
+	(76,'Bug',0,NULL,NULL,'--...','aaaa',0,NULL,NULL,0,0,'#FF6600',14,1,NULL,'',0),
+	(77,'Pruebaaaaa',0,NULL,NULL,'1 lt','hola descripción!',0,NULL,NULL,4,1,'#FF00C2',17,9,NULL,'',1);
 
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -827,7 +936,11 @@ VALUES
 	(5,2,61),
 	(8,2,64),
 	(14,107,5),
-	(15,107,41);
+	(15,107,41),
+	(17,42,74),
+	(18,42,62),
+	(21,42,65),
+	(23,42,56);
 
 /*!40000 ALTER TABLE `producto_favorito` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -858,10 +971,18 @@ INSERT INTO `producto_valoracion` (`id_producto_valoracion`, `valoracion`, `come
 VALUES
 	(1,4,'',61,2),
 	(2,1,'',64,2),
-	(3,3,'',76,107),
+	(3,1,'',76,107),
 	(4,4,'',75,107),
 	(5,3,'',5,107),
-	(6,3,'',41,107);
+	(6,1,'',41,107),
+	(7,0,'',76,84),
+	(8,0,'',75,84),
+	(9,0,'',65,42),
+	(10,0,'',56,42),
+	(11,0,'',64,42),
+	(12,0,'',63,42),
+	(13,0,'',5,42),
+	(14,4,'',77,42);
 
 /*!40000 ALTER TABLE `producto_valoracion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -910,7 +1031,7 @@ VALUES
 	(29,'',19,3),
 	(30,'',19,2),
 	(31,'',19,1),
-	(32,'',9,3),
+	(32,'345678765432123456789',9,3),
 	(33,'',9,2),
 	(34,'',9,1),
 	(35,'7506425600397 Petalo ',31,3),
@@ -1267,7 +1388,7 @@ VALUES
 	(386,'',8,3),
 	(387,'',8,2),
 	(388,'',8,1),
-	(389,'',4,8),
+	(389,'demo',4,8),
 	(390,'',4,7),
 	(391,'',4,6),
 	(392,'',4,5),
@@ -1283,7 +1404,7 @@ VALUES
 	(402,'',3,3),
 	(403,'',3,2),
 	(404,'',3,1),
-	(405,'',11,8),
+	(405,'demo',11,8),
 	(406,'',11,7),
 	(407,'',11,6),
 	(408,'',11,5),
@@ -1403,7 +1524,16 @@ VALUES
 	(522,'',76,4),
 	(523,'',76,3),
 	(524,'',76,2),
-	(525,'',76,1);
+	(525,'',76,1),
+	(526,'345678765432123456789',77,18),
+	(527,'',77,17),
+	(528,'',77,16),
+	(529,'',77,14),
+	(530,'',77,13),
+	(531,'',77,7),
+	(532,'',77,4),
+	(533,'',77,3),
+	(534,'',77,1);
 
 /*!40000 ALTER TABLE `productos_tiendas` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1431,8 +1561,10 @@ LOCK TABLES `proveedor` WRITE;
 
 INSERT INTO `proveedor` (`id`, `nombre`, `email`, `password`, `id_marca`, `active`)
 VALUES
-	(1,NULL,'kissthbw@gmail.com','kissthbw',25,1),
-	(2,NULL,'kissthbw@hotmail.com','12345678',15,1);
+	(1,NULL,'kissthbw@gmail.com','kissthbw',7,1),
+	(2,NULL,'kissthbw@hotmail.com','12345678',15,1),
+	(3,NULL,'lab92mx@gmail.com','123456789',14,1),
+	(4,NULL,'8ures92@gmail.com','12345678',36,1);
 
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1457,7 +1589,9 @@ LOCK TABLES `proveedor_authority` WRITE;
 
 INSERT INTO `proveedor_authority` (`authority_id`, `proveedor_id`)
 VALUES
-	(2,1),
+	(1,3),
+	(1,4),
+	(1,1),
 	(1,2);
 
 /*!40000 ALTER TABLE `proveedor_authority` ENABLE KEYS */;
@@ -1502,7 +1636,10 @@ VALUES
 	(17,NULL,NULL),
 	(18,NULL,NULL),
 	(19,NULL,NULL),
-	(20,NULL,NULL);
+	(20,NULL,NULL),
+	(21,NULL,NULL),
+	(22,'hola !',42),
+	(23,'Electrónicos ',117);
 
 /*!40000 ALTER TABLE `sugerencia_producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1543,7 +1680,40 @@ VALUES
 	(49,'Oxxo','Plaza Jardin','2020-01-20','13:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#003TR#08107','20/01/20','11:10'),
 	(50,'Oxxo','Plaza Jardin','2019-12-20','13:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#003TR#08007','19/12/20','11:10'),
 	(51,'Grupo Walmart','Plaza Jardin','2019-05-21','22:37:07',91.56,17.44,109,NULL,NULL,NULL,NULL,NULL),
-	(52,'WALMART','','2020-03-11',NULL,2,0,2,'WALMART',NULL,'TDA#2229OP#00000027TE#002TR#07528','','');
+	(52,'WALMART','','2020-03-11',NULL,2,0,2,'WALMART',NULL,'TDA#2229OP#00000027TE#002TR#07528','',''),
+	(53,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00001','28/04/20','15:34'),
+	(54,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00002','28/04/20','15:34'),
+	(55,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00003','28/04/20','15:34'),
+	(56,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00004','28/04/20','15:34'),
+	(57,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00005','28/04/20','15:34'),
+	(58,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00006','28/04/20','15:34'),
+	(59,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#0000','28/04/20','15:34'),
+	(60,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00007','28/04/20','15:34'),
+	(61,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00008','28/04/20','15:34'),
+	(62,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00009','28/04/20','15:34'),
+	(63,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00010','28/04/20','15:34'),
+	(64,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00011','28/04/20','15:34'),
+	(65,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00012','28/04/20','15:34'),
+	(66,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00013','28/04/20','15:34'),
+	(67,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00014','28/04/20','15:34'),
+	(68,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00015','28/04/20','15:34'),
+	(69,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00016','28/04/20','15:34'),
+	(70,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00017','28/04/20','15:34'),
+	(71,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00018','28/04/20','15:49'),
+	(72,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00019','28/04/20','15:49'),
+	(73,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00020','28/04/20','15:49'),
+	(74,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00021','28/04/20','15:49'),
+	(75,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00022','28/04/20','15:49'),
+	(76,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00023','28/04/20','15:49'),
+	(77,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00024','28/04/20','15:49'),
+	(78,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00025','28/04/20','15:49'),
+	(79,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00026','28/04/20','15:49'),
+	(80,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00027','28/04/20','15:49'),
+	(81,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00028','28/04/20','15:54'),
+	(82,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00029','28/04/20','15:54'),
+	(83,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00030','28/04/20','15:54'),
+	(84,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00031','28/04/20','15:54'),
+	(85,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00032','28/04/20','15:54');
 
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1575,7 +1745,6 @@ VALUES
 	(2,59),
 	(1,59),
 	(2,73),
-	(2,78),
 	(2,83),
 	(2,84),
 	(2,86),
@@ -1589,7 +1758,8 @@ VALUES
 	(2,109),
 	(2,110),
 	(2,111),
-	(2,112);
+	(2,112),
+	(2,117);
 
 /*!40000 ALTER TABLE `user_authority` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1645,23 +1815,21 @@ LOCK TABLES `usuario` WRITE;
 
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `ap_paterno`, `ap_materno`, `fecha_nac`, `foto_usuario`, `tel_movil`, `correo_electronico`, `usuario`, `contrasenia`, `calle`, `num_ext`, `num_int`, `colonia`, `codigo_postal`, `del_mun`, `estado`, `estatus_activacion`, `codigo_verificacion`, `id_catalogo_sexo`, `id_catalogo_red_social`, `estatus`, `img_url`, `hash`, `password_restore_link`, `time_restore_link`, `activation_link`, `fecha_registro`, `device_token`)
 VALUES
-	(2,'Juan Oso',NULL,NULL,'1983-09-11',NULL,'+5215534714616','kissthbw@gmail.com','kissthbw@gmail.com','kiss2101',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'6941',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586641767/shingshing/usuarios/2.jpg','0cec40c1ba68e43ddc243e6a1f53418580c3fb1edf637e4111c9acc17d0886de','db189554bd17028c3d4e33167ed0df3641471880d541f8f8203c1d784c1bb8a1','2020-04-11 21:50:54',NULL,'2019-07-10 18:04:50',NULL),
-	(42,'Erick Alvarezz',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586634980/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,'2020-04-15 03:27:37',NULL,'2020-01-10 19:04:50',NULL),
+	(2,'Juan Oso',NULL,NULL,'1983-09-11',NULL,'+5215534714616','kissthbw@gmail.com','kissthbw@gmail.com','kiss2101',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'6941',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1588269864/shingshing/usuarios/2.jpg','0cec40c1ba68e43ddc243e6a1f53418580c3fb1edf637e4111c9acc17d0886de','1afc9e2948e53965bd348f6988f4562606d1a2bc524a2a48312ef82ce024e30d','2020-05-01 22:32:38',NULL,'2019-07-10 18:04:50','dZP_oT_pRz0:APA91bFU4FP6Pk1RN8YDuoZMGcdnvJaeWgGp1FWnXL_e12odbALwQN_Rp6tW0Jo957GtAwjPkpnMCpYTUUiv8jhv5F-xeFWgMaYQZtUxFJkjana6xKt6Zclw1c_z7qPuvRZSHJ-fge3R'),
+	(42,'Erick Alvarezz',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1586634980/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f','8a91229834b31a6ce81cc45001528ced072ba327a1eff6951227e045a9a0c0e5','2020-05-01 17:32:19',NULL,'2020-01-10 19:04:50','eOH1GQT-Xz4:APA91bEDR7LMUaQp4bRTkxQYpkGm9fKf-H7vAGzlBWlOuyBn1b4eHm4UQY-ycXlcsB_tdmGSLXnDQkTqp--CRWdFdVoBa73tLQm64_0y59mNps9lA_Ou8Z0GUVRkmtWSFqE7NcOEwIwe'),
 	(59,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'+5215555555551','juan.osorio@gmail.com','juan.osorio@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'7650',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
 	(73,'Roberto',NULL,NULL,'1990-09-17',NULL,'+5215520777555','roberto.htamayo@gmail.com','roberto.htamayo@gmail.com','robe2019',NULL,NULL,NULL,NULL,'14030',NULL,NULL,1,'3958',1,NULL,1,NULL,'8308506504be11dd0dccc8e4c8ee0c14ecc73c67ea2df1b4cf9fc71144686265','1e086d4e01679504d27cda152dc9cf213a0287674fcb9afcb0f3a8ea0567dd4d','2020-03-24 02:51:11',NULL,'2020-01-10 19:04:50',NULL),
-	(78,'Paola Patricia',NULL,NULL,'1982-10-10',NULL,'+5215548998388','beyota_paola@hotmail.com','beyota_paola@hotmail.com','10PAOLA10',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'4714',2,NULL,1,NULL,'c293f727c75868bc0dd3fc067b4f1d384710b6dc0cc18315c5c3a8162a2f9ccd',NULL,NULL,'133effcb4bfe768975657285171833f9b714c2359779dd7881d10f0f7e9956d2','2020-01-10 19:04:50',NULL),
 	(81,'Juan Osorio Alvarez',NULL,NULL,'1970-01-01',NULL,'+5215555555555','kissthbw@hotmail.com','kissthbw@hotmail.com','kissthbw@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
 	(82,'Adrian','Osorio','Alvarez','1984-10-02','','+5215540150544','masterboy@gmail.com','masterboy84','qwerty12387','Pataguas','115','','La Perla','57820','Nezahualcoyotl','Estado de México',0,'',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'2020-01-15 19:18:00',NULL),
 	(83,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'*5215534714616','juan.osorio.alvarez2@gmail.com','juan.osorio.alvarez2@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'8549',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,'9cf39fd9dc66a0a5416f2e323e1ad2a2a1dbdf689089c8c919aaae1f0d8a2bc7','2020-03-05 16:35:41',NULL),
 	(84,'jeovanny ',NULL,NULL,'1989-10-06',NULL,'+5215543197733','jeovanny156@gmail.com','jeovanny156@gmail.com','laplace1527',NULL,NULL,NULL,NULL,'06450',NULL,NULL,0,'6588',1,NULL,1,NULL,'3aea8623b78388086490d17483dfb4be0c25930a0c466bb9102e93c61c5c83b0','d93acf0e908eab19c72815a63e9b2eba0e99f1ccde85ab2d038f0b700388efad','2020-04-02 18:59:36','33822a00be34a988d706d0b4c1b34060ea62e2d3e4e25215155f900b5f7e8b38','2020-03-05 16:35:41',NULL),
 	(86,'***Laboratorio',NULL,NULL,'1992-03-04',NULL,'***15531813109','***hello@lab92.mx','***hello@lab92.mx','***12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'6605',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-03-05 17:31:57',NULL),
 	(87,'Valeria ',NULL,NULL,'1992-03-05',NULL,'+5215526772646','lau.81002@gmail.com','lau.81002@gmail.com','vanesita',NULL,NULL,NULL,NULL,'80100',NULL,NULL,1,'9278',1,NULL,1,NULL,'cc7668ae305ef83b4654363c147e4c0a677361e69893e9cbca44b1c6346c3588',NULL,NULL,NULL,'2020-03-05 17:34:10',NULL),
-	(88,'Roberto ',NULL,NULL,'1981-01-25',NULL,'+5215521891769','roberto.guadarrama@tradenial.com','roberto.guadarrama@tradenial.com','prueba123',NULL,NULL,NULL,NULL,'10640',NULL,NULL,1,'6236',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1587578173/shingshing/usuarios/88.jpg','ff960cb55673958c594d0daaab1e368651c75c02f9687192a1811e7b180336a7',NULL,'2020-04-22 17:52:12',NULL,'2020-03-05 20:48:39',NULL),
+	(88,'Roberto ',NULL,NULL,'1981-01-25',NULL,'+5215521891769','roberto.guadarrama@tradenial.com','roberto.guadarrama@tradenial.com','prueba123',NULL,NULL,NULL,NULL,'10640',NULL,NULL,1,'6236',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1587578173/shingshing/usuarios/88.jpg','ff960cb55673958c594d0daaab1e368651c75c02f9687192a1811e7b180336a7',NULL,'2020-04-22 17:52:12',NULL,'2020-03-05 20:48:39','dX7yvdhX7dQ:APA91bGay13p97LDHEvbx872FOpImyR7QTNZwZlC3oTatfbO6bm-R4-XwirYGRQToWIreSkJhmeK1_oWcz4qKvtoMIV5SXKsB4FSNmW7nZ3SRP81khYfygCEergoSfIJ95xSASw6l_Ct'),
 	(89,'Joshua ',NULL,NULL,'2002-02-01',NULL,'+5215563753841','joshuagraff02@gmail.com','joshuagraff02@gmail.com','vidarendida',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'3759',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1584139495/shingshing/usuarios/89.jpg','dee2f76503aa5aa28cb8b59b066caf44f1981c74068844a5834cbdf763d7e61f',NULL,NULL,NULL,'2020-03-13 22:40:28',NULL),
 	(90,'Bures Bures',NULL,NULL,'1970-01-01',NULL,NULL,'buures@hotmail.com','buures@hotmail.com','buures@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-03-22 03:59:23',NULL),
 	(91,'Erick Alvarez',NULL,NULL,'1970-01-01',NULL,NULL,'herickov@gmail.com','herickov@gmail.com','herickov@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,'88b085083654edc49d1f079482b29aa105e4278d669b1cd4b7494290491c3f4a','2020-04-01 03:06:00',NULL,'2020-03-22 04:00:14',NULL),
 	(92,'Laura Aguirre',NULL,NULL,'1970-01-01',NULL,NULL,'lauhrk81092@gmail.com','lauhrk81092@gmail.com','lauhrk81092@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,2,NULL,NULL,NULL,NULL,NULL,'2020-03-22 18:25:50',NULL),
-	(93,'Paola Patricia Sanchez Pardo',NULL,NULL,'1970-01-01',NULL,NULL,'beyotapao@gmail.com','beyotapao@gmail.com','beyotapao@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-03-25 02:18:57',NULL),
 	(94,'null null',NULL,NULL,'1970-01-01',NULL,NULL,'sistemas@zubalav.com.mx','sistemas@zubalav.com.mx','sistemas@zubalav.com.mx',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-04-08 18:04:41',NULL),
 	(95,'Lidia Hernández',NULL,NULL,'1970-01-01',NULL,NULL,'lidiaht60@gmail.com','lidiaht60@gmail.com','lidiaht60@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-04-08 18:19:33',NULL),
 	(96,'Jeovanny Nava',NULL,NULL,'1970-01-01',NULL,NULL,'jeovanny_hskqaek_nava@tfbnw.net','jeovanny_hskqaek_nava@tfbnw.net','jeovanny_hskqaek_nava@tfbnw.net',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-04-09 00:29:41',NULL),
@@ -1680,7 +1848,8 @@ VALUES
 	(109,'nonbre ',NULL,NULL,'2020-04-07',NULL,'+5215549463464','nonbr@gmail.com','nonbr@gmail.com','12345678',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0658',2,NULL,2,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 00:57:28',NULL),
 	(110,'Nombre',NULL,NULL,'2020-04-02',NULL,'+5215512345678','nombre@gmail.com','nombre@gmail.com','12345678',NULL,NULL,NULL,NULL,'01010',NULL,NULL,1,'3381',2,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 01:12:50',NULL),
 	(111,'Martin Nava',NULL,NULL,'1963-02-25',NULL,'+5215541759253','martinnava@gmail.com','martinnava@gmail.com','12345678',NULL,NULL,NULL,NULL,'06450',NULL,NULL,1,'1256',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-18 01:23:34',NULL),
-	(112,'erick',NULL,NULL,'1992-02-15',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'08100',NULL,NULL,1,'5161',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-21 04:56:24',NULL);
+	(112,'erick',NULL,NULL,'1992-02-15',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'08100',NULL,NULL,1,'5161',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-21 04:56:24',NULL),
+	(117,'Paola Patricia ',NULL,NULL,'1982-10-10',NULL,'+5215548998389','beyota_paola@hotmail.com','beyota_paola@hotmail.com','10PAOLA10',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'8667',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1588361864/shingshing/usuarios/117.jpg','c293f727c75868bc0dd3fc067b4f1d384710b6dc0cc18315c5c3a8162a2f9ccd','1c427835ca0f71fe90ebcc77eb0be4a2b32af44e49d5dd18ab646091de715b05','2020-05-01 22:43:13',NULL,'2020-05-01 15:51:10','clzM1LpHYvo:APA91bHxen4gnREUj4yG2Ckj9hBnJS_7izNI631fU-hDaR3GT_80fHHxStpu8LXl6gTto_In-kNvrvBGSnoXgk5FY3ZOM5-f75ApQL4kR2CSCxngGy5C3qehJYX-F3RPPW53SoT4RHA4');
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;

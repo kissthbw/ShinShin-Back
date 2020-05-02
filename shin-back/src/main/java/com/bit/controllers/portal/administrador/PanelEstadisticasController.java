@@ -83,7 +83,7 @@ public class PanelEstadisticasController {
 		PrintWriter pWriter = response.getWriter();
 		
 		// TODO Llamar al servicio.
-		reportService.getEstadisticasGeneralCSV(pWriter);
+		reportService.makeEstadisticasGeneralCSVReport(pWriter);
 		
 	    log.info("Saliendo a generar CSV de las estadisticas");
 	}

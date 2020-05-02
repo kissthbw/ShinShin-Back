@@ -5,278 +5,226 @@
 <head>
 
 <meta charset="utf-8" />
-<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+<link rel="shortcut icon"
+	th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>Shing Shing - Catalogos</title>
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+	name='viewport' />
 <!--     Fonts and icons     -->
 
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> 
-<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> 
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet" />
 <!-- CSS Files -->
 
-<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
+<link th:href="@{/resources/assets/css/style-panel.css}"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
+	rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap"
+	rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
- <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-howDo.css}"
+	rel="stylesheet" />
 </head>
 
 <body class="">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="white" data-active-color="danger">
-			<div class="logo">
-        		<a href="" class="simple-text logo-mini">
-          			<div class="logo-image-small">
-          
-            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
-          			</div>
-        		</a>
-        		<a href="" class="simple-text logo-no rmal">
-          			<div class="logo-image-big">
-            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
-          			</div>
-        		</a>
-      		</div>
+
 			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
 			<div class="sidebar-wrapper">
+				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
 					<div class="photo">
-					<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
+						<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-            			<a data-toggle="collapse" href="#collapseExample" class="collapsed">
-              			<span  th:text="${user.nombre}">
-                		<!-- User -->
-                		<b class="caret"></b>
-              			</span>
-            			</a>
-            			<div class="clearfix"></div>
-          		</div>
+						<a data-toggle="collapse" href="#collapseExample"
+							class="collapsed"> <span th:text="${user.nombre}"> <!-- User -->
+								<b class="caret"></b>
+						</span>
+						</a>
+						<div class="clearfix"></div>
+					</div>
 				</div>
 
 				<!-- MENU -->
 				<ul class="nav">
-					<li class="active">
-						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
-							<i class="nc-icon nc-ruler-pencil"></i>
-							<p>Catalogos<b class="caret"></b></p>
-						</a>
+					<li class="active"><a data-toggle="collapse" href="#catalogos"
+						aria-expanded="true"> <i class="nc-icon nc-ruler-pencil"></i>
+							<p>
+								Catalogos<b class="caret"></b>
+							</p>
+					</a>
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
-								<li class="active">
-									<a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Departamentos </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/marca/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Marcas </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Tiendas </span>
-									</a>
-								</li>
-								
-								<li>
-									<a th:href="@{/portal-administrador/producto/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Productos </span>
-									</a>
-								</li>
+								<li class="active"><a
+									th:href="@{/portal-administrador/departamento/list}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Departamentos </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/marca/list}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Marcas </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Tiendas </span>
+								</a></li>
+
+								<li><a th:href="@{/portal-administrador/producto/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Productos </span>
+								</a></li>
 							</ul>
-						</div>
-					</li>
-										<li>
-						<a data-toggle="collapse" href="#bonificaciones">
-							<i class="nc-icon nc-money-coins"></i>
+						</div></li>
+					<li><a data-toggle="collapse" href="#bonificaciones"> <i
+							class="nc-icon nc-money-coins"></i>
 							<p>
 								Bonificaciones <b class="caret"></b>
 							</p>
-						</a>
+					</a>
 
 						<div class="collapse" id="bonificaciones">
 							<ul class="nav">
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
-										class="sidebar-mini-icon">·</span> <span
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-depositos}">
+										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Retiros</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
-										class="sidebar-mini-icon">·</span> <span
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-general}">
+										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
-										class="sidebar-mini-icon">·</span> <span
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-recargas}">
+										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Recargas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Medios bonificacion </span>
-									</a>
-								</li>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Medios bonificacion </span>
+								</a></li>
 							</ul>
-						</div>
-					</li>
+						</div></li>
 
-					<li>
-						<a data-toggle="collapse" href="#estadisticas">
-							<i class="nc-icon nc-chart-bar-32"></i>
+					<li><a data-toggle="collapse" href="#estadisticas"> <i
+							class="nc-icon nc-chart-bar-32"></i>
 							<p>
 								Estadisticas <b class="caret"></b>
 							</p>
-						</a>
+					</a>
 						<div class="collapse" id="estadisticas">
 							<ul class="nav">
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-general}">
-										<span
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-general}"> <span
 										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-tickets}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Tickets</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-marcas}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Marcas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Usarios</span>
-									</a>
-								</li>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Tickets</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Marcas</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Usarios</span>
+								</a></li>
 							</ul>
-						</div>
-					</li>
+						</div></li>
 				</ul>
 			</div>
 		</div>
-
 		<div class="main-panel">
-			<!-- Navbar -->
 			<nav
-				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-				<div class="container-fluid">
-					<div class="navbar-wrapper">
-						<div class="navbar-minimize">
-							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i
-									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i
-									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-							</button>
-						</div>
-						<div class="navbar-toggle">
-							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span> <span
-									class="navbar-toggler-bar bar2"></span> <span
-									class="navbar-toggler-bar bar3"></span>
-							</button>
-						</div>
-						<a class="navbar-brand" href="#pablo"><h4>Departamento</h4></a>
-					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span>
-					</button>
-					<div class="collapse navbar-collapse justify-content-end"
-						id="navigation">
-
-						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link btn-magnify"
-								th:href="@{/portal-administrador/admin_logout}"> <i
-									class="fa fa-sign-out"></i>
-									<p>
-										<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
-									</p>
-							</a></li>
-
-						</ul>
-					</div>
-				</div>
-			</nav>
-			<!-- End Navbar -->
-			<!-- <div class="panel-header panel-header-sm"></div> -->
-
+				th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Catalogos')"></nav>
+			<!-- <div class="panel-header"></div> -->
 			<div class="content">
 				<div class="row">
-
 					<div class="col-md-12">
-						<form id="TypeValidation" class="form-horizontal" th:object="${item}" enctype="multipart/form-data" method="post">
-							<div class="card ">
-								<div class="card-header">
-									<h4 class="card-title">Datos del Departamento</h4>
-								</div>
-								<div class="card-body ">
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Nombre</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{nombreTipoProducto}" name="required" required="true" />
-												<input type="hidden" th:field="*{idCatalogoTipoProducto}"/>
-												<input type="hidden" th:field="*{imgUrl}"/>
-											</div>
-										</div>
-										<label class="col-sm-3 label-on-right"> <code>Obligatorio</code>
-										</label>
+						<b><h4 class="title-cat">Departamento</h4></b>
+
+							<form id="TypeValidation" class="form-horizontal"
+								th:object="${item}" enctype="multipart/form-data" method="post">
+								<div class="card ">
+									<div class="card-header">
+										<h4 class="card-title">Datos del Departamento</h4>
 									</div>
-									
-									<div class="row">
+									<div class="card-body ">
+										<div class="row">
+											<label class="col-sm-2 col-form-label">Nombre</label>
+											<div class="col-sm-7">
+												<div class="form-group">
+													<input class="form-control" type="text"
+														th:field="*{nombreTipoProducto}" name="required"
+														required="true" /> <input type="hidden"
+														th:field="*{idCatalogoTipoProducto}" /> <input
+														type="hidden" th:field="*{imgUrl}" />
+												</div>
+											</div>
+											<label class="col-sm-3 label-on-right"> <code>Obligatorio</code>
+											</label>
+										</div>
+
+										<div class="row">
 											<label class="col-sm-2 col-form-label Label-on-left">Imagen</label>
 											<div class="col-md-4 col-sm-4">
-												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-	                      							<div class="fileinput-new thumbnail">
-	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
-	                      							</div>
-	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
-	                      							<div>
-	                        							<span class="btn btn-rose btn-round btn-file">
-	                          								<span class="fileinput-new">Select image</span>
-	                          								<span class="fileinput-exists">Change</span>
-	                          								<input type="file" name="file" />
-	                        							</span>
-	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-	                       									<i class="fa fa-times"></i>Remove</a>
-	                      							</div>
-	                    						</div>
+												<div class="fileinput fileinput-new text-center"
+													data-provides="fileinput">
+													<div class="fileinput-new thumbnail">
+														<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''"
+															alt="..."></img>
+													</div>
+													<div class="fileinput-preview fileinput-exists thumbnail"></div>
+													<div>
+														<span class="btn btn-rose btn-round btn-file"> <span
+															class="fileinput-new">Select image</span> <span
+															class="fileinput-exists">Change</span> <input type="file"
+															name="file" />
+														</span> <a href="#pablo"
+															class="btn btn-danger btn-round fileinput-exists"
+															data-dismiss="fileinput"> <i class="fa fa-times"></i>Remove
+														</a>
+													</div>
+												</div>
 											</div>
+										</div>
+
 									</div>
-									
+									<div class="card-footer text-center">
+										<button onclick="cancel()" class="btn btn-secundary"
+											role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
+										<button onclick="del()" class="btn btn-secundary"
+											role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
+										<button class="btn btn-primary" type="submit" id="Guardar"
+											onclick="confirm()">Guardar</button>
+
+									</div>
 								</div>
-								<div class="card-footer text-center">
-								<button onclick="cancel()"
-									class="btn btn-secundary" role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
-									<button onclick="del()"
-									class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
-									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
-									
-								</div>
-							</div>
-						</form>
+							</form>
 					</div>
 
 					<!-- 
@@ -353,67 +301,70 @@
 				</div>
 			</div>
 			<!-- Modal -->
-			<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document" >
-			    <div class="modal-content" style="border-radius:20px;">
-			      <div class="modal-body" style="text-align:center;">
-			        <h1>
-			         <i class="fa fa-bell-o" aria-hidden="true"></i>
-			        </h1>
-			        <h3>
-			          Eliminar departamento
-			        </h3>
-			        <p>
-			          ¿Seguro que quieres eliminar este departamento?
-			        </p>
-			      </div>
-			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
-			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
-			        <a class="btn btn-primary" th:href="@{'/portal-administrador/departamento/delete/' + ${item.idCatalogoTipoProducto}}">Si, Eliminar</a>
-			        <br></br>
-			      </div>
-			    </div>
-			  </div>
+			<div class="modal fade right" id="modalConfirm" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalPreviewLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content" style="border-radius: 20px;">
+						<div class="modal-body" style="text-align: center;">
+							<h1>
+								<i class="fa fa-bell-o" aria-hidden="true"></i>
+							</h1>
+							<h3>Eliminar departamento</h3>
+							<p>¿Seguro que quieres eliminar este departamento?</p>
+						</div>
+						<div class="modal-footer"
+							style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
+							<button type="button" class="btn btn-secundary"
+								data-dismiss="modal">No, Cancelar</button>
+							<a class="btn btn-primary"
+								th:href="@{'/portal-administrador/departamento/delete/' + ${item.idCatalogoTipoProducto}}">Si,
+								Eliminar</a> <br></br>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- Modal -->
 			<!-- Modal -->
-			<div class="modal fade right" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document" >
-			    <div class="modal-content" style="border-radius:20px;">
-			      <div class="modal-body" style="text-align:center;">
-			        <h1>
-			         <i class="fa fa-bell-o" aria-hidden="true"></i>
-			        </h1>
-			        <h3>
-			          Aun no agregas el departamento
-			        </h3>
-			        <p>
-			          ¿Seguro que quieres salir de aqui?
-			        </p>
-			      </div>
-			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
-			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
-			        <a class="btn btn-primary" th:href="@{/portal-administrador/departamento/list}">Si, Salir</a>
-			        <br></br>
-			      </div>
-			    </div>
-			  </div>
+			<div class="modal fade right" id="modalCancel" tabindex="-1"
+				role="dialog" aria-labelledby="exampleModalPreviewLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content" style="border-radius: 20px;">
+						<div class="modal-body" style="text-align: center;">
+							<h1>
+								<i class="fa fa-bell-o" aria-hidden="true"></i>
+							</h1>
+							<h3>Aun no agregas el departamento</h3>
+							<p>¿Seguro que quieres salir de aqui?</p>
+						</div>
+						<div class="modal-footer"
+							style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
+							<button type="button" class="btn btn-secundary"
+								data-dismiss="modal">No, Cancelar</button>
+							<a class="btn btn-primary"
+								th:href="@{/portal-administrador/departamento/list}">Si,
+								Salir</a> <br></br>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- Modal -->
-			
+
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
-						
 
-						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+
+						<div
+							th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
 
 
 
 
 							<ul>
-							<!-- 
+								<!-- 
 								<li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
 								<li><a href="http://blog.creative-tim.com/" target="_blank">Blog</a></li>
 								<li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
@@ -437,7 +388,8 @@
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
@@ -446,13 +398,17 @@
 	<!-- Forms Validations Plugin -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
 	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<script
+		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -470,65 +426,67 @@
 	<!--  Notifications Plugin    -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
+		type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	    
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 	<script>
-	document.getElementById("TypeValidation").addEventListener("submit", submit);
-	$(window).on("load",function(){
-		var URLactual = window.location;
-		//alert(URLactual);
-		if(String(URLactual).indexOf("save")==-1){
-			document.getElementById("Cancelar").style.display="none";
-		}else{
-			document.getElementById("Eliminar").style.display="none";
+		document.getElementById("TypeValidation").addEventListener("submit",
+				submit);
+		$(window).on("load", function() {
+			var URLactual = window.location;
+			//alert(URLactual);
+			if (String(URLactual).indexOf("save") == -1) {
+				document.getElementById("Cancelar").style.display = "none";
+			} else {
+				document.getElementById("Eliminar").style.display = "none";
+			}
+
+		});
+
+		function submit(e) {
+			// Cancelams el envio a la espera de que valide el formulario
+			e.preventDefault();
+			/*if (btn=="Guardar"){
+				 confirm();
+			}else{
+				del();
+			}
+			 */
+
 		}
-		
-	});
-	
-	function submit(e) {
-		// Cancelams el envio a la espera de que valide el formulario
-		e.preventDefault();
-		/*if (btn=="Guardar"){
-			 confirm();
-		}else{
-			del();
+
+		function confirm() {
+
+			/*swal({
+				  title: "¡Atencion!",
+				  text: "Confirme para guardar los cambios.",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  document.getElementById("TypeValidation").submit();
+				  } else {
+				    swal.close();
+				  }
+				});
+			 */
+			setFormValidation('#TypeValidation');
+			document.getElementById("TypeValidation").submit();
+
 		}
-	*/
-		
-	}
-	
-	function confirm(){
-		
-		/*swal({
-			  title: "¡Atencion!",
-			  text: "Confirme para guardar los cambios.",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-			  if (willDelete) {
-				  document.getElementById("TypeValidation").submit();
-			  } else {
-			    swal.close();
-			  }
-			});
-		*/
-		setFormValidation('#TypeValidation');
-		document.getElementById("TypeValidation").submit();
-		
-	}
-	
-	function del(){
-		$("#modalConfirm").modal();
-	}
-	function cancel(){
-		$("#modalCancel").modal();
-	}
-	
+
+		function del() {
+			$("#modalConfirm").modal();
+		}
+		function cancel() {
+			$("#modalCancel").modal();
+		}
+
 		function setFormValidation(id) {
 			$(id).validate(
 					{
@@ -550,24 +508,30 @@
 					});
 		}
 
-		$(document).ready(function() {
-			
-			setFormValidation('#RegisterValidation');
-			setFormValidation('#TypeValidation');
-			setFormValidation('#LoginValidation');
-			setFormValidation('#RangeValidation');
-			$(function() {
-				 $(document).on('click', 'input[type="button"]', function(event) {
-				    let id = this.id;
-					console.log("Se presionó el Boton con Id :"+ id)
-				  });
+		$(document).ready(
+				function() {
+
+					setFormValidation('#RegisterValidation');
+					setFormValidation('#TypeValidation');
+					setFormValidation('#LoginValidation');
+					setFormValidation('#RangeValidation');
+					$(function() {
+						$(document).on(
+								'click',
+								'input[type="button"]',
+								function(event) {
+									let id = this.id;
+									console.log("Se presionó el Boton con Id :"
+											+ id)
+								});
+					});
+
 				});
-			
-		});
 	</script>
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script
+	th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>
