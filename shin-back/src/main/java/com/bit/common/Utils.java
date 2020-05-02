@@ -15,6 +15,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.IsoFields;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -34,7 +35,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Utils {
 	
 	private static final String EMAIL_PATTERN = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-	private static final String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"}; 
+	private static final String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
+	private static final String[] meses_completo = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", 
+			"Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 	
 	private static final Map<String, String> DICCIONARIO;
 	private static InputStream credentialsStream = null;
@@ -240,6 +243,50 @@ public class Utils {
 			String range = Utils.getDateRangeFromWeek( item.getIndice() );
 			item.setTopico(range);
 		}
+	}
+	
+	/*
+	 * Para devolver dias, meses, anios
+	 */
+	public static List<Item> obtieneDias() {
+		List<Item> dias = new ArrayList<>();
+		
+		for( int i = 1; i <= 31; i++ ) {
+			Item j = new Item();
+			j.setIndice( i );
+			j.setTopico( String.valueOf( i ) );
+			dias.add( j );
+		}
+		
+		return dias;
+		
+	}
+	
+	public static List<Item> obtieneMeses() {
+		List<Item> meses = new ArrayList<>();
+		
+		for( int i = 0; i < meses_completo.length; i++ ) {
+			Item j = new Item();
+			j.setIndice( i );
+			j.setTopico( meses_completo[i] );
+			meses.add( j );
+		}
+		
+		return meses;
+		
+	}
+	
+	public static List<Item> obtieneAnios() {
+		List<Item> anios = new ArrayList<>();
+		
+		for( int i = 2001; i >= 1919; i-- ) {
+			Item j = new Item();
+			j.setIndice( i );
+			j.setTopico( String.valueOf( i ) );
+			anios.add( j );
+		}
+		
+		return anios;
 	}
 	
 	public static void main (String[] args) throws ParseException {
