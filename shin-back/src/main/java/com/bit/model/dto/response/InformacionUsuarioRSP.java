@@ -18,6 +18,9 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 	
 	private String nombreUsuario;
 	private double bonificacion;
+	private String bonificacionFormateada;
+	private String bonificacionEnteraPart;
+	private String bonificacionDecimalPart;
 	private Long tickets;
 	private Long retiros;
 	private Long medios;
@@ -45,6 +48,30 @@ public class InformacionUsuarioRSP extends SimpleResponse implements Serializabl
 
 	public void setBonificacion(double bonificacion) {
 		this.bonificacion = bonificacion;
+	}
+
+	public String getBonificacionFormateada() {
+		return bonificacionFormateada;
+	}
+
+	public void setBonificacionFormateada(String bonificacionFormateada) {
+		this.bonificacionFormateada = bonificacionFormateada;
+	}
+
+	public String getBonificacionEnteraPart() {
+		return bonificacionEnteraPart;
+	}
+
+	public void setBonificacionEnteraPart(String bonificacionEnteraPart) {
+		this.bonificacionEnteraPart = bonificacionEnteraPart;
+	}
+
+	public String getBonificacionDecimalPart() {
+		return bonificacionDecimalPart;
+	}
+
+	public void setBonificacionDecimalPart(String bonificacionDecimalPart) {
+		this.bonificacionDecimalPart = bonificacionDecimalPart;
 	}
 
 	public Long getTickets() {

@@ -43,27 +43,14 @@ public class UserDashboardController {
 	
 	@Autowired
 	private HistoricoMediosBonificacionService historicoMediosBonificacionService;
-	
-//	@GetMapping(value="/")
-//	public String home() {
-//		return "login";
-//	}
-	
-//	@GetMapping(value="/login")
-//	public String loginUser() {
-//		Usuario user = new Usuario();
-//		user.setIdUsuario(2L);
-//		
-//		return "dashboard";
-//	}
+
 	
 	@GetMapping(value="/dashboard")
 	public String dasdboard(Model model) {
 		//Se obtiene informacion del usuario logueado
 		//1. Saldo total
-		//2. Numero de tickets del mes
-		//3. Numero de bonificaciones solicitadas
-		//4. Cuentas registradas
+		//2. Historico de tickets
+		//3. Historico de movimientos
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
 		if ( null != current ) {
@@ -71,8 +58,12 @@ public class UserDashboardController {
 			item.setIdUsuario( current.getUsuario().getIdUsuario() );
 			
 			InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
+			ListItemsRSP historicoMovimientos = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
+			ListItemsRSP historicoTickets = usuarioService.obtieneTicketsPorUsuario(item);
 			
-			model.addAttribute("item", rsp);
+			model.addAttribute("info", rsp);
+			model.addAttribute("movimientos", historicoMovimientos.getHistoricoMediosBonificaciones());
+			model.addAttribute("tickets", historicoTickets.getTickets());
 		}
 		
 		
@@ -157,7 +148,7 @@ public class UserDashboardController {
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
 			ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
 			
-			model.addAttribute("item", info);
+			model.addAttribute("info", info);
 			model.addAttribute("items", rsp.getTickets());
 		}
 		
@@ -175,8 +166,22 @@ public class UserDashboardController {
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
 			ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
 			
-			model.addAttribute("item", info);
-			model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
+			InformacionUsuarioRSP infoWithMedios = usuarioService.obtenerMediosBonificacion(item);
+			
+			List<MediosBonificacion> tmp = new ArrayList<>();
+			tmp.addAll( infoWithMedios.getMediosBonificacion().get(0).getList() );
+			tmp.addAll( infoWithMedios.getMediosBonificacion().get(1).getList() );
+			tmp.addAll( infoWithMedios.getMediosBonificacion().get(2).getList() );
+			
+			infoWithMedios.getMediosBonificacion();
+			model.addAttribute("medios", infoWithMedios.getMediosBonificacion().get(0));
+			model.addAttribute("item", new HistoricoMediosBonificacion());
+			
+			model.addAttribute("info", info);
+			
+			//Obtiene lista de bonificaciones
+			//model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
+			model.addAttribute("items", tmp);
 		}
 		
 		return "usuario/retiros";
@@ -199,7 +204,7 @@ public class UserDashboardController {
 			tmp.addAll( rsp.getMediosBonificacion().get(1).getList() );
 			tmp.addAll( rsp.getMediosBonificacion().get(2).getList() );
 			
-			model.addAttribute("item", info);
+			model.addAttribute("info", info);
 			model.addAttribute("items", tmp);
 		}
 		

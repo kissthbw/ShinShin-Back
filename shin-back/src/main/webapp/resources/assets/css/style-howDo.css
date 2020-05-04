@@ -1,9 +1,11 @@
+body{
+	font-family: 'Nunito', sans-serif;
+}
 h1{
 	font-size: 48px;
 }
 h2{
 	font-size: 40px;
-	font-weight: 800;
 }
 h3{
 	font-size: 24px;
@@ -17,6 +19,42 @@ h5{
 	font-size: 16px;
 	font-weight: 600;
 }
+a:hover{
+	text-decoration: none !important;
+}
+.uppercase{
+	text-transform: uppercase;
+}
+/* Margenes */
+.mt-16{
+	margin-top: 16px;
+}
+
+.mt-24{
+	margin-top: 24px;
+}
+.mt-40{
+	margin-top: 40px;
+}
+.pb-24{
+	padding-bottom: 24px;
+}
+.pb-32{
+	padding-bottom: 32px;
+}
+/* //Margenes */
+
+/* Font */
+.w-800{
+	font-weight: 800;
+}
+.w-700{
+	font-weight: 700;
+}
+.w-600{
+	font-weight: 600;
+}
+/* //Font */
 .bold{
 	font-weight: 700;
 }
@@ -57,7 +95,181 @@ h5{
 .card-body img{
 	border-radius: 16px;
 }
-
 .img-HD{
 	width: 100%;
 }
+.user{
+	border-bottom: 0px !important;
+}
+.photo img{
+	background-color: #FF6600;
+}
+.navbar-transparent{
+	border-bottom: 1px solid #CCCCCC !important;
+}
+.amount{
+	border: 1px solid #666666;
+	padding: 4px 12px;
+	border-radius: 12px;
+}
+/* Button*/
+
+.btn{
+	font-size: 15px !important;
+}
+.btn-complex{
+	background-color: #F2F2F2;
+	height: 48px;
+	padding: 8px 12px;
+	border-radius: 10px;
+	margin: 0px 8px;
+}
+.btn-complex:hover{
+	background-color: #E9E9E9;
+	text-decoration: none;
+}
+.btn .btn-primary{
+	background-color: #FF8425 !important;
+}
+.btn-complex a{
+	color: #121212 !important;
+	text-decoration: none;
+}
+a .btn-secundary{
+	color: #FF6600 !important;
+}
+a .btn-secundary:focus{
+	background-color: #f9dfc9 !important;
+	color: #FF6600 !important;
+}
+.btn-complex img{
+	height: 32px;
+}
+.btn-complex-title{
+	margin: 4px 24px;
+	font-size: 15px;
+}
+.btn-complex .icon-simbolo-siguiente-bold{
+	margin-top: 4px;
+}
+/* //Button*/
+
+
+/* Link*/
+.link-center{
+	text-align: center;
+}
+.link-left{
+	text-align: left;
+}
+.dataTables_paginate a, table a{
+	color: #007bff !important;
+}
+/* //Link*/
+
+
+/* Perfil */
+.card-perfil{
+	margin-top: 80px;
+	padding-bottom: 40px;
+}
+.img-perfil{
+	height: 120px;
+	width: 120px;
+	background-color: #feead9;
+	border-radius: 999px;
+	margin-top: -60px;
+	margin-left: 40px;
+	padding-top: 8px;
+}
+.img-perfil-btn{
+	background-color: #FF6600;
+	height: 32px;
+	width: 32px;
+	padding: 2px;
+	border-radius: 999px;
+	font-size: 20px;
+	color: white;
+    margin-top: -32px;
+    margin-left: 128px;
+}
+.img-perfil .icon-simbolo-usuario{
+	font-size: 64px;
+	color: #FF6600;
+	margin-left: 16px;
+}
+/* //Perfil */
+
+/*Forms*/
+.label-default, .input-grey{
+	text-align: left !important;
+}
+.input-grey{
+	background-color: #F2F2F2;
+}
+.form-control{
+	height: 48px !important;
+	border-radius: 15px !important;
+}
+.label-default{
+	font-weight: 700 !important;
+	font-size: 13px !important;
+	color: #121212 !important;
+}
+.input-grey{
+	padding-left: 16px;
+}
+.input-grey:focus{
+    background-color: #e9e9e9;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+.message-form{
+	padding-left: 16px;
+    padding-top: 8px;
+    font-size: 14px;
+}
+/* //Forms*/
+
+/* Cards */
+.saldo-disponible-general{
+	border-radius: 16px;
+	padding-top: 24px;
+	height: 128px;
+	color: #FFFFFF;
+	text-align: center;
+	background: rgba(256,111,11,1);
+    background: -moz-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgba(255,202,166,1)), color-stop(51%, rgba(255,102,0,1)), color-stop(100%, rgba(255,102,0,1)));
+    background: -webkit-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: -o-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: -ms-linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(255,102,0,1) 51%, rgba(255,102,0,1) 100%);
+    background: linear-gradient(45deg, rgba(255,202,166,1) 0%, rgba(256,111,11,1) 51%, rgba(256,111,11,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffcaa6', endColorstr='#FE6F01', GradientType=1 );
+}
+.cifra-decimal{
+	font-size: 24px;
+}
+.cifra-enteros{
+	font-size: 40px;
+}
+/* //Cards */
+
+/*Nav Tab*/
+.nav-pills .nav-item .nav-link{
+	background-color: #F2F2F2;
+	color: #007bff !important;
+	border-style: none;
+	padding: 8px 16px;
+}
+.nav-pills .nav-item .nav-link.active{
+	background-color: #666666;
+	color: #FFFFFF !important;
+}
+.nav-pills .nav-item .nav-link:hover{
+	background-color: #E9E9E9;
+}
+.nav-pills .nav-item .nav-link.active:hover{
+	background-color: #666666 !important;
+}
+/*//Nav Tab*/
