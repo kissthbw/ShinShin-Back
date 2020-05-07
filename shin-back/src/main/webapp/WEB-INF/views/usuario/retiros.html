@@ -3,301 +3,399 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8" />
-	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing-Shing - Retiros</title>
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-	<!--     Fonts and icons     -->
-	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-	<!-- CSS Files -->
-	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
-	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
-	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
-	 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<meta charset="utf-8" />
+<link rel="shortcut icon"
+  th:href="@{/resources/home/img/brands/favicon.png}" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Shing-Shing - Retiros</title>
+<meta
+  content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+  name='viewport' />
+<!--     Fonts and icons     -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
+  rel="stylesheet" />
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+<!-- CSS Files -->
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+<link
+  href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<link th:href="@{/resources/home/css/login.css}" rel="stylesheet" />
+
 </head>
 
 <body class="">
-	<div class="wrapper ">
-		<div class="sidebar" data-color="white" data-active-color="danger">
-		
-		<div class="logo">
-        		<a href="" class="simple-text logo-mini">
-          			<div class="logo-image-small">
-          
-            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
-          			</div>
-        		</a>
-        		<a href="" class="simple-text logo-no rmal">
-          			<div class="logo-image-big">
-            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
-          			</div>
-        		</a>
-      		</div>
-		
+  <div class="wrapper ">
+    
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      
       <div class="sidebar-wrapper">
+          <div class="logo-hd">
+            <img th:src="@{/resources/home/img/brands/ss-complet.svg}" />
+          </div>
+        <div class="pleca"></div>
+
+            <!-- Menú -->
+
         <div class="user">
           <div class="photo">
-            <img th:src="${item.usuario.imgUrl} ? ${item.usuario.imgUrl} : ''" alt="..."></img>
+          <img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
           </div>
           <div class="info">
-            <a data-toggle="collapse" th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
-              <span  th:text="${item.usuario.nombre}">
-                <!-- User -->
-                <b class="caret"></b>
-              </span>
-            </a>
-            <div class="clearfix"></div>
+                  <a th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
+                    <span  th:text="${info.usuario.nombre}">Nombre del Usuario
+                    <!-- User -->
+                    </span>
+                  </a>
+                  <div class="clearfix"></div>
+                </div>
+        </div>
+
+            <ul class="nav" id="myScrollspy">
+              
+              <li >
+                <a th:href="@{/portal-usuario/dashboard}">
+                  <i class="nc-icon icon-simbolo-estadisticas"></i>
+                  <p>
+                    General
+                  </p>
+                </a>
+              </li>
+
+              <li class="active">
+                <a th:href="@{/portal-usuario/dashboard/retiros}">
+                  <i class="nc-icon icon-finanzas-dinero"></i>
+                  <p>
+                    Retiros
+                  </p>
+                </a>
+              
+              </li>
+
+              <li>
+                <a th:href="@{/portal-usuario/dashboard/tickets}">
+                  <i class="nc-icon icon-objeto-ticket-light"></i>
+                  <p>
+                    Tickets
+                  </p>
+                </a>
+              </li>
+
+              <li>
+                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                  <i class="nc-icon icon-objeto-reloj-light"></i>
+                  <p>
+                    Movimientos
+                  </p>
+                </a>
+              </li>
+            </ul>
+
+      </div>
+
+    </div>
+    
+    <!--  -->
+    <div class="main-panel">
+
+      <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+          <div class="container-fluid">
+            <div class="navbar-wrapper">
+              <div class="navbar-toggle">
+                <button type="button" class="navbar-toggler">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </button>
+              </div>
+              <font class="navbar-brand">Hola, Juan</font>
+            </div>
+
+            <!-- Saldo -->
+            <div class="amount">
+              <span th:text="${info.bonificacionFormateada}">$ 999,999.00</span>
+            </div>
+
+            <div>
+              <a th:href="@{/portal-usuario/user_logout}">Salir <span  class="icon-simbolo-salir"></span></a>
+              <ul class="navbar-nav">
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <!-- End Navbar -->
+
+      <div class="content">
+        <div class="row">
+          <div class="col-12">
+            
+            <!-- Encabezado -->
+            <div class="col-12">
+              <div class="row justify-content-between">
+                
+                <h2>Retiros</h2>
+
+              </div>
+            </div>
+            <!-- //Encabezado -->
+
+            <!-- SECCION DE RETIROS -->
+            <div class="card pb-24">
+            	<div class="col-12 mt-24">
+					<div class="card-body">
+
+						<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+							
+							<li id="dayDepositosBtn" class="nav-item">
+								<a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#bancario" role="tab" aria-controls="pills-home" aria-selected="false">
+									Bancario
+								</a>
+							</li>
+
+							<li id="weekDepositosBtn" class="nav-item">
+								<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#paypal" role="tab" aria-controls="pills-profile" aria-selected="false">
+									PayPal
+								</a>
+							</li>
+
+							<li id="monthDepositosBtn" class="nav-item">
+								<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#recarga" role="tab" aria-controls="pills-contact" aria-selected="false">
+									Recarga telefónica
+								</a>
+							</li>
+
+						</ul>
+
+						<div class="tab-content" id="pills-tabContent">
+
+							<!-- RETIRO BANCARIO -->
+							<div class="tab-pane show" id="bancario" role="tabpanel" aria-labelledby="pills-home-tab">
+								<form id="formRetiroBancario" class="form-horizontal" th:action="@{/portal-usuario/dashboard/retiro-bancario}" th:object="${item}" method="post">
+								<h3>Bancario</h3>
+
+									<div class="row">
+
+										<div class="col-5">
+											<label class="label-default col-12">Cantidad *</label>
+											<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+											aria-describedby="basic-addon1" th:field="*{cantidadBonificacion}" required="true" />
+									        <div class="message-form">Retira desde $100 hasta $500</div>
+                          					<div class="invalid-feedback">
+                          						Ingresa tu nombre.
+									        </div>
+										</div>
+
+										<div class="col-5">
+											<label class="label-default col-12">Cuenta destino *</label>
+                      						<select class="form-control input-grey col-12" required="true" 
+                      							id="mediosBonificacion.idMediosBonificacion" name="mediosBonificacion.idMediosBonificacion">
+                        						<option th:each="medio:${cuentasB.list}"
+														th:value="${medio.idMediosBonificacion}"
+														th:utext="${medio.aliasMedioBonificacion} + '-' + ${medio.cuentaMedioBonificacion}" 
+														th:selected="*{mediosBonificacion} != null ? *{mediosBonificacion.idMediosBonificacion} == ${medio.idMediosBonificacion} : ''"></option>
+                      						</select>
+                          					<div class="message-form"><a data-toggle="modal" href="#step1">Agregar Cuenta de retiro</a>
+                          					</div>
+									        <div class="invalid-feedback">
+									         	Ingresa tu nombre.
+									        </div>
+										</div>
+
+										<!-- Botón -->
+										<div class="col-12 mt-24">
+											<a class="btn btn-primary" id="submitBancario" role="button" aria-disabled="true" style="color: #FFFFFF !important;">
+												Retirar
+											</a>
+										</div>
+
+									</div>
+								</form>
+							</div>
+
+							<!-- RETIRO PAYPAL -->
+							<div class="tab-pane show" id="paypal" role="tabpanel" aria-labelledby="pills-profile-tab">
+								<form id="formRetiroPaypal" class="form-horizontal" th:action="@{/portal-usuario/dashboard/retiro-paypal}" th:object="${item}" method="post" enctype="multipart/form-data">
+								<h3>PayPal</h3>
+                  					<div class="row">
+
+                    					<div class="col-5">
+                      						<label class="label-default col-12">Cantidad *</label>
+                      						<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                      							aria-describedby="basic-addon1" th:field="*{cantidadBonificacion}" required="true" />
+                          					<div class="message-form">Retira desde $100 hasta $500</div>
+                          					<div class="invalid-feedback">
+                            					Ingresa tu nombre.
+                          					</div>
+                    					</div>
+
+					                    <div class="col-5">
+					                    	<label class="label-default col-12">Cuenta destino *</label>
+					                      	<select class="form-control  input-grey col-12"
+					                        	required="true" id="mediosBonificacion.idMediosBonificacion" name="mediosBonificacion.idMediosBonificacion">
+                        						<option th:each="medio:${cuentasP.list}"
+														th:value="${medio.idMediosBonificacion}"
+														th:utext="${medio.aliasMedioBonificacion} + '-' + ${medio.cuentaMedioBonificacion}" 
+														th:selected="*{mediosBonificacion} != null ? *{mediosBonificacion.idMediosBonificacion} == ${medio.idMediosBonificacion} : ''"></option>
+					                      	</select>
+					                      	<div class="message-form"><a href="#step1">Agregar Cuenta de retiro</a></div>
+					                      	<div class="invalid-feedback">
+					                      		Ingresa tu nombre.
+					                      	</div>
+					                    </div>
+
+					                    <!-- Botón -->
+					                    <div class="col-12 mt-24">
+					                      <a class="btn btn-primary" role="button" id="submitPaypal" aria-disabled="true" style="color: #FFFFFF !important;">
+					                        Retirar
+					                      </a>
+					                    </div>
+                					</div>
+                				</form>
+							</div>
+
+							<!-- RETIRO RECARGA TELEFONICA -->
+							<div class="tab-pane show" id="recarga" role="tabpanel" aria-labelledby="pills-contact-tab">
+								<form id="formRetiroRecarga" class="form-horizontal" th:action="@{/portal-usuario/dashboard/retiro-telefonico}" th:object="${item}" method="post" enctype="multipart/form-data">
+                				<h3>Recarga telefónica</h3>
+
+                  				<div class="row">
+
+	                    			<div class="col-5">
+	                      				<label class="label-default col-12">Cantidad *</label>
+	                      				<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+	                      					aria-describedby="basic-addon1" th:field="*{cantidadBonificacion}" required="true" />
+	                          			<div class="message-form">Retira desde $100 hasta $500</div>
+	                          			<div class="invalid-feedback">
+	                            			Ingresa tu nombre.
+	                          			</div>
+	                    			</div>
+	
+	                    			<!-- Teléfono -->
+	                    			<div class="col-5">
+	                      				<label class="label-default col-12">Teléfono *</label>
+	                      				<select class="form-control  input-grey col-12"
+	                        				required="true" id="mediosBonificacion.idMediosBonificacion" name="mediosBonificacion.idMediosBonificacion">
+                        						<option th:each="medio:${telefonos.list}"
+														th:value="${medio.idMediosBonificacion}"
+														th:utext="${medio.aliasMedioBonificacion} + '-' + ${medio.cuentaMedioBonificacion}" 
+														th:selected="*{mediosBonificacion} != null ? *{mediosBonificacion.idMediosBonificacion} == ${medio.idMediosBonificacion} : ''"></option>
+	                      				</select>
+	
+	                          			<div class="message-form"><a href="#step1">Agregar Teléfono</a></div>
+	                          			<div class="invalid-feedback">
+	                            			Ingresa tu nombre.
+	                          			</div>
+	                    			</div>
+	
+	                    			<!-- Botón -->
+	                    			<div class="col-12 mt-24">
+	                      				<a class="btn btn-primary" role="button" id="submitRecarga" aria-disabled="true" style="color: #FFFFFF !important;">
+	                        				Retirar
+	                      				</a>
+	                    			</div>
+
+                				</div>
+                				</form>
+							</div>
+
+						</div>
+					</div>
+              	</div>
+            </div>
+            <!-- FIN SECCION DE RETIROS -->
+
+            <!-- LISTA DE CUENTAS DE RETIRO -->
+            <div class="card mt-24 pb-24">
+
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-6 mt-24">
+                    <h3>Cuentas de retiro</h3>
+                  </div>
+                  <div class="col-6 mt-16">
+                      <a class="btn btn-secundary" role="button" aria-disabled="true" data-toggle="modal" href="#step1" style="float: right;">
+                        + Cuenta / Número
+                      </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Tipo</th>
+                      <th>Compañía</th>
+                      <th>Descripción</th>
+                      <th class="disabled-sorting text-right"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <th:block th:each="item : ${items}">
+                      <tr>
+                        <td th:text="${item.idMediosBonificacion}"></td>
+						<td th:text="${item.cuentaMedioBonificacion}"></td>
+						<td th:text="${item.catalogoMediosBonificacion.nombreMedioBonificacion}"></td>
+						<td th:text="${item.aliasMedioBonificacion}"></td>
+						<td class="text-right">
+                          <a th:href="@{'/portal-administrador/producto/edit/' + ${item.idMediosBonificacion}}">
+                            <font class="icon-accion-ver"></font>
+                          </a>
+                        </td>
+                        
+                        
+                      </tr>
+                    </th:block>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+			<!-- LISTA DE CUENTAS DE RETIRO -->
+
           </div>
         </div>
-		
-	<!-- MENU -->
-		<ul class="nav">
-			<li >
-				<a th:href="@{/portal-usuario/dashboard}">
-					<i class="nc-icon nc-bank"></i>
-					<p>Dashboard</p>
-				</a>
-			</li>
-			<!-- Las opciones del menu debe ir entre <li></li> -->
+      </div>
 
-			<!-- Perfil -->
-			<li>
-				<a data-toggle="collapse" href="#perfil"> <i
-					class="nc-icon nc-ruler-pencil"></i>
-					<p>
-						Perfil <b class="caret"></b>
-					</p>
-				</a>
-				<div class="collapse " id="perfil">
-					<ul class="nav">
-						<li> 
-							<a th:href="@{/portal-usuario/dashboard/perfil}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Editar perfil </span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</li>
-
-			<!-- Retiros -->
-			<li>
-				<a data-toggle="collapse" href="#retiros"> <i
-					class="nc-icon nc-ruler-pencil"></i>
-					<p>
-						Retiros <b class="caret"></b>
-					</p>
-				</a>
-				<div class="collapse" id="retiros">
-					<ul class="nav">
-						<li > 
-							<a th:href="@{/portal-usuario/dashboard/retiro-bancario}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Bancaria </span>
-							</a>
-						</li>
-					</ul>
-					
-					<ul class="nav">
-						<li > 
-							<a th:href="@{/portal-usuario/dashboard/retiro-paypal}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> PayPal </span>
-							</a>
-						</li>
-					</ul>
-					
-					<ul class="nav">
-						<li > 
-							<a th:href="@{/portal-usuario/dashboard/retiro-telefonico}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Recarga telef&oacute;nica </span>
-							</a>
-						</li>
-					</ul>
-					
-				</div>
-			</li>
-
-			<li class="active">
-				<a data-toggle="collapse" href="#historial"> <i
-					class="nc-icon nc-ruler-pencil"></i>
-					<p>
-						Historial <b class="caret"></b>
-					</p>
-				</a>
-				<div class="collapse show" id="historial">
-					<ul class="nav">
-						<li>
-							<a th:href="@{/portal-usuario/dashboard/tickets}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Tickets </span>
-							</a>
-						</li>
-						<li class="active">
-							<a th:href="@{/portal-usuario/dashboard/retiros}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Retiros </span>
-							</a>
-						</li>
-						<li>
-							<a th:href="@{/portal-usuario/dashboard/cuentas}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Cuentas </span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-
-		<!-- TERMINA MENU -->	
-		
-		</div>
-		</div>
-			
-			
-		<div class="main-panel">
-			<!-- Navbar -->
-			<nav
-		class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-		<div class="container-fluid">
-			<div class="navbar-wrapper">
-				<div class="navbar-minimize">
-					<button id="minimizeSidebar" class="btn btn-icon btn-round">
-						<i
-							class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-						<i
-							class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-					</button>
-				</div>
-				<div class="navbar-toggle">
-					<button type="button" class="navbar-toggler">
-						<span class="navbar-toggler-bar bar1"></span> <span
-							class="navbar-toggler-bar bar2"></span> <span
-							class="navbar-toggler-bar bar3"></span>
-					</button>
-				</div>
-				<a class="navbar-brand" href="#pablo"><b><h4
-							class="title-cat">Dashboard</h4></b></a>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navigation" aria-controls="navigation-index"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-bar navbar-kebab"></span> <span
-					class="navbar-toggler-bar navbar-kebab"></span> <span
-					class="navbar-toggler-bar navbar-kebab"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end"
-				id="navigation">
-
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link btn-magnify"
-						th:href="@{/portal-usuario/user_logout}"> <i
-							class="fa fa-sign-out"></i>
-							<p>
-								<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
-							</p>
-					</a></li>
-
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-			<!-- End Navbar -->
-			<!-- <div class="panel-header"></div> -->
-			<div class="content">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Historial de retiros</h4>
-							</div>
-							<div class="card-body">
-								<div class="toolbar">
-									<!--        Here you can write extra buttons/actions for the toolbar              -->
-								</div>
-								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Fecha</th>
-											<th>Cantidad</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Fecha</th>
-											<th>Cantidad</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</tfoot>
-									<tbody>
-										<th:block th:each="item : ${items}">
-											<tr>
-												<td th:text="${item.idHistoricoMediosBonificacion}"></td>
-												<td th:text="${item.fechaBonificacion}"></td>
-												<td th:text="${item.cantidadBonificacion}"></td>
-												<td class="text-center">
-													<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
-														<i class="fa fa-edit"></i>
-													</a>
-												</td>
-											</tr>
-										</th:block>
-									</tbody>
-								</table>
-							</div>
-							<!-- end content-->
-						</div>
-						<!--  end card  -->
-					</div>
-					<!-- end col-md-12 -->
-				</div>
-				<!-- end row -->
-			</div>
-			<footer class="footer footer-black  footer-white ">
-				<div class="container-fluid">
-					<div class="row">
-						
-
-						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
-						<nav class="footer-nav">
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
 
 
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
+            <input type="text" style="display:none;" id="url" value="/portal-administrador/envia-problema" />
+            <!-- Modal -->
 
+            <div class="col-md-6 text-left">
+            <a data-toggle="modal" data-target="#problem" href="">Reportar Problema</a>
+            </div>
+            <div class="col-md-6 text-right">
+            ©2020 Shing-Shing
+            </div>
+            </div>
+            <nav class="footer-nav"></nav>
 
-							<ul>
-								<!-- <li>
-									<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
-								</li>
-								<li>
-									<a href="http://blog.creative-tim.com/" target="_blank">Blog</a>
-								</li>
-								<li>
-									<a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>
-								</li> -->
-							</ul>
-						</nav>
-						<div class="credits ml-auto">
-							<!-- <span class="copyright"> ©
-								<script> document.write(new Date().getFullYear()) </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-							</span> -->
-						</div>
-					</div>
-				</div>
-			</footer>
-		</div>
-	</div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+  </div>
+
 	<!--   Core JS Files   -->
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
@@ -315,7 +413,7 @@
 	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<script trc="@..resources/assets/js/plugins/bootstrap-datetimepicker.js"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
@@ -328,21 +426,15 @@
 	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
 	<!--  Plugin for the Bootstrap Table -->
 	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
-	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Chart JS -->
 	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
 	<!--  Notifications Plugin    -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
-	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
-  <script th:src="@{/assets/demo/demo.js}"></script>
-  -->
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
+	  type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 	<script>
-	<!--/catalogoTiendas/list -->
 		$(document).ready(
 				function() {
 					$('#datatable').DataTable(
@@ -382,9 +474,618 @@
 					});
 				});
 	</script>
+
+      
+    <!-- Modal de Selecciona tipo de cuenta -->
+      <div class="modal right show" id="step1" tabindex="-1" role="dialog" aria-labelledby="step1Label">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:20px;">
+          	<!-- 
+          	<div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+      		</div>
+      		 -->
+            <div class="modal-body" style="text-align:center;">
+              <h3  class="mt-16">
+                ¿Qué tipo de cuenta quieres agregar?
+              </h3>
+              <!-- Cantidad -->
+              <div class="col-12">
+                <label class="label-default col-12">Tipo *</label>
+                    <select class="form-control  input-grey col-12"
+                      required="true" id="tipo-cuenta" name="dia">
+                      <option value="0"></option>
+                      <option value="1">Cuenta bancaria</option>
+                      <option value="2">Tarjeta bancaria</option>
+                      <option value="3">Cuenta CLABE</option>
+                      <option value="4">Cuenta PayPal</option>
+                      <option value="5">Número telefónico</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Selecciona un tipo de cuenta
+                    </div>
+              </div>
+
+            </div>
+            <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+              <a class="btn btn-primary" id="toStep2">
+                Continuar
+                </a>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Modal de Cuenta bancaria -->
+      <div class="modal right show" id="step2-bancaria" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:20px;">
+            <div class="modal-body" style="text-align:center;">
+              	<h3  class="mt-16">
+                	Cuenta bancaria
+              	</h3>
+				<form id="formCuentaBancaria" class="form-horizontal" th:action="@{/portal-usuario/dashboard/agregar-medioBonificacion}" th:object="${cuenta}" method="post">
+              <!-- Número de cuenta -->
+              <div class="col-12">
+              	
+                <label class="label-default col-12">Número de cuenta *</label>
+                
+                <!-- **Sólo acepta números -->
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                    <div class="invalid-feedback">
+                      Ingresa tu número de cuenta
+                    </div>
+                <input type="hidden" name="catalogoMediosBonificacion.idCatalogoMedioBonificacion" id="catalogoMediosBonificacion.idCatalogoMedioBonificacion" value="1" />
+                <input type="hidden" name="idTipo" id="idTipo" value="1" />
+              </div>
+
+
+              <!-- Banco -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Banco *</label>
+                  <select class="form-control  input-grey col-12" id="banco" name="banco"
+                    required="true" >
+                    <option th:each="banco:${bancos}"
+							th:value="${banco}"
+							th:utext="${banco}" >
+					</option>
+                  </select>
+                    <div class="invalid-feedback">
+                      Selecciona un banco
+                    </div>
+              </div>
+
+              <!-- Nombre corto -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Nombre corto *</label>
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{aliasMedioBonificacion}"  required="true" />
+                    <div class="invalid-feedback">
+                      Escribe el nombre con el que identificarás la cuenta
+                    </div>
+              	</div>
+				</form>
+            </div>
+            <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+              <a class="btn btn-primary" id="submitCuentaBancaria" >
+                Agregar
+                </a>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Modal de Tarjeta bancaria -->
+      <div class="modal right show" id="step2-tarjeta" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:20px;">
+            <div class="modal-body" style="text-align:center;">
+              <h3  class="mt-16">
+                Tarjeta bancaria
+              </h3>
+				<form id="formCuentaTarjeta" class="form-horizontal" th:action="@{/portal-usuario/dashboard/agregar-medioBonificacion}" th:object="${cuenta}" method="post">
+              <!-- Número de tarjeta -->
+              <div class="col-12">
+                <label class="label-default col-12">Número de tarjeta *</label>
+                
+                <!-- **Sólo acepta 16 números -->
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                <input type="hidden" name="catalogoMediosBonificacion.idCatalogoMedioBonificacion" id="catalogoMediosBonificacion.idCatalogoMedioBonificacion" value="1" />
+                <input type="hidden" name="idTipo" id="idTipo" value="1" />
+                    <div class="invalid-feedback">
+                      Ingresa tu número de cuenta
+                    </div>
+              </div>
+
+              <!-- Banco -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Banco *</label>
+                  <select class="form-control  input-grey col-12" id="banco" name="banco"
+                    required="true" >
+                    <option th:each="banco:${bancos}"
+							th:value="${banco}"
+							th:utext="${banco}" >
+					</option>
+                  </select>
+                    <div class="invalid-feedback">
+                      Selecciona un banco
+                    </div>
+              </div>
+
+              <!-- Nombre corto -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Nombre corto *</label>
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{aliasMedioBonificacion}"  required="true" />
+                    <div class="invalid-feedback">
+                      Escribe el nombre con el que identificarás la cuenta
+                    </div>
+              </div>
+				</form>
+            </div>
+            <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+              <a class="btn btn-primary" id="submitTarjetaBancaria">
+                Agregar
+                </a>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal de Cuenta CLABE -->
+      <div class="modal right show" id="step2-clabe" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:20px;">
+            <div class="modal-body" style="text-align:center;">
+              <h3  class="mt-16">
+                Cuenta CLABE
+              </h3>
+				<form id="formCuentaClabe" class="form-horizontal" th:action="@{/portal-usuario/dashboard/agregar-medioBonificacion}" th:object="${cuenta}" method="post">
+              <!-- Número de cuenta -->
+              <div class="col-12">
+                <label class="label-default col-12">Número de cuenta *</label>
+                
+                <!-- **Sólo acepta números -->
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}"  required="true" />
+                    <div class="invalid-feedback">
+                      Ingresa tu número de cuenta
+                    </div>
+                    <input type="hidden" name="catalogoMediosBonificacion.idCatalogoMedioBonificacion" id="catalogoMediosBonificacion.idCatalogoMedioBonificacion" value="1" />
+                <input type="hidden" name="idTipo" id="idTipo" value="1" />
+              </div>
+
+              <!-- Banco -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Banco *</label>
+                  <select class="form-control  input-grey col-12" id="banco" name="banco"
+                    required="true" >
+                    <option th:each="banco:${bancos}"
+							th:value="${banco}"
+							th:utext="${banco}" >
+					</option>
+                  </select>
+                    <div class="invalid-feedback">
+                      Selecciona un banco
+                    </div>
+              </div>
+
+              <!-- Nombre corto -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Nombre corto *</label>
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{aliasMedioBonificacion}" required="true" />
+                    <div class="invalid-feedback">
+                      Escribe el nombre con el que identificarás la cuenta
+                    </div>
+              </div>
+				</form>
+            </div>
+            <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+              <a class="btn btn-primary" id="submitCuentaClabe">
+                Agregar
+                </a>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal de Cuenta PayPal -->
+      <div class="modal right show" id="step2-paypal" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:20px;">
+            <div class="modal-body" style="text-align:center;">
+              <h3  class="mt-16">
+                Cuenta PayPal
+              </h3>
+				<form id="formCuentaPaypal" class="form-horizontal" th:action="@{/portal-usuario/dashboard/agregar-medioBonificacion}" th:object="${cuenta}" method="post">
+              <!-- ID -->
+              <div class="col-12">
+                <label class="label-default col-12">ID *</label>
+                
+                <!-- **Sólo acepta números -->
+                <input type="text" class="form-control input-grey col-12 uppercase" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{idCuentaMedioBonificacion}"  required="true" />
+                    <div class="invalid-feedback">
+                      Ingresa el ID de tu cuenta
+                    </div>
+                    <input type="hidden" name="catalogoMediosBonificacion.idCatalogoMedioBonificacion" 
+                    id="catalogoMediosBonificacion.idCatalogoMedioBonificacion" value="2" />
+              </div>
+
+              <!-- Correo -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Correo *</label>
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                    <div class="invalid-feedback">
+                      Ingresa el correo de tu cuenta PayPal
+                    </div>
+              </div>
+
+              <!-- Nombre corto -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Nombre corto *</label>
+                <input type="text" class="control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{aliasMedioBonificacion}" required="true" />
+                    <div class="invalid-feedback">
+                      Escribe el nombre con el que identificarás la cuenta
+                    </div>
+              </div>
+				</form>
+            </div>
+            <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+              <a class="btn btn-primary" id="submitCuentaPayPal">
+                Agregar
+                </a>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Modal de Número telefónico -->
+      <div class="modal right show" id="step2-recarga" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content" style="border-radius:20px;">
+            <div class="modal-body" style="text-align:center;">
+              <h3  class="mt-16">
+                Número telefónico
+              </h3>
+				<form id="formCuentaTelefonica" class="form-horizontal" th:action="@{/portal-usuario/dashboard/agregar-medioBonificacion}" th:object="${cuenta}" method="post">
+              <!-- Compañía -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Compañía *</label>
+                <select class="form-control  input-grey col-12" id="companiaMedioBonificacion" name="companiaMedioBonificacion"
+                    required="true" >
+                    <option th:each="c:${com}"
+							th:value="${c}"
+							th:utext="${c}" >
+					</option>
+                  </select>
+                    <div class="invalid-feedback">
+                      Selecciona una compañía
+                    </div>
+              </div>
+
+              <!-- Número -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Número *</label>
+
+                <!-- **Sólo acepta números -->
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                    <div class="invalid-feedback">
+                      Escribe el número telefónico a 10 dígitos
+                    </div>
+                    <div class="invalid-feedback">
+                      Los números no coinciden
+                    </div>
+                    <input type="hidden" name="catalogoMediosBonificacion.idCatalogoMedioBonificacion" 
+                    	id="catalogoMediosBonificacion.idCatalogoMedioBonificacion" value="3" />
+              </div>
+
+              <!-- Confirma Número -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Confirma Número *</label>
+
+                <!-- **Sólo acepta números -->
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                    <div class="message-form" style="text-align: left;">Escribelo a 10 dígitos</div>
+                    <div class="invalid-feedback">
+                      Escribe el número telefónico a 10 dígitos
+                    </div>
+              </div>
+
+              <!-- Nombre corto -->
+              <div class="col-12 mt-24">
+                <label class="label-default col-12">Nombre corto *</label>
+                <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
+                aria-describedby="basic-addon1" th:field="*{aliasMedioBonificacion}"  required="true" />
+                    <div class="invalid-feedback">
+                      Escribe el nombre con el que identificarás la cuenta
+                    </div>
+              </div>
+				</form>
+            </div>
+            <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+              <a class="btn btn-primary" id="submitTelefono">
+                Agregar
+                </a>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script replace="administrador/fragments/toast::toast-config"></script>
+<script>
+$(document).ready(function() {
+	
+	
+	$("#toStep2").click(function(e){
+		
+		var id = $('#tipo-cuenta').val();
+		
+		if( id == '1' ){
+			$('#step1').modal('hide')
+			$('#step2-bancaria').modal('show')	
+		}
+		else if( id == '2' ){
+			$('#step1').modal('hide')
+			$('#step2-tarjeta').modal('show')	
+		}
+		else if( id == '3' ){
+			$('#step1').modal('hide')
+			$('#step2-clabe').modal('show')	
+		}
+		else if( id == '4' ){
+			$('#step1').modal('hide')
+			$('#step2-paypal').modal('show')	
+		}
+		else if( id == '5' ){
+			$('#step1').modal('hide')
+			$('#step2-recarga').modal('show')	
+		}
+		else{
+			
+		}		
+		
+	});
+	
+	$("#submitBancario").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formRetiroBancario");
+		
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( data.code );
+		});//Done		
+
+		
+	}); //Click
+	
+	$("#submitPaypal").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formRetiroPaypal");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( data.code );
+		});//Done
+		
+		
+	}); //Click
+	
+	$("#submitRecarga").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formRetiroRecarga");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( data.code );
+		});//Done
+		
+		
+	}); //Click
+	
+	
+	//Alta de cuentas
+	
+	$("#submitCuentaBancaria").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formCuentaBancaria");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( "Status" + data );
+		});//Done
+		
+		
+	}); //Click
+	
+		
+	$("#submitTarjetaBancaria").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formCuentaTarjeta");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( "Status" + data );
+		});//Done
+		
+		
+	}); //Click
+	
+	
+	$("#submitCuentaClabe").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formCuentaClabe");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( "Status" + data );
+		});//Done
+		
+		
+	}); //Click
+	
+	$("#submitCuentaPayPal").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formCuentaPaypal");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( "Status" + data );
+		});//Done
+		
+		
+	}); //Click
+	
+	$("#submitTelefono").click(function(e){
+	    
+		console.log( "Enviando" )
+
+		var form = $("#formCuentaTelefonica");
+		
+		
+		var post_url = form.attr("action"); //get form action url
+		var request_method = form.attr("method"); //get form GET/POST method
+		var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+		var data = form.serialize()
+		
+		$.ajax({
+			url : post_url,
+			type: request_method,
+			data : form_data
+		})//Ajax
+		.done(function( data ) {
+			console.log( "Status" + data );
+		});//Done
+		
+		
+	}); //Click
+		
+});//ready
+
+
+</script>
+
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
-<script th:replace="administrador/fragments/toast::toast-config"></script>

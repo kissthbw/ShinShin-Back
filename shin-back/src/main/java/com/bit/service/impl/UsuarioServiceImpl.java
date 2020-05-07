@@ -372,7 +372,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	@Transactional
 	public InformacionUsuarioRSP reenviarCodigoUsuario(Usuario item, Source source) {
-		log.info("Registrando valores para crar nuevo usuario");
+		log.info("Reenviando codigo para usuario: {}", item.getIdUsuario());
 
 		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 
@@ -408,7 +408,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 				item = usuarioDAO.update(temp);
 				
 				rsp.setId(temp.getIdUsuario());
-				rsp.setUsuario( item );
+//				rsp.setUsuario( item );
 			}
 			else {
 				rsp.setMessage("Usuario no localizado");
@@ -749,7 +749,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		else {
 			
 			//Actualizar el device token
-			user.setDeviceToken( item.getDeviceToken() );
+			if( null != item.getDeviceToken() ) {
+				user.setDeviceToken( item.getDeviceToken() );
+			}
 			
 			if ( !user.isEstatusActivacion() ){
 				infoRSP.setCode(500);
@@ -1026,6 +1028,16 @@ public class UsuarioServiceImpl implements UsuarioService{
 			rsp.setRetiros( usuarioDAO.calculaBanoficacionesTotales(item).longValue() );
 			rsp.setMedios( usuarioDAO.calculaMediosBonificacionTotales(item).longValue() );
 			rsp.setBonificacion( calculaCreditoTotal(item).doubleValue() );
+			
+			String bonificacion = Utils.formatNumeros(rsp.getBonificacion(), "$###,###,###.00");
+			rsp.setBonificacionFormateada(bonificacion);
+			
+			String entero = bonificacion.substring( 0, bonificacion.indexOf(".") + 1);
+			rsp.setBonificacionEnteraPart(entero);
+			
+			String decimal = bonificacion.substring( bonificacion.indexOf(".") + 1, bonificacion.length());
+			rsp.setBonificacionDecimalPart(decimal);
+			
 		}
 		catch(Exception e) {
 			log.error("Error en obtieneInformacionGeneralUsuario ", e);

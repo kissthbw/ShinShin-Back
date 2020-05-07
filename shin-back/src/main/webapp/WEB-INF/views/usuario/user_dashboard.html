@@ -3,224 +3,301 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8" />
-  <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
-  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Shing Shing
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
-	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-	<!-- CSS Files -->
-	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
-	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
-	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
-	 <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<meta charset="utf-8" />
+<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>Shing-Shing - General</title>
+<meta
+  content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+  name='viewport' />
+<!--     Fonts and icons     -->
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200}" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+<!-- CSS Files -->
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<link th:href="@{/resources/home/css/login.css}" rel="stylesheet" />
 </head>
 
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
       
-      <div class="logo">
-        		<a href="" class="simple-text logo-mini">
-          			<div class="logo-image-small">
-          
-            		<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
-          			</div>
-        		</a>
-        		<a href="" class="simple-text logo-no rmal">
-          			<div class="logo-image-big">
-            		<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
-          			</div>
-        		</a>
-      </div>
-      
       <div class="sidebar-wrapper">
+          <div class="logo-hd">
+            <img th:src="@{/resources/home/img/brands/ss-complet.svg}" />
+          </div>
+        <div class="pleca"></div>
+
+            <!-- Menú -->
+
         <div class="user">
           <div class="photo">
-            <img th:src="${item.usuario.imgUrl} ? ${item.usuario.imgUrl} : ''" alt="..."></img>
+          <img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
           </div>
-          <div class="info">
-            <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-              <span  th:text="${item.usuario.nombre}">
-                <!-- User -->
-                <b class="caret"></b>
-              </span>
-            </a>
-            <div class="clearfix"></div>
-            
-          </div>
+			<div class="info">
+                  <a th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
+                    <span  th:text="${info.usuario.nombre}">Nombre del Usuario
+                    <!-- User -->
+                    </span>
+                  </a>
+                  <div class="clearfix"></div>
+			</div>
         </div>
 
-		<!-- MENU -->
-		<ul class="nav">
-			<li class="active">
-				<a th:href="@{/portal-usuario/dashboard}">
-					<i class="nc-icon nc-bank"></i>
-					<p>Dashboard</p>
-				</a>
-			</li>
-			<!-- Las opciones del menu debe ir entre <li></li> -->
+            <ul class="nav" id="myScrollspy">
+              
+              <li class="active">
+                <a th:href="@{/portal-usuario/dashboard}">
+                  <i class="nc-icon icon-simbolo-estadisticas"></i>
+                  <p>
+                    General
+                  </p>
+                </a>
+              </li>
 
-			<!-- Perfil -->
-			<li>
-				<a data-toggle="collapse" href="#perfil"> <i
-					class="nc-icon nc-ruler-pencil"></i>
-					<p>
-						Perfil <b class="caret"></b>
-					</p>
-				</a>
-				<div class="collapse " id="perfil">
-					<ul class="nav">
-						<li> 
-							<a th:href="@{/portal-usuario/dashboard/perfil}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Editar perfil </span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</li>
+              <li>
+                <a th:href="@{/portal-usuario/dashboard/retiros}">
+                  <i class="nc-icon icon-finanzas-dinero"></i>
+                  <p>
+                    Retiros
+                  </p>
+                </a>
+              
+              </li>
 
-			<!-- Retiros -->
-			<li>
-				<a data-toggle="collapse" href="#retiros"> <i
-					class="nc-icon nc-ruler-pencil"></i>
-					<p>
-						Retiros <b class="caret"></b>
-					</p>
-				</a>
-				<div class="collapse" id="retiros">
-					<ul class="nav">
-						<li > 
-							<a th:href="@{/portal-usuario/dashboard/retiro-bancario}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Bancaria </span>
-							</a>
-						</li>
-					</ul>
-					
-					<ul class="nav">
-						<li > 
-							<a th:href="@{/portal-usuario/dashboard/retiro-paypal}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> PayPal </span>
-							</a>
-						</li>
-					</ul>
-					
-					<ul class="nav">
-						<li > 
-							<a th:href="@{/portal-usuario/dashboard/retiro-telefonico}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Recarga telef&oacute;nica </span>
-							</a>
-						</li>
-					</ul>
-					
-				</div>
-			</li>
+              <li>
+                <a th:href="@{/portal-usuario/dashboard/tickets}">
+                  <i class="nc-icon icon-objeto-ticket-light"></i>
+                  <p>
+                    Tickets
+                  </p>
+                </a>
+              </li>
 
-			<li>
-				<a data-toggle="collapse" href="#historial"> <i
-					class="nc-icon nc-ruler-pencil"></i>
-					<p>
-						Historial <b class="caret"></b>
-					</p>
-				</a>
-				<div class="collapse " id="historial">
-					<ul class="nav">
-						<li>
-							<a th:href="@{/portal-usuario/dashboard/tickets}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Tickets </span>
-							</a>
-						</li>
-						<li>
-							<a th:href="@{/portal-usuario/dashboard/retiros}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Retiros </span>
-							</a>
-						</li>
-						<li>
-							<a th:href="@{/portal-usuario/dashboard/cuentas}">
-								<span class="sidebar-mini-icon">·</span> <span
-								class="sidebar-normal"> Cuentas </span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
+              <li>
+                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                  <i class="nc-icon icon-objeto-reloj-light"></i>
+                  <p>
+                    Movimientos
+                  </p>
+                </a>
+              </li>
+            </ul>
 
-		<!-- TERMINA MENU -->
       </div>
+
     </div>
     
     <!--  -->
     <div class="main-panel">
-    <!-- Navbar -->
-	<nav
-		class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-		<div class="container-fluid">
-			<div class="navbar-wrapper">
-				<div class="navbar-minimize">
-					<button id="minimizeSidebar" class="btn btn-icon btn-round">
-						<i
-							class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-						<i
-							class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-					</button>
-				</div>
-				<div class="navbar-toggle">
-					<button type="button" class="navbar-toggler">
-						<span class="navbar-toggler-bar bar1"></span> <span
-							class="navbar-toggler-bar bar2"></span> <span
-							class="navbar-toggler-bar bar3"></span>
-					</button>
-				</div>
-				<a class="navbar-brand" href="#pablo"><b><h4
-							class="title-cat">Dashboard</h4></b></a>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navigation" aria-controls="navigation-index"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-bar navbar-kebab"></span> <span
-					class="navbar-toggler-bar navbar-kebab"></span> <span
-					class="navbar-toggler-bar navbar-kebab"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end"
-				id="navigation">
 
-				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link btn-magnify"
-						th:href="@{/portal-usuario/user_logout}"> <i
-							class="fa fa-sign-out"></i>
-							<p>
-								<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
-							</p>
-					</a></li>
+      <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+          <div class="container-fluid">
+            <div class="navbar-wrapper">
+              <div class="navbar-toggle">
+                <button type="button" class="navbar-toggler">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </button>
+              </div>
+              <font class="navbar-brand">General</font>
+            </div>
 
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- End Navbar -->
-      <!-- <div class="panel-header">
-  
-  <canvas id="bigDashboardChart"></canvas>
-  
-  
-</div> -->
+            <!-- Saldo -->
+            <div class="amount">
+            	<span th:text="${info.bonificacionFormateada}">$ 999,999.00</span>
+            </div>
+
+            <div>
+              <a th:href="@{/portal-usuario/user_logout}">Salir <span  class="icon-simbolo-salir"></span></a>
+              <ul class="navbar-nav">
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <!-- End Navbar -->
+
       <div class="content">
+        <div class="row">
+          <div class="col-12">
+            
+            <!-- Encabezado -->
+            <div class="col-12">
+              <div class="row justify-content-between">
+                
+                <h2>Hola, Juan</h2>
+
+                <!-- Botón -->
+                <div class="col-6">
+                  <a class="btn btn-primary" role="button" aria-disabled="true" href="/portal-administrador/producto/save" style="color: #FFFFFF !important; float: right; margin-top: -2px;">
+                    + Retiro
+                  </a>
+                </div>
+                <!-- //Botón -->
+
+              </div>
+            </div>
+            <!-- //Encabezado -->
+
+            <!-- Saldo Card -->
+            <div class="col-12 saldo-disponible-general">
+              <div class="col-12 w-800">
+                Disponible:
+              </div>
+              <div class="col-12">
+                <font class="cifra-enteros w-500"><span th:text="${info.bonificacionEnteraPart}">$ 999,999.00</span></font>
+                <font class="cifra-decimal w-500"><span th:text="${info.bonificacionDecimalPart}">.00</span></font>
+              </div>
+            </div>
+            <!-- //Saldo Card -->
+
+
+            <!-- Retiros -->
+            <div class="card mt-24 pb-24">
+
+              <div class="col-12 mt-24">
+                <h3>Retiros</h3>
+              </div>
+
+              <div class="col-12">
+                <div class="row">
+
+                  <!-- Button Retiro bancario -->
+                  <div class="btn-complex" style="margin-left: 16px;">
+                    <a href="#">
+                      <div class="col">
+                        <div class="row justify-content-between">
+                          <div><img th:src="@{/resources/home/img/micros/sm-info-tarjeta.svg}" /></div>
+                          <div class="w-700 btn-complex-title">Bancario</div>
+                          <span class="icon-simbolo-siguiente-bold"></span>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- Button Retiro PayPal -->
+                  <div class="btn-complex">
+                    <a href="#">
+                      <div class="col">
+                        <div class="row justify-content-between">
+                          <div><img th:src="@{/resources/home/img/micros/sm-info-payPal.svg}" /></div>
+                          <div class="w-700 btn-complex-title">PayPal</div>
+                          <span class="icon-simbolo-siguiente-bold"></span>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- Button Retiro Recarga telefónica -->
+                  <div class="btn-complex">
+                    <a href="#">
+                      <div class="col">
+                        <div class="row justify-content-between">
+                          <div><img th:src="@{/resources/home/img/micros/sm-info-mobile.svg}" /></div>
+                          <div class="w-700 btn-complex-title">Recarga telefónica</div>
+                          <span class="icon-simbolo-siguiente-bold"></span>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <!-- //Retiros -->
+
+            <!-- Tickets -->
+            <div class="card mt-24 pb-24">
+              <div class="col-12 mt-24">
+                <h3>Tickets</h3>
+
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Tienda</th>
+                      <th>Cantidad</th>
+                      <th>Fecha</th>
+                      <th class="disabled-sorting text-right"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <th:block th:each="item : ${tickets}">
+                      <tr>
+                        <td th:text="${item.nombreTienda}"></td>
+                        <td th:text="${item.total}"></td>
+                        <td th:text="${item.formatFecha}"></td>
+                        <td class="text-right">
+                          <a th:href="@{'/portal-administrador/producto/edit/' + ${item.nombreTienda}}">
+                            <font class="icon-accion-ver"></font>
+                          </a>
+                        </td>
+                      </tr>
+                    </th:block>
+                  </tbody>
+                </table>
+
+                <div style="text-align: right;">
+                  <a href="#">Ver todos</a>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Movimientos -->
+            <div class="card mt-24 pb-24">
+              <div class="col-12 mt-24">
+                <h3>Movimientos</h3>
+
+                <table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                  <thead>
+                    <tr>
+                      <th>Tipo</th>
+                     <th>Cuenta</th>
+                      <th>Cantidad</th>
+                      <th>Fecha</th>
+                      <th>Estatus</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <th:block th:each="item : ${movimientos}">
+                      <tr>
+                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
+                        <td></td>
+                      </tr>
+                    </th:block>
+                  </tbody>
+                </table>
+
+                <div style="text-align: right;">
+                  <a href="#">Ver todos</a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="content">
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="card card-stats">
@@ -311,15 +388,32 @@
             </div>
           </div>
         </div>
-      </div>
-      	 
+      </div> -->
+
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
+            <input type="text" style="display:none;" id="url" value="/portal-administrador/envia-problema" />
+            <!-- Modal -->
+
+            <div class="col-md-6 text-left">
+            <a data-toggle="modal" data-target="#problem" href="">Reportar Problema</a>
+            </div>
+            <div class="col-md-6 text-right">
+            ©2020 Shing-Shing
+            </div>
+            </div>
+            <nav class="footer-nav"></nav>
+
           </div>
         </div>
       </footer>
+
     </div>
+
   </div>
   <!--   Core JS Files   -->
   <script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
@@ -351,8 +445,6 @@
   <script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
   <!--  Plugin for the Bootstrap Table -->
   <script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
   <!--  Notifications Plugin    -->
@@ -363,11 +455,6 @@
   <script th:src="@{/resources/assets/demo/demo.js}"></script>
   <script>
     $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      demo.initDashboardPageCharts();
-
-
-      demo.initVectorMap();
 
     });
   </script>

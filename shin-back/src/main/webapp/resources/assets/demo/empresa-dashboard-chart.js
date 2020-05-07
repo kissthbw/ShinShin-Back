@@ -84,7 +84,7 @@ var estadisticas_general = {
 					
 					$.each(result.totalUsuariosDias, function(index, item) {
 						usuariosData.push(item.total)
-						usuariosLabel.push('D' + item.indice)
+						usuariosLabel.push(item.topico)
 						
 					});
 					

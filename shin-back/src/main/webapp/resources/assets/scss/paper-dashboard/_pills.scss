@@ -1,4 +1,4 @@
-/*             Navigation Pills               */
+    /*             Navigation Pills               */
 
 .nav-pills {
     .nav-item + .nav-link {
@@ -10,7 +10,7 @@
         color: $default-color;
         font-weight: $font-weight-bold;
         margin-left: -1px;
-        padding: 10px 25px;
+        padding: 4px 12px;
 
     }
     .nav-item.active .nav-link,

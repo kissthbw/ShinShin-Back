@@ -1,5 +1,5 @@
 body{
-	font-family: 'Nunito', sans-serif !important;
+	font-family: 'Nunito', sans-serif;
 }
 h1{
 	font-size: 48px;
@@ -204,8 +204,8 @@ a .btn-secundary:focus{
 .label-default, .input-grey{
 	text-align: left !important;
 }
-input, .input-grey{
-	background-color: #F2F2F2  !important;
+.input-grey{
+	background-color: #F2F2F2;
 }
 .form-control{
 	height: 48px !important;
@@ -254,12 +254,6 @@ input, .input-grey{
 	font-size: 40px;
 }
 /* //Cards */
-
-/* Tables */
-.pagination{
-	float: right !important;
-}
-/* //Tables */
 
 /*Nav Tab*/
 .nav-pills .nav-item .nav-link{

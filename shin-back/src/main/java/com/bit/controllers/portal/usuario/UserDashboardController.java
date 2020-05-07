@@ -10,10 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.common.Utils;
 import com.bit.controllers.portal.administrador.CatalogosController;
@@ -21,6 +24,7 @@ import com.bit.model.CatalogoSexo;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Usuario;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
@@ -43,27 +47,14 @@ public class UserDashboardController {
 	
 	@Autowired
 	private HistoricoMediosBonificacionService historicoMediosBonificacionService;
-	
-//	@GetMapping(value="/")
-//	public String home() {
-//		return "login";
-//	}
-	
-//	@GetMapping(value="/login")
-//	public String loginUser() {
-//		Usuario user = new Usuario();
-//		user.setIdUsuario(2L);
-//		
-//		return "dashboard";
-//	}
+
 	
 	@GetMapping(value="/dashboard")
 	public String dasdboard(Model model) {
 		//Se obtiene informacion del usuario logueado
 		//1. Saldo total
-		//2. Numero de tickets del mes
-		//3. Numero de bonificaciones solicitadas
-		//4. Cuentas registradas
+		//2. Historico de tickets
+		//3. Historico de movimientos
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
 		if ( null != current ) {
@@ -71,8 +62,12 @@ public class UserDashboardController {
 			item.setIdUsuario( current.getUsuario().getIdUsuario() );
 			
 			InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
+			ListItemsRSP historicoMovimientos = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
+			ListItemsRSP historicoTickets = usuarioService.obtieneTicketsPorUsuario(item);
 			
-			model.addAttribute("item", rsp);
+			model.addAttribute("info", rsp);
+			model.addAttribute("movimientos", historicoMovimientos.getHistoricoMediosBonificaciones());
+			model.addAttribute("tickets", historicoTickets.getTickets());
 		}
 		
 		
@@ -157,7 +152,7 @@ public class UserDashboardController {
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
 			ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
 			
-			model.addAttribute("item", info);
+			model.addAttribute("info", info);
 			model.addAttribute("items", rsp.getTickets());
 		}
 		
@@ -175,8 +170,52 @@ public class UserDashboardController {
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
 			ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
 			
-			model.addAttribute("item", info);
-			model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
+			InformacionUsuarioRSP infoWithMedios = usuarioService.obtenerMediosBonificacion(item);
+			
+			List<MediosBonificacion> tmp = new ArrayList<>();
+			tmp.addAll( infoWithMedios.getMediosBonificacion().get(0).getList() );
+			tmp.addAll( infoWithMedios.getMediosBonificacion().get(1).getList() );
+			tmp.addAll( infoWithMedios.getMediosBonificacion().get(2).getList() );
+			
+			
+			List<String> bancos = new ArrayList<>();
+			bancos.add("Afirme");
+			bancos.add("Banbajio");
+			bancos.add("Banca Mifiel");
+			bancos.add("Banco Azteca");
+			bancos.add("BanCoppel");
+			bancos.add("Banorte");
+			bancos.add("Banregio");
+			bancos.add("BBVA");
+			bancos.add("CityBanamex");
+			bancos.add("HSBC");
+			bancos.add("Inbursa");
+			bancos.add("IXE");
+			bancos.add("Multiva");
+			bancos.add("Santander");
+			bancos.add("Scottiabank");
+			
+			List<String> com = new ArrayList<>();
+			com.add("AT&T");
+			com.add("Movistar");
+			com.add("Telcel");
+			com.add("Unefon");
+			com.add("Virgin Mobile");
+			
+			infoWithMedios.getMediosBonificacion();
+			model.addAttribute("cuentasB", infoWithMedios.getMediosBonificacion().get(0));
+			model.addAttribute("cuentasP", infoWithMedios.getMediosBonificacion().get(1));
+			model.addAttribute("telefonos", infoWithMedios.getMediosBonificacion().get(2));
+			model.addAttribute("bancos", bancos);
+			model.addAttribute("com", com);
+			model.addAttribute("item", new HistoricoMediosBonificacion());
+			model.addAttribute("cuenta", new MediosBonificacion());
+			
+			model.addAttribute("info", info);
+			
+			//Obtiene lista de bonificaciones
+			//model.addAttribute("items", rsp.getHistoricoMediosBonificaciones());
+			model.addAttribute("items", tmp);
 		}
 		
 		return "usuario/retiros";
@@ -199,7 +238,7 @@ public class UserDashboardController {
 			tmp.addAll( rsp.getMediosBonificacion().get(1).getList() );
 			tmp.addAll( rsp.getMediosBonificacion().get(2).getList() );
 			
-			model.addAttribute("item", info);
+			model.addAttribute("info", info);
 			model.addAttribute("items", tmp);
 		}
 		
@@ -211,23 +250,25 @@ public class UserDashboardController {
 	/*
 	 * SECCION DE ALTA DE CUENTAS
 	 * BANOS
+	 * @PostMapping(value = "/mediosBonificacion/guardar")
+	public SimpleResponse guardarMediosBonificacion(@RequestBody MediosBonificacion item) {
+		
+		log.info("Entrando a guardarMediosBonificacion");
+		SimpleResponse rsp= mediosBonificacionService.guardarMediosBonificacion(item);
+		
+		return rsp;
+	}
 	 */
-	@GetMapping(value="/dashboard/save-banco")
-	public String getSaveBanco(Model model) {
+	@PostMapping(value="/dashboard/agregar-medioBonificacion")
+	public @ResponseBody String getSaveBanco(Model model, @ModelAttribute MediosBonificacion item) {
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
 		if ( null != current ) {
-			Usuario item = new Usuario();
-			item.setIdUsuario( current.getUsuario().getIdUsuario() );
+			Usuario u = new Usuario();
+			u.setIdUsuario( current.getUsuario().getIdUsuario() );
 			
-			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-			InformacionUsuarioRSP infoWithMedios = usuarioService.obtenerMediosBonificacion(item);
-			
-			infoWithMedios.getMediosBonificacion();
-			model.addAttribute("info", info);
-			model.addAttribute("medios", infoWithMedios.getMediosBonificacion().get(0));
-			model.addAttribute("item", new HistoricoMediosBonificacion());
+			log.info( "Guardando medio a usuario: {}", u.getIdUsuario() );
 		}
 		
 		
@@ -311,6 +352,7 @@ public class UserDashboardController {
 		return "usuario/retiro-bancario";
 	}
 	
+	@CrossOrigin
 	@PostMapping(value="/dashboard/retiro-bancario")
 	public String postRetiroBancario( @ModelAttribute HistoricoMediosBonificacion item, BindingResult errors, Model model ) {
 		
