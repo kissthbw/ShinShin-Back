@@ -749,7 +749,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		else {
 			
 			//Actualizar el device token
-			user.setDeviceToken( item.getDeviceToken() );
+			if( null != item.getDeviceToken() ) {
+				user.setDeviceToken( item.getDeviceToken() );
+			}
 			
 			if ( !user.isEstatusActivacion() ){
 				infoRSP.setCode(500);
