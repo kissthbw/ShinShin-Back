@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing Shing / Estadisticas / Usuarios</title>
+<title>Usuarios | Shing Shing</title>
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
 	name='viewport' />
@@ -17,6 +17,8 @@
 	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
@@ -28,11 +30,7 @@
 
 <body class="">
 	<div class="wrapper">
-		<div class="sidebar" data-color="white" data-active-color="danger">
-			<!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-      -->
-			
+		<div class="sidebar" data-color="white">
 			<div class="sidebar-wrapper">
 				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
@@ -41,128 +39,106 @@
 					</div>
 					<div class="info">
 						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed">
-							<span th:text="${item.nombre}">
-								<!-- User -->
+							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
 								<b class="caret"></b>
-							</span>
+						</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
 				</div>
 
-				<!-- MENU -->
 				<ul class="nav">
-					<!-- Las opciones del menu debe ir entre <li></li> -->
-					<li>
-						<a data-toggle="collapse" href="#catalogos">
-							<i class="nc-icon nc-ruler-pencil"></i>
-							<p>Catalogos <b class="caret"></b></p>
-						</a>
-						<div class="collapse" id="catalogos">
-							<ul class="nav">
-								<li>
-									<a th:href="@{/portal-administrador/departamento/list}"> 
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Departamentos </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/marca/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Marcas </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/tienda/List}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Tiendas </span>
-									</a>
-								</li>
-								
-								<li>
-									<a th:href="@{/portal-administrador/producto/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Productos </span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
 
-					<li>
-						<a data-toggle="collapse" href="#bonificaciones"> 	<i class="nc-icon nc-money-coins"></i>
+					<li class="active"><a data-toggle="collapse" href="#catalogos"
+						aria-expanded="true">
+						<i class="nc-icon icon-objeto-catalogo"></i>
 							<p>
-								Bonificaciones <b class="caret"></b>
+								Catalogos
 							</p>
-						</a>
-
-						<div class="collapse" id="bonificaciones">
+					</a>
+						<div class="collapse show" id="catalogos">
 							<ul class="nav">
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Tiendas </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/departamento/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Departamentos </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/marca/list}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Retiros</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
+										class="sidebar-normal"> Marcas </span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/producto/list}"> <span
 										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Recargas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal"> Medios bonificacion </span>
-									</a>
-								</li>
+										class="sidebar-normal"> Productos </span>
+								</a></li>
 							</ul>
-						</div>
-					</li>
-
+						</div></li>
 					<li class="active">
-						<a data-toggle="collapse" href="#estadisticas">
-							<i class="nc-icon nc-chart-bar-32"></i>
+					<a data-toggle="collapse" href="#bonificaciones"> <i
+							class="nc-icon icon-finanzas-dinero"></i>
 							<p>
-								Estadisticas <b class="caret"></b>
+								Bonificaciones
 							</p>
-						</a>
+					</a>
+
+						<div class="collapse show" id="bonificaciones">
+							<ul class="nav">
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-general}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">General</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Medios bonificación </span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-depositos}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Retiros</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-recargas}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Recargas</span>
+								</a></li>
+							</ul>
+						</div></li>
+
+					<li><a data-toggle="collapse" href="#estadisticas"> <i
+							class="nc-icon icon-simbolo-estadisticas"></i>
+							<p>
+								Estadisticas
+							</p>
+					</a>
 						<div class="collapse show" id="estadisticas">
 							<ul class="nav">
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-general}">
-										<span
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-general}"> <span
 										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-tickets}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Tickets</span>
-									</a>
-								</li>
-								<li >
-									<a th:href="@{/portal-administrador/estadisticas-marcas}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Marcas</span>
-									</a>
-								</li>
-								<li class="active">
-									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-										<span class="sidebar-mini-icon">·</span>
-										<span class="sidebar-normal">Usarios</span>
-									</a>
-								</li>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Tickets</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Marcas</span>
+								</a></li>
+								<li class="active"><a
+									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Usarios</span>
+								</a></li>
 							</ul>
-						</div>
-					</li>
+						</div></li>
 				</ul>
 			</div>
 		</div>
@@ -180,8 +156,8 @@
 					<!-- btn-resumen -->
 					<div class="col-4 text-right">
 						<a th:href="@{/portal-administrador/producto/report}"
-							class="btn btn-primary btn-sm" role="button" aria-disabled="true">
-							<i class="fa fa-download"></i> Resumen
+							class="btn btn-secundary" role="button" aria-disabled="true">
+							Resumen
 						</a>
 					</div>
 
@@ -202,12 +178,6 @@
 											<p class="card-title" th:text="${totalUsuarios}">{totalUsuarios}</p>
 										</div>
 									</div>
-								</div>
-							</div>
-
-							<div class="card-footer ">
-								<div class="stats text-center">
-									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
 								</div>
 								<hr />
 							</div>
@@ -268,8 +238,7 @@
 									<div class="col-sm-5">
 										<div class="pull-right">
 											<a href="#usuarios-est"
-												class="btn btn-secondary btn-link btn-sm" role="button"
-												aria-disabled="true"> Ver + </a>
+												role="button" aria-disabled="true"> Ver + </a>
 										</div>
 									</div>
 								</div>
@@ -296,17 +265,10 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="card-footer ">
-								<div class="stats text-center">
-									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
-								</div>
 								<hr />
 							</div>
 
 							<div class="card-body">
-								Rangos<br/>
 								<div class="tab-pane fade show active" id="pills-home"
 									role="tabpanel" aria-labelledby="pills-home-tab">
 									<div class="chartjs-size-monitor"
@@ -328,7 +290,6 @@
 								</div>
 							</div>
 							<div class="card-footer">
-								<hr/>
 								<div class="row">
 									<div class="col-sm-7">
 										<div class="footer-title">
@@ -359,13 +320,6 @@
 								</div>
 							</div>
 							
-							<div class="card-footer ">
-								<div class="stats text-center">
-									<i class=""></i> <p th:text="${fecha}">16-03-2020</p>
-								</div>
-								<hr />
-							</div>
-							
 							<div class="card-body ">
 								<div class="chartjs-size-monitor"
 									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -386,7 +340,6 @@
 									style="display: block; height: 209px; width: 318px;"></canvas>
 							</div>
 							<div class="card-footer">
-								<hr />
 								<div class="row">
 									<div class="col-sm-7">
 										<div class="footer-title">
@@ -404,24 +357,7 @@
 
 					<!--  Departamentos -->
 					<div class="col-md-12">
-						<div class="card card-plain">
-							<div class="card-header">
-								<h4 class="card-title" id="usuarios-est">Todos</h4>
-								<form>
-									<div class="input-group no-border col-4"
-										style="background-color: #fff !important;">
-										<input type="text" value="" class="form-control"
-											placeholder="Buscador"
-											style="background-color: #fff !important;"/>
-										<div class="input-group-append">
-											<div class="input-group-text"
-												style="background-color: #fff !important;">
-												<i class="nc-icon nc-zoom-split"></i>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
+						<div class="card">
 							<div class="card-body">
 								<div class="table-responsive">
 									<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">

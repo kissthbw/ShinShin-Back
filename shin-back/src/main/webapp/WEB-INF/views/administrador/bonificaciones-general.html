@@ -5,51 +5,34 @@
 <head>
 <meta charset="utf-8" />
 <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
-<link rel="shortcut icon"
-	th:href="@{/resources/home/img/brands/favicon.png}" />
+<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing Shing / Bonificaciones</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-	name='viewport' />
+<title>
+	Bonificaciones | Shing Shing
+</title>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 <!--     Fonts and icons     -->
-<link
-	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
-	rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
 <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-	rel="stylesheet" />
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
 <!-- CSS Files -->
-<link th:href="@{/resources/assets/css/style-panel.css}"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/bootstrap.min.css}"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
-	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap"
-	rel="stylesheet" />
-<link
-	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/style-howDo.css}"
-	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
 </head>
 
-<body class="">
+<body>
 	<div class="wrapper">
-		<div class="sidebar" data-color="white" data-active-color="danger">
-			<!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-    -->
-
+		<div class="sidebar" data-color="white">
 			<div class="sidebar-wrapper">
 				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
@@ -63,21 +46,24 @@
 						</span>
 						</a>
 						<div class="clearfix"></div>
-
 					</div>
 				</div>
 
-				<!-- MENU -->
 				<ul class="nav">
-					<!-- Las opciones del menu debe ir entre <li></li> -->
-					<li><a data-toggle="collapse" href="#catalogos"> <i
-							class="nc-icon nc-ruler-pencil"></i>
+
+					<li class="active"><a data-toggle="collapse" href="#catalogos"
+						aria-expanded="true">
+						<i class="nc-icon icon-objeto-catalogo"></i>
 							<p>
-								Catalogos <b class="caret"></b>
+								Catalogos
 							</p>
 					</a>
-						<div class="collapse " id="catalogos">
+						<div class="collapse show" id="catalogos">
 							<ul class="nav">
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Tiendas </span>
+								</a></li>
 								<li><a th:href="@{/portal-administrador/departamento/list}">
 										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal"> Departamentos </span>
@@ -86,68 +72,64 @@
 										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal"> Marcas </span>
 								</a></li>
-								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Tiendas </span>
-								</a></li>
-
-								<li><a th:href="@{/portal-administrador/producto/save}">
-										<span class="sidebar-mini-icon">·</span> <span
+								<li><a
+									th:href="@{/portal-administrador/producto/list}"> <span
+										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal"> Productos </span>
 								</a></li>
 							</ul>
 						</div></li>
-
-					<li class="active"><a data-toggle="collapse"
-						href="#bonificaciones"> <i class="nc-icon nc-money-coins"></i>
+					<li class="active">
+					<a data-toggle="collapse" href="#bonificaciones"> <i
+							class="nc-icon icon-finanzas-dinero"></i>
 							<p>
-								Bonificaciones <b class="caret"></b>
+								Bonificaciones
 							</p>
 					</a>
 
 						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-depositos}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Retiros</span>
-								</a></li>
 								<li class="active"><a
 									th:href="@{/portal-administrador/bonificaciones-general}">
 										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
+									th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Medios bonificación </span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-depositos}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Retiros</span>
+								</a></li>
+								<li><a
 									th:href="@{/portal-administrador/bonificaciones-recargas}">
 										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Recargas</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Medios bonificacion </span>
 								</a></li>
 							</ul>
 						</div></li>
 
 					<li><a data-toggle="collapse" href="#estadisticas"> <i
-							class="nc-icon nc-chart-bar-32"></i>
+							class="nc-icon icon-simbolo-estadisticas"></i>
 							<p>
-								Estadisticas <b class="caret"></b>
+								Estadisticas
 							</p>
 					</a>
-						<div class="collapse " id="estadisticas">
+						<div class="collapse show" id="estadisticas">
 							<ul class="nav">
 								<li><a
 									th:href="@{/portal-administrador/estadisticas-general}"> <span
-										class="sidebar-mini-icon">.</span><span class="sidebar-normal">General</span>
+										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
 										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Tickets</span>
 								</a></li>
-								<li class="active"><a
+								<li><a
 									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
 										class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal">Marcas</span>
@@ -178,7 +160,7 @@
 					<div class="col-4 text-right">
 						<a
 							th:href="@{/portal-administrador/bonificaciones-general/report}"
-							class="btn btn-secundary" role="button" aria-disabled="true">Resum&eacute;n</a>
+							class="btn btn-secundary" role="button" aria-disabled="true">Reporte</a>
 					</div>
 
 
@@ -194,27 +176,15 @@
 									</div>
 									<div class="col-7 col-md-8">
 										<div class="numbers">
-											<p class="card-category">Depósitos</p>
-											<p class="card-title" th:text="${totalDepositos}">99,999</p>
+											<p class="card-category">Retiros</p>
+											<p class="card-title" th:text="${totalDepositos}"></p>
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="card-footer ">
-								<div class="stats text-center">
-									<i class=""></i>
-									<p th:text="${fecha}">16-03-2020</p>
-								</div>
 								<hr />
-								<div class="stats text-right">
-									<i class="fa fa-refresh"></i> Actualizado ahora
-								</div>
 							</div>
 
 							<div class="card-body">
-								<h6 class="big-title">Registrados</h6>
-
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 									<li id="dayDepositosBtn" class="nav-item"><a
 										class="nav-link active" id="pills-home-tab" data-toggle="pill"
@@ -273,7 +243,7 @@
 									<div class="col-sm-5">
 										<div class="pull-right">
 											<a href="bonificaciones-depositos.html"
-												class="btn btn-secondary btn-link btn-sm" role="button"
+												class="" role="button"
 												aria-disabled="true"> Ver + </a>
 										</div>
 									</div>
@@ -296,26 +266,14 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Bonificaciones totales</p>
-											<p class="card-title" th:text="${totalBonificaciones}">$
-												99,999</p>
+											<p class="card-title" th:text="${totalBonificaciones}"></p>
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="card-footer ">
-								<div class="stats text-center">
-									<i class=""></i>
-									<p th:text="${fecha}">16-03-2020</p>
-								</div>
 								<hr />
-								<div class="stats text-right">
-									<i class="fa fa-refresh"></i> Actualizado ahora
-								</div>
 							</div>
 
 							<div class="card-body">
-								<h6 class="big-title">Registrados</h6>
 
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 									<li id="dayBonificacionesBtn" class="nav-item"><a
@@ -390,26 +348,14 @@
 									<div class="col-7 col-md-8">
 										<div class="numbers">
 											<p class="card-category">Recargas</p>
-											<p class="card-title" th:text="${totalRecargas}">99,999</p>
+											<p class="card-title" th:text="${totalRecargas}"></p>
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="card-footer ">
-								<div class="stats text-center">
-									<i class=""></i>
-									<p th:text="${fecha}">16-03-2020</p>
-								</div>
 								<hr />
-								<div class="stats text-right">
-									<i class="fa fa-refresh"></i> Actualizado ahora
-								</div>
 							</div>
 
 							<div class="card-body">
-								<h6 class="big-title">Registrados</h6>
-
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 									<li id="dayRecargasBtn" class="nav-item"><a
 										class="nav-link active" id="pills-home-tab" data-toggle="pill"
@@ -468,7 +414,7 @@
 									<div class="col-sm-5">
 										<div class="pull-right">
 											<a href="bonificaciones-recargas.html"
-												class="btn btn-secondary btn-link btn-sm" role="button"
+												class="" role="button"
 												aria-disabled="true"> Ver + </a>
 										</div>
 									</div>
