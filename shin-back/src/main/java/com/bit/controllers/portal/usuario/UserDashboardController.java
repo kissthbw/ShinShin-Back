@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.common.Utils;
@@ -24,7 +24,6 @@ import com.bit.model.CatalogoSexo;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Usuario;
-import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
@@ -160,7 +159,7 @@ public class UserDashboardController {
 	}
 	
 	@GetMapping(value="/dashboard/retiros")
-	public String obtieneRetiros(Model model) {
+	public String obtieneRetiros(Model model, @RequestParam(required = false) String option){
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		if ( null != current ) {
@@ -210,6 +209,37 @@ public class UserDashboardController {
 			model.addAttribute("com", com);
 			model.addAttribute("item", new HistoricoMediosBonificacion());
 			model.addAttribute("cuenta", new MediosBonificacion());
+			
+			if ( null == option) {
+				model.addAttribute("active1", "active");
+				model.addAttribute("active2", "");
+				model.addAttribute("active3", "");
+			}
+			else {
+				switch (option) {
+				case "1":
+					model.addAttribute("active1", "active");
+					model.addAttribute("active2", "");
+					model.addAttribute("active3", "");
+					break;
+				case "2":
+					model.addAttribute("active1", "");
+					model.addAttribute("active2", "active");
+					model.addAttribute("active3", "");
+					break;
+				case "3":
+					model.addAttribute("active1", "");
+					model.addAttribute("active2", "");
+					model.addAttribute("active3", "active");
+					break;
+
+				default:
+					model.addAttribute("active1", "active");
+					model.addAttribute("active2", "");
+					model.addAttribute("active3", "");
+					break;
+				}
+			}
 			
 			model.addAttribute("info", info);
 			

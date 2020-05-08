@@ -512,6 +512,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		if( source == Source.CONTROLLER ) {
 			log.info( "La actualizacion viene del web" );
+			item.setContrasenia( "".equals( item.getContrasenia().trim() ) ? item.getContrasenia() : null );
+			item.setConfirmarContrasenia( "".equals( item.getConfirmarContrasenia().trim() ) ? item.getConfirmarContrasenia() : null );
+			item.setContraseniaActual( "".equals( item.getContraseniaActual().trim() ) ? item.getContraseniaActual() : null );
 			
 		}
 		

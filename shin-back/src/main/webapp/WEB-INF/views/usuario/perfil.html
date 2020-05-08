@@ -50,9 +50,7 @@
 					</div>
 					<div class="info">
             			<a th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
-              			<span  th:text="${info.usuario.nombre}">Nombre del Usuario
-                		<!-- User -->
-              			</span>
+              			<span  th:text="${info.usuario.nombre}">Nombre del Usuario</span>
             			</a>
             			<div class="clearfix"></div>
           			</div>
@@ -140,16 +138,20 @@
 				<div class="row">
 					<div class="col-md-12">
 
-						<form id="FormID" class="form-horizontal" method="post" th:object="${item}" enctype="multipart/form-data">
+						<form id="formPerfil" class="form-horizontal" method="post" th:object="${item}" enctype="multipart/form-data">
 
-							<h2>Hola, Juan</h2>
+							<h2>Hola, <span  th:text="${info.usuario.nombre}">{Nombre}</span></h2>
 
 							<div class="card card-perfil">
 
 								<!-- IMG Perfil -->
 								<div style="width: 50px;">
 									<a href="#">
-										<div class="img-perfil"><span class="icon-simbolo-usuario"></span></div>
+										<div class="img-perfil"><span class="icon-simbolo-usuario"></span>
+										<!-- 
+											<img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
+										 -->
+										</div>
 										<div class="img-perfil-btn"><span class="icon-simbolo-mas"></span></div>
 									</a>
 								</div>
@@ -177,7 +179,7 @@
 												<div class="col-6">
 													<label class="label-default col-12">Correo *</label>
 													<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-													aria-describedby="basic-addon1" th:field="*{nombre}" required="true" />
+													aria-describedby="basic-addon1" th:field="*{correoElectronico}" required="true" />
 											        <div class="invalid-feedback">
 											          Ingresa tu nombre.
 											        </div>
@@ -189,7 +191,7 @@
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Número</label>
 											<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-											aria-describedby="basic-addon1" th:field="*{nombre}" required="true" />
+											aria-describedby="basic-addon1" th:field="*{telMovil}" required="true" />
 									        <div class="invalid-feedback">
 									          Ingresa tu nombre.
 									        </div>
@@ -203,38 +205,11 @@
 													<label class="label-default col-12">Día</label>
 													<select class="form-control mb20p input-grey col-12"
 														required="true" id="dia" name="dia">
-														<option value=""></option>
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-														<option value="7">7</option>
-														<option value="8">8</option>
-														<option value="9">9</option>
-														<option value="10">10</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-														<option value="13">13</option>
-														<option value="14">14</option>
-														<option value="15">15</option>
-														<option value="16">16</option>
-														<option value="17">17</option>
-														<option value="18">18</option>
-														<option value="19">19</option>
-														<option value="20">20</option>
-														<option value="21">21</option>
-														<option value="22">22</option>
-														<option value="23">23</option>
-														<option value="24">24</option>
-														<option value="25">25</option>
-														<option value="26">26</option>
-														<option value="27">27</option>
-														<option value="28">28</option>
-														<option value="29">29</option>
-														<option value="30">30</option>
-														<option value="31">31</option>
+														<option th:each="item:${dias}"
+																	th:value="${item.indice}"
+																	th:utext="${item.topico}" 
+																	th:selected="*{dia} != null ? *{dia} == ${item.indice} : ''">
+														</option>
 													</select>
 											        <div class="invalid-feedback">
 											          Ingresa tu nombre.
@@ -244,19 +219,11 @@
 													<label class="label-default col-12">Mes</label>
 													<select class="form-control mb20p input-grey col-12"
 														required="true" id="mes" name="mes">
-														<option value=""></option>
-														<option value="0">Enero</option>
-														<option value="1">Febrero</option>
-														<option value="2">Marzo</option>
-														<option value="3">Abril</option>
-														<option value="4">Mayo</option>
-														<option value="5">Junio</option>
-														<option value="6">Julio</option>
-														<option value="7">Agosto</option>
-														<option value="8">Septiembre</option>
-														<option value="9">Octubre</option>
-														<option value="10">Noviembre</option>
-														<option value="11">Diciembre</option>
+														<option th:each="item:${meses}"
+																	th:value="${item.indice}"
+																	th:utext="${item.topico}" 
+																	th:selected="*{mes} != null ? *{mes} == ${item.indice} : ''">
+														</option>
 													</select>
 													<div class="invalid-feedback">Elige un mes.</div>
 												</div>
@@ -265,90 +232,11 @@
 													<select class="form-control mb20p input-grey col-12"
 														required="true" style="text-align: center;" id="anio"
 														name="anio">
-														<option value=""></option>
-														<option value="2001">2001</option>
-														<option value="2000">2000</option>
-														<option value="1999">1999</option>
-														<option value="1998">1998</option>
-														<option value="1997">1997</option>
-														<option value="1996">1996</option>
-														<option value="1995">1995</option>
-														<option value="1994">1994</option>
-														<option value="1993">1993</option>
-														<option value="1992">1992</option>
-														<option value="1991">1991</option>
-														<option value="1990">1990</option>
-														<option value="1989">1989</option>
-														<option value="1988">1988</option>
-														<option value="1987">1987</option>
-														<option value="1986">1986</option>
-														<option value="1985">1985</option>
-														<option value="1984">1984</option>
-														<option value="1983">1983</option>
-														<option value="1982">1982</option>
-														<option value="1981">1981</option>
-														<option value="1980">1980</option>
-														<option value="1979">1979</option>
-														<option value="1978">1978</option>
-														<option value="1977">1977</option>
-														<option value="1976">1976</option>
-														<option value="1975">1975</option>
-														<option value="1974">1974</option>
-														<option value="1973">1973</option>
-														<option value="1972">1972</option>
-														<option value="1971">1971</option>
-														<option value="1970">1970</option>
-														<option value="1969">1969</option>
-														<option value="1968">1968</option>
-														<option value="1967">1967</option>
-														<option value="1966">1966</option>
-														<option value="1965">1965</option>
-														<option value="1964">1964</option>
-														<option value="1963">1963</option>
-														<option value="1962">1962</option>
-														<option value="1961">1961</option>
-														<option value="1960">1960</option>
-														<option value="1959">1959</option>
-														<option value="1958">1958</option>
-														<option value="1957">1957</option>
-														<option value="1956">1956</option>
-														<option value="1955">1955</option>
-														<option value="1954">1954</option>
-														<option value="1953">1953</option>
-														<option value="1952">1952</option>
-														<option value="1951">1951</option>
-														<option value="1950">1950</option>
-														<option value="1949">1949</option>
-														<option value="1948">1948</option>
-														<option value="1947">1947</option>
-														<option value="1946">1946</option>
-														<option value="1945">1945</option>
-														<option value="1944">1944</option>
-														<option value="1943">1943</option>
-														<option value="1942">1942</option>
-														<option value="1941">1941</option>
-														<option value="1940">1940</option>
-														<option value="1939">1939</option>
-														<option value="1938">1938</option>
-														<option value="1937">1937</option>
-														<option value="1936">1936</option>
-														<option value="1935">1935</option>
-														<option value="1934">1934</option>
-														<option value="1933">1933</option>
-														<option value="1932">1932</option>
-														<option value="1931">1931</option>
-														<option value="1930">1930</option>
-														<option value="1929">1929</option>
-														<option value="1928">1928</option>
-														<option value="1927">1927</option>
-														<option value="1926">1926</option>
-														<option value="1925">1925</option>
-														<option value="1924">1924</option>
-														<option value="1923">1923</option>
-														<option value="1922">1922</option>
-														<option value="1921">1921</option>
-														<option value="1920">1920</option>
-														<option value="1919">1919</option>
+														<option th:each="item:${anios}"
+																	th:value="${item.indice}"
+																	th:utext="${item.topico}" 
+																	th:selected="*{anio} != null ? *{anio} == ${item.indice} : ''">
+														</option>
 													</select>
 													<div class="invalid-feedback">Elige un a&ntilde;o.</div>
 												</div>
@@ -363,9 +251,11 @@
 													<select class="form-control mb20p input-grey col-12"
 														required="true" id="idCatalogoSexo"
 														name="idCatalogoSexo">
-														<option value=""></option>
-														<option value="1">Hombre</option>
-														<option value="2">Mujer</option>
+														<option th:each="sexo:${sexos}"
+																	th:value="${sexo.idCatalogoSexo}"
+																	th:utext="${sexo.nombreSexo}" 
+																	th:selected="*{idCatalogoSexo} != null ? *{idCatalogoSexo} == ${sexo.idCatalogoSexo} : ''">
+														</option>
 													</select>
 													<div class="invalid-feedback">Elige una
 														opci&oacute;n.</div>
@@ -374,7 +264,7 @@
 												<div class="col-6">
 													<label class="label-default col-12">Código Postal</label>
 													<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-													aria-describedby="basic-addon1" th:field="*{nombre}" required="true" />
+													aria-describedby="basic-addon1" th:field="*{codigoPostal}" required="true" />
 											        <div class="invalid-feedback">
 											          Ingresa tu nombre.
 											        </div>
@@ -392,8 +282,9 @@
 										<!-- Contraseña actual -->
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Contraseña actual</label>
-											<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-											aria-describedby="basic-addon1" th:field="*{nombre}" required="true" />
+											<input type="text" class="form-control input-grey col-12" th:field="*{contraseniaActual}" placeholder="" aria-label="Name" 
+											aria-describedby="basic-addon1" />
+
 									        <div class="invalid-feedback">
 									          Ingresa tu nombre.
 									        </div>
@@ -402,8 +293,9 @@
 										<!-- Contraseña nueva -->
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Contraseña nueva</label>
-											<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-											aria-describedby="basic-addon1" th:field="*{nombre}" required="true" />
+											<input type="text" class="form-control input-grey col-12" th:field="*{contrasenia}" placeholder="" aria-label="Name" 
+											aria-describedby="basic-addon1" />
+											
 									        <div class="invalid-feedback">
 									          Ingresa tu nombre.
 									        </div>
@@ -412,8 +304,9 @@
 										<!-- Confirma tu contraseña nueva -->
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Confirma tu Contraseña nueva</label>
-											<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-											aria-describedby="basic-addon1" th:field="*{nombre}" required="true" />
+											<input type="text" class="form-control input-grey col-12" th:field="*{confirmarContrasenia}" placeholder="" aria-label="Name" 
+											aria-describedby="basic-addon1" />
+										
 									        <div class="invalid-feedback">
 									          Ingresa tu nombre.
 									        </div>
@@ -429,362 +322,12 @@
 									<!-- Botón -->
 									<div class="col-12">
 										<div class="col-12">
-											<a class="btn btn-primary" role="button" aria-disabled="true" href="/portal-administrador/producto/save" style="color: #FFFFFF !important;">
+											<a class="btn btn-primary" role="button" id="submitPerfil" aria-disabled="true"  style="color: #FFFFFF !important;">
 												Guardar
 											</a>
 										</div>
 									</div>
 								</div>
-
-							<!--<div class="card ">
-								<div class="card-header ">
-									<h4 class="card-title">Perfil</h4>
-								</div>
-
-								<div class="row justify-content-center">
-
-									<div class="col-12 title-login">
-										<font>Actualiza tu cuenta</font>
-									</div>
-
-									<div class="col-12">
-										<div class="row justify-content-center">
-											<div
-												class="input-group bg-trs mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-												<div class="col">
-													<label class="label-default mt15p col-12">Nombre</label> <input
-														type="text" class="form-control mb20p input-grey col-12"
-														placeholder="" aria-label="Name"
-														aria-describedby="basic-addon1" required="true"
-														id="nombre" name="nombre" value=""></input>
-													<div class="invalid-feedback">Ingresa tu nombre.</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-12">
-										<div class="row justify-content-center">
-											<div
-												class="input-group bg-trs mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-												<div class="col">
-													<label class="label-default mt15p col-12 active">Email</label> <input
-														type="text"
-														class="form-control mb20p input-grey col-12 valid"
-														placeholder="" aria-label="Email"
-														aria-describedby="basic-addon1" required="true"
-														id="correoElectronico" name="correoElectronico" value=""
-														aria-invalid="false"></input>
-													<div class="invalid-feedback">Ingresa un correo
-														v&aacute;lido.</div>
-													<div class="invalid-feedback">El email ingresado ya
-														ha sido utilizado en otra cuenta.</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-12">
-										<div class="row justify-content-center">
-											<div
-												class="input-group bg-trs mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-												<div class="col">
-													<label class="label-default mt15p col-12 active">Contrase&ntilde;a</label>
-													<input type="password"
-														class="form-control mb20p input-grey col-12 valid"
-														placeholder="" aria-label="Password"
-														aria-describedby="basic-addon1" required="true"
-														id="contrasenia" name="contrasenia" value=""
-														aria-invalid="false"></input>
-													<div class="invalid-feedback">Debe tener
-														m&iacute;nimo 8 car&aacute;cteres.</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-12">
-										<div class="row justify-content-center">
-											<div
-												class="input-group bg-trs mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-												<div class="col">
-													<label class="label-default mt15p col-12">Confirma tu
-														contrase&ntilde;a</label> <input type="password"
-														class="form-control mb20p input-grey col-12"
-														placeholder="" aria-label="Password"
-														aria-describedby="basic-addon1" required="true"
-														id="confirmarContrasenia" name="confirmarContrasenia"
-														value=""></input>
-													<div class="invalid-feedback">No coincide la
-														contrase&ntilde;a.</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-10 col-sm-8 col-md-6 col-lg-3 acotacion-login">
-										<font>Te recomendamos utilizar may&uacute;sculas y
-											min&uacute;sculas. <br></br>Usa ocho caracteres como
-											m&iacute;nimo.
-										</font>
-									</div>
-
-									<div class="col-12">
-										<label class="label-default col-12">Cumplea&ntilde;os</label>
-									</div>
-
-									<div class="col-10 col-sm-8 col-md-6 col-lg-4">
-										<div class="row justify-content-between">
-											<div class="col col-lg-4">
-												<div class="row justify-content-center">
-													<div class="input-group bg-trs mb-3 col-10 col-sm-12 col-lg-12">
-														<div class="col-12">
-															<label class="label-default label-secondary mt15p col-12">D&iacute;a</label>
-															<select class="form-control mb20p input-grey col-12"
-																required="true" id="dia" name="dia">
-																<option value=""></option>
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
-																<option value="4">4</option>
-																<option value="5">5</option>
-																<option value="6">6</option>
-																<option value="7">7</option>
-																<option value="8">8</option>
-																<option value="9">9</option>
-																<option value="10">10</option>
-																<option value="11">11</option>
-																<option value="12">12</option>
-																<option value="13">13</option>
-																<option value="14">14</option>
-																<option value="15">15</option>
-																<option value="16">16</option>
-																<option value="17">17</option>
-																<option value="18">18</option>
-																<option value="19">19</option>
-																<option value="20">20</option>
-																<option value="21">21</option>
-																<option value="22">22</option>
-																<option value="23">23</option>
-																<option value="24">24</option>
-																<option value="25">25</option>
-																<option value="26">26</option>
-																<option value="27">27</option>
-																<option value="28">28</option>
-																<option value="29">29</option>
-																<option value="30">30</option>
-																<option value="31">31</option>
-															</select>
-															<div class="invalid-feedback">Elige un d&iacute;a.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="col col-lg-4">
-												<div class="row justify-content-center">
-													<div class="input-group bg-trs mb-3 col-10 col-sm-12 col-lg-12">
-														<div class="col-12">
-															<label class="label-default label-secondary mt15p col-12">Mes</label>
-															<select class="form-control mb20p input-grey col-12"
-																required="true" id="mes" name="mes">
-																<option value=""></option>
-																<option value="0">Enero</option>
-																<option value="1">Febrero</option>
-																<option value="2">Marzo</option>
-																<option value="3">Abril</option>
-																<option value="4">Mayo</option>
-																<option value="5">Junio</option>
-																<option value="6">Julio</option>
-																<option value="7">Agosto</option>
-																<option value="8">Septiembre</option>
-																<option value="9">Octubre</option>
-																<option value="10">Noviembre</option>
-																<option value="11">Diciembre</option>
-															</select>
-															<div class="invalid-feedback">Elige un mes.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="col col-col-lg-4">
-												<div class="row justify-content-center">
-													<div class="input-group bg-trs mb-3 col-10 col-sm-12 col-lg-12">
-														<div class="col-12">
-															<label class="label-default label-secondary mt15p col-12">A&ntilde;o</label>
-															<select class="form-control mb20p input-grey col-12"
-																required="true" style="text-align: center;" id="anio"
-																name="anio">
-																<option value=""></option>
-																<option value="2001">2001</option>
-																<option value="2000">2000</option>
-																<option value="1999">1999</option>
-																<option value="1998">1998</option>
-																<option value="1997">1997</option>
-																<option value="1996">1996</option>
-																<option value="1995">1995</option>
-																<option value="1994">1994</option>
-																<option value="1993">1993</option>
-																<option value="1992">1992</option>
-																<option value="1991">1991</option>
-																<option value="1990">1990</option>
-																<option value="1989">1989</option>
-																<option value="1988">1988</option>
-																<option value="1987">1987</option>
-																<option value="1986">1986</option>
-																<option value="1985">1985</option>
-																<option value="1984">1984</option>
-																<option value="1983">1983</option>
-																<option value="1982">1982</option>
-																<option value="1981">1981</option>
-																<option value="1980">1980</option>
-																<option value="1979">1979</option>
-																<option value="1978">1978</option>
-																<option value="1977">1977</option>
-																<option value="1976">1976</option>
-																<option value="1975">1975</option>
-																<option value="1974">1974</option>
-																<option value="1973">1973</option>
-																<option value="1972">1972</option>
-																<option value="1971">1971</option>
-																<option value="1970">1970</option>
-																<option value="1969">1969</option>
-																<option value="1968">1968</option>
-																<option value="1967">1967</option>
-																<option value="1966">1966</option>
-																<option value="1965">1965</option>
-																<option value="1964">1964</option>
-																<option value="1963">1963</option>
-																<option value="1962">1962</option>
-																<option value="1961">1961</option>
-																<option value="1960">1960</option>
-																<option value="1959">1959</option>
-																<option value="1958">1958</option>
-																<option value="1957">1957</option>
-																<option value="1956">1956</option>
-																<option value="1955">1955</option>
-																<option value="1954">1954</option>
-																<option value="1953">1953</option>
-																<option value="1952">1952</option>
-																<option value="1951">1951</option>
-																<option value="1950">1950</option>
-																<option value="1949">1949</option>
-																<option value="1948">1948</option>
-																<option value="1947">1947</option>
-																<option value="1946">1946</option>
-																<option value="1945">1945</option>
-																<option value="1944">1944</option>
-																<option value="1943">1943</option>
-																<option value="1942">1942</option>
-																<option value="1941">1941</option>
-																<option value="1940">1940</option>
-																<option value="1939">1939</option>
-																<option value="1938">1938</option>
-																<option value="1937">1937</option>
-																<option value="1936">1936</option>
-																<option value="1935">1935</option>
-																<option value="1934">1934</option>
-																<option value="1933">1933</option>
-																<option value="1932">1932</option>
-																<option value="1931">1931</option>
-																<option value="1930">1930</option>
-																<option value="1929">1929</option>
-																<option value="1928">1928</option>
-																<option value="1927">1927</option>
-																<option value="1926">1926</option>
-																<option value="1925">1925</option>
-																<option value="1924">1924</option>
-																<option value="1923">1923</option>
-																<option value="1922">1922</option>
-																<option value="1921">1921</option>
-																<option value="1920">1920</option>
-																<option value="1919">1919</option>
-															</select>
-															<div class="invalid-feedback">Elige un a&ntilde;o.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-12">
-										<div class="row justify-content-center">
-											<div
-												class="input-group bg-trs mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-												<div class="col">
-													<label class="label-default mt15p col-12">Tel&eacute;fono</label>
-													<input type="text"
-														class="form-control mb20p input-grey col-12"
-														placeholder="" aria-label="Phone"
-														aria-describedby="basic-addon1" required="true"
-														id="telMovil" name="telMovil" value=""></input>
-													<div class="invalid-feedback">Ingresa tu
-														tel&eacute;fono a 8 digitos.</div>
-													<div class="invalid-feedback">El telef&eacute;no
-														ingresado ya ha sido utilizado en otra cuenta.</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-									<div class="col-10 col-sm-8 col-md-6 col-lg-4">
-										<div class="row justify-content-between">
-											<div class="col-6">
-												<div class="row justify-content-center">
-													<div class="input-group bg-trs mb-3 col-10 col-lg-12 input-2">
-														<div class="col">
-															<label class="label-default mt15p col-12">Sexo</label> <select
-																class="form-control mb20p input-grey col-12"
-																required="true" id="idCatalogoSexo"
-																name="idCatalogoSexo">
-																<option value=""></option>
-																<option value="1">Hombre</option>
-																<option value="2">Mujer</option>
-															</select>
-															<div class="invalid-feedback">Elige una
-																opci&oacute;n.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-
-											<div class="col-6">
-												<div class="row justify-content-center">
-													<div class="input-group bg-trs mb-3 col-10 col-lg-12 input-2">
-														<div class="col">
-															<label class="label-default col-12 mt15p">C&oacute;digo
-																Postal</label> <input type="text"
-																class="form-control mb20p input-grey col-12"
-																placeholder="" aria-label="Phone"
-																aria-describedby="basic-addon1" required="true"
-																id="codigoPostal" name="codigoPostal" value=""></input>
-															<div class="invalid-feedback">Escribe tu
-																c&oacute;digo postal.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-
-										
-										<div class="col-12"
-											style="padding-left: 0px; padding-right: 0px;">
-											<div class="row justify-content-between">
-												<button type="submit"
-													class="btn btn-primary cta-orange m-40 col waves-effect waves-light">Actualizar
-													mi cuenta</button>
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-
-							</div>-->
-
 							</div>
 						</form>
 					</div>
@@ -845,7 +388,6 @@
 	<!--  Plugin for the Bootstrap Table -->
 	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
 	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Chart JS -->
 	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
 	<!--  Notifications Plugin    -->
@@ -853,52 +395,45 @@
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
 	  type="text/javascript"></script>
+	  <script
+		th:src="@{/resources/assets/demo/perfil.js}"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script th:src="@{/resources/assets/demo/bonificaciones-general-chart.js}"></script>
 	
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
   <script th:src="@{/assets/demo/demo.js}"></script>
   -->
 	<script>
 	<!--/catalogoTiendas/list -->
-		$(document).ready(
-				function() {
-					$('#datatable').DataTable(
-							{
-								"pagingType" : "full_numbers",
-								"lengthMenu" : [ [ 10, 25, 50, -1 ],
-										[ 10, 25, 50, "All" ] ],
-								responsive : true,
-								language : {
-									search : "_INPUT_",
-									searchPlaceholder : "Search records",
-								}
-
-							});
-
-					var table = $('#datatable').DataTable();
-
-					// Edit record
-					table.on('click', '.edit', function() {
-						$tr = $(this).closest('tr');
-
-						var data = table.row($tr).data();
-						alert('You press on Row: ' + data[0] + ' ' + data[1]
-								+ ' ' + data[2] + '\'s row.');
-					});
-
-					// Delete a record
-					table.on('click', '.remove', function(e) {
-						$tr = $(this).closest('tr');
-						table.row($tr).remove().draw();
-						e.preventDefault();
-					});
-
-					//Like record
-					table.on('click', '.like', function() {
-						alert('You clicked on Like button');
-					});
-				});
+		$(document).ready(function() {
+			//submitPerfil
+				$("#submitPerfil").click(function(e){
+	    
+				console.log( "Validando" )
+		
+				/*
+		
+				var post_url = form.attr("action"); //get form action url
+				var request_method = form.attr("method"); //get form GET/POST method
+				var form_data = form.serialize(); //Encode form elements for submission
+		
+		
+				var data = form.serialize()
+		
+				$.ajax({
+					url : post_url,
+					type: request_method,
+					data : form_data
+				})//Ajax
+				.done(function( data ) {
+					console.log( data.code );
+				});//Done
+				*/
+		
+			}); //Click
+			
+			
+		});
+		
 	</script>
 </body>
 
