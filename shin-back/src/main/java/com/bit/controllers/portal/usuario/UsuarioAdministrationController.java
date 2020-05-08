@@ -1,6 +1,5 @@
 package com.bit.controllers.portal.usuario;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import org.slf4j.Logger;

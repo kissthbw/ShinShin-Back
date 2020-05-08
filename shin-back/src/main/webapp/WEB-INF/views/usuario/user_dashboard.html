@@ -143,7 +143,7 @@
 
                 <!-- Botón -->
                 <div class="col-6">
-                  <a class="btn btn-primary" role="button" aria-disabled="true" href="/portal-administrador/producto/save" style="color: #FFFFFF !important; float: right; margin-top: -2px;">
+                  <a class="btn btn-primary" role="button" aria-disabled="true" th:href="@{/portal-usuario/dashboard/retiros}" style="color: #FFFFFF !important; float: right; margin-top: -2px;">
                     + Retiro
                   </a>
                 </div>
@@ -178,7 +178,7 @@
 
                   <!-- Button Retiro bancario -->
                   <div class="btn-complex" style="margin-left: 16px;">
-                    <a href="#">
+                    <a th:href="@{/portal-usuario/dashboard/retiros?option=1}">
                       <div class="col">
                         <div class="row justify-content-between">
                           <div><img th:src="@{/resources/home/img/micros/sm-info-tarjeta.svg}" /></div>
@@ -191,7 +191,7 @@
 
                   <!-- Button Retiro PayPal -->
                   <div class="btn-complex">
-                    <a href="#">
+                  	<a th:href="@{/portal-usuario/dashboard/retiros?option=2}">
                       <div class="col">
                         <div class="row justify-content-between">
                           <div><img th:src="@{/resources/home/img/micros/sm-info-payPal.svg}" /></div>
@@ -204,7 +204,7 @@
 
                   <!-- Button Retiro Recarga telefónica -->
                   <div class="btn-complex">
-                    <a href="#">
+                    <a th:href="@{/portal-usuario/dashboard/retiros?option=3}">
                       <div class="col">
                         <div class="row justify-content-between">
                           <div><img th:src="@{/resources/home/img/micros/sm-info-mobile.svg}" /></div>
