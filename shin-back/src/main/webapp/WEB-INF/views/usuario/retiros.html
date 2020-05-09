@@ -93,7 +93,7 @@
               </li>
 
               <li>
-                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                <a th:href="@{/portal-usuario/dashboard/movimientos}">
                   <i class="nc-icon icon-objeto-reloj-light"></i>
                   <p>
                     Movimientos
@@ -250,7 +250,7 @@
 														th:utext="${medio.aliasMedioBonificacion} + '-' + ${medio.cuentaMedioBonificacion}" 
 														th:selected="*{mediosBonificacion} != null ? *{mediosBonificacion.idMediosBonificacion} == ${medio.idMediosBonificacion} : ''"></option>
 					                      	</select>
-					                      	<div class="message-form"><a href="#step1">Agregar Cuenta de retiro</a></div>
+					                      	<div class="message-form"><a data-toggle="modal" href="#step1">Agregar Cuenta de retiro</a></div>
 					                      	<div class="invalid-feedback">
 					                      		Ingresa tu nombre.
 					                      	</div>
@@ -294,7 +294,7 @@
 														th:selected="*{mediosBonificacion} != null ? *{mediosBonificacion.idMediosBonificacion} == ${medio.idMediosBonificacion} : ''"></option>
 	                      				</select>
 	
-	                          			<div class="message-form"><a href="#step1">Agregar Teléfono</a></div>
+	                          			<div class="message-form"><a data-toggle="modal" href="#step1">Agregar Teléfono</a></div>
 	                          			<div class="invalid-feedback">
 	                            			Ingresa tu nombre.
 	                          			</div>
@@ -347,9 +347,9 @@
                   <tbody>
                     <th:block th:each="item : ${items}">
                       <tr>
-                        <td th:text="${item.idMediosBonificacion}"></td>
-						<td th:text="${item.cuentaMedioBonificacion}"></td>
+                        <td th:text="${item.catalogoMediosBonificacion.nombreMedioBonificacion}"></td>
 						<td th:text="${item.catalogoMediosBonificacion.nombreMedioBonificacion}"></td>
+						<td th:text="${item.companiaMedioBonificacion}"></td>
 						<td th:text="${item.aliasMedioBonificacion}"></td>
 						<td class="text-right">
                           <a th:href="@{'/portal-administrador/producto/edit/' + ${item.idMediosBonificacion}}">
@@ -491,12 +491,13 @@
               <h3  class="mt-16">
                 ¿Qué tipo de cuenta quieres agregar?
               </h3>
+              <form id="formStep1">
               <!-- Cantidad -->
               <div class="col-12">
                 <label class="label-default col-12">Tipo *</label>
                     <select class="form-control  input-grey col-12"
-                      required="true" id="tipo-cuenta" name="dia">
-                      <option value="0"></option>
+                      required="true" id="tipo-cuenta" name="tipo-cuenta">
+                      <option value=""></option>
                       <option value="1">Cuenta bancaria</option>
                       <option value="2">Tarjeta bancaria</option>
                       <option value="3">Cuenta CLABE</option>
@@ -507,6 +508,7 @@
                       Selecciona un tipo de cuenta
                     </div>
               </div>
+              </form>
 
             </div>
             <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
@@ -784,7 +786,7 @@
 
                 <!-- **Sólo acepta números -->
                 <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}"  required="true" />
                     <div class="invalid-feedback">
                       Escribe el número telefónico a 10 dígitos
                     </div>
@@ -801,7 +803,7 @@
 
                 <!-- **Sólo acepta números -->
                 <input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" 
-                aria-describedby="basic-addon1" th:field="*{cuentaMedioBonificacion}" required="true" />
+                aria-describedby="basic-addon1" id="cuentaMedioBonificacion2" name="cuentaMedioBonificacion2" required="true" />
                     <div class="message-form" style="text-align: left;">Escribelo a 10 dígitos</div>
                     <div class="invalid-feedback">
                       Escribe el número telefónico a 10 dígitos
@@ -829,262 +831,11 @@
         </div>
       </div>
 
-
+<script th:src="@{/resources/assets/demo/retiros.js}"></script>
 <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script replace="administrador/fragments/toast::toast-config"></script>
-<script>
-$(document).ready(function() {
-	
-	
-	$("#toStep2").click(function(e){
-		
-		var id = $('#tipo-cuenta').val();
-		
-		if( id == '1' ){
-			$('#step1').modal('hide')
-			$('#step2-bancaria').modal('show')	
-		}
-		else if( id == '2' ){
-			$('#step1').modal('hide')
-			$('#step2-tarjeta').modal('show')	
-		}
-		else if( id == '3' ){
-			$('#step1').modal('hide')
-			$('#step2-clabe').modal('show')	
-		}
-		else if( id == '4' ){
-			$('#step1').modal('hide')
-			$('#step2-paypal').modal('show')	
-		}
-		else if( id == '5' ){
-			$('#step1').modal('hide')
-			$('#step2-recarga').modal('show')	
-		}
-		else{
-			
-		}		
-		
-	});
-	
-	$("#submitBancario").click(function(e){
-	    
-		console.log( "Enviando" )
 
-		var form = $("#formRetiroBancario");
-		
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( data.code );
-		});//Done		
-
-		
-	}); //Click
-	
-	$("#submitPaypal").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formRetiroPaypal");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( data.code );
-		});//Done
-		
-		
-	}); //Click
-	
-	$("#submitRecarga").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formRetiroRecarga");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( data.code );
-		});//Done
-		
-		
-	}); //Click
-	
-	
-	//Alta de cuentas
-	
-	$("#submitCuentaBancaria").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formCuentaBancaria");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( "Status" + data );
-		});//Done
-		
-		
-	}); //Click
-	
-		
-	$("#submitTarjetaBancaria").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formCuentaTarjeta");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( "Status" + data );
-		});//Done
-		
-		
-	}); //Click
-	
-	
-	$("#submitCuentaClabe").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formCuentaClabe");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( "Status" + data );
-		});//Done
-		
-		
-	}); //Click
-	
-	$("#submitCuentaPayPal").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formCuentaPaypal");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( "Status" + data );
-		});//Done
-		
-		
-	}); //Click
-	
-	$("#submitTelefono").click(function(e){
-	    
-		console.log( "Enviando" )
-
-		var form = $("#formCuentaTelefonica");
-		
-		
-		var post_url = form.attr("action"); //get form action url
-		var request_method = form.attr("method"); //get form GET/POST method
-		var form_data = form.serialize(); //Encode form elements for submission
-		
-		
-		var data = form.serialize()
-		
-		$.ajax({
-			url : post_url,
-			type: request_method,
-			data : form_data
-		})//Ajax
-		.done(function( data ) {
-			console.log( "Status" + data );
-		});//Done
-		
-		
-	}); //Click
-		
-});//ready
-
-
-</script>
 
 </body>
 

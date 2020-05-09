@@ -57,7 +57,7 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 		
 		log.info("Obtiene una lista de bonificaciones del usuario {}", item.getIdUsuario());
 		
-		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(item);
+		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(item, 200);
 		
 		rsp.setHistoricoMediosBonificaciones(list);
 		return rsp;

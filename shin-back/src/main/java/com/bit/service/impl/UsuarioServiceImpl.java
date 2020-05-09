@@ -512,9 +512,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		if( source == Source.CONTROLLER ) {
 			log.info( "La actualizacion viene del web" );
-			item.setContrasenia( "".equals( item.getContrasenia().trim() ) ? item.getContrasenia() : null );
-			item.setConfirmarContrasenia( "".equals( item.getConfirmarContrasenia().trim() ) ? item.getConfirmarContrasenia() : null );
-			item.setContraseniaActual( "".equals( item.getContraseniaActual().trim() ) ? item.getContraseniaActual() : null );
+			item.setContrasenia( "".equals( item.getContrasenia().trim() ) ? null : item.getContrasenia() );
+			item.setConfirmarContrasenia( "".equals( item.getConfirmarContrasenia().trim() ) ? null : item.getConfirmarContrasenia() );
+			item.setContraseniaActual( "".equals( item.getContraseniaActual().trim() ) ? null : item.getContraseniaActual() );
 			
 		}
 		
@@ -817,10 +817,11 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		log.info("Obteniendo tickets del usuario: {}", user.getIdUsuario());
 		//Se obtienen los tickets del usuario (abonos)
-		List<Long> ids = usuarioDAO.getTicketsPorUsuario( user );
+		//FIXME: Cambiar esta consulta por una que devuelva el total de abonos
+		List<Long> ids = usuarioDAO.getTicketsPorUsuario( user, null );
 		
 		if( !ids.isEmpty() ) {
-			List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+			List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids, null);
 			
 			
 			for (Ticket t : tickets) {
@@ -833,7 +834,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		//Obtener las solicitudes bonificacion (cargos)
 		log.info("Obteniendo bonificaciones del usuario: {}", user.getIdUsuario());
-		List<HistoricoMediosBonificacion> bonificaciones = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(user);
+		//FIXME: Cambiar esta consulta por una que devuelva el total de cargos
+		List<HistoricoMediosBonificacion> bonificaciones = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(user, null);
 		
 		if( !bonificaciones.isEmpty() ) {
 			for( HistoricoMediosBonificacion b : bonificaciones ) {
@@ -978,14 +980,14 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	@Transactional
-	public ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item) {
+	public ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item, Integer maxResults) {
 		ListItemsRSP rsp = new ListItemsRSP();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
 		log.info("Obtiene una lista de bonificaciones del usuario {}", item.getIdUsuario());
 		
-		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(item);
+		List<HistoricoMediosBonificacion> list = historicoMediosBonificacionDAO.getHistoricosMediosBonificacionPorUsuario(item, maxResults);
 		
 		rsp.setHistoricoMediosBonificaciones( transformHistoricoMediosBonificacion(list) );
 		return rsp;
@@ -993,17 +995,17 @@ public class UsuarioServiceImpl implements UsuarioService{
 
 	@Override
 	@Transactional
-	public ListItemsRSP obtieneTicketsPorUsuario(Usuario item) {
+	public ListItemsRSP obtieneTicketsPorUsuario(Usuario item, Integer maxResults) {
 		ListItemsRSP rsp = new ListItemsRSP();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
 		
 		log.info("Obtiene una lista de tickets del usuario {}", item.getIdUsuario());
 		
-		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item);
+		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item, maxResults);
 		
 		if( !ids.isEmpty() ) {
-			List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+			List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids, maxResults);
 			rsp.setTickets( transformTicketList(tickets) );
 		}
 		else {
@@ -1114,6 +1116,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 			tmp.setTotalProductos( t.getProductos().size() );
 			tmp.setFormatFecha( Utils.formatDateToString( t.getFecha(), "dd-MMM-yyyy" ) );
 			
+			Double bonificacion = 0.0;
+			for( Producto p : t.getProductos() ) {
+				bonificacion = bonificacion + p.getCantidadBonificacion();
+			}
+			
+			tmp.setTotalBonificacionFormateada( Utils.formatNumeros(bonificacion, "$ ###,###,###.00") );
+			
 			tickets.add(tmp);
 		}
 		
@@ -1126,6 +1135,8 @@ public class UsuarioServiceImpl implements UsuarioService{
 		for( HistoricoMediosBonificacion h : list ) {
 			HistoricoMediosBonificacion tmp = new HistoricoMediosBonificacion();
 			MediosBonificacion medio = new MediosBonificacion();
+			CatalogoMediosBonificacion cm = new CatalogoMediosBonificacion();
+			cm.setNombreMedioBonificacion("");
 			
 			tmp.setIdHistoricoMediosBonificacion( h.getIdHistoricoMediosBonificacion() );
 			tmp.setCantidadBonificacion( h.getCantidadBonificacion() );
@@ -1133,8 +1144,13 @@ public class UsuarioServiceImpl implements UsuarioService{
 			tmp.setHoraBonificacion( h.getHoraBonificacion() );
 			medio.setIdCuentaMedioBonificacion( h.getMediosBonificacion().getIdCuentaMedioBonificacion() );
 			medio.setAliasMedioBonificacion( h.getMediosBonificacion().getAliasMedioBonificacion() );
-			medio.setCuentaMedioBonificacion( h.getMediosBonificacion().getCuentaMedioBonificacion() ); 
+			medio.setCuentaMedioBonificacion( h.getMediosBonificacion().getCuentaMedioBonificacion() );
 			
+			if( null != h.getMediosBonificacion() ) {
+				cm.setNombreMedioBonificacion( h.getMediosBonificacion().getCatalogoMediosBonificacion().getNombreMedioBonificacion() );
+			}
+			
+			medio.setCatalogoMediosBonificacion(cm);
 			tmp.setMediosBonificacion(medio);
 			historicoBonificaciones.add(tmp);
 		}
@@ -1395,9 +1411,9 @@ public class UsuarioServiceImpl implements UsuarioService{
 		rsp.setBonificacion( calculaCreditoTotal(item).doubleValue() );
 
 		// Historico de retiros
-		rsp.setListaMediosBonificaciones( obtienetHistoricosMediosBonificacionPorUsuario(item).getMediosBonificaciones() );
+		rsp.setListaMediosBonificaciones( obtienetHistoricosMediosBonificacionPorUsuario(item, 200).getMediosBonificaciones() );
 		
-		rsp.setListaTickets( obtieneTicketsPorUsuario(item).getTickets() );
+		rsp.setListaTickets( obtieneTicketsPorUsuario(item, 200).getTickets() );
 		
 		//Graficas
 		

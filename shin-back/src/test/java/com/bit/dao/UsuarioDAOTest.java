@@ -442,10 +442,10 @@ public class UsuarioDAOTest {
 	public void obtenerTickets() {
 		Usuario item = new Usuario();
 		item.setIdUsuario(1l);
-		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item);
+		List<Long> ids = usuarioDAO.getTicketsPorUsuario(item, null);
 		
 		//Buscar informacion de los tickets
-		List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids);
+		List<Ticket> tickets = ticketDAO.getTicketsPorUsuario(ids, null);
 		System.out.println( tickets );
 		
 	}

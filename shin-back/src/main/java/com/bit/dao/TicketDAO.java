@@ -32,9 +32,13 @@ public class TicketDAO extends DAOTemplate<Ticket, Long> {
 		return c.list();
 	}
 
-	public List<Ticket> getTicketsPorUsuario(List<Long> ids) {
+	public List<Ticket> getTicketsPorUsuario(List<Long> ids, Integer maxResults) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Ticket.class);
-		c.setMaxResults(50);
+		
+		if( null != maxResults ) {
+			c.setMaxResults(maxResults);
+		}
+		
 		c.add(Restrictions.in("idTicket", ids));
 		c.addOrder(Property.forName("idTicket").desc());
 
