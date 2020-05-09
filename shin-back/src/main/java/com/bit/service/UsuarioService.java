@@ -41,9 +41,9 @@ public interface UsuarioService {
 	
 	InformacionUsuarioRSP registrarTicketUsuario(Usuario item);
 	
-	ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item);
+	ListItemsRSP obtienetHistoricosMediosBonificacionPorUsuario(Usuario item, Integer maxResults);
 	
-	ListItemsRSP obtieneTicketsPorUsuario(Usuario item);
+	ListItemsRSP obtieneTicketsPorUsuario(Usuario item, Integer maxResults);
 	
 	BigDecimal calculaCreditoTotal(Usuario user); 
 	

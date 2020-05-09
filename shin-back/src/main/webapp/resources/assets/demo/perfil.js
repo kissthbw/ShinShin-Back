@@ -11,20 +11,22 @@ var validations = {
 	  			},
 	  			contraseniaActual: { //contrasenia, confirmarContrasenia
 	  				minlength: 8,
-	  				required: function(element){
-	  					console.log( $("#contraseniaActual").val().length > 0 )
-	  					console.log( $("#contrasenia").val().length > 0 )
-	  					console.log( $("#confirmarContrasenia").val().length > 0 )
-	  					
-	  		            return $("#contrasenia").val().length > 0;
+	  				required: function(element){	  					
+	  		            return  ( $("#contrasenia").val().length > 0 || $("#confirmarContrasenia").val().length > 0 );
 	  		        }
 	  			},
 	  			contrasenia: {
 	  				minlength: 8,
+	  				required: function(element){	  					
+	  		            return  ( $("#contraseniaActual").val().length > 0 || $("#confirmarContrasenia").val().length > 0 );
+	  		        },
 	  				equalTo: '#confirmarContrasenia'
 	  			},
 	  			confirmarContrasenia: {
 	  				minlength: 8,
+	  				required: function(element){	  					
+	  		            return  ( $("#contrasenia").val().length > 0 || $("#contraseniaActual").val().length > 0 );
+	  		        },
 	  				equalTo: '#contrasenia'
 	  			},
 				telMovil:{
@@ -52,10 +54,19 @@ var validations = {
 				data : form_data
 			})// Ajax
 			.done(function(data) {
-				console.log(data.code);
+				console.log( "Respuesta: " + data.code);
+				if( data.code == 200 ){
+					clean();
+				}
 			});// Done
 		}
 
+	},
+
+	clean : function(){
+		$("#contraseniaActual").val('');
+		$("#contrasenia").val('');
+		$("#confirmarContrasenia").val('');
 	}
 };
 

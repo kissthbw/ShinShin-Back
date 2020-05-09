@@ -24,9 +24,11 @@ import com.bit.model.CatalogoSexo;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
 import com.bit.model.Usuario;
+import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
+import com.bit.service.MediosBonificacionService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
@@ -46,6 +48,9 @@ public class UserDashboardController {
 	
 	@Autowired
 	private HistoricoMediosBonificacionService historicoMediosBonificacionService;
+	
+	@Autowired
+	private MediosBonificacionService mediosBonificacionService;
 
 	
 	@GetMapping(value="/dashboard")
@@ -61,8 +66,13 @@ public class UserDashboardController {
 			item.setIdUsuario( current.getUsuario().getIdUsuario() );
 			
 			InformacionUsuarioRSP rsp = usuarioService.obtieneInformacionGeneralUsuario(item);
-			ListItemsRSP historicoMovimientos = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
-			ListItemsRSP historicoTickets = usuarioService.obtieneTicketsPorUsuario(item);
+			
+			//Mostrar los ultimos 10 movimientos
+			//Tipo	Cuenta	Cantidad	Fecha	Estatus
+			ListItemsRSP historicoMovimientos = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item, 10);
+			
+			//Mostrar solo los ultimos 10 tickets
+			ListItemsRSP historicoTickets = usuarioService.obtieneTicketsPorUsuario(item, 10);
 			
 			model.addAttribute("info", rsp);
 			model.addAttribute("movimientos", historicoMovimientos.getHistoricoMediosBonificaciones());
@@ -119,9 +129,10 @@ public class UserDashboardController {
 //	}
 	
 	@PostMapping(value="/dashboard/perfil")
-	public String actualizaPerfil(Model model, @ModelAttribute Usuario item, BindingResult errors) {
+	public @ResponseBody InformacionUsuarioRSP actualizaPerfil(Model model, @ModelAttribute Usuario item, BindingResult errors) {
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
+		InformacionUsuarioRSP rsp = new InformacionUsuarioRSP();
 		
 		if ( null != current ) {
 //			Usuario item = new Usuario();
@@ -133,11 +144,11 @@ public class UserDashboardController {
 
 			
 			log.info("Entrando a actualizarUsuarios para modificar uno o varios valores de usuario");
-			InformacionUsuarioRSP rsp = usuarioService.actualizarUsuarios(item, Source.CONTROLLER);
+			rsp = usuarioService.actualizarUsuarios(item, Source.CONTROLLER);
 		}
 		
 		
-		return "redirect:/portal-usuario/dashboard";
+		return rsp;
 	}
 	
 	@GetMapping(value="/dashboard/tickets")
@@ -149,7 +160,7 @@ public class UserDashboardController {
 			item.setIdUsuario( current.getUsuario().getIdUsuario() );
 			
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-			ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
+			ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item, 200);
 			
 			model.addAttribute("info", info);
 			model.addAttribute("items", rsp.getTickets());
@@ -167,8 +178,6 @@ public class UserDashboardController {
 			item.setIdUsuario( current.getUsuario().getIdUsuario() );
 			
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-			ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
-			
 			InformacionUsuarioRSP infoWithMedios = usuarioService.obtenerMediosBonificacion(item);
 			
 			List<MediosBonificacion> tmp = new ArrayList<>();
@@ -251,7 +260,7 @@ public class UserDashboardController {
 		return "usuario/retiros";
 	}
 	
-	@GetMapping(value="/dashboard/cuentas")
+	@GetMapping(value="/dashboard/movimientos")
 	public String obtieneCuentas(Model model) {
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
@@ -263,17 +272,14 @@ public class UserDashboardController {
 			List<MediosBonificacion> tmp = new ArrayList<>();
 			
 			InformacionUsuarioRSP info = usuarioService.obtieneInformacionGeneralUsuario(item);
-			InformacionUsuarioRSP rsp = usuarioService.obtenerMediosBonificacion(item);
-			tmp.addAll( rsp.getMediosBonificacion().get(0).getList() );
-			tmp.addAll( rsp.getMediosBonificacion().get(1).getList() );
-			tmp.addAll( rsp.getMediosBonificacion().get(2).getList() );
+			ListItemsRSP historicoMovimientos = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item, 200);
 			
 			model.addAttribute("info", info);
-			model.addAttribute("items", tmp);
+			model.addAttribute("movimientos", historicoMovimientos.getHistoricoMediosBonificaciones());
 		}
 		
 		
-		return "usuario/cuentas";
+		return "usuario/movimientos";
 	}
 	
 	//TODO: SECCION DE ALTA DE CUENTAS no esta contemplada, pero por si acaso
@@ -290,19 +296,24 @@ public class UserDashboardController {
 	}
 	 */
 	@PostMapping(value="/dashboard/agregar-medioBonificacion")
-	public @ResponseBody String getSaveBanco(Model model, @ModelAttribute MediosBonificacion item) {
+	public @ResponseBody SimpleResponse getSaveBanco(Model model, @ModelAttribute MediosBonificacion item) {
+		
+		SimpleResponse rsp = new SimpleResponse();
+		rsp.setCode( 200 );
 		
 		UsuarioShingShingDetailService current = getAuthenticationUser();
 		
 		if ( null != current ) {
 			Usuario u = new Usuario();
 			u.setIdUsuario( current.getUsuario().getIdUsuario() );
+			item.setUsuario(u);
 			
-			log.info( "Guardando medio a usuario: {}", u.getIdUsuario() );
+			log.info( "Guardando medio: {} a usuario: {}", item.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion(), u.getIdUsuario() );
+			rsp = mediosBonificacionService.guardarMediosBonificacion(item);
 		}
 		
 		
-		return "usuario/retiro-bancario";
+		return rsp;
 	}
 	
 	/*

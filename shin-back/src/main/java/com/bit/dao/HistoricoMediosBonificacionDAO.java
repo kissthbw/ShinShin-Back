@@ -31,9 +31,13 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<HistoricoMediosBonificacion> getHistoricosMediosBonificacionPorUsuario(Usuario item) {
+	public List<HistoricoMediosBonificacion> getHistoricosMediosBonificacionPorUsuario(Usuario item, Integer maxResults) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(HistoricoMediosBonificacion.class);
-		c.setMaxResults(50);
+		
+		if(  null != maxResults) {
+			c.setMaxResults( maxResults );
+		}
+		
 		c.createAlias("usuario", "user");
 		c.add(Restrictions.eq("user.idUsuario", item.getIdUsuario()));
 		c.addOrder(Property.forName("idHistoricoMediosBonificacion").desc());
