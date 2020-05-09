@@ -58,6 +58,10 @@
 							<ul class="nav">
 								<li><a th:href="@{/portal-administrador/tienda/list}">
 										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Clientes (In progress)</span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal"> Tiendas </span>
 								</a></li>
 								<li><a th:href="@{/portal-administrador/departamento/list}">
@@ -79,7 +83,7 @@
 					<a data-toggle="collapse" href="#bonificaciones"> <i
 							class="nc-icon icon-finanzas-dinero"></i>
 							<p>
-								Bonificaciones
+								Finanzas
 							</p>
 					</a>
 
@@ -149,7 +153,7 @@
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12">
-						<b><h4 class="title-cat">Productos</h4></b>
+						<b><h2 class="title-cat">Productos</h2></b>
 						<div class="card">
 							<!--<div class="card-header">
 								<h4 class="card-title">Lista Productos</h4>
@@ -180,23 +184,9 @@
 											<th>Tipo</th>
 											<th>Marca</th>
 											<th>Departamento</th>
-											<th class="disabled-sorting text-right">Actions</th>
+											<th class="disabled-sorting text-right"></th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Producto</th>
-											<!-- <th>Precio</th>  -->
-											<th>Contenido</th>
-											<!--  <th>Imagen</th> -->
-											<th>Bonificacion</th>
-											<th>Tipo</th>
-											<th>Marca</th>
-											<th>Departamento</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</tfoot>
 									<tbody>
 										<th:block th:each="item : ${productos}">
 											<tr>
@@ -210,7 +200,7 @@
 												<td th:text="${item.catalogoMarca.nombreMarca}"></td>
 												<td
 													th:text="${item.catalogoTipoProducto.nombreTipoProducto}"></td>
-												<td class="text-center"><a
+												<td class="text-right"><a
 													th:href="@{'/portal-administrador/producto/edit/' + ${item.idProducto}}">Editar</a>
 												</td>
 											</tr>
@@ -229,15 +219,9 @@
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
-
-
 						<div
 							th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
-
-
-
-
 							<ul>
 								<!-- <li>
 									<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>

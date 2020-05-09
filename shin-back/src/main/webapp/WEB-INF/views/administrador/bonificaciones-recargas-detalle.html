@@ -7,7 +7,7 @@
 	<!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
 	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing Shing / Recargas Detalle</title>
+	<title>Recargas/Detalle | Shing Shing</title>
 	<meta 
 		content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' 
 		name='viewport' />
@@ -18,6 +18,8 @@
 	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
@@ -27,152 +29,119 @@
 
 <body class="">
 	<div class="wrapper">
-		<div class="sidebar" data-color="white" data-active-color="danger">
-			<!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-    -->
-			<div class="logo">
-   				<a href="" class="simple-text logo-mini">
-					<div class="logo-image-small">
-						<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"/>
-					</div>
-				</a>
-				<a href="" class="simple-text logo-normal">
-					<div class="logo-image-big">
-						<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}"/>
-					</div>
-				</a>
-   			</div>
-			<div class="sidebar-wrapper ">
+		<div class="sidebar" data-color="white">
+			<div class="sidebar-wrapper">
+				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
-   					<div class="photo">
-   						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
-   					</div>
-   					<div class="info">
-   						<a data-toggle="collapse" href="#collapseExample" 
-   							class="collapsed">
-   							<span th:text="${item.nombre}">
-								<!-- User -->
+					<div class="photo">
+						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+					</div>
+					<div class="info">
+						<a data-toggle="collapse" href="#collapseExample"
+							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
 								<b class="caret"></b>
-							</span>
-   						</a>
-   						<div class="clearfix"></div>
+						</span>
+						</a>
+						<div class="clearfix"></div>
 					</div>
 				</div>
 
-				<!-- MENU -->
 				<ul class="nav">
-						<!-- Las opciones del menu debe ir entre <li></li> -->
-						<li>
-							<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
-								<i class="nc-icon nc-ruler-pencil"></i>
-								<p>Catalogos<b class="caret"></b></p>
-							</a>
-							<div class="collapse " id="catalogos">
-								<ul class="nav">
-									<li>
-										<a th:href="@{/portal-administrador/departamento/list}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal"> Departamentos </span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/portal-administrador/marca/list}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal"> Marcas </span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/portal-administrador/tienda/list}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal"> Tiendas </span>
-										</a>
-									</li>
-									
-									<li>
-										<a th:href="@{/portal-administrador/producto/save}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal"> Productos </span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
 
-						<li class="active">
-							<a data-toggle="collapse" href="#bonificaciones">
-								<i class="nc-icon nc-money-coins"></i>
-								<p>
-									Bonificaciones <b class="caret"></b>
-								</p>
-							</a>
+					<li class="active"><a data-toggle="collapse" href="#catalogos"
+						aria-expanded="true">
+						<i class="nc-icon icon-objeto-catalogo"></i>
+							<p>
+								Catalogos
+							</p>
+					</a>
+						<div class="collapse show" id="catalogos">
+							<ul class="nav">
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Clientes </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Tiendas </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/departamento/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Departamentos </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/marca/list}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Marcas </span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/producto/list}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Productos </span>
+								</a></li>
+							</ul>
+						</div></li>
+					<li class="active">
+					<a data-toggle="collapse" href="#bonificaciones"> <i
+							class="nc-icon icon-finanzas-dinero"></i>
+							<p>
+								Finanzas
+							</p>
+					</a>
 
-							<div class="collapse show" id="bonificaciones">
-								<ul class="nav">
-									<li>
-										<a th:href="@{/portal-administrador/bonificaciones-depositos}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">Retiros</span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/portal-administrador/bonificaciones-general}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">General</span>
-										</a>
-									</li>
-									<li class="active">
-										<a th:href="@{/portal-administrador/bonificaciones-recargas}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">Recargas</span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal"> Medios bonificacion </span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
+						<div class="collapse show" id="bonificaciones">
+							<ul class="nav">
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-general}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">General</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Medios bonificación </span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/bonificaciones-depositos}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Retiros</span>
+								</a></li>
+								<li class="active"><a
+									th:href="@{/portal-administrador/bonificaciones-recargas}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Recargas</span>
+								</a></li>
+							</ul>
+						</div></li>
 
-						<li>
-							<a data-toggle="collapse" href="#estadisticas">
-								<i class="nc-icon nc-chart-bar-32"></i>
-								<p>
-									Estadisticas <b class="caret"></b>
-								</p>
-							</a>
-							<div class="collapse " id="estadisticas">
-								<ul class="nav">
-									<li>
-										<a th:href="@{/portal-administrador/estadisticas-general}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">General</span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/portal-administrador/estadisticas-tickets}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">Tickets</span>
-										</a>
-									</li>
-									<li class="active">
-										<a th:href="@{/portal-administrador/estadisticas-marcas}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">Marcas</span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-											<span class="sidebar-mini-icon">·</span>
-											<span class="sidebar-normal">Usarios</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
+					<li><a data-toggle="collapse" href="#estadisticas"> <i
+							class="nc-icon icon-simbolo-estadisticas"></i>
+							<p>
+								Estadisticas
+							</p>
+					</a>
+						<div class="collapse show" id="estadisticas">
+							<ul class="nav">
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-general}"> <span
+										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Tickets</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Marcas</span>
+								</a></li>
+								<li><a
+									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
+										class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal">Usarios</span>
+								</a></li>
+							</ul>
+						</div></li>
 				</ul>
 			</div>
 		</div>

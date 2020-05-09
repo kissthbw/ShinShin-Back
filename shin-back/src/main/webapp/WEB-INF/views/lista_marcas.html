@@ -69,6 +69,10 @@
 							<ul class="nav">
 								<li><a th:href="@{/portal-administrador/tienda/list}">
 										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Clientes </span>
+								</a></li>
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal"> Tiendas </span>
 								</a></li>
 								<li><a th:href="@{/portal-administrador/departamento/list}">
@@ -90,7 +94,7 @@
 					<a data-toggle="collapse" href="#bonificaciones"> <i
 							class="nc-icon icon-finanzas-dinero"></i>
 							<p>
-								Bonificaciones
+								Finanzas
 							</p>
 					</a>
 
@@ -160,11 +164,11 @@
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12">
-						<b><h4 class="title-cat">Marcas</h4></b>
+						<b><h2 class="title-cat">Marcas</h2></b>
+						
 						<div class="card">
-
 							<div class="card-header ">
-								<h4 class="card-title">Clientes</h4>
+								<h3 class="card-title">Clientes</h3>
 							</div>
 
 							<div class="card-body">
@@ -190,8 +194,13 @@
 												<td th:text="${item.id}"></td>
 												<td th:text="${item.email}"></td>
 												<td th:text="${item.marca}"></td>
-												<td class="text-center"><a
-													th:href="@{'/portal-administrador/marca-admin/edit/' + ${item.id}}">Editar</a>
+												<td class="text-right">
+													<a th:href="@{'/portal-administrador/marca-admin/edit/' + ${item.id}}">
+														<span class="icon-accion-descargar"></span>
+													</a>
+													<a th:href="@{'/portal-administrador/marca-admin/edit/' + ${item.id}}">
+														Editar
+													</a>
 												</td>
 											</tr>
 										</th:block>
@@ -211,7 +220,7 @@
 						<div class="card">
 
 							<div class="card-header ">
-								<h4 class="card-title">Marcas</h4>
+								<h3 class="card-title">Marcas</h3>
 							</div>
 
 							<div class="card-body">
@@ -229,25 +238,22 @@
 											<th>Id</th>
 											<th>Marca</th>
 											<th>Productos</th>
-											<th class="disabled-sorting text-right">Actions</th>
+											<th class="disabled-sorting text-right"></th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Marca</th>
-											<th>Productos</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</tfoot>
 									<tbody>
 										<th:block th:each="item : ${marcas}">
 											<tr>
 												<td th:text="${item.idCatalogoMarca}"></td>
 												<td th:text="${item.nombreMarca}"></td>
 												<td th:text="${item.products}"></td>
-												<td class="text-center"><a
-													th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">Editar</a>
+												<td class="text-right">
+													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">
+														<span class="icon-accion-descargar"></span>
+													</a>
+													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">
+														Editar
+													</a>
 												</td>
 											</tr>
 										</th:block>

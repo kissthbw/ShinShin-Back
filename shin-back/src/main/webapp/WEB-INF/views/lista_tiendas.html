@@ -55,6 +55,10 @@
 					</a>
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-mini-icon">·</span> <span
+										class="sidebar-normal"> Clientes </span>
+								</a></li>
 								<li class="active"><a th:href="@{/portal-administrador/tienda/list}">
 										<span class="sidebar-mini-icon">·</span> <span
 										class="sidebar-normal"> Tiendas </span>
@@ -78,10 +82,9 @@
 					<a data-toggle="collapse" href="#bonificaciones"> <i
 							class="nc-icon icon-finanzas-dinero"></i>
 							<p>
-								Bonificaciones
+								Finanzas
 							</p>
 					</a>
-
 						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
 								<li><a
@@ -147,7 +150,7 @@
 			<div class="content">
 				<div class="row">	
 					<div class="col-md-12">
-					<b><h4 class="title-cat">Tiendas</h4></b>
+					<b><h2 class="title-cat">Tiendas</h2></b>
 						<div class="card">
 							<!-- <div class="card-header">
 								<h4 class="card-title">Lista Tiendas</h4>
@@ -167,25 +170,22 @@
 											<th>Id</th>
 											<th>Tienda</th>
 											<th>Productos</th>
-											<th class="disabled-sorting text-right">Actions</th>
+											<th class="disabled-sorting text-right"></th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Tienda</th>
-											<th>Productos</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</tfoot>
 									<tbody>
 										<th:block th:each="item : ${tiendas}">
 											<tr>
 												<td th:text="${item.idCatalogoTienda}"></td>
 												<td th:text="${item.nombreTienda}"></td>
 												<td th:text="${item.products}"></td>
-												<td class="text-center">
-													<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTienda}}">Editar</a>
+												<td class="text-right">
+													<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTienda}}">
+														<span class="icon-accion-descargar"></span>
+													</a>
+													<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTienda}}">
+														Editar
+													</a>
 												</td>
 											</tr>
 										</th:block>
