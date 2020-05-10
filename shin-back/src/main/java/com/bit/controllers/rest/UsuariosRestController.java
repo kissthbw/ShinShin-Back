@@ -161,7 +161,7 @@ public class UsuariosRestController {
 	@PostMapping(value="/usuario/historicoBonificaciones")
 	public @ResponseBody ListItemsRSP obtenerHistoricoBonificacionesPorUsuario( @RequestBody Usuario item ) {
 		log.info("Entrando a obtenerHistoricoBonificacionesPorUsuario");
-		ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item);
+		ListItemsRSP rsp = usuarioService.obtienetHistoricosMediosBonificacionPorUsuario(item, 200);
 		
 		return rsp;
 	}
@@ -169,7 +169,7 @@ public class UsuariosRestController {
 	@PostMapping(value="/usuario/historicoTickets")
 	public @ResponseBody ListItemsRSP obtenerHistoricoTicketsPorUsuario( @RequestBody Usuario item ) {
 		log.info("Entrando a obtenerHistoricoTicketsPorUsuario");
-		ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item);
+		ListItemsRSP rsp = usuarioService.obtieneTicketsPorUsuario(item, 200);
 		
 		return rsp;
 	}

@@ -90,7 +90,7 @@
               </li>
 
               <li>
-                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                <a th:href="@{/portal-usuario/dashboard/movimientos}">
                   <i class="nc-icon icon-objeto-reloj-light"></i>
                   <p>
                     Movimientos
@@ -177,8 +177,8 @@
                   	<th:block th:each="item : ${items}">
                   		<tr>
                   			<td th:text="${item.nombreTienda}"></td>
-                  			<td th:text="${item.total}"></td>
-                  			<td th:text="${item.fecha}"></td>
+                  			<td th:text="${item.totalBonificacionFormateada}"></td>
+                  			<td th:text="${item.formatFecha}"></td>
                   			<td class="text-center">
                   				<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
                   					<i class="fa fa-edit"></i>

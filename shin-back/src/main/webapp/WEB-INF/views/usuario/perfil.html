@@ -87,7 +87,7 @@
               </li>
 
               <li>
-                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                <a th:href="@{/portal-usuario/dashboard/movimientos}">
                   <i class="nc-icon icon-objeto-reloj-light"></i>
                   <p>
                     Movimientos
@@ -282,7 +282,7 @@
 										<!-- Contraseña actual -->
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Contraseña actual</label>
-											<input type="text" class="form-control input-grey col-12" th:field="*{contraseniaActual}" placeholder="" aria-label="Name" 
+											<input type="password" class="form-control input-grey col-12" th:field="*{contraseniaActual}" placeholder="" aria-label="Name" 
 											aria-describedby="basic-addon1" />
 
 									        <div class="invalid-feedback">
@@ -293,7 +293,7 @@
 										<!-- Contraseña nueva -->
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Contraseña nueva</label>
-											<input type="text" class="form-control input-grey col-12" th:field="*{contrasenia}" placeholder="" aria-label="Name" 
+											<input type="password" class="form-control input-grey col-12" th:field="*{contrasenia}" placeholder="" aria-label="Name" 
 											aria-describedby="basic-addon1" />
 											
 									        <div class="invalid-feedback">
@@ -304,7 +304,7 @@
 										<!-- Confirma tu contraseña nueva -->
 										<div class="col-12 mt-16">
 											<label class="label-default col-12">Confirma tu Contraseña nueva</label>
-											<input type="text" class="form-control input-grey col-12" th:field="*{confirmarContrasenia}" placeholder="" aria-label="Name" 
+											<input type="password" class="form-control input-grey col-12" th:field="*{confirmarContrasenia}" placeholder="" aria-label="Name" 
 											aria-describedby="basic-addon1" />
 										
 									        <div class="invalid-feedback">

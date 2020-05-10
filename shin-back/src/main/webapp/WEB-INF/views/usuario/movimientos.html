@@ -90,7 +90,7 @@
               </li>
 
               <li class="active">
-                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                <a th:href="@{/portal-usuario/dashboard/movimientos}">
                   <i class="nc-icon icon-objeto-reloj-light"></i>
                   <p>
                     Movimientos
@@ -174,12 +174,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <th:block th:each="item : ${items}">
+                    <th:block th:each="item : ${movimientos}">
                       <tr>
-                        <td th:text="${item.aliasMedioBonificacion}"></td>
-                        <td th:text="${item.aliasMedioBonificacion}"></td>
-                        <td th:text="${item.aliasMedioBonificacion}"></td>
-                        <td th:text="${item.aliasMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.catalogoMediosBonificacion.nombreMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.cuentaMedioBonificacion}"></td>
+                        <td th:text="${item.cantidadBonificacion}"></td>
+                        <td th:text="${item.fechaBonificacion}"></td>
                         <td></td>
                       </tr>
                     </th:block>

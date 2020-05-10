@@ -30,11 +30,15 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		return c.list();
 	}
 	
-	public List<Long> getTicketsPorUsuario(Usuario item) {
+	public List<Long> getTicketsPorUsuario(Usuario item, Integer maxResults) {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery("SELECT ticket_id_ticket FROM historico_tickets WHERE usuario_id_usuario = :idUsuario");
 		q.setParameter("idUsuario", item.getIdUsuario());
 		q.setFirstResult(0);
-		q.setMaxResults(50);
+		
+		if( null != maxResults ) {
+			q.setMaxResults(maxResults);
+		}
+		
 		List<Object> list = q.list();
 		List<Long> tmpList = new ArrayList<>();
 		

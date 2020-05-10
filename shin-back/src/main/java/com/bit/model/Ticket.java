@@ -79,6 +79,9 @@ public class Ticket {
 	private List<Producto> productos = new ArrayList<>();
 	
 	@Transient
+	private String totalBonificacionFormateada;
+	
+	@Transient
 	private String formatFecha;
 	
 	@Transient
@@ -201,6 +204,14 @@ public class Ticket {
 	
 	public void addProducto(Producto producto) {
 		productos.add(producto);
+	}
+
+	public String getTotalBonificacionFormateada() {
+		return totalBonificacionFormateada;
+	}
+
+	public void setTotalBonificacionFormateada(String totalBonificacionFormateada) {
+		this.totalBonificacionFormateada = totalBonificacionFormateada;
 	}
 
 	public String getFormatFecha() {
