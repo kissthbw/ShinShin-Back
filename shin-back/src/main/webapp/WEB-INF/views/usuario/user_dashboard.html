@@ -86,7 +86,7 @@
               </li>
 
               <li>
-                <a th:href="@{/portal-usuario/dashboard/cuentas}">
+                <a th:href="@{/portal-usuario/dashboard/movimientos}">
                   <i class="nc-icon icon-objeto-reloj-light"></i>
                   <p>
                     Movimientos
@@ -239,7 +239,7 @@
                     <th:block th:each="item : ${tickets}">
                       <tr>
                         <td th:text="${item.nombreTienda}"></td>
-                        <td th:text="${item.total}"></td>
+                        <td th:text="${item.totalBonificacionFormateada}"></td>
                         <td th:text="${item.formatFecha}"></td>
                         <td class="text-right">
                           <a th:href="@{'/portal-administrador/producto/edit/' + ${item.nombreTienda}}">
@@ -252,7 +252,7 @@
                 </table>
 
                 <div style="text-align: right;">
-                  <a href="#">Ver todos</a>
+                  <a th:href="@{/portal-usuario/dashboard/tickets}">Ver todos</a>
                 </div>
 
               </div>
@@ -276,10 +276,10 @@
                   <tbody>
                     <th:block th:each="item : ${movimientos}">
                       <tr>
-                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
-                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
-                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
-                        <td th:text="${item.mediosBonificacion.aliasMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.catalogoMediosBonificacion.nombreMedioBonificacion}"></td>
+                        <td th:text="${item.mediosBonificacion.cuentaMedioBonificacion}"></td>
+                        <td th:text="${item.cantidadBonificacion}"></td>
+                        <td th:text="${item.fechaBonificacion}"></td>
                         <td></td>
                       </tr>
                     </th:block>
@@ -287,7 +287,7 @@
                 </table>
 
                 <div style="text-align: right;">
-                  <a href="#">Ver todos</a>
+                  <a th:href="@{/portal-usuario/dashboard/movimientos}">Ver todos</a>
                 </div>
 
               </div>

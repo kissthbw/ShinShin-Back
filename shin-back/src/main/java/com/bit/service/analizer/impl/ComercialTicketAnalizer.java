@@ -16,76 +16,90 @@ import org.springframework.stereotype.Service;
 
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
+import com.bit.model.dto.response.WalmartTicketRSP;
 import com.bit.service.analizer.Analizer;
 import com.bit.service.analizer.TicketAnalizer;
 
 @Service
-public class SevenTicketAnalizer implements TicketAnalizer {
+public class ComercialTicketAnalizer implements TicketAnalizer {
 
-	private static final Logger log = LoggerFactory.getLogger(SevenTicketAnalizer.class);
+	private static final Logger log = LoggerFactory.getLogger(ComercialTicketAnalizer.class);
 	
-	private static final String ID_TIENDA_CATALOGO_PATTERN = "7ELEVEN";
+	private static final String ID_TIENDA_CATALOGO_PATTERN = "CHEDRAUI";
 	
-	private static final String ID_FECHA_PATTERN = "ID_FECHA_PATTERN";
-	private static final String ID_HORA_PATTERN = "ID_HORA_PATTERN";
-	private static final String ID_SUCURSAL = "ID_SUCURSAL";
-	private static final String ID_SERIAL_NUMBER = "ID_SERIAL_NUMBER";
-	private static final String ID_CANTIDAD = "ID_CANTIDAD";
+	private static final String ID_SUC_PATTERN = "ID_SUC_PATTERN";
+	private static final String ID_TER_PATTERN =   "ID_TER_PATTERN";
+	private static final String ID_TRA_PATTERN =   "ID_TRA_PATTERN";
+	private static final String ID_FOLIO_PATTERN =   "ID_FOLIO_PATTERN";
+	private static final String ID_CHEDRAUI_FECHA_PATTERN = "ID_CHEDRAUI_FECHA_PATTERN";
+	private static final String ID_CHEDRAUI_HORA_PATTERN = "ID_CHEDRAUI_HORA_PATTERN";
 	
-	private String FECHA_PATTERN = "(0[1-9]|1[012])[/ .](0[1-9]|[12][0-9]|3[01])[/ .][0-9]{2}";
-	private String HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d\\s(PM|AM))";
-	private String SUCURSAL = "\\d+\\s\\d+\\s\\d+\\s\\d+";
+	private String CHEDRAUI_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](19|20)\\d\\d";
+	private String CHEDRAUI_HORA_PATTERN = "(\\d\\d:\\d\\d)";
+	private String SUC_PATTERN = "TDA[\\#|H|M|N][0-9]+\\b";
+	private String TER_PATTERN =   "[O|0]P[\\#|H|M|N][A-Z0-9]+\\b";
+	private String TRA_PATTERN =   "TE[\\#|H|M|N]\\s[0-9]+\\b";
+	private String FOLIO_PATTERN =   "TR[\\#|H|M|N|\\s]\\s[0-9]+\\b";
+	
+	
 	private String SERIAL_NUMBER = "[0-9]{5}";
-	private String CANTIDAD = "\\d+\\s";
 	
 	@Autowired
 	private Analizer analizer;
 	
-	private static Map<String, String> FOOTERS = new HashMap<>();
+	private static Map<String, String> CHEDRAUI_FOOTERS = new HashMap<>();
 	static {
-		FOOTERS.put("TOTAL", "TOTAL");
-		FOOTERS.put("TOTAI", "TOTAL");
+		CHEDRAUI_FOOTERS.put("TOTAL", "TOTAL");
+		CHEDRAUI_FOOTERS.put("TOTAI", "TOTAL");
 	}
 	
 	@Override
 	public OCRTicketRSP analize(List<String> lineas) throws TicketException{
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
-		rsp.setTienda("7ELEVEN");
+		rsp.setTienda("CHEDRAUI");
 		rsp.setTieneCB(true);
 		
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
 		if( !patternMap.isEmpty() ) {
-			FECHA_PATTERN = patternMap.get( ID_FECHA_PATTERN ) != null ? patternMap.get( ID_FECHA_PATTERN ) : FECHA_PATTERN;
-			HORA_PATTERN = patternMap.get( ID_HORA_PATTERN ) != null ? patternMap.get( ID_HORA_PATTERN ) : HORA_PATTERN;
-			SUCURSAL = patternMap.get( ID_SUCURSAL ) != null ? patternMap.get( ID_SUCURSAL ) : SUCURSAL;
-			SERIAL_NUMBER = patternMap.get( ID_SERIAL_NUMBER ) != null ? patternMap.get( ID_SERIAL_NUMBER ) : SERIAL_NUMBER;
-			CANTIDAD = patternMap.get( ID_CANTIDAD ) != null ? patternMap.get( ID_CANTIDAD ) : CANTIDAD;
+			SUC_PATTERN = patternMap.get( ID_SUC_PATTERN ) != null ? patternMap.get( ID_SUC_PATTERN ) : SUC_PATTERN;
+			TER_PATTERN = patternMap.get( ID_TER_PATTERN ) != null ? patternMap.get( ID_TER_PATTERN ) : TER_PATTERN;
+			TRA_PATTERN = patternMap.get( ID_TRA_PATTERN ) != null ? patternMap.get( ID_TRA_PATTERN ) : TRA_PATTERN;
+			FOLIO_PATTERN = patternMap.get( ID_FOLIO_PATTERN ) != null ? patternMap.get( ID_FOLIO_PATTERN ) : FOLIO_PATTERN;
+			CHEDRAUI_FECHA_PATTERN = patternMap.get( ID_CHEDRAUI_FECHA_PATTERN ) != null ? patternMap.get( ID_CHEDRAUI_FECHA_PATTERN ) : CHEDRAUI_FECHA_PATTERN;
+			CHEDRAUI_HORA_PATTERN = patternMap.get( ID_CHEDRAUI_HORA_PATTERN ) != null ? patternMap.get( ID_CHEDRAUI_HORA_PATTERN ) : CHEDRAUI_HORA_PATTERN;
 		}
 		
+		WalmartTicketRSP tmp = new WalmartTicketRSP();
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();
 		
-
+		//1. Caso ideal buscar linea completa
+		//Hacer la extracción de derecha a izquierda
 		ListIterator<String> it = lineas.listIterator();
 		it = lineas.listIterator();
-		int pos = detectaPosicionTransaccion(it, FECHA_PATTERN);
+		int pos = detectaPosicionTransaccion(it, SUC_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
 		it = lineas.listIterator();
-		pos = detectaPosicionTransaccion(it, HORA_PATTERN);
+		pos = detectaPosicionTransaccion(it, TER_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
 		it = lineas.listIterator();
-		pos = detectaPosicionTransaccion(it, SUCURSAL);
+		pos = detectaPosicionTransaccion(it, TRA_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
+		it = lineas.listIterator();
+		pos = detectaPosicionTransaccion(it, FOLIO_PATTERN);
+		if (pos != -1) {
+			posList.add( pos );
+		}
 		
 		Collections.sort(posList);
 		
@@ -95,28 +109,53 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		//Para que se un ticket valido deben exisitir 
 		//los elementos TDA, OP, TE, TR
 		it = lineas.listIterator();
-		valor = detectaHora(it);
+		valor = detectaTransaccion(it, SUC_PATTERN);
 		if ( !"".equalsIgnoreCase(valor) ) {
+			//TDA#2670
+			//Sustiruir la 4 posicion en caso de que no sea #
+			//Existe el caso en que la parte numerica los 0 sea reconocidos como O
+			//deben de pasarse a 0
+			valor = valor.replaceAll("[|H|M|N]", "\\#");
 			valor = valor.replace("O", "0");
-			rsp.setHora(valor);
+			tmp.setTda(valor);
+		}
+		
+		it = lineas.listIterator();
+		valor = detectaTransaccion(it, TER_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			valor = valor.replaceAll("[|H|M|N]", "\\#");
+			valor = "OP" + valor.substring(2, valor.length()).replace("O", "0");
+			tmp.setOp(valor);
+		}
+		
+		it = lineas.listIterator();
+		valor = detectaTransaccion(it, TRA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			valor = valor.replaceAll("[|H|M|N]", "\\#");
+			valor = valor.replace("O", "0");
+			tmp.setTe(valor);
+		}
+		
+		it = lineas.listIterator();
+		valor = detectaTransaccion(it, FOLIO_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			valor = valor.replaceAll("[|H|M|N]", "\\#");
+			valor = valor.replace("O", "0");
+			tmp.setTr(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaFecha(it);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			valor = valor.replace("O", "0");
-			rsp.setFecha(valor);
-		}
+		tmp.setFecha(valor);
+		rsp.setFecha(valor);
 		
 		it = lineas.listIterator();
-		valor = detectaTransaccion(it, SUCURSAL);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			valor = valor.replace("O", "0");
-			rsp.setTransaccion(valor);
-		}
+		valor = detectaHora(it);
+		tmp.setHora(valor);
+		rsp.setHora(valor);
 		
-		validarTicket(rsp);
-		
+		validarTicket(tmp);
+		rsp.setTransaccion( tmp.getTda() + tmp.getOp() + tmp.getTe() + tmp.getTr() );
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		
 		it = lineas.listIterator();
@@ -132,6 +171,14 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 	}
 
 	private String detectaTransaccion( ListIterator<String> it, String pattern ) {
+		//Identificar transaccion
+		//TDA#2670 OPHO0000214TE 003 TR# 08103
+		//TDA#2079 OP#00000131 TE# 023 TR# 05012
+		//Obtener TR# hasta el final
+		//Obtener TE# hasta el final
+		//Obtener OP# hasta el final
+		//Obtener TDA# hasta el final
+		
 		String valor = "";
 
 		search: while (it.hasNext()) {
@@ -152,6 +199,13 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 	}
 	
 	private int detectaPosicionTransaccion( ListIterator<String> it, String pattern ) {
+		//Identificar transaccion
+		//TDA#2670 OPHO0000214TE 003 TR# 08103
+		//TDA#2079 OP#00000131 TE# 023 TR# 05012
+		//Obtener TR# hasta el final
+		//Obtener TE# hasta el final
+		//Obtener OP# hasta el final
+		//Obtener TDA hasta el final
 		int index = 0;
 		int pos = -1;
 
@@ -187,7 +241,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		search: while (it.hasNext()) {
 			String linea = it.next();
 
-			Pattern p = Pattern.compile(FECHA_PATTERN);
+			Pattern p = Pattern.compile(CHEDRAUI_FECHA_PATTERN);
 			Matcher m = p.matcher(linea);
 
 			while (m.find()) {
@@ -208,7 +262,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		search: while (it.hasNext()) {
 			String linea = it.next();
 
-			Pattern p = Pattern.compile(HORA_PATTERN);
+			Pattern p = Pattern.compile(CHEDRAUI_HORA_PATTERN);
 			Matcher m = p.matcher(linea);
 
 			while (m.find()) {
@@ -252,7 +306,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 				continue;
 			}
 
-			search: for (Map.Entry<String, String> entry : FOOTERS.entrySet()) {
+			search: for (Map.Entry<String, String> entry : CHEDRAUI_FOOTERS.entrySet()) {
 				String key = entry.getKey();
 				if (linea.contains(key)) {
 					borrar = !borrar;
@@ -266,11 +320,10 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 	}
 	
 	private void depuraProductos(ListIterator<String> it) {
-		//Elminar la parte de la cantidad y precio de las lineas que contienen
+		//Elminar la parte del codigo de barras y precio de las lineas que contienen
 		//los productos
-	
-		//Ejemplo: 1 JDV MANGO PET 500ML
-		//Se debe quitar 1
+		//Ejemplo: STEFANO AERO 7509546064697$
+		//Se debe quitar 7509546064697$
 
 		search:
 		while (it.hasNext()) {
@@ -282,21 +335,16 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 			}
 			
 			linea = linea.replaceAll("\\$", "");
-			linea = linea.replaceAll(CANTIDAD, "");
-			
-
-			Pattern p = Pattern.compile(SERIAL_NUMBER);
-			Matcher m = p.matcher(linea);
-
-			if ( m.find() ) {
-				int index = m.start();
-				linea = linea.substring(0, index).trim();
-				it.set(linea);
-				continue search;
-			}
-			else {
-				it.set(linea);
-			}
+			it.set(linea);
+//			Pattern p = Pattern.compile(SERIAL_NUMBER);
+//			Matcher m = p.matcher(linea);
+//
+//			if ( m.find() ) {
+//				int index = m.start();
+//				linea = linea.substring(0, index).trim();
+//				it.set(linea);
+//				continue search;
+//			}
 		}
 	}
 	
@@ -309,15 +357,15 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		}
 	}
 	
-	private void validarTicket(OCRTicketRSP rsp) throws TicketException {
-		if ( rsp.getHora() != null && rsp.getFecha() != null &&
-				rsp.getTransaccion() != null
+	private void validarTicket(WalmartTicketRSP rsp) throws TicketException {
+		if ( rsp.getTda() != null && rsp.getOp() != null &&
+				rsp.getTe() != null && rsp.getTr() != null
 				) {
-			log.info( "Ticket OK" );
+			System.out.println( "Ticket OK" );
 			
 		}
 		else {
-			log.info( "Ticket incompleto" );
+			System.out.println( "Ticket incompleto" );
 			Throwable t = new Throwable("Identificadores de transaccion o fechas incompletas");
 			throw new TicketException("Ticket con identificadores incompletos", t, 500);
 		}
