@@ -1,28 +1,27 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-  <title>Inicia sesión | Shing Shing</title>
-  <!-- Favicon -->
-  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
-  <!-- Bootstrap core CSS -->
-  <link th:href="@{/resources/home/css/bootstrap.min.css}" rel="stylesheet"/>
-  <!-- Material Design Bootstrap -->
-  <link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet"/>
-  <!-- Your custom styles (optional) -->
-  <link th:href="@{/resources/home/css/style.css}" rel="stylesheet"/>
-  <!-- Your custom styles (optional) -->
-  <link th:href="@{/resources/home/css/login.css}" rel="stylesheet"/>
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
-  <script src="https://apis.google.com/js/api:client.js"></script>
-
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<title>Inicia sesión | Shing Shing</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/home/css/style.css}" rel="stylesheet" />	
+	<link th:href="@{/resources/home/css/login.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet" />
+	<script src="https://apis.google.com/js/api:client.js"></script>
 
 <script>
 
@@ -103,117 +102,118 @@
 	  }
 
 	</script>
-  <script>
-  var googleUser = {};
-  var startApp = function() {
-    gapi.load('auth2', function(){
-      // Retrieve the singleton for the GoogleAuth library and set up the client.
-      auth2 = gapi.auth2.init({
-        client_id: '362699089953-rn4qv2qj9aosr1eic0tntpqhd0eo9q48.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-      });
-      attachSignin(document.getElementById('customBtn'));
-    });
-  };
+	<script>
+		var googleUser = {};
+		var startApp = function () {
+			gapi.load('auth2', function () {
+				// Retrieve the singleton for the GoogleAuth library and set up the client.
+				auth2 = gapi.auth2.init({
+					client_id: '362699089953-rn4qv2qj9aosr1eic0tntpqhd0eo9q48.apps.googleusercontent.com',
+					cookiepolicy: 'single_host_origin',
+					// Request scopes in addition to 'profile' and 'email'
+					//scope: 'additional_scope'
+				});
+				attachSignin(document.getElementById('customBtn'));
+			});
+		};
 
-  function attachSignin(element) {
-	    console.log(element.id);
-	    auth2.attachClickHandler(element, {},
-	        function(googleUser) {
+		function attachSignin(element) {
+			console.log(element.id);
+			auth2.attachClickHandler(element, {},
+				function (googleUser) {
 
-	    	var profile = googleUser.getBasicProfile();
-	        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-	        console.log('Full Name: ' + profile.getName());
-	        console.log('Given Name: ' + profile.getGivenName());
-	        console.log('Family Name: ' + profile.getFamilyName());
-	        console.log("Image URL: " + profile.getImageUrl());
-	        console.log("Email: " + profile.getEmail());
+					var profile = googleUser.getBasicProfile();
+					console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+					console.log('Full Name: ' + profile.getName());
+					console.log('Given Name: ' + profile.getGivenName());
+					console.log('Family Name: ' + profile.getFamilyName());
+					console.log("Image URL: " + profile.getImageUrl());
+					console.log("Email: " + profile.getEmail());
 
-	        // The ID token you need to pass to your backend:
-	        var id_token = googleUser.getAuthResponse().id_token;
-	        console.log("ID Token: " + id_token);
-	        validateSocialMediaUser(profile);
-	        //document.getElementById('c1').val( profile.getId );
-	        //Realizar validacion a backend para verficar si existe en BD de ShingShing
-	        
-	          
-              
-	        }, function(error) {
-	          alert(JSON.stringify(error, undefined, 2));
-	        });
-	  }
+					// The ID token you need to pass to your backend:
+					var id_token = googleUser.getAuthResponse().id_token;
+					console.log("ID Token: " + id_token);
+					validateSocialMediaUser(profile);
+					//document.getElementById('c1').val( profile.getId );
+					//Realizar validacion a backend para verficar si existe en BD de ShingShing
 
-  	function validateSocialMediaUser(profile){
-  		console.log(profile)
-  		var url='http://www.shingshing.com/shin-back/usuarios/social/registrar';
-  		$.ajax({
-			method: "POST",
-			url: 'http://www.shingshing.com/shin-back/usuarios/social/registrar',
-		    dataType: "json",
-            contentType: "application/json;charset=utf-8",
-			data: JSON.stringify({ 
-				'nombre': profile.name,
-			  	'fechaNac': '1970-01-01',
-			  	'correoElectronico': profile.email,
-			  	'usuario':profile.email,
-			  	'contrasenia': profile.email,
-			  	'codigoPostal': '00000',
-			  	'idCatalogoSexo': 3,
-			  	'idRedSocial': 1
-	  			}), success: function (response) {
-                    
-	                 console.log(response);
-	                $('#username').val( response.usuario.correoElectronico );
-	         		$('#password').val( response.usuario.correoElectronico );
-	         		$('#LoginValidation').submit();
-                 
-            },
-            error: function (error) {
-                console.log(error)
-            }
-	})
-		
-	}
 
-  </script>
-  <!-- Imagenes -->
-  <style type="text/css">
-		#logo-header{
-			background-image: url(../resources/home/img/brands/ss-complet.svg);
+
+				}, function (error) {
+					alert(JSON.stringify(error, undefined, 2));
+				});
 		}
-		#pleca{
+
+		function validateSocialMediaUser(profile) {
+			$.ajax({
+				method: "POST",
+				url: "http://www.shingshing.com/usuarios/social/registrar",
+				dataType: "json",
+				contentType: "application/json;charset=utf-8",
+				data: JSON.stringify({
+					'nombre': profile.getName(),
+					'fechaNac': '1970-01-01',
+					'correoElectronico': profile.getEmail(),
+					'usuario': profile.getEmail(),
+					'contrasenia': profile.getEmail(),
+					'codigoPostal': '00000',
+					'idCatalogoSexo': 3,
+					'idRedSocial': 1
+				})
+			})
+				.done(function (data) {
+					console.log(data.code);
+					$('#username').val(data.usuario.usuario);
+					$('#password').val(data.usuario.hash);
+					$('#LoginValidation').submit();
+					//document.getElementById('username').val( data.usuario.usuario );
+					//document.getElementById('password').val( data.usuario.usuario );
+					//alert( "Data Saved: " + data );
+				});
+		}
+	</script>
+	<!-- Imagenes -->
+	<style type="text/css">
+		#pleca {
 			background-image: url(../resources/home/img/micros/background.svg);
 		}
-		#footer #logo{
+
+		#footer #logo {
 			background-image: url(../resources/home/img/brands/ss-complet-orange.svg);
 		}
-		#social #fb, .logo-fb{
+
+		#social #fb,
+		.logo-fb {
 			background-image: url(../resources/home/img/brands/fb.svg);
 		}
-		#social #tw{
+
+		#social #tw {
 			background-image: url(../resources/home/img/brands/tw.svg);
 		}
-		.logo-gm{
+
+		.logo-gm {
 			background-image: url(../resources/home/img/brands/gm.svg);
 		}
-		.icon-mail{
+
+		.icon-mail {
 			background-image: url(../resources/home/img/icon/mail.svg);
 		}
-		.icon-toggle{
+
+		.icon-toggle {
 			background-image: url(../resources/home/img/icon/toggle.svg);
 		}
-		.pico{
+
+		.pico {
 			background-image: url(../resources/home/img/icon/pico.svg);
 		}
-			@media (min-width: 768px) and (max-width: 991px) {
-				#principal #imagen{
-					background-image: url(../resources/home/img/micros/principal-tablet.png);
-					margin-top: -40px;
-				}
+
+		@media (min-width: 768px) and (max-width: 991px) {
+			#principal #imagen {
+				background-image: url(../resources/home/img/micros/principal-tablet.png);
+				margin-top: -40px;
 			}
-  </style>
+		}
+	</style>
 </head>
 
 <body>
@@ -228,7 +228,7 @@
 						<div class="col" id="logo-header"></div>
 					</div>
 				</a>
-				</div>
+			</div>
 		</header>
 
 	</div>
@@ -241,66 +241,67 @@
 		<div id="content-principal">
 			<div class="container">
 				<form id="LoginValidation" class="form" action="login" method="post"
-					th:object="${item}">
-					<div class="row justify-content-center">
+				th:object="${item}">
+				<div class="row justify-content-center">
 
-						<div class="col-12">
-							<div class="row justify-content-center">
-								<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-									<div class="col">
-										<label class="label-default col-12">Email / Teléfono</label> <input
-											type="text" class="form-control input-grey col-12"
-											placeholder="" th:field="*{username}" aria-label="Username"
-											aria-describedby="basic-addon1" required="true" />
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-12">
-							<div class="row justify-content-center">
-								<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-									<div class="col">
-										<label class="label-default col-12">Contraseña</label> <input
-											type="password" class="form-control input-grey col-12"
-											placeholder="" th:field="*{password}" aria-label="Username"
-											aria-describedby="basic-addon1" required="true" />
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-12">
-							<div class="row justify-content-center">
-								<div class="alert alert-danger alert-dismissible fade show"
-									role="alert" th:if="${param.error}">
-									Email / Teléfono o contraseña incorrecta.
-									<button type="button" class="close" data-dismiss="alert"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-10 col-sm-8 col-md-6 col-lg-4">
-							<div class="row justify-content-between">
+					<div class="col-12">
+						<div class="row justify-content-center">
+							<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
 								<div class="col">
-									<div class="form-group form-check col">
-										<input type="checkbox" class="form-check-input check-style"
-											id="exampleCheck1" /> <label
-											class="form-check-label checkbox-style" for="exampleCheck1">Recuérdame</label>
-									</div>
+									<label class="label-default col-12">Correo</label> <input
+										type="text" class="form-control input-grey col-12"
+										placeholder="" th:field="*{username}" aria-label="Username"
+										aria-describedby="basic-addon1" required="true" />
 								</div>
-								<button type="submit" class="btn btn-primary cta-orange col">Iniciar
-									Sesión</button>
 							</div>
 						</div>
-
 					</div>
-				</form>
+
+					<div class="col-12">
+						<div class="row justify-content-center">
+							<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
+								<div class="col">
+									<label class="label-default col-12">Contraseña</label> <input
+										type="password" class="form-control input-grey col-12"
+										placeholder="" th:field="*{password}" aria-label="Username"
+										aria-describedby="basic-addon1" required="true" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12">
+						<div class="row justify-content-center">
+							<div class="alert alert-danger alert-dismissible fade show"
+								role="alert" th:if="${param.error}">
+								Correo o contraseña incorrecta.
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-10 col-sm-8 col-md-6 col-lg-4">
+						<div class="row justify-content-between">
+							<div class="col">
+								<div class="form-group form-check col">
+									<input type="checkbox" class="form-check-input check-style"
+										id="exampleCheck1" /> <label
+										class="form-check-label checkbox-style" for="exampleCheck1">Recuérdame</label>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-primary cta-orange col">Iniciar
+								Sesión</button>
+						</div>
+					</div>
+
+				</div>
+			</form>
+
 			</div>
-			
+
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-10 col-sm-8 col-md-12 link-input-group" style="text-align: center;">
@@ -327,22 +328,22 @@
 
 							<div class="col-12 col-lg-4 m-16-16">
 								<button class="btn-social-login bkg-grey">
-										<div id="customBtn" class="row justify-content-center cont-gm">
-											<div class="logo-gm col"></div>
-											<div class="col gm-style">Gmail</div>
-										</div>
-										<div id="name"></div>
-									</button>
-									<input type="hidden" id="c1" name="custId" value=""/>
-									<input type="hidden" id="c2" name="custId" value=""/>
-									<input type="hidden" id="c3" name="custId" value=""/>
-									<input type="hidden" id="c4" name="custId" value=""/>
-									<input type="hidden" id="c5" name="custId" value=""/>
-									<input type="hidden" id="c6" name="custId" value=""/>
-									<input type="hidden" id="c7" name="custId" value=""/>
-									<input type="hidden" id="c8" name="custId" value=""/>
-									<input type="hidden" id="c9" name="custId" value=""/>
-									<input type="hidden" id="c10" name="custId" value=""/>
+									<div id="customBtn" class="row justify-content-center cont-gm">
+										<div class="logo-gm col"></div>
+										<div class="col gm-style">Gmail</div>
+									</div>
+									<div id="name"></div>
+								</button>
+								<input type="hidden" id="c1" name="custId" value="" />
+								<input type="hidden" id="c2" name="custId" value="" />
+								<input type="hidden" id="c3" name="custId" value="" />
+								<input type="hidden" id="c4" name="custId" value="" />
+								<input type="hidden" id="c5" name="custId" value="" />
+								<input type="hidden" id="c6" name="custId" value="" />
+								<input type="hidden" id="c7" name="custId" value="" />
+								<input type="hidden" id="c8" name="custId" value="" />
+								<input type="hidden" id="c9" name="custId" value="" />
+								<input type="hidden" id="c10" name="custId" value="" />
 							</div>
 
 							<div class="col-12 col-lg-4">
@@ -350,7 +351,7 @@
 									<button class="btn-social-login bkg-grey">
 										<div class="row justify-content-center cont-mail">
 											<div class="icon-mail col"></div>
-											<div class="col gm-style">Tu email</div>
+											<div class="col gm-style">Tu correo</div>
 										</div>
 									</button>
 								</a>
@@ -371,138 +372,184 @@
 						<div id="footer-login" class="col-10 col-lg-6">
 							<div class="row justify-content-center">
 								<div class="col-12 col-sm-8 col-md-12" style="text-align: center; font-size: 13px; color: #666; margin-top: 32px; border-top: solid 1px #ccc; padding-top: 16px;">
-								Si haces clic en el logo de Facebook ó Google y no eres usuario de Shing Shing, quedarás registrado y aceptarás los <a th:href="@{/legal}">Términos y Condiciones y las Política de Privacidad</a> de Shing Shing.
+									Si haces clic en el logo de Facebook ó Google y no eres usuario de Shing Shing, quedarás registrado y
+									aceptarás los <a th:href="@{/legal}">Términos y Condiciones y las Política de Privacidad</a> de Shing Shing.
 								</div>
+
 							</div>
-						</div>	
+						</div>
 					</div>
+
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
+	<footer class="footer footer-black  footer-white ">
+		<div class="container-fluid">
+			<div class="row">
+				<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+				<nav class="footer-nav">
+				</nav>
+				<div class="credits ml-auto">
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Start your project here-->
 
-  <!-- Start your project here-->
 
-  <!-- SCRIPTS -->
-
-  <!-- JQuery -->
-  <script type="text/javascript" th:src="@{/resources/home/js/jquery-3.4.1.min.js}"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" th:src="@{/resources/home/js/popper.min.js}"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" th:src="@{/resources/home/js/bootstrap.min.js}"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" th:src="@{/resources/home/js/mdb.min.js}"></script>
-  <script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
+	<!--   Core JS Files   -->
+	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
+	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
+	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
+	<!--  Plugin for Sweet Alert -->
+	<script th:src="@{/resources/assets/js/plugins/sweetalert2.min.js}"></script>
+	<!-- Forms Validations Plugin -->
+	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
+	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
+	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+	<script th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js}"></script>
+	<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+	<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js}"></script>
+	<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
+	<!--  Plugin for the Bootstrap Table -->
+	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
+	<!--  Google Maps Plugin    -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	<!-- Chart JS -->
+	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
+	<!--  Notifications Plugin    -->
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
+	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
+  <script th:src="@{/assets/demo/demo.js}"></script>
+  -->
 	<script type="text/javascript">
 
-	
-	var theToggle = document.getElementById('toggle');
 
-	// based on Todd Motto functions
-	// https://toddmotto.com/labs/reusable-js/
+		var theToggle = document.getElementById('toggle');
 
-	// hasClass
-	function hasClass(elem, className) {
-		return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-	}
-	// addClass
-	function addClass(elem, className) {
-	    if (!hasClass(elem, className)) {
-	    	elem.className += ' ' + className;
-	    }
-	}
-	// removeClass
-	function removeClass(elem, className) {
-		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
-		if (hasClass(elem, className)) {
-	        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-	            newClass = newClass.replace(' ' + className + ' ', ' ');
-	        }
-	        elem.className = newClass.replace(/^\s+|\s+$/g, '');
-	    }
-	}
-	// toggleClass
-	function toggleClass(elem, className) {
-		var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, " " ) + ' ';
-	    if (hasClass(elem, className)) {
-	        while (newClass.indexOf(" " + className + " ") >= 0 ) {
-	            newClass = newClass.replace( " " + className + " " , " " );
-	        }
-	        elem.className = newClass.replace(/^\s+|\s+$/g, '');
-	    } else {
-	        elem.className += ' ' + className;
-	    }
-	}
+		// based on Todd Motto functions
+		// https://toddmotto.com/labs/reusable-js/
 
-	
-
-	function setFormValidation(id) {
-		$(id).validate({
-			rules: {
-				password: {
-          			required: true,
-          			minlength: 8
-      			},
-      			username:{
-      				required: true,
-          		}
-  			}
-	      });
-	}
-
-	$(document).ready(function() {
-		setFormValidation('#LoginValidation');
-
-		$('#LoginValidation').submit(function(){
-			    
-		});
-			
-		$('#idBtn').click(function(){
-			    //$('#LoginValidation').submit();
-			$.ajax({
-					method: "POST",
-					url: "http://localhost:8080/shin-back/usuarios/social/registrar",
-				    dataType: "json",
-		            contentType: "application/json;charset=utf-8",
-					data: JSON.stringify({ 
-						'nombre': 'Juan Osorio Alvarez',
-					  	'fechaNac': '1970-01-01',
-					  	'correoElectronico': 'kissthbw@gmail.com',
-					  	'usuario':'kissthbw@gmail.com',
-					  	'contrasenia': 'isaias53',
-					  	'codigoPostal': '00000',
-					  	'idCatalogoSexo': 3,
-					  	'idRedSocial': 1
-	  	  			})
-			})
-				.done(function( data ) {
-					console.log( data.code );
-					$('#username').val( data.usuario.usuario );
-					$('#password').val( 'hash:' + data.usuario.hash );
-					$('#LoginValidation').submit();
-				});
-		});  
-	});
-
-	
-
-	  startApp();
-	  
-	theToggle.onclick = function() {
-		   toggleClass(this, 'on');
-		   return false;
+		// hasClass
+		function hasClass(elem, className) {
+			return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+		}
+		// addClass
+		function addClass(elem, className) {
+			if (!hasClass(elem, className)) {
+				elem.className += ' ' + className;
+			}
+		}
+		// removeClass
+		function removeClass(elem, className) {
+			var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
+			if (hasClass(elem, className)) {
+				while (newClass.indexOf(' ' + className + ' ') >= 0) {
+					newClass = newClass.replace(' ' + className + ' ', ' ');
+				}
+				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+			}
+		}
+		// toggleClass
+		function toggleClass(elem, className) {
+			var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, " ") + ' ';
+			if (hasClass(elem, className)) {
+				while (newClass.indexOf(" " + className + " ") >= 0) {
+					newClass = newClass.replace(" " + className + " ", " ");
+				}
+				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+			} else {
+				elem.className += ' ' + className;
+			}
 		}
 
-	</script> 
+
+
+		function setFormValidation(id) {
+			$(id).validate({
+				rules: {
+					password: {
+						required: true,
+						minlength: 8
+					},
+					username: {
+						required: true,
+					}
+				}
+			});
+		}
+
+		$(document).ready(function () {
+			setFormValidation('#LoginValidation');
+
+			$('#LoginValidation').submit(function () {
+
+			});
+
+			$('#idBtn').click(function () {
+				//$('#LoginValidation').submit();
+				$.ajax({
+					method: "POST",
+					url: "http://localhost:8080/shin-back/usuarios/social/registrar",
+					dataType: "json",
+					contentType: "application/json;charset=utf-8",
+					data: JSON.stringify({
+						'nombre': 'Juan Osorio Alvarez',
+						'fechaNac': '1970-01-01',
+						'correoElectronico': 'kissthbw@gmail.com',
+						'usuario': 'kissthbw@gmail.com',
+						'contrasenia': 'isaias53',
+						'codigoPostal': '00000',
+						'idCatalogoSexo': 3,
+						'idRedSocial': 1
+					})
+				})
+					.done(function (data) {
+						console.log(data.code);
+						$('#username').val(data.usuario.usuario);
+						$('#password').val('hash:' + data.usuario.hash);
+						$('#LoginValidation').submit();
+					});
+			});
+		});
 
 
 
-	</body>
+		startApp();
 
-	</html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+		theToggle.onclick = function () {
+			toggleClass(this, 'on');
+			return false;
+		}
+
+	</script>
+
+
+
+</body>
+
+</html>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>
-

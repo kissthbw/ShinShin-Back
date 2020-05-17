@@ -1,60 +1,44 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-<meta charset="UTF-8" />
-<link rel="shortcut icon"
-	th:href="@{/resources/home/img/brands/favicon.png}" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing-Shing - Medios Bonificacion</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-	name='viewport' />
-<!--     Fonts and icons     -->
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Shing-Shing - Medios Bonificacion</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<!--     Fonts and icons     -->
 
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-	rel="stylesheet" />
-<!-- CSS Files -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/style-panel.css}"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/bootstrap.min.css}"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
-	rel="stylesheet" />
-<link
-	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-	rel="stylesheet" />
-<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
-	<link th:href="@{/resources/assets/css/style-howDo.css}"
-	rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- CSS Files -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+	<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
+	<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
 </head>
 
 <body class="">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="white" data-active-color="danger">
 			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
-			
+
 			<div class="sidebar-wrapper">
-			<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
+				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
 					<div class="photo">
 						<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${user.nombre}"> <!-- User -->
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed"> <span th:text="${user.nombre}">
+								<!-- User -->
 								<b class="caret"></b>
-						</span>
+							</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
@@ -64,95 +48,76 @@
 				<ul class="nav">
 					<!-- Las opciones del menu debe ir entre <li></li> -->
 
-					<li><a data-toggle="collapse" href="#catalogos"
-						aria-expanded="true"> <i class="nc-icon nc-ruler-pencil"></i>
+					<li><a> <i class="nc-icon nc-ruler-pencil"></i>
 							<p>
-								Catalogos<b class="caret"></b>
+								Catalogos
 							</p>
-					</a>
-						<div class="collapse" id="catalogos">
+						</a>
+						<div class="" id="catalogos">
 							<ul class="nav">
 								<li><a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Departamentos </span>
-								</a></li>
-								<li><a th:href="@{/portal-administrador/marca/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Marcas </span>
-								</a></li>
+										<span class="sidebar-normal"> Departamentos </span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/marca/list}"> <span class="sidebar-normal">
+											Marcas </span>
+									</a></li>
 								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Tiendas </span>
-								</a></li>
+										<span class="sidebar-normal"> Tiendas </span>
+									</a></li>
 
 								<li><a th:href="@{/portal-administrador/producto/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Productos </span>
-								</a></li>
+										<span class="sidebar-normal"> Productos </span>
+									</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
-					<li class="active"><a data-toggle="collapse"
-						href="#bonificaciones"> <i class="nc-icon nc-money-coins"></i>
+					<li class="active"><a> <i class="nc-icon nc-money-coins"></i>
 							<p>
-								Bonificaciones <b class="caret"></b>
+								Bonificaciones
 							</p>
-					</a>
+						</a>
 
-						<div class="collapse show" id="bonificaciones">
+						<div class="" id="bonificaciones">
 							<ul class="nav">
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-depositos}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Retiros</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-general}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">General</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-recargas}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Recargas</span>
-								</a></li>
-								<li class="active"><a
-									th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Medios bonificacion </span>
-								</a></li>
+								<li><a th:href="@{/portal-administrador/bonificaciones-depositos}">
+										<span class="sidebar-normal">Retiros</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/bonificaciones-general}">
+										<span class="sidebar-normal">General</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/bonificaciones-recargas}">
+										<span class="sidebar-normal">Recargas</span>
+									</a></li>
+								<li class="active"><a th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-normal"> Medios bonificacion </span>
+									</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
-					<li><a data-toggle="collapse" href="#estadisticas"> <i
-							class="nc-icon nc-chart-bar-32"></i>
+					<li><a> <i class="nc-icon nc-chart-bar-32"></i>
 							<p>
-								Estadisticas <b class="caret"></b>
+								Estadisticas
 							</p>
-					</a>
-						<div class="collapse" id="estadisticas">
+						</a>
+						<div class="" id="estadisticas">
 							<ul class="nav">
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-general}"> <span
-										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Tickets</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Marcas</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Usarios</span>
-								</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-general}"> <span
+										 class="sidebar-normal">General</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-tickets}"> <span
+										 class="sidebar-normal">Tickets</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-marcas}"> <span
+										 class="sidebar-normal">Marcas</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
+										 class="sidebar-normal">Usarios</span>
+									</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -161,12 +126,13 @@
 			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Bonificaciones')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
-				<div class="row">	
+				<div class="row">
 					<div class="col-md-12">
-					<b><h4 class="title-cat">Medios Bonificación</h4></b>
+						<b>
+							<h4 class="title-cat">Medios Bonificación</h4>
+						</b>
 
-						<form id="TypeValidation" class="form-horizontal" action=""
-							th:object="${item}" method="post">
+						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post">
 							<div class="card ">
 								<div class="card-header ">
 									<h4 class="card-title">Datos de Medio de Bonificacion</h4>
@@ -177,9 +143,7 @@
 											de Bonificacion</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<input class="form-control" type="text"
-													th:field="*{nombreMedioBonificacion}" name="required"
-													required="true" />
+												<input class="form-control" type="text" th:field="*{nombreMedioBonificacion}" name="required" required="true" />
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right"> <code>Obligatorio</code>
@@ -187,13 +151,10 @@
 									</div>
 								</div>
 								<div class="card-footer text-center">
-									<button onclick="cancel()" class="btn btn-secundary"
-										role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
-									<button onclick="del()" class="btn btn-secundary" role="button"
-										aria-disabled="true" id="Eliminar">Eliminar</button>
+									<button onclick="cancel()" class="btn btn-secundary" role="button" aria-disabled="true" id="Cancelar">Cancelar</button>
+									<button onclick="del()" class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Eliminar</button>
 
-									<button class="btn btn-primary" type="submit" id="Guardar"
-										onclick="confirm()">Guardar</button>
+									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
 
 								</div>
 							</div>
@@ -202,9 +163,8 @@
 				</div>
 			</div>
 			<!-- Modal -->
-			<div class="modal fade right" id="modalConfirm" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalPreviewLabel"
-				aria-hidden="true">
+			<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel"
+			 aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content" style="border-radius: 20px;">
 						<div class="modal-body" style="text-align: center;">
@@ -214,21 +174,17 @@
 							<h3>Eliminar Medio Bonificación</h3>
 							<p>¿Seguro que quieres eliminar este Medio Bonificación?</p>
 						</div>
-						<div class="modal-footer"
-							style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
-							<button type="button" class="btn btn-secundary"
-								data-dismiss="modal">No, Cancelar</button>
-							<a class="btn btn-primary"
-								th:href="@{'/portal-administrador/medioBonificacion/delete/' + ${item.idCatalogoMedioBonificacion}}">Si,
+						<div class="modal-footer" style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
+							<button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+							<a class="btn btn-primary" th:href="@{'/portal-administrador/medioBonificacion/delete/' + ${item.idCatalogoMedioBonificacion}}">Si,
 								Eliminar</a> <br></br>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Modal -->
-			<div class="modal fade right" id="modalCancel" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalPreviewLabel"
-				aria-hidden="true">
+			<div class="modal fade right" id="modalCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel"
+			 aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content" style="border-radius: 20px;">
 						<div class="modal-body" style="text-align: center;">
@@ -238,12 +194,9 @@
 							<h3>Aún no agregas el Medio Bonificación</h3>
 							<p>¿Seguro que quieres salir de aqui?</p>
 						</div>
-						<div class="modal-footer"
-							style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
-							<button type="button" class="btn btn-secundary"
-								data-dismiss="modal">No, Cancelar</button>
-							<a class="btn btn-primary"
-								th:href="@{/portal-administrador/mediosBonificacion/list}">Si,
+						<div class="modal-footer" style="text-align: center; display: inline-block; border: none; padding-bottom: 25px;">
+							<button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+							<a class="btn btn-primary" th:href="@{/portal-administrador/mediosBonificacion/list}">Si,
 								Salir</a> <br></br>
 						</div>
 					</div>
@@ -255,8 +208,7 @@
 					<div class="row">
 
 
-						<div
-							th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
 
 
@@ -284,8 +236,7 @@
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script
-		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
@@ -294,17 +245,13 @@
 	<!-- Forms Validations Plugin -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
 	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -322,14 +269,13 @@
 	<!--  Notifications Plugin    -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
-		type="text/javascript"></script>
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<script>
 		document.getElementById("TypeValidation").addEventListener("submit",
-				submit);
-		$(window).on("load", function() {
+			submit);
+		$(window).on("load", function () {
 			var URLactual = window.location;
 			//alert(URLactual);
 			if (String(URLactual).indexOf("save") == -1) {
@@ -382,26 +328,26 @@
 		}
 		function setFormValidation(id) {
 			$(id).validate(
-					{
-						highlight : function(element) {
-							$(element).closest('.form-group').removeClass(
-									'has-success').addClass('has-danger');
-							$(element).closest('.form-check').removeClass(
-									'has-success').addClass('has-danger');
-						},
-						success : function(element) {
-							$(element).closest('.form-group').removeClass(
-									'has-danger').addClass('has-success');
-							$(element).closest('.form-check').removeClass(
-									'has-danger').addClass('has-success');
-						},
-						errorPlacement : function(error, element) {
-							$(element).closest('.form-group').append(error);
-						},
-					});
+				{
+					highlight: function (element) {
+						$(element).closest('.form-group').removeClass(
+							'has-success').addClass('has-danger');
+						$(element).closest('.form-check').removeClass(
+							'has-success').addClass('has-danger');
+					},
+					success: function (element) {
+						$(element).closest('.form-group').removeClass(
+							'has-danger').addClass('has-success');
+						$(element).closest('.form-check').removeClass(
+							'has-danger').addClass('has-success');
+					},
+					errorPlacement: function (error, element) {
+						$(element).closest('.form-group').append(error);
+					},
+				});
 		}
 
-		$(document).ready(function() {
+		$(document).ready(function () {
 			setFormValidation('#RegisterValidation');
 			setFormValidation('#TypeValidation');
 			setFormValidation('#LoginValidation');
@@ -409,8 +355,8 @@
 		});
 	</script>
 </body>
+
 </html>
 <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-<script
-	th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

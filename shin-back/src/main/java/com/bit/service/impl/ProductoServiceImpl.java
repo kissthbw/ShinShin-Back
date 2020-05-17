@@ -403,7 +403,7 @@ public class ProductoServiceImpl implements ProductoService {
 		switch (entity.getBanner()) {
 		case 1:
 			log.info("1");
-			item.setTipoString("Basico");
+			item.setTipoString("General");
 			break;
 		case 2:
 			log.info("2");
@@ -480,7 +480,7 @@ public class ProductoServiceImpl implements ProductoService {
 			switch (item.getBanner()) {
 			case 1:
 				log.info("1");
-				pTemp.setTipoString("Basico");
+				pTemp.setTipoString("General");
 				break;
 			case 2:
 				log.info("2");

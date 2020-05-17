@@ -2,6 +2,47 @@ html{
 	min-height: 100%;
   position: relative;
 }
+#logo-header {
+	background-image: url(../img/logo-head/logo-ss-seccion-panel-blanco.png) !important;
+}
+
+#logo-header.logo-header-main {
+	background-image: url(../img/logo-head/logo-ss-completo-blanco.png) !important;
+} 
+
+#logo-header.logo-header-empresa {
+	background-image: url(../img/logo-head/logo-ss-seccion-marcas-blanco.png) !important;
+}
+
+.modal-dialog .modal-content{
+	border-radius: 10px !important;
+}
+.modal-header{
+	padding:20px !important;
+	display:block !important;
+}
+a, a:hover{
+	color:#007bff !important;
+}
+
+.logo-modal{
+	display:none !important;
+ padding: 0;
+ margin: 0;
+}
+.btn.btn-primary{
+	color:white !important;
+}
+.modal-body
+{
+	padding: 20px 50px !important; 
+	color:black;
+}
+#envProblema{
+	font-weight: 800 !important;
+	font-size: 19px !important;
+	padding: 5px 20px 5px 20px !important;
+}
 .box {
     animation-duration: 3s;
     animation-iteration-count: infinite;
@@ -28,12 +69,9 @@ html{
     50%  { transform: translateY(-100px); }
     100% { transform: translateY(0); }
 }
-
 body{
 	font-family: 'Nunito', sans-serif;
 	font-weight: 100;
-	margin: 0;
-	margin-bottom: 40px;
 }
 body .col{
 	padding-left: 0px;

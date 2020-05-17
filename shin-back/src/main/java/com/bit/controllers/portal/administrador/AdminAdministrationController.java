@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.model.Usuario;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @RequestMapping("/portal-administrador")
@@ -252,10 +253,26 @@ public class AdminAdministrationController {
 	}
 	@RequestMapping(value = "howdo", method = RequestMethod.GET)
 	public String howDo(Model model) {
-		
+		UsuarioShingShingDetailService current = getAuthenticationUser();
+
+		if (null != current) {
+			model.addAttribute("item", current.getUsuario());
+		}
+		log.info(current.getUsuario().toString());
 		log.info("Direccionando a how do");
 		return "administrador/how-do";
 
 	}
+	private UsuarioShingShingDetailService getAuthenticationUser() {
+		UsuarioShingShingDetailService user = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		if (principal instanceof UsuarioShingShingDetailService) {
+			user = (UsuarioShingShingDetailService) principal;
+		}
+		
+		return user;
+	}
+	
 	
 }

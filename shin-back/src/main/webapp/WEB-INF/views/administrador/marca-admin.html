@@ -1,306 +1,244 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-<meta charset="UTF-8" />
-<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>
-Shing-Shing - Marcas
-</title>
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-<!--     Fonts and icons     -->
+	<meta charset="UTF-8" />
+	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Shing-Shing - Marcas</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<!--     Fonts and icons     -->
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-<!-- CSS Files -->
-<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
-<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> 
-<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> 
-<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
-<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
-
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- CSS Files -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+	<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
+	<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
 </head>
 
-<body style="font-family: 'Nunito', sans-serif !important;">
+<body class="">
 	<div class="wrapper ">
-		<div class="sidebar" data-color="white">
+		<div class="sidebar" data-color="white" >
+			<!--Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"-->
+
+
 			<div class="sidebar-wrapper">
 				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
 					<div class="photo">
-						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+						<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed"> <span th:text="${user.nombre}">
+								<!-- User -->
 								<b class="caret"></b>
-						</span>
+							</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
 				</div>
 
+				<!-- MENU -->
 				<ul class="nav">
+					<!-- Las opciones del menu debe ir entre <li></li> -->
 
-					<li class="active"><a data-toggle="collapse" href="#catalogos"
-						aria-expanded="true"> <i class="nc-icon icon-objeto-catalogo"></i>
+					<li class="active"><a data-toggle="collapse" href="#catalogos" aria-expanded="true"> <i class="nc-icon nc-ruler-pencil"></i>
 							<p>
-								Catalogos
+								Catalogos<b class="caret"></b>
 							</p>
-					</a>
+						</a>
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
-								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Tiendas </span>
-								</a></li>
 								<li><a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Departamentos </span>
-								</a></li>
-								<li class="active"><a th:href="@{/portal-administrador/marca/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Marcas </span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/producto/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Productos </span>
-								</a></li>
+										<span class="sidebar-normal"> Departamentos </span>
+									</a></li>
+								<li class="active"><a th:href="@{/portal-administrador/marca/list}"> 
+										<span class="sidebar-normal"> Marcas </span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/tienda/list}">
+										<span class="sidebar-normal"> Tiendas </span>
+									</a></li>
+
+								<li><a th:href="@{/portal-administrador/producto/list}">
+										<span class="sidebar-normal"> Productos </span>
+									</a></li>
 							</ul>
-						</div></li>
-					<li>
-					<a data-toggle="collapse" href="#bonificaciones"> <i
-							class="nc-icon icon-finanzas-dinero"></i>
+						</div>
+					</li>
+
+					<li><a data-toggle="collapse" href="#bonificaciones"> <i class="nc-icon nc-money-coins"></i>
 							<p>
-								Bonificaciones
+								Bonificaciones <b class="caret"></b>
 							</p>
-					</a>
+						</a>
 
 						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-general}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">General</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal"> Medios bonificación </span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-depositos}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Retiros</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/bonificaciones-recargas}">
-										<span class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Recargas</span>
-								</a></li>
+								<li><a th:href="@{/portal-administrador/bonificaciones-depositos}">
+										<span class="sidebar-normal">Retiros</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/bonificaciones-general}">
+										<span class="sidebar-normal">General</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/bonificaciones-recargas}">
+										<span class="sidebar-normal">Recargas</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/mediosBonificacion/list}">
+										<span class="sidebar-normal"> Medios bonificacion </span>
+									</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
-					<li><a data-toggle="collapse" href="#estadisticas"> <i
-							class="nc-icon icon-simbolo-estadisticas"></i>
+					<li><a data-toggle="collapse" href="#estadisticas"> <i class="nc-icon nc-chart-bar-32"></i>
 							<p>
-								Estadisticas
+								Estadisticas <b class="caret"></b>
 							</p>
-					</a>
+						</a>
 						<div class="collapse show" id="estadisticas">
 							<ul class="nav">
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-general}"> <span
-										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Tickets</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Marcas</span>
-								</a></li>
-								<li><a
-									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
-										class="sidebar-mini-icon">·</span> <span
-										class="sidebar-normal">Usarios</span>
-								</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-general}"> <span
+										 class="sidebar-normal">General</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-tickets}"> <span
+										 class="sidebar-normal">Tickets</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-marcas}"> <span
+										 class="sidebar-normal">Marcas</span>
+									</a></li>
+								<li><a th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
+										 class="sidebar-normal">Usarios</span>
+									</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
-
 		<div class="main-panel">
-			<!-- Navbar -->
-			<nav
-				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-				<div class="container-fluid">
-					<div class="navbar-wrapper">
-						<div class="navbar-minimize">
-							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i
-									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i
-									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-							</button>
-						</div>
-						<div class="navbar-toggle">
-							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span> <span
-									class="navbar-toggler-bar bar2"></span> <span
-									class="navbar-toggler-bar bar3"></span>
-							</button>
-						</div>
-						<a class="navbar-brand" href="#pablo"><b><h4 class="title-cat">Marca</h4></b></a>
-					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span>
-					</button>
-					<div class="collapse navbar-collapse justify-content-end"
-						id="navigation">
-
-						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link btn-magnify"
-								th:href="@{/portal-administrador/admin_logout}"> <i
-									class="fa fa-sign-out"></i>
-									<p>
-										<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
-									</p>
-							</a></li>
-
-						</ul>
-					</div>
-				</div>
-			</nav>
-			<!-- End Navbar -->
-			<!-- <div class="panel-header panel-header-sm"></div> -->
-			
-			<div class="content">
-				<div class="row">
+				<!-- Navbar -->
+				<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Marcas')"></nav>
+				<!-- End Navbar -->
+				<!-- <div class="panel-header panel-header-sm"></div> -->
+				
+				<div class="content">
+				  <div class="row">
 					<div class="col-md-12">
-						<form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post" enctype="multipart/form-data">
-							<div class="card ">
-								<div class="card-header ">
-									<!-- <h4 class="card-title" >Nuevo administrador</h4>  -->
-									<h4 th:text="*{email}?: 'Nuevo administrador'">Nuevo administrador</h4>
+					  <form id="TypeValidation" class="form-horizontal" action="" th:object="${item}" method="post" enctype="multipart/form-data">
+						<div class="card ">
+						  <div class="card-header ">
+							<!-- <h4 class="card-title" >Nuevo administrador</h4>  -->
+							<h4 th:text="*{email}?: 'Nuevo administrador'">Nuevo administrador</h4>
+						  </div>
+						  <div class="card-body ">
+							<div class="row">
+							  <label class="col-sm-2 col-form-label Label-on-left">Correo</label>
+							  <div class="col-sm-7">
+								<div class="form-group">
+								  <input class="form-control" type="text" th:field="*{email}" name="required" required="true" />
 								</div>
-								<div class="card-body ">
-									<div class="row">
-										<label class="col-sm-2 col-form-label Label-on-left">Correo</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{email}" name="required" required="true" />
-											</div>
-										</div>
-										<label class="card-sm-3 Label-on-right">
-											<code>*</code>
-										</label>
-									</div>
-									 
-									<div class="row">
-										<label class="col-sm-2 col-form-label Label-on-left">Contraseña</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{password}" name="required" required="true" />
-											</div>
-										</div>
-										<label class="card-sm-3 Label-on-right">
-											<code>*</code>
-										</label>
-									</div>
-									
-									<div class="row">
-										<label class="col-sm-2 col-form-label">Asignar Marca</label>
-										<div class="col-sm-7">
-											<div class="form-group">
-												<select class="form-control"
-													id="marca.idCatalogoMarca" name="marca.idCatalogoMarca">
-													<option th:each="marca:${marcas}"
-														th:value="${marca.idCatalogoMarca}"
-														th:utext="${marca.nombreMarca}" 
-														th:selected="*{marca} != null ? *{marca.idCatalogoMarca} == ${marca.idCatalogoMarca} : ''"></option>
-
-												</select>
-											</div>
-										</div>
-										<label class="card-sm-3 Label-on-right">
-											<code>*</code>
-										</label>
-									</div>
-									 
-								</div>
-								<div class="card-footer text-center">
-
-									<button onclick="del()"
-									class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Cancelar</button>
-									<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
-										
-								</div>
+							  </div>
+							  <label class="card-sm-3 Label-on-right">
+								<code>*</code>
+							  </label>
 							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			<!-- Modal -->
-			<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
-			  <div class="modal-dialog" role="document" >
-			    <div class="modal-content" style="border-radius:20px;">
-			      <div class="modal-body" style="text-align:center;">
-			        <h1>
-			         <i class="fa fa-bell-o" aria-hidden="true"></i>
-			        </h1>
-			        <h3>
-			          Eliminar marca
-			        </h3>
-			        <p>
-			          ¿Seguro que quieres eliminar esta marca?
-			        </p>
-			      </div>
-			      <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
-			        <button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
-			        <a class="btn btn-primary" th:href="@{'/portal-administrador/marca-admin/delete/' + ${item.id}}">Si, Eliminar</a>
-			        <br></br>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			<!-- Modal -->
-			<footer class="footer footer-black  footer-white ">
-				<div class="container-fluid">
-					<div class="row">
-						<nav class="footer-nav">
-							<ul>
-							<!-- 
-								<li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
-								<li><a href="http://blog.creative-tim.com/" target="_blank">Blog</a></li>
-								<li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
-							-->
-							</ul>
-						</nav>
-						<div class="credits ml-auto">
-							<!--<span class="copyright"> © <script>document.write(new Date().getFullYear())
-								</script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-							</span>  -->
+							 
+							<div class="row">
+							  <label class="col-sm-2 col-form-label Label-on-left">Contraseña</label>
+							  <div class="col-sm-7">
+								<div class="form-group">
+								  <input class="form-control" type="text" th:field="*{password}" name="required" required="true" />
+								</div>
+							  </div>
+							  <label class="card-sm-3 Label-on-right">
+								<code>*</code>
+							  </label>
+							</div>
+							
+							<div class="row">
+							  <label class="col-sm-2 col-form-label">Asignar Marca</label>
+							  <div class="col-sm-7">
+								<div class="form-group">
+								  <select class="form-control"
+									id="marca.idCatalogoMarca" name="marca.idCatalogoMarca">
+									<option th:each="marca:${marcas}"
+									  th:value="${marca.idCatalogoMarca}"
+									  th:utext="${marca.nombreMarca}" 
+									  th:selected="*{marca} != null ? *{marca.idCatalogoMarca} == ${marca.idCatalogoMarca} : ''"></option>
+		  
+								  </select>
+								</div>
+							  </div>
+							  <label class="card-sm-3 Label-on-right">
+								<code>*</code>
+							  </label>
+							</div>
+							 
+						  </div>
+						  <div class="card-footer text-center">
+		  
+							<button onclick="del()"
+							class="btn btn-secundary" role="button" aria-disabled="true" id="Eliminar">Cancelar</button>
+							<button class="btn btn-primary" type="submit" id="Guardar" onclick="confirm()">Guardar</button>
+							  
+						  </div>
 						</div>
+					  </form>
 					</div>
+				  </div>
 				</div>
-			</footer>
-		</div>
+				<!-- Modal -->
+				<div class="modal fade right" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalPreviewLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document" >
+					<div class="modal-content" style="border-radius:20px;">
+					  <div class="modal-body" style="text-align:center;">
+						<h1>
+						 <i class="fa fa-bell-o" aria-hidden="true"></i>
+						</h1>
+						<h3>
+						  Eliminar marca
+						</h3>
+						<p>
+						  ¿Seguro que quieres eliminar esta marca?
+						</p>
+					  </div>
+					  <div class="modal-footer" style="text-align:center; display:inline-block; border:none; padding-bottom: 25px;">
+						<button type="button" class="btn btn-secundary" data-dismiss="modal">No, Cancelar</button>
+						<a class="btn btn-primary" th:href="@{'/portal-administrador/marca-admin/delete/' + ${item.id}}">Si, Eliminar</a>
+						<br></br>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<!-- Modal -->
+				<footer class="footer footer-black  footer-white ">
+				  <div class="container-fluid">
+					<div class="row">
+					  <nav class="footer-nav">
+						<ul>
+						<!-- 
+						  <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
+						  <li><a href="http://blog.creative-tim.com/" target="_blank">Blog</a></li>
+						  <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
+						-->
+						</ul>
+					  </nav>
+					  <div class="credits ml-auto">
+						<!--<span class="copyright"> © <script>document.write(new Date().getFullYear())
+						  </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+						</span>  -->
+					  </div>
+					</div>
+				  </div>
+				</footer>
+			  </div>
 	</div>
 	<!--   Core JS Files   -->
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
@@ -342,65 +280,77 @@ Shing-Shing - Marcas
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
-	document.getElementById("TypeValidation").addEventListener("submit", submit);
-	
-	function submit(e) {
-		// Cancelams el envio a la espera de que valide el formulario
-		e.preventDefault();
-	}
-	
-	function confirm(){
-		/*
-		swal({
-			  title: "¡Atencion!",
-			  text: "Confirme para guardar los cambios.",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-			  if (willDelete) {
-				  document.getElementById("TypeValidation").submit();
-			  } else {
-			    swal.close();
-			  }
-			});*/
-		 document.getElementById("TypeValidation").submit();
-		
-	}
-	
-	function del(){
-		$("#modalConfirm").modal();
-	}
-		function dropImage(id){
-			$("#image").attr("src","");
-			$("#imgUrl").val("");
+		document.getElementById("TypeValidation").addEventListener("submit",
+			submit);
+		$(window).on("load", function () {
+			var URLactual = window.location;
+			//alert(URLactual);
+			if (String(URLactual).indexOf("save") == -1) {
+				document.getElementById("Cancelar").style.display = "none";
+			} else {
+				document.getElementById("Eliminar").style.display = "none";
+			}
+
+		});
+		function submit(e) {
+			// Cancelams el envio a la espera de que valide el formulario
+			e.preventDefault();
 		}
-	
-		function setFormValidation(id) {
-			$(id).validate(
-					{
-						highlight : function(element) {
-							$(element).closest('.form-group').removeClass(
-									'has-success').addClass('has-danger');
-							$(element).closest('.form-check').removeClass(
-									'has-success').addClass('has-danger');
-						},
-						success : function(element) {
-							$(element).closest('.form-group').removeClass(
-									'has-danger').addClass('has-success');
-							$(element).closest('.form-check').removeClass(
-									'has-danger').addClass('has-success');
-						},
-						errorPlacement : function(error, element) {
-							$(element).closest('.form-group').append(error);
-						},
-					});
+		function cancel() {
+			$("#modalCancel").modal();
+		}
+		function confirm() {
+			/*
+			swal({
+				  title: "¡Atencion!",
+				  text: "Confirme para guardar los cambios.",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  document.getElementById("TypeValidation").submit();
+				  } else {
+				    swal.close();
+				  }
+				});*/
+			document.getElementById("TypeValidation").submit();
+
 		}
 
-		$(document).ready(function() {
+		function del() {
+			$("#modalConfirm").modal();
+		}
+		function dropImage(id) {
+			$("#image").attr("src", "");
+			$("#imgUrl").val("");
+		}
+
+		function setFormValidation(id) {
+			$(id).validate(
+				{
+					highlight: function (element) {
+						$(element).closest('.form-group').removeClass(
+							'has-success').addClass('has-danger');
+						$(element).closest('.form-check').removeClass(
+							'has-success').addClass('has-danger');
+					},
+					success: function (element) {
+						$(element).closest('.form-group').removeClass(
+							'has-danger').addClass('has-success');
+						$(element).closest('.form-check').removeClass(
+							'has-danger').addClass('has-success');
+					},
+					errorPlacement: function (error, element) {
+						$(element).closest('.form-group').append(error);
+					},
+				});
+		}
+
+		$(document).ready(function () {
 			setFormValidation('#RegisterValidation');
 			setFormValidation('#TypeValidation');
 			setFormValidation('#LoginValidation');
@@ -408,4 +358,8 @@ Shing-Shing - Marcas
 		});
 	</script>
 </body>
+
 </html>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/toast::toast-config"></script>

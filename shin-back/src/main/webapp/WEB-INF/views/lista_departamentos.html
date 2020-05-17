@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="utf-8" />
@@ -38,10 +37,10 @@
 						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed"> <span th:text="${item.nombre}">
+								<!-- User -->
 								<b class="caret"></b>
-						</span>
+							</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
@@ -58,24 +57,22 @@
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Clientes </span>
 								</a></li>
 								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Tiendas </span>
 								</a></li>
 								<li class="active"><a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Departamentos </span>
 								</a></li>
-								<li><a th:href="@{/portal-administrador/marca/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
+								<li><a th:href="@{/portal-administrador/marca/list}">  <span
 										class="sidebar-normal"> Marcas </span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/producto/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/producto/list}">  <span
 										class="sidebar-normal"> Productos </span>
 								</a></li>
 							</ul>
@@ -92,22 +89,22 @@
 							<ul class="nav">
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-general}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Medios bonificación </span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-depositos}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">Retiros</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-recargas}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">Recargas</span>
 								</a></li>
 							</ul>
@@ -122,22 +119,18 @@
 						<div class="collapse show" id="estadisticas">
 							<ul class="nav">
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-general}"> <span
-										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
+									th:href="@{/portal-administrador/estadisticas-general}"> <span class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-tickets}">  <span
 										class="sidebar-normal">Tickets</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-marcas}">  <span
 										class="sidebar-normal">Marcas</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-usuarios}">  <span
 										class="sidebar-normal">Usarios</span>
 								</a></li>
 							</ul>
@@ -148,10 +141,10 @@
 
 
 		<div class="main-panel">
-			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Catalogos')"></nav>
+			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Catálogos')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
-				<div class="row">	
+				<div class="row">
 					<div class="col-md-12">
 					<b><h2 class="title-cat">Departamentos</h2></b>
 
@@ -168,8 +161,7 @@
 										<i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
 										
 								</div>
-								<table id="datatable" class="table table-striped table-bordered"
-									cellspacing="0" width="100%">
+								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>Id</th>
@@ -184,7 +176,7 @@
 												<td th:text="${item.idCatalogoTipoProducto}"></td>
 												<td th:text="${item.nombreTipoProducto}"></td>
 												<td th:text="${item.products}"></td>
-												<td class="text-right">
+												<td class="text-center">
 													<a th:href="@{'/portal-administrador/departamento/edit/' + ${item.idCatalogoTipoProducto}}">
 														<span class="icon-accion-descargar"></span>
 													</a>
@@ -214,8 +206,7 @@
 
 
 
-						<div
-							th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
 							<ul>
 								<!-- <li>
@@ -243,8 +234,7 @@
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script
-		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
@@ -253,17 +243,13 @@
 	<!-- Forms Validations Plugin -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
 	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -281,8 +267,7 @@
 	<!--  Notifications Plugin    -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
-		type="text/javascript"></script>
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
@@ -290,134 +275,133 @@
   <script th:src="@{/assets/demo/demo.js}"></script>
   -->
 	<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-	<script
-		th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+	<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 	<script th:replace="administrador/fragments/toast::toast-config"></script>
 	<script>
-	// <![CDATA[
-		
-	var id= location.search;
-	var res = id.split("=");
-	console.log(parametroURL("id"));
-	console.log(parametroURL("type"));
-	var b=parametroURL("type");
-	var a = parseInt(res[1]);
-	var toasts = [];
-	if(a>0){
-		
-		if(b==1)
-			 toasts =  [new Toast('success', 'toast-top-full-width', '<b>De lujo</b>, Departamento guardado.')];
-		else
-			if(b==0)
-				toasts =  [new Toast('success', 'toast-top-full-width', 'Aqui no paso nada, <b>Departamento borrado.</b>')];
+		// <![CDATA[
+
+		var id = location.search;
+		var res = id.split("=");
+		console.log(parametroURL("id"));
+		console.log(parametroURL("type"));
+		var b = parametroURL("type");
+		var a = parseInt(res[1]);
+		var toasts = [];
+		if (a > 0) {
+
+			if (b == 1)
+				toasts = [new Toast('success', 'toast-top-full-width', '<b>De lujo</b>, Departamento guardado.')];
 			else
-			 	toasts =  [new Toast('warning', 'toast-top-full-width', 'Uhmmm, algo no anda bien, <b>Intentalo más tarde.</b>')];
-		//alert();
-		 window.setTimeout(function () { showToast(); }, 1);
-	}
-	//swal("Guardado Exitoso!", "Departamento id "+a+" modificado correctamente.", "success");
-		//swal("Borrado Exitoso!", "Departamento id "+a+" borrado correctamente.", "danger");	
-	console.log(res[1]);
-	<!--/catalogoTiendas/list -->
-	
-	   /*
-	   function enviaProblema(){
-		   $("#envProblema").attr("disabled",true);
-		   console.log("Enviando problema");
-		   var formdata = {
-		   		problema:$("#textProblem").val()
-		   }
-		   var URL = $("#url").val();
-		   console.log(URL);
-           $.ajax({
-               url: URL,
-               data: formdata,
-               method:"POST",
-               success: function (data) {
-            	   toasts =  [new Toast('success', 'toast-top-full-width', 'Reporte enviado, <b>Pronto nos pondremos en contacto contigo.</b>')];
-               		console.log(data);
-               		$('#problem').modal('toggle');
-               	 window.setTimeout(function () { showToast(); }, 1);
-               },error:function(error){
-            		console.log("Error: "+error);   
-               }
-		   });
-	   }
-	  */
-	   
-	function parametroURL(_par) {
-		  var _p = null;
-		  if (location.search) location.search.substr(1).split("&").forEach(function(pllv) {
-		    var s = pllv.split("="), //separamos llave/valor
-		      ll = s[0],
-		      v = s[1] && decodeURIComponent(s[1]); //valor hacemos encode para prevenir url encode
-		    if (ll == _par) { //solo nos interesa si es el nombre del parametro a buscar
-		      if(_p==null){
-		      _p=v; //si es nula, quiere decir que no tiene valor, solo textual
-		      }else if(Array.isArray(_p)){
-		      _p.push(v); //si ya es arreglo, agregamos este valor
-		      }else{
-		      _p=[_p,v]; //si no es arreglo, lo convertimos y agregamos este valor
-		      }
-		    }
-		  });
-		  return _p;
+				if (b == 0)
+					toasts = [new Toast('success', 'toast-top-full-width', 'Aqui no paso nada, <b>Departamento borrado.</b>')];
+				else
+					toasts = [new Toast('warning', 'toast-top-full-width', 'Uhmmm, algo no anda bien, <b>Intentalo más tarde.</b>')];
+			//alert();
+			window.setTimeout(function () { showToast(); }, 1);
 		}
-	// ]]>
-	
+		//swal("Guardado Exitoso!", "Departamento id "+a+" modificado correctamente.", "success");
+		//swal("Borrado Exitoso!", "Departamento id "+a+" borrado correctamente.", "danger");	
+		console.log(res[1]);
+
+
+		/*
+		function enviaProblema(){
+			$("#envProblema").attr("disabled",true);
+			console.log("Enviando problema");
+			var formdata = {
+						 problema:$("#textProblem").val()
+			}
+			var URL = $("#url").val();
+			console.log(URL);
+			$.ajax({
+				url: URL,
+				data: formdata,
+				method:"POST",
+				success: function (data) {
+					toasts =  [new Toast('success', 'toast-top-full-width', 'Reporte enviado, <b>Pronto nos pondremos en contacto contigo.</b>')];
+							 console.log(data);
+							 $('#problem').modal('toggle');
+						window.setTimeout(function () { showToast(); }, 1);
+				},error:function(error){
+					 console.log("Error: "+error);   
+				}
+			});
+		}
+	   */
+
+		function parametroURL(_par) {
+			var _p = null;
+			if (location.search) location.search.substr(1).split("&").forEach(function (pllv) {
+				var s = pllv.split("="), //separamos llave/valor
+					ll = s[0],
+					v = s[1] && decodeURIComponent(s[1]); //valor hacemos encode para prevenir url encode
+				if (ll == _par) { //solo nos interesa si es el nombre del parametro a buscar
+					if (_p == null) {
+						_p = v; //si es nula, quiere decir que no tiene valor, solo textual
+					} else if (Array.isArray(_p)) {
+						_p.push(v); //si ya es arreglo, agregamos este valor
+					} else {
+						_p = [_p, v]; //si no es arreglo, lo convertimos y agregamos este valor
+					}
+				}
+			});
+			return _p;
+		}
+		// ]]>
+
 		$(document).ready(
-				function() {
-					//$("#envProblema").attr("disabled",true);
-					$('#datatable').DataTable(
-							{
-								"pagingType" : "full_numbers",
-								"lengthMenu" : [ [ 10, 25, 50, -1 ],
-										[ 10, 25, 50, "All" ] ],
-								responsive : true,
-								language : {
-									search : "_INPUT_",
-									searchPlaceholder : "Search records",
-								}
+			function () {
+				//$("#envProblema").attr("disabled",true);
+				$('#datatable').DataTable(
+					{
+						"pagingType": "full_numbers",
+						"lengthMenu": [[10, 25, 50, -1],
+						[10, 25, 50, "All"]],
+						responsive: true,
+						language: {
+							search: "_INPUT_",
+							searchPlaceholder: "Search records",
+						}
 
-							});
-
-					var table = $('#datatable').DataTable();
-
-					// Edit record
-					table.on('click', '.edit', function() {
-						$tr = $(this).closest('tr');
-
-						var data = table.row($tr).data();
-						alert('You press on Row: ' + data[0] + ' ' + data[1]
-								+ ' ' + data[2] + '\'s row.');
 					});
 
-					// Delete a record
-					table.on('click', '.remove', function(e) {
-						$tr = $(this).closest('tr');
-						table.row($tr).remove().draw();
-						e.preventDefault();
-					});
+				var table = $('#datatable').DataTable();
 
-					//Like record
-					table.on('click', '.like', function() {
-						alert('You clicked on Like button');
-					});
-					/*
-					   $("#textProblem").keypress(function(){
-						   var name = $('#textProblem').val().trim();
-						   console.log("Entro");
-						   if(name.length==0){
-							   $("#envProblema").attr("disabled",true);
-						   }else{
-							   $("#envProblema").attr("disabled",false);
-						   }
-						 });
-					   
-					  	 $('#problem').on('hidden.bs.modal', function (e) {
-				            $("#textProblem").val("");
-				        });*/
+				// Edit record
+				table.on('click', '.edit', function () {
+					$tr = $(this).closest('tr');
+
+					var data = table.row($tr).data();
+					alert('You press on Row: ' + data[0] + ' ' + data[1]
+						+ ' ' + data[2] + '\'s row.');
 				});
+
+				// Delete a record
+				table.on('click', '.remove', function (e) {
+					$tr = $(this).closest('tr');
+					table.row($tr).remove().draw();
+					e.preventDefault();
+				});
+
+				//Like record
+				table.on('click', '.like', function () {
+					alert('You clicked on Like button');
+				});
+				/*
+				   $("#textProblem").keypress(function(){
+					   var name = $('#textProblem').val().trim();
+					   console.log("Entro");
+					   if(name.length==0){
+						   $("#envProblema").attr("disabled",true);
+					   }else{
+						   $("#envProblema").attr("disabled",false);
+					   }
+					 });
+				   
+						 $('#problem').on('hidden.bs.modal', function (e) {
+						$("#textProblem").val("");
+					});*/
+			});
 	</script>
 </body>
 

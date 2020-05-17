@@ -82,3 +82,54 @@
 </nav>
 
 <!-- End Navbar -->
+
+<!-- Navbar -->
+<nav th:fragment="navbarPanel-user-fragment(title)"
+	class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" style="border-bottom: 1px solid gray !important;">
+	<div class="container-fluid">
+		<div class="navbar-wrapper">
+			<div class="navbar-toggle">
+				<button type="button" class="navbar-toggler">
+					<span class="navbar-toggler-bar bar1"></span> <span
+						class="navbar-toggler-bar bar2"></span> <span
+						class="navbar-toggler-bar bar3"></span>
+				</button>
+			</div>
+			<font class="navbar-brand" th:text="${title}">Title</font>
+		</div>
+		<div>
+		 <a
+				th:href="@{/portal-usuario/user_logout}">Salir<img
+				th:src="@{/resources/home/img/howDo/icon/exit.svg}"
+				style="margin-left: 8px; height: 16px;" /></a>
+		</div>
+	</div>
+</nav>
+
+<!-- End Navbar -->
+
+
+<!-- Navbar -->
+<nav th:fragment="navbarPanel-empresa-fragment(title)"
+	class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent" style="border-bottom: 1px solid gray !important;">
+	<div class="container-fluid">
+		<div class="navbar-wrapper">
+			<div class="navbar-toggle">
+				<button type="button" class="navbar-toggler">
+					<span class="navbar-toggler-bar bar1"></span> <span
+						class="navbar-toggler-bar bar2"></span> <span
+						class="navbar-toggler-bar bar3"></span>
+				</button>
+			</div>
+			<font class="navbar-brand" th:text="${title}">Title</font>
+		</div>
+		<div>
+		 <a
+				th:href="@{/portal-administrador/admin_logout}">Salir<img
+				th:src="@{/resources/home/img/howDo/icon/exit.svg}"
+				style="margin-left: 8px; height: 16px;" /></a>
+		</div>
+	</div>
+</nav>
+
+<!-- End Navbar -->

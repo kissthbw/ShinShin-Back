@@ -23,6 +23,7 @@ Nueva tienda | Shing Shing
 <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
+<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
 <link th:href="@{/resources/assets/css/style-howDo.css}"
 	rel="stylesheet" />
@@ -34,17 +35,18 @@ Nueva tienda | Shing Shing
 			<div class="sidebar-wrapper">
 				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
-					<div class="photo">
-						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
-					</div>
-					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
-								<b class="caret"></b>
-						</span>
-						</a>
-						<div class="clearfix"></div>
-					</div>
+						<div class="photo">
+							<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
+						</div>
+						<div class="info">
+							<a data-toggle="collapse" href="#collapseExample" class="collapsed">
+								<span th:text="${user.nombre}">
+									<!-- User -->
+									<b class="caret"></b>
+								</span>
+							</a>
+							<div class="clearfix"></div>
+						</div>
 				</div>
 
 				<ul class="nav">
@@ -58,24 +60,22 @@ Nueva tienda | Shing Shing
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Clientes </span>
 								</a></li>
 								<li class="active"><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Tiendas </span>
 								</a></li>
 								<li><a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Departamentos </span>
 								</a></li>
-								<li><a th:href="@{/portal-administrador/marca/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
+								<li><a th:href="@{/portal-administrador/marca/list}">  <span
 										class="sidebar-normal"> Marcas </span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/producto/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/producto/list}">  <span
 										class="sidebar-normal"> Productos </span>
 								</a></li>
 							</ul>
@@ -92,22 +92,22 @@ Nueva tienda | Shing Shing
 							<ul class="nav">
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-general}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Medios bonificación </span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-depositos}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">Retiros</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-recargas}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">Recargas</span>
 								</a></li>
 							</ul>
@@ -122,22 +122,18 @@ Nueva tienda | Shing Shing
 						<div class="collapse show" id="estadisticas">
 							<ul class="nav">
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-general}"> <span
-										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
+									th:href="@{/portal-administrador/estadisticas-general}"> <span class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-tickets}">  <span
 										class="sidebar-normal">Tickets</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-marcas}">  <span
 										class="sidebar-normal">Marcas</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-usuarios}">  <span
 										class="sidebar-normal">Usarios</span>
 								</a></li>
 							</ul>

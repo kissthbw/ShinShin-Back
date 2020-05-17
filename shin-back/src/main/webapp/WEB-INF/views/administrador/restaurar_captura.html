@@ -1,77 +1,73 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-  <title>Solicita tu acceso | Shing Shing</title>
-  <!-- Favicon -->
-  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}"/>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
-  <!-- Bootstrap core CSS -->
-  <link th:href="@{/resources/home/css/bootstrap.min.css}" rel="stylesheet"/>
-  <!-- Material Design Bootstrap -->
-  <link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet"/>
-  <!-- Your custom styles (optional) -->
-  <link th:href="@{/resources/home/css/style.css}" rel="stylesheet"/>
-  <!-- Your custom styles (optional) -->
-  <link th:href="@{/resources/home/css/login.css}" rel="stylesheet"/>
-  <link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet"/>
-  <!-- Imagenes -->
-  <style type="text/css">
-		#logo-header{
-			background-image: url(../../../resources/home/img/brands/ss-complet.svg);
-		}
-		.img-validacion{
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<title>Solicita tu acceso | Shing Shing</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" th:href=
+	"@{/resources/home/img/brands/favicon.png}" />
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/home/css/mdb.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/home/css/style.css}" rel="stylesheet" />	
+	<link th:href="@{/resources/home/css/login.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,700,900&;display=swap" rel="stylesheet" />
+	<!-- Imagenes -->
+	<style type="text/css">
+		.img-validacion {
 			background-image: url(../../../resources/home/img/micros/validacion.svg);
 		}
-  </style>
+	</style>
 </head>
 
 <body>
-<!-- Modal Correo enviado -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="display: none;">
+	<!-- Modal Correo enviado -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document" style="display: none;">
 
-  </div>
-  <div class="modal-style">
-        <div class="close close-modal" data-dismiss="modal" aria-label="Close">
-					X
-				</div>
-        <div class="row justify-content-center">
-        	<div class="col-10 col-sm-8 col-md-6 col-lg-4">
-	        	<div class="col">
-	        		<div id="logo-header" class="logo-modal"></div>
-	        	</div>
-				<div class="col-12">
-					<div class="img-login img-validacion"></div>
-				</div>
-				<div class="col-12 title-login">
-					<font>Contraseña actualizada</font>
-				</div>
-				<div class="row justify-content-center">
-					<div class="col-10 col-sm-8 col-md-8 col-lg-6 description-login">
-						<font>Sigue ganando dinero por tus compras.</font>
+		</div>
+		<div class="modal-style">
+			<div class="close close-modal" data-dismiss="modal" aria-label="Close">
+				X
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-10 col-sm-8 col-md-6 col-lg-4">
+					<div class="col">
+						<div id="logo-header" class="logo-modal"></div>
 					</div>
-				</div>
-
-				<a href="#">
 					<div class="col-12">
-						<div class="row justify-content-between">
-								<button class="btn btn-primary cta-white m-40 col">Vale</button>
+						<div class="img-login img-validacion"></div>
+					</div>
+					<div class="col-12 title-login">
+						<font>Contraseña actualizada</font>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-10 col-sm-8 col-md-8 col-lg-6 description-login">
+							<font>Sigue ganando dinero por tus compras.</font>
 						</div>
 					</div>
-				</a>
 
+					<a href="#">
+						<div class="col-12">
+							<div class="row justify-content-between">
+								<button class="btn btn-primary cta-orange m-40 col">Vale</button>
+							</div>
+						</div>
+					</a>
+
+				</div>
 			</div>
-        </div>
-  </div>
-</div>
+		</div>
+	</div>
 	<!-- Principal -->
 	<div id="principal" class="section">
 
@@ -83,7 +79,7 @@
 						<div class="col" id="logo-header"></div>
 					</div>
 				</a>
-				</div>
+			</div>
 		</header>
 
 	</div>
@@ -96,150 +92,192 @@
 		<div id="content-principal">
 			<div class="container">
 				<form id="LoginValidation" class="form" method="post" th:object="${item}">
-				<div class="row justify-content-center">
+					<div class="row justify-content-center">
 
-					<div class="col-12 title-login">
-						<font>Restablece<br/> tu contraseña</font>
-					</div>
-					<div class="col-10 col-sm-8 col-md-6 col-lg-4 description-login">
-						<font>Escribe tu nueva contraseña,<br/>cuidala y no la olvides :)</font>
-					</div>
+						<div class="col-12 title-login">
+							<font>Restablece<br /> tu contraseña</font>
+						</div>
+						<div class="col-10 col-sm-8 col-md-6 col-lg-4 description-login">
+							<font>Escribe tu nueva contraseña,<br />cuidala y no la olvides :)</font>
+						</div>
 
-					<div class="col-12">
-						<div class="row justify-content-center">
-							<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-								<div class="col">
-									<label class="label-default col-12">Contraseña nueva</label>
-									<input type="password" class="form-control input-grey col-12" placeholder="" aria-label="Brand" 
-									aria-describedby="basic-addon1" th:field="*{contrasenia}" required="true"/>
-							        <div class="invalid-feedback">
-							          Ingresa la marca a la que perteneces
-							        </div>
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
+									<div class="col">
+										<label class="label-default col-12">Contraseña nueva</label>
+										<input type="password" class="form-control input-grey col-12" placeholder="" aria-label="Brand"
+										 aria-describedby="basic-addon1" th:field="*{contrasenia}" required="true" />
+										<div class="invalid-feedback">
+											Ingresa la marca a la que perteneces
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>		
 
-					<div class="col-12">
-						<div class="row justify-content-center">
-							<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
-								<div class="col">
-									<label class="label-default col-12">Confirma tu Contraseña</label>
-									<input type="password" class="form-control input-grey col-12" placeholder="" aria-label="Email" 
-									aria-describedby="basic-addon1" th:field="*{confirmarContrasenia}" required="true"/>
-							        <div class="invalid-feedback">
-							          Ingresa tu email
-							        </div>
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<div class="input-group mb-3 col-10 col-sm-8 col-md-6 col-lg-4">
+									<div class="col">
+										<label class="label-default col-12">Confirma tu Contraseña</label>
+										<input type="password" class="form-control input-grey col-12" placeholder="" aria-label="Email"
+										 aria-describedby="basic-addon1" th:field="*{confirmarContrasenia}" required="true" />
+										<div class="invalid-feedback">
+											Ingresa tu correo
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>		
 
-					<div class="col-12">
-						<div class="row justify-content-center">
-                        	<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error}">
-  								Verifica la información que ingresaste. 
-  								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    								<span aria-hidden="true">&times;</span>
-  								</button>
+						<div class="col-12">
+							<div class="row justify-content-center">
+								<div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${param.error}">
+									Verifica la información que ingresaste.
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
 							</div>
-						</div>	
-					</div>
-					
-					<div class="col-10 col-sm-8 col-md-6 col-lg-4">
-						<div class="row justify-content-between">
-							<button type="submit" class="btn btn-primary cta-orange m-40 col">Actualizar</button>
-							<!-- <button type="submit" class="btn btn-primary cta-orange m-40 col" data-toggle="modal" data-target="#exampleModal">Actualizar</button> -->
 						</div>
-					</div>	
 
-				</div>
+						<div class="col-10 col-sm-8 col-md-6 col-lg-4">
+							<div class="row justify-content-between">
+								<button type="submit" class="btn btn-primary cta-orange m-40 col">Actualizar</button>
+								<!-- <button type="submit" class="btn btn-primary cta-orange m-40 col" data-toggle="modal" data-target="#exampleModal">Actualizar</button> -->
+							</div>
+						</div>
+
+					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<footer class="footer footer-black  footer-white ">
+		<div class="container-fluid">
+			<div class="row">
+				<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+				<nav class="footer-nav">
+				</nav>
+				<div class="credits ml-auto">
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- Start your project here-->
 
-  <!-- Start your project here-->
+	<!-- SCRIPTS -->
+		<!--   Core JS Files   -->
+		<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
+		<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
+		<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
+		<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+		<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
+		<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+		<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
+		<!--  Plugin for Sweet Alert -->
+		<script th:src="@{/resources/assets/js/plugins/sweetalert2.min.js}"></script>
+		<!-- Forms Validations Plugin -->
+		<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
+		<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+		<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+		<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+		<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+		<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+		<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+		<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+		<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+		<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+		<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
+		<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+		<script th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js}"></script>
+		<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+		<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js}"></script>
+		<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+		<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
+		<!--  Plugin for the Bootstrap Table -->
+		<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
+		<!--  Google Maps Plugin    -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+	   <!-- Chart JS -->
+		<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
+		<!--  Notifications Plugin    -->
+		<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
+		<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+		<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
+		<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+		<script th:src="@{/resources/assets/demo/demo.js}"></script>
+  
+	<script type="text/javascript">var theToggle = document.getElementById('toggle');
 
-  <!-- SCRIPTS -->
-  <!-- JQuery -->
-  <script type="text/javascript" th:src="@{/resources/home/js/jquery-3.4.1.min.js}"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" th:src="@{/resources/home/js/popper.min.js}"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" th:src="@{/resources/home/js/bootstrap.min.js}"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" th:src="@{/resources/home/js/mdb.min.js}"></script>
-  <script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
-<script type="text/javascript">var theToggle = document.getElementById('toggle');
+		// based on Todd Motto functions
+		// https://toddmotto.com/labs/reusable-js/
 
-// based on Todd Motto functions
-// https://toddmotto.com/labs/reusable-js/
-
-// hasClass
-function hasClass(elem, className) {
-	return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
-}
-// addClass
-function addClass(elem, className) {
-    if (!hasClass(elem, className)) {
-    	elem.className += ' ' + className;
-    }
-}
-// removeClass
-function removeClass(elem, className) {
-	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, ' ') + ' ';
-	if (hasClass(elem, className)) {
-        while (newClass.indexOf(' ' + className + ' ') >= 0 ) {
-            newClass = newClass.replace(' ' + className + ' ', ' ');
-        }
-        elem.className = newClass.replace(/^\s+|\s+$/g, '');
-    }
-}
-// toggleClass
-function toggleClass(elem, className) {
-	var newClass = ' ' + elem.className.replace( /[\t\r\n]/g, " " ) + ' ';
-    if (hasClass(elem, className)) {
-        while (newClass.indexOf(" " + className + " ") >= 0 ) {
-            newClass = newClass.replace( " " + className + " " , " " );
-        }
-        elem.className = newClass.replace(/^\s+|\s+$/g, '');
-    } else {
-        elem.className += ' ' + className;
-    }
-}
-
-function setFormValidation(id) {
-    $(id).validate({
-  		contrasenia: {
-      		required: true,
-      		minlength: 8
-  		},
-  		confirmarContrasenia: {
-      		required: true,
-      		minlength: 8,
-      		equalTo: '#contrasenia'
-  		},
-  		
+		// hasClass
+		function hasClass(elem, className) {
+			return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
 		}
+		// addClass
+		function addClass(elem, className) {
+			if (!hasClass(elem, className)) {
+				elem.className += ' ' + className;
+			}
+		}
+		// removeClass
+		function removeClass(elem, className) {
+			var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
+			if (hasClass(elem, className)) {
+				while (newClass.indexOf(' ' + className + ' ') >= 0) {
+					newClass = newClass.replace(' ' + className + ' ', ' ');
+				}
+				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+			}
+		}
+		// toggleClass
+		function toggleClass(elem, className) {
+			var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, " ") + ' ';
+			if (hasClass(elem, className)) {
+				while (newClass.indexOf(" " + className + " ") >= 0) {
+					newClass = newClass.replace(" " + className + " ", " ");
+				}
+				elem.className = newClass.replace(/^\s+|\s+$/g, '');
+			} else {
+				elem.className += ' ' + className;
+			}
+		}
+
+		function setFormValidation(id) {
+			$(id).validate({
+				contrasenia: {
+					required: true,
+					minlength: 8
+				},
+				confirmarContrasenia: {
+					required: true,
+					minlength: 8,
+					equalTo: '#contrasenia'
+				},
+
+			}
     });
   }
 
-  $(document).ready(function() {
-    setFormValidation('#LoginValidation');
-  });
+		$(document).ready(function () {
+			setFormValidation('#LoginValidation');
+		});
 
-theToggle.onclick = function() {
-   toggleClass(this, 'on');
-   return false;
-}
-</script> 
+		theToggle.onclick = function () {
+			toggleClass(this, 'on');
+			return false;
+		}
+	</script>
 
 
 
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

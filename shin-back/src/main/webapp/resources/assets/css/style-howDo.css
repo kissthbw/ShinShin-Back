@@ -89,7 +89,7 @@ a:hover{
 .container-fluid a{
 	color: #007bff !important;
 }
-.container-fluid a{
+.main-panel .navbar .container-fluid .navbar-wrapper +div a{
 	margin-left: 24px;
 }
 .card-body img{
@@ -208,7 +208,7 @@ a .btn-secundary:focus{
 	background-color: #F2F2F2;
 }
 .form-control{
-	height: 48px !important;
+	/*height: 48px !important;*/
 	border-radius: 15px !important;
 }
 .label-default{

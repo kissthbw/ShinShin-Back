@@ -23,10 +23,8 @@ import com.bit.config.security.SimpleAuthenticationFilter;
 @Configuration
 @EnableWebSecurity(debug = false)
 public class SpringSecurityConfig {
-
-	
 	@Configuration
-	@Order(6)
+	@Order(7)
 	public static class EmpresaSecurityConfig extends WebSecurityConfigurerAdapter{
 
 		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
@@ -105,7 +103,7 @@ public class SpringSecurityConfig {
 	}
 	
 	@Configuration
-	@Order(5)
+	@Order(6)
 	public static class AdminSecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		private static Logger log = LoggerFactory.getLogger(AdminSecurityConfig.class);
@@ -181,7 +179,7 @@ public class SpringSecurityConfig {
 	}
 	
 	@Configuration
-	@Order(4)
+	@Order(5)
 	public static class UserSecurityConfig extends WebSecurityConfigurerAdapter{
 		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
 
@@ -259,7 +257,7 @@ public class SpringSecurityConfig {
 	}
 	
 	@Configuration
-	@Order(3)
+	@Order(4)
 	public static class UserRecuperarSecurityConfig extends WebSecurityConfigurerAdapter{
 		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
 
@@ -301,7 +299,7 @@ public class SpringSecurityConfig {
 	}
 	
 	@Configuration
-	@Order(2)
+	@Order(3)
 	public static class AdminRecuperarSecurityConfig extends WebSecurityConfigurerAdapter{
 		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
 
@@ -343,7 +341,7 @@ public class SpringSecurityConfig {
 	}
 	
 	@Configuration
-	@Order(1)
+	@Order(2)
 	public static class EmpresaRecuperarSecurityConfig extends WebSecurityConfigurerAdapter{
 		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
 
@@ -376,6 +374,47 @@ public class SpringSecurityConfig {
 			log.info( "EmpresaRecuperarSecurityConfig" );
 
 			http.antMatcher("/portal-empresa/restaurar/**")
+	          .authorizeRequests()
+	          .anyRequest()
+	          .permitAll()	           
+	          .and()
+	          .csrf().disable();
+		}
+	}
+	@Configuration
+	@Order(1)
+	public static class ReporteProblemaSecurityConfig extends WebSecurityConfigurerAdapter{
+		private static Logger log = LoggerFactory.getLogger(UserSecurityConfig.class);
+
+		
+		@Autowired
+		private UserDetailsService userService;
+		
+		@Bean
+	    public BCryptPasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
+		
+		@Bean
+	    public DaoAuthenticationProvider authenticationProvider() {
+	        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+	        authProvider.setUserDetailsService(userService);
+//	        authProvider.setPasswordEncoder(passwordEncoder());
+	        return authProvider;
+	    }
+
+		@Autowired
+		@Override
+	    protected void configure(AuthenticationManagerBuilder auth) {
+	        auth.authenticationProvider(authenticationProvider());
+	    }
+		
+		@Override
+		protected void configure(HttpSecurity http) throws Exception{
+			
+			log.info( "ReporteProblemaSecurityConfig" );
+
+			http.antMatcher("/portal-administrador/envia-problema")
 	          .authorizeRequests()
 	          .anyRequest()
 	          .permitAll()	           

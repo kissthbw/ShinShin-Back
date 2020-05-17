@@ -31,7 +31,7 @@ public class CatalogoTiendaDAO extends DAOTemplate<CatalogoTienda, Long> {
 	
 	public BigInteger getProducts(Long productos) {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
-				+ "SELECT COUNT(*) FROM catalogo_tienda a left join producto b on a.id_catalogo_tienda=b.id_catalogo_tienda where a.id_catalogo_tienda="+productos+" and b.active=1 group by a.id_catalogo_tienda ;");
+				+ "SELECT count(*) FROM catalogo_tienda a left join productos_tiendas b on a.id_catalogo_tienda=b.id_catalogo_tienda and a.active=1 left join producto c on a.id_catalogo_tienda=c.id_catalogo_tienda and c.active=1 where b.producto_tienda<>'' and a.id_catalogo_tienda="+productos+" GROUP by a.id_catalogo_tienda;");
 		BigInteger total = (BigInteger)q.uniqueResult();
 		
 		return total;

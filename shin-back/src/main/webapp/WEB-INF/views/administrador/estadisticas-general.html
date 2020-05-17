@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="utf-8" />
@@ -41,10 +40,10 @@
 						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed"> <span th:text="${item.nombre}">
+								<!-- User -->
 								<b class="caret"></b>
-						</span>
+							</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
@@ -62,20 +61,18 @@
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
 								<li><a th:href="@{/portal-administrador/tienda/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Tiendas </span>
 								</a></li>
 								<li><a th:href="@{/portal-administrador/departamento/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Departamentos </span>
 								</a></li>
-								<li><a th:href="@{/portal-administrador/marca/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
+								<li><a th:href="@{/portal-administrador/marca/list}">  <span
 										class="sidebar-normal"> Marcas </span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/producto/list}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/producto/list}">  <span
 										class="sidebar-normal"> Productos </span>
 								</a></li>
 							</ul>
@@ -86,62 +83,60 @@
 							<p>
 								Finanzas
 							</p>
-					</a>
+						</a>
 
 						<div class="collapse show" id="bonificaciones">
 							<ul class="nav">
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-general}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/mediosBonificacion/list}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal"> Medios bonificación </span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-depositos}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">Retiros</span>
 								</a></li>
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-recargas}">
-										<span class="sidebar-mini-icon">·</span> <span
+										<span
 										class="sidebar-normal">Recargas</span>
 								</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
 					<li><a data-toggle="collapse" href="#estadisticas"> <i
 							class="nc-icon icon-simbolo-estadisticas"></i>
 							<p>
 								Estadisticas
 							</p>
-					</a>
-						<div class="collapse show" id="estadisticas">
+						</a>
+						<div class="" id="estadisticas">
 							<ul class="nav">
 								<li class="active"><a
-									th:href="@{/portal-administrador/estadisticas-general}"> <span
-										class="sidebar-mini-icon">·</span><span class="sidebar-normal">General</span>
+									th:href="@{/portal-administrador/estadisticas-general}"> <span class="sidebar-normal">General</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-tickets}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-tickets}">  <span
 										class="sidebar-normal">Tickets</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-marcas}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-marcas}">  <span
 										class="sidebar-normal">Marcas</span>
 								</a></li>
 								<li><a
-									th:href="@{/portal-administrador/estadisticas-usuarios}"> <span
-										class="sidebar-mini-icon">·</span> <span
+									th:href="@{/portal-administrador/estadisticas-usuarios}">  <span
 										class="sidebar-normal">Usarios</span>
 								</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -151,11 +146,13 @@
 			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Estadisticas')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
-				<div class="row">	
-						<div class="col-8">
-							<!-- Titulo -->
-							<b><h4 class="title-cat">General</h4></b>
-							</div>
+				<div class="row">
+					<div class="col-8">
+						<!-- Titulo -->
+						<b>
+							<h4 class="title-cat">General</h4>
+						</b>
+					</div>
 					<div class="col-4 text-right">
 						<a th:href="@{/portal-administrador/estadisticas/reporte}"
 							class="btn btn-secundary" role="button" aria-disabled="true">
@@ -184,30 +181,21 @@
 
 							<div class="card-body">
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="btnUsersDay" class="nav-item"><a
-										class="nav-link active" id="pills-home-tab" data-toggle="pill"
-										href="#pills-home" role="tab" aria-controls="pills-home"
-										aria-selected="true">Día</a></li>
-									<li id="btnUsersWeek" class="nav-item"><a class="nav-link"
-										id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="btnUsersMonth" class="nav-item"><a
-										class="nav-link" id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
+									<li id="btnUsersDay" class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+										 role="tab" aria-controls="pills-home" aria-selected="true">Día</a></li>
+									<li id="btnUsersWeek" class="nav-item"><a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+										 role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a></li>
+									<li id="btnUsersMonth" class="nav-item"><a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+										 role="tab" aria-controls="pills-contact" aria-selected="false">Mes</a></li>
 								</ul>
 								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 										<canvas id="usuariosChart" width="826" height="380"></canvas>
 									</div>
-									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-										aria-labelledby="pills-profile-tab">
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 										<canvas id="usuariosChart" width="826" height="380"></canvas>
 									</div>
-									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-										aria-labelledby="pills-contact-tab">
+									<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 										<canvas id="usuariosChart" width="826" height="380"></canvas>
 									</div>
 								</div>
@@ -254,30 +242,21 @@
 
 							<div class="card-body">
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="btnTicketsDay" class="nav-item"><a
-										class="nav-link active" id="pills-home-tab" data-toggle="pill"
-										href="#pills-home" role="tab" aria-controls="pills-home"
-										aria-selected="true">Día</a></li>
-									<li id="btnTicketsWeek" class="nav-item"><a
-										class="nav-link" id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="btnTicketsMonth" class="nav-item"><a
-										class="nav-link" id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
+									<li id="btnTicketsDay" class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+										 role="tab" aria-controls="pills-home" aria-selected="true">Día</a></li>
+									<li id="btnTicketsWeek" class="nav-item"><a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+										 role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a></li>
+									<li id="btnTicketsMonth" class="nav-item"><a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+										 role="tab" aria-controls="pills-contact" aria-selected="false">Mes</a></li>
 								</ul>
 								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 										<canvas id="ticketsChart" width="826" height="380"></canvas>
 									</div>
-									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-										aria-labelledby="pills-profile-tab">
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 										<canvas id="ticketsChart" width="826" height="380"></canvas>
 									</div>
-									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-										aria-labelledby="pills-contact-tab">
+									<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 										<canvas id="ticketsChart" width="826" height="380"></canvas>
 									</div>
 								</div>
@@ -323,30 +302,21 @@
 							<div class="card-body">
 								<h6 class="big-title">Escaneados</h6>
 								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="btnProductosDay" class="nav-item"><a
-										class="nav-link active" id="pills-home-tab" data-toggle="pill"
-										href="#pills-home" role="tab" aria-controls="pills-home"
-										aria-selected="true">Día</a></li>
-									<li id="btnProductosWeek" class="nav-item"><a
-										class="nav-link" id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="btnProductosMonth" class="nav-item"><a
-										class="nav-link" id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
+									<li id="btnProductosDay" class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+										 href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Día</a></li>
+									<li id="btnProductosWeek" class="nav-item"><a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+										 role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a></li>
+									<li id="btnProductosMonth" class="nav-item"><a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+										 role="tab" aria-controls="pills-contact" aria-selected="false">Mes</a></li>
 								</ul>
 								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 										<canvas id="productosChart" width="826" height="380"></canvas>
 									</div>
-									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-										aria-labelledby="pills-profile-tab">
+									<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 										<canvas id="productosChart" width="826" height="380"></canvas>
 									</div>
-									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-										aria-labelledby="pills-contact-tab">
+									<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 										<canvas id="productosChart" width="826" height="380"></canvas>
 									</div>
 								</div>
@@ -380,22 +350,15 @@
 							</div>
 
 							<div class="card-body ">
-								<div class="chartjs-size-monitor"
-									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-									<div class="chartjs-size-monitor-expand"
-										style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-										<div
-											style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+								<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+									<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
 									</div>
-									<div class="chartjs-size-monitor-shrink"
-										style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-										<div
-											style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+									<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 									</div>
 								</div>
-								<canvas id="tiendasChart" width="1414" height="352"
-									class="chartjs-render-monitor"
-									style="display: block; height: 176px; width: 707px;"></canvas>
+								<canvas id="tiendasChart" width="1414" height="352" class="chartjs-render-monitor" style="display: block; height: 176px; width: 707px;"></canvas>
 							</div>
 							<div class="card-footer ">
 								<hr />
@@ -424,22 +387,15 @@
 							</div>
 
 							<div class="card-body ">
-								<div class="chartjs-size-monitor"
-									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-									<div class="chartjs-size-monitor-expand"
-										style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-										<div
-											style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+								<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+									<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
 									</div>
-									<div class="chartjs-size-monitor-shrink"
-										style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-										<div
-											style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+									<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 									</div>
 								</div>
-								<canvas id="departamentosChart" width="1414" height="352"
-									class="chartjs-render-monitor"
-									style="display: block; height: 176px; width: 707px;"></canvas>
+								<canvas id="departamentosChart" width="1414" height="352" class="chartjs-render-monitor" style="display: block; height: 176px; width: 707px;"></canvas>
 							</div>
 							<div class="card-footer ">
 								<hr />
@@ -466,8 +422,7 @@
 
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid"></div>
-				<div
-					th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+				<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 			</footer>
 		</div>
 	</div>
@@ -475,8 +430,7 @@
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script
-		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
@@ -485,17 +439,13 @@
 	<!-- Forms Validations Plugin -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
 	<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -513,95 +463,92 @@
 	<!--  Notifications Plugin    -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
-		type="text/javascript"></script>
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
-	<script
-		th:src="@{/resources/assets/demo/estadisticas-general-chart.js}"></script>
+	<script th:src="@{/resources/assets/demo/estadisticas-general-chart.js}"></script>
 	<script>
-		$(document).ready(function() {
-				$('#btnUsersDay').click(function(){
-					usuariosPorDiaChart();
-				});
+		$(document).ready(function () {
+			$('#btnUsersDay').click(function () {
+				usuariosPorDiaChart();
+			});
 
-				$('#btnUsersWeek').click(()=>{
-					usuariosPorSemanaChart();
-				});
+			$('#btnUsersWeek').click(() => {
+				usuariosPorSemanaChart();
+			});
 
-				$('#btnUsersMonth').click(()=>{
-					usuariosPorMesChart()
-				});
-				
-				//
-				$('#btnTicketsDay').click(function(){
-					ticketsPorDiaChart();
-				});
+			$('#btnUsersMonth').click(() => {
+				usuariosPorMesChart()
+			});
 
-				$('#btnTicketsWeek').click(()=>{
-					ticketsPorSemanaChart();
-				});
+			//
+			$('#btnTicketsDay').click(function () {
+				ticketsPorDiaChart();
+			});
 
-				$('#btnTicketsMonth').click(()=>{
-					ticketsPorMesChart()
-				});
-				
-				//
-				$('#btnProductosDay').click(function(){
-					productosPorDiaChart();
-				});
+			$('#btnTicketsWeek').click(() => {
+				ticketsPorSemanaChart();
+			});
 
-				$('#btnProductosWeek').click(()=>{
-					productosPorSemanaChart();
-				});
+			$('#btnTicketsMonth').click(() => {
+				ticketsPorMesChart()
+			});
 
-				$('#btnProductosMonth').click(()=>{
-					productosPorMesChart()
-				});
-				
-				function usuariosPorDiaChart() {
-					estadisticas_general.usuariosPorDiaChart();
-				}
+			//
+			$('#btnProductosDay').click(function () {
+				productosPorDiaChart();
+			});
 
-				function usuariosPorSemanaChart() {
-					estadisticas_general.usuariosPorSemanaChart();
-				}
+			$('#btnProductosWeek').click(() => {
+				productosPorSemanaChart();
+			});
 
-				function usuariosPorMesChart() {
-					estadisticas_general.usuariosPorMesChart();
-				}
-				
-				//
-				function ticketsPorDiaChart() {
-					estadisticas_general.ticketsPorDiaChart();
-				}
+			$('#btnProductosMonth').click(() => {
+				productosPorMesChart()
+			});
 
-				function ticketsPorSemanaChart() {
-					estadisticas_general.ticketsPorSemanaChart();
-				}
+			function usuariosPorDiaChart() {
+				estadisticas_general.usuariosPorDiaChart();
+			}
 
-				function ticketsPorMesChart() {
-					estadisticas_general.ticketsPorMesChart();
-				}
-				
-				//
-				function productosPorDiaChart() {
-					estadisticas_general.productosPorDiaChart();
-				}
+			function usuariosPorSemanaChart() {
+				estadisticas_general.usuariosPorSemanaChart();
+			}
 
-				function productosPorSemanaChart() {
-					estadisticas_general.productosPorSemanaChart();
-				}
+			function usuariosPorMesChart() {
+				estadisticas_general.usuariosPorMesChart();
+			}
 
-				function productosPorMesChart() {
-					estadisticas_general.productosPorMesChart();
-				}
+			//
+			function ticketsPorDiaChart() {
+				estadisticas_general.ticketsPorDiaChart();
+			}
+
+			function ticketsPorSemanaChart() {
+				estadisticas_general.ticketsPorSemanaChart();
+			}
+
+			function ticketsPorMesChart() {
+				estadisticas_general.ticketsPorMesChart();
+			}
+
+			//
+			function productosPorDiaChart() {
+				estadisticas_general.productosPorDiaChart();
+			}
+
+			function productosPorSemanaChart() {
+				estadisticas_general.productosPorSemanaChart();
+			}
+
+			function productosPorMesChart() {
+				estadisticas_general.productosPorMesChart();
+			}
 		});
 	</script>
 </body>
 
 </html>
 <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-<script
-	th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

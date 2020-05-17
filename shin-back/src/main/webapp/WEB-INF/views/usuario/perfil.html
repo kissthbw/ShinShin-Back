@@ -37,10 +37,8 @@
 		<div class="sidebar" data-color="white" data-active-color="danger">
 			
 			<div class="sidebar-wrapper">
-					<div class="logo-hd">
-						<img th:src="@{/resources/home/img/brands/ss-complet.svg}" />
-					</div>
-				<div class="pleca"></div>
+				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
+
 
 		        <!-- Menú -->
 
@@ -339,17 +337,7 @@
 				<div class="row">
 
 
-					<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-					<input type="text" style="display:none;" id="url" value="/portal-administrador/envia-problema" />
-					<!-- Modal -->
-
-					<div class="col-md-6 text-left">
-					<a data-toggle="modal" data-target="#problem" href="">Reportar Problema</a>
-					</div>
-					<div class="col-md-6 text-right">
-					©2020 Shing-Shing
-					</div>
-					</div>
+					<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 					<nav class="footer-nav"></nav>
 
 				</div>

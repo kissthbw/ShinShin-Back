@@ -1,3 +1,21 @@
+
+i.back-circle {
+	color: #66615B;
+	background-color: #e7e7e7;
+	border-radius: 50%;
+	padding: 10px;
+}
+
+#selectHow a {
+	width: 100%;
+	margin-right: 3.3rem;
+	margin-left: 0;
+}
+
+#selectHow {
+	margin-top: 0 !important;
+}
+
 #toast-container {
 	margin-top: 25px;
 	opacity: 1 !important;
@@ -174,6 +192,8 @@ body {
 .title-cat {
 	margin: 0;
 	font-weight: 600;
+	font-weight: 500;
+	font-size: 40px;
 }
 
 .wrapper .sidebar .logo, .wrapper .sidebar .sidebar-wrapper, .wrapper .sidebar .nav
@@ -183,6 +203,45 @@ body {
 
 .sidebar a {
 	color: #232323 !important;
+}
+
+.sidebar .nav .nav li {
+	margin-left: 45px;
+}
+
+.sidebar .nav .nav li.active a span{
+	color : #FF6600;
+}
+
+.sidebar .nav .nav li > a,
+.sidebar .nav li a p {
+	font-size: 14px;
+}
+
+.sidebar .nav li a p {
+	padding-top: 5px;
+}
+
+.sidebar-wrapper > .nav > li:first-child {
+	margin-top: 0px;
+}
+
+.sidebar .sidebar-wrapper .nav {
+	margin-top: 0px;
+}
+
+.sidebar-wrapper > .nav > li::after {
+    content: "";
+    display: block;
+    height: 1px;
+    width: calc(100% - 30px);
+    background: #66615B;
+    margin: 15px 0 0px 15px;
+    opacity: .4;
+}
+
+.sidebar-wrapper > .nav > li:last-child::after {
+	height: 0;
 }
 
 .simple-text.logo-mini {
@@ -222,7 +281,7 @@ body {
 }
 
 .input-group, .form-group {
-	background-color: #f2f2f2 !important;
+	/*background-color: #f2f2f2 !important;*/
 	border-radius: 10px !important;
 }
 
@@ -269,6 +328,7 @@ body {
 
 .user {
 	border-bottom: solid #ccc 1px;
+	margin-top: 10px !important;
 }
 
 .toolbar .btn-primary {
@@ -278,8 +338,6 @@ body {
 
 .pagination .page-item.active>.page-link, .pagination .page-item.active>.page-link:focus
 	{
-	background-color: #E2F1FF !important;
-	border-color: #E2F1FF !important;
 	color: #FFFFFF;
 	font-weight: 700;
 	box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0) !important;

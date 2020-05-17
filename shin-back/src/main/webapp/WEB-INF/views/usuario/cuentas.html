@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing Shing / Tickets / Detalle</title>
+	<title>Shing-Shing - Lista Medios Bonificacion</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
 	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
@@ -16,6 +16,7 @@
 	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
 	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
@@ -25,21 +26,20 @@
 </head>
 
 <body class="">
-	<div class="wrapper">
+	<div class="wrapper ">
 		<div class="sidebar" data-color="white" data-active-color="danger">
-			<!--
-        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
-      -->
 
-			<div class="sidebar-wrapper sidebar-bkg">
+
+
+			<div class="sidebar-wrapper">
 				<div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
 				<div class="user">
 					<div class="photo">
-						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+						<img th:src="${item.usuario.imgUrl} ? ${item.usuario.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample" class="collapsed">
-							<span th:text="${item.nombre}">
+						<a data-toggle="collapse" th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
+							<span th:text="${item.usuario.nombre}">
 								<!-- User -->
 								<b class="caret"></b>
 							</span>
@@ -50,217 +50,188 @@
 
 				<!-- MENU -->
 				<ul class="nav">
-					<!-- Las opciones del menu debe ir entre <li></li> -->
 					<li>
-						<a>
-							<i class="nc-icon nc-ruler-pencil"></i>
-							<p> Catalogos </p>
+						<a th:href="@{/portal-usuario/dashboard}">
+							<i class="nc-icon nc-bank"></i>
+							<p>Dashboard</p>
 						</a>
-						<div class="" id="catalogos">
+					</li>
+					<!-- Las opciones del menu debe ir entre <li></li> -->
+
+					<!-- Perfil -->
+					<li>
+						<a> <i class="nc-icon nc-ruler-pencil"></i>
+							<p>
+								Perfil
+							</p>
+						</a>
+						<div class=" " id="perfil">
 							<ul class="nav">
 								<li>
-									<a th:href="@{/portal-administrador/departamento/list}">
-										
-										<span class="sidebar-normal"> Departamentos </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/marca/list}">
-										
-										<span class="sidebar-normal"> Marcas </span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/tienda/list}">
-										
-										<span class="sidebar-normal"> Tiendas </span>
-									</a>
-								</li>
-
-								<li>
-									<a th:href="@{/portal-administrador/producto/save}">
-										
-										<span class="sidebar-normal"> Productos </span>
+									<a th:href="@{/portal-usuario/dashboard/perfil}">
+										<span class="sidebar-normal"> Editar perfil </span>
 									</a>
 								</li>
 							</ul>
 						</div>
 					</li>
 
+					<!-- Retiros -->
 					<li>
-						<a>
-							<i class="nc-icon nc-money-coins"></i>
+						<a> <i class="nc-icon nc-ruler-pencil"></i>
 							<p>
-								Bonificaciones
+								Retiros
 							</p>
 						</a>
-
-						<div class="" id="bonificaciones">
+						<div class="" id="retiros">
 							<ul class="nav">
 								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-depositos}"> <span
-										 class="sidebar-normal">Retiros</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-general}"> <span
-										 class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-recargas}"> <span
-										 class="sidebar-normal">Recargas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-										
-										<span class="sidebar-normal"> Medios bonificacion </span>
+									<a th:href="@{/portal-usuario/dashboard/retiro-bancario}">
+										<span class="sidebar-normal"> Bancaria </span>
 									</a>
 								</li>
 							</ul>
+
+							<ul class="nav">
+								<li>
+									<a th:href="@{/portal-usuario/dashboard/retiro-paypal}">
+										<span class="sidebar-normal"> PayPal </span>
+									</a>
+								</li>
+							</ul>
+
+							<ul class="nav">
+								<li>
+									<a th:href="@{/portal-usuario/dashboard/retiro-telefonico}">
+										<span class="sidebar-normal"> Recarga telef&oacute;nica </span>
+									</a>
+								</li>
+							</ul>
+
 						</div>
 					</li>
 
 					<li class="active">
-						<a>
-							<i class="nc-icon nc-chart-bar-32"></i>
+						<a> <i class="nc-icon nc-ruler-pencil"></i>
 							<p>
-								Estadisticas
+								Historial
 							</p>
 						</a>
-						<div class="" id="estadisticas">
+						<div class="" id="historial">
 							<ul class="nav">
 								<li>
-									<a th:href="@{/portal-administrador/estadisticas-general}">
-										<span class="sidebar-normal">General</span>
+									<a th:href="@{/portal-usuario/dashboard/tickets}">
+										<span class="sidebar-normal"> Tickets </span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/portal-usuario/dashboard/retiros}">
+										<span class="sidebar-normal"> Retiros </span>
 									</a>
 								</li>
 								<li class="active">
-									<a th:href="@{/portal-administrador/estadisticas-tickets}">
-										
-										<span class="sidebar-normal">Tickets</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-marcas}">
-										
-										<span class="sidebar-normal">Marcas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-										
-										<span class="sidebar-normal">Usarios</span>
+									<a th:href="@{/portal-usuario/dashboard/cuentas}">
+										<span class="sidebar-normal"> Cuentas </span>
 									</a>
 								</li>
 							</ul>
 						</div>
 					</li>
 				</ul>
+
+				<!-- TERMINA MENU -->
+
 			</div>
 		</div>
 
 
 		<div class="main-panel">
-			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Estadisticas')"></nav>
+			<nav th:replace="administrador/fragments/panel::navbarPanel-user-fragment(title='Historial')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
 				<div class="row">
-					<!-- Titulo -->
-					<h3 class="card-title">
-						<a th:href="@{/estadisticas-tickets.html}">Tickets</a> – <a href="estadisticas-tickets-detalle.html">4 / dic /
-							2019</a> -
-						e4122019/1
-					</h3>
-				</div>
-
-				<div class="col-4 text-right">
-					<a th:href="@{/portal-administrador/producto/report}" class="btn btn-primary btn-sm" role="button" aria-disabled="true">
-						<i class="fa fa-camera"></i>
-					</a> <a th:href="@{/portal-administrador/producto/report}" class="btn btn-primary btn-sm" role="button"
-					 aria-disabled="true">
-						<i class="fa fa-download"></i> Resumen
-					</a>
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="card">
-						<div class="card-header"></div>
-						<div class="card-body">
-
-							<!-- Tabla -->
-							<div class="tab-pane fade show active" id="retiros" role="tabpanel" aria-labelledby="pills-home-tab">
-
-								<div class="card-header">
-									<h3>
-										Usuario - <a href="usuario-detalle.html">u1</a>
-									</h3>
-								</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="title-cat">Cuentas registradas</h4>
+							</div>
+							<div class="card-body">
 								<div class="toolbar">
 									<!--        Here you can write extra buttons/actions for the toolbar              -->
-									<form>
-										<div class="input-group no-border col-4" style="background-color: #f2f2f2 !important;">
-											<input type="text" value="" class="form-control" placeholder="Buscador" style="background-color: #f2f2f2 !important;" />
-											<div class="input-group-append">
-												<div class="input-group-text" style="background-color: #f2f2f2 !important;">
-													<i class="nc-icon nc-zoom-split"></i>
-												</div>
-											</div>
-										</div>
-									</form>
 								</div>
-								<div class="card-body">
-									<div class="table-responsive">
-										<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-											<thead class="">
-												<tr>
-													<th>#</th>
-													<th>Producto</th>
-													<th>Cantidad</th>
-													<th>Bonificación</th>
-												</tr>
-											</thead>
-											<tbody>
-												<th:block th:each="item : ${tickets}">
-													<tr>
-														<th th:text="${item.id}">1</th>
-														<th th:text="${item.identificador}">Bonafont 1L</th>
-														<th th:text="${item.cantidad}">9</th>
-														<th th:text="${item.importeFormateado}">$ 5</th>
-													</tr>
-												</th:block>
-											</tbody>
-
-											<!--   Sumatorias   -->
-											<tbody>
-												<tr>
-													<td></td>
-													<td></td>
-													<td th:text="${total}">99</td>
-													<td th:text="${importeTotal}">$ 500</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-
+								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Nombre</th>
+											<th>Tipo</th>
+											<th class="disabled-sorting text-right">Actions</th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th>Id</th>
+											<th>Nombre</th>
+											<th>Tipo</th>
+											<th class="disabled-sorting text-right">Actions</th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<th:block th:each="item : ${items}">
+											<tr>
+												<td th:text="${item.idMediosBonificacion}"></td>
+												<td th:text="${item.cuentaMedioBonificacion}"></td>
+												<td th:text="${item.catalogoMediosBonificacion.nombreMedioBonificacion}"></td>
+												<td class="text-center">
+													<a href="#" class="btn btn-warning btn-link btn-icon btn-sm edit">
+														<i class="fa fa-edit"></i>
+													</a>
+												</td>
+											</tr>
+										</th:block>
+									</tbody>
+								</table>
 							</div>
+							<!-- end content-->
+						</div>
+						<!--  end card  -->
+					</div>
+					<!-- end col-md-12 -->
+				</div>
+				<!-- end row -->
+			</div>
+			<footer class="footer footer-black  footer-white ">
+				<div class="container-fluid">
+					<div class="row">
+
+
+						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+						<nav class="footer-nav">
+
+
+
+
+							<ul>
+								<!-- <li>
+									<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
+								</li>
+								<li>
+									<a href="http://blog.creative-tim.com/" target="_blank">Blog</a>
+								</li>
+								<li>
+									<a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>
+								</li> -->
+							</ul>
+						</nav>
+						<div class="credits ml-auto">
+							<!-- <span class="copyright"> ©
+								<script> document.write(new Date().getFullYear()) </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+							</span> -->
 						</div>
 					</div>
 				</div>
-			</div>
-
+			</footer>
 		</div>
-
-
-		<footer class="footer footer-black  footer-white ">
-			<div class="container-fluid"></div>
-			<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
-		</footer>
-	</div>
 	</div>
 	<!--   Core JS Files   -->
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
@@ -276,13 +247,13 @@
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
-	<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
-	<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
 	<script th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js}"></script>
@@ -302,9 +273,13 @@
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
+  <script th:src="@{/assets/demo/demo.js}"></script>
+  -->
 	<script>
-		$(document).ready(function () {
-			$(document).ready(function () {
+
+		$(document).ready(
+			function () {
 				$('#datatable').DataTable(
 					{
 						"pagingType": "full_numbers",
@@ -317,8 +292,30 @@
 						}
 
 					});
+
+				var table = $('#datatable').DataTable();
+
+				// Edit record
+				table.on('click', '.edit', function () {
+					$tr = $(this).closest('tr');
+
+					var data = table.row($tr).data();
+					alert('You press on Row: ' + data[0] + ' ' + data[1]
+						+ ' ' + data[2] + '\'s row.');
+				});
+
+				// Delete a record
+				table.on('click', '.remove', function (e) {
+					$tr = $(this).closest('tr');
+					table.row($tr).remove().draw();
+					e.preventDefault();
+				});
+
+				//Like record
+				table.on('click', '.like', function () {
+					alert('You clicked on Like button');
+				});
 			});
-		});
 	</script>
 </body>
 

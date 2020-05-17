@@ -1,149 +1,142 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8" />
-<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing-Shing - General</title>
-<meta
-  content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-  name='viewport' />
-<!--     Fonts and icons     -->
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
-<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200}" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-<!-- CSS Files -->
-<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
-<!-- CSS Just for demo purpose, don't include it in your project -->
-<link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
-<link th:href="@{/resources/home/css/login.css}" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
+  <link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Shing Shing
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+  <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+  <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+  <link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
+  <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+  <link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
 </head>
 
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
-      
       <div class="sidebar-wrapper">
-          <div class="logo-hd">
-            <img th:src="@{/resources/home/img/brands/ss-complet.svg}" />
-          </div>
-        <div class="pleca"></div>
-
-            <!-- Menú -->
-
+        <div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
         <div class="user">
           <div class="photo">
-          <img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
+            <img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
           </div>
-			<div class="info">
-                  <a th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
-                    <span  th:text="${info.usuario.nombre}">Nombre del Usuario
-                    <!-- User -->
-                    </span>
-                  </a>
-                  <div class="clearfix"></div>
-			</div>
+          <div class="info">
+            <a th:href="@{/portal-usuario/dashboard/perfil}" class="collapsed">
+              <span th:text="${info.usuario.nombre}">Nombre del Usuario
+                <!-- User -->
+              </span>
+            </a>
+            <div class="clearfix"></div>
+          </div>
         </div>
 
-            <ul class="nav" id="myScrollspy">
-              
-              <li class="active">
-                <a th:href="@{/portal-usuario/dashboard}">
-                  <i class="nc-icon icon-simbolo-estadisticas"></i>
-                  <p>
-                    General
-                  </p>
-                </a>
-              </li>
+        <ul class="nav" id="myScrollspy">
 
-              <li>
-                <a th:href="@{/portal-usuario/dashboard/retiros}">
-                  <i class="nc-icon icon-finanzas-dinero"></i>
-                  <p>
-                    Retiros
-                  </p>
-                </a>
-              
-              </li>
+          <li class="active">
+            <a th:href="@{/portal-usuario/dashboard}">
+              <i class="nc-icon icon-simbolo-estadisticas"></i>
+              <p>
+                General
+              </p>
+            </a>
+          </li>
 
-              <li>
-                <a th:href="@{/portal-usuario/dashboard/tickets}">
-                  <i class="nc-icon icon-objeto-ticket-light"></i>
-                  <p>
-                    Tickets
-                  </p>
-                </a>
-              </li>
+          <li>
+            <a th:href="@{/portal-usuario/dashboard/retiros}">
+              <i class="nc-icon icon-finanzas-dinero"></i>
+              <p>
+                Retiros
+              </p>
+            </a>
 
-              <li>
-                <a th:href="@{/portal-usuario/dashboard/cuentas}">
-                  <i class="nc-icon icon-objeto-reloj-light"></i>
-                  <p>
-                    Movimientos
-                  </p>
-                </a>
-              </li>
-            </ul>
+          </li>
+
+          <li>
+            <a th:href="@{/portal-usuario/dashboard/tickets}">
+              <i class="nc-icon icon-objeto-ticket-light"></i>
+              <p>
+                Tickets
+              </p>
+            </a>
+          </li>
+
+          <li>
+            <a th:href="@{/portal-usuario/dashboard/cuentas}">
+              <i class="nc-icon icon-objeto-reloj-light"></i>
+              <p>
+                Movimientos
+              </p>
+            </a>
+          </li>
+        </ul>
 
       </div>
 
     </div>
-    
+
     <!--  -->
     <div class="main-panel">
 
       <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-          <div class="container-fluid">
-            <div class="navbar-wrapper">
-              <div class="navbar-toggle">
-                <button type="button" class="navbar-toggler">
-                  <span class="navbar-toggler-bar bar1"></span>
-                  <span class="navbar-toggler-bar bar2"></span>
-                  <span class="navbar-toggler-bar bar3"></span>
-                </button>
-              </div>
-              <font class="navbar-brand">General</font>
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
             </div>
-
-            <!-- Saldo -->
-            <div class="amount">
-            	<span th:text="${info.bonificacionFormateada}">$ 999,999.00</span>
-            </div>
-
-            <div>
-              <a th:href="@{/portal-usuario/user_logout}">Salir <span  class="icon-simbolo-salir"></span></a>
-              <ul class="navbar-nav">
-
-              </ul>
-            </div>
+            <font class="navbar-brand">General</font>
           </div>
-        </nav>
+
+          <!-- Saldo -->
+          <div class="amount">
+            <span th:text="${info.bonificacionFormateada}">$ 999,999.00</span>
+          </div>
+
+          <div>
+            <a th:href="@{/portal-usuario/user_logout}">Salir <span class="icon-simbolo-salir"></span></a>
+            <ul class="navbar-nav">
+
+            </ul>
+          </div>
+        </div>
+      </nav>
       <!-- End Navbar -->
 
       <div class="content">
         <div class="row">
           <div class="col-12">
-            
+
             <!-- Encabezado -->
             <div class="col-12">
               <div class="row justify-content-between">
-                
+
                 <h2>Hola, Juan</h2>
 
                 <!-- Botón -->
                 <div class="col-6">
-                  <a class="btn btn-primary" role="button" aria-disabled="true" th:href="@{/portal-usuario/dashboard/retiros}" style="color: #FFFFFF !important; float: right; margin-top: -2px;">
+                  <a class="btn btn-primary" role="button" aria-disabled="true" th:href="@{/portal-usuario/dashboard/retiros}"
+                    style="color: #FFFFFF !important; float: right; margin-top: -2px;">
                     + Retiro
                   </a>
                 </div>
@@ -191,7 +184,7 @@
 
                   <!-- Button Retiro PayPal -->
                   <div class="btn-complex">
-                  	<a th:href="@{/portal-usuario/dashboard/retiros?option=2}">
+                    <a th:href="@{/portal-usuario/dashboard/retiros?option=2}">
                       <div class="col">
                         <div class="row justify-content-between">
                           <div><img th:src="@{/resources/home/img/micros/sm-info-payPal.svg}" /></div>
@@ -267,7 +260,7 @@
                   <thead>
                     <tr>
                       <th>Tipo</th>
-                     <th>Cuenta</th>
+                      <th>Cuenta</th>
                       <th>Cantidad</th>
                       <th>Fecha</th>
                       <th>Estatus</th>
@@ -317,7 +310,7 @@
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
               </div>
             </div>
           </div>
@@ -339,7 +332,7 @@
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
               </div>
             </div>
           </div>
@@ -355,13 +348,13 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category"># Retiros.</p>
-                      <p class="card-title" th:text="${item.retiros}" ></p>
+                      <p class="card-title" th:text="${item.retiros}"></p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
               </div>
             </div>
           </div>
@@ -383,7 +376,7 @@
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
               </div>
             </div>
           </div>
@@ -392,22 +385,8 @@
 
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
+            <div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
           <div class="row">
-
-
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 row">
-            <input type="text" style="display:none;" id="url" value="/portal-administrador/envia-problema" />
-            <!-- Modal -->
-
-            <div class="col-md-6 text-left">
-            <a data-toggle="modal" data-target="#problem" href="">Reportar Problema</a>
-            </div>
-            <div class="col-md-6 text-right">
-            ©2020 Shing-Shing
-            </div>
-            </div>
-            <nav class="footer-nav"></nav>
-
           </div>
         </div>
       </footer>
@@ -454,13 +433,13 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script th:src="@{/resources/assets/demo/demo.js}"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
     });
   </script>
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

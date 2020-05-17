@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8" />
   <!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
-  <link rel="apple-touch-icon" sizes="76x76" th:href="@{/resources/assets/img/apple-icon.png}"></link>
-  <link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}"></link>
+  <link rel="apple-touch-icon" sizes="76x76" th:href="@{/resources/assets/img/apple-icon.png}">
+  </link>
+  <link rel="icon" type="image/png" th:href="@{/resources/assets/img/favicon.png}">
+  </link>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Shing Shing
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"></link>
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet"></link>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
+  </link>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  </link>
   <!-- CSS Files -->
-	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
-  <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet"></link>
-  <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet"></link>
+  <link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+  <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet">
+  </link>
+  <link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet">
+  </link>
   <!-- CSS Just for demo purpose, don't include it in your project 
   <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet"></link>
   -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -31,20 +36,9 @@
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-      <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-          <div class="logo-image-small">
-            <img th:src="@{/resources/assets/img/logo-small.png}"></img>
-          </div>
-        </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-no rmal">
-          Perfil
-          <!-- <div class="logo-image-big">
-            <img th:src="@{/resources/assets/img/logo-big.png}">
-          </div> -->
-        </a>
-      </div>
+
       <div class="sidebar-wrapper">
+        <div th:replace="administrador/fragments/panel::head-side-fragment(logo='panel')"></div>
         <div class="user">
           <div class="photo">
             <img th:src="@{/resources/assets/img/faces/ayo-ogunseinde-2.jpg}" />
@@ -81,7 +75,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- MENU -->
         <ul class="nav">
           <li class="active">
@@ -91,19 +85,19 @@
             </a>
           </li>
           <!-- Las opciones del menu debe ir entre <li></li> -->
-          
+
           <li>
-            <a data-toggle="collapse" href="#catalogos">
+            <a>
               <i class="nc-icon nc-ruler-pencil"></i>
               <p>
                 Catalogos
-                <b class="caret"></b>
+
               </p>
             </a>
-            <div class="collapse " id="catalogos">
+            <div class=" " id="catalogos">
               <ul class="nav">
                 <li>
-                	<!--  -->
+                  <!--  -->
                   <a th:href="@{/catalogos/departamento/save}">
                     <span class="sidebar-mini-icon">D</span>
                     <span class="sidebar-normal"> Departamentos </span>
@@ -139,7 +133,7 @@
         </ul>
       </div>
     </div>
-    
+
     <!--  -->
     <div class="main-panel">
       <!-- Navbar -->
@@ -161,7 +155,8 @@
             </div>
             <a class="navbar-brand" href="#pablo">ShingShing Dashboard</a>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -169,7 +164,7 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <form>
               <div class="input-group no-border">
-                <input type="text" value="" class="form-control" placeholder="Search..."/>
+                <input type="text" value="" class="form-control" placeholder="Search..." />
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <i class="nc-icon nc-zoom-split"></i>
@@ -187,7 +182,8 @@
                 </a>
               </li>
               <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
                   <i class="nc-icon nc-bell-55"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Some Actions</span>
@@ -238,7 +234,7 @@
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-refresh"></i> Update Now
                 </div>
@@ -258,13 +254,13 @@
                     <div class="numbers">
                       <p class="card-category">Revenue</p>
                       <p class="card-title">$ 1,345
-                        </p>
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-calendar-o"></i> Last day
                 </div>
@@ -284,13 +280,13 @@
                     <div class="numbers">
                       <p class="card-category">Errors</p>
                       <p class="card-title">23
-                        </p>
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-clock-o"></i> In the last hour
                 </div>
@@ -310,13 +306,13 @@
                     <div class="numbers">
                       <p class="card-category">Followers</p>
                       <p class="card-title">+45K
-                        </p>
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-refresh"></i> Update now
                 </div>
@@ -348,7 +344,7 @@
                 <canvas id="activeUsers" width="826" height="380"></canvas>
               </div>
               <div class="card-footer">
-                <hr/>
+                <hr />
                 <div class="row">
                   <div class="col-sm-7">
                     <div class="footer-title">Financial Statistics</div>
@@ -387,7 +383,7 @@
                 <canvas id="emailsCampaignChart" width="826" height="380"></canvas>
               </div>
               <div class="card-footer">
-                <hr/>
+                <hr />
                 <div class="row">
                   <div class="col-sm-7">
                     <div class="footer-title">View all members</div>
@@ -426,7 +422,7 @@
                 <canvas id="activeCountries" width="826" height="380"></canvas>
               </div>
               <div class="card-footer">
-                <hr/>
+                <hr />
                 <div class="row">
                   <div class="col-sm-7">
                     <div class="footer-title">View more details</div>
@@ -459,7 +455,7 @@
                           <tr>
                             <td>
                               <div class="flag">
-                                <img th:src="@{/resources/assets/img/flags/US.png}"/>
+                                <img th:src="@{/resources/assets/img/flags/US.png}" />
                               </div>
                             </td>
                             <td>USA</td>
@@ -473,7 +469,7 @@
                           <tr>
                             <td>
                               <div class="flag">
-                                <img th:src="@{/resources/assets/img/flags/DE.png}"/>
+                                <img th:src="@{/resources/assets/img/flags/DE.png}" />
                               </div>
                             </td>
                             <td>Germany</td>
@@ -487,7 +483,7 @@
                           <tr>
                             <td>
                               <div class="flag">
-                                <img th:src="@{/resources/assets/img/flags/AU.png}"/>
+                                <img th:src="@{/resources/assets/img/flags/AU.png}" />
                               </div>
                             </td>
                             <td>Australia</td>
@@ -501,7 +497,7 @@
                           <tr>
                             <td>
                               <div class="flag">
-                                <img th:src="@{/resources/assets/img/flags/GB.png}"/>
+                                <img th:src="@{/resources/assets/img/flags/GB.png}" />
                               </div>
                             </td>
                             <td>United Kingdom</td>
@@ -515,7 +511,7 @@
                           <tr>
                             <td>
                               <div class="flag">
-                                <img th:src="@{/resources/assets/img/flags/RO.png}"/>
+                                <img th:src="@{/resources/assets/img/flags/RO.png}" />
                               </div>
                             </td>
                             <td>Romania</td>
@@ -529,7 +525,7 @@
                           <tr>
                             <td>
                               <div class="flag">
-                                <img th:src="@{/resources/assets/img/flags/BR.png}"/>
+                                <img th:src="@{/resources/assets/img/flags/BR.png}" />
                               </div>
                             </td>
                             <td>Brasil</td>
@@ -567,7 +563,7 @@
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked=""/>
+                              <input class="form-check-input" type="checkbox" checked="" />
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -579,10 +575,12 @@
                         </td>
                         <td class="text-left">Sign contract for "What are conference organizers afraid of?"</td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Edit Task">
                             <i class="nc-icon nc-ruler-pencil"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Remove">
                             <i class="nc-icon nc-simple-remove"></i>
                           </button>
                         </td>
@@ -591,7 +589,7 @@
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox"/>
+                              <input class="form-check-input" type="checkbox" />
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -603,10 +601,12 @@
                         </td>
                         <td class="text-left">Lines From Great Russian Literature? Or E-mails From My Boss?</td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Edit Task">
                             <i class="nc-icon nc-ruler-pencil"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Remove">
                             <i class="nc-icon nc-simple-remove"></i>
                           </button>
                         </td>
@@ -615,7 +615,7 @@
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" checked=""/>
+                              <input class="form-check-input" type="checkbox" checked="" />
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -625,13 +625,16 @@
                             <img th:src="@{/resources/assets/img/faces/kaci-baum-2.jpg}" class="img-raised" />
                           </div>
                         </td>
-                        <td class="text-left">Using dummy content or fake information in the Web design process can result in products with unrealistic
+                        <td class="text-left">Using dummy content or fake information in the Web design process can
+                          result in products with unrealistic
                         </td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Edit Task">
                             <i class="nc-icon nc-ruler-pencil"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Remove">
                             <i class="nc-icon nc-simple-remove"></i>
                           </button>
                         </td>
@@ -640,7 +643,7 @@
                         <td>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox"/>
+                              <input class="form-check-input" type="checkbox" />
                               <span class="form-check-sign"></span>
                             </label>
                           </div>
@@ -650,12 +653,15 @@
                             <img th:src="@{/resources/assets/img/faces/joe-gardner-2.jpg}" class="img-raised" />
                           </div>
                         </td>
-                        <td class="text-left">But I must explain to you how all this mistaken idea of denouncing pleasure</td>
+                        <td class="text-left">But I must explain to you how all this mistaken idea of denouncing
+                          pleasure</td>
                         <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                          <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Edit Task">
                             <i class="nc-icon nc-ruler-pencil"></i>
                           </button>
-                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                          <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"
+                            data-original-title="Remove">
                             <i class="nc-icon nc-simple-remove"></i>
                           </button>
                         </td>
@@ -665,7 +671,7 @@
                 </div>
               </div>
               <div class="card-footer ">
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-refresh spin"></i> Updated 3 minutes ago
                 </div>
@@ -686,7 +692,7 @@
                   <i class="fa fa-circle text-info"></i> Tesla Model S
                   <i class="fa fa-circle text-danger"></i> BMW 5 Series
                 </div>
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-check"></i> Data information certified
                 </div>
@@ -708,7 +714,7 @@
                 <div class="legend">
                   <i class="fa fa-circle text-info"></i> Open
                 </div>
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-calendar"></i> Number of emails sent
                 </div>
@@ -728,7 +734,7 @@
                 <div class="legend">
                   <i class="fa fa-circle text-warning"></i> Visited
                 </div>
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-check"></i> Campaign sent 2 days ago
                 </div>
@@ -748,7 +754,7 @@
                 <div class="legend">
                   <i class="fa fa-circle text-danger"></i> Completed
                 </div>
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-clock-o"></i> Updated 3 minutes ago
                 </div>
@@ -768,7 +774,7 @@
                 <div class="legend">
                   <i class="fa fa-circle text-secondary"></i> Ended
                 </div>
-                <hr/>
+                <hr />
                 <div class="stats">
                   <i class="fa fa-history"></i> Total users
                 </div>
@@ -780,7 +786,7 @@
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
-            
+
 
             <div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
             <nav class="footer-nav">
@@ -854,7 +860,7 @@
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script th:src="@{/resources/assets/demo/demo.js}"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
 
@@ -866,6 +872,6 @@
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

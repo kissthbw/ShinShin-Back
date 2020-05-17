@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-<meta charset="UTF-8" />
-<link rel="apple-touch-icon" sizes="76x76" href="resources/assets/img/apple-icon.png"></link>
-<link rel="icon" type="image/png" href="resources/assets/img/favicon.png"></link>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing-Shing - Productos</title>
-<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-<!--     Fonts and icons     -->
+	<meta charset="UTF-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="resources/assets/img/apple-icon.png">
+	</link>
+	<link rel="icon" type="image/png" href="resources/assets/img/favicon.png">
+	</link>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Shing-Shing - Productos</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<!--     Fonts and icons     -->
 
-<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" /> <link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" /> <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-<!-- CSS Files -->
+	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- CSS Files -->
 
-<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/assets/colorpicker/dist/css/bootstrap-colorpicker.css" rel="stylesheet" />
-<link href="resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
-<link href="resources/assets/css/style-panel.css" rel="stylesheet"></link>
-<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&display=swap" rel="stylesheet">
-<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
+	<link href="resources/assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="resources/assets/colorpicker/dist/css/bootstrap-colorpicker.css" rel="stylesheet" />
+	<link href="resources/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+	<link href="resources/assets/css/style-panel.css" rel="stylesheet">
+	</link>
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&display=swap" rel="stylesheet">
+	<!-- CSS Just for demo purpose, don't include it in your project <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" /> -->
 
 </head>
 
@@ -32,17 +36,17 @@
 			<div class="sidebar-wrapper">
 				<div class="user">
 					<div class="photo">
-					<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
+						<img th:src="${user.imgUrl} ? ${user.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-            			<a data-toggle="collapse" href="#collapseExample" class="collapsed">
-              			<span  th:text="${user.nombre}">
-                		<!-- User -->
-                		<b class="caret"></b>
-              			</span>
-            			</a>
-            			<div class="clearfix"></div>
-          		</div>
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed">
+							<span th:text="${user.nombre}">
+								<!-- User -->
+								<b class="caret"></b>
+							</span>
+						</a>
+						<div class="clearfix"></div>
+					</div>
 				</div>
 
 				<!-- MENU -->
@@ -50,39 +54,39 @@
 					<!-- Las opciones del menu debe ir entre <li></li> -->
 
 					<li class="active">
-						<a data-toggle="collapse" href="#catalogos" aria-expanded="true">
+						<a>
 							<i class="nc-icon nc-ruler-pencil"></i>
-							<p>Catalogos<b class="caret"></b></p>
+							<p>Catalogos</p>
 						</a>
-						<div class="collapse show" id="catalogos">
+						<div class="" id="catalogos">
 							<ul class="nav">
 								<li>
 									<a th:href="@{/portal-administrador/departamento/save}">
-										<span class="sidebar-mini-icon">·</span>
+										
 										<span class="sidebar-normal"> Departamentos </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/marca/save}">
-										<span class="sidebar-mini-icon">·</span>
+										
 										<span class="sidebar-normal"> Marcas </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/tienda/save}">
-										<span class="sidebar-mini-icon">·</span>
+										
 										<span class="sidebar-normal"> Tiendas </span>
 									</a>
 								</li>
 								<li>
 									<a th:href="@{/portal-administrador/medioBonificacion/save}">
-										<span class="sidebar-mini-icon">·</span>
+										
 										<span class="sidebar-normal"> Medios bonificacion </span>
 									</a>
 								</li>
 								<li class="active">
 									<a th:href="@{/portal-administrador/producto/save}">
-										<span class="sidebar-mini-icon">·</span>
+										
 										<span class="sidebar-normal"> Productos </span>
 									</a>
 								</li>
@@ -95,8 +99,7 @@
 
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav
-				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+			<nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
 						<div class="navbar-minimize">
@@ -112,11 +115,12 @@
 								<span class="navbar-toggler-bar bar3"></span>
 							</button>
 						</div>
-						<a class="navbar-brand" href="#pablo"><b><h4 class="title-cat">Producto</h4></b></a>
+						<a class="navbar-brand" href="#pablo"><b>
+								<h4 class="title-cat">Producto</h4>
+							</b></a>
 					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
+					 aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-bar navbar-kebab"></span>
 						<span class="navbar-toggler-bar navbar-kebab"></span>
 						<span class="navbar-toggler-bar navbar-kebab"></span>
@@ -163,12 +167,9 @@
 										<label class="col-sm-2 col-form-label">Marca</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control"
-													id="catalogoMarca.idCatalogoMarca" name="catalogoMarca.idCatalogoMarca">
-													<option th:each="marca:${marcas}"
-														th:value="${marca.idCatalogoMarca}"
-														th:utext="${marca.nombreMarca}" 
-														th:selected="*{catalogoMarca} != null ? *{catalogoMarca.idCatalogoMarca} == ${marca.idCatalogoMarca} : ''"></option>
+												<select class="form-control" id="catalogoMarca.idCatalogoMarca" name="catalogoMarca.idCatalogoMarca">
+													<option th:each="marca:${marcas}" th:value="${marca.idCatalogoMarca}" th:utext="${marca.nombreMarca}"
+													 th:selected="*{catalogoMarca} != null ? *{catalogoMarca.idCatalogoMarca} == ${marca.idCatalogoMarca} : ''"></option>
 
 												</select>
 											</div>
@@ -182,12 +183,9 @@
 										<label class="col-sm-2 col-form-label">Departamento</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control"
-													id="catalogoTipoProducto.idCatalogoTipoProducto" name="catalogoTipoProducto.idCatalogoTipoProducto">
-													<option th:each="tipo:${tipos}"
-														th:value="${tipo.idCatalogoTipoProducto}"
-														th:utext="${tipo.nombreTipoProducto}" 
-														th:selected="*{catalogoTipoProducto} != null ? *{catalogoTipoProducto.idCatalogoTipoProducto} == ${tipo.idCatalogoTipoProducto} : ''"></option>
+												<select class="form-control" id="catalogoTipoProducto.idCatalogoTipoProducto" name="catalogoTipoProducto.idCatalogoTipoProducto">
+													<option th:each="tipo:${tipos}" th:value="${tipo.idCatalogoTipoProducto}" th:utext="${tipo.nombreTipoProducto}"
+													 th:selected="*{catalogoTipoProducto} != null ? *{catalogoTipoProducto.idCatalogoTipoProducto} == ${tipo.idCatalogoTipoProducto} : ''"></option>
 												</select>
 											</div>
 										</div>
@@ -209,7 +207,7 @@
 										<label class="col-sm-2 col-form-label">Tipo</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control" th:field="*{banner}" >
+												<select class="form-control" th:field="*{banner}">
 													<option value="1">Básico</option>
 													<option value="0">Popular</option>
 													<option value="0">Principal</option>
@@ -224,8 +222,8 @@
 											<div id="demo" class="input-group">
 												<input class="form-control input-lg" type="text" data-color="rgb(241, 138, 49)" th:field="*{colorBanner}" />
 												<span class="input-group-append">
-    												<span class="input-group-text colorpicker-input-addon"><i></i></span>
-  												</span>
+													<span class="input-group-text colorpicker-input-addon"><i></i></span>
+												</span>
 											</div>
 										</div>
 									</div>
@@ -249,49 +247,49 @@
 										</label>
 									</div>
 									<div class="row">
-											<label class="col-sm-2 col-form-label Label-on-left">Chica</label>
-											<div class="col-md-4 col-sm-4">
-												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+										<label class="col-sm-2 col-form-label Label-on-left">Chica</label>
+										<div class="col-md-4 col-sm-4">
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput">
 
-	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
-	                      							<div>
-	                        							<span class="btn btn-rose btn-round btn-file">
-	                          								<span class="fileinput-new">Selecciona</span>
-	                          								<span class="fileinput-exists">Cambiar</span>
-	                          								<input type="file" name="file" />
-	                        							</span>
-	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-	                       									<i class="fa fa-times"></i>Eliminar</a>
-	                      							</div>
+												<div class="fileinput-preview fileinput-exists thumbnail"></div>
+												<div>
+													<span class="btn btn-rose btn-round btn-file">
+														<span class="fileinput-new">Selecciona</span>
+														<span class="fileinput-exists">Cambiar</span>
+														<input type="file" name="file" />
+													</span>
+													<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+														<i class="fa fa-times"></i>Eliminar</a>
+												</div>
 
-	                      							<div class="fileinput-new thumbnail">
-	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
-	                      							</div>
-	                    						</div>
+												<div class="fileinput-new thumbnail">
+													<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+												</div>
 											</div>
+										</div>
 									</div>
 
 									<div class="row">
-											<label class="col-sm-2 col-form-label Label-on-left">Grande</label>
-											<div class="col-md-4 col-sm-4">
-												<div class="fileinput fileinput-new text-center" data-provides="fileinput">
-	                      							<div class="fileinput-preview fileinput-exists thumbnail"></div>
-	                      							<div>
-	                        							<span class="btn btn-rose btn-round btn-file">
-	                          								<span class="fileinput-new">Selecciona</span>
-	                          								<span class="fileinput-exists">Cambiar</span>
-	                          								<input type="file" name="file" />
-	                        							</span>
-	                       								<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
-	                       									<i class="fa fa-times"></i>Eliminar</a>
-	                      							</div>
-	                      							<div class="fileinput-new thumbnail">
-	                        							<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
-	                      							</div>
-	                    						</div>
+										<label class="col-sm-2 col-form-label Label-on-left">Grande</label>
+										<div class="col-md-4 col-sm-4">
+											<div class="fileinput fileinput-new text-center" data-provides="fileinput">
+												<div class="fileinput-preview fileinput-exists thumbnail"></div>
+												<div>
+													<span class="btn btn-rose btn-round btn-file">
+														<span class="fileinput-new">Selecciona</span>
+														<span class="fileinput-exists">Cambiar</span>
+														<input type="file" name="file" />
+													</span>
+													<a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+														<i class="fa fa-times"></i>Eliminar</a>
+												</div>
+												<div class="fileinput-new thumbnail">
+													<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
+												</div>
 											</div>
+										</div>
 									</div>
-								
+
 									<hr>
 
 									<div class="row">
@@ -394,7 +392,7 @@
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
-						
+
 
 						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
@@ -464,49 +462,49 @@
   <script th:src="@{/assets/demo/demo.js}"></script>
   -->
 	<script>
-	<!--/catalogoTiendas/list -->
+
 		$(document).ready(
-				function() {
-					$('#datatable').DataTable(
-							{
-								"pagingType" : "full_numbers",
-								"lengthMenu" : [ [ 10, 25, 50, -1 ],
-										[ 10, 25, 50, "All" ] ],
-								responsive : true,
-								language : {
-									search : "_INPUT_",
-									searchPlaceholder : "Search records",
-								}
+			function () {
+				$('#datatable').DataTable(
+					{
+						"pagingType": "full_numbers",
+						"lengthMenu": [[10, 25, 50, -1],
+						[10, 25, 50, "All"]],
+						responsive: true,
+						language: {
+							search: "_INPUT_",
+							searchPlaceholder: "Search records",
+						}
 
-							});
-
-					var table = $('#datatable').DataTable();
-
-					// Edit record
-					table.on('click', '.edit', function() {
-						$tr = $(this).closest('tr');
-
-						var data = table.row($tr).data();
-						alert('You press on Row: ' + data[0] + ' ' + data[1]
-								+ ' ' + data[2] + '\'s row.');
 					});
 
-					// Delete a record
-					table.on('click', '.remove', function(e) {
-						$tr = $(this).closest('tr');
-						table.row($tr).remove().draw();
-						e.preventDefault();
-					});
+				var table = $('#datatable').DataTable();
 
-					//Like record
-					table.on('click', '.like', function() {
-						alert('You clicked on Like button');
-					});
+				// Edit record
+				table.on('click', '.edit', function () {
+					$tr = $(this).closest('tr');
+
+					var data = table.row($tr).data();
+					alert('You press on Row: ' + data[0] + ' ' + data[1]
+						+ ' ' + data[2] + '\'s row.');
 				});
+
+				// Delete a record
+				table.on('click', '.remove', function (e) {
+					$tr = $(this).closest('tr');
+					table.row($tr).remove().draw();
+					e.preventDefault();
+				});
+
+				//Like record
+				table.on('click', '.like', function () {
+					alert('You clicked on Like button');
+				});
+			});
 	</script>
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

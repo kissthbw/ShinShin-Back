@@ -1,39 +1,32 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<meta charset="utf-8" />
-<!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
-<link rel="shortcut icon"
-	th:href="@{/resources/home/img/brands/favicon.png}" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing Shing</title>
-<meta
-	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-	name='viewport' />
-<!--     Fonts and icons     -->
-<link th:href="@{/resources/assets/fuentes/css/fontello.css}"
-	rel="stylesheet" />
-<link
-	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-	rel="stylesheet"></link>
-<link
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
-	rel="stylesheet"></link>
-<!-- CSS Files -->
-<link th:href="@{/resources/assets/css/style-panel.css}"
-	rel="stylesheet" />
-<link th:href="@{/resources/assets/css/bootstrap.min.css}"
-	rel="stylesheet"></link>
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
-	rel="stylesheet"></link>
-<!-- CSS Just for demo purpose, don't include it in your project 
+	<meta charset="utf-8" />
+	<!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
+	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Shing Shing</title>
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+	<!--     Fonts and icons     -->
+	<link th:href="@{/resources/assets/fuentes/css/fontello.css}" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
+	</link>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+	</link>
+	<!-- CSS Files -->
+	<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet">
+	</link>
+	<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet">
+	</link>
+	<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+	<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- CSS Just for demo purpose, don't include it in your project 
   <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet"></link>
   -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap"
-	rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap" rel="stylesheet" />
+	<link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
 </head>
 
 <body class="">
@@ -42,20 +35,9 @@
 			<!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-			<div class="logo">
-				<a href="" class="simple-text logo-mini">
-					<div class="logo-image-small">
-
-						<img th:src="@{/resources/home/img/brands/ss-iso-orange.svg}"></img>
-					</div>
-				</a> <a href="" class="simple-text logo-no rmal">
-					<div class="logo-image-big">
-						<img th:src="@{/resources/home/img/brands/ss-complet-orange.svg}" />
-					</div>
-				</a>
-			</div>
 			<div class="sidebar-wrapper">
-				<div class="user">
+			<div th:replace="administrador/fragments/panel::head-side-fragment(logo='marcas')"></div>
+			<div class="user">
 					<div class="photo">
 						<img th:src="${item.marcaImageURL} ? ${item.marcaImageURL} : ''" alt="..."></img>
 					</div>
@@ -78,10 +60,10 @@
                 -->
 								<li><a href="#"> <span class="sidebar-mini-icon">P</span>
 										<span class="sidebar-normal">Perfil</span>
-								</a></li>
+									</a></li>
 								<li><a href="#"> <span class="sidebar-mini-icon">C</span>
 										<span class="sidebar-normal">Configuracion</span>
-								</a></li>
+									</a></li>
 							</ul>
 						</div>
 					</div>
@@ -92,19 +74,16 @@
 					<li><a th:href="@{/portal-empresa/dashboard}">
 							<i class="nc-icon nc-chart-bar-32"></i>
 							<p>General</p>
-					</a></li>
-					<li class="active"><a th:href="@{/portal-empresa/finanzas}"> <i
-							class="icon-shingshing-dashboard-marcas_finanzas-icon"></i>
+						</a></li>
+					<li class="active"><a th:href="@{/portal-empresa/finanzas}"> <i class="icon-shingshing-dashboard-marcas_finanzas-icon"></i>
 							<p>Finanzas</p>
-					</a></li>
-					<li><a th:href="@{/portal-empresa/productos}"> <i
-							class="icon-shingshing-dashboard-marcas_productos-icon"></i>
+						</a></li>
+					<li><a th:href="@{/portal-empresa/productos}"> <i class="icon-shingshing-dashboard-marcas_productos-icon"></i>
 							<p>Productos</p>
-					</a></li>
-					<li><a th:href="@{/portal-empresa/usuarios}"> <i
-							class="icon-shingshing-dashboard-marcas_cuentas-icon"></i>
+						</a></li>
+					<li><a th:href="@{/portal-empresa/usuarios}"> <i class="icon-shingshing-dashboard-marcas_cuentas-icon"></i>
 							<p>Usuarios</p>
-					</a></li>
+						</a></li>
 					<!-- Las opciones del menu debe ir entre <li></li> -->
 					<!-- 
           <li>
@@ -157,53 +136,9 @@
 			</div>
 		</div>
 
-		<!--  -->
 		<div class="main-panel">
 			<!-- Navbar -->
-			<nav
-				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-				<div class="container-fluid">
-					<div class="navbar-wrapper">
-						<div class="navbar-minimize">
-							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i
-									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i
-									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-							</button>
-						</div>
-						<div class="navbar-toggle">
-							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span> <span
-									class="navbar-toggler-bar bar2"></span> <span
-									class="navbar-toggler-bar bar3"></span>
-							</button>
-						</div>
-						<a class="navbar-brand" href="#pablo"><span id="marcaID"  th:text="${item.marca.nombreMarca}">{Marca}</span></a>
-					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span>
-					</button>
-					<div class="collapse navbar-collapse justify-content-end"
-						id="navigation">
-
-						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link btn-magnify"
-								th:href="@{/portal-empresa/user_logout}"> <i
-									class="fa fa-sign-out"></i>
-									<p>
-										<span class="d-lg-none d-md-block">Cerrar sesi&oacute;n</span>
-									</p>
-							</a></li>
-
-						</ul>
-					</div>
-				</div>
-			</nav>
+			<nav th:replace="administrador/fragments/panel::navbarPanel-empresa-fragment(title='Dashboard')"></nav>
 			<!-- End Navbar -->
 			<!-- <div class="panel-header">
   
@@ -224,7 +159,7 @@
 
 					</div>
 
-				<!-- Usuarios -->
+					<!-- Usuarios -->
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="card card-stats">
 							<div class="card-body ">
@@ -262,19 +197,13 @@
 										aria-selected="false">Mes</a></li>
 								</ul>
 								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home"
-										role="tabpanel" aria-labelledby="pills-home-tab">
-										<div class="chartjs-size-monitor"
-											style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div class="chartjs-size-monitor-expand"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+										<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
 											</div>
-											<div class="chartjs-size-monitor-shrink"
-												style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div
-													style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+											<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 											</div>
 										</div>
 										<canvas id="finanzasChart" width="558" height="256"
@@ -291,16 +220,15 @@
 									</div>
 								</div>
 							</div>
-						
+
 						</div>
 					</div>
 					<!-- Fin Usuarios -->
-					
+
 					<div class="col-12 col-lg-12 col-md-12 col-sm-12 card card-stats">
 						<div class="card-body ">
-						<h5 class="title-cat">Histórico</h5>
-							<table id="datatable" class="table table-striped table-bordered"
-								cellspacing="0" width="100%">
+							<h5 class="title-cat">Histórico</h5>
+							<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 								<thead>
 									<tr>
 										<th>Id</th>
@@ -428,8 +356,7 @@
 
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
-					<div
-						th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
+					<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 				</div>
 			</footer>
 		</div>
@@ -438,8 +365,7 @@
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script
-		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
@@ -448,17 +374,13 @@
 	<!-- Forms Validations Plugin -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
 	<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
@@ -476,8 +398,7 @@
 	<!--  Notifications Plugin    -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
-		type="text/javascript"></script>
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script th:src="@{/resources/assets/demo/demo.js}"></script>
 	<script>
@@ -522,38 +443,37 @@
 									searchPlaceholder : "Busqueda",
 								}
 
-							});
-
-					var table = $('#datatable').DataTable();
-
-					// Edit record
-					table.on('click', '.edit', function() {
-						$tr = $(this).closest('tr');
-
-						var data = table.row($tr).data();
-						alert('You press on Row: ' + data[0] + ' ' + data[1]
-								+ ' ' + data[2] + '\'s row.');
 					});
 
-					// Delete a record
-					table.on('click', '.remove', function(e) {
-						$tr = $(this).closest('tr');
-						table.row($tr).remove().draw();
-						e.preventDefault();
-					});
+				var table = $('#datatable').DataTable();
 
-					//Like record
-					table.on('click', '.like', function() {
-						alert('You clicked on Like button');
-					});
+				// Edit record
+				table.on('click', '.edit', function () {
+					$tr = $(this).closest('tr');
 
+					var data = table.row($tr).data();
+					alert('You press on Row: ' + data[0] + ' ' + data[1]
+						+ ' ' + data[2] + '\'s row.');
 				});
+
+				// Delete a record
+				table.on('click', '.remove', function (e) {
+					$tr = $(this).closest('tr');
+					table.row($tr).remove().draw();
+					e.preventDefault();
+				});
+
+				//Like record
+				table.on('click', '.like', function () {
+					alert('You clicked on Like button');
+				});
+
+			});
 	</script>
 </body>
 
 </html>
 <script th:src="@{/resources/assets/demo/empresa-finanzas-dashboard-chart.js}"></script>
 <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
-<script
-	th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
+<script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>
