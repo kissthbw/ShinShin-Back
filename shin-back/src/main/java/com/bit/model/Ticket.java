@@ -71,6 +71,9 @@ public class Ticket {
 	@Column(name = "ticket_hora")
 	private String ticket_hora;
 	
+	@Column(name = "ticket_code_bar")
+	private String ticket_code_bar;
+	
 	//Obtener historico bonificaciones
 	@ManyToMany( fetch = FetchType.LAZY)
 	@JoinTable(name = "historico_bonificaciones", joinColumns = {
@@ -192,6 +195,14 @@ public class Ticket {
 
 	public void setTicket_hora(String ticket_hora) {
 		this.ticket_hora = ticket_hora;
+	}
+
+	public String getTicket_code_bar() {
+		return ticket_code_bar;
+	}
+
+	public void setTicket_code_bar(String ticket_code_bar) {
+		this.ticket_code_bar = ticket_code_bar;
 	}
 
 	public void setProductos(List<Producto> productos) {

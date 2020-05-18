@@ -88,4 +88,5 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 	public void setLineas(List<String> lineas) {
 		this.lineas = lineas;
 	}
+	
 }

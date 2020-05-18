@@ -51,7 +51,13 @@ public class AnalizerImpl implements Analizer {
 		tiendas.put("Soriana","SORIANA");
 		tiendas.put("7 ELEVEN","7ELEVEN");
 		tiendas.put("7-Eleven","7ELEVEN");
-		
+		//Chedraui - Agregar a BD tambien -
+		tiendas.put("CHEDRAUI","CHEDRAUI");
+		tiendas.put("chedraui","CHEDRAUI");
+		tiendas.put("CHE DRAUI","CHEDRAUI");
+		tiendas.put("che draui","CHEDRAUI");
+		tiendas.put("H-E-B","H-E-B");
+		tiendas.put("h-e-b","H-E-B");
 	}
 	
 	@Override
