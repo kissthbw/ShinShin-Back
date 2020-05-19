@@ -26,12 +26,17 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 	
 	private static final String ID_TIENDA_CATALOGO_PATTERN = "7ELEVEN";
 	
+	//CP:#####
+	private static final String ID_SEVEN_CP_FISCAL = "ID_SEVEN_CP_FISCAL";
+	private static final String ID_SEVEN_CP_TIENDA = "ID_SEVEN_CP_TIENDA";
 	private static final String ID_FECHA_PATTERN = "ID_FECHA_PATTERN";
 	private static final String ID_HORA_PATTERN = "ID_HORA_PATTERN";
 	private static final String ID_SUCURSAL = "ID_SUCURSAL";
 	private static final String ID_SERIAL_NUMBER = "ID_SERIAL_NUMBER";
 	private static final String ID_CANTIDAD = "ID_CANTIDAD";
 	
+	private String CP_FISCAL_PATTERN = "C.P.\\s[0-9]+";
+	private String CP_TIENDA_PATTERN = "CP.[0-9]+";
 	private String FECHA_PATTERN = "(0[1-9]|1[012])[/ .](0[1-9]|[12][0-9]|3[01])[/ .][0-9]{2}";
 	private String HORA_PATTERN = "(\\d\\d:\\d\\d:\\d\\d\\s(PM|AM))";
 	private String SUCURSAL = "\\d+\\s\\d+\\s\\d+\\s\\d+";
@@ -56,6 +61,9 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
 		if( !patternMap.isEmpty() ) {
+			CP_FISCAL_PATTERN = patternMap.get( ID_SEVEN_CP_FISCAL ) != null ? patternMap.get( ID_SEVEN_CP_FISCAL ) : CP_FISCAL_PATTERN;
+			CP_TIENDA_PATTERN = patternMap.get( ID_SEVEN_CP_TIENDA ) != null ? patternMap.get( ID_SEVEN_CP_TIENDA ) : CP_TIENDA_PATTERN;
+			
 			FECHA_PATTERN = patternMap.get( ID_FECHA_PATTERN ) != null ? patternMap.get( ID_FECHA_PATTERN ) : FECHA_PATTERN;
 			HORA_PATTERN = patternMap.get( ID_HORA_PATTERN ) != null ? patternMap.get( ID_HORA_PATTERN ) : HORA_PATTERN;
 			SUCURSAL = patternMap.get( ID_SUCURSAL ) != null ? patternMap.get( ID_SUCURSAL ) : SUCURSAL;
@@ -86,6 +94,20 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 			posList.add( pos );
 		}
 		
+		//El CP esta antes de la fecha
+		//Esta el CP fiscal: C.P. #####
+		//Esta el CP de la tienda: CP:#####
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_FISCAL_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpFiscal(valor);
+		}
+		
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_TIENDA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpTienda(valor);
+		}
 		
 		Collections.sort(posList);
 		
@@ -124,6 +146,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		
 		it = lineas.listIterator();
 		depuraProductos(it);
+		lineas.removeIf( item -> item == null || "".equals(item.trim()) );
 		
 		System.out.println(lineas);
 		rsp.setLineas(lineas);
@@ -131,6 +154,26 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		return rsp;
 	}
 
+	private String detectaPattern( ListIterator<String> it, String pattern ) {
+		String valor = "";
+
+		search: while (it.hasNext()) {
+			String linea = it.next();
+
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(linea);
+
+			while (m.find()) {
+				valor = m.group();
+				linea = linea.replace(valor, "").trim();
+				it.set(linea);
+				break search;
+			}
+		}
+
+		return valor;
+	}
+	
 	private String detectaTransaccion( ListIterator<String> it, String pattern ) {
 		String valor = "";
 

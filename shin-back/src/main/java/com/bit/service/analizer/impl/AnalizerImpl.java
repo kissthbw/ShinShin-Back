@@ -58,6 +58,11 @@ public class AnalizerImpl implements Analizer {
 		tiendas.put("che draui","CHEDRAUI");
 		tiendas.put("H-E-B","H-E-B");
 		tiendas.put("h-e-b","H-E-B");
+		tiendas.put("lnCoNNer","LaComer");
+		tiendas.put("nConer","LaComer");
+		tiendas.put("Hn Comer","LaComer");
+		tiendas.put("laComer","LaComer");
+		tiendas.put("lacomer","LaComer");
 	}
 	
 	@Override

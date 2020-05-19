@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.ChedrauiTicketRSP;
 import com.bit.model.dto.response.OCRTicketRSP;
-import com.bit.model.dto.response.WalmartTicketRSP;
 import com.bit.service.analizer.Analizer;
 import com.bit.service.analizer.TicketAnalizer;
 
@@ -28,6 +27,8 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 	
 	private static final String ID_TIENDA_CATALOGO_PATTERN = "CHEDRAUI";
 	
+	//C.P. #####
+	private static final String ID_CHEDRAUI_CP_TIENDA = "ID_CHEDRAUI_CP_TIENDA";
 	private static final String ID_CHEDRAUI_FECHA_PATTERN = "ID_CHEDRAUI_FECHA_PATTERN";
 	private static final String ID_CHEDRAUI_HORA_PATTERN = "ID_CHEDRAUI_HORA_PATTERN";
 	private static final String ID_CHEDRAUI_SUC_PATTERN = "ID_CHEDRAUI__SUC_PATTERN";
@@ -35,6 +36,7 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 	private static final String ID_CHEDRAUI_TRA_PATTERN =   "ID_CHEDRAUI_TRA_PATTERN";
 	private static final String ID_CHEDRAUI_FOLIO_PATTERN =   "ID_CHEDRAUI_FOLIO_PATTERN";
 	
+	private String CP_TIENDA_PATTERN = "(CP.\\s?[0-9]+|C.P.\\s?[0-9]+)";
 	private String CHEDRAUI_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](19|20)\\d\\d";
 	private String CHEDRAUI_HORA_PATTERN = "(\\d\\d:\\d\\d)";
 	private String CHEDRAUI_SUC_PATTERN = "SUC*. [0-9]+\\b";
@@ -54,7 +56,7 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 	@Override
 	public OCRTicketRSP analize(List<String> lineas) throws TicketException{
 		
-		OCRTicketRSP rsp = new OCRTicketRSP();
+		ChedrauiTicketRSP rsp = new ChedrauiTicketRSP();
 		rsp.setTienda("CHEDRAUI");
 		rsp.setTieneCB(true);
 		
@@ -68,7 +70,6 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 			CHEDRAUI_HORA_PATTERN = patternMap.get( ID_CHEDRAUI_HORA_PATTERN ) != null ? patternMap.get( ID_CHEDRAUI_HORA_PATTERN ) : CHEDRAUI_HORA_PATTERN;
 		}
 		
-		ChedrauiTicketRSP tmp = new ChedrauiTicketRSP();
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();
 		
@@ -99,6 +100,12 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 			posList.add( pos );
 		}
 		
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_TIENDA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpTienda(valor);
+		}
+		
 		Collections.sort(posList);
 		
 		it = lineas.listIterator();
@@ -109,39 +116,37 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 		it = lineas.listIterator();
 		valor = detectaTransaccion(it, CHEDRAUI_SUC_PATTERN);
 		if ( !"".equalsIgnoreCase(valor) ) {
-			tmp.setSuc(valor);
+			rsp.setSuc(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaTransaccion(it, CHEDRAUI_TER_PATTERN);
 		if ( !"".equalsIgnoreCase(valor) ) {
-			tmp.setTer(valor);
+			rsp.setTer(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaTransaccion(it, CHEDRAUI_TRA_PATTERN);
 		if ( !"".equalsIgnoreCase(valor) ) {
-			tmp.setTra(valor);
+			rsp.setTra(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaTransaccion(it, CHEDRAUI_FOLIO_PATTERN);
 		if ( !"".equalsIgnoreCase(valor) ) {
-			tmp.setFolio(valor);
+			rsp.setFolio(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaFecha(it);
-		tmp.setFecha(valor);
 		rsp.setFecha(valor);
 		
 		it = lineas.listIterator();
 		valor = detectaHora(it);
-		tmp.setHora(valor);
 		rsp.setHora(valor);
 		
-		tmp.validarTicket();
-		rsp.setTransaccion( tmp.getSuc() + tmp.getTer() + tmp.getTra() + tmp.getFolio() );
+		rsp.validarTicket();
+		rsp.setTransaccion( rsp.getSuc() + rsp.getTer() + rsp.getTra() + rsp.getFolio() );
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		
 //		it = lineas.listIterator();
@@ -149,6 +154,7 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 		
 		it = lineas.listIterator();
 		depuraProductos(it);
+		lineas.removeIf( item -> item == null || "".equals(item.trim()) );
 		
 		System.out.println(lineas);
 		rsp.setLineas(lineas);
@@ -156,6 +162,26 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 		return rsp;
 	}
 
+	private String detectaPattern( ListIterator<String> it, String pattern ) {
+		String valor = "";
+
+		search: while (it.hasNext()) {
+			String linea = it.next();
+
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(linea);
+
+			while (m.find()) {
+				valor = m.group();
+				linea = linea.replace(valor, "").trim();
+				it.set(linea);
+				break search;
+			}
+		}
+
+		return valor;
+	}
+	
 	private String detectaTransaccion( ListIterator<String> it, String pattern ) {
 		//Identificar transaccion
 		//TDA#2670 OPHO0000214TE 003 TR# 08103

@@ -27,6 +27,8 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 	
 	private static final String ID_TIENDA_CATALOGO_PATTERN = "WALMART";
 	
+	//CP. #####
+	private static final String ID_WALMART_CP_TIENDA = "ID_WALMART_CP_TIENDA";
 	private static final String ID_TDA_PATTERN = "ID_TDA_PATTERN";
 	private static final String ID_OP_PATTERN =   "ID_OP_PATTERN";
 	private static final String ID_TE_PATTERN =   "ID_TE_PATTERN";
@@ -34,6 +36,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 	private static final String ID_WALMART_FECHA_PATTERN = "ID_WALMART_FECHA_PATTERN";
 	private static final String ID_WALMART_HORA_PATTERN = "ID_WALMART_HORA_PATTERN";
 	
+	private String CP_TIENDA_PATTERN = "(CP.\\s?[0-9]+|C.P.\\s?[0-9]+)";
 	private String TDA_PATTERN = "TDA[\\#|H|M|N][0-9]+\\b";
 	private String OP_PATTERN =   "[O|0]P[\\#|H|M|N][A-Z0-9]+\\b";
 	private String TE_PATTERN =   "TE[\\#|H|M|N]\\s[0-9]+\\b";
@@ -54,12 +57,14 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 	@Override
 	public OCRTicketRSP analize(List<String> lineas) throws TicketException{
 		
-		OCRTicketRSP rsp = new OCRTicketRSP();
+		WalmartTicketRSP rsp = new WalmartTicketRSP();
 		rsp.setTienda("WALMART");
 		rsp.setTieneCB(true);
 		
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
 		if( !patternMap.isEmpty() ) {
+			CP_TIENDA_PATTERN = patternMap.get( ID_WALMART_CP_TIENDA ) != null ? patternMap.get( ID_WALMART_CP_TIENDA ) : CP_TIENDA_PATTERN;
+			
 			TDA_PATTERN = patternMap.get( ID_TDA_PATTERN ) != null ? patternMap.get( ID_TDA_PATTERN ) : TDA_PATTERN;
 			OP_PATTERN = patternMap.get( ID_OP_PATTERN ) != null ? patternMap.get( ID_OP_PATTERN ) : OP_PATTERN;
 			TE_PATTERN = patternMap.get( ID_TE_PATTERN ) != null ? patternMap.get( ID_TE_PATTERN ) : TE_PATTERN;
@@ -68,7 +73,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 			WALMART_HORA_PATTERN = patternMap.get( ID_WALMART_HORA_PATTERN ) != null ? patternMap.get( ID_WALMART_HORA_PATTERN ) : WALMART_HORA_PATTERN;
 		}
 		
-		WalmartTicketRSP tmp = new WalmartTicketRSP();
+		
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();
 		
@@ -99,6 +104,12 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 			posList.add( pos );
 		}
 		
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_TIENDA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpTienda(valor);
+		}
+		
 		Collections.sort(posList);
 		
 		it = lineas.listIterator();
@@ -115,7 +126,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 			//deben de pasarse a 0
 			valor = valor.replaceAll("[|H|M|N]", "\\#");
 			valor = valor.replace("O", "0");
-			tmp.setTda(valor);
+			rsp.setTda(valor);
 		}
 		
 		it = lineas.listIterator();
@@ -123,7 +134,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		if ( !"".equalsIgnoreCase(valor) ) {
 			valor = valor.replaceAll("[|H|M|N]", "\\#");
 			valor = "OP" + valor.substring(2, valor.length()).replace("O", "0");
-			tmp.setOp(valor);
+			rsp.setOp(valor);
 		}
 		
 		it = lineas.listIterator();
@@ -131,7 +142,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		if ( !"".equalsIgnoreCase(valor) ) {
 			valor = valor.replaceAll("[|H|M|N]", "\\#");
 			valor = valor.replace("O", "0");
-			tmp.setTe(valor);
+			rsp.setTe(valor);
 		}
 		
 		it = lineas.listIterator();
@@ -139,21 +150,19 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		if ( !"".equalsIgnoreCase(valor) ) {
 			valor = valor.replaceAll("[|H|M|N]", "\\#");
 			valor = valor.replace("O", "0");
-			tmp.setTr(valor);
+			rsp.setTr(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaFecha(it);
-		tmp.setFecha(valor);
 		rsp.setFecha(valor);
 		
 		it = lineas.listIterator();
 		valor = detectaHora(it);
-		tmp.setHora(valor);
 		rsp.setHora(valor);
 		
-		validarTicket(tmp);
-		rsp.setTransaccion( tmp.getTda() + tmp.getOp() + tmp.getTe() + tmp.getTr() );
+		validarTicket(rsp);
+		rsp.setTransaccion( rsp.getTda() + rsp.getOp() + rsp.getTe() + rsp.getTr() );
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		
 		it = lineas.listIterator();
@@ -161,6 +170,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		
 		it = lineas.listIterator();
 		depuraProductos(it);
+		lineas.removeIf( item -> item == null || "".equals(item.trim()) );
 		
 		System.out.println(lineas);
 		rsp.setLineas(lineas);
@@ -168,6 +178,26 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		return rsp;
 	}
 
+	private String detectaPattern( ListIterator<String> it, String pattern ) {
+		String valor = "";
+
+		search: while (it.hasNext()) {
+			String linea = it.next();
+
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(linea);
+
+			while (m.find()) {
+				valor = m.group();
+				linea = linea.replace(valor, "").trim();
+				it.set(linea);
+				break search;
+			}
+		}
+
+		return valor;
+	}
+	
 	private String detectaTransaccion( ListIterator<String> it, String pattern ) {
 		//Identificar transaccion
 		//TDA#2670 OPHO0000214TE 003 TR# 08103

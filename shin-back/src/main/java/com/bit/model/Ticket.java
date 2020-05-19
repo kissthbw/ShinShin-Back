@@ -49,47 +49,52 @@ public class Ticket {
 
 	@Column(name = "total")
 	private double total;
-	
-	//Datos del ticket escaneado
-	//tienda
+
+	// Datos del ticket escaneado
+	// tienda
 	@Column(name = "ticket_tienda")
 	private String ticket_tienda;
-	
-	//subtienda
+
+	// subtienda
 	@Column(name = "ticket_subtienda")
 	private String ticket_subTienda;
-	
-	//transaccion
+
+	// transaccion
 	@Column(name = "ticket_transaccion")
 	private String ticket_transaccion;
-	
-	//fecha
+
+	// fecha
 	@Column(name = "ticket_fecha")
 	private String ticket_fecha;
-	
-	//hora
+
+	// hora
 	@Column(name = "ticket_hora")
 	private String ticket_hora;
-	
+
 	@Column(name = "ticket_code_bar")
 	private String ticket_code_bar;
-	
-	//Obtener historico bonificaciones
-	@ManyToMany( fetch = FetchType.LAZY)
+
+	@Column(name = "ticket_cp_tienda")
+	private String ticket_cp_tienda;
+
+	@Column(name = "ticket_cp_fiscal")
+	private String ticket_cp_fiscal;
+
+	// Obtener historico bonificaciones
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "historico_bonificaciones", joinColumns = {
-			@JoinColumn(name = "id_ticket") },
-			inverseJoinColumns = { @JoinColumn(name = "producto_id_producto") })
+			@JoinColumn(name = "id_ticket") }, inverseJoinColumns = { @JoinColumn(name = "producto_id_producto") })
 	private List<Producto> productos = new ArrayList<>();
-	
+
 	@Transient
 	private String totalBonificacionFormateada;
-	
+
 	@Transient
 	private String formatFecha;
-	
+
 	@Transient
 	private int totalProductos;
-	
+
 	@Transient
 	private List<ImageItem> ticketPhotos;
 
@@ -205,6 +210,22 @@ public class Ticket {
 		this.ticket_code_bar = ticket_code_bar;
 	}
 
+	public String getTicket_cp_tienda() {
+		return ticket_cp_tienda;
+	}
+
+	public void setTicket_cp_tienda(String ticket_cp_tienda) {
+		this.ticket_cp_tienda = ticket_cp_tienda;
+	}
+
+	public String getTicket_cp_fiscal() {
+		return ticket_cp_fiscal;
+	}
+
+	public void setTicket_cp_fiscal(String ticket_cp_fiscal) {
+		this.ticket_cp_fiscal = ticket_cp_fiscal;
+	}
+
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
 	}
@@ -212,7 +233,7 @@ public class Ticket {
 	public List<Producto> getProductos() {
 		return productos;
 	}
-	
+
 	public void addProducto(Producto producto) {
 		productos.add(producto);
 	}

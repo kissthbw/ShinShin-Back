@@ -24,6 +24,8 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 	
 	private static final String ID_TIENDA_CATALOGO_PATTERN = "OXXO";
 	
+	private static final String ID_OXXO_CP_FISCAL = "ID_SEVEN_CP_FISCAL";
+	private static final String ID_OXXO_CP_TIENDA = "ID_SEVEN_CP_TIENDA";
 	private static final String ID_OXXO_FECHA_PATTERN = "ID_OXXO_FECHA_PATTERN";
 	private static final String ID_OXXO_HORA_PATTERN = "ID_OXXO_HORA_PATTERN";
 	private static final String ID_OXXO_PRODUCTOS_PATTERN = "ID_OXXO_PRODUCTOS_PATTERN";
@@ -32,6 +34,8 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 	private static final String ID_OXXO_CIFRAS = "ID_OXXO_CIFRAS";
 	private static final String ID_OXXO_CAJA = "ID_OXXO_CAJA";
 	
+	private String CP_FISCAL_PATTERN = "C.P.\\s[0-9]+";
+	private String CP_TIENDA_PATTERN = "C.P.[0-9]+";
 	private String OXXO_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](19|20)\\d\\d";
 	private String OXXO_HORA_PATTERN = "(\\d\\d:\\d\\d)";
 	private String OXXO_PRODUCTOS_PATTERN = "[a-zA-Z0-9]*\\.?\\d*\\.?\\d*";
@@ -70,15 +74,18 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		String valor = null;
 
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
-		if( !patternMap.isEmpty() ) {
-			OXXO_FECHA_PATTERN = patternMap.get( ID_OXXO_FECHA_PATTERN ) != null ? patternMap.get( ID_OXXO_FECHA_PATTERN ) : OXXO_FECHA_PATTERN;
-			OXXO_HORA_PATTERN = patternMap.get( ID_OXXO_HORA_PATTERN ) != null ? patternMap.get( ID_OXXO_HORA_PATTERN ) : OXXO_HORA_PATTERN;
-			OXXO_PRODUCTOS_PATTERN = patternMap.get( ID_OXXO_PRODUCTOS_PATTERN ) != null ? patternMap.get( ID_OXXO_PRODUCTOS_PATTERN ) : OXXO_PRODUCTOS_PATTERN;
-			OXXO_FOLIO_VENTA = patternMap.get( ID_OXXO_FOLIO_VENTA ) != null ? patternMap.get( ID_OXXO_FOLIO_VENTA ) : OXXO_FOLIO_VENTA;
-			OXXO_ID_VENTA = patternMap.get( ID_OXXO_ID_VENTA ) != null ? patternMap.get( ID_OXXO_ID_VENTA ) : OXXO_ID_VENTA;
-			OXXO_CIFRAS = patternMap.get( ID_OXXO_CIFRAS ) != null ? patternMap.get( ID_OXXO_CIFRAS ) : OXXO_CIFRAS;
-			OXXO_CAJA = patternMap.get( ID_OXXO_CAJA ) != null ? patternMap.get( ID_OXXO_CAJA ) : OXXO_CAJA;
-		}
+//		if( !patternMap.isEmpty() ) {
+//			CP_FISCAL_PATTERN = patternMap.get( ID_OXXO_CP_FISCAL ) != null ? patternMap.get( ID_OXXO_CP_FISCAL ) : CP_FISCAL_PATTERN;
+//			CP_TIENDA_PATTERN = patternMap.get( ID_OXXO_CP_TIENDA ) != null ? patternMap.get( ID_OXXO_CP_TIENDA ) : CP_TIENDA_PATTERN;
+//			
+//			OXXO_FECHA_PATTERN = patternMap.get( ID_OXXO_FECHA_PATTERN ) != null ? patternMap.get( ID_OXXO_FECHA_PATTERN ) : OXXO_FECHA_PATTERN;
+//			OXXO_HORA_PATTERN = patternMap.get( ID_OXXO_HORA_PATTERN ) != null ? patternMap.get( ID_OXXO_HORA_PATTERN ) : OXXO_HORA_PATTERN;
+//			OXXO_PRODUCTOS_PATTERN = patternMap.get( ID_OXXO_PRODUCTOS_PATTERN ) != null ? patternMap.get( ID_OXXO_PRODUCTOS_PATTERN ) : OXXO_PRODUCTOS_PATTERN;
+//			OXXO_FOLIO_VENTA = patternMap.get( ID_OXXO_FOLIO_VENTA ) != null ? patternMap.get( ID_OXXO_FOLIO_VENTA ) : OXXO_FOLIO_VENTA;
+//			OXXO_ID_VENTA = patternMap.get( ID_OXXO_ID_VENTA ) != null ? patternMap.get( ID_OXXO_ID_VENTA ) : OXXO_ID_VENTA;
+//			OXXO_CIFRAS = patternMap.get( ID_OXXO_CIFRAS ) != null ? patternMap.get( ID_OXXO_CIFRAS ) : OXXO_CIFRAS;
+//			OXXO_CAJA = patternMap.get( ID_OXXO_CAJA ) != null ? patternMap.get( ID_OXXO_CAJA ) : OXXO_CAJA;
+//		}
 		
 		rsp.setTienda("OXXO");
 		rsp.setTieneCB(false);
@@ -91,6 +98,18 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		valor = detectaHora(it);
 		rsp.setHora(valor);
 
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_FISCAL_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpFiscal(valor);
+		}
+		
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_TIENDA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpTienda(valor);
+		}
+		
 		it = lineas.listIterator();
 		depuraHeader(it);
 
@@ -108,6 +127,10 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 
 		it = lineas.listIterator();
 		detectaPatternAndDelete(it, OXXO_CIFRAS, true);
+		
+		rsp.setTransaccion(folio + id);
+		
+		validarTicket( folio, id );
 
 		it = lineas.listIterator();
 		depuraElementosVacios(it);
@@ -119,7 +142,39 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 
 		return rsp;
 	}
+	
+	private void validarTicket(String folio, String id) throws TicketException {
+		if ( "".equals( folio.trim() ) && "".equals( id.trim() ) ) {
+			log.info( "Ticket OK" );
+			
+		}
+		else {
+			log.info( "Ticket incompleto" );
+			Throwable t = new Throwable("Identificadores de transaccion o fechas incompletas");
+			throw new TicketException("Ticket con identificadores incompletos", t, 500);
+		}
+	}
 
+	private String detectaPattern( ListIterator<String> it, String pattern ) {
+		String valor = "";
+
+		search: while (it.hasNext()) {
+			String linea = it.next();
+
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(linea);
+
+			while (m.find()) {
+				valor = m.group();
+				linea = linea.replace(valor, "").trim();
+				it.set(linea);
+				break search;
+			}
+		}
+
+		return valor;
+	}
+	
 	private void depuraHeader(ListIterator<String> it) {
 
 		while (it.hasNext()) {

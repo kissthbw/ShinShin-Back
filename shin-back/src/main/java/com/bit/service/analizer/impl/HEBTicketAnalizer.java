@@ -28,11 +28,16 @@ public class HEBTicketAnalizer implements TicketAnalizer {
 	
 	private static final String ID_TIENDA_CATALOGO_PATTERN = "H-E-B";
 	
+	//CP. #####
+	private static final String ID_HEB_CP_FISCAL = "ID_HEB_CP_FISCAL";
+	private static final String ID_HEB_CP_TIENDA = "ID_HEB_CP_TIENDA";
 	private static final String ID_HEB_FECHA_PATTERN = "ID_HEB_FECHA_PATTERN";
 	private static final String ID_HEB_HORA_PATTERN = "ID_HEB_HORA_PATTERN";
 	private static final String ID_HEB_TRA_PATTERN = "ID_HEB__TRA_PATTERN";
 	private static final String ID_HEB_FOLIO_PATTERN =   "ID_HEB_FOLIO_PATTERN";
 	
+	private String CP_FISCAL_PATTERN = "C.P.\\s?[0-9]+";
+	private String CP_TIENDA_PATTERN = "CP.\\s?[0-9]+";
 	private String HEB_FECHA_PATTERN = "(0[1-9]|1[012])[-.](0[1-9]|[12][0-9]|3[01])[-.][0-9]{2}";
 	private String HEB_HORA_PATTERN = "[0-9]{1,2}:[0-9]{2}[A|P]";
 	private String HEB_TRA_PATTERN = "^[0-9]+\\b\\s";
@@ -56,30 +61,72 @@ public class HEBTicketAnalizer implements TicketAnalizer {
 		
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
 		if( !patternMap.isEmpty() ) {
+			CP_FISCAL_PATTERN = patternMap.get( ID_HEB_CP_FISCAL ) != null ? patternMap.get( ID_HEB_CP_FISCAL ) : CP_FISCAL_PATTERN;
+			CP_TIENDA_PATTERN = patternMap.get( ID_HEB_CP_TIENDA ) != null ? patternMap.get( ID_HEB_CP_TIENDA ) : CP_TIENDA_PATTERN;
+			
 			HEB_TRA_PATTERN = patternMap.get( ID_HEB_TRA_PATTERN ) != null ? patternMap.get( ID_HEB_TRA_PATTERN ) : HEB_TRA_PATTERN;
 			HEB_FOLIO_PATTERN = patternMap.get( ID_HEB_FOLIO_PATTERN ) != null ? patternMap.get( ID_HEB_FOLIO_PATTERN ) : HEB_FOLIO_PATTERN;
 			HEB_FECHA_PATTERN = patternMap.get( ID_HEB_FECHA_PATTERN ) != null ? patternMap.get( ID_HEB_FECHA_PATTERN ) : HEB_FECHA_PATTERN;
 			HEB_HORA_PATTERN = patternMap.get( ID_HEB_HORA_PATTERN ) != null ? patternMap.get( ID_HEB_HORA_PATTERN ) : HEB_HORA_PATTERN;
 		}
 		
-		ChedrauiTicketRSP tmp = new ChedrauiTicketRSP();
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();
 		
 		//1. Caso ideal buscar linea completa
-		//Hacer la extracción de derecha a izquierda
 		ListIterator<String> it = lineas.listIterator();
 		
+		//Para el caso de HEB esto esta en una misma linea:
+		//301441 10-14-19 6:20P 504/41/2982		
 		it = lineas.listIterator();
-		int pos = detectaPosicionTransaccion(it, HEB_TRA_PATTERN);
+		int pos = detectaPosicionTransaccion(it, HEB_FECHA_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
 		it = lineas.listIterator();
-		pos = detectaPosicionTransaccion(it, HEB_FOLIO_PATTERN);
+		pos = detectaPosicionTransaccion(it, HEB_HORA_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
+		}
+		
+//		String tra = lineas.get(pos - 1);
+		List<String> tra = new ArrayList<>();
+		tra.add( lineas.get(pos - 1) );
+		
+		//Para que se un ticket valido deben exisitir 
+		//los elementos SUC, TER, TRA, FOLIO
+		it = tra.listIterator();
+		valor = detectaTransaccion(it, HEB_TRA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setTra(valor);
+		}
+		
+		it = tra.listIterator();
+		valor = detectaTransaccion(it, HEB_FOLIO_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setFolio(valor);
+		}
+		
+		it = tra.listIterator();
+		valor = detectaFecha(it);
+		rsp.setFecha(valor);
+		
+		it = tra.listIterator();
+		valor = detectaHora(it);
+		rsp.setHora(valor);
+		
+		//
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_FISCAL_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpFiscal(valor);
+		}
+		
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_TIENDA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpTienda(valor);
 		}
 		
 		Collections.sort(posList);
@@ -87,39 +134,15 @@ public class HEBTicketAnalizer implements TicketAnalizer {
 		it = lineas.listIterator();
 		depuraFooterIdentificadores(it, posList.get(0));
 		
-		//Para que se un ticket valido deben exisitir 
-		//los elementos SUC, TER, TRA, FOLIO
-		it = lineas.listIterator();
-		valor = detectaTransaccion(it, HEB_TRA_PATTERN);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			tmp.setTra(valor);
-		}
-		
-		it = lineas.listIterator();
-		valor = detectaTransaccion(it, HEB_FOLIO_PATTERN);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			tmp.setFolio(valor);
-		}
-		
-		it = lineas.listIterator();
-		valor = detectaFecha(it);
-		tmp.setFecha(valor);
-		rsp.setFecha(valor);
-		
-		it = lineas.listIterator();
-		valor = detectaHora(it);
-		tmp.setHora(valor);
-		rsp.setHora(valor);
-		
-		tmp.validarTicket();
-		rsp.setTransaccion( tmp.getSuc() + tmp.getTer() + tmp.getTra() + tmp.getFolio() );
-		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
+		rsp.validarTicket();
+		rsp.setTransaccion( rsp.getTra() + rsp.getFolio() );
 		
 //		it = lineas.listIterator();
 //		depuraFooter(it);
 		
 		it = lineas.listIterator();
 		depuraProductos(it);
+		lineas.removeIf( item -> item == null || "".equals(item.trim()) );
 		
 		System.out.println(lineas);
 		rsp.setLineas(lineas);
@@ -127,6 +150,26 @@ public class HEBTicketAnalizer implements TicketAnalizer {
 		return rsp;
 	}
 
+	private String detectaPattern( ListIterator<String> it, String pattern ) {
+		String valor = "";
+
+		search: while (it.hasNext()) {
+			String linea = it.next();
+
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(linea);
+
+			while (m.find()) {
+				valor = m.group();
+				linea = linea.replace(valor, "").trim();
+				it.set(linea);
+				break search;
+			}
+		}
+
+		return valor;
+	}
+	
 	private String detectaTransaccion( ListIterator<String> it, String pattern ) {
 		//Identificar transaccion
 		//TDA#2670 OPHO0000214TE 003 TR# 08103

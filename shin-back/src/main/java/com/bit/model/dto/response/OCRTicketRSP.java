@@ -13,6 +13,8 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 
 	private String tienda;
 	private String subTienda;
+	private String cpTienda;
+	private String cpFiscal;
 	private String fecha;
 	private String hora;
 	private String transaccion;
@@ -35,6 +37,35 @@ public class OCRTicketRSP extends SimpleResponse implements Serializable {
 
 	public void setSubTienda(String subTienda) {
 		this.subTienda = subTienda;
+	}
+
+	public String getCpTienda() {
+		return cpTienda;
+	}
+
+	public void setCpTienda(String cpTienda) {
+		
+		if( null != cpTienda ) {
+			this.cpTienda = cpTienda.replaceAll("[^0-9]", "");
+		}
+		else {
+			this.cpTienda = cpTienda;
+		}
+		
+	}
+
+	public String getCpFiscal() {
+		return cpFiscal;
+	}
+
+	public void setCpFiscal(String cpFiscal) {
+		if( null != cpFiscal ) {
+			this.cpFiscal = cpFiscal.replaceAll("[^0-9]", "");
+		}
+		else {
+			this.cpFiscal = cpFiscal;
+		}
+		
 	}
 
 	public String getFecha() {

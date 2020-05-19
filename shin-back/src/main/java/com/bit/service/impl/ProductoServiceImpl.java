@@ -2,6 +2,7 @@ package com.bit.service.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -359,15 +360,37 @@ public class ProductoServiceImpl implements ProductoService {
 		log.info("Obteniento lista de productos por identificador de tienda: {}", idEmpresa);
 
 //		List<Producto> list = productoDAO.getProductosPorIDYEmpresa(items);
-		List<Producto> productos = new ArrayList<>();
-		List<ProductosTiendas> list = productosTiendasDAO.getProductosPorIDYEmpresa(items);
-
-		for( ProductosTiendas p : list ) {
-//			log.info( p.getProducto().getNombreProducto() );
-			productos.add( p.getProducto() );
-		}
+		log.info("Inicio: {}", new Date());
+		List<ProductosTiendas> tmpList = productosTiendasDAO.getProductosPorIDTienda( null );
+		List<Producto> productos = findProductosValidos(tmpList, items);
+		log.info("Fin: {}", new Date());
+		
+//		List<Producto> productos = new ArrayList<>();
+//		List<ProductosTiendas> list = productosTiendasDAO.getProductosPorIDYEmpresa(items);
+//
+//		for( ProductosTiendas p : list ) {
+////			log.info( p.getProducto().getNombreProducto() );
+//			productos.add( p.getProducto() );
+//		}
 		
 		return transform(productos);
+	}
+	
+	private List<Producto> findProductosValidos( List<ProductosTiendas> tmpList, List<String> items ) {
+		log.info( "productos totales: {}", tmpList.size() );
+		List<Producto> productos = new ArrayList<>();
+		
+		//Itera sobre los productos en BD y verifica si existen 
+		for (ProductosTiendas e : tmpList) {
+			for (String toFind : items) {
+				if ( toFind.contains(e.getProductoTienda()) ) {
+					log.info( "Producto encontrado" );
+					productos.add( e.getProducto() );
+				}
+			}
+		}
+		
+		return productos;
 	}
 
 	@Override

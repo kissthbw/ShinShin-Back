@@ -26,6 +26,7 @@ public class SorianaTicketAnalizer implements TicketAnalizer {
 
 	private static final String ID_TIENDA_CATALOGO_PATTERN = "SORIANA";
 	
+	//#####
 	private static final String ID_SORIANA_FECHA_PATTERN = "ID_SORIANA_FECHA_PATTERN";
 	private static final String ID_SORIANA_HORA_PATTERN =   "ID_SORIANA_HORA_PATTERN";
 	private static final String ID_SUCURSAL =   "ID_SUCURSAL";
@@ -122,6 +123,7 @@ public class SorianaTicketAnalizer implements TicketAnalizer {
 		
 		it = lineas.listIterator();
 		depuraProductos(it);
+		lineas.removeIf( item -> item == null || "".equals(item.trim()) );
 		
 		System.out.println(lineas);
 		rsp.setLineas(lineas);

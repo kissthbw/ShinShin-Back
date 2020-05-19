@@ -16,153 +16,136 @@ import org.springframework.stereotype.Service;
 
 import com.bit.exception.TicketException;
 import com.bit.model.dto.response.OCRTicketRSP;
-import com.bit.model.dto.response.WalmartTicketRSP;
 import com.bit.service.analizer.Analizer;
 import com.bit.service.analizer.TicketAnalizer;
 
 @Service
-public class ComercialTicketAnalizer implements TicketAnalizer {
+public class LaComerTicketAnalizer implements TicketAnalizer {
+	
+	private static final Logger log = LoggerFactory.getLogger(LaComerTicketAnalizer.class);
 
-	private static final Logger log = LoggerFactory.getLogger(ComercialTicketAnalizer.class);
+	private static final String ID_TIENDA_CATALOGO_PATTERN = "LACOMER";
 	
-	private static final String ID_TIENDA_CATALOGO_PATTERN = "CHEDRAUI";
+	private static final String ID_LACOMER_CP_FISCAL = "ID_LACOMER_CP_FISCAL";
+	private static final String ID_LACOMER_CP_TIENDA = "ID_LACOMER_CP_TIENDA";
+	private static final String ID_LACOMER_FECHA_PATTERN = "ID_LACOMER_FECHA_PATTERN";
+	private static final String ID_LACOMER_HORA_PATTERN =   "ID_LACOMER_HORA_PATTERN";
+	private static final String ID_SUCURSAL =   "ID_SUCURSAL";
+	private static final String ID_SERIAL_NUMBER =   "ID_SERIAL_NUMBER";
 	
-	private static final String ID_SUC_PATTERN = "ID_SUC_PATTERN";
-	private static final String ID_TER_PATTERN =   "ID_TER_PATTERN";
-	private static final String ID_TRA_PATTERN =   "ID_TRA_PATTERN";
-	private static final String ID_FOLIO_PATTERN =   "ID_FOLIO_PATTERN";
-	private static final String ID_CHEDRAUI_FECHA_PATTERN = "ID_CHEDRAUI_FECHA_PATTERN";
-	private static final String ID_CHEDRAUI_HORA_PATTERN = "ID_CHEDRAUI_HORA_PATTERN";
-	
-	private String CHEDRAUI_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/ .](0[1-9]|1[012])[/ .](19|20)\\d\\d";
-	private String CHEDRAUI_HORA_PATTERN = "(\\d\\d:\\d\\d)";
-	private String SUC_PATTERN = "TDA[\\#|H|M|N][0-9]+\\b";
-	private String TER_PATTERN =   "[O|0]P[\\#|H|M|N][A-Z0-9]+\\b";
-	private String TRA_PATTERN =   "TE[\\#|H|M|N]\\s[0-9]+\\b";
-	private String FOLIO_PATTERN =   "TR[\\#|H|M|N|\\s]\\s[0-9]+\\b";
-	
-	
-	private String SERIAL_NUMBER = "[0-9]{5}";
+	private String CP_FISCAL_PATTERN = "C.P.\\s[0-9]+";
+	private String CP_TIENDA_PATTERN = "CP.[0-9]+";
+	private String LACOMER_FECHA_PATTERN = "(0[1-9]|[12][0-9]|3[01])[/][a-zA-Z]+[/][0-9]{2}";
+	private String LACOMER_HORA_PATTERN = "[0-9]{2}:[0-9]{2}:[0-9]{2}";
+	private String SUCURSAL = "[0-9]+\\s[0-9]+\\s[0-9]+\\s[0-9]+";
+//	private String SERIAL_NUMBER = "[0-9]{5}";
 	
 	@Autowired
 	private Analizer analizer;
 	
-	private static Map<String, String> CHEDRAUI_FOOTERS = new HashMap<>();
+	private static Map<String, String> FOOTERS = new HashMap<>();
 	static {
-		CHEDRAUI_FOOTERS.put("TOTAL", "TOTAL");
-		CHEDRAUI_FOOTERS.put("TOTAI", "TOTAL");
+		FOOTERS.put("TOTAL", "TOTAL");
+		FOOTERS.put("TOTAI", "TOTAL");
 	}
 	
 	@Override
 	public OCRTicketRSP analize(List<String> lineas) throws TicketException{
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
-		rsp.setTienda("CHEDRAUI");
+		rsp.setTienda("LACOMER");
 		rsp.setTieneCB(true);
 		
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
 		if( !patternMap.isEmpty() ) {
-			SUC_PATTERN = patternMap.get( ID_SUC_PATTERN ) != null ? patternMap.get( ID_SUC_PATTERN ) : SUC_PATTERN;
-			TER_PATTERN = patternMap.get( ID_TER_PATTERN ) != null ? patternMap.get( ID_TER_PATTERN ) : TER_PATTERN;
-			TRA_PATTERN = patternMap.get( ID_TRA_PATTERN ) != null ? patternMap.get( ID_TRA_PATTERN ) : TRA_PATTERN;
-			FOLIO_PATTERN = patternMap.get( ID_FOLIO_PATTERN ) != null ? patternMap.get( ID_FOLIO_PATTERN ) : FOLIO_PATTERN;
-			CHEDRAUI_FECHA_PATTERN = patternMap.get( ID_CHEDRAUI_FECHA_PATTERN ) != null ? patternMap.get( ID_CHEDRAUI_FECHA_PATTERN ) : CHEDRAUI_FECHA_PATTERN;
-			CHEDRAUI_HORA_PATTERN = patternMap.get( ID_CHEDRAUI_HORA_PATTERN ) != null ? patternMap.get( ID_CHEDRAUI_HORA_PATTERN ) : CHEDRAUI_HORA_PATTERN;
+			CP_FISCAL_PATTERN = patternMap.get( ID_LACOMER_CP_FISCAL ) != null ? patternMap.get( ID_LACOMER_CP_FISCAL ) : CP_FISCAL_PATTERN;
+			CP_TIENDA_PATTERN = patternMap.get( ID_LACOMER_CP_TIENDA ) != null ? patternMap.get( ID_LACOMER_CP_TIENDA ) : CP_TIENDA_PATTERN;
+			
+			LACOMER_FECHA_PATTERN = patternMap.get( ID_LACOMER_FECHA_PATTERN ) != null ? patternMap.get( ID_LACOMER_FECHA_PATTERN ) : LACOMER_FECHA_PATTERN;
+			LACOMER_HORA_PATTERN = patternMap.get( ID_LACOMER_HORA_PATTERN ) != null ? patternMap.get( ID_LACOMER_HORA_PATTERN ) : LACOMER_HORA_PATTERN;
+			SUCURSAL = patternMap.get( ID_SUCURSAL ) != null ? patternMap.get( ID_SUCURSAL ) : SUCURSAL;
+//			SERIAL_NUMBER = patternMap.get( ID_SERIAL_NUMBER ) != null ? patternMap.get( ID_SERIAL_NUMBER ) : SERIAL_NUMBER;
+
 		}
 		
-		WalmartTicketRSP tmp = new WalmartTicketRSP();
 		String valor = "";
 		List<Integer> posList = new ArrayList<Integer>();
-		
-		//1. Caso ideal buscar linea completa
-		//Hacer la extracción de derecha a izquierda
+
 		ListIterator<String> it = lineas.listIterator();
+		int depuraFooterPos = -1;
 		it = lineas.listIterator();
-		int pos = detectaPosicionTransaccion(it, SUC_PATTERN);
+		int pos = detectaPosicionTransaccion(it, LACOMER_FECHA_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
 		it = lineas.listIterator();
-		pos = detectaPosicionTransaccion(it, TER_PATTERN);
+		pos = detectaPosicionTransaccion(it, LACOMER_HORA_PATTERN);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
 		it = lineas.listIterator();
-		pos = detectaPosicionTransaccion(it, TRA_PATTERN);
+		pos = detectaPosicionTransaccion(it, SUCURSAL);
 		if (pos != -1) {
 			posList.add( pos );
 		}
 		
+		//Esta el CP fiscal: C.P. #####
+		//Esta el CP de la tienda: CP:#####
 		it = lineas.listIterator();
-		pos = detectaPosicionTransaccion(it, FOLIO_PATTERN);
-		if (pos != -1) {
-			posList.add( pos );
+		valor = detectaPattern(it, CP_FISCAL_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpFiscal(valor);
+		}
+				
+		it = lineas.listIterator();
+		valor = detectaPattern(it, CP_TIENDA_PATTERN);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			rsp.setCpTienda(valor);
 		}
 		
 		Collections.sort(posList);
+		if( !posList.isEmpty() ) {
+			depuraFooterPos = posList.get( posList.size() - 1 );
+		}
 		
 		it = lineas.listIterator();
-		depuraHeader(it, posList.get(0));
+//		depuraHeader(it, posList.get(0));
 		
 		//Para que se un ticket valido deben exisitir 
 		//los elementos TDA, OP, TE, TR
 		it = lineas.listIterator();
-		valor = detectaTransaccion(it, SUC_PATTERN);
+		valor = detectaHora(it);
 		if ( !"".equalsIgnoreCase(valor) ) {
-			//TDA#2670
-			//Sustiruir la 4 posicion en caso de que no sea #
-			//Existe el caso en que la parte numerica los 0 sea reconocidos como O
-			//deben de pasarse a 0
-			valor = valor.replaceAll("[|H|M|N]", "\\#");
 			valor = valor.replace("O", "0");
-			tmp.setTda(valor);
-		}
-		
-		it = lineas.listIterator();
-		valor = detectaTransaccion(it, TER_PATTERN);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			valor = valor.replaceAll("[|H|M|N]", "\\#");
-			valor = "OP" + valor.substring(2, valor.length()).replace("O", "0");
-			tmp.setOp(valor);
-		}
-		
-		it = lineas.listIterator();
-		valor = detectaTransaccion(it, TRA_PATTERN);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			valor = valor.replaceAll("[|H|M|N]", "\\#");
-			valor = valor.replace("O", "0");
-			tmp.setTe(valor);
-		}
-		
-		it = lineas.listIterator();
-		valor = detectaTransaccion(it, FOLIO_PATTERN);
-		if ( !"".equalsIgnoreCase(valor) ) {
-			valor = valor.replaceAll("[|H|M|N]", "\\#");
-			valor = valor.replace("O", "0");
-			tmp.setTr(valor);
+			rsp.setHora(valor);
 		}
 		
 		it = lineas.listIterator();
 		valor = detectaFecha(it);
-		tmp.setFecha(valor);
-		rsp.setFecha(valor);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			valor = valor.replace("O", "0");
+			rsp.setFecha(valor);
+		}
 		
 		it = lineas.listIterator();
-		valor = detectaHora(it);
-		tmp.setHora(valor);
-		rsp.setHora(valor);
+		valor = detectaTransaccion(it, SUCURSAL);
+		if ( !"".equalsIgnoreCase(valor) ) {
+			valor = valor.replace("O", "0");
+			rsp.setTransaccion(valor);
+		}
 		
-		validarTicket(tmp);
-		rsp.setTransaccion( tmp.getTda() + tmp.getOp() + tmp.getTe() + tmp.getTr() );
+		validarTicket(rsp);
+		
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		
 		it = lineas.listIterator();
-		depuraFooter(it);
+		depuraFooter(it, depuraFooterPos);
+		lineas.removeIf( item -> item == null || "".equals(item.trim()) );
 		
 		it = lineas.listIterator();
-		depuraProductos(it);
+//		depuraProductos(it);
 		
 		System.out.println(lineas);
 		rsp.setLineas(lineas);
@@ -170,6 +153,26 @@ public class ComercialTicketAnalizer implements TicketAnalizer {
 		return rsp;
 	}
 
+	private String detectaPattern( ListIterator<String> it, String pattern ) {
+		String valor = "";
+
+		search: while (it.hasNext()) {
+			String linea = it.next();
+
+			Pattern p = Pattern.compile(pattern);
+			Matcher m = p.matcher(linea);
+
+			while (m.find()) {
+				valor = m.group();
+				linea = linea.replace(valor, "").trim();
+				it.set(linea);
+				break search;
+			}
+		}
+
+		return valor;
+	}
+	
 	private String detectaTransaccion( ListIterator<String> it, String pattern ) {
 		//Identificar transaccion
 		//TDA#2670 OPHO0000214TE 003 TR# 08103
@@ -241,7 +244,7 @@ public class ComercialTicketAnalizer implements TicketAnalizer {
 		search: while (it.hasNext()) {
 			String linea = it.next();
 
-			Pattern p = Pattern.compile(CHEDRAUI_FECHA_PATTERN);
+			Pattern p = Pattern.compile(LACOMER_FECHA_PATTERN);
 			Matcher m = p.matcher(linea);
 
 			while (m.find()) {
@@ -262,7 +265,7 @@ public class ComercialTicketAnalizer implements TicketAnalizer {
 		search: while (it.hasNext()) {
 			String linea = it.next();
 
-			Pattern p = Pattern.compile(CHEDRAUI_HORA_PATTERN);
+			Pattern p = Pattern.compile(LACOMER_HORA_PATTERN);
 			Matcher m = p.matcher(linea);
 
 			while (m.find()) {
@@ -296,27 +299,24 @@ public class ComercialTicketAnalizer implements TicketAnalizer {
 		}
 	}
 	
-	private void depuraFooter(ListIterator<String> it) {
-		boolean borrar = false;
-		while (it.hasNext()) {
-			String linea = it.next();
-
-			if (borrar) {
-				it.remove();
-				continue;
-			}
-
-			search: for (Map.Entry<String, String> entry : CHEDRAUI_FOOTERS.entrySet()) {
-				String key = entry.getKey();
-				if (linea.contains(key)) {
-					borrar = !borrar;
+	
+	
+	private void depuraFooter(ListIterator<String> it, int depuraFooterPos) {
+		//Borar desde depuraFooterPos hasta el final de la lista
+		
+		if( depuraFooterPos != -1 ) {
+			
+			int pos = 0;
+			
+			while (it.hasNext()) {
+				String linea = it.next();
+				if( pos >= depuraFooterPos ) {
 					it.remove();
-					break search;
 				}
-
+				pos++;
+				
 			}
-
-		}
+		}	
 	}
 	
 	private void depuraProductos(ListIterator<String> it) {
@@ -335,16 +335,16 @@ public class ComercialTicketAnalizer implements TicketAnalizer {
 			}
 			
 			linea = linea.replaceAll("\\$", "");
-			it.set(linea);
-//			Pattern p = Pattern.compile(SERIAL_NUMBER);
-//			Matcher m = p.matcher(linea);
-//
-//			if ( m.find() ) {
-//				int index = m.start();
-//				linea = linea.substring(0, index).trim();
-//				it.set(linea);
-//				continue search;
-//			}
+
+			Pattern p = Pattern.compile("");
+			Matcher m = p.matcher(linea);
+
+			if ( m.find() ) {
+				int index = m.start();
+				linea = linea.substring(0, index).trim();
+				it.set(linea);
+				continue search;
+			}
 		}
 	}
 	
@@ -357,9 +357,9 @@ public class ComercialTicketAnalizer implements TicketAnalizer {
 		}
 	}
 	
-	private void validarTicket(WalmartTicketRSP rsp) throws TicketException {
-		if ( rsp.getTda() != null && rsp.getOp() != null &&
-				rsp.getTe() != null && rsp.getTr() != null
+	private void validarTicket(OCRTicketRSP rsp) throws TicketException {
+		if ( rsp.getHora() != null && rsp.getFecha() != null &&
+				rsp.getTransaccion() != null
 				) {
 			System.out.println( "Ticket OK" );
 			

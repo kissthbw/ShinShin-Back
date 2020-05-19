@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.bit.service.analizer.impl.ChedrauiTicketAnalizer;
 import com.bit.service.analizer.impl.HEBTicketAnalizer;
+import com.bit.service.analizer.impl.LaComerTicketAnalizer;
 import com.bit.service.analizer.impl.OxxoTicketAnalizer;
 import com.bit.service.analizer.impl.SevenTicketAnalizer;
 import com.bit.service.analizer.impl.SorianaTicketAnalizer;
@@ -31,6 +32,9 @@ public class TicketAnalizerFactory {
 	@Autowired
 	private HEBTicketAnalizer hebTicketAnalizer;
 	
+	@Autowired
+	private LaComerTicketAnalizer laComerTicketAnalizer;
+	
 	public TicketAnalizer getAnalizer( String identifier ) {
 		if ( null == identifier ) {
 			return null;
@@ -55,6 +59,9 @@ public class TicketAnalizerFactory {
 		}
 		else if( "H-E-B".equalsIgnoreCase(identifier) ) {
 			return hebTicketAnalizer;
+		}
+		else if( "LaComer".equalsIgnoreCase(identifier) ) {
+			return laComerTicketAnalizer;
 		}
 		
 		return null;

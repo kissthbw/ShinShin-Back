@@ -32,6 +32,19 @@ public class ProductosTiendasDAO extends DAOTemplate<ProductosTiendas, Long> {
 		return ((Criteria) c).list();
 	}
 	
+	@Transactional
+	public List<ProductosTiendas> getProductosPorIDTienda(Integer idTienda) {
+		Criteria c = getSessionFactory().getCurrentSession().createCriteria(ProductosTiendas.class);
+		c.createAlias("catalogoTienda", "c");
+		
+		if( null != idTienda ) {
+			c.add(Restrictions.eq("c.idCatalogoTienda", idTienda));
+		}
+		c.add( Restrictions.ne("productoTienda", "") );
+
+		return ((Criteria) c).list();
+	}
+	
 	public List<ProductosTiendas> getTiendasPorProducto( Long idProducto ) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(ProductosTiendas.class);
 		c.createAlias("producto", "p");
