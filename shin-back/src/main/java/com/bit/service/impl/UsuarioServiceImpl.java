@@ -365,6 +365,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		//Agregar Registro.
 		tmp.setRedSocial( RedSocial.getNombreById( tmp.getIdRedSocial() ) );
+		tmp.setDeviceToken( user.getDeviceToken() );
 		
 		return tmp;
 	}

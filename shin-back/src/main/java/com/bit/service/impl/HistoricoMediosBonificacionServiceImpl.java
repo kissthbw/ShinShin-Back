@@ -9,14 +9,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bit.communication.FireBaseAdmin;
+import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
+import com.bit.dao.MediosBonificacionDAO;
+import com.bit.exception.CommunicationException;
 import com.bit.model.HistoricoMediosBonificacion;
+import com.bit.model.MediosBonificacion;
 import com.bit.model.Usuario;
+import com.bit.model.dto.EMailDTO;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.service.HistoricoMediosBonificacionService;
 import com.bit.service.UsuarioService;
+import com.sendgrid.helpers.mail.objects.Personalization;
 
 @Service
 public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBonificacionService {
@@ -27,10 +33,16 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 	private HistoricoMediosBonificacionDAO historicoMediosBonificacionDAO;
 	
 	@Autowired
+	private MediosBonificacionDAO mediosBonificacionDAO;
+	
+	@Autowired
 	private UsuarioService usuarioService;
 	
 	@Autowired
-	FireBaseAdmin fireBaseAdmin;
+	private FireBaseAdmin fireBaseAdmin;
+	
+	@Autowired
+	private MediosComunicacionService mediosComunicacionService;
 
 	@Override
 	@Transactional
@@ -86,16 +98,46 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 			item = historicoMediosBonificacionDAO.save(item);
 			rsp.setId(item.getIdHistoricoMediosBonificacion());
 			
+			MediosBonificacion mb = mediosBonificacionDAO.findByPK( item.getMediosBonificacion().getIdMediosBonificacion() );
+			
 			//Integrar con Proveedor de recargas
 			
 			//Enviar notificación
 			//Obtener el device token del usuario
-			String deviceToken = usuarioService.obtieneDeviceTokenPorUsuario( user );
+//			String deviceToken = usuarioService.obtieneDeviceTokenPorUsuario( user );
+			Usuario u = usuarioService.findUserByPK(user);
 			
-			if( null != deviceToken && !"".equals( deviceToken ) ) {
-				log.info( "Enviando push notification a usuario: {}", deviceToken );
-				fireBaseAdmin.sendPushNotificationToDevice( deviceToken,
-						"Se esta procesando tu solicitud");
+			if( null != u ) {
+				if( null != u.getDeviceToken() && !"".equals( u.getDeviceToken() ) ) {
+					log.info( "Enviando push notification a usuario: {}", u.getDeviceToken() );
+					fireBaseAdmin.sendPushNotificationToDevice( u.getDeviceToken(),
+							"Se esta procesando tu solicitud");
+				}
+			}
+			
+			
+			log.info("Enviando correo de notificacion (Solicitud de returo) a administrador");
+			EMailDTO data = new EMailDTO();
+			data.setSubject( "Solicitud de retiro" );
+			data.setToAccount( "roberto.guadarrama@tradenial.com" );
+			
+			Personalization personalization = new Personalization();
+
+			
+			personalization.addDynamicTemplateData("usuario", u.getUsuario());
+			personalization.addDynamicTemplateData("monto", item.getCantidadBonificacion());
+			personalization.addDynamicTemplateData("tipo", mb.getCatalogoMediosBonificacion().getNombreMedioBonificacion());
+			personalization.addDynamicTemplateData("cuenta", mb.getCuentaMedioBonificacion());
+			data.setPersonalization( personalization );
+			
+			StringBuilder text = new StringBuilder();
+			text.append( "EL usuario" );
+			
+			data.setBody( "" );
+			try {
+				mediosComunicacionService.sendWithdrawalRequestEmail(data);
+			} catch (CommunicationException e) {
+				log.error("", e);
 			}
 		}
 		

@@ -2,6 +2,8 @@ package com.bit.communication.impl;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,6 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import com.twilio.Twilio;
@@ -29,6 +30,8 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 	public static final String ACCOUNT_SID = "AC021b53d8f2e2a1ba77deee1627bfad27";
 	public static final String AUTH_TOKEN = "";
 
+	private static final Logger log= LoggerFactory.getLogger(MediosComunicacionServiceImpl.class);
+	
 	@Autowired
 	private MediosComunicacionService mediosComunicacionService;
 	
@@ -37,6 +40,8 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 
 		SimpleResponse rsp = new SimpleResponse();
 		Personalization personalization = new Personalization();
+		
+		log.info( "Enviando EMail a: {}", data.getToAccount() );
 			
 		// 1. Correo del emisor, debe ser de la cuenta del cliente
 		Email from = new Email("contacto@tradenial.com");
@@ -83,7 +88,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 			System.out.println(response.getBody());
 			System.out.println(response.getHeaders());
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error( "", e );
 			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
 		}
 
@@ -94,6 +99,8 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 	public SimpleResponse sendSMS(SMSDTO data) throws CommunicationException {
 		SimpleResponse rsp = new SimpleResponse();
 
+		log.info( "Enviando SMS a: {}", data.getToMobileNumber() );
+		
 		try {
 			Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -104,7 +111,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 			rsp.setCode(message.getErrorCode());
 			rsp.setMessage(message.getSid());
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error( "", e );
 			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
 		}
 
@@ -114,6 +121,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 	@Override
 	public SimpleResponse sendContactEmail(EMailDTO data) throws CommunicationException {
 
+		log.info( "Enviando EMail de contacto" );
 
 		SimpleResponse rsp = new SimpleResponse();
 		Personalization personalization = new Personalization();
@@ -163,7 +171,60 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 			System.out.println(response.getBody());
 			System.out.println(response.getHeaders());
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error( "", e );
+			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
+		}
+
+		return rsp;
+	
+	}
+
+	@Override
+	public SimpleResponse sendWithdrawalRequestEmail(EMailDTO data) throws CommunicationException {
+
+		log.info( "Enviando EMail con solicitud de retiro" );
+
+		SimpleResponse rsp = new SimpleResponse();
+//		Personalization personalization = new Personalization();
+			
+		// 1. Correo del emisor, debe ser de la cuenta del cliente
+		Email from = new Email("contacto@tradenial.com");
+
+		// 2. Correo del usuario que se registro
+		Email to = new Email();
+		to.setName( "Shing Shing" );
+		to.setEmail( data.getToAccount() );
+		data.getPersonalization().addTo(to);
+
+		// 3. Asunto del correo, definir un titulo constante
+		String subject = data.getSubject();
+
+		// 4. Definir el contenido del correo
+		Mail mail = new Mail();
+		mail.setFrom(from);
+		mail.setSubject(subject);
+		
+		mail.setTemplateId("d-3dab48a2b7c34746aa27b29b7be99682");
+		mail.addPersonalization(data.getPersonalization());
+
+//		Map<String, String> envs = System.getenv();
+//		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+		// El API KEY debe ser puesto en una variable de ambiente
+		SendGrid sg = new SendGrid("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");
+		Request request = new Request();
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+			rsp.setCode(response.getStatusCode());
+			rsp.setMessage(response.getBody());
+
+			System.out.println(response.getStatusCode());
+			System.out.println(response.getBody());
+			System.out.println(response.getHeaders());
+		} catch (IOException e) {
+			log.error( "", e );
 			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
 		}
 
