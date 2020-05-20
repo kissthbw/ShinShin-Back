@@ -53,7 +53,7 @@
 					</a>
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
-								<li><a th:href="@{/portal-administrador/tienda/list}">
+								<li><a th:href="@{/portal-administrador/cliente/list}">
 										<span
 										class="sidebar-normal"> Clientes </span>
 								</a></li>
@@ -170,8 +170,8 @@
 												<td th:text="${item.idCatalogoTienda}"></td>
 												<td th:text="${item.nombreTienda}"></td>
 												<td th:text="${item.products}"></td>
-												<td class="text-center">
-													<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTienda}}">
+												<td class="text-right">
+													<a th:href="@{'/portal-administrador/tienda/reporte/' + ${item.idCatalogoTienda}}">
 														<span class="icon-accion-descargar"></span>
 													</a>
 													<a th:href="@{'/portal-administrador/tienda/edit/' + ${item.idCatalogoTienda}}">

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 
 import com.bit.model.CatalogoMarca;
 import com.bit.model.dto.Item;
+import com.bit.model.report.CatalogoMarcaCSV;
+import com.bit.model.report.EstadisticaGeneralTotalTicketCSV;
 
 @Repository
 public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
@@ -121,5 +123,95 @@ public class CatalogoMarcaDAO extends DAOTemplate<CatalogoMarca, Long> {
 		int rows = q.executeUpdate();
 		
 		return rows;
+	}
+	
+	/**
+	 * La  data con todas los productos de una marca en un departamento marcas
+	 * @return
+	 */
+	public List<CatalogoMarcaCSV> obtieneCatalogoMarcas() {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("SELECT cm.nombre_marca AS marca,"); 
+		sql.append("        p.id_producto AS idP,"); 
+		sql.append("        p.nombre_producto AS producto,"); 
+		sql.append("        p.contenido AS contenido, ");
+		sql.append("        ctp.nombre_tipo_producto AS departamento, ");
+		sql.append("		CASE  ");
+		sql.append("			WHEN p.banner=1 THEN 'General' ");
+		sql.append("			WHEN p.banner=1 THEN 'Popular' ");
+		sql.append("			WHEN p.banner=1 THEN 'Principal' ");
+		sql.append("			ELSE 'Sin especificar' ");
+		sql.append("		END AS tipo ");
+		sql.append("FROM catalogo_marca cm ");
+		sql.append("	JOIN producto p on cm.id_catalogo_marca=p.id_catalogo_marca ");
+		sql.append("	JOIN catalogo_tipo_producto ctp ON ctp.id_catalogo_tipo_producto=p.id_catalogo_tipo_producto ");
+//		sql.append("WHERE p.active=1 ");
+		sql.append("ORDER BY cm.nombre_marca, p.nombre_producto, p.contenido ASC; ");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+
+		q.setResultTransformer(Transformers.aliasToBean(CatalogoMarcaCSV.class));
+
+		List<CatalogoMarcaCSV> total = q.list();
+
+		return total;
+	}
+	
+	/**
+	 * La data con el todal de bonificaciones que tiene un producto
+	 * @return
+	 */
+	public Integer obtieneTotalBonificacionProducto(int idProcucto) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT  "); 
+		sql.append("     SUM(p.cantidad_bonificacion) as bonificacion "); 
+		sql.append("FROM catalogo_marca cm ");
+		sql.append("	JOIN producto p on cm.id_catalogo_marca=p.id_catalogo_marca ");
+		sql.append("	JOIN historico_bonificaciones hb ON hb.producto_id_producto = p.id_producto ");
+//		sql.append("WHERE p.active=1 ");
+		sql.append("WHERE p.id_producto=:idP ");
+		sql.append("GROUP BY p.id_producto; ");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		q.setParameter("idP", idProcucto);
+		
+		Integer total = q.uniqueResult() != null ? ((Double)q.uniqueResult()).intValue() : 0;
+		
+		return total;
+	}
+
+	/**
+	 * La  data con todas los productos de una marca en un departamento marcas
+	 * @return
+	 */
+	public List<CatalogoMarcaCSV> obtieneCatalogoProductosPorMarca(String idMarca) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("SELECT cm.nombre_marca AS marca,"); 
+		sql.append("        p.id_producto AS idP,"); 
+		sql.append("        p.nombre_producto AS producto,"); 
+		sql.append("        p.contenido AS contenido, ");
+		sql.append("        ctp.nombre_tipo_producto AS departamento, ");
+		sql.append("		CASE  ");
+		sql.append("			WHEN p.banner=1 THEN 'General' ");
+		sql.append("			WHEN p.banner=1 THEN 'Popular' ");
+		sql.append("			WHEN p.banner=1 THEN 'Principal' ");
+		sql.append("			ELSE 'Sin especificar' ");
+		sql.append("		END AS tipo ");
+		sql.append("FROM catalogo_marca cm ");
+		sql.append("	JOIN producto p on cm.id_catalogo_marca=p.id_catalogo_marca ");
+		sql.append("	JOIN catalogo_tipo_producto ctp ON ctp.id_catalogo_tipo_producto=p.id_catalogo_tipo_producto ");
+		sql.append("WHERE cm.id_catalogo_marca =:idMarca ");
+		sql.append("ORDER BY cm.nombre_marca, p.nombre_producto, p.contenido ASC; ");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString());
+		q.setParameter("idMarca", idMarca);
+		q.setResultTransformer(Transformers.aliasToBean(CatalogoMarcaCSV.class));
+		
+		List<CatalogoMarcaCSV> total = q.list();
+		
+		return total;
 	}
 }

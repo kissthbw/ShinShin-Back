@@ -1,5 +1,76 @@
 
+toastr.options = {
+			  "closeButton": false,
+			  "debug": false,
+			  "newestOnTop": false,
+			  "progressBar": false,
+			  "positionClass": "toast-top-full-width",
+			  "preventDuplicates": false,
+			  "onclick": null,
+			  "showDuration": "300",
+			  "hideDuration": "1000",
+			  "timeOut": "5000",
+			  "extendedTimeOut": "1000",
+			  "showEasing": "swing",
+			  "hideEasing": "linear",
+			  "showMethod": "fadeIn",
+			  "hideMethod": "fadeOut"
+			}
+	function Toast(type, css, msg) {
+	  this.type = type;
+	  this.css = css;
+	  this.msg = msg;
+	}
+
+	function showToast() {
+
+	 var t = toasts[0];
+	  toastr.options.positionClass = t.css;
+	  toastr[t.type](t.msg);
+
+
+
+	}
+
+	var id = location.search;
+	var res = id.split("=");
+	var a = parseInt(res[1]);
+	var toasts = [];
+	console.log(a);
+	if(a>=0){
+		switch(a){
+		case 0: 
+			successDeleteToast();
+			break;
+		case 1:
+			successEditToast();
+			break;
+		}
+		window.setTimeout(function () { showToast(); }, 1);
+	}
+	
+
+function successAddToast(){
+toasts = [new Toast('success', 'toast-top-full-width', '<b>De lujo</b>, Se ha agregado correctamente la cuenta.')];
+window.setTimeout(function () { showToast(); }, 1);
+$('.modal').modal('hide');
+}
+
+function successEditToast(){
+toasts = [new Toast('success', 'toast-top-full-width', '<b>De lujo</b>, Se ha editado correctamente la cuenta.')];
+}
+
+function successDeleteToast(){
+ toasts = [new Toast('success', 'toast-top-full-width', 'Aqui no paso nada, <b>Cuenta borrada.</b>')];
+}
+
+function errorToast(){
+toasts = [new Toast('warning', 'toast-top-full-width', 'Uhmmm, algo no anda bien, <b>Intentalo más tarde.</b>')];
+window.setTimeout(function () { showToast(); }, 1);
+$('.modal').modal('hide');
+}
 var validations = {
+		
 	retiroBancarioValidation : function() {
 
 		var form = $("#formRetiroBancario");
@@ -126,6 +197,11 @@ var validations = {
 			})//Ajax
 			.done(function( data ) {
 				console.log( "Status" + data );
+				successAddToast();
+			}).fail(function( ) {
+				
+				errorToast();
+				
 			});//Done
 		}
 	},
@@ -150,6 +226,11 @@ var validations = {
 			})//Ajax
 			.done(function( data ) {
 				console.log( "Status" + data );
+				successAddToast();
+			}).fail(function( ) {
+				
+				errorToast();
+				
 			});//Done
 		}
 	},
@@ -174,6 +255,12 @@ var validations = {
 			})//Ajax
 			.done(function( data ) {
 				console.log( "Status" + data );
+				successAddToast();
+				
+			}).fail(function( ) {
+				
+				errorToast();
+				
 			});//Done
 		}
 	},
@@ -198,6 +285,11 @@ var validations = {
 			})//Ajax
 			.done(function( data ) {
 				console.log( "Status" + data );
+				successAddToast();
+			}).fail(function( ) {
+				
+				errorToast();
+				
 			});//Done
 		}
 	},
@@ -237,6 +329,11 @@ var validations = {
 			})//Ajax
 			.done(function( data ) {
 				console.log( "Status" + data );
+				successAddToast();
+			}).fail(function( ) {
+				
+				errorToast();
+				
 			});//Done
 		}
 	},

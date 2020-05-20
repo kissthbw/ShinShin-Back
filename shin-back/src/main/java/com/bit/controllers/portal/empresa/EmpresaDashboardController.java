@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -243,6 +244,22 @@ public class EmpresaDashboardController {
 		}
 	}
 	
+	@GetMapping(value="/usuarios/informacion/{id}")
+	public String usuariosEdit(Model model, 
+			@ModelAttribute("currentUser") Usuario currentUser,@PathVariable String id) {
+		
+		ProveedorDetailService current = getAuthenticationUser();
+		
+		if (null != current) {
+			Proveedor p = current.getUsuario();
+			model.addAttribute("item", p);
+			
+		
+		}
+		
+		return "empresa_usuarios_info";
+	}
+
 	private ProveedorDetailService getAuthenticationUser() {
 		ProveedorDetailService user = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

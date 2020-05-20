@@ -6,10 +6,10 @@
 	<!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
 	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing Shing</title>
+	<title>Finanzas | Shing Shing</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
-	<link th:href="@{/resources/assets/fuentes/css/fontello.css}" rel="stylesheet" />
+    <link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
 	</link>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -75,13 +75,13 @@
 							<i class="nc-icon nc-chart-bar-32"></i>
 							<p>General</p>
 						</a></li>
-					<li class="active"><a th:href="@{/portal-empresa/finanzas}"> <i class="icon-shingshing-dashboard-marcas_finanzas-icon"></i>
+					<li class="active"><a th:href="@{/portal-empresa/finanzas}"> <i class="icon-finanzas-dinero"></i>
 							<p>Finanzas</p>
 						</a></li>
-					<li><a th:href="@{/portal-empresa/productos}"> <i class="icon-shingshing-dashboard-marcas_productos-icon"></i>
+					<li><a th:href="@{/portal-empresa/productos}"> <i class="icon-objeto-productosapp"></i>
 							<p>Productos</p>
 						</a></li>
-					<li><a th:href="@{/portal-empresa/usuarios}"> <i class="icon-shingshing-dashboard-marcas_cuentas-icon"></i>
+					<li><a th:href="@{/portal-empresa/usuarios}"> <i class="icon-simbolo-usuario"></i>
 							<p>Usuarios</p>
 						</a></li>
 					<!-- Las opciones del menu debe ir entre <li></li> -->
@@ -148,121 +148,123 @@
 </div> -->
 			<div class="content">
 				<div class="row">
-					<div class="mt15 col-md-12 col-sm-12 col-xs-12 mt15 row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h3 class="title-cat">Finanzas</h3>
+					<div class="col-12">
+						<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<h2>Finanzas</h2>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
+								<a th:href="@{'/portal-empresa/finanzas/report'}" class="btn btn-primary float-right" role="button"
+									aria-disabled="true">Resumen</a>
+							</div>
+	
 						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-							<a th:href="@{'/portal-empresa/finanzas/report'}" class="btn btn-primary float-right" role="button"
-								aria-disabled="true">Resumen</a>
-						</div>
-
-					</div>
-
-					<!-- Usuarios -->
-					<div class="col-lg-12 col-md-12 col-sm-12">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-5 col-md-4">
-										<div class="icon-big icon-warning gray">
-											<i class="nc-icon nc-bank text-warning"></i>
+	
+						<!-- Usuarios -->
+						<div class="card pb-24">
+							<div class="col-12 card card-stats">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-5 col-md-4" style="padding-left: 0px;">
+											<div class="icon-big icon-warning gray">
+												<i class="icon-finanzas-moneda-light"></i>
+											</div>
 										</div>
-									</div>
-									<div class="col-7 col-md-8">
-										<div class="numbers">
-											<p class="card-category">Total de Bonificaciones</p>
-											<p class="card-title" th:text="${info.totalBonificaciones}" >$99,999</p>
+										<div class="col-7 col-md-8">
+											<div class="numbers">
+												<p class="card-category">Total de Bonificaciones</p>
+												<p class="card-title" th:text="${info.totalBonificaciones}" >$99,999</p>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<hr />
-
-							<div class="card-body">
-
-								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-									<li id="dayFinanzasBtn" class="nav-item"><a
-										class="nav-link active" id="pills-home-tab" data-toggle="pill"
-										href="#pills-home" role="tab" aria-controls="pills-home"
-										aria-selected="true">Día</a></li>
-									<li id="weekFinanzasBtn" class="nav-item"><a
-										class="nav-link" id="pills-profile-tab" data-toggle="pill"
-										href="#pills-profile" role="tab" aria-controls="pills-profile"
-										aria-selected="false">Semana</a></li>
-									<li id="monthFinanzasBtn" class="nav-item"><a
-										class="nav-link" id="pills-contact-tab" data-toggle="pill"
-										href="#pills-contact" role="tab" aria-controls="pills-contact"
-										aria-selected="false">Mes</a></li>
-								</ul>
-								<div class="tab-content" id="pills-tabContent">
-									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-										<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-											<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+	
+								<hr />
+	
+								<div class="card-body">
+	
+									<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+										<li id="dayFinanzasBtn" class="nav-item"><a
+											class="nav-link active" id="pills-home-tab" data-toggle="pill"
+											href="#pills-home" role="tab" aria-controls="pills-home"
+											aria-selected="true">Día</a></li>
+										<li id="weekFinanzasBtn" class="nav-item"><a
+											class="nav-link" id="pills-profile-tab" data-toggle="pill"
+											href="#pills-profile" role="tab" aria-controls="pills-profile"
+											aria-selected="false">Semana</a></li>
+										<li id="monthFinanzasBtn" class="nav-item"><a
+											class="nav-link" id="pills-contact-tab" data-toggle="pill"
+											href="#pills-contact" role="tab" aria-controls="pills-contact"
+											aria-selected="false">Mes</a></li>
+									</ul>
+									<div class="tab-content" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+											<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+												<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+													<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+												</div>
+												<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+													<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+												</div>
 											</div>
-											<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-												<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
-											</div>
+											<canvas id="finanzasChart" width="558" height="256"
+												class="chartjs-render-monitor"
+												style="display: block; height: 128px; width: 279px;"></canvas>
 										</div>
-										<canvas id="finanzasChart" width="558" height="256"
-											class="chartjs-render-monitor"
-											style="display: block; height: 128px; width: 279px;"></canvas>
-									</div>
-									<div class="tab-pane fade" id="pills-profile" role="tabpanel"
-										aria-labelledby="pills-profile-tab">
-										<canvas id="finanzasChart" width="826" height="380"></canvas>
-									</div>
-									<div class="tab-pane fade" id="pills-contact" role="tabpanel"
-										aria-labelledby="pills-contact-tab">
-										<canvas id="finanzasChart" width="826" height="380"></canvas>
+										<div class="tab-pane fade" id="pills-profile" role="tabpanel"
+											aria-labelledby="pills-profile-tab">
+											<canvas id="finanzasChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-contact" role="tabpanel"
+											aria-labelledby="pills-contact-tab">
+											<canvas id="finanzasChart" width="826" height="380"></canvas>
+										</div>
 									</div>
 								</div>
+	
 							</div>
-
 						</div>
-					</div>
-					<!-- Fin Usuarios -->
-
-					<div class="col-12 col-lg-12 col-md-12 col-sm-12 card card-stats">
-						<div class="card-body ">
-							<h5 class="title-cat">Histórico</h5>
-							<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-								<thead>
-									<tr>
-										<th>Id</th>
-										<th>Fecha</th>
-										<!-- <th>Precio</th>  -->
-										<th>Bonificacion</th>
-										<!--  <th>Imagen</th> -->
-
-
-										<th class="disabled-sorting text-right"></th>
-									</tr>
-								</thead>
-								<tfoot>
-									<tr>
-										<th>Id</th>
-										<th>Fecha</th>
-										<th>Bonificacion</th>
-
-										<th class="disabled-sorting text-right"></th>
-									</tr>
-								</tfoot>
-								<tbody>
-									<th:block th:each="item : ${info.bonificaciones}">
-									<tr>
-										<td th:text="${item.id}"></td>
-										<td th:text="${item.fechaFormateada}"></td>
-										<td th:text="${item.importeFormateado}"></td>
-										<td class="text-center"><a href="#"> <i
-												class="fa fa-search" aria-hidden="true"></i></a></td>
-									</tr>
-
-									</th:block>
-								</tbody>
-							</table>
+						<!-- Fin Usuarios -->
+	
+						<div class="card mt-24 pb-24">
+							<div class="col-12 mt-24" style="padding-bottom: 24px;">
+								<h3>Histórico</h3>
+								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<!--<th>Id</th>-->
+											<th>Fecha</th>
+											<!-- <th>Precio</th>  -->
+											<th>Bonificacion</th>
+											<!--  <th>Imagen</th> -->
+	
+	
+											<!--<th class="disabled-sorting text-right"></th>-->
+										</tr>
+									</thead>
+									 <!--<tfoot>
+										<tr>
+											<th>Id</th>
+											<th>Fecha</th>
+											<th>Bonificacion</th>
+	
+											<th class="disabled-sorting text-right"></th>
+										</tr>
+									</tfoot>-->
+									<tbody>
+										<th:block th:each="item : ${info.bonificaciones}">
+										<tr>
+											<!--<td th:text="${item.id}"></td>-->
+											<td th:text="${item.fechaFormateada}"></td>
+											<td th:text="${item.importeFormateado}"></td>
+											<!--<td class="text-center"><a href="#"> <i
+													class="fa fa-search" aria-hidden="true"></i></a></td>-->
+										</tr>
+	
+										</th:block>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

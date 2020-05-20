@@ -1,11 +1,15 @@
 package com.bit.service.impl;
 
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+import static org.mockito.Mockito.RETURNS_DEFAULTS;
+
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -313,12 +317,34 @@ public class ProveedorServiceImpl implements ProveedorService {
 		BigInteger totalEscaneados = proveedorDAO.obtieneTotalProductosEscaneadosPorMarca( item.getMarca().getIdCatalogoMarca() );
 		BigInteger totalProductos =  proveedorDAO.obtieneTotalProductosPorMarca( item.getMarca().getIdCatalogoMarca() );
 		List<Producto> list = proveedorDAO.obtieneListaProductosEmpresa( item.getMarca().getIdCatalogoMarca() );
-		
+		for(Producto i : list){
+				i.setTipoString(TipoString(i.getBanner()));
+				log.info("Contenido"+i.getContenido());
+		}
 		rsp.setTotalProductosEscaneados( null != totalEscaneados ? totalEscaneados.longValue() : 0L );
 		rsp.setTotalProductos( null != totalProductos ? totalProductos.longValue() : 0L );
 		rsp.setProductos(list);
 		
 		return rsp;
+	}
+
+	public String TipoString(int tipo){
+		String tipoS="";
+		switch(tipo){
+			case 1:
+				tipoS="General";
+			break;
+			case 2:
+				tipoS="Popular";
+			break;
+			case 3:
+				tipoS="Principal";
+			break;
+			default :
+				tipoS="Sin especificar";
+			break;
+		}
+		return tipoS;
 	}
 
 	@Override

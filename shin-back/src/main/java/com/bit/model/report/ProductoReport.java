@@ -2,17 +2,22 @@ package com.bit.model.report;
 
 public class ProductoReport {
 	private Long idProducto;
+	private String contenido;
+	private String depto;
+	private String tipo;
+	private	String bonificacion;
 	private String codigoBarras;
 	private String nombreProducto;
 	private String marca;
 	private int banner;
 
-	public ProductoReport(Long idProducto, String codigoBarras, String nombreProducto, String marca, int banner) {
-		this.idProducto = idProducto;
-		this.codigoBarras = codigoBarras;
+	public ProductoReport(String nombreProducto, String contenido, String marca, String depto, String tipo, String bonificacion) {
 		this.nombreProducto = nombreProducto;
+		this.contenido=contenido;
 		this.marca = marca;
-		this.banner = banner;
+		this.depto=depto;
+		this.tipo=tipo;
+		this.bonificacion=bonificacion;
 	}
 
 	public Long getIdProducto() {
@@ -53,6 +58,38 @@ public class ProductoReport {
 
 	public void setBanner(int banner) {
 		this.banner = banner;
+	}
+
+	public String getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
+
+	public String getDepto() {
+		return depto;
+	}
+
+	public void setDepto(String depto) {
+		this.depto = depto;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getBonificacion() {
+		return bonificacion;
+	}
+
+	public void setBonificacion(String bonificacion) {
+		this.bonificacion = bonificacion;
 	}
 
 }

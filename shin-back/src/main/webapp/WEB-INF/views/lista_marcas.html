@@ -66,7 +66,7 @@
 					</a>
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
-								<li><a th:href="@{/portal-administrador/tienda/list}">
+								<li><a th:href="@{/portal-administrador/cliente/list}">
 										<span
 										class="sidebar-normal"> Clientes </span>
 								</a></li>
@@ -216,8 +216,9 @@
 							<div class="card-body">
 								<div class="toolbar">
 									<!--        Here you can write extra buttons/actions for the toolbar              -->
-									<a th:href="@{/portal-administrador/marca/report}"
-										class="btn btn-secundary" role="button" aria-disabled="true">Reporte</a> <a th:href="@{/portal-administrador/marca/save}"
+									<a th:href="@{/portal-administrador/marca/reporte}"
+										class="btn btn-secundary" role="button" aria-disabled="true">Reporte</a> 
+									<a th:href="@{/portal-administrador/marca/save}"
 										class="btn btn-primary" role="button" aria-disabled="true"><i
 										class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
 								</div>
@@ -237,8 +238,8 @@
 												<td th:text="${item.idCatalogoMarca}"></td>
 												<td th:text="${item.nombreMarca}"></td>
 												<td th:text="${item.products}"></td>
-												<td class="text-center">
-													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">
+												<td class="text-right">
+													<a th:href="@{'/portal-administrador/marca/productos/reporte/' + ${item.idCatalogoMarca}}">
 														<span class="icon-accion-descargar"></span>
 													</a>
 													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">

@@ -6,10 +6,10 @@
 	<!-- <link rel="stylesheet" th:hrerf="@{/resources/assets/bootstrap/css/bootstrap.min.css}"/> -->
 	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing Shing</title>
+	<title>Usuarios | Shing Shing</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
-	<link th:href="@{/resources/assets/fuentes/css/fontello.css}" rel="stylesheet" />
+    <link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet">
 	</link>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -75,13 +75,13 @@
 							<i class="nc-icon nc-chart-bar-32"></i>
 							<p>General</p>
 						</a></li>
-					<li><a th:href="@{/portal-empresa/finanzas}"> <i class="icon-shingshing-dashboard-marcas_finanzas-icon"></i>
+					<li><a th:href="@{/portal-empresa/finanzas}"> <i class="icon-finanzas-dinero"></i>
 							<p>Finanzas</p>
 						</a></li>
-					<li><a th:href="@{/portal-empresa/productos}"> <i class="icon-shingshing-dashboard-marcas_productos-icon"></i>
+					<li><a th:href="@{/portal-empresa/productos}"> <i class="icon-objeto-productosapp"></i>
 							<p>Productos</p>
 						</a></li>
-					<li class="active"><a th:href="@{/portal-empresa/usuarios}"> <i class="icon-shingshing-dashboard-marcas_cuentas-icon"></i>
+					<li class="active"><a th:href="@{/portal-empresa/usuarios}"> <i class="icon-simbolo-usuario"></i>
 							<p>Usuarios</p>
 						</a></li>
 					<!-- Las opciones del menu debe ir entre <li></li> -->
@@ -146,109 +146,105 @@
   
   
 </div> -->
-			<div class="content">
+		<div class="content">
 				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12 mt15 row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h3 class="title-cat">Usuarios</h3>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-							<a th:href="@{'/portal-empresa/usuarios/report'}" class="btn btn-primary float-right" role="button"
-								aria-disabled="true">Resum&eacute;n</a>
-						</div>
+				<div class="col-12">
+					<div class="row">
+							<div class="col-md-6 col-sm-6 col-xs-6">
+								<h2>Usuarios</h2>
+							</div>
+							<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
+								<a th:href="@{'/portal-empresa/usuarios/report'}" class="btn btn-primary float-right" role="button"
+									aria-disabled="true">Resumen</a>
+							</div>
+					</div>
 
-					</div>
-
-					<!-- div6 -->
-					<div class="col-lg-6 col-md-6 col-sm-6">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-5 col-md-4">
-										<div class="icon-big text-center icon-warning gray">
-											<i class="nc-icon nc-bank text-warning"></i>
+					<div class="row">
+						<!-- Usuario de tus Productos -->
+						<div class="col-lg-6 col-md-6 col-sm-6">
+							<div class="card card-stats">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-5 col-md-4">
+											<div class="icon-big text-center icon-warning gray">
+												<i class="icon-objeto-productosusuario"></i>
+											</div>
 										</div>
-									</div>
-									<div class="col-7 col-md-8">
-										<div class="numbers">
-											<p class="card-category" >Usuarios de tus productos</p>
-											<p class="card-title" th:text="${info.totalUsuarios}" >99</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Fin div6 -->
-					<!-- div2 -->
-					<div class="col-lg-2 col-md-2 col-sm-2">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-12 col-md-12">
-										<div class="numbers">
-											<p class="card-category">Mujeres</p>
-											<p class="card-title" th:text="${info.porcentajeM}" >50%</p>
+										<div class="col-7 col-md-8">
+											<div class="numbers">
+												<p class="card-category" >Usuarios de tus productos</p>
+												<p class="card-title" th:text="${info.totalUsuarios}" >99</p>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- Fin div2 -->
-					<!-- div2 -->
-					<div class="col-lg-2 col-md-2 col-sm-2">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-12 col-md-12">
-										<div class="numbers">
-											<p class="card-category">Hombres</p>
-											<p class="card-title" th:text="${info.porcentajeH}" >50%</p>
+						<!-- Fin Usuario de tus Productos -->
+						
+						<!-- Mujeres -->
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<div class="card card-stats">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-12 col-md-12">
+											<div class="numbers">
+												<p class="card-category">Mujeres</p>
+												<p class="card-title" th:text="${info.porcentajeM}" >50%</p>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<!-- Fin div2 -->
-					<!-- div2 -->
-					<div class="col-lg-2 col-md-2 col-sm-2">
-						<div class="card card-stats">
-							<div class="card-body ">
-								<div class="row">
-									<div class="col-12 col-md-12">
-										<div class="numbers">
-											<p class="card-category">Edad</p>
-											<p class="card-title" th:text="${info.promedioEdad}" >30.5</p>
+						<!-- Fin Mujeres -->
+						
+						<!-- Hombres -->
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<div class="card card-stats">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-12 col-md-12">
+											<div class="numbers">
+												<p class="card-category">Hombres</p>
+												<p class="card-title" th:text="${info.porcentajeH}" >50%</p>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						<!-- Fin Hombres -->
+						
+						<!-- Edad -->
+						<div class="col-lg-2 col-md-2 col-sm-2">
+							<div class="card card-stats">
+								<div class="card-body ">
+									<div class="row">
+										<div class="col-12 col-md-12">
+											<div class="numbers">
+												<p class="card-category">Edad</p>
+												<p class="card-title" th:text="${info.promedioEdad}" >30.5</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Fin Edad -->
 					</div>
-					<!-- Fin div2 -->
+					
 					<!-- Inicio Geografias -->
-
-
-					<div class="col-lg-12 col-md-12 col-sm-12">
-						<div class="card card-stats">
-							<div class="card-body ">
+					<div class="col-lg-12 col-md-12 col-sm-12 card card-stats">
+					
+							<div class="card-body">
 								<div class="row">
 									<div class="col-md-12 col-lg-12 col-sm-12">
-										<h5 class="title-cat">Geografías</h5>
+										<h3>Geografías</h3>
 									</div>
-
-
 								</div>
 							</div>
-
-							<hr />
-
-
 							<div class="card-body">
-
-
 								<div class="tab-content" id="pills-tabContent">
 									<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 										<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -269,21 +265,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="card-footer">
 
-								<div class="row"></div>
-							</div>
 						</div>
 					</div>
-
-
 					<!-- Fin Geografias -->
+					
 					<div class="col-lg-12 col-md-12 col-sm-12">
 						<div class="card card-stats">
-							<div class="card-body ">
+							<div class="card-body" style="padding-bottom:24px;">
 								<div class="row">
 									<div class="col-md-12 col-lg-12 col-sm-12">
-										<h5 class="title-cat">Tus Usuarios</h5>
+										<h3>Tus Usuarios</h3>
 									</div>
 
 									<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -296,21 +288,21 @@
 												<!--  <th>Imagen</th> -->
 												<th>Escaneos de tus productos</th>
 
-												<th class="disabled-sorting text-right"></th>
+												<!--<th class="disabled-sorting text-right"></th>-->
 											</tr>
 										</thead>
-										<tfoot>
+										<!--<tfoot>
 											<tr>
 												<th>Id</th>
 												<th>Usuario</th>
 												<th>Edad</th>
 												<th>Sexo</th>
-												<!--  <th>Imagen</th> -->
+												<th>Imagen</th>
 												<th>Escaneos de tus productos</th>
 
 												<th class="disabled-sorting text-right"></th>
 											</tr>
-										</tfoot>
+										</tfoot>-->
 										<tbody>
 											<th:block th:each="item : ${info.usuarios}">
 											<tr>
@@ -319,7 +311,7 @@
 												<td th:text="${item.edad}"></td>
 												<td th:text="${item.sexo}"></td>
 												<td th:text="${item.escaneos}"></td>
-												<td class="text-center"><a href="#"><i
+												<td class="text-center"><a  th:href="@{'/portal-empresa/usuarios/informacion/'+${item.idUsuario}}"><i
 														class="fa fa-search" aria-hidden="true"></i></a></td>
 											</tr>
 
@@ -329,6 +321,7 @@
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 				</div>
 				<!--  
@@ -415,17 +408,15 @@
           </div>
         </div>
         -->
-
-			</div>
-
-
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 				</div>
 			</footer>
+			
+			</div>
 		</div>
-	</div>
+
 	<!--   Core JS Files   -->
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>

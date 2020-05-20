@@ -17,6 +17,10 @@ public class BonificacionItem {
 	private Double importe;
 	private String importeFormateado;
 	private Integer idUsuario;
+	private String nombreTitular;
+	private String banco;
+	private String cuentaMedioBonificacion;
+	
 
 	public BonificacionItem() {
 	}
@@ -141,6 +145,30 @@ public class BonificacionItem {
 				+ (importe != null ? "importe=" + importe + ", " : "")
 				+ (importeFormateado != null ? "importeFormateado=" + importeFormateado + ", " : "")
 				+ (idUsuario != null ? "idUsuario=" + idUsuario : "") + "]";
+	}
+
+	public String getNombreTitular() {
+		return nombreTitular;
+	}
+
+	public void setNombreTitular(String nombreTitular) {
+		this.nombreTitular = nombreTitular;
+	}
+
+	public String getBanco() {
+		return banco;
+	}
+
+	public void setBanco(String banco) {
+		this.banco = banco;
+	}
+
+	public String getCuentaMedioBonificacion() {
+		return cuentaMedioBonificacion;
+	}
+
+	public void setCuentaMedioBonificacion(String cuentaMedioBonificacion) {
+		this.cuentaMedioBonificacion = cuentaMedioBonificacion;
 	}
 
 }

@@ -33,6 +33,7 @@ import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
 import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.TimeZone;
 
 @Controller
 @RequestMapping(value="/portal-usuario")
@@ -404,6 +405,8 @@ public class UserDashboardController {
 		if ( null != current ) {
 
 			Calendar c = Calendar.getInstance();
+			TimeZone tz = TimeZone.getTimeZone("GMT-5");
+			c.setTimeZone(tz);
 			item.setFechaBonificacion( c.getTime() );
 			item.setHoraBonificacion( c.getTime() );
 			item.setUsuario( current.getUsuario() );
@@ -458,6 +461,8 @@ public class UserDashboardController {
 		if ( null != current ) {
 
 			Calendar c = Calendar.getInstance();
+			TimeZone tz = TimeZone.getTimeZone("GMT-5");
+			c.setTimeZone(tz);
 			item.setFechaBonificacion( c.getTime() );
 			item.setHoraBonificacion( c.getTime() );
 			item.setUsuario( current.getUsuario() );
@@ -515,6 +520,8 @@ public class UserDashboardController {
 		if ( null != current ) {
 			
 			Calendar c = Calendar.getInstance();
+			TimeZone tz = TimeZone.getTimeZone("GMT-5");
+			c.setTimeZone(tz);
 			item.setFechaBonificacion( c.getTime() );
 			item.setHoraBonificacion( c.getTime() );
 			item.setUsuario( current.getUsuario() );
