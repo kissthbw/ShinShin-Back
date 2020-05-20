@@ -28,7 +28,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 
 	// Mover a variables de ambiente o archivo de propiedades
 	public static final String ACCOUNT_SID = "AC021b53d8f2e2a1ba77deee1627bfad27";
-	public static final String AUTH_TOKEN = "";
+	public static final String AUTH_TOKEN = "7760ead8994b3a1890012fb16b25f066";
 
 	private static final Logger log= LoggerFactory.getLogger(MediosComunicacionServiceImpl.class);
 	

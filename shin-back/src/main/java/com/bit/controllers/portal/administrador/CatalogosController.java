@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,10 +51,13 @@ import com.bit.service.CatalogoTiendaService;
 import com.bit.service.CatalogoTipoProductoService;
 import com.bit.service.EstadisticasService;
 import com.bit.service.ProductoService;
+import com.bit.service.ReportService;
 import com.bit.service.TicketService;
 import com.bit.service.UsuarioService;
 import com.bit.service.UsuarioShingShingDetailService;
 import com.bit.service.impl.CSVExporterImpl;
+import com.ibm.icu.text.DateFormat;
+import com.ibm.icu.text.SimpleDateFormat;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -72,6 +76,9 @@ public class CatalogosController {
 
 	@Autowired
 	private CatalogoMarcaService catalogoMarcaService;
+	
+	@Autowired
+	private ReportService reportService;
 
 	@Autowired
 	private CatalogoMediosBonificacionService catalogoMediosBonificacionService;
@@ -439,21 +446,24 @@ public class CatalogosController {
 		log.info("Entrando report");
 
 		List<ProductoReport> list = new ArrayList<>();
-//	   
+		Date fechaActual = new Date();
+	   	DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+	   	String fecha=formatoFecha.format(fechaActual);
+	   	String nombreDocumento="SS-Productos-"+fecha+".csv";
 		list = productoService.getAllProductoReport();
 		response.setContentType("text/csv");
 		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment; filename=\"%s\"", "productos.csv");
+		String headerValue = String.format("attachment; filename=\"%s\"", nombreDocumento);
 		response.setHeader(headerKey, headerValue);
 
 		CSVExporter csv = new CSVExporterImpl();
 
-		String[] headers = { "idProducto", "nombreProducto", "codigoBarras", "Marca" };
+		String[] headers = { "Producto", "Contenido", "Marca", "Dpto", "Tipo" , "Bonificaci�n" };
 
 		List<List<Object>> rows = new ArrayList<>();
 		for (int j = 0; j < list.size(); j++) {
-			rows.add(Arrays.asList(new Object[] { list.get(j).getIdProducto(), list.get(j).getNombreProducto(),
-					list.get(j).getCodigoBarras(), list.get(j).getMarca() }));
+			rows.add(Arrays.asList(new Object[] { list.get(j).getNombreProducto(), list.get(j).getContenido(),
+					 list.get(j).getMarca(),list.get(j).getDepto(), list.get(j).getTipo(),list.get(j).getBonificacion() }));
 		}
 		try {
 			csv.writeCSV(response.getWriter(), headers, rows);
@@ -574,31 +584,89 @@ public class CatalogosController {
 		return "lista_marcas";
 	}
 
-	@RequestMapping(value = "/marca/report", method = RequestMethod.GET)
-	public void reportMarca(Model model, HttpServletResponse response) throws JRException, IOException {
-		response.setContentType("text/csv");
+	@RequestMapping(value = "/marca/reporte", method = RequestMethod.GET)
+	public void reporteMarca(Model model, HttpServletResponse response) throws JRException, IOException {
+	
 		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment; filename=\"%s\"", "marca.csv");
+		
+		String f = Utils.formatDateToString(new Date(), "dd/MM/yyyy");
+		String nombreArchivo = "SS-Marcas-"+f;
+		
+		String headerValue = String.format("attachment; filename=\"%s\"", nombreArchivo);
+
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/csv");
 		response.setHeader(headerKey, headerValue);
-		List<CatalogoMarca> list = catalogoMarcaService.getCatalogoMarca().getMarcas();
-		CSVExporter csv = new CSVExporterImpl();
+		
+		reportService.makeReporteCatalogoMarcas(response.getWriter());
+				
+	}
+	
+	@RequestMapping(value = "/marca/productos/reporte/{id}", method = RequestMethod.GET)
+	public void getReporteProductosPorMarca(Model model, HttpServletResponse response, @PathVariable String id) throws JRException, IOException {
+		
+		
+//		String headerKey = "Content-Disposition";
+//		
+//		String f = Utils.formatDateToString(new Date(), "dd/MM/yyyy");
+//		String nombreArchivo = "SS-["+"la marca"+"]-"+f;
+//		
+//		String headerValue = String.format("attachment; filename=\"%s\"", nombreArchivo);
+//		
+//		response.setContentType("text/csv");
+//		response.setHeader(headerKey, headerValue);
+		
+		// Por razones de simplicidad, el metodo para hacer el reporte 
+		// también se encarga de poner los headers al response
+		reportService.makeReporteCatalogoProductosPorMarca(id, response);
+		
+		
+	}
+	
+	@RequestMapping(value = "/cliente/list", method = RequestMethod.GET)
+	public String redirectionaListaCliente(Model model) {
+		log.info("Entrando en redirectionaListaCliente");
+		model.addAttribute("marcas", catalogoMarcaService.getCatalogoMarca().getMarcas());
+		model.addAttribute("proveedores", catalogoMarcaService.getProveedoresMarca().getProveedores());
 
-		String[] headers = { "ID", "NombreMarca", "Products" };
+		UsuarioShingShingDetailService current = getAuthenticationUser();
 
-		List<List<Object>> rows = new ArrayList<>();
-		for (int j = 0; j < list.size(); j++) {
-			rows.add(Arrays.asList(new Object[] { list.get(j).getIdCatalogoMarca(), list.get(j).getNombreMarca(),
-					list.get(j).getProducts() }));
+		if (null != current) {
+			model.addAttribute("item", current.getUsuario());
 		}
-		try {
-			csv.writeCSV(response.getWriter(), headers, rows);
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		log.info("Saliendo de redirectionaListaCliente");
+		return "lista_clientes";
 	}
 
+	@RequestMapping(value = "/tienda/report", method = RequestMethod.GET)
+	public void getReporteTiendas(Model model, HttpServletResponse response) throws JRException, IOException {
+		String headerKey = "Content-Disposition";
+		
+		String f = Utils.formatDateToString(new Date(), "dd/MM/yyyy");
+		String nombreArchivo = "SS-Tiendas-"+f;
+		
+		String headerValue = String.format("attachment; filename=\"%s\"", nombreArchivo);
+		
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/csv");
+		response.setHeader(headerKey, headerValue);
+		
+		reportService.makeReporteCatalogoTiendas(response.getWriter());
+	}
+	
+	@RequestMapping(value = "/tienda/reporte/{id}", method = RequestMethod.GET)
+	public void getReportePorTienda(Model model, 
+			HttpServletResponse response,
+			@PathVariable String id) throws JRException, IOException {
+	
+		log.debug("Entra al repporte por tienda");
+		// Por razones de simplicidad, el metodo para hacer el reporte 
+		// también se encarga de poner los headers al response
+		reportService.makeReporteCatalogoTiendasPorTienda(id, response);
+	}
+	
 	@RequestMapping(value = "/tienda/list", method = RequestMethod.GET)
 	public String redirectionaListaTienda(Model model) {
 		log.info("Entrando en redirectionaListaTienda");
@@ -614,31 +682,6 @@ public class CatalogosController {
 		return "lista_tiendas";
 	}
 
-	@RequestMapping(value = "/tienda/report", method = RequestMethod.GET)
-	public void reportTienda(Model model, HttpServletResponse response) throws JRException, IOException {
-		response.setContentType("text/csv");
-		String headerKey = "Content-Disposition";
-		String headerValue = String.format("attachment; filename=\"%s\"", "tiendas.csv");
-		response.setHeader(headerKey, headerValue);
-		List<CatalogoTienda> list = catalogoTiendaService.getCatalogoTienda().getTiendas();
-
-		CSVExporter csv = new CSVExporterImpl();
-
-		String[] headers = { "ID", "Nombre", "#Productos" };
-
-		List<List<Object>> rows = new ArrayList<>();
-		for (int j = 0; j < list.size(); j++) {
-			rows.add(Arrays.asList(new Object[] { list.get(j).getIdCatalogoTienda(), list.get(j).getNombreTienda(),
-					list.get(j).getProducts() }));
-		}
-		try {
-			csv.writeCSV(response.getWriter(), headers, rows);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@RequestMapping(value = "/departamento/list", method = RequestMethod.GET)
 	public String redirectionaListaDepartamento(Model model) {

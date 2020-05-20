@@ -425,7 +425,7 @@ public class EstadisticasServiceImpl implements EstadisticasService {
 		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones(item, tipos);
 		
 		for (BonificacionItem i : list) {
-			i.setFechaFormateada( Utils.formatDateToString(i.getFecha(), "dd-MMM-yyyy") );
+			i.setFechaFormateada( Utils.formatDateToString(i.getFecha(), "dd/MM/yyyy") );
 			i.setHoraFormateada( Utils.formatDateToString(i.getHora(), "hh:mm:ss") );
 			i.setImporteFormateado( Utils.formatNumeros(i.getImporte(), "$###,###,###.00") );
 		}

@@ -560,14 +560,43 @@ public class ProductoServiceImpl implements ProductoService {
 		List<Producto> entities = productoDAO.getProductos();
 		
 		for( Producto e : entities ) {
-			ProductoReport item = new ProductoReport(e.getIdProducto(), e.getCodigoBarras(), 
-					e.getNombreProducto(), e.getCatalogoMarca().getNombreMarca(), e.getBanner());
-			
+			ProductoReport item = new ProductoReport(e.getNombreProducto(),
+					e.getContenido(),
+					e.getCatalogoMarca().getNombreMarca(),
+					e.getCatalogoTipoProducto().getNombreTipoProducto(),
+					getTipoString(e.getBanner()),
+					"$"+Double.toString(e.getCantidadBonificacion())) ;
+					
+					
+					
 			list.add(item);
 		}
 		
 		
 		return list;
+	}
+	
+	public String getTipoString(int tipo) {
+		String tipoString="";
+		switch (tipo) {
+		case 1:
+			log.info("1");
+			tipoString="General";
+			break;
+		case 2:
+			log.info("2");
+			tipoString="Popular";
+			break;
+		case 3:
+			log.info("3");
+			tipoString="Principal";
+			break;
+		default:
+			log.info("cero");
+			tipoString="Sin especificar";
+			break;
+		}
+		return tipoString;
 	}
 	
 	@Override

@@ -41,24 +41,44 @@ public class BonificacionesServiceImpl implements BonificacionesService {
 	public List<List<Object>> obtieneInfoReporteBonificacionesDepositosGeneral() {
 		List<List<Object>> rows = new ArrayList<>();
 		
-		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones( null );
+		//List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones( null );
+		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneDetalleHistoricoBonificaciones( null ,mediosFull);
 		
 		//Formatear fecha dd-MMM-yyyy
 		//Formatear solicitudes y bonificaciones
 		for (BonificacionItem b : list) {
-			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd-MMM-yyyy") );
+			b.setFechaFormateada( Utils.formatDateToString(b.getFecha(), "dd/MM/yyyy") );
 			b.setImporteFormateado( Utils.formatNumeros(b.getImporte(), "$###,###,###.00") );
+			b.setHoraFormateada( Utils.formatDateToString(b.getHora(), "hh:mm:ss") );
 		}
 		
 		
 //		List<BonificacionItem> list =  historicoMediosBonificacionDAO.obtieneBonificacionesDepositosGeneral();
 		for( BonificacionItem i : list ) {
-			rows.add( Arrays.asList( new Object[] {
-					i.getTipo(),
-					i.getFechaFormateada(), 
-					i.getSolicitudes(),
-					i.getImporteFormateado()
+			if(i.getIdTipo().intValue()==MedioBonificacionID.PAYPAL.value()){
+				rows.add( Arrays.asList( new Object[] {
+					i.getIdUsuario(),
+					i.getTipo(), 
+					i.getId(),
+					i.getBanco(),
+					i.getImporteFormateado(),
+					i.getNombreTitular(),
+					i.getFechaFormateada(),
+					i.getHoraFormateada()
 					} ) );
+			}else{
+				rows.add( Arrays.asList( new Object[] {
+					i.getIdUsuario(),
+					i.getTipo(), 
+					i.getCuentaMedioBonificacion(),
+					i.getBanco(),
+					i.getImporteFormateado(),
+					i.getNombreTitular(),
+					i.getFechaFormateada(),
+					i.getHoraFormateada()
+					} ) );
+			}
+		
 		}
 
 		

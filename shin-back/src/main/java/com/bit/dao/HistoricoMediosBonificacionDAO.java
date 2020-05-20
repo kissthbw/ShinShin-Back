@@ -1,6 +1,7 @@
 package com.bit.dao;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.Usuario;
 import com.bit.model.dto.BonificacionItem;
+import com.bit.model.dto.BonificacionRecargaItemCSV;
 import com.bit.model.dto.Item;
 
 @Repository
@@ -178,26 +180,39 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT ");
+		sql.append("     m.id_catalogo_medio_bonificacion AS idTipo,");
 		sql.append("     c.nombre_medio_bonificacion AS tipo,");
 		sql.append("     h.fecha_bonificacion AS fecha,");
 		sql.append("     h.hora_bonificacion AS hora,");
 		sql.append("     h.cantidad_bonificacion AS importe,");
+		sql.append("     m.cuenta_medio_bonificacion AS cuentaMedioBonificacion,");
+		sql.append("     m.id_cuenta_medio_bonificacion AS id,");
+		sql.append("     u.nombre as nombreTitular,");
+		sql.append("     u.id_usuario as idUsuario,");
+
 //		sql.append("     h.id_historico_medios_bonificacion AS id,");
-		sql.append("     h.usuario_id_usuario AS idUsuario");
+		sql.append("     m.banco AS banco");
+		
 		sql.append(" FROM ");
 		sql.append(" 	historico_medios_bonificacion h");
+		sql.append(" 	INNER JOIN usuario u ON h.usuario_id_usuario=u.id_usuario");
 		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
 		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
-		sql.append(" WHERE h.fecha_bonificacion = :year");
-		sql.append(" AND c.id_catalogo_medio_bonificacion IN (:idCatalogo)");
-		
+		if(item!=null){
+			sql.append(" WHERE h.fecha_bonificacion = :year");
+			sql.append(" AND c.id_catalogo_medio_bonificacion IN (:idCatalogo)");
+		}else{
+			sql.append(" WHERE c.id_catalogo_medio_bonificacion IN (:idCatalogo)");
+		}
 		
 		
 		sql.append(" ORDER BY h.id_historico_medios_bonificacion DESC");
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() ).
 				setResultTransformer( (Transformers.aliasToBean(BonificacionItem.class)) );
-		q.setParameter("year", item.getFechaFormateada());
+		if(item!=null){
+			q.setParameter("year", item.getFechaFormateada());
+		}
 		q.setParameterList("idCatalogo", tipos);
 		
 		List<BonificacionItem> list = q.list();
@@ -509,6 +524,51 @@ public class HistoricoMediosBonificacionDAO extends DAOTemplate<HistoricoMediosB
 		q.setParameter("compania", compania);
 		
 		List<Item> list = q.list();
+		
+		return list;
+	}
+	
+	/**
+	 * 
+	 * @param fecha
+	 * @return
+	 */
+	public List<BonificacionRecargaItemCSV> obtieneDataReporteRecargas(Date fecha) {
+		
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append("    u.nombre AS usuario,");
+		sql.append("	m.compania_medio_bonificacion AS company,"); 
+		sql.append("	m.cuenta_medio_bonificacion AS numero,"); 
+		sql.append("    h.cantidad_bonificacion AS importe,"); 
+		sql.append("    h.fecha_bonificacion AS fecha,"); 
+		sql.append("    h.hora_bonificacion AS hora");
+		sql.append(" FROM ");
+		sql.append(" 	historico_medios_bonificacion h");
+		sql.append(" 	INNER JOIN usuario u ON u.id_usuario=h.usuario_id_usuario");
+		sql.append(" 	INNER JOIN medios_bonificacion m ON m.id_medios_bonificacion = h.id_medios_bonificacion");
+		sql.append(" 	INNER JOIN catalogo_medios_bonificacion c ON c.id_catalogo_medio_bonificacion = m.id_catalogo_medio_bonificacion");
+		if(fecha != null) {
+			sql.append(" WHERE h.fecha_bonificacion = :fecha");
+			sql.append(" 	AND c.id_catalogo_medio_bonificacion=3 ");
+		}
+		sql.append(" ORDER BY usuario ASC;");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString())
+				.addScalar("usuario", StandardBasicTypes.STRING)
+				.addScalar("company", StandardBasicTypes.STRING)
+				.addScalar("numero", StandardBasicTypes.STRING)
+				.addScalar("importe", StandardBasicTypes.DOUBLE)
+				.addScalar("fecha", StandardBasicTypes.DATE)
+				.addScalar("hora", StandardBasicTypes.DATE)
+				.setResultTransformer( (Transformers.aliasToBean(BonificacionRecargaItemCSV.class)) );
+		
+		if(fecha != null) {
+			q.setParameter("fecha", fecha);
+		}
+		
+		List<BonificacionRecargaItemCSV> list = q.list();
 		
 		return list;
 	}

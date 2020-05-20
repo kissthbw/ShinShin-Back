@@ -55,7 +55,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		Criteria criteriaCount = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		criteriaCount.setProjection(Projections.rowCount());
 		Long count = (Long) criteriaCount.uniqueResult();
-		
+		criteriaCount.add(Property.forName("active").eq(1));
 		return count;
 	}
 	
@@ -65,7 +65,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.setMaxResults( Integer.valueOf(max) );
 		c.setFirstResult( firstResult );
 		c.addOrder(Property.forName("idProducto").desc());
-
+		c.add(Property.forName("active").eq(1));
 		return c.list();
 	}
 	
@@ -74,7 +74,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.setMaxResults(50);
 		//c.add( Restrictions.eq("banner", true) );
 		c.addOrder(Property.forName("idProducto").desc());
-
+		c.add(Property.forName("active").eq(1));
 		return c.list();
 	}
 	
@@ -83,7 +83,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 //		dc.add(Restrictions.like("nombreProducto", "Laptop"));
 		c.createAlias("catalogoMarca", "marca");
 		c.add( Restrictions.eq("marca.nombreMarca", "Roku") );
-		
+		c.add(Property.forName("active").eq(1));
 		
 		return ((Criteria) c).list();
 	}
@@ -96,7 +96,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.add(Restrictions.like("nombreProducto", nombreProducto));
 		c.createAlias("catalogoMarca", "marca");
 		c.add(Restrictions.eq("marca.nombreMarca", marca));
-
+		c.add(Property.forName("active").eq(1));
 		return ((Criteria) c).list();
 	}
 
@@ -108,7 +108,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		c.add(Restrictions.like("nombreProducto", nombreProducto));
 		c.createAlias("catalogoTipoProducto", "tipoProducto");
 		c.add(Restrictions.eq("tipoProducto.nombreTipoProducto", tipoProducto));
-
+		c.add(Property.forName("active").eq(1));
 		return ((Criteria) c).list();
 	}
 
@@ -117,7 +117,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 		String tipoProducto = i;
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		c.add(Restrictions.like("nombreProducto", tipoProducto));
-
+		c.add(Property.forName("active").eq(1));
 		return ((Criteria) c).list();
 	}
 	
@@ -125,7 +125,7 @@ public class ProductoDAO extends DAOTemplate<Producto, Long> {
 	public List<Producto> getProductosPorIDYEmpresa(List<String> items) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(Producto.class);
 		c.add(Restrictions.in("nombreProducto", items));
-
+		c.add(Property.forName("active").eq(1));
 		return ((Criteria) c).list();
 	}
 	

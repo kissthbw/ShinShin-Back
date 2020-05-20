@@ -215,32 +215,38 @@
 									<tr>
 										<th>Id</th>
 										<th>Nombre</th>
+										<th>Contenido</th>
 										<!-- <th>Precio</th>  -->
 										<th>Bonificacion</th>
+										<th>Tipo</th>
 										<!--  <th>Imagen</th> -->
 										<th>Escaneos</th>
 
 										<!--<th class="disabled-sorting text-right"></th>-->
 									</tr>
 								</thead>
-								<!-- <tfoot>
+								<tfoot>
 									<tr>
-										<th>Id</th>
+                                        <th>Id</th>
 										<th>Nombre</th>
-										<th>Precio</th>
+										<th>Contenido</th>
+										<!-- <th>Precio</th>  -->
 										<th>Bonificacion</th>
-										<th>Imagen</th>
+										<th>Tipo</th>
+										<!--  <th>Imagen</th> -->
 										<th>Escaneos</th>
 
 										<th class="disabled-sorting text-right"></th>
 									</tr>
-								</tfoot> -->
+								</tfoot>
 								<tbody>
 									<th:block th:each="item : ${info.productos}">
 									<tr>
 										<td th:text="${item.idProducto}"></td>
 										<td th:text="${item.nombreProducto}"></td>
+										<td th:text="${item.contenido}"></td>
 										<td th:text="${item.totalBonificacion}"></td>
+										<td th:text="${item.TipoString}"></td>
 										<td th:text="${item.totalEscaneos}"></td>
 										<!--<td class="text-center"><a href="#"><i
 												class="fa fa-search" aria-hidden="true"></i></a></td>-->

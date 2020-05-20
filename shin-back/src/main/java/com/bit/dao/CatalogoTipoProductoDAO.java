@@ -38,7 +38,7 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 	
 	public BigInteger obtieneDepartamentosRegistrados() {
 		SQLQuery q = getSessionFactory().getCurrentSession().createSQLQuery(""
-				+ "SELECT COUNT(*) AS departamentos FROM catalogo_tipo_producto;");
+				+ "SELECT COUNT(*) AS departamentos FROM catalogo_tipo_producto where active=1;");
 		BigInteger total = (BigInteger)q.uniqueResult();
 		
 		return total;

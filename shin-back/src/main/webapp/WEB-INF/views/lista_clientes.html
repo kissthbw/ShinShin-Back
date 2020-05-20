@@ -1,31 +1,43 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="utf-8" />
 <link rel="shortcut icon"
 	th:href="@{/resources/home/img/brands/favicon.png}" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>Shing-Shing - Marcas</title>
+<title>Clientes | Shing-Shing</title>
 <meta
 	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
 	name='viewport' />
 <!--     Fonts and icons     -->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+<link
+	href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/build/toastr.css}" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+	rel="stylesheet" />
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet" />
 <!-- CSS Files -->
+<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/style-howDo.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/icons/css/fontello.css}" rel="stylesheet" />
 <link th:href="@{/resources/assets/css/bootstrap.min.css}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}" rel="stylesheet" />
-<link th:href="@{/resources/assets/css/style-panel.css}" rel="stylesheet"></link>
-
+<link th:href="@{/resources/assets/css/paper-dashboard.css?v=2.0.1}"
+	rel="stylesheet" />
 <!-- CSS Just for demo purpose, don't include it in your project -->
 <link th:href="@{/resources/assets/demo/demo.css}" rel="stylesheet" />
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:300,700,900&;display=swap"
+	rel="stylesheet" />
+<link th:href="@{/resources/assets/css/style-howDo.css}"
+	rel="stylesheet" />
 </head>
 
-<body class="">
+<body style="font-family: 'Nunito', sans-serif !important;">
 	<div class="wrapper ">
 		<div class="sidebar" data-color="white">
 			<div class="sidebar-wrapper">
@@ -35,10 +47,10 @@
 						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed"> <span th:text="${item.nombre}">
+								<!-- User -->
 								<b class="caret"></b>
-						</span>
+							</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
@@ -54,9 +66,9 @@
 					</a>
 						<div class="collapse show" id="catalogos">
 							<ul class="nav">
-								<li><a th:href="@{/portal-administrador/cliente/list}">
-									<span
-									class="sidebar-normal"> Clientes </span>
+								<li class="active"><a th:href="@{/portal-administrador/cliente/list}">
+										<span
+										class="sidebar-normal"> Clientes </span>
 								</a></li>
 								<li><a th:href="@{/portal-administrador/tienda/list}">
 										<span
@@ -66,7 +78,7 @@
 										<span
 										class="sidebar-normal"> Departamentos </span>
 								</a></li>
-								<li class="active"><a th:href="@{/portal-administrador/marca/list}">  <span
+								<li><a th:href="@{/portal-administrador/marca/list}">  <span
 										class="sidebar-normal"> Marcas </span>
 								</a></li>
 								<li><a
@@ -79,7 +91,7 @@
 					<a data-toggle="collapse" href="#bonificaciones"> <i
 							class="nc-icon icon-finanzas-dinero"></i>
 							<p>
-								Bonificaciones
+								Finanzas
 							</p>
 					</a>
 
@@ -139,79 +151,44 @@
 
 
 		<div class="main-panel">
-			<!-- Navbar -->
-			<nav
-				class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-				<div class="container-fluid">
-					<div class="navbar-wrapper">
-						<div class="navbar-minimize">
-							<button id="minimizeSidebar" class="btn btn-icon btn-round">
-								<i
-									class="nc-icon nc-minimal-right text-center visible-on-sidebar-mini"></i>
-								<i
-									class="nc-icon nc-minimal-left text-center visible-on-sidebar-regular"></i>
-							</button>
-						</div>
-						<div class="navbar-toggle">
-							<button type="button" class="navbar-toggler">
-								<span class="navbar-toggler-bar bar1"></span> <span
-									class="navbar-toggler-bar bar2"></span> <span
-									class="navbar-toggler-bar bar3"></span>
-							</button>
-						</div>
-						<a class="navbar-brand" href="#pablo">Catálogos</a>
-					</div>
-					<button class="navbar-toggler" type="button" data-toggle="collapse"
-						data-target="#navigation" aria-controls="navigation-index"
-						aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span> <span
-							class="navbar-toggler-bar navbar-kebab"></span>
-					</button>
-				</div>
-			</nav>
-
-			<!-- End Navbar -->
+			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Catálogos')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
 				<div class="row">
-
-					<!-- Marcas -->
 					<div class="col-md-12">
+						<b><h2 class="title-cat">Clientes</h2></b>
+						
 						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Marcas</h4>
-							</div>
+						
+
 							<div class="card-body">
 								<div class="toolbar">
 									<!--        Here you can write extra buttons/actions for the toolbar              -->
-									<a class="btn btn-primary" role="button"
-										aria-disabled="true"
-										th:href="@{/portal-administrador/marca/save}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
+									<a th:href="@{/portal-administrador/marca-admin/save}" class="btn btn-primary" role="button" aria-disabled="true"><i
+										 class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
 								</div>
-								<table id="datatable" class="table table-striped table-bordered"
-									cellspacing="0" width="100%">
+								<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
 									<thead>
 										<tr>
 											<th>Id</th>
+											<th>Correo</th>
 											<th>Marca</th>
 											<th class="disabled-sorting text-right">Actions</th>
 										</tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>Id</th>
-											<th>Marca</th>
-											<th class="disabled-sorting text-right">Actions</th>
-										</tr>
-									</tfoot>
 									<tbody>
-										<th:block th:each="item : ${marcas}">
+										<th:block th:each="item : ${proveedores}">
 											<tr>
-												<td th:text="${item.idCatalogoMarca}"></td>
-												<td th:text="${item.nombreMarca}"></td>
-												<td class="text-center"><a
-													th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">Ver</a>
+												<td th:text="${item.id}"></td>
+												<td th:text="${item.email}"></td>
+												<td th:text="${item.marca}"></td>
+												<td class="text-center">
+													<a th:href="@{'/portal-administrador/marca-admin/edit/' + ${item.id}}">
+														<span class="icon-accion-descargar"></span>
+													</a>
+													<a th:href="@{'/portal-administrador/marca-admin/edit/' + ${item.id}}">
+														Editar
+													</a>
 												</td>
 											</tr>
 										</th:block>
@@ -222,104 +199,59 @@
 						</div>
 						<!--  end card  -->
 					</div>
+					<!-- end col-md-12 -->
+				</div>
+				<!-- end row -->
 
-					<!-- Perfiles -->
+				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Perfiles</h4>
+
+							<div class="card-header ">
+								<h3 class="card-title">Marcas</h3>
 							</div>
-							<div class="toolbar">
-								<!--        Here you can write extra buttons/actions for the toolbar              -->
-								<a class="btn btn-primary" role="button"
-									aria-disabled="true"
-									th:href="@{/portal-administrador/marca/save}"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
-								<form>
-									<div class="input-group no-border col-4"
-										style="background-color: #f2f2f2 !important;">
-										<input type="text" value="" class="form-control"
-											placeholder="Buscador"
-											style="background-color: #f2f2f2 !important;"/>
-										<div class="input-group-append">
-											<div class="input-group-text"
-												style="background-color: #f2f2f2 !important;">
-												<i class="nc-icon nc-zoom-split"></i>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
+
 							<div class="card-body">
-								<table id="datatable" class="table table-striped table-bordered"
+								<div class="toolbar">
+									<!--        Here you can write extra buttons/actions for the toolbar              -->
+									<a th:href="@{/portal-administrador/marca/report}"
+										class="btn btn-secundary" role="button" aria-disabled="true">Reporte</a> <a th:href="@{/portal-administrador/marca/save}"
+										class="btn btn-primary" role="button" aria-disabled="true"><i
+										class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
+								</div>
+								<table id="datatable2" class="table table-striped table-bordered"
 									cellspacing="0" width="100%">
 									<thead>
 										<tr>
-											<th>#</th>
 											<th>Id</th>
 											<th>Marca</th>
-											<th>Correo</th>
-											<th>Contraseña</th>
-											<th class="text-right">Actions</th>
+											<th>Productos</th>
+											<th class="disabled-sorting text-right"></th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>um1</td>
-											<td>Bonafont</td>
-											<td>correo@dominio.com</td>
-											<td>hola2019</td>
-											<td class="text-right">
-												<button type="button" rel="tooltip"
-													class="btn btn-secondary btn-icon btn-sm "
-													data-original-title="" title="">
-													<i class="fa fa-pencil"></i>
-												</button>
-											</td>
-										</tr>
+										<th:block th:each="item : ${marcas}">
+											<tr>
+												<td th:text="${item.idCatalogoMarca}"></td>
+												<td th:text="${item.nombreMarca}"></td>
+												<td th:text="${item.products}"></td>
+												<td class="text-center">
+													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">
+														<span class="icon-accion-descargar"></span>
+													</a>
+													<a th:href="@{'/portal-administrador/marca/edit/' + ${item.idCatalogoMarca}}">
+														Editar
+													</a>
+												</td>
+											</tr>
+										</th:block>
 									</tbody>
 								</table>
-
-								<!-- Paginador -->
-								<div class="row">
-									<div class="col-sm-12 col-md-5">
-										<div class="dataTables_info" id="datatable_info" role="status"
-											aria-live="polite">Mostrando 1 a 1 de 1 resultados</div>
-									</div>
-									<div class="col-sm-12 col-md-7">
-										<div class="dataTables_paginate paging_full_numbers"
-											id="datatable_paginate">
-											<ul class="pagination">
-												<li class="paginate_button page-item first disabled"
-													id="datatable_first"><a href="#"
-													aria-controls="datatable" data-dt-idx="0" tabindex="0"
-													class="page-link"> Primero </a></li>
-												<li class="paginate_button page-item previous disabled"
-													id="datatable_previous"><a href="#"
-													aria-controls="datatable" data-dt-idx="1" tabindex="0"
-													class="page-link"> Previo </a></li>
-												<li class="paginate_button page-item active"><a
-													href="#" aria-controls="datatable" data-dt-idx="2"
-													tabindex="0" class="page-link"> 1 </a></li>
-												<li class="paginate_button page-item next disabled"
-													id="datatable_next"><a href="#"
-													aria-controls="datatable" data-dt-idx="3" tabindex="0"
-													class="page-link"> Siguiente </a></li>
-												<li class="paginate_button page-item last disabled"
-													id="datatable_last"><a href="#"
-													aria-controls="datatable" data-dt-idx="4" tabindex="0"
-													class="page-link"> Último </a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-
 							</div>
 							<!-- end content-->
 						</div>
 						<!--  end card  -->
 					</div>
-
 					<!-- end col-md-12 -->
 				</div>
 				<!-- end row -->
@@ -327,7 +259,7 @@
 			<footer class="footer footer-black  footer-white ">
 				<div class="container-fluid">
 					<div class="row">
-						
+
 
 						<div th:replace="administrador/fragments/form-reporte-problema::form-reporte-problema"></div>
 						<nav class="footer-nav">
@@ -361,8 +293,7 @@
 	<script th:src="@{/resources/assets/js/core/jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/popper.min.js}"></script>
 	<script th:src="@{/resources/assets/js/core/bootstrap.min.js}"></script>
-	<script
-		th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 	<script th:src="@{/resources/assets/js/plugins/moment.min.js}"></script>
 	<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
 	<script th:src="@{/resources/assets/js/plugins/bootstrap-switch.js}"></script>
@@ -371,48 +302,139 @@
 	<!-- Forms Validations Plugin -->
 	<script th:src="@{/resources/assets/js/plugins/jquery.validate.min.js}"></script>
 	<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.bootstrap-wizard.js}"></script>
 	<!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-selectpicker.js}"></script>
 	<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-datetimepicker.js}"></script>
 	<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery.dataTables.min.js}"></script>
 	<!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-	<script
-		th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-tagsinput.js}"></script>
 	<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-	<script
-		th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/jasny-bootstrap.min.js}"></script>
 	<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-	<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/fullcalendar.min.js}"></script>
 	<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/jquery-jvectormap.js}"></script>
 	<!--  Plugin for the Bootstrap Table -->
-	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
 	<!--  Google Maps Plugin    -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Chart JS -->
-	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
 	<!--  Notifications Plugin    -->
-	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js} "></script>
+	<script th:src="@{/resources/assets/js/plugins/bootstrap-notify.js}"></script>
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}"
-		type="text/javascript"></script>
+	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script th:src="@{/resources/assets/demo/demo.js} "></script>
+	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! 
   <script th:src="@{/assets/demo/demo.js}"></script>
--->
+  -->
 	<script>
-	<!--/catalogoTiendas/list -->
+		// <![CDATA[
+
+		var id = location.search;
+		var res = id.split("=");
+		console.log(parametroURL("id"));
+		console.log(parametroURL("type"));
+		var b = parametroURL("type");
+		var a = parseInt(res[1]);
+		var toasts = [];
+		if (a > 0) {
+			toastr.options = {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": false,
+				"positionClass": "toast-top-full-width",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			}
+			if (b == 1)
+				toasts = [new Toast('success', 'toast-top-full-width', '<b>De lujo</b>, Marca guardada.')];
+			else
+				if (b == 0)
+					toasts = [new Toast('success', 'toast-top-full-width', 'Aqui no paso nada, <b>Marca borrada.</b>')];
+				else
+					toasts = [new Toast('warning', 'toast-top-full-width', 'Uhmmm, algo no anda bien, <b>Intentalo más tarde.</b>')];
+			//alert();
+			window.setTimeout(function () { showToast(); }, 1);
+		}
+		//swal("Guardado Exitoso!", "Departamento id "+a+" modificado correctamente.", "success");
+		//swal("Borrado Exitoso!", "Departamento id "+a+" borrado correctamente.", "danger");	
+		console.log(res[1]);
+
+
+		function Toast(type, css, msg) {
+			this.type = type;
+			this.css = css;
+			this.msg = msg;
+		}
+
+		function showToast() {
+
+			var t = toasts[0];
+			toastr.options.positionClass = t.css;
+			toastr[t.type](t.msg);
+
+
+
+		}
+
+		function parametroURL(_par) {
+			var _p = null;
+			if (location.search) location.search.substr(1).split("&").forEach(function (pllv) {
+				var s = pllv.split("="), //separamos llave/valor
+					ll = s[0],
+					v = s[1] && decodeURIComponent(s[1]); //valor hacemos encode para prevenir url encode
+				if (ll == _par) { //solo nos interesa si es el nombre del parametro a buscar
+					if (_p == null) {
+						_p = v; //si es nula, quiere decir que no tiene valor, solo textual
+					} else if (Array.isArray(_p)) {
+						_p.push(v); //si ya es arreglo, agregamos este valor
+					} else {
+						_p = [_p, v]; //si no es arreglo, lo convertimos y agregamos este valor
+					}
+				}
+			});
+			return _p;
+		}
+		// ]]>
+
 		$(document).ready(
-				function() {
-					$('#datatable').DataTable(
+			function () {
+				$('#datatable').DataTable(
+					{
+						"pagingType": "full_numbers",
+						"lengthMenu": [[10, 25, 50, -1],
+						[10, 25, 50, "All"]],
+						responsive: true,
+						language: {
+							search: "_INPUT_",
+							searchPlaceholder: "Search records",
+						}
+
+					});
+
+					//Like record
+					table.on('click', '.like', function() {
+						alert('You clicked on Like button');
+					});
+					
+					//Table 2
+					$('#datatable2').DataTable(
 							{
 								"pagingType" : "full_numbers",
 								"lengthMenu" : [ [ 10, 25, 50, -1 ],
@@ -425,33 +447,34 @@
 
 							});
 
-					var table = $('#datatable').DataTable();
+					var table2 = $('#datatable2').DataTable();
 
 					// Edit record
-					table.on('click', '.edit', function() {
+					table2.on('click', '.edit', function() {
 						$tr = $(this).closest('tr');
 
-						var data = table.row($tr).data();
+						var data = table2.row($tr).data();
 						alert('You press on Row: ' + data[0] + ' ' + data[1]
 								+ ' ' + data[2] + '\'s row.');
 					});
 
 					// Delete a record
-					table.on('click', '.remove', function(e) {
+					table2.on('click', '.remove', function(e) {
 						$tr = $(this).closest('tr');
-						table.row($tr).remove().draw();
+						table2.row($tr).remove().draw();
 						e.preventDefault();
 					});
 
 					//Like record
-					table.on('click', '.like', function() {
+					table2.on('click', '.like', function() {
 						alert('You clicked on Like button');
 					});
-				});
+				}
+		);
 	</script>
 </body>
 
 </html>
- <script th:src="@{/resources/assets/build/toastr.min.js}"></script>
+<script th:src="@{/resources/assets/build/toastr.min.js}"></script>
 <script th:replace="administrador/fragments/form-reporte-problema::script-reporte-problema"></script>
 <script th:replace="administrador/fragments/toast::toast-config"></script>

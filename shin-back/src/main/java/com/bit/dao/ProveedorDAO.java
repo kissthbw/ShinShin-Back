@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.IntegerType;
 import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 
@@ -316,10 +317,12 @@ public class ProveedorDAO extends DAOTemplate<Proveedor, Long> {
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append("  SELECT ");
+		sql.append("	p.contenido AS contenido,");
 		sql.append("	p.id_producto AS idProducto,");
 		sql.append("	p.nombre_producto AS nombreProducto,");
 		sql.append("    COUNT( hb.producto_id_producto ) AS totalEscaneos,");
-		sql.append("    ( p.cantidad_bonificacion * COUNT( hb.producto_id_producto ) ) AS totalBonificacion");
+		sql.append("    ( p.cantidad_bonificacion * COUNT( hb.producto_id_producto ) ) AS totalBonificacion,");
+		sql.append("	p.banner AS banner");
 		sql.append("  FROM producto p");
 		sql.append("  LEFT JOIN historico_bonificaciones hb ON p.id_producto = hb.producto_id_producto");
 		sql.append("  WHERE p.id_catalogo_marca = :idMarca");
@@ -327,6 +330,8 @@ public class ProveedorDAO extends DAOTemplate<Proveedor, Long> {
 		
 		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
 				.addScalar("idProducto", StandardBasicTypes.LONG)
+				.addScalar("contenido", StandardBasicTypes.STRING)
+				.addScalar("banner", IntegerType.INSTANCE)
 				.addScalar("nombreProducto", StandardBasicTypes.STRING)
 				.addScalar("totalEscaneos", StandardBasicTypes.LONG)
 				.addScalar("totalBonificacion", StandardBasicTypes.DOUBLE)
