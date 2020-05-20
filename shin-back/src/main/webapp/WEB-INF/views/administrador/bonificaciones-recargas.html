@@ -198,7 +198,7 @@
 								</div>
 							</div>
 							<div class="card-footer">
-								<hr />
+								<!--<hr />
 								<div class="row">
 									<div class="col-sm-7">
 										<div class="footer-title">
@@ -213,7 +213,7 @@
 												Ver + </a>
 										</div>
 									</div>
-								</div>
+								</div>-->
 							</div>
 						</div>
 					</div>
@@ -254,7 +254,7 @@
 								</div>
 							</div>
 							<div class="card-footer">
-								<hr />
+								<!--<hr />
 								<div class="row">
 									<div class="col-sm-7">
 										<div class="footer-title">
@@ -263,7 +263,7 @@
 											</a>
 										</div>
 									</div>
-								</div>
+								</div>-->
 							</div>
 						</div>
 					</div>
@@ -301,7 +301,7 @@
 												<th>Fecha</th>
 												<th class="text-right">Solicitudes</th>
 												<th class="text-right">Importe</th>
-												<th class="text-right">Acciones</th>
+												<!--<th class="text-right"></th>-->
 											</tr>
 										</thead>
 										<tbody>
@@ -313,14 +313,9 @@
 													<td class="text-right" th:text="${item.importeFormateado}">$
 														99,999</td>
 													<td class="text-right"><a th:href="@{'/portal-administrador/bonificaciones-recargas-detalle/' + ${item.fechaFormateada}}">
-															<button type="button" rel="tooltip" class="btn btn-link btn-icon btn-sm " data-original-title="" title="">
-																<i class="fa fa-eye"></i>
-															</button>
+																<i class="icon-accion-ver" style="font-size:16px;"></i>
 														</a> <a th:href="@{'/portal-administrador/bonificaciones-recargas-detalle/report/' + ${item.fechaFormateada} + 'fn' + ${item.id}}">
-															<button type="button" rel="tooltip" class="btn btn-secondary btn-icon btn-sm " data-original-title=""
-															 title="">
-																<i class="fa fa-download"></i>
-															</button>
+																<i class="icon-accion-descargar" style="font-size:16px;"> </i>
 														</a></td>
 												</tr>
 											</th:block>

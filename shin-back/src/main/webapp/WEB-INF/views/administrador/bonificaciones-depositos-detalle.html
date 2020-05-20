@@ -37,10 +37,10 @@
 						<img th:src="${item.imgUrl} ? ${item.imgUrl} : ''" alt="..."></img>
 					</div>
 					<div class="info">
-						<a data-toggle="collapse" href="#collapseExample"
-							class="collapsed"> <span th:text="${item.nombre}"> <!-- User -->
+						<a data-toggle="collapse" href="#collapseExample" class="collapsed"> <span th:text="${item.nombre}">
+								<!-- User -->
 								<b class="caret"></b>
-						</span>
+							</span>
 						</a>
 						<div class="clearfix"></div>
 					</div>
@@ -84,9 +84,9 @@
 							<p>
 								Finanzas
 							</p>
-					</a>
+						</a>
 
-						<div class="collapse show" id="bonificaciones">
+						<div class="" id="bonificaciones">
 							<ul class="nav">
 								<li><a
 									th:href="@{/portal-administrador/bonificaciones-general}">
@@ -98,18 +98,19 @@
 										<span
 										class="sidebar-normal"> Medios bonificación </span>
 								</a></li>
-								<li><a
+								<li class="active"><a
 									th:href="@{/portal-administrador/bonificaciones-depositos}">
 										<span
 										class="sidebar-normal">Retiros</span>
 								</a></li>
-								<li class="active"><a
+								<li><a
 									th:href="@{/portal-administrador/bonificaciones-recargas}">
 										<span
 										class="sidebar-normal">Recargas</span>
 								</a></li>
 							</ul>
-						</div></li>
+						</div>
+					</li>
 
 					<li><a data-toggle="collapse" href="#estadisticas"> <i
 							class="nc-icon icon-simbolo-estadisticas"></i>
@@ -135,75 +136,6 @@
 										class="sidebar-normal">Usarios</span>
 								</a></li>
 							</ul>
-						</div></li>
-				</ul>
-			</div>
-		</div>
-
-						<div class="" id="bonificaciones">
-							<ul class="nav">
-								<li class="active">
-									<a th:href="@{/portal-administrador/bonificaciones-depositos}">
-										
-										<span class="sidebar-normal">Retiros</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-general}">
-										
-										<span class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/bonificaciones-recargas}">
-										
-										<span class="sidebar-normal">Recargas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/mediosBonificacion/list}">
-										
-										<span class="sidebar-normal"> Medios bonificacion </span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-
-					<li>
-						<a>
-							<i class="nc-icon nc-chart-bar-32"></i>
-							<p>
-								Estadisticas
-							</p>
-						</a>
-						<div class=" " id="estadisticas">
-							<ul class="nav">
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-general}">
-										
-										<span class="sidebar-normal">General</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-tickets}">
-										
-										<span class="sidebar-normal">Tickets</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-marcas}">
-										
-										<span class="sidebar-normal">Marcas</span>
-									</a>
-								</li>
-								<li>
-									<a th:href="@{/portal-administrador/estadisticas-usuarios}">
-										
-										<span class="sidebar-normal">Usarios</span>
-									</a>
-								</li>
-							</ul>
 						</div>
 					</li>
 				</ul>
@@ -212,23 +144,23 @@
 
 
 		<div class="main-panel">
-			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Bonificaciones')"></nav>
+			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Finanzas')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
 				<div class="row">
 					<div class="col-8">
 
 						<b>
-							<h4 class="title-cat"> <a th:href="@{/portal-administrador/bonificaciones-depositos}">Dep&oacute;sitos</a>/</h4>
+							<h2>Retiros</h2>
 						</b>
-						<h4 class="title-cat" th:text="${fileName}">db4122019</h3>
+						<h3 class="title-cat" th:text="${fileName}">db4122019</h3>
 
 
 					</div>
 					<div class="col-4 text-right">
-						<a th:href="@{'/portal-administrador/bonificaciones-depositos-detalle/report/' + ${fecha}}" class="btn btn-primary btn-sm"
+						<a th:href="@{'/portal-administrador/bonificaciones-depositos-detalle/report/' + ${fecha}}" class="btn btn-secundary"
 						 role="button" aria-disabled="true">
-							<i class="fa fa-download"></i> txt
+							Reporte
 						</a>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-6">
@@ -279,7 +211,7 @@
 							<div class="card-header"></div>
 							<div class="toolbar">
 								<!--        Here you can write extra buttons/actions for the toolbar              -->
-								<form>
+								<!--<form>
 									<div class="input-group no-border col-4" style="background-color: #f2f2f2 !important;">
 										<input type="text" value="" class="form-control" placeholder="Busca por ID" style="background-color: #f2f2f2 !important;" />
 										<div class="input-group-append">
@@ -288,7 +220,7 @@
 											</div>
 										</div>
 									</div>
-								</form>
+								</form> -->
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
