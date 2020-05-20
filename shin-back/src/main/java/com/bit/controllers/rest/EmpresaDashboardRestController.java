@@ -45,5 +45,24 @@ public class EmpresaDashboardRestController {
 		return rsp;
 	}
 	
+	/**
+	 * 
+	 * @param tipo, null si se requiere obtener consulta inicial, 1 para bonificaciones, 2 para para productos, 3 para usuarios
+	 * @param categoria, null si se requiere obtener consulta inicial, d para dia, s para semana, m para mes
+	 * @return
+	 */
+	@CrossOrigin
+	@GetMapping(value = "/charts/dashboard")
+	public @ResponseBody EstadisticasGeneralRSP obtieneEstadisticasEmpresaTopCP( @RequestParam String idMarca ) {
+		
+		log.info("Entrando a obtieneEstadisticasGeneral");
+		
+		Proveedor item = new Proveedor();
+		item.setId( Long.parseLong( idMarca ) );
+		
+		EstadisticasGeneralRSP rsp = proveedorService.obtieneEstadisticasEmpresaGeneral( item, tipo, categoria );
+
+		return rsp;
+	}
 	
 }

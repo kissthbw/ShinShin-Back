@@ -3,6 +3,7 @@ package com.bit.service;
 import java.util.List;
 
 import com.bit.model.Proveedor;
+import com.bit.model.dto.Item;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.InformacionDashboardProveedorRSP;
 
@@ -18,6 +19,8 @@ public interface ProveedorService {
 	 * @return
 	 */
 	EstadisticasGeneralRSP obtieneEstadisticasEmpresaGeneral( Proveedor item, String tipo, String categoria);
+	
+	List<Item> obtieneEstadisticasEmpresaTopCP( Proveedor item );
 	
 	public List<List<Object>> obtieneInfoReporteEmpresaGeneral( Proveedor item );
 	

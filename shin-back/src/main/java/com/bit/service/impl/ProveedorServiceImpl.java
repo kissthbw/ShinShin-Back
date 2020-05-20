@@ -215,6 +215,13 @@ public class ProveedorServiceImpl implements ProveedorService {
 		rsp.setTotalProductosEscaneadosMes(listaEscaneosMensuales);
 		*/
 	}
+	
+	@Override
+	@Transactional
+	public List<Item> obtieneEstadisticasEmpresaTopCP(Proveedor item) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	@Transactional
@@ -401,5 +408,6 @@ public class ProveedorServiceImpl implements ProveedorService {
 
 		
 		return rows;
-	}	
+	}
+	
 }
