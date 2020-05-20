@@ -145,22 +145,22 @@
 		<!--  -->
 
 		<div class="main-panel">
-			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Bonificaciones')"></nav>
+			<nav th:replace="administrador/fragments/panel::navbarPanel-fragment(title='Finanzas')"></nav>
 			<!-- <div class="panel-header"></div> -->
 			<div class="content">
 				<div class="row">
 					<div class="col-8">
 						<b>
-							<h3 class="title-cat">
-								<a th:href="@{/portal-administrador/bonificaciones-recargas}">Recargas</a>
-								<h3 class="title-cat" th:text="${fecha}">/ 4 /dic / 2019</h3>
-							</h3>
+							<h2>
+								Recargas
+								<h4 th:text="${fecha}"></h4>
+							</h2>
 						</b>
 					</div>
 					<div class="col-4 text-right">
-						<a th:href="@{'/portal-administrador/bonificaciones-recargas-detalle/report/' + ${fecha}}" class="btn btn-primary btn-sm"
+						<a th:href="@{'/portal-administrador/bonificaciones-recargas-detalle/report/' + ${fecha}}" class="btn btn-secundary"
 						 role="button" aria-disabled="true">
-							<i class="fa fa-download"></i> Resumen
+							Resumen
 						</a>
 					</div>
 
@@ -171,7 +171,7 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<form>
+								<!--<form>
 									<div class="input-group no-border col-4" style="background-color: #f2f2f2 !important;">
 										<input type="text" value="" class="form-control" placeholder="Buscador" style="background-color: #f2f2f2 !important;" />
 										<div class="input-group-append">
@@ -180,7 +180,7 @@
 											</div>
 										</div>
 									</div>
-								</form>
+								</form> -->
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
