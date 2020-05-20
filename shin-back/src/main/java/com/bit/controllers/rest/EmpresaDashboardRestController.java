@@ -1,5 +1,7 @@
 package com.bit.controllers.rest;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit.model.Proveedor;
+import com.bit.model.dto.Item;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.service.ProveedorService;
 
@@ -52,15 +55,15 @@ public class EmpresaDashboardRestController {
 	 * @return
 	 */
 	@CrossOrigin
-	@GetMapping(value = "/charts/dashboard")
-	public @ResponseBody EstadisticasGeneralRSP obtieneEstadisticasEmpresaTopCP( @RequestParam String idMarca ) {
+	@GetMapping(value = "/charts/dashboard-usuario")
+	public @ResponseBody List<Item> obtieneEstadisticasEmpresaTopCP( @RequestParam String idMarca ) {
 		
 		log.info("Entrando a obtieneEstadisticasGeneral");
 		
 		Proveedor item = new Proveedor();
 		item.setId( Long.parseLong( idMarca ) );
 		
-		EstadisticasGeneralRSP rsp = proveedorService.obtieneEstadisticasEmpresaGeneral( item, tipo, categoria );
+		List<Item> rsp = proveedorService.obtieneEstadisticasEmpresaTopCP(item);
 
 		return rsp;
 	}

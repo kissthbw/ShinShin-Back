@@ -14,11 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.communication.CloundinaryService;
+import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.ProductoDAO;
 import com.bit.dao.ProductoFavoritoDAO;
 import com.bit.dao.ProductoValoracionDAO;
 import com.bit.dao.ProductosTiendasDAO;
 import com.bit.dao.SugerenciaProductoDAO;
+import com.bit.exception.CommunicationException;
 import com.bit.model.CatalogoMarca;
 import com.bit.model.CatalogoTienda;
 import com.bit.model.CatalogoTipoProducto;
@@ -28,12 +30,14 @@ import com.bit.model.ProductoValoracion;
 import com.bit.model.ProductosTiendas;
 import com.bit.model.SugerenciaProducto;
 import com.bit.model.Usuario;
+import com.bit.model.dto.EMailDTO;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.DetalleProducoRSP;
 import com.bit.model.dto.response.ListItemsRSP;
 import com.bit.model.report.ProductoReport;
 import com.bit.service.ProductoService;
 import com.cloudinary.utils.ObjectUtils;
+import com.sendgrid.helpers.mail.objects.Personalization;
 
 @Service
 public class ProductoServiceImpl implements ProductoService {
@@ -57,6 +61,9 @@ public class ProductoServiceImpl implements ProductoService {
 	
 	@Autowired
 	private ProductoValoracionDAO productoValoracionDAO;
+	
+	@Autowired
+	private MediosComunicacionService mediosComunicacionService;
 	
 	@Override
 	@Transactional
@@ -548,6 +555,24 @@ public class ProductoServiceImpl implements ProductoService {
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setCode(200);
 		rsp.setMessage("Exito");
+		
+		EMailDTO data = new EMailDTO();
+		data.setSubject( "Nueva sugerencia de producto" );
+		data.setToAccount( "contacto@tradenial.com" );
+//		data.setToAccount( "kissthbw@gmail.com" );
+		
+		Personalization personalization = new Personalization();
+
+		
+		personalization.addDynamicTemplateData("link", item.getNombreProducto());		
+		data.setPersonalization( personalization );
+		data.setTemplateId("d-053e00bef38e47d7a143572ebdeb26f7");
+
+		try {
+			mediosComunicacionService.sendCustomEmail(data);
+		} catch (CommunicationException e) {
+			log.error("", e);
+		}
 		
 		sugerenciaProductoDAO.save(item);
 		return rsp;

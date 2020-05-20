@@ -480,6 +480,25 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 		if( null != temp ) {
 			temp.setEstatus(2);//1: Activo, 2: Eliminado, 3: Suspendido 
+			
+			EMailDTO data = new EMailDTO();
+			data.setSubject( "Usuario dado de baja" );
+			data.setToAccount( "contacto@tradenial.com" );
+//			data.setToAccount( "kissthbw@gmail.com" );
+			
+			Personalization personalization = new Personalization();
+
+			
+			personalization.addDynamicTemplateData("link", temp.getUsuario());		
+			data.setPersonalization( personalization );
+			data.setTemplateId("d-ffad3f7b67f14b62952b763e9548f63e");
+
+			try {
+				mediosComunicacionService.sendCustomEmail(data);
+			} catch (CommunicationException e) {
+				log.error("", e);
+			}
+			
 		}
 		else {
 			rsp.setMessage("Usuario no existe");

@@ -12,6 +12,7 @@ public class EMailDTO implements Serializable {
 	private String subject;
 	private String body;
 	private Personalization personalization = new Personalization();
+	private String templateId;
 
 	public String getToAccount() {
 		return toAccount;
@@ -43,6 +44,14 @@ public class EMailDTO implements Serializable {
 
 	public void setPersonalization(Personalization personalization) {
 		this.personalization = personalization;
+	}
+
+	public String getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(String templateId) {
+		this.templateId = templateId;
 	}
 
 }

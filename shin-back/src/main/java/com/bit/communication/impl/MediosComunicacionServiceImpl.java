@@ -178,9 +178,9 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		return rsp;
 	
 	}
-
+	
 	@Override
-	public SimpleResponse sendWithdrawalRequestEmail(EMailDTO data) throws CommunicationException {
+	public SimpleResponse sendCustomEmail(EMailDTO data) throws CommunicationException {
 
 		log.info( "Enviando EMail con solicitud de retiro" );
 
@@ -195,6 +195,62 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		to.setName( "Shing Shing" );
 		to.setEmail( data.getToAccount() );
 		data.getPersonalization().addTo(to);
+
+		// 3. Asunto del correo, definir un titulo constante
+		String subject = data.getSubject();
+
+		// 4. Definir el contenido del correo
+		Mail mail = new Mail();
+		mail.setFrom(from);
+		mail.setSubject(subject);
+		
+		mail.setTemplateId( data.getTemplateId() );
+		mail.addPersonalization(data.getPersonalization());
+
+		SendGrid sg = new SendGrid("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");
+		Request request = new Request();
+		try {
+			request.setMethod(Method.POST);
+			request.setEndpoint("mail/send");
+			request.setBody(mail.build());
+			Response response = sg.api(request);
+			rsp.setCode(response.getStatusCode());
+			rsp.setMessage(response.getBody());
+
+			System.out.println(response.getStatusCode());
+			System.out.println(response.getBody());
+			System.out.println(response.getHeaders());
+		} catch (IOException e) {
+			log.error( "", e );
+			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
+		}
+
+		return rsp;
+	
+	}
+
+	@Override
+	public SimpleResponse sendWithdrawalRequestEmail(EMailDTO data) throws CommunicationException {
+
+		log.info( "Enviando EMail con solicitud de retiro" );
+
+		SimpleResponse rsp = new SimpleResponse();
+//		Personalization personalization = new Personalization();
+			
+		// 1. Correo del emisor, debe ser de la cuenta del cliente
+		Email from = new Email("contacto@tradenial.com");
+
+		// 2. Correo del usuario que se registro
+		Email to = new Email();
+		to.setName( "Administrador" );
+		to.setEmail( data.getToAccount() );
+		
+		Email cc = new Email();
+		cc.setName( "Soporte" );
+		cc.setEmail( "soporte@tradenial.com" );
+		
+		data.getPersonalization().addTo(to);
+		data.getPersonalization().addCc(cc);
 
 		// 3. Asunto del correo, definir un titulo constante
 		String subject = data.getSubject();
@@ -231,5 +287,4 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		return rsp;
 	
 	}
-
 }
