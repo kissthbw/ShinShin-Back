@@ -183,7 +183,7 @@ public class EmpresaDashboardController {
 
 			CSVExporter csv = new CSVExporterImpl();
 			
-			String [] headers = {"Id", "Nombre", "Bonificacion", "Escaneos"};
+			String [] headers = {"Id", "Nombre", "Contenido", "Bonificacion", "Tipo", "Escaneos"};
 			
 			try {
 				csv.writeCSV(response.getWriter(), headers, rows);

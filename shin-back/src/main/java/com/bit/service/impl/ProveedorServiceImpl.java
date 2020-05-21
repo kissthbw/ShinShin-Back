@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.type.IntegerType;
+import org.hibernate.type.StandardBasicTypes;
 import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -356,7 +358,13 @@ public class ProveedorServiceImpl implements ProveedorService {
 	public List<List<Object>> obtieneInfoReporteEmpresaProductos(Proveedor item) {
 		List<List<Object>> rows = new ArrayList<>();
 		
+//		List<Producto> list = proveedorDAO.obtieneListaProductosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		
 		List<Producto> list = proveedorDAO.obtieneListaProductosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		for(Producto i : list){
+				i.setTipoString(TipoString(i.getBanner()));
+				log.info("Contenido"+i.getContenido());
+		}
 		
 		//Formatear fecha dd-MMM-yyyy
 		//Formatear solicitudes y bonificaciones
@@ -365,7 +373,9 @@ public class ProveedorServiceImpl implements ProveedorService {
 			rows.add( Arrays.asList( new Object[] {
 					i.getIdProducto(),
 					i.getNombreProducto(), 
+					i.getContenido(),
 					i.getTotalBonificacion(),
+					i.getTipoString(),
 					i.getTotalEscaneos()
 					} ) );
 		}
