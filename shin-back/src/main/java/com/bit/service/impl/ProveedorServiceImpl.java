@@ -223,8 +223,12 @@ public class ProveedorServiceImpl implements ProveedorService {
 	@Override
 	@Transactional
 	public List<Item> obtieneEstadisticasEmpresaTopCP(Proveedor item) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Item> list = new ArrayList<>();
+		list = proveedorDAO.obtieneEstadisticasEmpresaTopCP( item.getMarca().getIdCatalogoMarca() );
+		
+		return list;
+		
 	}
 
 	@Override

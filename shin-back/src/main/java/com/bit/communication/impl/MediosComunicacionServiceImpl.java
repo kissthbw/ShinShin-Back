@@ -112,7 +112,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 			rsp.setMessage(message.getSid());
 		} catch (Exception e) {
 			log.error( "", e );
-			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
+			throw new CommunicationException("Error en el envio de sms", e.getCause(), -1);
 		}
 
 		return rsp;
@@ -260,7 +260,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		mail.setFrom(from);
 		mail.setSubject(subject);
 		
-		mail.setTemplateId("d-3dab48a2b7c34746aa27b29b7be99682");
+		mail.setTemplateId( data.getTemplateId() );
 		mail.addPersonalization(data.getPersonalization());
 
 //		Map<String, String> envs = System.getenv();

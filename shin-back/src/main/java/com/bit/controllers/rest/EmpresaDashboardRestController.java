@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bit.model.CatalogoMarca;
 import com.bit.model.Proveedor;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
@@ -62,6 +63,9 @@ public class EmpresaDashboardRestController {
 		
 		Proveedor item = new Proveedor();
 		item.setId( Long.parseLong( idMarca ) );
+		CatalogoMarca cm = new CatalogoMarca();
+		cm.setIdCatalogoMarca( Long.parseLong( idMarca ) );
+		item.setMarca(cm);
 		
 		List<Item> rsp = proveedorService.obtieneEstadisticasEmpresaTopCP(item);
 

@@ -12,6 +12,7 @@ import com.bit.communication.FireBaseAdmin;
 import com.bit.communication.MediosComunicacionService;
 import com.bit.dao.HistoricoMediosBonificacionDAO;
 import com.bit.dao.MediosBonificacionDAO;
+import com.bit.dao.CatalogoMediosBonificacionDAO.MedioBonificacionID;
 import com.bit.exception.CommunicationException;
 import com.bit.model.HistoricoMediosBonificacion;
 import com.bit.model.MediosBonificacion;
@@ -120,18 +121,37 @@ public class HistoricoMediosBonificacionServiceImpl implements HistoricoMediosBo
 			EMailDTO data = new EMailDTO();
 			data.setSubject( "Solicitud de retiro" );
 			data.setToAccount( "roberto.guadarrama@tradenial.com" );
-			
 			Personalization personalization = new Personalization();
-
 			
-			personalization.addDynamicTemplateData("usuario", u.getUsuario());
-			personalization.addDynamicTemplateData("monto", item.getCantidadBonificacion());
-			personalization.addDynamicTemplateData("tipo", mb.getCatalogoMediosBonificacion().getNombreMedioBonificacion());
-			personalization.addDynamicTemplateData("cuenta", mb.getCuentaMedioBonificacion());
+			if( mb.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == MedioBonificacionID.BANCARIA.value() ) {
+				data.setTemplateId("d-3dab48a2b7c34746aa27b29b7be99682");
+				personalization.addDynamicTemplateData("usuario", u.getUsuario());
+				personalization.addDynamicTemplateData("monto", item.getCantidadBonificacion());
+				personalization.addDynamicTemplateData("banco", mb.getBanco());
+				personalization.addDynamicTemplateData("cuenta", mb.getCuentaMedioBonificacion());
+			}
+			else if( mb.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == MedioBonificacionID.PAYPAL.value() ) {
+				data.setTemplateId("d-b983c08fb7014173b18030da65ce505d");
+				personalization.addDynamicTemplateData("usuario", u.getUsuario());
+				personalization.addDynamicTemplateData("monto", item.getCantidadBonificacion());
+				personalization.addDynamicTemplateData("cuenta", mb.getCuentaMedioBonificacion());
+			}
+			else if( mb.getCatalogoMediosBonificacion().getIdCatalogoMedioBonificacion() == MedioBonificacionID.RECARGA.value() ){
+				data.setTemplateId("d-bcc804412b4847c0b44df3a54c6cfa2b");
+				personalization.addDynamicTemplateData("usuario", u.getUsuario());
+				personalization.addDynamicTemplateData("monto", item.getCantidadBonificacion());
+				personalization.addDynamicTemplateData("company", mb.getCompaniaMedioBonificacion());
+				personalization.addDynamicTemplateData("cuenta", mb.getCuentaMedioBonificacion());
+			}
+			
+			
+			
+			
+			
 			data.setPersonalization( personalization );
 			
 			StringBuilder text = new StringBuilder();
-			text.append( "EL usuario" );
+			text.append( "El usuario" );
 			
 			data.setBody( "" );
 			try {

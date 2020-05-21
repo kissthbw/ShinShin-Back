@@ -72,19 +72,19 @@ var estadisticas_general = {
 					//Finanzas(Bonificaciones), Productos, Usuarios
 					$.each(result.totalBonificacionesDias, function(index, item) {
 						bonificacionesData.push(item.importe)
-						bonificacionesLabel.push(item.topico)
+						bonificacionesLabel.push("D " + item.indice)
 						
 					});
-
+					
 					$.each(result.totalEscaneosDias, function(index, item) {
 						escaneosData.push(item.total)
-						escaneosLabel.push(item.topico)
+						escaneosLabel.push("D " + item.indice)
 						
 					});
 					
 					$.each(result.totalUsuariosDias, function(index, item) {
 						usuariosData.push(item.total)
-						usuariosLabel.push(item.topico)
+						usuariosLabel.push("D " + item.indice)
 						
 					});
 					
@@ -115,10 +115,10 @@ var estadisticas_general = {
 					window.finanzasChart = new Chart(ctx, {
 						type: 'bar',
 						data: {
-							labels: escaneosLabel,
+							labels: bonificacionesLabel,
 							datasets: [{
 								label: '#',
-								data: escaneosData,
+								data: bonificacionesData,
 								backgroundColor: chartBackground,
 								borderColor: chartBackgroundBorder,
 								borderWidth: 1
@@ -140,10 +140,10 @@ var estadisticas_general = {
 					window.productosChart = new Chart(ctx, {
 						type: 'bar',
 						data: {
-							labels: bonificacionesLabel,
+							labels: escaneosLabel,
 							datasets: [{
 								label: '#',
-								data: bonificacionesData,
+								data: escaneosData,
 								backgroundColor: chartBackground,
 								borderColor: chartBackgroundBorder,
 								borderWidth: 1
@@ -365,7 +365,7 @@ var estadisticas_general = {
 				
 
 				$.each(result.totalBonificacionesDias, function(index, item) {
-					usuariosData.push(item.total)
+					usuariosData.push(item.importe)
 					usuarioslabel.push("D " + item.indice)
 					
 				});
@@ -408,7 +408,7 @@ var estadisticas_general = {
 				
 
 				$.each(result.totalBonificacionesSemana, function(index, item) {
-					usuariosData.push(item.total)
+					usuariosData.push(item.importe)
 					usuarioslabel.push("Semana " + item.indice)
 					
 				});
@@ -497,6 +497,7 @@ var estadisticas_general = {
 				
 
 				$.each(result.totalEscaneosDias, function(index, item) {
+					
 					usuariosData.push(item.total)
 					usuarioslabel.push("D " + item.indice)
 					

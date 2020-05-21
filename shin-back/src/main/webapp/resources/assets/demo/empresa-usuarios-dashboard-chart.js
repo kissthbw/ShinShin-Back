@@ -28,8 +28,8 @@ var chartBackgroundBorder = [
 	'rgba(250, 159, 64, 1)'
 ]
 
-var url = 'http://www.shingshing.com'
-//var url = 'http://localhost:8080/shin-back'
+//var url = 'http://www.shingshing.com'
+var url = 'http://localhost:8080/shin-back'
 
 var estadisticas_usuario = {
 		
@@ -38,28 +38,13 @@ var estadisticas_usuario = {
 			//http://www.shingshing.com
 			//www.shingshing.com
 			
-			//usuarios
-			//dia: total, indice
-			//semana: total, indice
-			//mes: total, indice o topico
-			
-			//bonificaciones
-			//dia: importe, indice
-			//semana: importe, indice
-			//mes: importe, indide o  topico
-			
-			//productos
-			//dia: total, indice
-			//semana: total, indice
-			//mes: total, indice o topico
-			
 			var str = $("#marca.idCatalogoMarca").val();
 			var idMarca = $("#idMarca").val();
 			var params = "?idMarca=" + idMarca;
 			//console.log( "Proveedor: " + str + " - " + v1 );
 			
 			$.ajax({
-				url : url + "/estadisticas/empresa/charts/dashboard" + params,
+				url : url + "/estadisticas/empresa/charts/dashboard-usuario" + params,
 				dataType : "json",
 				success : function(result) {
 
@@ -67,9 +52,9 @@ var estadisticas_usuario = {
 					var data=[], label=[];
 
 					//Finanzas(Bonificaciones), Productos, Usuarios
-					$.each(result.totalBonificacionesDias, function(index, item) {
-						data.push(item.importe)
-						label.push(item.topico)
+					$.each(result, function(index, item) {
+						data.push(item.total)
+						label.push(item.titulo)
 						
 					});
 					

@@ -46,6 +46,7 @@
 						<a data-toggle="collapse" href="#collapseExample"
 							class="collapsed"> <span id="marcaID"  th:text="${item.marca.nombreMarca}"> <b class="caret"></b>
 						</span>
+						<input type="hidden" id="idMarca" th:value="${item.marca.idCatalogoMarca}"></input>
 						</a>
 						<div class="clearfix"></div>
 						<div class="collapse" id="collapseExample">
@@ -448,7 +449,6 @@
 	<!--  Plugin for the Bootstrap Table -->
 	<script th:src="@{/resources/assets/js/plugins/nouislider.min.js}"></script>
 	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 	<!-- Chart JS -->
 	<script th:src="@{/resources/assets/js/plugins/chartjs.min.js}"></script>
 	<!--  Notifications Plugin    -->
@@ -456,7 +456,7 @@
 	<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 	<script th:src="@{/resources/assets/js/paper-dashboard.min.js?v=2.0.1}" type="text/javascript"></script>
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script th:src="@{/resources/assets/demo/demo.js}"></script>
+	<script th:src="@{/resources/assets/demo/empresa-usuarios-dashboard-chart.js}"></script>
 	<script>
 		$(document).ready(
 
@@ -473,29 +473,6 @@
 						}
 
 					});
-
-				var table = $('#datatable').DataTable();
-
-				// Edit record
-				table.on('click', '.edit', function () {
-					$tr = $(this).closest('tr');
-
-					var data = table.row($tr).data();
-					alert('You press on Row: ' + data[0] + ' ' + data[1]
-						+ ' ' + data[2] + '\'s row.');
-				});
-
-				// Delete a record
-				table.on('click', '.remove', function (e) {
-					$tr = $(this).closest('tr');
-					table.row($tr).remove().draw();
-					e.preventDefault();
-				});
-
-				//Like record
-				table.on('click', '.like', function () {
-					alert('You clicked on Like button');
-				});
 
 			});
 	</script>
