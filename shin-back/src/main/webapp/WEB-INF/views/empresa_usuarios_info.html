@@ -84,54 +84,7 @@
 					<li class="active"><a th:href="@{/portal-empresa/usuarios}"> <i class="icon-shingshing-dashboard-marcas_cuentas-icon"></i>
 							<p>Usuarios</p>
 						</a></li>
-					<!-- Las opciones del menu debe ir entre <li></li> -->
-					<!-- 
-          <li>
-            <a data-toggle="collapse" href="#catalogos">
-              <i class="nc-icon nc-ruler-pencil"></i>
-              <p>
-                Catalogos
-                <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="catalogos">
-              <ul class="nav">
-                <li>
-                	
-                  <a th:href="@{/catalogos/departamento/save}">
-                    <span class="sidebar-mini-icon">D</span>
-                    <span class="sidebar-normal"> Departamentos </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/catalogos/marca/save}">
-                    <span class="sidebar-mini-icon">M</span>
-                    <span class="sidebar-normal"> Marcas </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/catalogos/tienda/save}">
-                    <span class="sidebar-mini-icon">T</span>
-                    <span class="sidebar-normal"> Tiendas </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/catalogos/medioBonificacion/save}">
-                    <span class="sidebar-mini-icon">MB</span>
-                    <span class="sidebar-normal"> Medios Bonificacion </span>
-                  </a>
-                </li>
-                <li>
-                  <a th:href="@{/catalogos/producto/save}">
-                    <span class="sidebar-mini-icon">P</span>
-                    <span class="sidebar-normal"> Productos </span>
-                  </a>
-                </li>
-                
-              </ul>
-            </div>
-          </li>
-          -->
+
 				</ul>
 			</div>
 		</div>
@@ -139,13 +92,7 @@
 		<div class="main-panel">
 			<!-- Navbar -->
 			<nav th:replace="administrador/fragments/panel::navbarPanel-empresa-fragment(title='Dashboard')"></nav>
-			<!-- End Navbar -->
-			<!-- <div class="panel-header">
-  
-  <canvas id="bigDashboardChart"></canvas>
-  
-  
-</div> -->
+
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12 mt15 row">
@@ -153,7 +100,7 @@
 							<h3 class="title-cat">Informacion Usuario</h3>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-
+								<a class="btn btn-primary float-right" role="button" aria-disabled="true" href="/shin-back/portal-empresa/usuarios/report">Resumen</a>
 						</div>
 
 					</div>
@@ -161,22 +108,21 @@
 
 						<form id="formPerfil" class="form-horizontal" method="post" th:object="${item}" enctype="multipart/form-data">
 
-							<div class="card card-perfil">
+							<div class="card card-perfil pb-10">
 
 								<!-- IMG Perfil -->
-								<div style="width: 50px;">
+								<div>
 									<a href="#">
-										<div class="img-perfil"><span class="icon-simbolo-usuario"></span>
+										<div class="img-perfil img-center"><span class="icon-simbolo-usuario"></span>
 											<!-- 
 												<img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
 											 -->
 										</div>
-										<div class="img-perfil-btn"><span class="icon-simbolo-mas"></span></div>
 									</a>
 								</div>
 
 
-								<div class="row mt-40">
+								<div class="row mt-20">
 
 									<!-- Izquierda -->
 									<div class="col-12">
@@ -185,79 +131,59 @@
 											<div class="row">
 
 												<!-- Nombre -->
-												<div class="col-6">
-													<label class="label-default col-12">Nombre *</label>
-													<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name"
-													 aria-describedby="basic-addon1" required="true" />
-													<div class="invalid-feedback">
-														Ingresa tu nombre.
-													</div>
+												<div class="col-12 text-center">
+													<label class="col-12 strong">VARIABLE</label>
 												</div>
 
-												<!-- Correo -->
-												<div class="col-6">
-													<label class="label-default col-12">Correo *</label>
-													<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name"
-													 aria-describedby="basic-addon1" required="true" />
-													<div class="invalid-feedback">
-														Ingresa tu nombre.
-													</div>
-												</div>
 											</div>
 										</div>
-
+										<hr class="mb-0" />
 										<!-- Número -->
-										<div class="col-12 mt-16">
-											<label class="label-default col-12">Número</label>
-											<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name" aria-describedby="basic-addon1"
-											 required="true" />
-											<div class="invalid-feedback">
-												Ingresa tu nombre.
+										<div class="row">
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
+											</div>
+
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
 											</div>
 										</div>
-
-										<!-- Cumpleaños -->
-										<div class="col-12 mt-24">
-											<h5>Cumpleaños *</h5>
+										<hr class="mb-0" />
 											<div class="row">
-												<div class="col-4">
-													<label class="label-default col-12">Día</label>
-
-													<div class="invalid-feedback">
-														Ingresa tu nombre.
-													</div>
-												</div>
-												<div class="col-4">
-													<label class="label-default col-12">Mes</label>
-
-													<div class="invalid-feedback">Elige un mes.</div>
-												</div>
-												<div class="col-4">
-													<label class="label-default col-12">Año</label>
-
-													<div class="invalid-feedback">Elige un a&ntilde;o.</div>
-												</div>
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
 											</div>
-										</div>
 
-										<!-- Sexo -->
-										<div class="col-12 mt-16">
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
+											</div>
+											</div>
+											<hr class="mb-0" />
 											<div class="row">
-												<div class="col-6">
-													<label class="label-default col-12">Sexo *</label>
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
+											</div>
 
-													<div class="invalid-feedback">Elige una
-														opci&oacute;n.</div>
-												</div>
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
+											</div>
+									</div>
+									<hr class="mb-0" />
+											<div class="row">
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">VARIABLE</label>
+											</div>
 
-												<div class="col-6">
-													<label class="label-default col-12">Código Postal</label>
-													<input type="text" class="form-control input-grey col-12" placeholder="" aria-label="Name"
-													 aria-describedby="basic-addon1" required="true" />
-													<div class="invalid-feedback">
-														Ingresa tu nombre.
-													</div>
-												</div>
+											<div class="col-6 mt-16 text-center">
+												<label class="col-12 strong">LABEL</label>
+												<label class="col-12 strong">LABEL</label>
 											</div>
 										</div>
 
@@ -276,70 +202,70 @@
 										<div class="row">
 											<div class="col-5 col-md-4">
 												<div class="icon-big text-center icon-warning gray">
-													<i class="nc-icon nc-bank text-warning"></i>
+													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
 												</div>
 											</div>
 											<div class="col-7 col-md-8">
 												<div class="numbers">
-													<p class="card-category">Productos en App</p>
-													<p class="card-title">6</p>
+													<p class="card-category">Retiros</p>
+													<p class="card-title">999,999</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 mt-16">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="card card-stats">
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-5 col-md-4">
 												<div class="icon-big text-center icon-warning gray">
-													<i class="nc-icon nc-bank text-warning"></i>
+													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
 												</div>
 											</div>
 											<div class="col-7 col-md-8">
 												<div class="numbers">
-													<p class="card-category">Productos en App</p>
-													<p class="card-title">6</p>
+													<p class="card-category">Tickets</p>
+													<p class="card-title">999,999</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 mt-16">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="card card-stats">
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-5 col-md-4">
 												<div class="icon-big text-center icon-warning gray">
-													<i class="nc-icon nc-bank text-warning"></i>
+													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
 												</div>
 											</div>
 											<div class="col-7 col-md-8">
 												<div class="numbers">
-													<p class="card-category">Productos en App</p>
-													<p class="card-title">6</p>
+													<p class="card-category">Prod. escaneados</p>
+													<p class="card-title">999,999</p>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12 mt-16">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="card card-stats">
 									<div class="card-body ">
 										<div class="row">
 											<div class="col-5 col-md-4">
 												<div class="icon-big text-center icon-warning gray">
-													<i class="nc-icon nc-bank text-warning"></i>
+													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
 												</div>
 											</div>
 											<div class="col-7 col-md-8">
 												<div class="numbers">
-													<p class="card-category">Productos en App</p>
-													<p class="card-title">6</p>
+													<p class="card-category">Saldo</p>
+													<p class="card-title">999,999</p>
 												</div>
 											</div>
 										</div>
@@ -350,8 +276,213 @@
 					</div>
 				</div>
 
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="card card-stats">
 
+						<div class="card-body">
+
+							<div class="col-md-12 col-lg-12 col-sm-12">
+								<b>
+									<h3 class="mb-0">Movimientos</h3>
+								</b>
+							</div>
+						</div>
+						<div class="card-body">
+							<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+								<li id="dayFinanzasBtn" class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+									 role="tab" aria-controls="pills-home" aria-selected="true">Retiros</a></li>
+
+								<li id="monthFinanzasBtn" class="nav-item"><a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+									 role="tab" aria-controls="pills-contact" aria-selected="false">Tickets</a></li>
+							</ul>
+							<hr/>
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									<table id="datatable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tipo</th>
+												<th>Fecha</th>
+												<th>Importe</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>ID</th>
+												<th>Tipo</th>
+												<th>Fecha</th>
+												<th>Importe</th>
+
+											</tr>
+										</tfoot>
+										<tbody>
+
+											<tr>
+												<td>RB-UI-10-01012020</td>
+												<td>Bancario</td>
+												<td>01/mar/2020</td>
+												<td>$500</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="tab-pane" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+									<table id="datatable1" class="table table-striped table-bordered" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Tipo</th>
+												<th>Fecha</th>
+												<th>Importe</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>ID</th>
+												<th>Tipo</th>
+												<th>Fecha</th>
+												<th>Importe</th>
+
+											</tr>
+										</tfoot>
+										<tbody>
+
+											<tr>
+												<td>PP-UI-10-01012020</td>
+												<td>PAYPAL</td>
+												<td>01/mar/2020</td>
+												<td>$500</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="card card-stats">
+						<div class="card-body">
+
+							<div class="col-md-12 col-lg-12 col-sm-12">
+								<b>
+									<h3 class="mb-0">Marcas</h3>
+								</b>
+							</div>
+						</div>
+
+						<hr />
+
+
+						<div class="card-body">
+
+
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+										</div>
+										<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+										</div>
+									</div>
+									<canvas id="marcasChart" width="558" height="256" class="chartjs-render-monitor" style="display: block; height: 128px; width: 279px;"></canvas>
+								</div>
+
+							</div>
+						</div>
+						<div class="card-footer">
+
+							<div class="row"></div>
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="card card-stats">
+						<div class="card-body">
+
+							<div class="col-md-12 col-lg-12 col-sm-12">
+								<b>
+									<h3 class="mb-0">Departamentos</h3>
+								</b>
+							</div>
+						</div>
+
+						<hr />
+
+
+						<div class="card-body">
+
+
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+										</div>
+										<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+										</div>
+									</div>
+									<canvas id="marcasChart" width="558" height="256" class="chartjs-render-monitor" style="display: block; height: 128px; width: 279px;"></canvas>
+								</div>
+
+							</div>
+						</div>
+						<div class="card-footer">
+
+							<div class="row"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="card card-stats">
+						<div class="card-body">
+
+							<div class="col-md-12 col-lg-12 col-sm-12">
+								<b>
+									<h3 class="mb-0">Tiendas</h3>
+								</b>
+							</div>
+						</div>
+
+						<hr />
+
+
+						<div class="card-body">
+
+
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+									<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+										<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
+										</div>
+										<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+											<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
+										</div>
+									</div>
+									<canvas id="marcasChart" width="558" height="256" class="chartjs-render-monitor" style="display: block; height: 128px; width: 279px;"></canvas>
+								</div>
+
+							</div>
+						</div>
+						<div class="card-footer">
+
+							<div class="row"></div>
+						</div>
+					</div>
+				</div>
 			</div>
+
 
 
 			<footer class="footer footer-black  footer-white ">
@@ -438,6 +569,42 @@
 
 				//Like record
 				table.on('click', '.like', function () {
+					alert('You clicked on Like button');
+				});
+
+				$('#datatable1').DataTable(
+					{
+						"pagingType": "full_numbers",
+						"lengthMenu": [[10, 25, 50, -1],
+						[10, 25, 50, "Todas"]],
+						responsive: true,
+						language: {
+							search: "_INPUT_",
+							searchPlaceholder: "Busqueda",
+						}
+
+					});
+
+				var table1 = $('#datatable1').DataTable();
+
+				// Edit record
+				table1.on('click', '.edit', function () {
+					$tr = $(this).closest('tr');
+
+					var data1 = table1.row($tr).data();
+					alert('You press on Row: ' + data[0] + ' ' + data[1]
+						+ ' ' + data[2] + '\'s row.');
+				});
+
+				// Delete a record
+				table1.on('click', '.remove', function (e) {
+					$tr = $(this).closest('tr');
+					table1.row($tr).remove().draw();
+					e.preventDefault();
+				});
+
+				//Like record
+				table1.on('click', '.like', function () {
 					alert('You clicked on Like button');
 				});
 

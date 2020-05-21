@@ -7,7 +7,7 @@
 #
 # Host: shinshin.cvvjdff1wc6u.us-east-2.rds.amazonaws.com (MySQL 5.7.22-log)
 # Base de datos: ShinShin
-# Tiempo de Generaci�n: 2020-05-17 17:57:00 +0000
+# Tiempo de Generaci�n: 2020-05-20 23:49:27 +0000
 # ************************************************************
 
 
@@ -513,7 +513,8 @@ INSERT INTO `fotografias_ticket` (`id`, `id_ticket`, `url_foto_ticket`)
 VALUES
 	(1,86,'http://res.cloudinary.com/shingshing/image/upload/v1588571312/shingshing/tickets/86-0.jpg'),
 	(2,87,'http://res.cloudinary.com/shingshing/image/upload/v1588571469/shingshing/tickets/87-0.jpg'),
-	(3,88,'http://res.cloudinary.com/shingshing/image/upload/v1588732771/shingshing/tickets/88-0.jpg');
+	(3,88,'http://res.cloudinary.com/shingshing/image/upload/v1588732771/shingshing/tickets/88-0.jpg'),
+	(4,92,'http://res.cloudinary.com/shingshing/image/upload/v1589930872/shingshing/tickets/92-0.jpg');
 
 /*!40000 ALTER TABLE `fotografias_ticket` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1144,7 +1145,14 @@ VALUES
 	(87,89),
 	(87,89),
 	(87,89),
-	(88,96);
+	(88,96),
+	(89,44),
+	(90,97),
+	(90,99),
+	(90,100),
+	(90,103),
+	(91,44),
+	(92,106);
 
 /*!40000 ALTER TABLE `historico_bonificaciones` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1209,7 +1217,12 @@ VALUES
 	(37,'2020-05-05','13:05:55',100,191,42),
 	(38,'2020-05-05',NULL,10,128,2),
 	(39,'2020-05-05',NULL,500,191,42),
-	(40,'2020-05-05',NULL,10,199,42);
+	(40,'2020-05-05',NULL,10,199,42),
+	(41,'2020-05-19','01:49:46',10,151,2),
+	(42,'2020-05-19','05:10:20',0,155,42),
+	(43,'2020-05-19','05:10:58',100,155,42),
+	(44,'2020-05-19','05:11:04',100,189,42),
+	(45,'2020-05-19','19:28:00',0,151,2);
 
 /*!40000 ALTER TABLE `historico_medios_bonificacion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1275,7 +1288,11 @@ VALUES
 	(42,85),
 	(42,86),
 	(42,87),
-	(88,88);
+	(88,88),
+	(2,89),
+	(42,90),
+	(84,91),
+	(2,92);
 
 /*!40000 ALTER TABLE `historico_tickets` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1378,7 +1395,26 @@ VALUES
 	(196,'Personal','5534714616','Telcel',3,NULL,NULL,117,NULL,1,NULL),
 	(197,'black','4521 6632 0800 6321',NULL,1,NULL,NULL,88,3,2,'SANTANDER'),
 	(198,'qs','5549442851','Telcel',3,NULL,NULL,88,NULL,1,NULL),
-	(199,'cuenta fake ','5550679875','Virgin Mobile',3,NULL,NULL,42,NULL,1,NULL);
+	(199,'cuenta fake ','5550679875','Virgin Mobile',3,NULL,NULL,42,NULL,1,NULL),
+	(200,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(201,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(202,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(203,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(204,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(205,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(206,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(207,'Cliente','5579209097631234',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(208,'Tarjeta','5579209097634248',NULL,1,NULL,NULL,2,1,1,'Scottiabank'),
+	(209,'t','1234567891234567',NULL,1,NULL,NULL,2,1,1,'Afirme'),
+	(210,'12345','1234567891234567',NULL,1,NULL,NULL,2,1,1,'Afirme'),
+	(211,'tarjeta','12345678912345678',NULL,1,NULL,NULL,2,1,1,'Afirme'),
+	(212,'asdasd','1234567891234567',NULL,1,NULL,NULL,2,1,1,'Banbajio'),
+	(213,'sjnl','1234567891234567',NULL,1,NULL,NULL,2,1,1,'Afirme'),
+	(214,'sjnl','1234567891234567',NULL,1,NULL,NULL,2,1,1,'Afirme'),
+	(215,'onlk','1234678912345',NULL,1,NULL,NULL,2,1,1,'Afirme'),
+	(216,'edgar','ergar_16@hotmail.com',NULL,2,NULL,'123456789',2,NULL,1,NULL),
+	(217,'erick uriel','e',NULL,1,NULL,NULL,42,1,1,'Scottiabank'),
+	(218,'erick uriel','e',NULL,1,NULL,NULL,42,1,1,'Scottiabank');
 
 /*!40000 ALTER TABLE `medios_bonificacion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1556,7 +1592,9 @@ VALUES
 	(101,'*Papel Higiénico Pétalo 12 rollos',0,NULL,NULL,'12 rollos','Papel higiénico Pétalo',0,NULL,NULL,10,2,'#4AD8B6',15,17,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1589428323/shingshing/productos/%2APapel%20Higi%C3%A9nico%20P%C3%A9talo%2012%20rollos.png',1),
 	(102,'*Salsa Inglesa',0,NULL,NULL,'145 ml','Salsa inglesa Crosse & Blackwell',0,NULL,NULL,3,2,'#F39D40',61,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1589428512/shingshing/productos/Salsa%20Inglesa.png',1),
 	(103,'*Salsa Valentina',0,NULL,NULL,'370 ml','Salsa Valentina',0,NULL,NULL,2,2,'#F37F00',62,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1589428655/shingshing/productos/Salsa%20Valentina.png',1),
-	(104,'*Tostadas Charras',0,NULL,NULL,'300 g','Tostadas Charras',0,NULL,NULL,2,3,'#F3DB00',63,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1589428796/shingshing/productos/%2ATostadas%20Charras.png',1);
+	(104,'*Tostadas Charras',0,NULL,NULL,'300 g','Tostadas Charras',0,NULL,NULL,2,3,'#F3DB00',63,1,NULL,'http://res.cloudinary.com/shingshing/image/upload/v1589428796/shingshing/productos/%2ATostadas%20Charras.png',1),
+	(105,'Demoo',0,NULL,NULL,'1 l','2345678',0,NULL,NULL,5,2,'#C396FF',41,16,NULL,'',0),
+	(106,'Salsa de tomate',0,NULL,NULL,'750','Salsa de tomate para pizza',0,NULL,NULL,5,3,'#DF275B',10,1,NULL,'',1);
 
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1598,7 +1636,8 @@ VALUES
 	(28,42,90),
 	(29,42,96),
 	(30,119,96),
-	(31,88,96);
+	(31,88,96),
+	(37,107,103);
 
 /*!40000 ALTER TABLE `producto_favorito` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1652,7 +1691,17 @@ VALUES
 	(23,0,'',96,84),
 	(24,0,'',83,84),
 	(25,0,'',94,84),
-	(26,0,'',95,84);
+	(26,0,'',95,84),
+	(27,3,'',104,107),
+	(28,2,'',103,107),
+	(29,0,'',104,84),
+	(30,0,'',101,84),
+	(31,0,'',103,84),
+	(32,0,'',104,106),
+	(33,0,'',103,106),
+	(34,0,'',93,106),
+	(35,0,'',104,101),
+	(36,0,'',104,2);
 
 /*!40000 ALTER TABLE `producto_valoracion` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2470,7 +2519,31 @@ VALUES
 	(798,'',104,7),
 	(799,'',104,4),
 	(800,'',104,3),
-	(801,'',104,1);
+	(801,'',104,1),
+	(802,'123456789',105,22),
+	(803,'',105,21),
+	(804,'',105,20),
+	(805,'',105,18),
+	(806,'',105,17),
+	(807,'',105,16),
+	(808,'',105,14),
+	(809,'',105,13),
+	(810,'',105,7),
+	(811,'',105,4),
+	(812,'',105,3),
+	(813,'',105,1),
+	(814,'',106,22),
+	(815,'',106,21),
+	(816,'',106,20),
+	(817,'',106,18),
+	(818,'',106,17),
+	(819,'',106,16),
+	(820,'',106,14),
+	(821,'',106,13),
+	(822,'',106,7),
+	(823,'',106,4),
+	(824,'7501006586640 SALSA VEGE',106,3),
+	(825,'',106,1);
 
 /*!40000 ALTER TABLE `productos_tiendas` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2501,7 +2574,7 @@ VALUES
 	(1,NULL,'kissthbw@gmail.com','kissthbw',7,1),
 	(2,NULL,'kissthbw@hotmail.com','12345678',15,1),
 	(3,NULL,'lab92mx@gmail.com','123456789',14,1),
-	(4,NULL,'8ures92@gmail.com','12345678',36,1),
+	(4,NULL,'8ures92@gmail.com','12345678',46,1),
 	(5,NULL,'lau.81002@gmail.com','12345678',46,1),
 	(6,NULL,'delriocidj@gmail.com','12345678',46,1),
 	(7,NULL,'roberto.guadarrama@ymail.com','12345678',46,1);
@@ -2609,59 +2682,66 @@ CREATE TABLE `ticket` (
   `ticket_transaccion` varchar(45) DEFAULT NULL,
   `ticket_fecha` varchar(10) DEFAULT NULL,
   `ticket_hora` varchar(16) DEFAULT NULL,
+  `ticket_code_bar` varchar(45) DEFAULT NULL,
+  `ticket_cp_tienda` varchar(5) DEFAULT NULL,
+  `ticket_cp_fiscal` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`id_ticket`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
 
-INSERT INTO `ticket` (`id_ticket`, `nombre_tienda`, `sucursal`, `fecha`, `hora`, `subtotal`, `iva`, `total`, `ticket_tienda`, `ticket_subtienda`, `ticket_transaccion`, `ticket_fecha`, `ticket_hora`)
+INSERT INTO `ticket` (`id_ticket`, `nombre_tienda`, `sucursal`, `fecha`, `hora`, `subtotal`, `iva`, `total`, `ticket_tienda`, `ticket_subtienda`, `ticket_transaccion`, `ticket_fecha`, `ticket_hora`, `ticket_code_bar`, `ticket_cp_tienda`, `ticket_cp_fiscal`)
 VALUES
-	(44,'Grupo Walmart','Plaza Jardin','2019-07-04','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08103','20/07/19','11:04'),
-	(45,'Grupo Walmart','Plaza Jardin','2019-12-04','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08104','20/07/19','11:04'),
-	(46,'Grupo Walmart','Plaza Jardin','2019-12-05','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08105','20/07/19','11:04'),
-	(47,'Grupo Walmart','Plaza Jardin','2019-05-21','19:18:01',91.56,17.44,109,NULL,NULL,NULL,NULL,NULL),
-	(48,'Grupo Walmart','Plaza Jardin','2020-01-20','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08106','20/01/20','11:04'),
-	(49,'Oxxo','Plaza Jardin','2020-01-20','13:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#003TR#08107','20/01/20','11:10'),
-	(50,'Oxxo','Plaza Jardin','2019-12-20','13:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#003TR#08007','19/12/20','11:10'),
-	(51,'Grupo Walmart','Plaza Jardin','2019-05-21','22:37:07',91.56,17.44,109,NULL,NULL,NULL,NULL,NULL),
-	(52,'WALMART','','2020-03-11',NULL,2,0,2,'WALMART',NULL,'TDA#2229OP#00000027TE#002TR#07528','',''),
-	(53,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00001','28/04/20','15:34'),
-	(54,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00002','28/04/20','15:34'),
-	(55,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00003','28/04/20','15:34'),
-	(56,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00004','28/04/20','15:34'),
-	(57,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00005','28/04/20','15:34'),
-	(58,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00006','28/04/20','15:34'),
-	(59,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#0000','28/04/20','15:34'),
-	(60,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00007','28/04/20','15:34'),
-	(61,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00008','28/04/20','15:34'),
-	(62,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00009','28/04/20','15:34'),
-	(63,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00010','28/04/20','15:34'),
-	(64,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00011','28/04/20','15:34'),
-	(65,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00012','28/04/20','15:34'),
-	(66,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00013','28/04/20','15:34'),
-	(67,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00014','28/04/20','15:34'),
-	(68,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00015','28/04/20','15:34'),
-	(69,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00016','28/04/20','15:34'),
-	(70,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00017','28/04/20','15:34'),
-	(71,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00018','28/04/20','15:49'),
-	(72,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00019','28/04/20','15:49'),
-	(73,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00020','28/04/20','15:49'),
-	(74,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00021','28/04/20','15:49'),
-	(75,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00022','28/04/20','15:49'),
-	(76,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00023','28/04/20','15:49'),
-	(77,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00024','28/04/20','15:49'),
-	(78,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00025','28/04/20','15:49'),
-	(79,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00026','28/04/20','15:49'),
-	(80,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00027','28/04/20','15:49'),
-	(81,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00028','28/04/20','15:54'),
-	(82,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00029','28/04/20','15:54'),
-	(83,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00030','28/04/20','15:54'),
-	(84,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00031','28/04/20','15:54'),
-	(85,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00032','28/04/20','15:54'),
-	(86,'WALMART','','2020-05-04',NULL,12,0,12,'WALMART',NULL,'TDA#3851OP#00000022TE#010TR#07562','',''),
-	(87,'WALMART','','2020-05-04',NULL,2692,0,2692,'WALMART',NULL,'TDA#3851OP#00000022TE#010TR#07561','',''),
-	(88,'WALMART','','2020-05-05',NULL,100,0,100,'WALMART',NULL,'TDA#3840OP#00000015TE#005TR#01407','','');
+	(44,'Grupo Walmart','Plaza Jardin','2019-07-04','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08103','20/07/19','11:04',NULL,NULL,NULL),
+	(45,'Grupo Walmart','Plaza Jardin','2019-12-04','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08104','20/07/19','11:04',NULL,NULL,NULL),
+	(46,'Grupo Walmart','Plaza Jardin','2019-12-05','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08105','20/07/19','11:04',NULL,NULL,NULL),
+	(47,'Grupo Walmart','Plaza Jardin','2019-05-21','19:18:01',91.56,17.44,109,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(48,'Grupo Walmart','Plaza Jardin','2020-01-20','13:18:09',91.56,17.44,109,'WALMART','','TDA#2670OP#00000214TE#003TR#08106','20/01/20','11:04',NULL,NULL,NULL),
+	(49,'Oxxo','Plaza Jardin','2020-01-20','13:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#003TR#08107','20/01/20','11:10',NULL,NULL,NULL),
+	(50,'Oxxo','Plaza Jardin','2019-12-20','13:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#003TR#08007','19/12/20','11:10',NULL,NULL,NULL),
+	(51,'Grupo Walmart','Plaza Jardin','2019-05-21','22:37:07',91.56,17.44,109,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(52,'WALMART','','2020-03-11',NULL,2,0,2,'WALMART',NULL,'TDA#2229OP#00000027TE#002TR#07528','','',NULL,NULL,NULL),
+	(53,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00001','28/04/20','15:34',NULL,NULL,NULL),
+	(54,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00002','28/04/20','15:34',NULL,NULL,NULL),
+	(55,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00003','28/04/20','15:34',NULL,NULL,NULL),
+	(56,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00004','28/04/20','15:34',NULL,NULL,NULL),
+	(57,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00005','28/04/20','15:34',NULL,NULL,NULL),
+	(58,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00006','28/04/20','15:34',NULL,NULL,NULL),
+	(59,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#0000','28/04/20','15:34',NULL,NULL,NULL),
+	(60,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00007','28/04/20','15:34',NULL,NULL,NULL),
+	(61,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00008','28/04/20','15:34',NULL,NULL,NULL),
+	(62,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00009','28/04/20','15:34',NULL,NULL,NULL),
+	(63,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00010','28/04/20','15:34',NULL,NULL,NULL),
+	(64,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00011','28/04/20','15:34',NULL,NULL,NULL),
+	(65,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00012','28/04/20','15:34',NULL,NULL,NULL),
+	(66,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00013','28/04/20','15:34',NULL,NULL,NULL),
+	(67,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00014','28/04/20','15:34',NULL,NULL,NULL),
+	(68,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00015','28/04/20','15:34',NULL,NULL,NULL),
+	(69,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00016','28/04/20','15:34',NULL,NULL,NULL),
+	(70,'Oxxo','Plaza Jardin','2020-04-20','15:18:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00017','28/04/20','15:34',NULL,NULL,NULL),
+	(71,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00018','28/04/20','15:49',NULL,NULL,NULL),
+	(72,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00019','28/04/20','15:49',NULL,NULL,NULL),
+	(73,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00020','28/04/20','15:49',NULL,NULL,NULL),
+	(74,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00021','28/04/20','15:49',NULL,NULL,NULL),
+	(75,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00022','28/04/20','15:49',NULL,NULL,NULL),
+	(76,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00023','28/04/20','15:49',NULL,NULL,NULL),
+	(77,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00024','28/04/20','15:49',NULL,NULL,NULL),
+	(78,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00025','28/04/20','15:49',NULL,NULL,NULL),
+	(79,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00026','28/04/20','15:49',NULL,NULL,NULL),
+	(80,'Oxxo','Plaza Jardin','2020-04-20','15:49:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00027','28/04/20','15:49',NULL,NULL,NULL),
+	(81,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00028','28/04/20','15:54',NULL,NULL,NULL),
+	(82,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00029','28/04/20','15:54',NULL,NULL,NULL),
+	(83,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00030','28/04/20','15:54',NULL,NULL,NULL),
+	(84,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00031','28/04/20','15:54',NULL,NULL,NULL),
+	(85,'Oxxo','Plaza Jardin','2020-04-20','15:54:10',91.56,17.44,109,'Oxxo','','TDA#2670OP#00000214TE#028TR#00032','28/04/20','15:54',NULL,NULL,NULL),
+	(86,'WALMART','','2020-05-04',NULL,12,0,12,'WALMART',NULL,'TDA#3851OP#00000022TE#010TR#07562','','',NULL,NULL,NULL),
+	(87,'WALMART','','2020-05-04',NULL,2692,0,2692,'WALMART',NULL,'TDA#3851OP#00000022TE#010TR#07561','','',NULL,NULL,NULL),
+	(88,'WALMART','','2020-05-05',NULL,100,0,100,'WALMART',NULL,'TDA#3840OP#00000015TE#005TR#01407','','',NULL,NULL,NULL),
+	(89,'WALMART','','2020-05-18',NULL,2,0,2,'WALMART',NULL,'TDA#2229OP#00000027TE#002TR#07628','','',NULL,NULL,NULL),
+	(90,'SORIANA','','2020-05-18',NULL,11,0,11,'SORIANA',NULL,'547151546','13/05/2020','18:03:05',NULL,NULL,NULL),
+	(91,'WALMART','','2020-05-19',NULL,2,0,2,'WALMART','','00000000000','','','12345678ABCD',NULL,NULL),
+	(92,'WALMART','','2020-05-19',NULL,5,0,5,'WALMART',NULL,'TDA#2079OP#00000065TE#009TR#06086','','','6CTUC$Z3MX9D72KW',NULL,NULL);
 
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2764,7 +2844,7 @@ LOCK TABLES `usuario` WRITE;
 INSERT INTO `usuario` (`id_usuario`, `nombre`, `ap_paterno`, `ap_materno`, `fecha_nac`, `foto_usuario`, `tel_movil`, `correo_electronico`, `usuario`, `contrasenia`, `calle`, `num_ext`, `num_int`, `colonia`, `codigo_postal`, `del_mun`, `estado`, `estatus_activacion`, `codigo_verificacion`, `id_catalogo_sexo`, `id_catalogo_red_social`, `estatus`, `img_url`, `hash`, `password_restore_link`, `time_restore_link`, `activation_link`, `fecha_registro`, `device_token`)
 VALUES
 	(2,'Juan Oso',NULL,NULL,'1983-09-11',NULL,'+5215534714616','kissthbw@gmail.com','kissthbw@gmail.com','kiss2101',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'6941',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1588269864/shingshing/usuarios/2.jpg','0cec40c1ba68e43ddc243e6a1f53418580c3fb1edf637e4111c9acc17d0886de','1afc9e2948e53965bd348f6988f4562606d1a2bc524a2a48312ef82ce024e30d','2020-05-01 22:32:38',NULL,'2019-07-10 18:04:50','cuTUqRUOqBQ:APA91bGitoCjnWK11Va1FZG_2G8Bly-C9HoVI9cfOJxz74KgBZB8050NBomOEmAMIj-48OIpvPB7Zjd5L7gG5OTWPWrGIEb1N43FG5ACwicZPns7RGEXTYL95jpPgDFvEVAl0XcMITUI'),
-	(42,'Erick Alvarezz',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','12345678',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1588520977/shingshing/usuarios/42.jpg','ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f','b53a8ed52d290d791d7df82821a1f42555cc08c48fbfba7f0138ef021e53fc9c','2020-05-04 22:02:46',NULL,'2020-01-10 19:04:50','eOH1GQT-Xz4:APA91bEDR7LMUaQp4bRTkxQYpkGm9fKf-H7vAGzlBWlOuyBn1b4eHm4UQY-ycXlcsB_tdmGSLXnDQkTqp--CRWdFdVoBa73tLQm64_0y59mNps9lA_Ou8Z0GUVRkmtWSFqE7NcOEwIwe'),
+	(42,'Erick Alvarezz',NULL,NULL,'1992-02-15',NULL,'+5215550679875','lab92mx@gmail.com','lab92mx@gmail.com','123456789',NULL,NULL,NULL,NULL,'57800',NULL,NULL,1,'7543',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1588520977/shingshing/usuarios/42.jpg','15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225','b53a8ed52d290d791d7df82821a1f42555cc08c48fbfba7f0138ef021e53fc9c','2020-05-04 22:02:46',NULL,'2020-01-10 19:04:50','eOH1GQT-Xz4:APA91bEDR7LMUaQp4bRTkxQYpkGm9fKf-H7vAGzlBWlOuyBn1b4eHm4UQY-ycXlcsB_tdmGSLXnDQkTqp--CRWdFdVoBa73tLQm64_0y59mNps9lA_Ou8Z0GUVRkmtWSFqE7NcOEwIwe'),
 	(59,'Juan Osorio Alvarez',NULL,NULL,'1983-09-11',NULL,'+5215555555551','juan.osorio@gmail.com','juan.osorio@gmail.com','shingshing',NULL,NULL,NULL,NULL,'57300',NULL,NULL,0,'7650',1,NULL,1,NULL,'df755c8f8edb665735260649c15691f8ea668045f0048673545f9035debb95c9',NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
 	(73,'Roberto',NULL,NULL,'1990-09-17',NULL,'+5215520777555','roberto.htamayo@gmail.com','roberto.htamayo@gmail.com','robe2019',NULL,NULL,NULL,NULL,'14030',NULL,NULL,1,'3958',1,NULL,1,NULL,'8308506504be11dd0dccc8e4c8ee0c14ecc73c67ea2df1b4cf9fc71144686265','1e086d4e01679504d27cda152dc9cf213a0287674fcb9afcb0f3a8ea0567dd4d','2020-03-24 02:51:11',NULL,'2020-01-10 19:04:50',NULL),
 	(81,'Juan Osorio Alvarez',NULL,NULL,'1970-01-01',NULL,'+5215555555555','kissthbw@hotmail.com','kissthbw@hotmail.com','kissthbw@hotmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-01-10 19:04:50',NULL),
@@ -2799,7 +2879,8 @@ VALUES
 	(112,'erick',NULL,NULL,'1992-02-15',NULL,'+5215531813109','hello@lab92.mx','hello@lab92.mx','12345678',NULL,NULL,NULL,NULL,'08100',NULL,NULL,1,'5161',1,NULL,1,NULL,'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f',NULL,NULL,NULL,'2020-04-21 04:56:24',NULL),
 	(117,'Paola Patricia ',NULL,NULL,'1982-10-10',NULL,'+5215548998389','beyota_paola@hotmail.com','beyota_paola@hotmail.com','10PAOLA10',NULL,NULL,NULL,NULL,'57300',NULL,NULL,1,'8667',1,NULL,1,'http://res.cloudinary.com/shingshing/image/upload/v1588361864/shingshing/usuarios/117.jpg','c293f727c75868bc0dd3fc067b4f1d384710b6dc0cc18315c5c3a8162a2f9ccd','1c427835ca0f71fe90ebcc77eb0be4a2b32af44e49d5dd18ab646091de715b05','2020-05-01 22:43:13',NULL,'2020-05-01 15:51:10','cuTUqRUOqBQ:APA91bGitoCjnWK11Va1FZG_2G8Bly-C9HoVI9cfOJxz74KgBZB8050NBomOEmAMIj-48OIpvPB7Zjd5L7gG5OTWPWrGIEb1N43FG5ACwicZPns7RGEXTYL95jpPgDFvEVAl0XcMITUI'),
 	(118,'Laura Aguirre',NULL,NULL,'1970-01-01',NULL,NULL,'lau.aguirre810@gmail.com','lau.aguirre810@gmail.com','lau.aguirre810@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-05-04 00:17:27',NULL),
-	(119,'Jorge Del Rio C',NULL,NULL,'1970-01-01',NULL,NULL,'delriocidj@yahoo.com','delriocidj@yahoo.com','delriocidj@yahoo.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,0,'4069',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-05-05 01:14:13','fTl3gwZHLak:APA91bHK3WsrjOAUxN5zyJTrJarPB_hawJkaxcHomtsg8cP-6wIlIvUMAr7HfukxKo4MaV_t8GM6MIB-sQ6ARgtAFWVD64M9Qb6q7VMpfanwr3ZlLqemM_5m1FTg2pgT6zmjtpYFHmSW');
+	(119,'Jorge Del Rio C',NULL,NULL,'1970-01-01',NULL,NULL,'delriocidj@yahoo.com','delriocidj@yahoo.com','delriocidj@yahoo.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,0,'4069',3,2,1,NULL,NULL,NULL,NULL,NULL,'2020-05-05 01:14:13','fTl3gwZHLak:APA91bHK3WsrjOAUxN5zyJTrJarPB_hawJkaxcHomtsg8cP-6wIlIvUMAr7HfukxKo4MaV_t8GM6MIB-sQ6ARgtAFWVD64M9Qb6q7VMpfanwr3ZlLqemM_5m1FTg2pgT6zmjtpYFHmSW'),
+	(120,'Martin Nava Rivero',NULL,NULL,'1970-01-01',NULL,NULL,'martinnava426@gmail.com','martinnava426@gmail.com','martinnava426@gmail.com',NULL,NULL,NULL,NULL,'00000',NULL,NULL,1,'0000',3,1,1,NULL,NULL,NULL,NULL,NULL,'2020-05-20 05:59:13',NULL);
 
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
