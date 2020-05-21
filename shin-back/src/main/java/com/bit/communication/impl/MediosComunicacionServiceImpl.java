@@ -28,7 +28,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 
 	// Mover a variables de ambiente o archivo de propiedades
 	public static final String ACCOUNT_SID = "AC021b53d8f2e2a1ba77deee1627bfad27";
-	public static final String AUTH_TOKEN = "7760ead8994b3a1890012fb16b25f066";
+	public static final String AUTH_TOKEN = "";
 
 	private static final Logger log= LoggerFactory.getLogger(MediosComunicacionServiceImpl.class);
 	
@@ -112,7 +112,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 			rsp.setMessage(message.getSid());
 		} catch (Exception e) {
 			log.error( "", e );
-			throw new CommunicationException("Error en el envio de email", e.getCause(), -1);
+			throw new CommunicationException("Error en el envio de sms", e.getCause(), -1);
 		}
 
 		return rsp;
@@ -260,7 +260,7 @@ public class MediosComunicacionServiceImpl implements MediosComunicacionService 
 		mail.setFrom(from);
 		mail.setSubject(subject);
 		
-		mail.setTemplateId("d-3dab48a2b7c34746aa27b29b7be99682");
+		mail.setTemplateId( data.getTemplateId() );
 		mail.addPersonalization(data.getPersonalization());
 
 //		Map<String, String> envs = System.getenv();

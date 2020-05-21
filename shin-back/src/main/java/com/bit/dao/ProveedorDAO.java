@@ -411,4 +411,27 @@ public class ProveedorDAO extends DAOTemplate<Proveedor, Long> {
 		
 		return list;
 	}
+	
+	public List<Item> obtieneEstadisticasEmpresaTopCP( long idMarca ){
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append(" 	u.codigo_postal AS titulo,");
+		sql.append("     COUNT(u.codigo_postal) AS total");
+		sql.append(" FROM historico_tickets ht");
+		sql.append(" INNER JOIN usuario u ON u.id_usuario = ht.usuario_id_usuario");
+		sql.append(" INNER JOIN ticket t ON t.id_ticket = ht.ticket_id_ticket");
+//		sql.append(" WHERE p.id_catalogo_marca = :idMarca");
+		sql.append(" GROUP BY u.codigo_postal");
+		sql.append(" ORDER BY total DESC");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery( sql.toString() )
+				.setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setMaxResults(10);
+//		q.setParameter("idMarca", idMarca);
+		
+		List<Item> list = q.list();
+		
+		return list;
+	}
 }
