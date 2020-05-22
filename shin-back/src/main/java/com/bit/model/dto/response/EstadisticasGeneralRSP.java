@@ -40,9 +40,13 @@ public class EstadisticasGeneralRSP {
 	private List<Item> listaTopDeptos;
 
 	// Escaneos por departamento
+	private List<Item> totalEscaneaosDepartamentoDias;
+	private List<Item> totalEscaneaosDepartamentoSemana;
 	private List<Category> totalEscaneaosDepartamentoMes;
 
 	// Escaneos por tienda
+	private List<Item> totalEscaneaosTiendaDias;
+	private List<Item> totalEscaneaosTiendaSemana;
 	private List<Category> totalEscaneaosTiendaMes;
 
 	// Historicos
@@ -242,6 +246,38 @@ public class EstadisticasGeneralRSP {
 
 	public void setListaResumenTiendas(List<ResumenItem> listaResumenTiendas) {
 		this.listaResumenTiendas = listaResumenTiendas;
+	}
+
+	public List<Item> getTotalEscaneaosDepartamentoDias() {
+		return totalEscaneaosDepartamentoDias;
+	}
+
+	public void setTotalEscaneaosDepartamentoDias(List<Item> totalEscaneaosDepartamentoDias) {
+		this.totalEscaneaosDepartamentoDias = totalEscaneaosDepartamentoDias;
+	}
+
+	public List<Item> getTotalEscaneaosDepartamentoSemana() {
+		return totalEscaneaosDepartamentoSemana;
+	}
+
+	public void setTotalEscaneaosDepartamentoSemana(List<Item> totalEscaneaosDepartamentoSemana) {
+		this.totalEscaneaosDepartamentoSemana = totalEscaneaosDepartamentoSemana;
+	}
+
+	public List<Item> getTotalEscaneaosTiendaDias() {
+		return totalEscaneaosTiendaDias;
+	}
+
+	public void setTotalEscaneaosTiendaDias(List<Item> totalEscaneaosTiendaDias) {
+		this.totalEscaneaosTiendaDias = totalEscaneaosTiendaDias;
+	}
+
+	public List<Item> getTotalEscaneaosTiendaSemana() {
+		return totalEscaneaosTiendaSemana;
+	}
+
+	public void setTotalEscaneaosTiendaSemana(List<Item> totalEscaneaosTiendaSemana) {
+		this.totalEscaneaosTiendaSemana = totalEscaneaosTiendaSemana;
 	}
 
 }

@@ -354,15 +354,33 @@
 							</div>
 
 							<div class="card-body ">
-								<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+								<!--<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 									<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 										<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
 									</div>
 									<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 										<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 									</div>
-								</div>
-								<canvas id="tiendasChart" width="1414" height="352" class="chartjs-render-monitor" style="display: block; height: 176px; width: 707px;"></canvas>
+								</div>-->
+								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+										<li id="btnTiendasDay" class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+											 href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Día</a></li>
+										<li id="btnTiendasWeek" class="nav-item"><a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+											 role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a></li>
+										<li id="btnTiendasMonth" class="nav-item"><a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+											 role="tab" aria-controls="pills-contact" aria-selected="false">Mes</a></li>
+									</ul>
+									<div class="tab-content" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+											<canvas id="tiendasChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+											<canvas id="tiendasChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+											<canvas id="tiendasChart" width="826" height="380"></canvas>
+										</div>
+									</div>
 							</div>
 							<div class="card-footer ">
 								<hr />
@@ -391,15 +409,34 @@
 							</div>
 
 							<div class="card-body ">
-								<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+								<!--<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 									<div class="chartjs-size-monitor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 										<div style="position: absolute; width: 1000000px; height: 1000000px; left: 0; top: 0"></div>
 									</div>
 									<div class="chartjs-size-monitor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
 										<div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
 									</div>
-								</div>
-								<canvas id="departamentosChart" width="1414" height="352" class="chartjs-render-monitor" style="display: block; height: 176px; width: 707px;"></canvas>
+								</div>-->
+								<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+										<li id="btnDeptosDay" class="nav-item"><a class="nav-link active" id="pills-home-tab" data-toggle="pill"
+											 href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Día</a></li>
+										<li id="btnDeptosWeek" class="nav-item"><a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+											 role="tab" aria-controls="pills-profile" aria-selected="false">Semana</a></li>
+										<li id="btnDeptosMonth" class="nav-item"><a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+											 role="tab" aria-controls="pills-contact" aria-selected="false">Mes</a></li>
+									</ul>
+									<div class="tab-content" id="pills-tabContent">
+										<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+											<canvas id="departamentosChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+											<canvas id="departamentosChart" width="826" height="380"></canvas>
+										</div>
+										<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+											<canvas id="departamentosChart" width="826" height="380"></canvas>
+										</div>
+									</div>
+							
 							</div>
 							<div class="card-footer ">
 								<hr />
@@ -510,6 +547,58 @@
 			$('#btnProductosMonth').click(() => {
 				productosPorMesChart()
 			});
+
+			$('#btnDeptosDay').click(function () {
+				deptosPorDiaChart();
+			});
+
+			$('#btnDeptosWeek').click(() => {
+				deptosPorSemanaChart();
+			});
+
+			$('#btnDeptosMonth').click(() => {
+				deptosPorMesChart()
+			});
+
+			//
+			$('#btnTiendasDay').click(function () {
+				tiendasPorDiaChart();
+			});
+
+			$('#btnTiendasWeek').click(() => {
+				tiendasPorSemanaChart();
+			});
+
+			$('#btnTiendasMonth').click(() => {
+				tiendasPorMesChart()
+			});
+			//DEPTOS
+			function deptosPorDiaChart() {
+				estadisticas_general.deptosPorDiaChart();
+			}
+
+			function deptosPorSemanaChart() {
+				estadisticas_general.deptosPorSemanaChart();
+			}
+
+			function deptosPorMesChart() {
+				estadisticas_general.deptosPorMesChart();
+			}
+
+			//TIENDAS
+			function tiendasPorDiaChart() {
+				estadisticas_general.tiendasPorDiaChart();
+			}
+
+			function tiendasPorSemanaChart() {
+				estadisticas_general.tiendasPorSemanaChart();
+			}
+
+			function tiendasPorMesChart() {
+				estadisticas_general.tiendasPorMesChart();
+			}
+
+			//USUARIOS
 
 			function usuariosPorDiaChart() {
 				estadisticas_general.usuariosPorDiaChart();

@@ -458,7 +458,7 @@ public class CatalogosController {
 
 		CSVExporter csv = new CSVExporterImpl();
 
-		String[] headers = { "Producto", "Contenido", "Marca", "Dpto", "Tipo" , "Bonificación" };
+		String[] headers = { "Producto", "Contenido", "Marca", "Dpto", "Tipo" , "Bonificaciï¿½n" };
 
 		List<List<Object>> rows = new ArrayList<>();
 		for (int j = 0; j < list.size(); j++) {
@@ -853,9 +853,11 @@ public class CatalogosController {
 		}
 
 		EstadisticasGeneralRSP rsp = estadisticasService.obtieneEstadisticasGeneral();
+		EstadisticasGeneralRSP rspDeptos = estadisticasService.obtieneEstadisticasMarcas();
 		model.addAttribute("totalUsuarios", rsp.getTotalUsuarios());
 		model.addAttribute("totalTickets", rsp.getTotalTicketsEscaneados());
 		model.addAttribute("totalProductosEscaneados", rsp.getTotalProductosEscaneados());
+		model.addAttribute("listaResumenDepartamentos", rspDeptos.getListaResumenDepartamentos());
 
 		String fecha = Utils.getCurrentFormatDate("dd / MMM / yyyy");
 		model.addAttribute("fecha", fecha);

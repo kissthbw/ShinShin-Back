@@ -82,7 +82,60 @@ public class CatalogoTipoProductoDAO extends DAOTemplate<CatalogoTipoProducto, L
 		
 		return total;
 	}
+
+	public List<Item> obtieneTotalEscaneosPorTiendaDepartamentoPorDiaMesAnio( int year, int month) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append(" DAY(t.fecha) AS indice,");
+		sql.append(" c.nombre_tipo_producto as topico,");
+		sql.append(" COUNT(DISTINCT hb.id_ticket) AS total");
+		sql.append(" FROM ticket t");
+		sql.append(" LEFT JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append(" LEFT JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append(" LEFT JOIN catalogo_tipo_producto c ON p.id_catalogo_tipo_producto = c.id_catalogo_tipo_producto");
+		sql.append(" WHERE YEAR(t.fecha) = :year");
+		sql.append(" AND MONTH(t.fecha) = :month");
+		sql.append(" GROUP BY topico, indice");
+		sql.append(" ORDER BY topico, indice");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString()).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
 	
+	public List<Item> obtieneTotalEscaneosPorTiendaDepartamentoPorSemanaMesAnio( int year, int month) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT ");
+		sql.append(" WEEK(t.fecha) AS indice,");
+		sql.append(" c.nombre_tipo_producto as topico,");
+		sql.append(" COUNT(DISTINCT hb.id_ticket) AS total");
+		sql.append(" FROM ticket t");
+		sql.append(" LEFT JOIN historico_bonificaciones hb ON t.id_ticket = hb.id_ticket");
+		sql.append(" LEFT JOIN producto p ON hb.producto_id_producto = p.id_producto");
+		sql.append(" LEFT JOIN catalogo_tipo_producto c ON p.id_catalogo_tipo_producto = c.id_catalogo_tipo_producto");
+		sql.append(" WHERE YEAR(t.fecha) = :year");
+		sql.append(" AND MONTH(t.fecha) = :month");
+		sql.append(" GROUP BY topico, indice");
+		sql.append(" ORDER BY topico, indice");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(sql.toString()).
+				setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+
 	public List<Item> obtieneTopDepartamentosEscaneados( int top, int year, long idUsuario ) {
 		StringBuilder sql = new StringBuilder();
 		

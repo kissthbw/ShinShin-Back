@@ -49,13 +49,50 @@ public class CatalogoTiendaDAO extends DAOTemplate<CatalogoTienda, Long> {
 
 		return total;
 	}
+	
+	public List<Item> obtieneTotalEscaneosPorTiendaPorDiaMesAnio( int year, int month) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
+				" (nombre_tienda) AS topico,\r\n" + 
+				" DAY(fecha) AS indice\r\n" +  
+				" FROM ticket\r\n" + 
+				" WHERE YEAR(fecha) = :year" +
+				" AND  MONTH(fecha) = :month"+
+				" GROUP BY fecha, topico " + 
+				" ORDER BY topico, indice").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
 
-	public List<Item> obtieneTotalEscaneosPorTiendaMesAnio(int year, String tienda) {
-		Query q = getSessionFactory().getCurrentSession()
-				.createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + " (nombre_tienda) AS topico,\r\n"
-						+ " MONTH(fecha) AS indice\r\n" + " FROM ticket\r\n" + " WHERE YEAR(fecha) = :year"
-						+ " AND nombre_tienda = :tienda" + " GROUP BY fecha, topico " + " ORDER BY topico, indice")
-				.setResultTransformer((Transformers.aliasToBean(Item.class)));
+	public List<Item> obtieneTotalEscaneosPorTiendaPorSemanaMesAnio( int year, int month ) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
+				" (nombre_tienda) AS topico,\r\n" + 
+				" WEEK(fecha) AS indice\r\n" +  
+				" FROM ticket\r\n" + 
+				" WHERE YEAR(fecha) = :year" +
+				" AND  MONTH(fecha) = :month"+
+				" GROUP BY fecha, topico " + 
+				" ORDER BY topico, indice").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+
+	public List<Item> obtieneTotalEscaneosPorTiendaMesAnio( int year, String tienda ) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
+				" (nombre_tienda) AS topico,\r\n" + 
+				" MONTH(fecha) AS indice\r\n" +  
+				" FROM ticket\r\n" + 
+				" WHERE YEAR(fecha) = :year" +
+				" AND nombre_tienda = :tienda" +
+				" GROUP BY fecha, topico " + 
+				" ORDER BY topico, indice").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
 		q.setParameter("year", year);
 		q.setParameter("tienda", tienda);
 
