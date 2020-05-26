@@ -27,6 +27,7 @@ import com.bit.model.dto.Item;
 import com.bit.model.dto.SimpleResponse;
 import com.bit.model.dto.response.InformacionUsuarioRSP;
 import com.bit.model.dto.response.MedioBonificacionUsuario;
+import com.bit.model.report.ProductoTicketUsuarioReport;
 import com.bit.service.UsuarioService;
 import com.bit.service.impl.UsuarioServiceImpl.Source;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -593,6 +594,20 @@ public class UsuarioDAOTest {
 		Usuario item = new Usuario();
 		item.setIdUsuario(100l);
 		usuarioDAO.obtieneTotalProductosPorUsario(item);
+	}
+	
+	@Test
+	@Transactional
+	public void obtieneReporteEmpresaUsuarios() {
+		Usuario item = new Usuario();
+		
+		List<Long> ids = usuarioDAO.obtieneUsuariosPorMarca( 27L );
+		
+		List<ProductoTicketUsuarioReport> list = usuarioDAO.obtieneProductosTicketUsuarioPorMarca(10L, null);
+		
+		for( ProductoTicketUsuarioReport u : list ) {
+			System.out.println( "Usuario: " + u.getNombre() );
+		}
 	}
 	
 }

@@ -95,4 +95,18 @@ public class ProveedorDAOTest {
 		
 
 	}
+	
+	@Transactional
+	@Test
+	public void obtieneInfoReporteEmpresaUsuarios() {
+		Proveedor p = new Proveedor();
+		CatalogoMarca cm = new CatalogoMarca();
+		cm.setIdCatalogoMarca( 7L );
+		p.setMarca(cm);
+		p.setId(7L);
+		
+		proveedorService.obtieneInfoReporteEmpresaUsuarios(p);
+		
+
+	}
 }

@@ -3,10 +3,12 @@ package com.bit.service.impl;
 import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.RETURNS_DEFAULTS;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.type.IntegerType;
@@ -29,6 +31,7 @@ import com.bit.model.dto.Item;
 import com.bit.model.dto.ProductoItem;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.InformacionDashboardProveedorRSP;
+import com.bit.model.report.ProductoTicketUsuarioReport;
 import com.bit.service.ProveedorService;
 
 @Service
@@ -428,26 +431,39 @@ public class ProveedorServiceImpl implements ProveedorService {
 	}
 
 	@Override
-	public List<List<Object>> obtieneInfoReporteEmpresaUsuarios(Proveedor item) {
-		List<List<Object>> rows = new ArrayList<>();
+	@Transactional
+	public List<ProductoTicketUsuarioReport> obtieneInfoReporteEmpresaUsuarios(Proveedor item) {
+		List<ProductoTicketUsuarioReport> full = new ArrayList<>();
 		
-//		List<BonificacionItem> list = historicoMediosBonificacionDAO.obtieneHistoricoBonificaciones( null );
-		List<Usuario> list = proveedorDAO.obtieneListaUsuariosEmpresa( item.getMarca().getIdCatalogoMarca() );
+		log.info( "Inicio de reporte de usuarios de la marca: {}", new Date() );
+		log.info( "Obteniendo reporte de usuarios de la marca: {}", item.getMarca().getIdCatalogoMarca() );
+		long idMarca = item.getMarca().getIdCatalogoMarca();
 		
-		//Formatear fecha dd-MMM-yyyy
-		//Formatear solicitudes y bonificaciones
+		List<Long> ids = usuarioDAO.obtieneUsuariosPorMarca( idMarca );
+		log.info( "Se encontraron: {} usuarios de la marca: {}", ids.size(), idMarca );
 		
-		for( Usuario i : list ) {
-			rows.add( Arrays.asList( new Object[] {
-					i.getIdUsuario(),
-					i.getSexo(), 
-					i.getEdad(),
-					i.getEscaneos()
-					} ) );
+		for (Long id : ids) {
+			List<ProductoTicketUsuarioReport> list = usuarioDAO.obtieneProductosTicketUsuarioPorMarca( idMarca, id );
+			
+			//Formatear fecha dd-MMM-yyyy
+			//Formatear solicitudes y bonificaciones
+			//Se deben calcular los productos totales
+			int t = 1;
+			BigDecimal bonificacionAcumulada = new BigDecimal("0.0");
+			
+			for( ProductoTicketUsuarioReport i : list ) {
+				i.setProductosEscaneados( t++ );
+				
+				bonificacionAcumulada = bonificacionAcumulada.add( BigDecimal.valueOf( Double.valueOf( i.getBonificacion() ) ) );
+				
+				i.setBonificacionActual( bonificacionAcumulada.toString() );
+			}
+			
+			full.addAll(list);
 		}
-
+		log.info( "Fin de reporte de usuarios de la marca: {}", new Date() );
 		
-		return rows;
+		return full;
 	}
 	
 }

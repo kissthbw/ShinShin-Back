@@ -1,6 +1,7 @@
 package com.bit.controllers.portal.empresa;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bit.model.Proveedor;
 import com.bit.model.Usuario;
 import com.bit.model.dto.response.InformacionDashboardProveedorRSP;
+import com.bit.model.report.ProductoTicketUsuarioReport;
 import com.bit.service.CSVExporter;
 import com.bit.service.ProveedorDetailService;
 import com.bit.service.ProveedorService;
@@ -229,14 +231,47 @@ public class EmpresaDashboardController {
 		if (null != current) {
 			Proveedor p = current.getUsuario();
 			
-			List<List<Object>> rows = proveedorService.obtieneInfoReporteEmpresaUsuarios(p);
+			List<ProductoTicketUsuarioReport> rows = proveedorService.obtieneInfoReporteEmpresaUsuarios(p);
+			
+//			List<ProductoTicketUsuarioReport> rows = new ArrayList<>();
 
 			CSVExporter csv = new CSVExporterImpl();
 			
-			String [] headers = {"Id", "Usuario", "Edad", "Sexo", "Escaneos"};
+			String [] headers = {
+					"idUsuario",
+					"usuario",
+					"nombre",
+					"edad",
+					"sexo",
+					"email",
+					"telefono",
+					"cp",
+					"desde",
+					"via",
+					"retirosBancarios",
+					"retirosPayPal",
+					"recargas",
+					"productosEscaneados",
+					"bonificacionActual",
+					"tickets",
+					"tienda",
+					"fechaTicket",
+					"horaTicket",
+					"fechaEscaneo",
+					"horaEscaneo",
+					"cpTicketTienda",
+					"cpTicketFiscal",
+					"producto",
+					"contenido",
+					"marca",
+					"depto",
+					"tipo",
+					"bonificacion"
+			};
 			
 			try {
-				csv.writeCSV(response.getWriter(), headers, rows);
+//				csv.writeCSV(response.getWriter(), headers, rows);
+				csv.writeCSVFromListBean(response.getWriter(), headers, rows);
 				
 			} catch (IOException e) {
 				e.printStackTrace();

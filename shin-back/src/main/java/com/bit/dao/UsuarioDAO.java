@@ -10,13 +10,17 @@ import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 import org.springframework.stereotype.Repository;
 
 import com.bit.model.Usuario;
 import com.bit.model.dto.Item;
+import com.bit.model.report.ProductoTicketUsuarioReport;
+import com.bit.model.report.RetirosUsuarioReport;
 
 @Repository
 public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
@@ -401,5 +405,175 @@ public class UsuarioDAO extends DAOTemplate<Usuario, Long> {
 		String deviceToken = (String)q.uniqueResult();
 		
 		return deviceToken;
+	}
+	
+	public List<ProductoTicketUsuarioReport> obtieneProductosTicketUsuarioPorMarca( Long idMarca, Long idUsuario ) {
+		
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT ");
+		sql.append(" u.id_usuario AS idUsuario,");
+		sql.append(" u.nombre AS nombre,");
+		sql.append(" TIMESTAMPDIFF(YEAR, u.fecha_nac, CURDATE()) AS edad,");
+		sql.append(" cs.nombre_sexo AS sexo,");
+		sql.append(" u.correo_electronico AS email,");
+
+		sql.append("   (");
+		sql.append(" SELECT ");
+		sql.append(" 	SUM( if(cmb.id_catalogo_medio_bonificacion = '1',hmb.cantidad_bonificacion,0) ) AS bancaria");
+		sql.append(" FROM historico_medios_bonificacion hmb");
+		sql.append(" INNER JOIN medios_bonificacion mb ON mb.id_medios_bonificacion = hmb.id_medios_bonificacion");
+		sql.append(" INNER JOIN catalogo_medios_bonificacion cmb ON cmb.id_catalogo_medio_bonificacion = mb.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE hmb.fecha_bonificacion <= t.fecha");
+		sql.append("       AND hmb.usuario_id_usuario = u.id_usuario");
+		sql.append(" GROUP by  hmb.usuario_id_usuario");
+		sql.append("   ) AS retirosBancarios,");
+		sql.append("       (");
+		sql.append(" SELECT ");
+		sql.append(" 	SUM( if(cmb.id_catalogo_medio_bonificacion = '2',hmb.cantidad_bonificacion,0) ) AS bancaria");
+		sql.append(" FROM historico_medios_bonificacion hmb");
+		sql.append(" INNER JOIN medios_bonificacion mb ON mb.id_medios_bonificacion = hmb.id_medios_bonificacion");
+		sql.append(" INNER JOIN catalogo_medios_bonificacion cmb ON cmb.id_catalogo_medio_bonificacion = mb.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE hmb.fecha_bonificacion <= t.fecha");
+		sql.append("       AND hmb.usuario_id_usuario = u.id_usuario");
+		sql.append(" GROUP by  hmb.usuario_id_usuario");
+		sql.append("   ) AS retirosPayPal,");
+		sql.append("       (");
+		sql.append(" SELECT ");
+		sql.append(" 	SUM( if(cmb.id_catalogo_medio_bonificacion = '3',hmb.cantidad_bonificacion,0) ) AS bancaria");
+		sql.append(" FROM historico_medios_bonificacion hmb");
+		sql.append(" INNER JOIN medios_bonificacion mb ON mb.id_medios_bonificacion = hmb.id_medios_bonificacion");
+		sql.append(" INNER JOIN catalogo_medios_bonificacion cmb ON cmb.id_catalogo_medio_bonificacion = mb.id_catalogo_medio_bonificacion");
+		sql.append(" WHERE hmb.fecha_bonificacion <= t.fecha");
+		sql.append("       AND hmb.usuario_id_usuario = u.id_usuario");
+		sql.append(" GROUP by  hmb.usuario_id_usuario");
+		sql.append("   ) AS recargas,");
+		
+		sql.append(" u.tel_movil as telefono, ");
+		sql.append(" u.codigo_postal AS cp,");
+		sql.append(" u.fecha_registro AS desde,");
+		sql.append(" u.id_catalogo_red_social AS via,");
+		sql.append(" t.nombre_tienda AS tienda,");
+		sql.append(" t.ticket_fecha AS fechaTicket,");
+		sql.append(" t.ticket_hora AS horaTicket,");
+		sql.append(" t.fecha AS fechaEscaneo,");
+		sql.append(" t.hora AS horaEscaneo,");
+		sql.append(" t.ticket_cp_fiscal AS cpTicketFiscal,");
+		sql.append(" t.ticket_cp_tienda AS cpTicketTienda,");
+		sql.append(" p.nombre_producto AS producto,");
+		sql.append(" p.contenido AS contenido,");
+		sql.append(" cm.nombre_marca AS marca,");
+		sql.append(" ctp.nombre_tipo_producto AS depto,");
+		sql.append(" p.banner AS tipo,");
+		sql.append(" p.cantidad_bonificacion AS bonificacion");
+		
+		sql.append(" FROM usuario u");
+		sql.append(" INNER JOIN catalogo_sexo cs ON cs.id_catalogo_sexo = u.id_catalogo_sexo");
+		sql.append(" INNER JOIN historico_tickets ht ON ht.usuario_id_usuario = u.id_usuario");
+		sql.append(" INNER JOIN ticket t ON t.id_ticket = ht.ticket_id_ticket");
+		sql.append(" INNER JOIN historico_bonificaciones hb ON hb.id_ticket = ht.ticket_id_ticket");
+		sql.append(" INNER JOIN producto p ON p.id_producto = hb.producto_id_producto");
+		sql.append(" INNER JOIN catalogo_marca cm ON cm.id_catalogo_marca = p.id_catalogo_marca");
+		sql.append(" INNER JOIN catalogo_tipo_producto ctp ON ctp.id_catalogo_tipo_producto = p.id_catalogo_tipo_producto");
+		
+		if( null != idUsuario ) {
+			sql.append(" WHERE ht.usuario_id_usuario = :idUsuario");
+		}
+		
+		
+		sql.append(" ORDER BY ht.usuario_id_usuario, ht.ticket_id_ticket ASC");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
+				sql.toString()
+				)
+				.addScalar("idUsuario", StandardBasicTypes.LONG)
+				.addScalar("nombre", StandardBasicTypes.STRING)
+				.addScalar("edad", StandardBasicTypes.STRING)
+				.addScalar("sexo", StandardBasicTypes.STRING)
+				.addScalar("email", StandardBasicTypes.STRING)
+				.addScalar("retirosBancarios", StandardBasicTypes.STRING)
+				.addScalar("retirosPayPal", StandardBasicTypes.STRING)
+				.addScalar("recargas", StandardBasicTypes.STRING)
+				
+				.addScalar("telefono", StandardBasicTypes.STRING)
+				.addScalar("cp", StandardBasicTypes.STRING)
+				.addScalar("desde", StandardBasicTypes.STRING)
+				.addScalar("via", StandardBasicTypes.STRING)
+				.addScalar("tienda", StandardBasicTypes.STRING)
+				.addScalar("fechaTicket", StandardBasicTypes.STRING)
+				.addScalar("horaTicket", StandardBasicTypes.STRING)
+				.addScalar("fechaEscaneo", StandardBasicTypes.STRING)
+				.addScalar("horaEscaneo", StandardBasicTypes.STRING)
+				.addScalar("cpTicketFiscal", StandardBasicTypes.STRING)
+				.addScalar("cpTicketTienda", StandardBasicTypes.STRING)
+				.addScalar("producto", StandardBasicTypes.STRING)
+				.addScalar("contenido", StandardBasicTypes.STRING)
+				.addScalar("marca", StandardBasicTypes.STRING)
+				.addScalar("depto", StandardBasicTypes.STRING)
+				.addScalar("tipo", StandardBasicTypes.STRING)
+				.addScalar("bonificacion", StandardBasicTypes.STRING)
+				.setResultTransformer( (Transformers.aliasToBean(ProductoTicketUsuarioReport.class)) );
+		
+		if( null != idUsuario ) {
+			q.setParameter("idUsuario", idUsuario);
+		}
+		
+//		q.setParameter("month", month);
+		
+		List<ProductoTicketUsuarioReport> list = q.list();
+		
+		return list;
+	}
+	
+	public List<RetirosUsuarioReport> obtieneRetirosUsuarioPorMarca( long idMarca ) {
+
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ");
+		sql.append(" 	hmb.fecha_bonificacion AS fecha,");
+		sql.append(" 	SUM( if(cmb.id_catalogo_medio_bonificacion = '1',hmb.cantidad_bonificacion,0) ) AS retirosBancarios,");
+		sql.append("     SUM( if(cmb.id_catalogo_medio_bonificacion = '2',hmb.cantidad_bonificacion,0) ) AS retirosPayPal,");
+		sql.append("     SUM( if(cmb.id_catalogo_medio_bonificacion = '3',hmb.cantidad_bonificacion,0) ) AS recargas,");
+		sql.append("     hmb.usuario_id_usuario AS idUsuario");
+		sql.append(" FROM historico_medios_bonificacion hmb");
+		sql.append(" INNER JOIN medios_bonificacion mb ON mb.id_medios_bonificacion = hmb.id_medios_bonificacion");
+		sql.append(" INNER JOIN catalogo_medios_bonificacion cmb ON cmb.id_catalogo_medio_bonificacion = mb.id_catalogo_medio_bonificacion");
+		sql.append(" GROUP by fecha_bonificacion, hmb.usuario_id_usuario");
+		sql.append(" ORDER BY fecha_bonificacion DESC");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
+				sql.toString()
+				)
+				.addScalar("idUsuario", StandardBasicTypes.LONG)
+				.addScalar("fecha", StandardBasicTypes.STRING)
+				.addScalar("retirosBancarios", StandardBasicTypes.STRING)
+				.addScalar("retirosPayPal", StandardBasicTypes.STRING)
+				.addScalar("recargas", StandardBasicTypes.STRING)
+				.setResultTransformer( (Transformers.aliasToBean(RetirosUsuarioReport.class)) );
+		
+		List<RetirosUsuarioReport> list = q.list();
+		
+		return list;
+	}
+	
+	public List<Long> obtieneUsuariosPorMarca( long idMarca ) {
+
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT DISTINCT");
+		sql.append("     u.id_usuario AS idUsuario");
+		sql.append(" FROM usuario u");
+		sql.append(" INNER JOIN catalogo_sexo cs ON cs.id_catalogo_sexo = u.id_catalogo_sexo");
+		sql.append(" INNER JOIN historico_tickets ht ON ht.usuario_id_usuario = u.id_usuario");
+		sql.append(" INNER JOIN ticket t ON t.id_ticket = ht.ticket_id_ticket");
+		sql.append(" INNER JOIN historico_bonificaciones hb ON hb.id_ticket = ht.ticket_id_ticket");
+		sql.append(" INNER JOIN producto p ON p.id_producto = hb.producto_id_producto");
+		sql.append(" WHERE p.id_catalogo_marca = :idMarca");
+		
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery(
+				sql.toString()
+				).addScalar("idUsuario", StandardBasicTypes.LONG);
+		q.setParameter("idMarca", idMarca);
+		
+		List<Long> list = q.list();
+		
+		return list;
 	}
 }

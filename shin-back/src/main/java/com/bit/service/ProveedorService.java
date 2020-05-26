@@ -6,6 +6,7 @@ import com.bit.model.Proveedor;
 import com.bit.model.dto.Item;
 import com.bit.model.dto.response.EstadisticasGeneralRSP;
 import com.bit.model.dto.response.InformacionDashboardProveedorRSP;
+import com.bit.model.report.ProductoTicketUsuarioReport;
 
 public interface ProveedorService {
 
@@ -40,5 +41,5 @@ public interface ProveedorService {
 	 * Dashboard empresa - Usuarios -
 	 */
 	InformacionDashboardProveedorRSP obtieneTotalesDashboardEmpresaUsuarios( Proveedor item );
-	public List<List<Object>> obtieneInfoReporteEmpresaUsuarios( Proveedor item );
+	List<ProductoTicketUsuarioReport> obtieneInfoReporteEmpresaUsuarios( Proveedor item );
 }
