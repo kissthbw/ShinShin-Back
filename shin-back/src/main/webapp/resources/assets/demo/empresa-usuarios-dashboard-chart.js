@@ -28,8 +28,8 @@ var chartBackgroundBorder = [
 	'rgba(250, 159, 64, 1)'
 ]
 
-//var url = 'http://www.shingshing.com'
-var url = 'http://localhost:8080/shin-back'
+var url = 'http://www.shingshing.com'
+//var url = 'http://localhost:8080/shin-back'
 
 var estadisticas_usuario = {
 		
