@@ -116,6 +116,8 @@ public class TicketServiceImpl implements TicketService {
 	public OCRTicketRSP analizarOCR(OCRTicketRQT rqt, boolean fake) {
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		
+		log.info( "Analizando lineas: " + rqt.getLineas() );
+		
 		if( rqt.getLineas().isEmpty() ) {
 			rsp.setCode(202);
 			rsp.setMessage("No existen elementos para analizar");

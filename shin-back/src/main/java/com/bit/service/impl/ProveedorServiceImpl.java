@@ -440,6 +440,47 @@ public class ProveedorServiceImpl implements ProveedorService {
 		long idMarca = item.getMarca().getIdCatalogoMarca();
 		
 		List<Long> ids = usuarioDAO.obtieneUsuariosPorMarca( idMarca );
+		ids.add(2L);
+		ids.add(42L);
+		ids.add(59L);
+		ids.add(73L);
+		ids.add(81L);
+		ids.add(82L);
+		ids.add(83L);
+		ids.add(84L);
+		ids.add(86L);
+		ids.add(87L);
+		ids.add(88L);
+		ids.add(89L);
+		ids.add(90L);
+		ids.add(91L);
+		ids.add(92L);
+		ids.add(94L);
+		ids.add(95L);
+		ids.add(96L);
+		ids.add(97L);
+		ids.add(98L);
+		ids.add(99L);
+		ids.add(100L);
+		ids.add(101L);
+		ids.add(102L);
+		ids.add(103L);
+		ids.add(104L);
+		ids.add(105L);
+		ids.add(106L);
+		ids.add(107L);
+		ids.add(108L);
+		ids.add(109L);
+		ids.add(110L);
+		ids.add(111L);
+		ids.add(112L);
+		ids.add(117L);
+		ids.add(118L);
+		ids.add(119L);
+		ids.add(120L);
+		ids.add(121L);
+		
+		
 		log.info( "Se encontraron: {} usuarios de la marca: {}", ids.size(), idMarca );
 		
 		for (Long id : ids) {

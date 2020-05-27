@@ -161,7 +161,7 @@ public class WalmartTicketAnalizer implements TicketAnalizer {
 		valor = detectaHora(it);
 		rsp.setHora(valor);
 		
-		validarTicket(rsp);
+//		validarTicket(rsp);
 		rsp.setTransaccion( rsp.getTda() + rsp.getOp() + rsp.getTe() + rsp.getTr() );
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		

@@ -36,10 +36,13 @@ public class ProductosTiendasDAO extends DAOTemplate<ProductosTiendas, Long> {
 	public List<ProductosTiendas> getProductosPorIDTienda(Integer idTienda) {
 		Criteria c = getSessionFactory().getCurrentSession().createCriteria(ProductosTiendas.class);
 		c.createAlias("catalogoTienda", "c");
+		c.createAlias("producto", "p");
 		
 		if( null != idTienda ) {
 			c.add(Restrictions.eq("c.idCatalogoTienda", idTienda));
 		}
+		
+		c.add( Restrictions.eq("p.active", 1) );
 		c.add( Restrictions.ne("productoTienda", "") );
 
 		return ((Criteria) c).list();

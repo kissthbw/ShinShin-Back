@@ -57,7 +57,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 		
 		OCRTicketRSP rsp = new OCRTicketRSP();
 		rsp.setTienda("7ELEVEN");
-		rsp.setTieneCB(true);
+		rsp.setTieneCB(false);
 		
 		Map<String, String> patternMap = analizer.obtieneCatalogoPattern( ID_TIENDA_CATALOGO_PATTERN );
 		if( !patternMap.isEmpty() ) {
@@ -137,7 +137,7 @@ public class SevenTicketAnalizer implements TicketAnalizer {
 			rsp.setTransaccion(valor);
 		}
 		
-		validarTicket(rsp);
+//		validarTicket(rsp);
 		
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		

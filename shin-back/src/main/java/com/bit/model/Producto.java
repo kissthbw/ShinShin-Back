@@ -118,11 +118,11 @@ public class Producto {
 		this.TipoString=TipoString;
 	}
 	
-	public int getactive() {
+	public int getActive() {
 		return this.active;
 	}
 	
-	public void setactive(int active) {
+	public void setActive(int active) {
 		this.active=active;
 	}
 

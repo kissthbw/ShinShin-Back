@@ -134,7 +134,7 @@ public class HEBTicketAnalizer implements TicketAnalizer {
 		it = lineas.listIterator();
 		depuraFooterIdentificadores(it, posList.get(0));
 		
-		rsp.validarTicket();
+//		rsp.validarTicket();
 		rsp.setTransaccion( rsp.getTra() + rsp.getFolio() );
 		
 //		it = lineas.listIterator();

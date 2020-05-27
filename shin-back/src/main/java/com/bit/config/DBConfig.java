@@ -40,10 +40,10 @@ public class DBConfig {
 		ds.setJdbcUrl(env.getProperty("db.url"));
 		ds.setUsername(env.getProperty("db.user"));
 		ds.setPassword(env.getProperty("db.keyword"));
-		ds.setIdleConnectionTestPeriodInMinutes(60l);
-		ds.setIdleMaxAgeInMinutes(60);
-		ds.setMaxConnectionsPerPartition(45);
-		ds.setMinConnectionsPerPartition(10);
+		ds.setIdleConnectionTestPeriodInMinutes(5l);
+		ds.setIdleMaxAgeInMinutes(5);
+		ds.setMaxConnectionsPerPartition(5);
+		ds.setMinConnectionsPerPartition(5);
 		ds.setPartitionCount(4);
 		ds.setAcquireIncrement(5);
 		ds.setStatementsCacheSize(10);

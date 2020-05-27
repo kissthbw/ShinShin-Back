@@ -114,7 +114,7 @@ public class SorianaTicketAnalizer implements TicketAnalizer {
 			rsp.setTransaccion(valor);
 		}
 		
-		validarTicket(rsp);
+//		validarTicket(rsp);
 		
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		

@@ -130,7 +130,7 @@ public class OxxoTicketAnalizer implements TicketAnalizer {
 		
 		rsp.setTransaccion(folio + id);
 		
-		validarTicket( folio, id );
+//		validarTicket( folio, id );
 
 		it = lineas.listIterator();
 		depuraElementosVacios(it);

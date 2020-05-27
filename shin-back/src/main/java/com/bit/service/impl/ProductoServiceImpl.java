@@ -231,7 +231,7 @@ public class ProductoServiceImpl implements ProductoService {
 		//rgb(241, 138, 49)
 		//dejar solo 241, 138, 49
 		item.setColorBanner( bannerColor( item.getColorBanner() ) );
-		item.setactive(1);
+		item.setActive(1);
 		SimpleResponse rsp = new SimpleResponse();
 		rsp.setMessage("Exitoso");
 		rsp.setCode(200);
@@ -292,7 +292,7 @@ public class ProductoServiceImpl implements ProductoService {
 		for( ProductosTiendas t : item.getTiendas() ) {
 			t.setProducto(item);
 		}
-		item.setactive(1);
+		item.setActive(1);
 		log.info("Color del banner "+item.getColorBanner());
 		Producto t = productoDAO.update(item);
 		rsp.setId(t.getIdProducto());
@@ -390,7 +390,7 @@ public class ProductoServiceImpl implements ProductoService {
 		//Itera sobre los productos en BD y verifica si existen 
 		for (ProductosTiendas e : tmpList) {
 			for (String toFind : items) {
-				if ( toFind.contains(e.getProductoTienda()) ) {
+				if ( toFind.contains(e.getProductoTienda())  || e.getProductoTienda().contains(toFind) ) {
 					log.info( "Producto encontrado" );
 					productos.add( e.getProducto() );
 				}
@@ -634,7 +634,7 @@ public class ProductoServiceImpl implements ProductoService {
 		rsp.setCode(200);
 		
 		item = productoDAO.findByPK( item.getIdProducto() );
-		item.setactive(0);
+		item.setActive(0);
 		productoDAO.update(item);
 		
 		item = productoDAO.update(item);

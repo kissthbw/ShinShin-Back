@@ -145,7 +145,7 @@ public class ChedrauiTicketAnalizer implements TicketAnalizer {
 		valor = detectaHora(it);
 		rsp.setHora(valor);
 		
-		rsp.validarTicket();
+//		rsp.validarTicket();
 		rsp.setTransaccion( rsp.getSuc() + rsp.getTer() + rsp.getTra() + rsp.getFolio() );
 		rsp.setTransaccion( rsp.getTransaccion().replace(" ", "") );
 		
