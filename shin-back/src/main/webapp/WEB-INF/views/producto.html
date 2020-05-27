@@ -6,7 +6,7 @@
 	<meta charset="UTF-8" />
 	<link rel="shortcut icon" th:href="@{/resources/home/img/brands/favicon.png}" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Shing-Shing - Productos</title>
+	<title>Producto | Shing Shing</title>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
 	<!--     Fonts and icons     -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
@@ -157,7 +157,7 @@
 										<label class="col-sm-2 col-form-label">Nombre</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{nombreProducto}" name="required" required="true" />
+												<input style="background-color: #F2F2F2;" class="form-control" type="text" th:field="*{nombreProducto}" name="required" required="true" />
 												<input type="hidden" th:field="*{idProducto}" />
 												<input type="hidden" th:field="*{imgUrl}" />
 											</div>
@@ -171,7 +171,7 @@
 										<label class="col-sm-2 col-form-label">Contenido</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{contenido}" name="required" required="true" />
+												<input style="background-color: #F2F2F2;" class="form-control" type="text" th:field="*{contenido}" name="required" required="true" />
 											</div>
 										</div>
 										<label class="card-sm-3 Label-on-right">
@@ -183,7 +183,7 @@
 										<label class="col-sm-2 col-form-label">Marca</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control" id="catalogoMarca.idCatalogoMarca" name="catalogoMarca.idCatalogoMarca">
+												<select style="background-color: #F2F2F2;" class="form-control" id="catalogoMarca.idCatalogoMarca" name="catalogoMarca.idCatalogoMarca">
 													<option th:each="marca:${marcas}" th:value="${marca.idCatalogoMarca}" th:utext="${marca.nombreMarca}"
 													 th:selected="*{catalogoMarca} != null ? *{catalogoMarca.idCatalogoMarca} == ${marca.idCatalogoMarca} : ''"></option>
 
@@ -199,7 +199,7 @@
 										<label class="col-sm-2 col-form-label">Departamento</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control" id="catalogoTipoProducto.idCatalogoTipoProducto" name="catalogoTipoProducto.idCatalogoTipoProducto">
+												<select style="background-color: #F2F2F2;" class="form-control" id="catalogoTipoProducto.idCatalogoTipoProducto" name="catalogoTipoProducto.idCatalogoTipoProducto">
 													<option th:each="tipo:${tipos}" th:value="${tipo.idCatalogoTipoProducto}" th:utext="${tipo.nombreTipoProducto}"
 													 th:selected="*{catalogoTipoProducto} != null ? *{catalogoTipoProducto.idCatalogoTipoProducto} == ${tipo.idCatalogoTipoProducto} : ''"></option>
 												</select>
@@ -211,10 +211,10 @@
 									</div>
 
 									<div class="row">
-										<label class="col-sm-2 col-form-label">Bonificacion</label>
+										<label class="col-sm-2 col-form-label">Bonificación</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<input class="form-control" type="text" th:field="*{cantidadBonificacion}" />
+												<input style="background-color: #F2F2F2;" class="form-control" type="text" th:field="*{cantidadBonificacion}" />
 											</div>
 										</div>
 									</div>
@@ -223,7 +223,7 @@
 										<label class="col-sm-2 col-form-label">Tipo</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<select class="form-control" th:field="*{banner}">
+												<select style="background-color: #F2F2F2;" class="form-control" th:field="*{banner}">
 													<option value="0">Seleccione una...</option>
 													<option value="1">General</option>
 													<option value="2">Popular</option>
@@ -237,7 +237,7 @@
 										<label class="col-sm-2 col-form-label">Color de Banner</label>
 										<div class="col-sm-7">
 											<div id="demo" class="input-group">
-												<input class="form-control input-lg" type="text" th:field="*{colorBanner}" />
+												<input style="background-color: #F2F2F2;" class="form-control input-lg" type="text" th:field="*{colorBanner}" />
 												<span class="input-group-append">
 													<span class="input-group-text colorpicker-input-addon"><i></i></span>
 												</span>
@@ -249,7 +249,7 @@
 										<label class="col-sm-2 col-form-label">Descripcion</label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<textarea class="form-control" rows="3" th:field="*{descripcion}" required="true"></textarea>
+												<textarea style="background-color: #F2F2F2;" class="form-control" rows="3" th:field="*{descripcion}" required="true"></textarea>
 											</div>
 
 										</div>
@@ -322,7 +322,7 @@
 										<label class="col-sm-2 col-form-label" th:text="${tienda.catalogoTienda.nombreTienda}"></label>
 										<div class="col-sm-7">
 											<div class="form-group">
-												<input class="form-control nombreTiendas" type="text" th:field="*{tiendas[__${i.index}__].productoTienda}" />
+												<input style="background-color: #F2F2F2;" class="form-control nombreTiendas" type="text" th:field="*{tiendas[__${i.index}__].productoTienda}" />
 												<input type="hidden" th:field="*{tiendas[__${i.index}__].idProductoTienda}" value="*{tiendas[__${i.index}__].idProductoTienda}" />
 												<input type="hidden" th:field="*{tiendas[__${i.index}__].catalogoTienda.idCatalogoTienda}" value="*{tiendas[__${i.index}__].catalogoTienda.idCatalogoTienda}" />
 												<input type="hidden" th:field="*{tiendas[__${i.index}__].catalogoTienda.idCatalogoTienda}" value="*{tiendas[__${i.index}__].catalogoTienda.idCatalogoTienda}" />
