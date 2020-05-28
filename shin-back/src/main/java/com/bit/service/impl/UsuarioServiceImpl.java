@@ -1,8 +1,12 @@
 package com.bit.service.impl;
 
+import static org.mockito.Mockito.RETURNS_DEFAULTS;
+
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
@@ -151,7 +155,28 @@ public class UsuarioServiceImpl implements UsuarioService{
 		log.info("Obteniendo lista de usuario de la base de datos");
 
 		List<Usuario> list = usuarioDAO.getUsuarios();
-		
+		LocalDate ahora = LocalDate.now();
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		list.forEach(data -> {
+			Calendar today = Calendar.getInstance();
+			Calendar fechaNac = Calendar.getInstance();
+			fechaNac.setTime(data.getFechaNac());
+			int diff_year = today.get(Calendar.YEAR) -  fechaNac.get(Calendar.YEAR);
+			log.info(String.valueOf(diff_year));
+			data.setEdad(diff_year);
+			if(data.getIdCatalogoSexo()!=null)
+			switch(data.getIdCatalogoSexo()){
+				case 1:
+					data.setSexo("HOMBRE");
+				break;
+				case 2:
+					data.setSexo("MUJER");
+				break;
+				default:
+					data.setSexo("DESCONOCIDO");
+				break;
+			}
+		});
 		rsp.setUsuarios(list);
 		return rsp;
 	}

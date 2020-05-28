@@ -95,185 +95,219 @@
 
 			<div class="content">
 				<div class="row">
-					<div class="col-md-12 col-sm-12 col-xs-12 mt15 row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<h3 class="title-cat">Informacion Usuario</h3>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6 toolbar">
-								<a class="btn btn-primary float-right" role="button" aria-disabled="true" href="/shin-back/portal-empresa/usuarios/report">Resumen</a>
-						</div>
+						<div class="col-8">
 
-					</div>
-					<div class="col-md-6">
-
-						<form id="formPerfil" class="form-horizontal" method="post" th:object="${item}" enctype="multipart/form-data">
-
-							<div class="card card-perfil pb-10">
-
-								<!-- IMG Perfil -->
-								<div>
-									<a href="#">
-										<div class="img-perfil img-center"><span class="icon-simbolo-usuario"></span>
-											<!-- 
-												<img th:src="${info.usuario.imgUrl} ? ${info.usuario.imgUrl} : ''" alt="Foto de perfil"></img>
-											 -->
-										</div>
-									</a>
-								</div>
-
-
-								<div class="row mt-20">
-
-									<!-- Izquierda -->
-									<div class="col-12">
-
-										<div class="col-12">
-											<div class="row">
-
-												<!-- Nombre -->
-												<div class="col-12 text-center">
-													<label class="col-12 strong">VARIABLE</label>
-												</div>
-
-											</div>
-										</div>
-										<hr class="mb-0" />
-										<!-- Número -->
+								<!-- ID de usuario -->
+								<h3 class="card-title" style="margin-bottom: 4rem;">ID: <p>idusuario</p>
+								</h3>
+							</div>
+		
+							<div class="col-4 text-right">
+								<a th:href="@{/portal-administrador/producto/report}" class="btn btn-primary btn-sm" role="button" aria-disabled="true">
+									<i class="fa fa-download"></i> Resumen
+								</a>
+							</div>
+		
+							<div class="col-sm-6 col-md-6 col-lg-4 ">
+								<div class="card card-lock text-center">
+									<div class="card-header ">
+										<img src="" alt="..."></img>
+									</div>
+									<div class="card-body">
+		
+										<!-- Nombre: th:text="${totalUsuarios}">{totalUsuarios}</p> -->
+		
+										<div class="card-title-style">NOMBRE</div>
+										<div class="card-title">Nombre Apellido</div>
+										<hr />
 										<div class="row">
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
+											<div class="col-6">
+		
+												<!-- Edad -->
+												<div class="card-title-style">Edad</div>
+												<div class="" >27 años</div>
 											</div>
-
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
-											</div>
-										</div>
-										<hr class="mb-0" />
-											<div class="row">
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
-											</div>
-
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
-											</div>
-											</div>
-											<hr class="mb-0" />
-											<div class="row">
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
-											</div>
-
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
-											</div>
-									</div>
-									<hr class="mb-0" />
-											<div class="row">
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">VARIABLE</label>
-											</div>
-
-											<div class="col-6 mt-16 text-center">
-												<label class="col-12 strong">LABEL</label>
-												<label class="col-12 strong">LABEL</label>
+											<div class="col-6">
+		
+												<!-- Sexo -->
+												<div class="card-title-style">Sexo</div>
+												<div class="">Hombre</div>
 											</div>
 										</div>
-
+										<hr />
+										<div class="row">
+											<div class="col-6">
+		
+												<!-- Email -->
+												<div class="card-title-style">Correo</div>
+												<div class="">correo@dom...</div>
+											</div>
+											<div class="col-6">
+		
+												<!-- Telefono -->
+												<div class="card-title-style">Teléfono</div>
+												<div class="" >5550679875</div>
+											</div>
+										</div>
+										<hr />
+										<div class="row">
+											<div class="col-6">
+		
+												<!-- Codigo Postal -->
+												<div class="card-title-style">CP</div>
+												<div class="" >57800</div>
+											</div>
+											<div class="col-6">
+		
+												<!-- Miembro desde -->
+												<div class="card-title-style">Desde</div>
+												<div class="">1/ene/2018</div>
+											</div>
+										</div>
+										<hr />
+										<div class="col-6">
+		
+											<!-- Registro vía -->
+											<div class="card-title-style">Registro vía:</div>
+											<div class="" >Facebook</div>
+										</div>
+		
 									</div>
-
-
+									<div class="card-footer "></div>
 								</div>
 							</div>
-						</form>
-					</div>
-					<div class="col-md-6">
-						<div class="row card card-perfil" style="background: transparent !important;">
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								<div class="card card-stats">
-									<div class="card-body ">
-										<div class="row">
-											<div class="col-5 col-md-4">
-												<div class="icon-big text-center icon-warning gray">
-													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
+		
+							<div class="col-sm-6 col-md-8">
+								<div class="row">
+		
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="card card-stats">
+											<div class="card-body ">
+												<div class="row">
+													<div class="col-5 col-md-4">
+														<div class="icon-big text-center icon-warning">
+															<i class="nc-icon nc-camera-compact text-warning"></i>
+														</div>
+													</div>
+													<div class="col-7 col-md-8">
+														<div class="numbers">
+															<p class="card-category">Escaneos</p>
+															<p class="card-title">999</p>
+															<p></p>
+														</div>
+													</div>
 												</div>
 											</div>
-											<div class="col-7 col-md-8">
-												<div class="numbers">
-													<p class="card-category">Retiros</p>
-													<p class="card-title">999,999</p>
+											<div class="card-footer">
+												<hr />
+												<div class="row">
+													<div class="col-sm-7">
+														<div class="footer-title">
+														</div>
+													</div>
+													<div class="col-sm-5">
+														<div class="pull-right">
+															<a class="btn btn-secondary btn-link btn-sm" role="button"
+															 aria-disabled="true"> Ver + </a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+		
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="card card-stats">
+											<div class="card-body ">
+												<div class="row">
+													<div class="col-5 col-md-4">
+														<div class="icon-big text-center icon-warning">
+															<i class="nc-icon nc-diamond text-warning"></i>
+														</div>
+													</div>
+													<div class="col-7 col-md-8">
+														<div class="numbers">
+															<p class="card-category">Productos</p>
+															<p class="card-title" >999</p>
+															<p></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="card-footer ">
+												<hr />
+												<div class="stats">
+													<i class="fa fa-refresh"></i> Actualizado ahora
+												</div>
+											</div>
+										</div>
+									</div>
+		
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="card card-stats">
+											<div class="card-body ">
+												<div class="row">
+													<div class="col-5 col-md-4">
+														<div class="icon-big text-center icon-warning">
+															<i class="nc-icon nc-money-coins text-warning"></i>
+														</div>
+													</div>
+													<div class="col-7 col-md-8">
+														<div class="numbers">
+															<p class="card-category">Retiros</p>
+															<p class="card-title" >999</p>
+															<p></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="card-footer">
+												<hr />
+												<div class="row">
+													<div class="col-sm-7">
+														<div class="footer-title">
+														</div>
+													</div>
+													<div class="col-sm-5">
+														<div class="pull-right">
+															<a class="btn btn-secondary btn-link btn-sm" role="button"
+															 aria-disabled="true"> Ver + </a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+		
+									<div class="col-lg-6 col-md-6 col-sm-6">
+										<div class="card card-stats">
+											<div class="card-body ">
+												<div class="row">
+													<div class="col-5 col-md-4">
+														<div class="icon-big text-center icon-warning">
+															<i class="nc-icon nc-trophy text-warning"></i>
+														</div>
+													</div>
+													<div class="col-7 col-md-8">
+														<div class="numbers">
+															<p class="card-category">Bonificación en app</p>
+															<p class="card-title" >999</p>
+															<p></p>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="card-footer ">
+												<hr />
+												<div class="stats">
+													<i class="fa fa-refresh"></i> Actualizado ahora
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								<div class="card card-stats">
-									<div class="card-body ">
-										<div class="row">
-											<div class="col-5 col-md-4">
-												<div class="icon-big text-center icon-warning gray">
-													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
-												</div>
-											</div>
-											<div class="col-7 col-md-8">
-												<div class="numbers">
-													<p class="card-category">Tickets</p>
-													<p class="card-title">999,999</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								<div class="card card-stats">
-									<div class="card-body ">
-										<div class="row">
-											<div class="col-5 col-md-4">
-												<div class="icon-big text-center icon-warning gray">
-													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
-												</div>
-											</div>
-											<div class="col-7 col-md-8">
-												<div class="numbers">
-													<p class="card-category">Prod. escaneados</p>
-													<p class="card-title">999,999</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								<div class="card card-stats">
-									<div class="card-body ">
-										<div class="row">
-											<div class="col-5 col-md-4">
-												<div class="icon-big text-center icon-warning gray">
-													<i class="icon-shingshing-dashboard-marcas_finanzas-icon back-circle"></i>
-												</div>
-											</div>
-											<div class="col-7 col-md-8">
-												<div class="numbers">
-													<p class="card-category">Saldo</p>
-													<p class="card-title">999,999</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
 				</div>
 
 				<div class="col-lg-12 col-md-12 col-sm-12">

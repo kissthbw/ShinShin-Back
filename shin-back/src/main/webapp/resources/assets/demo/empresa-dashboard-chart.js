@@ -28,8 +28,8 @@ var chartBackgroundBorder = [
 	'rgba(250, 159, 64, 1)'
 ]
 
-var url = 'http://www.shingshing.com'
-//var url = 'http://localhost:8080/shin-back'
+//var url = 'http://www.shingshing.com'
+var url = 'http://localhost:8080/shin-back'
 
 var estadisticas_general = {
 		
@@ -87,6 +87,109 @@ var estadisticas_general = {
 						usuariosLabel.push("D " + item.indice)
 						
 					});
+					
+					/*TiendasDia*/
+					
+					var tiendasData=[], tiendasLabel=[], tiendasDatasets=[],tiendasLabel1=[];	
+					var topicos=[];
+
+					
+					//OBTENEMOS LOS DIAS PRESENTES 
+					$.each(result.totalEscaneaosTiendaDias, function(index, tienda) {
+						if(tiendasLabel1.indexOf(tienda.indice)==-1 || tiendasLabel1.length==0){
+							tiendasLabel1.push(tienda.indice);
+						}
+					});
+					console.log(tiendasLabel1);
+					$.each(result.totalEscaneaosTiendaDias, function(index, tienda) {
+						tiendasLabel=[];
+						for(var x=0;x<tiendasLabel1.length;x++){
+							tiendasLabel.push(tiendasLabel1[x]);
+						}
+						//console.log(tiendasLabel1);
+						var tiendasData=[];
+						var tiendasD=[];
+						var dia=[];
+						if(topicos.length==0 || topicos.indexOf(tienda.topico)==-1){
+							topicos.push(tienda.topico);
+							
+							//entra un departamento una sola vez y barre todos los dias
+							
+								$.each(result.totalEscaneaosTiendaDias, function(index, d) {
+									
+									if(tienda.topico==d.topico){
+										//console.log(d.total);
+										tiendasData.push(d.total);
+										dia.push(d.indice);
+										//console.log(d.indice);
+									}
+								});
+								
+								
+								
+							do
+							{
+								var p=false;
+								console.log(dia);
+								console.log(tiendasLabel);
+									if(dia[0]==tiendasLabel[0]){
+										
+										tiendasD.push(tiendasData[0]);
+										dia.splice(0,1);
+										tiendasData.splice(0,1);
+										tiendasLabel.splice(0,1);
+										
+									}else if(dia[0]>tiendasLabel[0]){
+										tiendasD.push(0);
+										tiendasLabel.splice(0,1)
+									}
+									
+									if(dia.length==0 && tiendasLabel.length==0){
+										p=true;
+									}
+									if(dia.length==0 && tiendasLabel.length>0){
+										tiendasD.push(0);
+										tiendasLabel.splice(0,1)
+										if(dia.length==0 && tiendasLabel.length==0){
+											p=true;
+										}
+									}
+									console.log(p);
+								}while(!p);
+							
+							
+							var tmpDataset = {
+									label: tienda.topico,
+									backgroundColor: chartBackground,
+									borderColor: chartBackgroundBorder,
+									borderWidth: 1,
+									data: tiendasD
+							};
+							
+							tiendasDatasets.push(tmpDataset)
+							console.log( tmpDataset )
+						}
+						
+					});
+					var ctx = document.getElementById('tiendasChart').getContext('2d');
+					
+					window.tiendasChart = new Chart(ctx, {
+						type: 'bar',
+						data: {
+							labels: tiendasLabel1,
+							datasets: tiendasDatasets
+						},
+						options: {
+							scales: {
+								yAxes: [{
+									ticks: {
+										beginAtZero: true
+									}
+								}]
+							}
+						}
+					 });
+				
 					
 					//totalEscaneaosTiendaMes, contiene un arreglo del objeto Category
 					//que contiene el titulo de la seria y la lista de items
@@ -614,7 +717,304 @@ var estadisticas_general = {
 			}
 		});
 	},
-	
+	tiendasPorDiaChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
+		$.ajax({
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
+			dataType : "json",
+			success : function(result) {
+
+				console.log(result);
+				var tiendasData=[], tiendasLabel=[], tiendasDatasets=[],tiendasLabel1=[];	
+				var topicos=[];
+
+				// Elmina dataset anterior
+				window.tiendasChart.data.labels.splice(0,window.tiendasChart.data.labels.length);
+				window.tiendasChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.tiendasChart.data.datasets.pop();
+				
+				window.tiendasChart.update();
+				//OBTENEMOS LOS DIAS PRESENTES 
+				$.each(result.totalEscaneaosTiendaDias, function(index, tienda) {
+					if(tiendasLabel1.indexOf(tienda.indice)==-1 || tiendasLabel1.length==0){
+						tiendasLabel1.push(tienda.indice);
+					}
+				});
+				console.log(tiendasLabel1);
+				$.each(result.totalEscaneaosTiendaDias, function(index, tienda) {
+					tiendasLabel=[];
+					for(var x=0;x<tiendasLabel1.length;x++){
+						tiendasLabel.push(tiendasLabel1[x]);
+					}
+					//console.log(tiendasLabel1);
+					var tiendasData=[];
+					var tiendasD=[];
+					var dia=[];
+					if(topicos.length==0 || topicos.indexOf(tienda.topico)==-1){
+						topicos.push(tienda.topico);
+						
+						//entra un departamento una sola vez y barre todos los dias
+						
+							$.each(result.totalEscaneaosTiendaDias, function(index, d) {
+								
+								if(tienda.topico==d.topico){
+									//console.log(d.total);
+									tiendasData.push(d.total);
+									dia.push(d.indice);
+									//console.log(d.indice);
+								}
+							});
+							
+							
+							
+						do
+						{
+							var p=false;
+							console.log(dia);
+							console.log(tiendasLabel);
+								if(dia[0]==tiendasLabel[0]){
+									
+									tiendasD.push(tiendasData[0]);
+									dia.splice(0,1);
+									tiendasData.splice(0,1);
+									tiendasLabel.splice(0,1);
+									
+								}else if(dia[0]>tiendasLabel[0]){
+									tiendasD.push(0);
+									tiendasLabel.splice(0,1)
+								}
+								
+								if(dia.length==0 && tiendasLabel.length==0){
+									p=true;
+								}
+								if(dia.length==0 && tiendasLabel.length>0){
+									tiendasD.push(0);
+									tiendasLabel.splice(0,1)
+									if(dia.length==0 && tiendasLabel.length==0){
+										p=true;
+									}
+								}
+								console.log(p);
+							}while(!p);
+						
+						
+						var tmpDataset = {
+								label: tienda.topico,
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
+								borderWidth: 1,
+								data: tiendasD
+						};
+						
+						tiendasDatasets.push(tmpDataset)
+						console.log( tmpDataset )
+					}
+					
+				});
+				var ctx = document.getElementById('tiendasChart').getContext('2d');
+				if (window.tiendasChart) {
+				    window.tiendasChart.clear();
+				    window.tiendasChart.destroy();
+				}
+				window.tiendasChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: tiendasLabel1,
+						datasets: tiendasDatasets
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						}
+					}
+				 });
+			}
+		});
+	},
+	tiendasPorSemanaChart : function( idMarca, tipo, categoria ){
+		
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
+		$.ajax({
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
+			dataType : "json",
+			success : function(result) {
+				console.log(result);
+				var tiendasData=[], tiendasLabel=[], tiendasDatasets=[],tiendasLabel1=[];	
+				var topicos=[];
+
+				// Elmina dataset anterior
+				window.tiendasChart.data.labels.splice(0,window.tiendasChart.data.labels.length);
+				window.tiendasChart.data.datasets.forEach(function(dataset) {
+					dataset.data.pop();
+				});
+				window.tiendasChart.data.datasets.pop();
+				
+				window.tiendasChart.update();
+				//OBTENEMOS LOS DIAS PRESENTES 
+				$.each(result.totalEscaneaosTiendaSemana, function(index, tienda) {
+					if(tiendasLabel1.indexOf(tienda.indice)==-1 || tiendasLabel1.length==0){
+						tiendasLabel1.push(tienda.indice);
+					}
+				});
+				console.log(tiendasLabel1);
+				$.each(result.totalEscaneaosTiendaSemana, function(index, tienda) {
+					tiendasLabel=[];
+					for(var x=0;x<tiendasLabel1.length;x++){
+						tiendasLabel.push(tiendasLabel1[x]);
+					}
+					//console.log(tiendasLabel1);
+					var tiendasData=[];
+					var tiendasD=[];
+					var dia=[];
+					if(topicos.length==0 || topicos.indexOf(tienda.topico)==-1){
+						topicos.push(tienda.topico);
+						
+						//entra un departamento una sola vez y barre todos los dias
+						
+							$.each(result.totalEscaneaosTiendaSemana, function(index, d) {
+								
+								if(tienda.topico==d.topico){
+									//console.log(d.total);
+									tiendasData.push(d.total);
+									dia.push(d.indice);
+									//console.log(d.indice);
+								}
+							});
+							
+							
+							
+						do
+						{
+							var p=false;
+							console.log(dia);
+							console.log(tiendasLabel);
+								if(dia[0]==tiendasLabel[0]){
+									
+									tiendasD.push(tiendasData[0]);
+									dia.splice(0,1);
+									tiendasData.splice(0,1);
+									tiendasLabel.splice(0,1);
+									
+								}else if(dia[0]>tiendasLabel[0]){
+									tiendasD.push(0);
+									tiendasLabel.splice(0,1)
+								}
+								
+								if(dia.length==0 && tiendasLabel.length==0){
+									p=true;
+								}
+								if(dia.length==0 && tiendasLabel.length>0){
+									tiendasD.push(0);
+									tiendasLabel.splice(0,1)
+									if(dia.length==0 && tiendasLabel.length==0){
+										p=true;
+									}
+								}
+								console.log(p);
+							}while(!p);
+						
+						
+						var tmpDataset = {
+								label: tienda.topico,
+								backgroundColor: chartBackground,
+								borderColor: chartBackgroundBorder,
+								borderWidth: 1,
+								data: tiendasD
+						};
+						
+						tiendasDatasets.push(tmpDataset)
+						console.log( tmpDataset )
+					}
+					
+				});
+				var ctx = document.getElementById('tiendasChart').getContext('2d');
+
+				if (window.tiendasChart) {
+				    window.tiendasChart.clear();
+				    window.tiendasChart.destroy();
+				}
+				window.tiendasChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: tiendasLabel1,
+						datasets: tiendasDatasets
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						}
+					}
+				 });
+				
+			}
+		});
+	},
+	tiendasPorMesChart :function( idMarca, tipo, categoria ){
+		var tiendasDatasets=[];
+		var meses=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+		var params = "?idMarca=" + idMarca + "&tipo=" + tipo + "&categoria="+categoria;
+		
+		$.ajax({
+			url : url + "/estadisticas/empresa/charts/dashboard" + params,
+			dataType : "json",
+			success : function(result) {
+				$.each(result.totalEscaneaosTiendaMes, function(index, tienda) {
+					var tiendasData=[];
+					
+					$.each(tienda.items, function(i, t){
+						tiendasData.push( t.total )
+					});
+					
+					var tmpDataset = {
+							label: tienda.titulo,
+							backgroundColor: chartBackground,
+							borderColor: chartBackgroundBorder,
+							borderWidth: 1,
+							data: tiendasData
+					};
+					
+					tiendasDatasets.push(tmpDataset)
+					console.log( tiendasDatasets )
+				});
+
+				var ctx = document.getElementById('tiendasChart').getContext('2d');
+				if (window.tiendasChart) {
+				    window.tiendasChart.clear();
+				    window.tiendasChart.destroy();
+				}
+				window.tiendasChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: meses,
+						datasets: tiendasDatasets
+					},
+					options: {
+						scales: {
+							yAxes: [{
+								ticks: {
+									beginAtZero: true
+								}
+							}]
+						}
+					}
+				 });
+				
+			}
+		});
+	},
 	
 	init : function() {
 		estadisticas_general.loadCharts();

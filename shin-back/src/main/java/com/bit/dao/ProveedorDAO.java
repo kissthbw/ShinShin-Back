@@ -191,6 +191,69 @@ public class ProveedorDAO extends DAOTemplate<Proveedor, Long> {
 			
 		return total;
 	}
+
+	public List<Item> obtieneTotalEscaneosPorTiendaPorDiaMesAnio( int year, int month, long idMarca) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
+				" (nombre_tienda) AS topico,\r\n" + 
+				" DAY(fecha) AS indice\r\n" +  
+				" FROM ticket t\r\n" + 
+				" INNER JOIN historico_bonificaciones hb ON t.Id_ticket = hb.id_ticket"+
+				" INNER JOIN producto p ON p.Id_producto = hb.producto_id_producto"+
+				" WHERE YEAR(fecha) = :year" +
+				" AND  MONTH(fecha) = :month"+
+				" AND p.id_catalogo_marca = :idMarca"+
+				" GROUP BY fecha, topico " + 
+				" ORDER BY topico, indice").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameter("idMarca", idMarca);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+
+	public List<Item> obtieneTotalEscaneosPorTiendaPorSemanaMesAnio( int year, int month, long idMarca ) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
+				" (nombre_tienda) AS topico,\r\n" + 
+				" WEEK(fecha) AS indice\r\n" +  
+				" FROM ticket t\r\n" + 
+				" INNER JOIN historico_bonificaciones hb ON t.Id_ticket = hb.id_ticket"+
+				" INNER JOIN producto p ON p.Id_producto = hb.producto_id_producto"+
+				" WHERE YEAR(fecha) = :year" +
+				" AND  MONTH(fecha) = :month"+
+				" AND p.id_catalogo_marca = :idMarca"+
+				" GROUP BY fecha, topico " + 
+				" ORDER BY topico, indice").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("month", month);
+		q.setParameter("idMarca", idMarca);
+		
+		List<Item> total = q.list();
+		
+		return total;
+	}
+
+	public List<Item> obtieneTotalEscaneosPorTiendaMesAnio( int year, String tienda, long idMarca ) {
+		Query q = getSessionFactory().getCurrentSession().createSQLQuery("" + "SELECT COUNT(*) AS total,\r\n" + 
+				" (nombre_tienda) AS topico,\r\n" + 
+				" MONTH(fecha) AS indice\r\n" +  
+				" FROM ticket t\r\n" + 
+				" INNER JOIN historico_bonificaciones hb ON t.Id_ticket = hb.id_ticket"+
+				" INNER JOIN producto p ON p.Id_producto = hb.producto_id_producto"+
+				" WHERE YEAR(fecha) = :year" +
+				" AND nombre_tienda = :tienda" +
+				" AND p.id_catalogo_marca = :idMarca"+
+				" GROUP BY fecha, topico " + 
+				" ORDER BY topico, indice").setResultTransformer( (Transformers.aliasToBean(Item.class)) );
+		q.setParameter("year", year);
+		q.setParameter("tienda", tienda);
+		q.setParameter("idMarca", idMarca);
+
+		List<Item> total = q.list();
+		
+		return total;
+	}
 	
 	public List<Item> obtieneTotalBonificacionesMarcaProductosPorSemanaMesAnio( int year, int month, long idMarca ) {
 		StringBuilder sql = new StringBuilder();
