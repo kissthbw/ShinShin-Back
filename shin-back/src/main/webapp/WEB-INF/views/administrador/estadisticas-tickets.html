@@ -429,14 +429,13 @@
 															<td th:text="${item.importeFormateado}">$ 500.00</td>
 															<td class="text-right">
 																<a th:href="@{'/portal-administrador/estadisticas-tickets-detalle/' + ${item.fechaFormateada}}">
-																	<button type="button" rel="tooltip" class="btn btn-link btn-icon btn-sm " data-original-title="" title="">
-																		<i class="fa fa-plus"></i>
-																	</button>
+																	
+																		<i class="icon-accion-ver"></i>
+																	
 																</a>
-																<button type="button" rel="tooltip" class="btn btn-secondary btn-icon btn-sm " data-original-title=""
-																 title="">
-																	<i class="fa fa-download"></i>
-																</button></td>
+																
+																	<!-- <i class="icon-accion-descargar"></i> -->
+																</td>
 														</tr>
 													</th:block>
 												</tbody>
